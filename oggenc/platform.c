@@ -15,13 +15,13 @@
 #include "platform.h"
 #include "encode.h"
 #include <stdlib.h>
-#if defined(_WIN32) || defined(__EMX__)
+#if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
 #include <fcntl.h>
 #include <io.h>
 #include <time.h>
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__WATCOMC__)
 /* This doesn't seem to exist on windows */
 char *rindex(char *s, int c)
 {
@@ -35,6 +35,9 @@ char *rindex(char *s, int c)
 	}
 	return ret;
 }
+#endif
+
+#ifdef _WIN32
 
 void setbinmode(FILE *f)
 {
@@ -49,8 +52,15 @@ void setbinmode(FILE *f)
 }
 #endif
 
+#ifdef __WATCOMC__
+void setbinmode(FILE *f)
+{
+	setmode(fileno(f), O_BINARY);
+}
+#endif
 
-#if defined(_WIN32) || defined(__EMX__)
+
+#if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
 void *timer_start(void)
 {
 	time_t *start = malloc(sizeof(time_t));

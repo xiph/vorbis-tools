@@ -103,7 +103,7 @@ SOURCE=.\getopt1.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\oe_win32.c
+SOURCE=.\platform.c
 # End Source File
 # Begin Source File
 

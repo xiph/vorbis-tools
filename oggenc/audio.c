@@ -15,6 +15,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include "audio.h"
+#include "platform.h"
 
 #define WAV_HEADER_SIZE 44
 
