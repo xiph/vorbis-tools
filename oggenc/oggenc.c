@@ -289,13 +289,14 @@ int main(int argc, char **argv)
 		enc_opts.quality = opt.quality;
 
         if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate) {
+            int fromrate = enc_opts.rate;
             enc_opts.resamplefreq = opt.resamplefreq;
             if(setup_resample(&enc_opts)) {
                 errors++;
                 goto clear_all;
             }
             else if(!opt.quiet)
-                fprintf(stderr, _("Resampling input from %d Hz to %d Hz\n"), enc_opts.rate, opt.resamplefreq);
+                fprintf(stderr, _("Resampling input from %d Hz to %d Hz\n"), fromrate, opt.resamplefreq);
         }
 
         if(opt.downmix) {
