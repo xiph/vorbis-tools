@@ -3,7 +3,7 @@
  * This program is distributed under the GNU General Public License, version 2.
  * A copy of this license is included with this source.
  *
- * Copyright 2000-2002, Michael Smith <msmith@xiph.org>
+ * Copyright 2000-2005, Michael Smith <msmith@xiph.org>
  *
  * Portions from Vorbize, (c) Kenneth Arnold <kcarnold-xiph@arnoldnet.net>
  * and libvorbis examples, (c) Monty <monty@xiph.org>
@@ -25,8 +25,8 @@
 #include "i18n.h"
 
 
-#define VERSION_STRING "OggEnc v1.0.1 (libvorbis 1.0.1)\n"
-#define COPYRIGHT "(c) 2000-2003 Michael Smith <msmith@xiph.org>\n"
+#define VERSION_STRING "OggEnc v1.0.2\n"
+#define COPYRIGHT "(c) 2000-2005 Michael Smith <msmith@xiph.org>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
@@ -326,11 +326,8 @@ int main(int argc, char **argv)
                     fprintf(stderr, _("Downmixing stereo to mono\n"));
             }
             else {
-                fprintf(stderr, _("ERROR: Can't downmix except from stereo to mono\n"));
-                errors++;
-                if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate)
-                    clear_resample(&enc_opts);
-                goto clear_all;
+                fprintf(stderr, _("WARNING: Can't downmix except from stereo to mono\n"));
+                opt.downmix = 0;
             }
         }
 
@@ -388,6 +385,7 @@ static void usage(void)
 		" General:\n"
 		" -Q, --quiet          Produce no output to stderr\n"
 		" -h, --help           Print this help text\n"
+        " -v, --version        Print the version number\n"
 		" -r, --raw            Raw mode. Input files are read directly as PCM data\n"
 		" -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
 		" -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
@@ -395,13 +393,22 @@ static void usage(void)
         " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"
 		" -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
 		"                      to encode at a bitrate averaging this. Takes an\n"
-		"                      argument in kbps. This uses the bitrate management\n"
-        "                      engine, and is not recommended for most users.\n"
-        "                      See -q, --quality for a better alternative.\n"
+		"                      argument in kbps. By default, this produces a VBR\n"
+        "                      encoding, equivalent to using -q or --quality.\n"
+        "                      See the --managed option to use a managed bitrate\n"
+        "                      targetting the selected bitrate.\n"
+        " --managed            Enable the bitrate management engine. This will allow\n"
+        "                      much greater control over the precise bitrate(s) used,\n"
+        "                      but encoding will be much slower. Don't use it unless\n"
+        "                      you have a strong need for detailed control over\n"
+        "                      bitrate, such as for streaming.\n"
 		" -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
-		"                      encoding for a fixed-size channel.\n"
+		"                      encoding for a fixed-size channel. Using this will\n"
+        "                      automatically enable managed bitrate mode (see\n"
+        "                      --managed).\n"
 		" -M, --max-bitrate    Specify a maximum bitrate in kbps. Useful for\n"
-		"                      streaming applications.\n"
+		"                      streaming applications. Using this will automatically\n"
+        "                      enable managed bitrate mode (see --managed).\n"
 		" -q, --quality        Specify quality between 0 (low) and 10 (high),\n"
 		"                      instead of specifying a particular bitrate.\n"
 		"                      This is the normal mode of operation.\n"
