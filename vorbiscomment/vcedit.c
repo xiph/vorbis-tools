@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.8 2001/02/16 13:37:48 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.9 2001/02/17 11:45:02 msmith Exp $
  */
 
 #include <stdio.h>
@@ -227,9 +227,11 @@ int vcedit_write(vcedit_state *state, void *out)
 
 	while((result = ogg_stream_flush(&streamout, &ogout)))
 	{
-		if(state->write(ogout.header,1,ogout.header_len, out) != ogout.header_len)
+		if(state->write(ogout.header,1,ogout.header_len, out) !=
+				(size_t) ogout.header_len)
 			goto cleanup;
-		if(state->write(ogout.body,1,ogout.body_len, out) != ogout.body_len)
+		if(state->write(ogout.body,1,ogout.body_len, out) != 
+				(size_t) ogout.body_len)
 			goto cleanup;
 	}
 
@@ -261,10 +263,10 @@ int vcedit_write(vcedit_state *state, void *out)
 							if(result==0)break;
 	
 							if(state->write(ogout.header,1,ogout.header_len, 
-										out) != ogout.header_len)
+										out) != (size_t) ogout.header_len)
 								goto cleanup;
 							if(state->write(ogout.body,1,ogout.body_len, 
-										out) != ogout.body_len)
+										out) != (size_t) ogout.body_len)
 								goto cleanup;
 	
 							if(ogg_page_eos(&ogout)) eosout=1;
@@ -303,10 +305,10 @@ int vcedit_write(vcedit_state *state, void *out)
 				/* Don't bother going through the rest, we can just 
 				 * write the page out now */
 				if(state->write(ogout.header,1,ogout.header_len, 
-						out) != ogout.header_len)
+						out) != (size_t) ogout.header_len)
 					goto cleanup;
 				if(state->write(ogout.body,1,ogout.body_len, out) !=
-						ogout.body_len)
+						(size_t) ogout.body_len)
 					goto cleanup;
 			}
 		}
@@ -331,8 +333,9 @@ cleanup:
 	vcedit_clear_internals(state);
 	if(!(eosin && eosout))
 	{
-		state->lasterror =  "Error writing stream to output.\n"
-				        "Output stream may be corrupted or truncated.";
+		state->lasterror =  
+			"Error writing stream to output. "
+			"Output stream may be corrupted or truncated.";
 		return -1;
 	}
 
