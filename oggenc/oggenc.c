@@ -229,12 +229,15 @@ int main(int argc, char **argv)
                         opt.namefmt_replace, artist, title, album, track,date,
                         genre);
 			}
+            /* This bit was widely derided in mid-2002, so it's been removed */
+            /*
 			else if(opt.title)
 			{
 				out_fn = malloc(strlen(title) + 5);
 				strcpy(out_fn, title);
 				strcat(out_fn, ".ogg");
 			}
+            */
 			else if(infiles[i])
 			{
 				/* Create a filename from existing filename, replacing extension with .ogg */
@@ -434,7 +437,7 @@ static void usage(void)
 		" files, or 32 bit IEEE floating point WAV. Files may be mono or stereo\n"
         " (or more channels) and any sample rate.\n"
 		" However, the encoder is only tuned for rates of 44.1 and 48 kHz and while\n"
-		" other rates will be accepted quality may be significantly degraded.\n"
+		" other rates will be acceptable, quality may be slightly degraded.\n"
 		" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
 		" must be 16bit stereo little-endian PCM ('headerless wav'), unless additional\n"
 		" parameters for raw mode are specified.\n"
