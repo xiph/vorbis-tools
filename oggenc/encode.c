@@ -35,7 +35,7 @@ int oe_encode(oe_enc_opt *opt)
 
 	long samplesdone=0;
     int eos;
-	long bytes_written = 0;
+	long bytes_written = 0, packetsdone=0;
 
 	TIMER *timer;
 
@@ -59,6 +59,7 @@ int oe_encode(oe_enc_opt *opt)
 		ogg_packet header_main;
 		ogg_packet header_comments;
 		ogg_packet header_codebooks;
+		int result;
 
 		/* Build the packets */
 		vorbis_analysis_headerout(&vd,opt->comments,
@@ -68,6 +69,12 @@ int oe_encode(oe_enc_opt *opt)
 		ogg_stream_packetin(&os,&header_main);
 		ogg_stream_packetin(&os,&header_comments);
 		ogg_stream_packetin(&os,&header_codebooks);
+
+		while((result = ogg_stream_flush(&os, &og)))
+		{
+			if(!result) break;
+			bytes_written += oe_write_page(&og, opt->out);
+		}
 	}
 
 	eos = 0;
@@ -86,10 +93,12 @@ int oe_encode(oe_enc_opt *opt)
 		{
 			samplesdone += samples_read;
 
-			if(!opt->quiet)
+			/* Call progress update every 10 pages */
+			if(!opt->quiet && packetsdone>=10)
 			{
 				double time;
 
+				packetsdone = 0;
 				time = timer_time(timer);
 
 				opt->progress_update(opt->filename, opt->total_samples_per_channel, 
@@ -111,6 +120,7 @@ int oe_encode(oe_enc_opt *opt)
 
 			/* Add packet to bitstream */
 			ogg_stream_packetin(&os,&op);
+			packetsdone++;
 
 			/* If we've gone over a page boundary, we can do actual output,
 			   so do so (for however many pages are available) */
@@ -148,7 +158,7 @@ int oe_encode(oe_enc_opt *opt)
 
 void update_statistics_full(char *fn, long total, long done, double time)
 {
-	static char *spinner="||||////----\\\\\\\\";
+	static char *spinner="|/-\\";
 	static int spinpoint = 0;
 	double remain_time;
 	int minutes=0,seconds=0;
@@ -159,17 +169,17 @@ void update_statistics_full(char *fn, long total, long done, double time)
 
 	fprintf(stderr, "\rEncoding %s%s%s [%5.1f%%] [%2dm%.2ds remaining] %c", 
 			fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
-			done*100.0/total, minutes, seconds, spinner[spinpoint++%16]);
+			done*100.0/total, minutes, seconds, spinner[spinpoint++%4]);
 }
 
 void update_statistics_notime(char *fn, long total, long done, double time)
 {
-	static char *spinner="||||////----\\\\\\\\";
+	static char *spinner="|/-\\";
 	static int spinpoint =0;
 	
 	fprintf(stderr, "\rEncoding %s%s%s %c", 
 			fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
-			spinner[spinpoint++%16]);
+			spinner[spinpoint++%4]);
 }
 
 int oe_write_page(ogg_page *page, FILE *fp)
