@@ -4,7 +4,7 @@ vorbis-tools (1.0beta4-1) unstable; urgency=low
   * Fix for multi open /dev/dsp (closes: #81146)
   * devfs bug fixed (closes: #81621)
 
- -- Christopher L Cheney <ccheney@debian.org>  Wed, 24 Jan 2001 23:03:21 -0600
+ -- Christopher L Cheney <ccheney@debian.org>  Mon, 26 Feb 2001 08:00:00 -0600
 
 vorbis-tools (1.0beta3-3) unstable; urgency=low
 
