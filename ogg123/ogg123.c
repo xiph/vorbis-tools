@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.63 2002/07/06 13:50:57 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.64 2002/07/06 16:18:31 volsung Exp $
 
  ********************************************************************/
 
@@ -306,9 +306,9 @@ int main(int argc, char **argv)
       } else {
 	playlist_append_file(list, argv[i]);
       }
-    } else
-      fprintf(stderr,
-	      _("Warning: Could not access %s.\n"), argv[i]);
+    } else /* If we can't stat it, it might be a non-disk source */
+      playlist_append_file(list, argv[i]);
+
 
   }
 
