@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.70 2003/09/02 19:37:05 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.71 2003/11/27 19:38:29 volsung Exp $
 
  ********************************************************************/
 
@@ -106,6 +106,10 @@ void signal_handler (int signo)
 
     sig_request.cancel = 1;
     sig_request.last_ctrl_c = now;
+    break;
+
+  case SIGTERM:
+    sig_request.exit = 1;
     break;
 
   case SIGTSTP:
@@ -381,7 +385,7 @@ int main(int argc, char **argv)
   signal (SIGINT, signal_handler);
   signal (SIGTSTP, signal_handler);
   signal (SIGCONT, signal_handler);
-
+  signal (SIGTERM, signal_handler);
 
   /* Play the files/streams */
   i = 0;
