@@ -6,6 +6,8 @@
 #define _(X) gettext(X)
 #else
 #define _(X) (X)
+#define textdomain(X)
+#define bindtextdomain(X, Y)
 #endif
 #ifdef gettext_noop
 #define N_(X) gettext_noop(X)
