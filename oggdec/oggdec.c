@@ -211,7 +211,7 @@ static int decode_file(char *infile, char *outfile)
     }
     else {
         out = fopen(outfile, "wb");
-        if(!in) {
+        if(!out) {
             fprintf(stderr, "ERROR: Failed to open output file: %s\n", strerror(errno));
             return 1;
         }
