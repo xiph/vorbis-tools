@@ -9,6 +9,10 @@
 #include <vorbis/vorbisfile.h>
 #include <ao/ao.h>
 
+#ifdef __sun
+#include <alloca.h>
+#endif
+
 /* For facilitating output to multiple devices */
 typedef struct devices_s {
   int driver_id;
