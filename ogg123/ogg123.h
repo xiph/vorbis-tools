@@ -42,9 +42,9 @@ void devices_write(void *ptr, size_t size, devices_t * d);
 void usage(void);
 int add_option(ao_option_t ** op_h, const char *optstring);
 int get_default_device(void);
-void play_file(ogg123_options_t opt, buf_t *buffer);
+void play_file(ogg123_options_t opt);
 int get_tcp_socket(void); /* Will be going soon. */
 FILE *http_open(char *server, int port, char *path); /* ditto */
-int open_audio_devices(ogg123_options_t *opt, int rate, int channels);
+int open_audio_devices(ogg123_options_t *opt, int rate, int channels, buf_t ** buffer);
 
 #endif /* !defined(__OGG123_H) */

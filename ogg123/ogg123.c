@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.27 2001/02/22 02:37:59 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.28 2001/02/22 02:49:12 kcarnold Exp $
 
  ********************************************************************/
 
@@ -99,7 +99,6 @@ int main(int argc, char **argv)
     ao_option_t *temp_options = NULL;
     ao_option_t ** current_options = &temp_options;
     int temp_driver_id = -1;
-    buf_t *buffer = NULL;
 	devices_t *current;
 
     opt.read_file = NULL;
@@ -185,14 +184,6 @@ int main(int argc, char **argv)
 	exit(1);
     }
 
-    /* Open all of the devices */
-
-    if (opt.verbose > 0)
-	fprintf(stderr, "Opening devices...\n");
-
-    if (opt.buffer_size)
-      buffer = fork_writer (opt.buffer_size, opt.outdevices);
-    
     if (opt.shuffle) {
 	/* Messy code that I didn't write -ken */
 	int i;
@@ -210,18 +201,15 @@ int main(int argc, char **argv)
 	}
 	for (i = 0; i < nb; i++) {
 	    opt.read_file = argv[p[i] + optind];
-	    play_file(opt, buffer);
+	    play_file(opt);
 	}
     } else {
 	while (optind < argc) {
 	    opt.read_file = argv[optind];
-	    play_file(opt, buffer);
+	    play_file(opt);
 	    optind++;
 	}
     }
-
-    if (buffer != NULL)
-      buffer_shutdown (buffer);
 
     while (opt.outdevices != NULL) {
       ao_close(opt.outdevices->device);
@@ -235,7 +223,7 @@ int main(int argc, char **argv)
     return (0);
 }
 
-void play_file(ogg123_options_t opt, buf_t *buffer)
+void play_file(ogg123_options_t opt)
 {
     /* Oh my gosh this is disgusting. Big cleanups here will include an
        almost complete rewrite of the hacked-out HTTP streaming, a shift
@@ -248,6 +236,7 @@ void play_file(ogg123_options_t opt, buf_t *buffer)
     long t_min = 0, c_min = 0, r_min = 0;
     double t_sec = 0, c_sec = 0, r_sec = 0;
     int is_big_endian = ao_is_big_endian();
+    buf_t *buffer = NULL;
     double realseekpos = opt.seekpos;
 
     /* Junk left over from the failed info struct */
@@ -340,14 +329,14 @@ void play_file(ogg123_options_t opt, buf_t *buffer)
     }
 
     /* Throw the comments plus a few lines about the bitstream we're
-       ** decoding */
+     * decoding */
 
     while (!eof) {
 	int i;
 	vorbis_comment *vc = ov_comment(&vf, -1);
 	vorbis_info *vi = ov_info(&vf, -1);
 
-	if(open_audio_devices(&opt, vi->rate, vi->channels) < 0)
+	if(open_audio_devices(&opt, vi->rate, vi->channels, &buffer) < 0)
 		exit(1);
 
 	if (opt.quiet < 1) {
@@ -381,7 +370,7 @@ void play_file(ogg123_options_t opt, buf_t *buffer)
 
 	if ((realseekpos > ov_time_total(&vf, -1)) || (realseekpos < 0))
 	    /* If we're out of range set it to right before the end. If we set it
-	     * right to the end when we seek it will go to the beginning of the sond */
+	     * right to the end when we seek it will go to the beginning of the song */
 	    realseekpos = ov_time_total(&vf, -1) - 0.01;
 
 	if (realseekpos > 0)
@@ -468,45 +457,53 @@ FILE *http_open(char *server, int port, char *path)
     return fdopen(sockfd, "r+b");
 }
 
-int open_audio_devices(ogg123_options_t *opt, int rate, int channels)
+int open_audio_devices(ogg123_options_t *opt, int rate, int channels, buf_t **buffer)
 {
-    static int prevrate=0, prevchan=0;
-    devices_t *current;
-
-    if(prevrate == rate && prevchan == channels)
-	return 0;
-
-	if(prevrate !=0 && prevchan!=0)
+  static int prevrate=0, prevchan=0;
+  devices_t *current;
+  
+  if(prevrate == rate && prevchan == channels)
+    return 0;
+  
+  if(prevrate !=0 && prevchan!=0)
 	{
-		current = opt->outdevices;
-    	while (current != NULL) {
-	      ao_close(current->device);
-		  current = current->next_device;
-		}
-    }
+	  if (buffer != NULL) {
+	    buffer_shutdown (*buffer);
+	    *buffer = NULL;
+	  }
 
-    prevrate = rate;
-    prevchan = channels;
-
-	current = opt->outdevices;
-    while (current != NULL) {
-	ao_info_t *info = ao_get_driver_info(current->driver_id);
-
-	if (opt->verbose > 0) {
-	    fprintf(stderr, "Device:   %s\n", info->name);
-	    fprintf(stderr, "Author:   %s\n", info->author);
-	    fprintf(stderr, "Comments: %s\n", info->comment);
-	    fprintf(stderr, "\n");	
+	  current = opt->outdevices;
+	  while (current != NULL) {
+	    ao_close(current->device);
+	    current = current->next_device;
+	  }
 	}
-
-	current->device = ao_open(current->driver_id, 16, rate, channels,
-				  current->options);
-	if (current->device == NULL) {
-	    fprintf(stderr, "Error opening device.\n");
-	    return -1;
-	}
-	current = current->next_device;
+  
+  prevrate = rate;
+  prevchan = channels;
+  
+  current = opt->outdevices;
+  while (current != NULL) {
+    ao_info_t *info = ao_get_driver_info(current->driver_id);
+    
+    if (opt->verbose > 0) {
+      fprintf(stderr, "Device:   %s\n", info->name);
+      fprintf(stderr, "Author:   %s\n", info->author);
+      fprintf(stderr, "Comments: %s\n", info->comment);
+      fprintf(stderr, "\n");	
     }
-
+    
+    current->device = ao_open(current->driver_id, 16, rate, channels,
+			      current->options);
+    if (current->device == NULL) {
+      fprintf(stderr, "Error opening device.\n");
+      return -1;
+    }
+    current = current->next_device;
+  }
+  
+  if (opt->buffer_size)
+    *buffer = fork_writer (opt->buffer_size, opt->outdevices);
+  
     return 0;
 }
