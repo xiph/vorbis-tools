@@ -336,6 +336,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 {
 	unsigned char buf[16];
 	unsigned int len;
+	int samplesize;
 	wav_fmt format;
 	wavfile *wav = malloc(sizeof(wavfile));
 
@@ -370,9 +371,28 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if(!find_wav_chunk(in, "data", &len))
 		return 0; /* EOF */
 
-	if( format.format == 1 &&
-		format.align == format.channels*2 && /* We could deal with this one pretty easily */
-		format.samplesize == 16)
+	if(format.format == 1)
+	{
+		samplesize = 2;
+		opt->read_samples = wav_read;
+	}
+	else if(format.format == 3)
+	{
+		samplesize = 4;
+		opt->read_samples = wav_ieee_read;
+	}
+	else
+	{
+		fprintf(stderr, 
+				"ERROR: Wav file is unsupported type (must be standard PCM\n"
+				" or type 3 floating point PCM\n");
+		return 0;
+	}
+
+
+
+	if( format.align == format.channels*samplesize &&
+		format.samplesize == 8*samplesize)
 	{
 		if(format.samplerate != 44100)
 			fprintf(stderr, "Warning: Vorbis is currently not tuned for input\n"
@@ -382,7 +402,6 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 		   now we want to find the size of the file */
 		opt->rate = format.samplerate;
 		opt->channels = format.channels;
-		opt->read_samples = wav_read;
 
 		wav->f = in;
 		wav->samplesread = 0;
@@ -392,8 +411,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
 		if(len)
 		{
-			opt->total_samples_per_channel = len/(format.channels*2);
-			wav->totalsamples = len/(format.channels*2);
+			opt->total_samples_per_channel = len/(format.channels*samplesize);
+			wav->totalsamples = len/(format.channels*samplesize);
 		}
 		else
 		{
@@ -416,7 +435,9 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	}
 	else
 	{
-		fprintf(stderr, "ERROR: Wav file is unsupported subformat (must be 44.1kHz/16bit, this is %f/%dbit, %s)\n", (double)format.samplerate/1000, format.samplesize, (format.channels ==1)?"mono":"stereo");
+		fprintf(stderr, 
+				"ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+				"or floating point PCM\n");
 		return 0;
 	}
 }
@@ -475,6 +496,29 @@ long raw_read_stereo(void *in, float **buffer, int samples)
 
 	return bytes_read/4;
 }
+
+long wav_ieee_read(void *in, float **buffer, int samples)
+{
+	wavfile *f = (wavfile *)in;
+	float *buf = alloca(samples*4*f->channels); /* de-interleave buffer */
+	long bytes_read = fread(buf,1,samples*4*f->channels, f->f);
+	int i,j;
+	long realsamples;
+
+
+	if(f->totalsamples && f->samplesread +
+			bytes_read/(4*f->channels) > f->totalsamples)
+		bytes_read = 4*f->channels*(f->totalsamples - f->samplesread);
+	realsamples = bytes_read/(4*f->channels);
+	f->samplesread += realsamples;
+
+	for(i=0; i < realsamples; i++)
+		for(j=0; j < f->channels; j++)
+			buffer[j][i] = buf[i*f->channels + j];
+
+	return realsamples;
+}
+
 
 void wav_close(void *info)
 {

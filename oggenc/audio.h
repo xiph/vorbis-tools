@@ -55,6 +55,7 @@ void wav_close(void *);
 void raw_close(void *);
 
 long wav_read(void *, float **buffer, int samples);
+long wav_ieee_read(void *, float **buffer, int samples);
 long raw_read_stereo(void *, float **buffer, int samples);
 
 #endif /* __AUDIO_H */
