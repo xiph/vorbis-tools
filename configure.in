@@ -19,7 +19,7 @@ CFLAGS="$cflags_save"
 
 AM_PROG_LIBTOOL
 
-ALL_LINGUAS="nl"
+ALL_LINGUAS="nl sv"
 AM_GNU_GETTEXT
 
 dnl --------------------------------------------------
