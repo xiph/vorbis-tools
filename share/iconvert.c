@@ -118,7 +118,7 @@ int iconvert(const char *fromcode, const char *tocode,
       if (!newbuf)
 	goto fail;
       ob = (ob - utfbuf) + newbuf;
-      obl = utflen - (ob - utfbuf);
+      obl = utflen - (ob - newbuf);
       utfbuf = newbuf;
     }
     else {
