@@ -99,7 +99,7 @@ int iconvert(const char *fromcode, const char *tocode,
     goto fail;
 
   /* Convert to UTF-8 */
-  ib = from;
+  ib = (char *)from;
   ibl = fromlen;
   ob = utfbuf;
   obl = utflen;
