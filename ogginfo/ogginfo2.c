@@ -183,19 +183,19 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                 info(_("Channels: %d\n"), inf->vi.channels);
                 info(_("Rate: %ld\n\n"), inf->vi.rate);
 
-                if(inf->vi.bitrate_nominal >= 0)
+                if(inf->vi.bitrate_nominal > 0)
                     info(_("Nominal bitrate: %f kb/s\n"), 
                             (double)inf->vi.bitrate_nominal / 1000.0);
                 else
                     info(_("Nominal bitrate not set\n"));
 
-                if(inf->vi.bitrate_upper >= 0)
+                if(inf->vi.bitrate_upper > 0)
                     info(_("Upper bitrate: %f kb/s\n"), 
                             (double)inf->vi.bitrate_upper / 1000.0);
                 else
                     info(_("Upper bitrate not set\n"));
 
-                if(inf->vi.bitrate_lower >= 0)
+                if(inf->vi.bitrate_lower > 0)
                     info(_("Lower bitrate: %f kb/s\n"), 
                             (double)inf->vi.bitrate_lower / 1000.0);
                 else
