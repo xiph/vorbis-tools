@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.4 2001/12/19 05:37:32 volsung Exp $
+ last mod: $Id: http_transport.c,v 1.5 2001/12/20 00:09:23 jack Exp $
  
 ********************************************************************/
 
@@ -71,6 +71,8 @@ int progress_callback (void *arg, size_t dltotal, size_t dlnow,
   data_source_t *source = arg;
   print_statistics_arg_t *pstats_arg;
 
+  printf("\nhttp_transport.c:progress_callback() is getting called\n");
+
   pstats_arg = new_print_statistics_arg(stat_format,
 					source->transport->statistics(source),
 					NULL);
@@ -102,7 +104,7 @@ void set_curl_opts (CURL *handle, buf_t *buf, char *url, data_source_t *source)
   curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, private->error);
   curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
   curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, source);
-  //curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 1);
+  curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0);
   curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123 "VERSION);
 }
 
