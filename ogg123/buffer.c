@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.13 2001/12/20 00:24:53 volsung Exp $
+ last mod: $Id: buffer.c,v 1.14 2002/01/19 09:30:37 segher Exp $
 
  ********************************************************************/
 
@@ -85,12 +85,6 @@ void buffer_thread_cleanup (void *arg)
   buf_t *buf = (buf_t *)arg;
 
   DEBUG("Enter buffer_thread_cleanup");
-
-  /* Cleanup thread data structures */
-  pthread_mutex_unlock(&buf->mutex);
-  pthread_mutex_destroy(&buf->mutex);
-  pthread_cond_destroy(&buf->playback_cond);
-  pthread_cond_destroy(&buf->write_cond);
 }
 
 
@@ -430,6 +424,12 @@ void buffer_reset (buf_t *buf)
 void buffer_destroy (buf_t *buf)
 {
   DEBUG("buffer_destroy");
+
+  /* Cleanup pthread variables */
+  pthread_mutex_destroy(&buf->mutex);
+  pthread_cond_destroy(&buf->write_cond);
+  pthread_cond_destroy(&buf->playback_cond);
+  
   free(buf);
 }
 
