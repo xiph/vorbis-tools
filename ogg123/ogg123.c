@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.30 2001/02/24 00:52:22 jack Exp $
+ last mod: $Id: ogg123.c,v 1.31 2001/03/24 02:31:39 kcarnold Exp $
 
  ********************************************************************/
 
@@ -230,9 +230,9 @@ int main(int argc, char **argv)
 void play_file(ogg123_options_t opt)
 {
     /* Oh my gosh this is disgusting. Big cleanups here will include an
-       almost complete rewrite of the hacked-out HTTP streaming, a shift
-       to using callbacks for the vorbisfile input, and a (mostly Unix-specific)
-       buffer. Probably use shm. */
+       almost complete rewrite of the hacked-out HTTP streaming and a shift
+       to using callbacks for the vorbisfile input.
+    */
 
     OggVorbis_File vf;
     int current_section = -1, eof = 0, eos = 0, ret;
@@ -388,11 +388,15 @@ void play_file(ogg123_options_t opt)
 	    if (ret == 0) {
 		/* End of file */
 		eof = eos = 1;
+	    } else if (ret == OV_HOLE) {
+	      if (opt.verbose > 1) 
+		/* we should be able to resync silently; if not there are 
+		   bigger problems. */
+		fprintf (stderr, "Warning: hole in the stream; probably harmless\n");
 	    } else if (ret < 0) {
-		/* Stream error */
-		fprintf(stderr, "W: Stream error\n");
+	      /* Stream error */
+	      fprintf(stderr, "Error: libvorbis reported a stream error.\n");
 	    } else {
-		/* less bytes than we asked for */
 		/* did we enter a new logical bitstream */
 		if (old_section != current_section && old_section != -1)
 		    eos = 1;
