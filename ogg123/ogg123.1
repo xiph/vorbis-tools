@@ -1,0 +1,214 @@
+.\" Process this file with
+.\" groff -man -Tascii ogg123.1
+.\"
+.TH ogg123 1 "July 29, 2000" "" "Vorbis Tools"
+
+.SH NAME
+ogg123 \- plays Ogg Vorbis files
+
+.SH SYNOPSIS
+.B ogg123 
+[
+.B -vqzVh
+] [
+.B -d
+.I driver 
+[
+.B -o
+.I option:value
+] ]
+.I file
+.B ...
+|
+.I URL
+.B ...
+
+.SH DESCRIPTION
+.B ogg123
+reads Ogg Vorbis audio files and decodes them to the devices specified
+on the command line.  By default,
+.B ogg123
+writes to the standard sound device, but output can be sent to any
+number of devices.  Files can be read from the file system, or URLs
+can be streamed via HTTP.
+
+.SH OPTIONS
+.IP "-d device, --device device"
+Specify output device.  See
+.B DEVICES
+section for a list of devices.  Any number of devices may be specified.
+.IP "-h, --help"
+Show command help.
+.IP "-o option:value, --device-option option:value"
+Assigns the option
+.I option
+to 
+.I value
+for the preceding device.  See
+.B DEVICES
+for a list of valid options for each device.  
+.IP "-q, --quiet"
+Quiet mode.  No messages are displayed. (Currently not implemented.)
+.IP "-V, --version"
+Display version information.
+.IP "-v, --verbose"
+Increase verbosity.  (Currently not implemented.)
+.IP "-z, --shuffle"
+Play files in random order.
+
+.SH DEVICES
+
+.B ogg123
+supports a variety of audio output devices.  Only those devices
+supported by the target platform will be compiled in.
+
+.IP null
+Null driver.  All audio data is discarded.  (Note: Audio data is not
+written to 
+.B /dev/null
+!)  You could use this driver to test raw decoding speed without
+output overhead. 
+
+.IP oss
+Open Sound System driver for Linux and {Net,Free,Open}BSD.
+.RS
+Options:
+.RS 
+.IP dsp
+DSP device for soundcard.  Defaults to  
+.B /dev/dsp.
+.RE
+.RE
+
+.IP alsa
+Advanced Linux Sound Architecture.
+.RS
+Options:
+.RS
+.IP card
+Sound card number.  (Default = 0)
+.IP dev
+Device number on the sound card.  (Default = 0)
+.IP buf_size
+Override the default buffer size (in bytes).
+.RE
+.RE
+
+.IP esd
+Enlightened Sound Daemon.
+.RS
+Options:
+.RS
+.IP host
+The hostname where esd is running.  This can include a port number
+after a colon, as in "whizbang.com:555".  (Default = localhost)
+.RE
+.RE
+
+.IP solaris
+Solaris audio driver.  Note that this driver has
+.B not 
+been tested!
+
+.IP irix
+IRIX audio driver.  Note that this driver has
+.B not 
+been tested!
+
+.IP wav
+WAV file output.  Writes the sound data to disk in uncompressed form.
+If multiple files are played, all of them will be concatenated into
+the same WAV file.
+.RS
+Options:
+.RS
+.IP file
+Sets the output WAV file.  (Default = "output.wav")
+.RE
+.RE
+
+.SH EXAMPLES
+
+The
+.B ogg123
+command line is fairly flexible, perhaps confusingly so.  Here are
+some sample command lines and an explanation of what they do.
+.PP
+
+Play on the default soundcard:
+.RS
+.B ogg123 test.ogg
+.RE
+.PP
+
+Play using the OSS driver:
+.RS
+.B ogg123 -d oss test.ogg
+.RE
+.PP
+
+Pass the "dsp" option to the OSS driver: 
+.RS
+.B ogg123 -d oss -o dsp:/dev/mydsp 
+.RE
+.PP
+
+Use the ESD driver
+.RS
+.B ogg123 -d esd test.ogg
+.RE
+.PP
+
+Use the WAV driver with the default output file, "ouput.wav":
+.RS
+.B ogg123 -d wav test.ogg
+.RE
+.PP
+
+Listen to a file while you write it to a WAV file:
+.RS
+.B ogg123 -d oss -d wav -o file:test.wav test.ogg
+.RE
+.PP
+
+Note that options apply to the device declared to the left:
+.RS
+.B ogg123 -d oss -o dsp:/dev/mydsp -d wav -o file:test2.wav test.ogg
+.RE
+.PP
+
+Stress test your harddrive:
+.RS
+.B ogg123 -d oss -d wav -o file:1.wav -d wav -o file:2.wav -d wav -o file:3.wav -d wav -o file:4.wav -d wav -o file:5.wav  test.ogg
+.RE
+.PP
+
+Create an echo effect with esd and a slow computer:
+.RS
+.B ogg123 -d esd -d esd test.ogg
+.RE
+.PP
+
+.SH BUGS
+
+The WAV driver does not interpret the file "-" as stdout.
+
+.SH AUTHORS
+
+.TP
+Program Authors:
+.br
+Kenneth Arnold <kcarnold@yahoo.com>
+.br
+Stan Seibert <indigo@aztec.asu.edu>
+.br
+
+.TP
+Manpage Author:
+.br
+Stan Seibert <indigo@aztec.asu.edu>
+
+.SH SEE ALSO
+
+.BR vorbize (1)
+.

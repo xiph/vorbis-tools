@@ -1,0 +1,168 @@
+.\" Process this file with
+.\" groff -man -Tascii oggenc.1
+.\"
+.TH oggenc 1 "August 13, 2000" "" "Vorbis Tools"
+
+.SH NAME
+oggenc \- encode audio into the Ogg Vorbis format
+
+.SH SYNOPSIS
+.B oggenc
+[
+.B -hrq
+]
+[
+.B -m
+.I mode 
+]
+[
+.B -o
+.I output_file
+]
+[
+.B -n
+.I pattern
+]
+[
+.B -c
+.I extra_comment
+]
+[
+.B -a
+.I artist
+]
+[
+.B -t
+.I title
+]
+[
+.B -l
+.I album
+]
+.I input_files \fR...
+
+.SH DESCRIPTION
+.B oggenc
+reads audio data in either raw or WAV format and encodes it into an
+Ogg Vorbis stream.  If the input file "-" is specified, audio data is
+read from
+.I stdin
+and the Vorbis stream is written to
+.I stdout
+unless the 
+.B -o
+option is used to redirect the output.  By default, disk files are
+output to Ogg Vorbis files of the same name, with the extension
+changed to ".ogg".  This naming convention can be overridden by the
+.B -o
+option (in the case of one file) or the
+.B -n
+option (in the case of several files).
+
+.SH OPTIONS
+.IP "-h, --help"
+Show command help.
+.IP "-r, --raw"
+Assume input data is raw 44.1 kHz, 16 bit, little-endian audio data with no
+header information.
+.IP "-q, --quiet"
+Quiet mode.  No messages are displayed.
+.IP "-m n, --mode=n"
+Sets encoding mode to n (n should be between 1 and 6, higher numbers give higher bitrates)
+.IP "-o output_file, --output=output_file"
+Write the Ogg Vorbis stream to
+.I output_file (only valid if a single input file is specified)
+
+.IP "-n pattern, --names=pattern"
+Produce filenames as this string, with %a, %t, %l replaced by artist,
+title, album respectively (see below for specifying these). Also, %%
+gives a literal %.
+
+.IP "-c comment, --comment comment"
+Add the string 
+.I comment
+as an extra comment.  This may be used multiple times, and all 
+instances will be added to each of the input files specified.
+
+.IP "-a artist, --artist artist"
+Set the artist comment field in the comments to
+.I artist.
+
+.IP "-t title, --title title"
+Set the track title comment field to
+.I title.
+
+.IP "-l album, --album album"
+Set the album comment field to
+.I album.
+.PP
+
+Note that the \fB-a\fR, \fB-t\fR, and \fB-l\fR options can be given
+multiple times.  They will be applied, one to each file, in the order
+given.  If there are fewer album, title, or artist comments given than
+there are input files,
+.B oggenc
+will reuse the final one for the remaining files, and issue a warning
+in the case of repeated titles.
+
+.SH EXAMPLES
+
+Simplest version. Produces output as somefile.ogg:
+.RS
+oggenc somefile.wav
+.RE
+.PP
+
+Specifying an output filename:
+.RS
+oggenc somefile.wav -o out.ogg
+.RE
+.PP
+
+Specifying a high-quality mode (approx 256 kbps):
+.RS
+oggenc infile.wav -m 5 out.ogg
+.RE
+.PP
+
+Adding some info about the track:
+.RS
+oggenc somefile.wav -t "The track title" -a "artist who performed this" -l
+"name of album" -c 
+"OTHERFIELD=contents of some other field not explictly supported"
+.RE
+.PP
+
+This encodes the three files, each with the
+same artist/album tag, but with different title tags on each one. The
+string given as an argument to -n is used to generate filenames, as shown
+in the section above. This example gives filenames 
+like "The Tea Party - Touch.ogg":
+.RS
+oggenc -m 4 -a "The Tea Party" -l "Triptych" -t "Touch" track01.wav -t
+"Underground" track02.wav -t "Great Big Lie" track03.wav -n "%a - %t.ogg"
+.RE
+.PP
+
+Encoding from stdin, to stdout (you can also use the various tagging
+options, like -t, -a, -l, etc.):
+.RS
+oggenc -
+.RE
+.PP
+
+.SH AUTHORS
+
+.TP
+Program Author:
+.br
+Michael Smith <msmith@labyrinth.net.au>
+
+.TP
+Manpage Author:
+.br
+Stan Seibert <indigo@aztec.asu.edu>
+
+.SH SEE ALSO
+
+.BR ogg123 (1)

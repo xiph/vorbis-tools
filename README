@@ -1,0 +1,64 @@
+Vorbis Tools
+	by Kenneth Arnold <kcarnold@yahoo.com>
+
+-----------------------------------------------------------------------------
+
+This is an encoder for the Vorbis compression format. For more information on
+this format, see the Xiphophorus site:
+
+http://www.xiph.org/ogg/vorbis.html
+
+I N S T A L L A T I O N
+-----------------------
+
+./configure # in the parent directory
+make
+make ogg123 # if on Linux
+make install
+
+E N C O D I N G   V O R B I S
+-----------------------------
+
+Vorbize encodes Vorbis streams. Currently it will not convert audio formats. If
+you have audio in a format other than 44.1 kHz 16 bit stereo PCM, use sox(1) to
+coax it into the correct format. WAV headers and RAW audio are understood. Type
+'vorbize --help' for more usage information.
+
+C O N V E R T I N G   T O   V O R B I S
+---------------------------------------
+
+mp3tovorbis will convert your MP3 files into Vorbis streams using mpg123 and
+Vorbize.
+
+./mp3tovorbis [MP3 file] [new Vorbis file]
+
+It will prompt you for Artist/Album/Track information, and then decode to a
+temporary file. If you do not have sufficient space in /tmp, you will have to
+edit the script to use a different directory, or construct a shell pipeline.
+
+A standalone MP3 to Vorbis converter will be available soon.
+
+P L A Y I N G   V O R B I S
+---------------------------
+
+Ogg123 can play Vorbis streams to the sound card (assumed to be /dev/dsp). 
+If you have a different audio device that still understands OSS ioctl's,
+you can specify it with the --device option. Use 'ogg123 --help' for more
+options. Decode to WAV is not yet implemented.
+
+NOTE: ogg123 will *not* work on a platform without OSS support. A cross-
+platform sound output library will fix this problem.
+
+F U T U R E   P L A N S
+-----------------------
+
+I am seriously thinking about an X Window front-end to Vorbize. (or what the
+heck, rewrite it). It will likely use Qt, as soon as I figure out how to use it
+myself.
+
+Have fun.
+
+Kenneth Arnold
+kcarnold@yahoo.com
+AIM: kcarnold
+ICQ nick: kcarnold
