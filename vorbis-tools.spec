@@ -1,5 +1,5 @@
 Name:		vorbis-tools
-Version:	1.0
+Version:	1.0.1
 Release:	1
 Summary:	Several Ogg Vorbis Tools
 
@@ -11,10 +11,14 @@ Source:         http://www.xiph.org/pub/ogg/vorbis/download/%{name}-%{version}.t
 Prefix:		%{_prefix}
 BuildRoot:	%{_tmppath}/%{name}-root
 
-Requires:       libvorbis >= 1.0
-BuildRequires:	libvorbis-devel >= 1.0
-Requires:       libao >= 0.8.3
-BuildRequires:	libao-devel >= 0.8.3
+Requires:       libvorbis >= 1.0.1
+BuildRequires:	libvorbis-devel >= 1.0.1
+Requires:       flac >= 1.1.0
+BuildRequires:	flac-devel >= 1.1.0
+Requires:       speex >= 1.0.2
+BuildRequires:	speex-devel >= 1.0.2
+Requires:       libao >= 0.8.4
+BuildRequires:	libao-devel >= 0.8.4
 Requires:       curl >= 7.8
 BuildRequires:	curl-devel >= 7.8
 
@@ -60,6 +64,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/vcut.1*
 
 %changelog
+* Tue Oct 07 2003 Warren Dukes <shank@xiph.org>
+- update for 1.0.1 release
 * Fri Jul 19 2002 Michael Smith <msmith@xiph.org>
 - Added oggdec and oggdec manpage.
 * Sun Jul 14 2002 Thomas Vander Stichele <thomas@apestaart.org>
