@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.5 2001/12/20 00:09:23 jack Exp $
+ last mod: $Id: http_transport.c,v 1.6 2001/12/20 00:10:14 jack Exp $
  
 ********************************************************************/
 
@@ -70,8 +70,6 @@ int progress_callback (void *arg, size_t dltotal, size_t dlnow,
 {
   data_source_t *source = arg;
   print_statistics_arg_t *pstats_arg;
-
-  printf("\nhttp_transport.c:progress_callback() is getting called\n");
 
   pstats_arg = new_print_statistics_arg(stat_format,
 					source->transport->statistics(source),
