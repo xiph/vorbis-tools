@@ -17,11 +17,10 @@
 #include <time.h>
 
 #include "platform.h"
-#include <vorbis/modes.h>
 #include "encode.h"
 #include "audio.h"
 
-#define VERSION_STRING "OggEnc v0.5\n"
+#define VERSION_STRING "OggEnc v0.5 (libvorbis beta3)\n"
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
 /* Define supported formats here */
@@ -41,7 +40,7 @@ struct option long_options[] = {
 	{"output",1,0,'o'},
 	{"version",0,0,'v'},
 	{"raw",0,0,'r'},
-	{"mode",1,0,'m'},
+	{"bitrate",1,0,'b'},
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
 	{NULL,0,0,0}
@@ -52,12 +51,11 @@ void parse_options(int argc, char **argv, oe_options *opt);
 void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
 		char **artist, char **album, char **title, char **tracknum, char **date);
 void usage(void);
-vorbis_info *choose_mode(int modenum, int channels);
 
 int main(int argc, char **argv)
 {
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, 
-		0,0, NULL,NULL,0}; /* Default values */
+		0,0, NULL,NULL,160}; /* Default values */
 	int i;
 
 	char **infiles;
@@ -116,7 +114,6 @@ int main(int argc, char **argv)
 		/* Set various encoding defaults */
 
 		enc_opts.serialno = nextserial++;
-		enc_opts.quiet = opt.quiet;
 		enc_opts.progress_update = update_statistics_full;
 		enc_opts.end_encode = final_statistics;
 		
@@ -200,6 +197,7 @@ int main(int argc, char **argv)
 		enc_opts.out = out;
 		enc_opts.comments = &vc;
 		enc_opts.filename = out_fn;
+		enc_opts.bitrate = opt.kbps; /* defaulted at the start, so this is ok */
 
 		/* Now, we need to select an input audio format */
 
@@ -228,17 +226,18 @@ int main(int argc, char **argv)
 			continue;
 		}
 
-		enc_opts.mode = choose_mode(opt.modenum, enc_opts.channels);
 		if(!enc_opts.total_samples_per_channel)
 			enc_opts.progress_update = update_statistics_notime;
 
-		if(!opt.quiet)
-			fprintf(stderr, "Encoding using encoder mode %d\n", opt.modenum?opt.modenum:3);
+		if(opt.quiet)
+		{
+			enc_opts.progress_update = update_statistics_null;
+			enc_opts.end_encode = final_statistics_null;
+		}
 
 		oe_encode(&enc_opts);
 
 		if(out_fn) free(out_fn);
-		free(enc_opts.mode);
 		vorbis_comment_clear(&vc);
 		if(!opt.rawmode)
 			formats[j].close_func(enc_opts.readdata);
@@ -266,8 +265,9 @@ void usage(void)
 		" -q, --quiet          Produce no output to stderr\n"
 		" -h, --help           Print this help text\n"
 		" -r, --raw            Raw mode. Input files are read directly as PCM data\n"
-		" -m, --mode           Select encoding mode, takes an argument between 1 and 6\n"
-		"                      The default is mode 3. Higher numbers are higher quality.\n"
+		" -b, --bitrate        Choose a bitrate to encode at. Internally,\n"
+		"                      a mode approximating this value is chosen.\n"
+		"                      Takes an argument in kbps. Default is 160kbps\n"
 		"\n"
 		" Naming:\n"
 		" -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
@@ -373,7 +373,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:c:d:hl:m:n:N:o:qrt:v", 
+	while((ret = getopt_long(argc, argv, "a:b:c:d:hl:n:N:o:qrt:v", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -402,8 +402,8 @@ void parse_options(int argc, char **argv, oe_options *opt)
 				opt->title = realloc(opt->title, (++opt->title_count)*sizeof(char *));
 				opt->title[opt->title_count - 1] = strdup(optarg);
 				break;
-			case 'm':
-				opt->modenum = atoi(optarg);
+			case 'b':
+				opt->kbps = atoi(optarg);
 				break;
 			case 'n':
 				if(opt->namefmt)
@@ -517,44 +517,4 @@ void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 	}
 }
 
-vorbis_info *choose_mode(int modenum, int channels)
-{
-	vorbis_info *mode = malloc(sizeof(vorbis_info));
-
-	if(modenum > 6 || modenum < 0)
-		fprintf(stderr, "Warning: Unrecognised mode (choose from 1-6), defaulting to mode B (3)\n");
-
-	switch(modenum)
-	{
-	case 0:
-		memcpy(mode, &info_B, sizeof(vorbis_info)); /* Default */
-		break;
-	case 1:
-		fprintf(stderr, "Warning: mode AA (1) is not yet implemented. Increasing to mode A (2)\n");
-		memcpy(mode, &info_A, sizeof(vorbis_info)); 
-		break;
-	case 2:
-		memcpy(mode, &info_A, sizeof(vorbis_info)); 
-		break;
-	case 3:
-		memcpy(mode, &info_B, sizeof(vorbis_info)); 
-		break;
-	case 4:
-		memcpy(mode, &info_C, sizeof(vorbis_info)); 
-		break;
-	case 5:
-		memcpy(mode, &info_D, sizeof(vorbis_info)); 
-		break;
-	case 6:
-		memcpy(mode, &info_E, sizeof(vorbis_info)); 
-		break;
-	default:
-		memcpy(mode, &info_B, sizeof(vorbis_info)); 
-	}
-
-	if(channels ==1)
-		mode->channels = 1; /* Edit the mode struct to reflect 
-							   mono rather than stereo */
-	return mode;
-}
 

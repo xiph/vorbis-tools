@@ -14,7 +14,7 @@
 #include <math.h>
 
 #include "platform.h"
-#include <vorbis/codec.h>
+#include <vorbis/vorbisenc.h>
 #include "encode.h"
 
 
@@ -32,10 +32,12 @@ int oe_encode(oe_enc_opt *opt)
 
 	vorbis_dsp_state vd;
 	vorbis_block     vb;
+	vorbis_info      vi;
 
 	long samplesdone=0;
     int eos;
 	long bytes_written = 0, packetsdone=0;
+	double time_elapsed;
 
 	TIMER *timer;
 
@@ -43,11 +45,17 @@ int oe_encode(oe_enc_opt *opt)
 	/* get start time. */
 	timer = timer_start();
 
+	/* Have vorbisenc choose a mode for us */
+	vorbis_info_init(&vi);
+	vorbis_encode_init(&vi, opt->channels, opt->rate, -1, 
+			opt->bitrate*1000, -1);
+
+
 	/* Now, set up the analysis engine, stream encoder, and other
 	   preparation before the encoding begins.
 	 */
 
-	vorbis_analysis_init(&vd,opt->mode);
+	vorbis_analysis_init(&vd,&vi);
 	vorbis_block_init(&vd,&vb);
 
 	ogg_stream_init(&os, opt->serialno);
@@ -94,7 +102,7 @@ int oe_encode(oe_enc_opt *opt)
 			samplesdone += samples_read;
 
 			/* Call progress update every 10 pages */
-			if(!opt->quiet && packetsdone>=10)
+			if(packetsdone>=10)
 			{
 				double time;
 
@@ -144,12 +152,10 @@ int oe_encode(oe_enc_opt *opt)
 
 	vorbis_block_clear(&vb);
 	vorbis_dsp_clear(&vd);
+	vorbis_info_clear(&vi);
 
-	if(!opt->quiet)
-	{
-		double time_elapsed = timer_time(timer);
-		opt->end_encode(opt->filename, time_elapsed, opt->rate, samplesdone, bytes_written);
-	}
+	time_elapsed = timer_time(timer);
+	opt->end_encode(opt->filename, time_elapsed, opt->rate, samplesdone, bytes_written);
 
 	timer_clear(timer);
 
@@ -211,5 +217,17 @@ void final_statistics(char *fn, double time, int rate, long samples, long bytes)
 	fprintf(stderr, "\tAverage bitrate: %.1f kb/s\n\n", 
 		8./1000.*((double)bytes/((double)samples/(double)rate)));
 }
+
+void final_statistics_null(char *fn, double time, int rate, long samples, 
+		long bytes)
+{
+	/* Don't do anything, this is just a placeholder function for quiet mode */
+}
+
+void update_statistics_null(char *fn, long total, long done, double time)
+{
+	/* So is this */
+}
+
 
 

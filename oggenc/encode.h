@@ -19,17 +19,12 @@ void timer_clear(void *);
 
 void update_statistics_full(char *fn, long total, long done, double time);
 void update_statistics_notime(char *fn, long total, long done, double time);
+void update_statistics_null(char *fn, long total, long done, double time);
 void final_statistics(char *fn, double time, int rate, long total_samples,
 		long bytes);
+void final_statistics_null(char *fn, double time, int rate, long total_samples,
+		long bytes);
 
-typedef struct _taglist
-{
-	char *tag;
-	char *contents;
-
-	struct _taglist *next;
-} taglist;
-	
 typedef struct
 {
 	char **title;
@@ -50,13 +45,12 @@ typedef struct
 
 	char *namefmt;
 	char *outfile;
-	int modenum;
+	int kbps;
 } oe_options;
 
 typedef struct
 {
 	vorbis_comment *comments;
-	vorbis_info    *mode;
 	long serialno;
 
 	audio_read_func read_samples;
@@ -68,9 +62,9 @@ typedef struct
 	long total_samples_per_channel;
 	int channels;
 	long rate;
+	int bitrate;
 
 	FILE *out;
-	int quiet;
 	char *filename;
 } oe_enc_opt;
 

@@ -45,11 +45,14 @@ static int find_chunk(FILE *in, char *type, unsigned int *len)
 			{
 				/* seek failed. Do it the hard way */
 				unsigned char buf2[1024];
-				int seek_needed = *len;
+				int seek_needed = *len, seeked;
 				while(seek_needed>0)
 				{
-					fread(buf2,1,seek_needed>1024?1024:seek_needed,in);
-					seek_needed -= 1024;
+					seeked = fread(buf2,1,seek_needed>1024?1024:seek_needed,in);
+					if(!seeked)
+						return 0; /* Couldn't read more, can't read file */
+					else
+						seek_needed -= seeked;
 				}
 			}
 			buf[4] = 0;
