@@ -11,7 +11,7 @@ typedef void (*progress_func)(char *fn, long totalsamples,
 typedef void (*enc_end_func)(char *fn, double time, int rate, 
 		long samples, long bytes);
 typedef void (*enc_start_func)(char *fn, char *outfn, int bitrate, 
-        float quality, int managed, int min_br, int max_br);
+        float quality, int qset, int managed, int min_br, int max_br);
 typedef void (*error_func)(char *errormessage);
 
 
@@ -23,9 +23,9 @@ int create_directories(char *);
 void update_statistics_full(char *fn, long total, long done, double time);
 void update_statistics_notime(char *fn, long total, long done, double time);
 void update_statistics_null(char *fn, long total, long done, double time);
-void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
+void start_encode_full(char *fn, char *outfn, int bitrate, float quality, int qset,
         int managed, int min, int max);
-void start_encode_null(char *fn, char *outfn, int bitrate, float quality,
+void start_encode_null(char *fn, char *outfn, int bitrate, float quality, int qset,
         int managed, int min, int max);
 void final_statistics(char *fn, double time, int rate, long total_samples,
 		long bytes);
@@ -78,6 +78,7 @@ typedef struct
 
 	/* Float from 0 to 1 (low->high) */
 	float quality;
+        int   quality_set;
 
     int resamplefreq;
     int downmix;
@@ -111,6 +112,7 @@ typedef struct
 	int min_bitrate;
 	int max_bitrate;
 	float quality;
+        int quality_set;
     adv_opt *advopt;
     int advopt_count;
 

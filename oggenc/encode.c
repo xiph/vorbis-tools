@@ -134,48 +134,70 @@ int oe_encode(oe_enc_opt *opt)
         return 1;
     }
 
-	/* get start time. */
-	timer = timer_start();
-    opt->start_encode(opt->infilename, opt->filename, opt->bitrate, 
-            opt->quality, opt->managed, opt->min_bitrate, opt->max_bitrate);
+    /* get start time. */
+    timer = timer_start();
 
-	/* Have vorbisenc choose a mode for us */
-	vorbis_info_init(&vi);
-
-    if(opt->bitrate < 0 && opt->min_bitrate < 0 && opt->max_bitrate < 0)
-    {
-		if(vorbis_encode_setup_vbr(&vi, opt->channels, opt->rate, opt->quality))
-		{
-			fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
-			vorbis_info_clear(&vi);
-			return 1;
-        }
-    }
-    else 
-    {
-		if(vorbis_encode_setup_managed(&vi, opt->channels, opt->rate, 
-                    opt->max_bitrate>0?opt->max_bitrate*1000:-1,
-				    opt->bitrate*1000, 
-                    opt->min_bitrate>0?opt->min_bitrate*1000:-1))
-		{
-			fprintf(stderr, _("Mode initialisation failed: invalid parameters for bitrate\n"));
-			vorbis_info_clear(&vi);
-			return 1;
-		}
+    if(!opt->managed && (opt->min_bitrate>=0 || opt->max_bitrate>=0)){
+      fprintf(stderr, _("Requesting a minimum or maximum bitrate requires --managed\n"));
+      return 1;
     }
 
-	if(opt->managed && opt->bitrate < 0)
-	{
+    /* if we had no quality or bitrate spec at all from the user, use
+       the default quality with no management --Monty 20020711 */
+    if(opt->bitrate < 0 && opt->min_bitrate < 0 && opt->max_bitrate < 0){
+      opt->quality_set=1;
+    }
+
+    opt->start_encode(opt->infilename, opt->filename, opt->bitrate, opt->quality, 
+		      opt->quality_set, opt->managed, opt->min_bitrate, opt->max_bitrate);
+    
+    /* Have vorbisenc choose a mode for us */
+    vorbis_info_init(&vi);
+    
+    if(opt->quality_set > 0){
+      if(vorbis_encode_setup_vbr(&vi, opt->channels, opt->rate, opt->quality)){
+	fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
+	vorbis_info_clear(&vi);
+	return 1;
+      }
+
+      /* do we have optional hard quality restrictions? */
+      if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
+	struct ovectl_ratemanage_arg ai;
+	vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_GET, &ai);
+	
+	ai.bitrate_hard_min=opt->min_bitrate;
+	ai.bitrate_hard_max=opt->max_bitrate;
+	ai.management_active=1;
+
+	vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, &ai);
+
+      }
+
+
+    }else {
+      if(vorbis_encode_setup_managed(&vi, opt->channels, opt->rate, 
+				     opt->max_bitrate>0?opt->max_bitrate*1000:-1,
+				     opt->bitrate*1000, 
+				     opt->min_bitrate>0?opt->min_bitrate*1000:-1)){
+	fprintf(stderr, _("Mode initialisation failed: invalid parameters for bitrate\n"));
+	vorbis_info_clear(&vi);
+	return 1;
+      }
+    }
+    
+    if(opt->managed && opt->bitrate < 0)
+      {
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_AVG, NULL);
-	}
-	else if(!opt->managed)
-	{
+      }
+    else if(!opt->managed)
+      {
         /* Turn off management entirely (if it was turned on). */
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, NULL);
-	}
-
+      }
+    
     set_advanced_encoder_options(opt->advopt, opt->advopt_count, &vi);
-
+    
     vorbis_encode_setup_init(&vi);
 
 
@@ -400,39 +422,50 @@ static void print_brconstraints(int min, int max)
         fprintf(stderr, "(no min or max)");
 }
 
-void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
+void start_encode_full(char *fn, char *outfn, int bitrate, float quality, int qset,
         int managed, int min, int max)
 {
-    if(bitrate < 0 && !managed && (min > 0 || max > 0)) {
-        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat quality level %2.2f using constrained VBR "),
-			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
-                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
-                quality * 10);
-        print_brconstraints(min,max);
-        fprintf(stderr, "\n");
+  if(bitrate>0){
+    if(managed>0){
+      fprintf(stderr, _("Encoding %s%s%s to \n         "
+			"%s%s%s \nat average bitrate %d kbps "),
+	      fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+	      outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
+	      bitrate);
+      print_brconstraints(min,max);
+      fprintf(stderr, ", \nusing full bitrate management engine\n");
+    } else {
+      fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat approximate bitrate %d kbps (VBR encoding enabled)\n"),
+	      fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+	    outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
+	      bitrate);
     }
-    else if(bitrate > 0 && !managed)
-        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat approximate bitrate %d kbps (VBR encoding enabled)\n"),
-			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
-                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
-                bitrate);
-    else if(!managed)
+  }else{
+    if(qset>0){
+      if(managed>0){
+	fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat quality level %2.2f using constrained VBR "),
+		fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+		outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
+		quality * 10);
+	print_brconstraints(min,max);
+	fprintf(stderr, "\n");
+      }else{
         fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat quality %2.2f\n"),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 quality * 10);
-    else {
-        fprintf(stderr, _("Encoding %s%s%s to \n         "
-                "%s%s%s \nat bitrate %d kbps "),
-			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
-                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
-                bitrate);
-        print_brconstraints(min,max);
-        fprintf(stderr, ", \nusing full bitrate management engine\n");
+      }
+    }else{
+      fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nusing bitrate management "),
+	      fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+	      outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"");
+      print_brconstraints(min,max);
+      fprintf(stderr, "\n");
     }
+  }
 }
 
-void start_encode_null(char *fn, char *outfn, int bitrate, float quality, 
+void start_encode_null(char *fn, char *outfn, int bitrate, float quality, int qset,
         int managed, int min, int max)
 {
 }

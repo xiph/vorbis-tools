@@ -75,9 +75,10 @@ int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,
-        DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
-        NULL, 0, -1,-1,-1,0.3,0, 0,0};
+			  0, NULL, 0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,
+			  DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
+			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0}; 
+
 	int i;
 
 	char **infiles;
@@ -292,6 +293,7 @@ int main(int argc, char **argv)
 		enc_opts.min_bitrate = opt.min_bitrate;
 		enc_opts.max_bitrate = opt.max_bitrate;
 		enc_opts.quality = opt.quality;
+		enc_opts.quality_set = opt.quality_set;
         enc_opts.advopt = opt.advopt;
         enc_opts.advopt_count = opt.advopt_count;
 
@@ -554,10 +556,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		{
 			case 0:
                 if(!strcmp(long_options[option_index].name, "managed")) {
+		  if(!opt->managed){
                     if(!opt->quiet)
-                        fprintf(stderr, 
-                                _("Enabling bitrate management engine\n"));
+		      fprintf(stderr, 
+			      _("Enabling bitrate management engine\n"));
                     opt->managed = 1;
+		  }
                 }
                 else if(!strcmp(long_options[option_index].name, 
                             "raw-endianness")) {
@@ -660,6 +664,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 					fprintf(stderr, _("Warning: minimum bitrate \"%s\" not recognised\n"), optarg);
 					opt->min_bitrate = -1;
 				}
+				if(!opt->managed){
+				  if(!opt->quiet)
+				    fprintf(stderr, 
+					    _("Enabling bitrate management engine\n"));
+				  opt->managed = 1;
+				}
 				break;
 			case 'M':
 				if(sscanf(optarg, "%d", &opt->max_bitrate)
@@ -667,12 +677,19 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 					fprintf(stderr, _("Warning: maximum bitrate \"%s\" not recognised\n"), optarg);
 					opt->max_bitrate = -1;
 				}
+				if(!opt->managed){
+				  if(!opt->quiet)
+				    fprintf(stderr, 
+					    _("Enabling bitrate management engine\n"));
+				  opt->managed = 1;
+				}
 				break;
 			case 'q':
 				if(sscanf(optarg, "%f", &opt->quality) != 1) {
 					fprintf(stderr, _("Quality option \"%s\" not recognised, ignoring\n"), optarg);
 					break;
 				}
+				opt->quality_set=1;
 				opt->quality *= 0.1;
 				if(opt->quality > 1.0f)
 				{
