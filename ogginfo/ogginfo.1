@@ -1,0 +1,137 @@
+.\" Process this file with
+.\" groff -man -Tascii ogginfo.1
+.\"
+.TH ogg123 1 "June 17, 2001" "" "Vorbis Tools"
+
+.SH NAME
+ogginfo \- gives information about Ogg files.
+
+.SH SYNOPSIS
+.B ogginfo
+.I file1.ogg
+.B ...
+.I fileN.ogg
+
+.SH DESCRIPTION
+.B ogginfo
+reads one or more Ogg files and decodes the comments contained within, writing
+them to standard output, in a "attribute=value" format, one per line.
+The first attribute printed will always be the
+.B filename
+of the stream. 
+.B ogginfo
+cannot accept URLs. 
+.B ogginfo
+will also print the 
+.B length
+of the file in seconds, and the
+.B playtime
+in a humanly-readable MM:SS format.
+
+
+.SH OPTIONS
+None.
+
+.SH EXAMPLES
+
+The
+.B ogginfo
+command line accepts as many filenames as your shell will allow.
+
+.PP
+Information about one file:
+.RS
+.B ogginfo track14.ogg
+.RE
+
+
+
+Will print:
+
+.RS
+.br
+.B
+filename=track14.ogg
+.br
+.B
+title=If I Had $1000000
+.br
+.B
+artist=Barenaked Ladies 
+.br
+.B
+album=Gordon
+.br
+.B
+tracknumber=14
+.br
+.B
+length=267.040000
+.br
+.B
+playtime=4:27
+.RE
+
+.PP
+Information on multiple files:
+.RS
+.B ogginfo track1.ogg track2.ogg
+.RE
+
+.PP
+Will print:
+
+.RS
+.br
+.B
+filename=track1.ogg
+.br
+.B
+title=The Vorbis Theme
+.br
+.B
+artist=Monty and The Wet Trouts
+.br
+.B
+album=Musical Penguins 3
+.br
+.B
+tracknumber=1
+.br
+.B
+length=67.38383
+.br
+.B
+playtime=1:07
+.br
+.B
+filename=track2.ogg
+.br
+.B
+title=Being for the Benefit of Mr. Fish
+.br
+.B
+artist=Monty and The Wet Trouts
+.br
+.B
+album=Musical Penguins 3
+.br
+.B
+tracknumber=2
+.br
+.B
+length=449.0000
+.br
+.B
+playtime=7:29
+.RE
+
+.SH BUGS
+
+The man page is longer than the source.
+
+.SH AUTHOR
+
+.TP
+.br
+JAmes Atwill <ogg@linuxstuff.org>

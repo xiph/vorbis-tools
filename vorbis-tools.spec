@@ -45,6 +45,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 /usr/bin/vorbiscomment
 /usr/share/man/man1/ogg123.1*
 /usr/share/man/man1/oggenc.1*
+/usr/share/man/man1/ogginfo.1*
 
 %clean 
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
