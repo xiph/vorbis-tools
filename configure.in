@@ -83,4 +83,4 @@ AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 AC_SUBST(SOCKET_LIBS)
 
-AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile debian/Makefile)
+AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile ogginfo/Makefile debian/Makefile)

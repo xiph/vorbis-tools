@@ -2,7 +2,7 @@
 
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = oggenc ogg123 vorbiscomment debian
+SUBDIRS = oggenc ogg123 vorbiscomment ogginfo debian
 
 EXTRA_DIST = README AUTHORS COPYING vorbis-tools.spec acinclude.m4
 

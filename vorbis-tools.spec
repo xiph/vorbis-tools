@@ -41,6 +41,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %doc ogg123/ogg123rc-example
 /usr/bin/oggenc
 /usr/bin/ogg123
+/usr/bin/ogginfo
 /usr/bin/vorbiscomment
 /usr/share/man/man1/ogg123.1*
 /usr/share/man/man1/oggenc.1*
@@ -53,6 +54,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %postun
 
 %changelog
+* Sun Jun 17 2001 Jack Moffitt <jack@icecast.org>
+- updated for rc1
+- added ogginfo
 * Mon Jan 22 2001 Jack Moffitt <jack@icecast.org>
 - updated for prebeta4 builds
 * Sun Oct 29 2000 Jack Moffitt <jack@icecast.org>
