@@ -5,7 +5,7 @@
  *
  * Copyright 2000-2002, Michael Smith <msmith@xiph.org>
  *
- * Portions from Vorbize, (c) Kenneth Arnold <kcarnold@yahoo.com>
+ * Portions from Vorbize, (c) Kenneth Arnold <kcarnold-xiph@arnoldnet.net>
  * and libvorbis examples, (c) Monty <monty@xiph.org>
  */
 

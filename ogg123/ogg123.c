@@ -1,4 +1,4 @@
-/* ogg123.c by Kenneth Arnold <ogg123@arnoldnet.net> */
+/* ogg123.c by Kenneth Arnold <kcarnold-xiph@arnoldnet.net> */
 /* Maintained by Stan Seibert <volsung@xiph.org> */
 
 /********************************************************************
@@ -9,7 +9,7 @@
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
  * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001                *
- * by Kenneth C. Arnold <ogg@arnoldnet.net> AND OTHER CONTRIBUTORS  *
+ * by Stan Seibert <volsung@xiph.org> AND OTHER CONTRIBUTORS        *
  * http://www.xiph.org/                                             *
  *                                                                  *
  ********************************************************************

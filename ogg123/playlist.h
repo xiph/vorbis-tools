@@ -6,7 +6,7 @@
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
  * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2002                *
- * by Kenneth C. Arnold <ogg@arnoldnet.net> AND OTHER CONTRIBUTORS  *
+ * by Stan Seibert <volsung@xiph.org> AND OTHER CONTRIBUTORS        *
  * http://www.xiph.org/                                             *
  *                                                                  *
  ********************************************************************
