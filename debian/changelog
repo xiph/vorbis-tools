@@ -4,7 +4,7 @@ vorbis-tools (1.0.0-1) unstable; urgency=low
     (Closes:  #88450, #109241, #111565, #127184, #127688, #127730, #127734,
     #127999, #130021, #136663, #136664, #140909, #146271, #146314)
 
- -- Christopher L Cheney <ccheney@debian.org>  Thu, 11 Jul 2002 15:00:00 -0500
+ -- Christopher L Cheney <ccheney@debian.org>  Fri, 19 Jul 2002 09:00:00 -0500
 
 vorbis-tools (1.0rc3-1) unstable; urgency=low
 
