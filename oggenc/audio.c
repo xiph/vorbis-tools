@@ -430,9 +430,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 		wav->samplesize = format.samplesize;
 
 		if(len)
-		{
+        {
 			opt->total_samples_per_channel = len/(format.channels*samplesize);
-			wav->totalsamples = len/(format.channels*samplesize);
 		}
 		else
 		{
@@ -441,15 +440,16 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 			if(fseek(in, 0, SEEK_END) == -1)
 			{
 				opt->total_samples_per_channel = 0; /* Give up */
-				wav->totalsamples = 0;
 			}
 			else
 			{
-				opt->total_samples_per_channel = (ftell(in) - pos)/(format.channels*samplesize);
-				wav->totalsamples = len/(format.channels*samplesize);
+				opt->total_samples_per_channel = (ftell(in) - pos)/
+                    (format.channels*samplesize);
 				fseek(in,pos, SEEK_SET);
 			}
 		}
+		wav->totalsamples = opt->total_samples_per_channel;
+
 		opt->readdata = (void *)wav;
 		return 1;
 	}
