@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.11 2000/12/04 14:16:30 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.12 2000/12/12 14:06:49 msmith Exp $
 
  ********************************************************************/
 
@@ -324,12 +324,20 @@ main (int argc, char **argv)
 
   if (param.shuffle)
     {
-      int i=optind, j=0;
-      for (i = optind; i < argc; i++)
+      int i;
+      int nb = argc - optind;
+      int *p = alloca(sizeof(int) * nb);
+      for (i = 0; i < nb; i++) p[i] = i;
+
+      srand (time (NULL));
+      for (i = 1; i < nb; i++) 
 	{
-	  srand (time (NULL));
-	  j = (int) ((float) (argc - optind) * rand () / (RAND_MAX + 1.0));
-	  param.read_file = argv[j+optind];
+	  int j = i * ((float) rand() / RAND_MAX);
+	  int temp = p[j]; p[j] = p[i]; p[i] = temp;
+	}
+      for (i = 0; i < nb; i++) 
+	{
+	  param.read_file = argv[p[i]+optind];
 	  play_file ();
 	}
     }
