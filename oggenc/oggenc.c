@@ -347,7 +347,7 @@ static void usage(void)
 		" -t, --title          Title for this track\n"
 		" -l, --album          Name of album\n"
 		" -a, --artist         Name of artist\n"
-        " -g, --genre          Genre of track\n"
+        " -G, --genre          Genre of track\n"
 		"                      If multiple input files are given, then multiple\n"
 		"                      instances of the previous five arguments will be used,\n"
 		"                      in the order they are given. If fewer titles are\n"
