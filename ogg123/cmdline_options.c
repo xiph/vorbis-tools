@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.4 2001/12/24 15:58:03 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.5 2001/12/24 16:01:05 volsung Exp $
 
  ********************************************************************/
 
@@ -134,7 +134,7 @@ int parse_cmdline_options (int argc, char **argv,
 	  break;
 	  
 	case 'l':
-	  ogg123_opts->delay = 1000 * atoi(optarg);
+	  ogg123_opts->delay = atoi(optarg);
 	  break;
 	  
 	case 'o':
