@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.13 2002/07/11 02:44:39 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.14 2003/09/01 19:36:39 volsung Exp $
 
  ********************************************************************/
 
@@ -282,15 +282,16 @@ void cmdline_usage (void)
 	 "  -o, --device-option=k:v passes special option k with value\n"
 	 "      v to previously specified device (with -d).  See\n"
 	 "      man page for more info.\n"
-	 "  -b n, --buffer n  use an input buffer of 'n' kilobytes\n"
-	 "  -p n, --prebuffer n  load n%% of the input buffer before playing\n"
-	 "  -v, --verbose  display progress and other status information\n"
-	 "  -q, --quiet    don't display anything (no title)\n"
-	 "  -x n, --nth    play every 'n'th block\n"
-	 "  -y n, --ntimes repeat every played block 'n' times\n"
-	 "  -z, --shuffle  shuffle play\n"
+	 "  -@, --list=filename   Read playlist of files and URLs from \"filename\"\n"
+	 "  -b n, --buffer n  Use an input buffer of 'n' kilobytes\n"
+	 "  -p n, --prebuffer n  Load n%% of the input buffer before playing\n"
+	 "  -v, --verbose  Display progress and other status information\n"
+	 "  -q, --quiet    Don't display anything (no title)\n"
+	 "  -x n, --nth    Play every 'n'th block\n"
+	 "  -y n, --ntimes Repeat every played block 'n' times\n"
+	 "  -z, --shuffle  Shuffle play\n"
 	 "\n"
 	 "ogg123 will skip to the next song on SIGINT (Ctrl-C); two SIGINTs within\n"
 	 "s milliseconds make ogg123 terminate.\n"
-	 "  -l, --delay=s  set s [milliseconds] (default 500).\n"));
+	 "  -l, --delay=s  Set s [milliseconds] (default 500).\n"));
 }
