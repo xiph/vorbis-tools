@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <vorbis/codec.h>
 
-
 typedef void TIMER;
 typedef long (*audio_read_func)(void *src, float **buffer, int samples);
 typedef void (*progress_func)(char *fn, long totalsamples, 

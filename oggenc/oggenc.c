@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,DEFAULT_NAMEFMT_REMOVE, 
-        DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,128,-1,0.3,0, 0,0};
+        DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,-1,-1,0.3,0, 0,0};
 	int i;
 
 	char **infiles;
@@ -353,18 +353,6 @@ clear_all:
 
 }
 
-static void print_deprecated_message(void) {
-    fprintf(stderr, _("WARNING: Usage of the bitrate options (-b, -m, -M) has been deprecated\n"
-                    "To use these, you must specify that you wish to use managed mode, using\n"
-                    "the --managed option.\n"
-                    "This will cause oggenc to enable the full bitrate management engine.\n"
-                    "You should do this ONLY if bitrate management is critical to your usage\n"
-                    "(for example, certain audio streaming applications).\n"
-                    "Usage of the bitrate management engine will generally decrease quality,\n"
-                    "using the normal fully VBR modes (quality specified using -q) is\n"
-                    "very highly recommended for most users.\n\n"));
-}
-
 static void usage(void)
 {
 	fprintf(stdout, 
@@ -634,11 +622,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				opt->title[opt->title_count - 1] = strdup(optarg);
 				break;
 			case 'b':
-                if(!opt->managed) {
-                    print_deprecated_message();
-                    exit(1);
-                }
-
    				if(sscanf(optarg, "%d", &opt->nominal_bitrate)
     					!= 1) {
 	    			fprintf(stderr, _("Warning: nominal bitrate \"%s\" not recognised\n"), optarg);
@@ -647,11 +630,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 
 				break;
 			case 'm':
-                if(!opt->managed) {
-                    print_deprecated_message();
-                    exit(1);
-                }
-
 				if(sscanf(optarg, "%d", &opt->min_bitrate)
 						!= 1) {
 					fprintf(stderr, _("Warning: minimum bitrate \"%s\" not recognised\n"), optarg);
@@ -659,11 +637,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				}
 				break;
 			case 'M':
-                if(!opt->managed) {
-                    print_deprecated_message();
-                    exit(1);
-                }
-
 				if(sscanf(optarg, "%d", &opt->max_bitrate)
 						!= 1) {
 					fprintf(stderr, _("Warning: maximum bitrate \"%s\" not recognised\n"), optarg);

@@ -55,18 +55,18 @@ int oe_encode(oe_enc_opt *opt)
 	/* Have vorbisenc choose a mode for us */
 	vorbis_info_init(&vi);
 
-	if(!opt->managed)
-	{
-		if(vorbis_encode_init_vbr(&vi, opt->channels, opt->rate, opt->quality))
+    if(opt->bitrate < 0 && opt->min_bitrate < 0 && opt->max_bitrate < 0)
+    {
+		if(vorbis_encode_setup_vbr(&vi, opt->channels, opt->rate, opt->quality))
 		{
 			fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
 			vorbis_info_clear(&vi);
 			return 1;
-		}
-	}
-	else
-	{
-		if(vorbis_encode_init(&vi, opt->channels, opt->rate, 
+        }
+    }
+    else 
+    {
+		if(vorbis_encode_setup_managed(&vi, opt->channels, opt->rate, 
                     opt->max_bitrate>0?opt->max_bitrate*1000:-1,
 				    opt->bitrate*1000, 
                     opt->min_bitrate>0?opt->min_bitrate*1000:-1))
@@ -75,7 +75,19 @@ int oe_encode(oe_enc_opt *opt)
 			vorbis_info_clear(&vi);
 			return 1;
 		}
+    }
+
+	if(opt->managed && opt->bitrate < 0)
+	{
+        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_AVG, NULL);
 	}
+	else if(!opt->managed)
+	{
+        /* Turn off management entirely (if it was turned on). */
+        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, NULL);
+	}
+
+    vorbis_encode_setup_init(&vi);
 
 	/* Now, set up the analysis engine, stream encoder, and other
 	   preparation before the encoding begins.
@@ -289,15 +301,20 @@ void encode_error(char *errmsg)
 void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
         int managed)
 {
-    if(!managed)
-        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s at quality %2.2f\n"),
+    if(bitrate > 0 && !managed)
+        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat approximate bitrate %d kbps (VBR encoding enabled)\n"),
+			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
+                bitrate);
+    else if(!managed)
+        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat quality %2.2f\n"),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 quality * 10);
     else
         fprintf(stderr, _("Encoding %s%s%s to \n         "
-                "%s%s%s at bitrate %d kbps,\n"
-                "using full bitrate management engine\n"),
+                "%s%s%s \nat bitrate %d kbps, "
+                "using bitrate management engine\n"),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 bitrate);
