@@ -25,8 +25,8 @@
 #include "i18n.h"
 
 
-#define VERSION_STRING "OggEnc v1.0 (libvorbis 1.0)\n"
-#define COPYRIGHT "(c) 2000-2002 Michael Smith <msmith@xiph.org>\n"
+#define VERSION_STRING "OggEnc v1.0.1 (libvorbis 1.0.1)\n"
+#define COPYRIGHT "(c) 2000-2003 Michael Smith <msmith@xiph.org>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
