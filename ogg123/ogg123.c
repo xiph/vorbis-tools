@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.58 2002/01/03 10:40:40 segher Exp $
+ last mod: $Id: ogg123.c,v 1.59 2002/01/19 08:22:29 segher Exp $
 
  ********************************************************************/
 
@@ -292,7 +292,6 @@ int main(int argc, char **argv)
   signal (SIGINT, signal_handler);
   signal (SIGTSTP, signal_handler);
   signal (SIGCONT, signal_handler);
-  signal (SIGALRM, signal_handler);
 
   /* Do we have anything left to play? */
   if (optind == argc) {
