@@ -384,27 +384,28 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
 static void vorbis_end(stream_processor *stream) 
 {
     misc_vorbis_info *inf = stream->data;
-    long minutes, seconds;
+    long minutes, seconds, milliseconds;
     double bitrate, time;
 
     /* This should be lastgranulepos - startgranulepos, or something like that*/
     time = (double)inf->lastgranulepos / inf->vi.rate;
     minutes = (long)time / 60;
     seconds = (long)time - minutes*60;
+    milliseconds = (long)((time - minutes*60 - seconds)*1000);
     bitrate = inf->bytes*8 / time / 1000.0;
 
 #ifdef _WIN32
     info(_("Vorbis stream %d:\n"
            "\tTotal data length: %I64d bytes\n"
-           "\tPlayback length: %ldm:%02lds\n"
+           "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kbps\n"), 
-            stream->num,inf->bytes, minutes, seconds, bitrate);
+            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
 #else
     info(_("Vorbis stream %d:\n"
            "\tTotal data length: %lld bytes\n"
-           "\tPlayback length: %ldm:%02lds\n"
+           "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kbps\n"), 
-            stream->num,inf->bytes, minutes, seconds, bitrate);
+            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
 #endif
 
     vorbis_comment_clear(&inf->vc);
