@@ -25,7 +25,7 @@
 
 
 #define VERSION_STRING "OggEnc v0.9 (libvorbis rc3)\n"
-#define COPYRIGHT "(c) 2001 Michael Smith <msmith@labyrinth.net.au)\n"
+#define COPYRIGHT "(c) 2001 Michael Smith <msmith@labyrinth.net.au>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
