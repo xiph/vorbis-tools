@@ -32,6 +32,14 @@ packet), and "fail" otherwise.
 .IP file_truncated
 "true" if the last good packet in the stream is not marked as the last packet
 and "false" if the stream is complete.
+.IP bitrate_upper
+The upper bitrate limit of the file, or "none" if not set.
+.IP bitrate_nominal
+The "target" bitrate of the file, or "none" if not set.
+.IP bitrate_lower
+The lower bitrate limit of the file, or "none" if not set.
+.IP bitrate_average
+The average bitrate of the file.
 .IP length
 Length of of the file in seconds.
 .IP playtime

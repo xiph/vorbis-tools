@@ -48,6 +48,7 @@ void doinfo(char *filename)
   OggVorbis_File vf;
   int rc,i;
   vorbis_comment *vc;
+  vorbis_info *vi;
   double playtime;
   long playmin,playsec;
 
@@ -72,6 +73,34 @@ void doinfo(char *filename)
 
   for (i=0; i < vc->comments; i++) {
     printf("%s\n",vc->user_comments[i]);
+  }
+
+  vi = ov_info(&vf,-1);
+  if (vi)
+  {
+    printf("version=%d\n"
+           "channels=%d\n",
+           vi->version, vi->channels);
+    
+    printf("bitrate_upper=");
+    if (vi->bitrate_upper == -1) 
+      printf("none\n");
+    else 
+      printf("%d\n", vi->bitrate_upper);
+
+    printf("bitrate_nominal=");
+    if (vi->bitrate_nominal == -1) 
+      printf("none\n");
+    else 
+      printf("%d\n", vi->bitrate_nominal);
+
+    printf("bitrate_lower=");
+    if (vi->bitrate_lower == -1) 
+      printf("none\n");
+    else 
+      printf("%d\n", vi->bitrate_lower);
+
+    printf("bitrate_average=%ld\n", ov_bitrate(&vf,-1));
   }
 
   playtime = ov_time_total(&vf,-1);
