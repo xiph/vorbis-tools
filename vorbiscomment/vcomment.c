@@ -484,6 +484,15 @@ void close_files(param_t *p)
 	if (p->out != NULL && p->out != stdout) fclose(p->out);
 	if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
 
-	if(p->tempoutfile)
-		rename(p->outfilename, p->infilename);
+	if(p->tempoutfile) {
+        /* Some platforms fail to rename a file if the new name already exists,
+         * so we need to remove, then rename. How stupid.
+         */
+        if(remove(p->infilename)) 
+            fprintf(stderr, "Error removing old file %s\n", p->infilename);
+		if(rename(p->outfilename, p->infilename))
+            fprintf(stderr, "Error renaming %s to %s\n", p->outfilename, 
+                    p->infilename);
+    }
 }
+
