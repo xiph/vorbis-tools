@@ -15,6 +15,7 @@ BuildRoot:	%{_tmppath}/%{name}-root
 Requires:       libogg >= 1.0rc2
 Requires:       libvorbis >= 1.0rc2
 Requires:       libao >= 0.8.0
+Requires:       libcurl >= 7.8
 Prefix:		%{_prefix}
 
 %description
