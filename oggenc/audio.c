@@ -78,6 +78,8 @@ input_format *open_audio_file(FILE *in, oe_enc_opt *opt)
 		j++;
 	}
 
+    free(buf);
+
 	return NULL;
 }
 
