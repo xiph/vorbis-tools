@@ -20,160 +20,55 @@ The first attribute printed will always be the
 .B filename
 of the stream. 
 .B ogginfo
-cannot accept URLs. 
+cannot accept URLs.
+
+In addition to the comments,
 .B ogginfo
-will also print the following file attributes:
+will also print the following attributes for each logical bitstream within the file:
 .RS
+.IP serial
+The serial number of the logical bitstream.
 .IP header_integrity
 "pass" if the header is intact, and "fail" if it is corrupted.
 .IP stream_integrity
 "pass" if the stream contains no bad packets or holes (not counting the last 
 packet), and "fail" otherwise.
-.IP file_truncated
+.IP stream_truncated
 "true" if the last good packet in the stream is not marked as the last packet
 and "false" if the stream is complete.
+.IP vendor
+The vendor string of the encoder used to make this stream.
 .IP bitrate_upper
-The upper bitrate limit of the file, or "none" if not set.
+The upper bitrate limit of the stream, or "none" if not set.
 .IP bitrate_nominal
-The "target" bitrate of the file, or "none" if not set.
+The "target" bitrate of the stream, or "none" if not set.
 .IP bitrate_lower
-The lower bitrate limit of the file, or "none" if not set.
+The lower bitrate limit of the stream, or "none" if not set.
 .IP bitrate_average
-The average bitrate of the file.
+The average bitrate of the stream.
 .IP length
 Length of of the file in seconds.
 .IP playtime
 Playing time in a humanly-readable MM:SS format.
 .RE
 
+At the end of each file,
+.B ogginfo
+will also print:
+.RS
+.IP total_playtime
+The total playing time for the entire file in seconds.
+.RE
+
 .SH OPTIONS
 None.
 
-.SH EXAMPLES
-
-The
-.B ogginfo
-command line accepts as many filenames as your shell will allow.
-
-.PP
-Information about one file:
-.RS
-.B ogginfo track14.ogg
-.RE
-
-
-
-Will print:
-
-.RS
-.br
-.B
-filename=track14.ogg
-.br
-.B
-header_integrity=pass
-.br
-.B
-stream_integrity=pass
-.br
-.B
-file_truncated=false
-.br
-.B
-title=If I Had $1000000
-.br
-.B
-artist=Barenaked Ladies 
-.br
-.B
-album=Gordon
-.br
-.B
-tracknumber=14
-.br
-.B
-length=267.040000
-.br
-.B
-playtime=4:27
-.RE
-
-.PP
-Information on multiple files:
-.RS
-.B ogginfo track1.ogg track2.ogg
-.RE
-
-.PP
-Will print:
-
-.RS
-.br
-.B
-filename=track1.ogg
-.br
-.B
-header_integrity=pass
-.br
-.B
-stream_integrity=pass
-.br
-.B
-file_truncated=false
-.br
-.B
-title=The Vorbis Theme
-.br
-.B
-artist=Monty and The Wet Trouts
-.br
-.B
-album=Musical Penguins 3
-.br
-.B
-tracknumber=1
-.br
-.B
-length=67.38383
-.br
-.B
-playtime=1:07
-.br
-.B
-filename=track2.ogg
-.br
-.B
-header_integrity=pass
-.br
-.B
-stream_integrity=pass
-.br
-.B
-file_truncated=false
-.br
-.B
-title=Being for the Benefit of Mr. Fish
-.br
-.B
-artist=Monty and The Wet Trouts
-.br
-.B
-album=Musical Penguins 3
-.br
-.B
-tracknumber=2
-.br
-.B
-length=449.0000
-.br
-.B
-playtime=7:29
-.RE
-
 .SH BUGS
 
-.B ogginfo
-only checks the first bitstream in a file.
+Although
+.B ogginfo 
+properly handles chained bitstreams, it cannot handle multiplexed
+logical bitstreams
 
 .SH AUTHORS
 

@@ -14,18 +14,12 @@
 #include <string.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
 
-void doinfo(char *);
-int  dointegritycheck(char *);
-int  test_header(FILE *fp, ogg_sync_state *oy, ogg_stream_state *os,
-		 vorbis_info    *vi,  vorbis_comment  *vc);
-int  test_stream(FILE *fp, ogg_sync_state *oy, ogg_stream_state *os);
+int dointegritycheck(char *filename);
 
 int main(int ac,char **av)
 {
   int i;
-  int header_state;
 
   if ( ac < 2 ) {
     fprintf(stderr,"Usage: %s [filename1.ogg] ... [filenameN.ogg]\n",av[0]);
@@ -34,161 +28,65 @@ int main(int ac,char **av)
 
   for(i=1;i!=ac;i++) {
     printf("filename=%s\n",av[i]);
-    header_state = dointegritycheck(av[i]);
-    if (header_state == 1)
-      doinfo(av[i]);
+    dointegritycheck(av[i]);
+    if (i < ac - 1)
+      printf("\n---\n\n");
   }
-  return(0);
-  
+
+  return(0);  
 }
 
-void doinfo(char *filename)
+
+void calc_playtime(double playtime, long *playmin, long *playsec)
 {
-  FILE *fp;
-  OggVorbis_File vf;
+  *playmin = (long)playtime / (long)60;
+  *playsec = (long)playtime - (*playmin*60);
+}
+
+
+void print_header_info(vorbis_comment *vc, vorbis_info *vi)
+{
   int rc,i;
-  vorbis_comment *vc;
-  vorbis_info *vi;
-  double playtime;
-  long playmin,playsec;
-
-  memset(&vf,0,sizeof(OggVorbis_File));
-  
-  fp = fopen(filename,"rb");
-  if (!fp) {
-    fprintf(stderr,"Unable to open \"%s\": %s\n",
-	    filename,
-	    strerror(errno));
-  }
-
-  rc = ov_open(fp,&vf,NULL,0);
-
-  if (rc < 0) {
-    fprintf(stderr,"Unable to understand \"%s\", errorcode=%d\n",
-	    filename,rc);
-    return;
-  }
-  
-  vc = ov_comment(&vf,-1);
 
   for (i=0; i < vc->comments; i++) {
     printf("%s\n",vc->user_comments[i]);
   }
 
-  vi = ov_info(&vf,-1);
-  if (vi)
-  {
-    printf("version=%d\n"
-           "channels=%d\n",
-           vi->version, vi->channels);
-    
-    printf("bitrate_upper=");
-    if (vi->bitrate_upper == -1) 
-      printf("none\n");
-    else 
-      printf("%d\n", vi->bitrate_upper);
+  printf("vendor=%s\n", vc->vendor);
 
-    printf("bitrate_nominal=");
-    if (vi->bitrate_nominal == -1) 
-      printf("none\n");
-    else 
-      printf("%d\n", vi->bitrate_nominal);
-
-    printf("bitrate_lower=");
-    if (vi->bitrate_lower == -1) 
-      printf("none\n");
-    else 
-      printf("%d\n", vi->bitrate_lower);
-
-    printf("bitrate_average=%ld\n", ov_bitrate(&vf,-1));
-  }
-
-  playtime = ov_time_total(&vf,-1);
-
-  playmin = (long)playtime / (long)60;
-  playsec = (long)playtime - (playmin*60);
-  printf("length=%f\n",playtime);
-  printf("playtime=%ld:%02ld\n",playmin,playsec);
-
-  ov_clear(&vf);
-
-  return;
+  printf("version=%d\n"
+	 "channels=%d\n"
+	 "rate=%ld\n",
+	 vi->version, vi->channels, vi->rate);
+  
+  printf("bitrate_upper=");
+  if (vi->bitrate_upper < 0) 
+    printf("none\n");
+  else 
+    printf("%ld\n", vi->bitrate_upper);
+  
+  printf("bitrate_nominal=");
+  if (vi->bitrate_nominal < 0) 
+    printf("none\n");
+  else 
+    printf("%ld\n", vi->bitrate_nominal);
+  
+  printf("bitrate_lower=");
+  if (vi->bitrate_lower < 0) 
+    printf("none\n");
+  else 
+    printf("%ld\n", vi->bitrate_lower);
 }
 
-/* Tests the integrity of a vorbis stream.  Returns 1 if the header is good
-   (but not necessarily the rest of the stream) and 0 otherwise.
-   
-   Huge chunks of this function are from decoder_example.c (Copyright
-   1994-2001 Xiphophorus Company). */
-int dointegritycheck(char *filename)
+
+void print_stream_info (double playtime, ogg_int64_t bits)
 {
-  int header_state = -1; /* Assume the worst */
-  int stream_state = -1;
+  long playmin, playsec;
 
-  ogg_sync_state   oy; /* sync and verify incoming physical bitstream */
-  ogg_stream_state os; /* take physical pages, weld into a logical
-			  stream of packets */
-  vorbis_info      vi; /* struct that stores all the static vorbis bitstream
-			  settings */
-  vorbis_comment   vc; /* struct that stores all the bitstream user comments */
-  
-  FILE *fp;
-  
-  /********** Decode setup ************/
-
-  fp = fopen(filename,"rb");
-  if (!fp) {
-    fprintf(stderr,"Unable to open \"%s\": %s\n",
-	    filename,
-	    strerror(errno));
-    return 0;
-  }
-
-  ogg_sync_init(&oy); /* Now we can read pages */
-  
-  if ( (header_state = test_header(fp, &oy, &os, &vi, &vc)) == 1 ) {
-
-    stream_state = test_stream(fp, &oy, &os);
-  }
-
-  /* Output test results */
-  if (header_state == 1)
-    printf("header_integrity=pass\n");
-  else
-    printf("header_integrity=fail\n");
-
-  if (stream_state >= 0)
-    printf("stream_integrity=pass\n");
-  else
-    printf("stream_integrity=fail\n");
-
-  if (stream_state > 0)
-    printf("file_truncated=false\n");
-  else
-    printf("file_truncated=true\n");
-
-  
-  /* clean up this logical bitstream; before exit we see if we're
-     followed by another [chained] */
-
-  if (header_state == 0) {
-    /* We got far enough to initialize these structures */
-
-    ogg_stream_clear(&os);
-    
-    /* ogg_page and ogg_packet structs always point to storage in
-       libvorbis.  They're never freed or manipulated directly */
-    
-    vorbis_comment_clear(&vc);
-    vorbis_info_clear(&vi);  /* must be called last */
-  }
-
-  /* OK, clean up the framer */
-  ogg_sync_clear(&oy);
-  
-  fclose(fp);
-
-  return header_state > 0 ? 1 : 0;
+  calc_playtime(playtime, &playmin, &playsec);
+  printf("bitrate_average=%ld\n", (long) (bits/playtime));
+  printf("length=%f\n", playtime);
+  printf("playtime=%ld:%02ld\n", playmin, playsec);
 }
 
 /* Test the integrity of the stream header.  
@@ -198,7 +96,7 @@ int dointegritycheck(char *filename)
     -1 if it is corrupted and os, vi, and vc were not initialized 
        (don't clear them) */
 int test_header (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os,
-		 vorbis_info *vi,  vorbis_comment  *vc)
+		 vorbis_info *vi, vorbis_comment  *vc, long *serialno)
 {
   ogg_page         og; /* one Ogg bitstream page.  Vorbis packets are inside */
   ogg_packet       op; /* one raw packet of data for decode */
@@ -225,7 +123,8 @@ int test_header (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os,
   
   /* Get the serial number and set up the rest of decode. */
   /* serialno first; use it to set up a logical stream */
-  ogg_stream_init(os,ogg_page_serialno(&og));
+  *serialno = ogg_page_serialno(&og);
+  ogg_stream_init(os, *serialno);
   
   /* extract the initial header from the first page and verify that the
      Ogg bitstream is in fact Vorbis data */
@@ -300,12 +199,14 @@ int test_header (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os,
   return 1;
 }
 
+
 /* Test the integrity of the vorbis stream after the header.
    Return:
      >0 if the stream is correct and complete
      0 if the stream is correct but truncated
     -1 if the stream is corrupted somewhere in the middle */
-int test_stream (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os)
+int test_stream (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os, 
+		 ogg_int64_t *final_granulepos, ogg_int64_t *bits)
 {
   int eos = 0;
   ogg_page         og; /* one Ogg bitstream page.  Vorbis packets are inside */
@@ -340,15 +241,116 @@ int test_stream (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os)
 	}
       }
       if(!eos){
-	buffer=ogg_sync_buffer(oy,4096);
-	bytes=fread(buffer,1,4096,fp);
+	buffer = ogg_sync_buffer(oy,4096);
+	bytes = fread(buffer,1,4096,fp);
+	*bits += 8 * bytes;
 	ogg_sync_wrote(oy,bytes);
-	if(bytes==0)eos=1;
+	if(bytes == 0) 
+	  eos = 1;
       }
     }
+
+    *final_granulepos = ogg_page_granulepos(&og);
 
     /* Make sure that the last page is marked as the end-of-stream */
     return ogg_page_eos(&og);
 }
+
+
+/* Tests the integrity of a vorbis stream.  Returns 1 if the header is good
+   (but not necessarily the rest of the stream) and 0 otherwise.
+   
+   Huge chunks of this function are from decoder_example.c (Copyright
+   1994-2001 Xiphophorus Company). */
+int dointegritycheck(char *filename)
+{
+  int header_state = -1; /* Assume the worst */
+  int stream_state = -1;
+
+  ogg_sync_state   oy; /* sync and verify incoming physical bitstream */
+  ogg_stream_state os; /* take physical pages, weld into a logical
+			  stream of packets */
+  vorbis_info      vi; /* struct that stores all the static vorbis bitstream
+			  settings */
+  vorbis_comment   vc; /* struct that stores all the bitstream user comments */
+  
+  FILE *fp;
+  int eof = 0;
+  long serialno;
+  ogg_int64_t bits, final_granulepos;
+  double playtime, total_playtime = 0.0;
+  long total_playmin, total_playsec;
+
+  /********** Decode setup ************/
+
+  fp = fopen(filename,"rb");
+  if (!fp) {
+    fprintf(stderr,"Unable to open \"%s\": %s\n",
+	    filename,
+	    strerror(errno));
+    return 0;
+  }
+
+  ogg_sync_init(&oy); /* Now we can read pages */
+  
+  while (!eof) {
+    bits = 0;
+
+    if ( (header_state = test_header(fp, &oy, &os, &vi, &vc, 
+				     &serialno)) == 1 ) {
+      stream_state = test_stream(fp, &oy, &os, &final_granulepos, 
+				 &bits);
+    }
+
+    /* Output test results */
+    if (header_state == 1) {
+      printf("\nserial=%d\n", serialno);
+      printf("header_integrity=pass\n");
+      print_header_info(&vc, &vi);
+    } else
+      printf("header_integrity=fail\n");
+    
+    if (stream_state >= 0) {
+      playtime = (double) final_granulepos / vi.rate;
+      total_playtime += playtime;
+      printf("stream_integrity=pass\n");
+      print_stream_info(playtime, bits);
+    } else
+      printf("stream_integrity=fail\n");
+    
+    if (stream_state > 0)
+      printf("stream_truncated=false\n");
+    else
+      printf("stream_truncated=true\n");
+    
+    /* clean up this logical bitstream; before exit we see if we're
+       followed by another [chained] */
+    eof = feof(fp);
+  }
+  
+  calc_playtime(total_playtime, &total_playmin, &total_playsec);
+  printf("\ntotal_length=%f\n", total_playtime);
+  printf("total_playtime=%ld:%02ld\n", total_playmin, total_playsec);
+
+  if (header_state >= 0) {
+
+    /* We got far enough to initialize these structures */
+    ogg_stream_clear(&os);
+      
+    /* ogg_page and ogg_packet structs always point to storage in
+       libvorbis.  They're never freed or manipulated directly */
+    
+    vorbis_comment_clear(&vc);
+    vorbis_info_clear(&vi);  /* must be called last */
+  }
+  
+  /* OK, clean up the framer */
+  ogg_sync_clear(&oy);
+  
+  fclose(fp);
+
+  return header_state > 0 ? 1 : 0;
+}
+
 
 

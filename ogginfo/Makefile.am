@@ -8,7 +8,7 @@ man_MANS = ogginfo.1
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
-ogginfo_LDADD = @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@
+ogginfo_LDADD = @VORBIS_LIBS@ @OGG_LIBS@
 
 ogginfo_SOURCES = ogginfo.c
 
