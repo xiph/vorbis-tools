@@ -32,6 +32,8 @@ typedef struct {
 	char	*infilename, *outfilename;
 	char	*commentfilename;
 	FILE	*in, *out, *com;
+	int commentcount;
+	char **comments;
 	int tempoutfile;
 } param_t;
 
@@ -68,6 +70,7 @@ int main(int argc, char **argv)
 	vcedit_state *state;
 	vorbis_comment *vc;
 	param_t	*param;
+	int i;
 
 	/* initialize the cmdline interface */
 	param = new_param();
@@ -120,7 +123,14 @@ int main(int argc, char **argv)
 			vorbis_comment_init(vc);
 		}
 
+		for(i=0; i < param->commentcount; i++)
+		{
+			if(add_comment(param->comments[i], vc) < 0)
+				fprintf(stderr, "Bad comment: \"%s\"\n", param->comments[i]);
+		}
+
 		/* build the replacement structure */
+		if(param->commentcount==0)
 		{
 			/* FIXME should use a resizeable buffer! */
 			char *buf = (char *)malloc(sizeof(char)*1024);
@@ -242,6 +252,11 @@ void usage(void)
 		"   instead of stdin.\n"
 		"   Example: vorbiscomment -a in.ogg -c comments.txt\n"
 		"   will append the comments in comments.txt to in.ogg\n"
+		"   Finally, you may specify any number of tags to add on\n"
+		"   the command line using the -t option. e.g.\n"
+		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
+		"   (note that when using this, reading comments from the comment\n"
+		"   file or stdin is disabled)\n"
 	); 
 }
 
@@ -268,6 +283,10 @@ param_t *new_param(void)
 	param->in = param->out = NULL;
 	param->com = NULL;
 
+	param->commentcount=0;
+	param->comments=NULL;
+	param->tempoutfile=0;
+
 	return param;
 }
 
@@ -285,7 +304,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 	int ret;
 	int option_index = 1;
 
-	while ((ret = getopt_long(argc, argv, "alwhqc:",
+	while ((ret = getopt_long(argc, argv, "alwhqc:t:",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -310,6 +329,11 @@ void parse_options(int argc, char *argv[], param_t *param)
 				break;
 			case 'c':
 				param->commentfilename = strdup(optarg);
+				break;
+			case 't':
+				param->comments = realloc(param->comments, 
+						(param->commentcount+1)*sizeof(char *));
+				param->comments[param->commentcount++] = strdup(optarg);
 				break;
 			default:
 				usage();
