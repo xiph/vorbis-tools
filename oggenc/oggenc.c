@@ -192,6 +192,8 @@ int main(int argc, char **argv)
 		if(!foundformat)
 		{
 			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]);
+    		if(closein)
+				fclose(in);
 			errors++;
 			continue;
 		}
