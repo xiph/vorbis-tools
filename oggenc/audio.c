@@ -17,6 +17,7 @@
 #include "audio.h"
 #include "platform.h"
 #include "i18n.h"
+#include "resample.h"
 
 #define WAV_HEADER_SIZE 44
 
@@ -582,3 +583,142 @@ int raw_open(FILE *in, oe_enc_opt *opt)
 	opt->total_samples_per_channel = 0; /* raw mode, don't bother */
 	return 1;
 }
+
+typedef struct {
+    res_state resampler;
+    audio_read_func real_reader;
+    void *real_readdata;
+    float **bufs;
+    int channels;
+    int bufsize;
+    int done;
+} resampler;
+
+long read_resampled(void *d, float **buffer, int samples)
+{
+    resampler *rs = d;
+    long in_samples;
+    int out_samples;
+    int i;
+
+    in_samples = res_push_max_input(&rs->resampler, samples);
+    if(in_samples > rs->bufsize)
+        in_samples = rs->bufsize;
+
+    in_samples = rs->real_reader(rs->real_readdata, rs->bufs, in_samples);
+
+    if(in_samples <= 0) {
+        if(!rs->done) {
+            rs->done = 1;
+            out_samples = res_drain(&rs->resampler, buffer);
+            return out_samples;
+        }
+        return 0;
+    }
+
+    out_samples = res_push(&rs->resampler, buffer, (float const **)rs->bufs, in_samples);
+
+    if(out_samples <= 0) {
+        fprintf(stderr, _("BUG: Got zero samples from resampler: your file will be truncated. Please report this.\n"));
+    }
+
+    return out_samples;
+}
+
+int setup_resample(oe_enc_opt *opt) {
+    resampler *rs = calloc(1, sizeof(resampler));
+    int c;
+
+    rs->bufsize = 4096; /* Shrug */
+    rs->real_reader = opt->read_samples;
+    rs->real_readdata = opt->readdata;
+    rs->bufs = malloc(sizeof(float *) * opt->channels);
+    rs->channels = opt->channels;
+    rs->done = 0;
+    if(res_init(&rs->resampler, rs->channels, opt->resamplefreq, opt->rate, RES_END))
+    {
+        fprintf(stderr, _("Couldn't initialise resampler\n"));
+        return -1;
+    }
+
+    for(c=0; c < opt->channels; c++)
+        rs->bufs[c] = malloc(sizeof(float) * rs->bufsize);
+
+    opt->read_samples = read_resampled;
+    opt->readdata = rs;
+    if(opt->total_samples_per_channel)
+        opt->total_samples_per_channel = (int)((float)opt->total_samples_per_channel * 
+            ((float)opt->resamplefreq/(float)opt->rate));
+    opt->rate = opt->resamplefreq;
+
+    return 0;
+}
+
+void clear_resample(oe_enc_opt *opt) {
+    resampler *rs = opt->readdata;
+    int i;
+
+    opt->read_samples = rs->real_reader;
+    opt->readdata = rs->real_readdata;
+    res_clear(&rs->resampler);
+
+    for(i = 0; i < rs->channels; i++)
+        free(rs->bufs[i]);
+
+    free(rs->bufs);
+
+    free(rs);
+}
+
+typedef struct {
+    audio_read_func real_reader;
+    void *real_readdata;
+    float **bufs;
+} downmix;
+
+long read_downmix(void *data, float **buffer, int samples)
+{
+    downmix *d = data;
+    long in_samples = d->real_reader(d->real_readdata, d->bufs, samples);
+    int i;
+
+    for(i=0; i < in_samples; i++) {
+        buffer[0][i] = (d->bufs[0][i] + d->bufs[1][i])*0.5;
+    }
+
+    return in_samples;
+}
+
+void setup_downmix(oe_enc_opt *opt) {
+    downmix *d = calloc(1, sizeof(downmix));
+
+    if(opt->channels != 2) {
+        fprintf(stderr, "Internal error! Please report this bug.\n");
+        return;
+    }
+    
+    d->bufs = malloc(2 * sizeof(float *));
+    d->bufs[0] = malloc(4096 * sizeof(float));
+    d->bufs[1] = malloc(4096 * sizeof(float));
+    d->real_reader = opt->read_samples;
+
+    d->real_readdata = opt->readdata;
+
+    opt->read_samples = read_downmix;
+    opt->readdata = d;
+
+    opt->channels = 1;
+}
+void clear_downmix(oe_enc_opt *opt) {
+    downmix *d = opt->readdata;
+
+    opt->read_samples = d->real_reader;
+    opt->readdata = d->real_readdata;
+    opt->channels = 2; /* other things in cleanup rely on this */
+
+    free(d->bufs[0]);
+    free(d->bufs[1]);
+    free(d->bufs);
+    free(d);
+}
+

@@ -73,6 +73,9 @@ typedef struct
 	/* Float from 0 to 1 (low->high) */
 	float quality;
 
+    int resamplefreq;
+    int downmix;
+
 	unsigned int serial;
 } oe_options;
 
@@ -94,6 +97,7 @@ typedef struct
 	long rate;
 	int samplesize;
     int endianness;
+    int resamplefreq;
 
 	/* Various bitrate/quality options */
     int managed;

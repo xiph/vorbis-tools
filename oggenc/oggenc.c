@@ -25,7 +25,7 @@
 #include "i18n.h"
 
 
-#define VERSION_STRING "OggEnc v0.9 (libvorbis rc3)\n"
+#define VERSION_STRING "OggEnc v0.95 (libvorbis rc4)\n"
 #define COPYRIGHT "(c) 2000-2002 Michael Smith <msmith@labyrinth.net.au>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
@@ -56,6 +56,8 @@ struct option long_options[] = {
 	{"tracknum",1,0,'N'},
 	{"serial",1,0,'s'},
     {"managed", 0, 0, 0},
+    {"resample",1,0,0},
+    {"downmix", 0,0,0},
 	{NULL,0,0,0}
 };
 	
@@ -73,7 +75,7 @@ int main(int argc, char **argv)
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,DEFAULT_NAMEFMT_REMOVE, 
-        DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,128,-1,0.3,0};
+        DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,128,-1,0.3,0, 0,0};
 	int i;
 
 	char **infiles;
@@ -286,6 +288,32 @@ int main(int argc, char **argv)
 		enc_opts.max_bitrate = opt.max_bitrate;
 		enc_opts.quality = opt.quality;
 
+        if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate) {
+            enc_opts.resamplefreq = opt.resamplefreq;
+            if(setup_resample(&enc_opts)) {
+                errors++;
+                goto clear_all;
+            }
+            else if(!opt.quiet)
+                fprintf(stderr, _("Resampling input from %d Hz to %d Hz\n"), enc_opts.rate, opt.resamplefreq);
+        }
+
+        if(opt.downmix) {
+            if(enc_opts.channels == 2) {
+                setup_downmix(&enc_opts);
+                if(!opt.quiet)
+                    fprintf(stderr, _("Downmixing stereo to mono\n"));
+            }
+            else {
+                fprintf(stderr, _("ERROR: Can't downmix except from stereo to mono\n"));
+                errors++;
+                if(opt.resamplefreq)
+                    clear_resample(&enc_opts);
+                goto clear_all;
+            }
+        }
+
+
 		if(!enc_opts.total_samples_per_channel)
 			enc_opts.progress_update = update_statistics_notime;
 
@@ -299,7 +327,14 @@ int main(int argc, char **argv)
 		if(oe_encode(&enc_opts))
 			errors++;
 
+        if(opt.downmix)
+            clear_downmix(&enc_opts);
+        if(opt.resamplefreq)
+            clear_resample(&enc_opts);
+clear_all:
+
 		if(out_fn) free(out_fn);
+        if(opt.outfile) free(opt.outfile);
 		vorbis_comment_clear(&vc);
 		if(!opt.rawmode) 
 			format->close_func(enc_opts.readdata);
@@ -354,6 +389,9 @@ static void usage(void)
 		"                      instead of specifying a particular bitrate.\n"
 		"                      This is the normal mode of operation.\n"
         "                      Fractional qualities (e.g. 2.75) are permitted\n"
+        " --resample n         Resample input data to sampling rate n\n"
+        " --downmix            Downmix stereo to mono. Only allowed on stereo\n"
+        "                      input.\n"
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
@@ -532,7 +570,20 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 	    				opt->rawmode = 1;
 		    			fprintf(stderr, _("WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"));
 			    	}
-                    opt->raw_endianness = atoi(optarg);
+				    if(sscanf(optarg, "%d", &opt->raw_endianness) != 1) {
+                        fprintf(stderr, _("WARNING: Couldn't read endianness argument \"%s\"\n"), optarg);
+    					opt->raw_endianness = 0;
+                    }
+                }
+                else if(!strcmp(long_options[option_index].name,
+                            "resample")) {
+				    if(sscanf(optarg, "%d", &opt->resamplefreq) != 1) {
+                        fprintf(stderr, _("WARNING: Couldn't read resampling frequency \"%s\"\n"), optarg);
+    					opt->resamplefreq = 0;
+                    }
+                }
+                else if(!strcmp(long_options[option_index].name, "downmix")) {
+                    opt->downmix = 1;
                 }
                 else {
 				    fprintf(stderr, _("Internal error parsing command line options\n"));
@@ -545,6 +596,8 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				opt->artist[opt->artist_count - 1] = strdup(optarg);
 				break;
 			case 'c':
+                if(strchr(optarg, '=') == NULL)
+                    fprintf(stderr, _("Warning: Illegal comment used (\"%s\")\n"), optarg);
 				opt->comments = realloc(opt->comments, (++opt->comment_count)*sizeof(char *));
 				opt->comments[opt->comment_count - 1] = strdup(optarg);
 				break;

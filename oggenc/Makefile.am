@@ -17,7 +17,7 @@ oggenc_LDADD = @VORBISENC_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ \
 oggenc_DEPENDENCIES = @SHARE_LIBS@
 
 oggenc_SOURCES = oggenc.c audio.c encode.c platform.c \
-                 audio.h encode.h platform.h
+                 audio.h encode.h platform.h resample.c resample.h
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

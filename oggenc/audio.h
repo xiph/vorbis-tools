@@ -5,6 +5,11 @@
 #include "encode.h"
 #include <stdio.h>
 
+int setup_resample(oe_enc_opt *opt);
+void clear_resample(oe_enc_opt *opt);
+void setup_downmix(oe_enc_opt *opt);
+void clear_downmix(oe_enc_opt *opt);
+
 typedef struct
 {
 	int (*id_func)(unsigned char *buf, int len); /* Returns true if can load file */
