@@ -2,12 +2,7 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-if PREFIX_IS_USR
-mandir = $(datadir)/man
-else
-mandir = $(prefix)/man
-endif
-
+mandir = @MANDIR@
 man_MANS = oggenc.1
 
 EXTRA_DIST = $(man_MANS)

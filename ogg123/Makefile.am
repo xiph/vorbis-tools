@@ -5,7 +5,7 @@ AUTOMAKE_OPTIONS = foreign
 bin_PROGRAMS = ogg123
 docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
 doc_DATA = ogg123rc-example
-mandir = $(datadir)/man
+mandir = @MANDIR@
 man_MANS = ogg123.1
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@

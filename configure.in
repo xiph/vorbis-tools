@@ -74,7 +74,12 @@ dnl --------------------------------------------------
 dnl Work around FHS stupidity
 dnl --------------------------------------------------
 
-AM_CONDITIONAL(PREFIX_IS_USR, test x$prefix = x"/usr")
+if test "$prefix" = "/usr"; then
+    MANDIR='$(datadir)/man'
+else
+    MANDIR='$(prefix)/man'
+fi
+AC_SUBST(MANDIR)
 
 dnl --------------------------------------------------
 dnl Do substitutions
