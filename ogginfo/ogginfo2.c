@@ -306,16 +306,14 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                     }
 
                     if(!broken) {
-                        /* A hack around brokenness in the utf8 decoder */
-                        if(strlen(sep+1) == 0)
-                            decoded = sep+1;
-                        else if(utf8_decode(sep+1, &decoded) < 0) {
+                        if(utf8_decode(sep+1, &decoded) < 0) {
                             warn(_("Warning: Failure in utf8 decoder. This "
                                    "should be impossible\n"));
                             continue;
                         }
                         *sep = 0;
                         info("\t%s=%s\n", inf->vc.user_comments[i], decoded);
+                        free(decoded);
                     }
                 }
             }

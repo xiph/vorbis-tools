@@ -305,6 +305,12 @@ int utf8_decode(const char *from, char **to)
 {
   char *charset;
 
+  if(*from == 0) {
+      *to = malloc(1);
+      **to = 0;
+      return 1;
+  }
+
   if (!current_charset)
     convert_set_charset(0);
   charset = current_charset ? current_charset : "US-ASCII";
