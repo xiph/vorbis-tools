@@ -60,7 +60,7 @@ if test -n $with_vorbis; then
 fi
 AC_CHECK_LIB(vorbis, vorbis_info_init, LIBS="$LIBS -lvorbis", AC_MSG_ERROR([You must have libvorbis to compile vorbis-tools!!!]))
 
-AM_PATH_AO(0.0.0,,AC_MSG_ERROR(libao needed!))
+AM_PATH_AO(1.0.0,,AC_MSG_ERROR(libao needed!))
 
 dnl --------------------------------------------------
 dnl Check for library functions

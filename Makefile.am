@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = foreign dist-zip
 
 SUBDIRS = oggenc ogg123 vorbiscomment
 
-EXTRA_DIST = README
+EXTRA_DIST = README vorbis-tools.spec
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
