@@ -23,13 +23,6 @@
 
 #define CHUNK 4500
 
-/* Different implementations have different format strings for 64 bit ints. */
-#ifdef _WIN32
-#define INT64FORMAT "%I64d"
-#else
-#define INT64FORMAT "%Ld"
-#endif
-
 struct vorbis_release {
     char *vendor_string;
     char *desc;
@@ -363,9 +356,13 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
-                warn(_("Warning: granulepos in stream %d decreases from " 
-                        INT64FORMAT " to " INT64FORMAT "\n"), stream->num,
-                        inf->lastgranulepos, gp);
+#ifdef _WIN32
+                warn(_("Warning: granulepos in stream %d decreases from %I64d to %I64d" ),
+                        stream->num, inf->lastgranulepos, gp);
+#else
+                warn(_("Warning: granulepos in stream %d decreases from %Ld to %Ld" ),
+                        stream->num, inf->lastgranulepos, gp);
+#endif
             inf->lastgranulepos = gp;
         }
         else {
@@ -579,8 +576,11 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
 
     while((ret = ogg_sync_pageout(sync, page)) <= 0) {
         if(ret < 0)
-            warn(_("Warning: Hole in data found at approximate offset "
-                   INT64FORMAT " bytes. Corrupted ogg.\n"), *written);
+#ifdef _WIN32
+            warn(_("Warning: Hole in data found at approximate offset %I64d bytes. Corrupted ogg.\n"), *written);
+#else
+            warn(_("Warning: Hole in data found at approximate offset %Ld bytes. Corrupted ogg.\n"), *written);
+#endif
 
         buffer = ogg_sync_buffer(sync, CHUNK);
         bytes = fread(buffer, 1, CHUNK, f);
