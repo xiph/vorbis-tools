@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.12 2001/12/19 05:37:32 volsung Exp $
+ last mod: $Id: buffer.c,v 1.13 2001/12/20 00:24:53 volsung Exp $
 
  ********************************************************************/
 
@@ -758,6 +758,7 @@ buffer_stats_t *buffer_statistics (buf_t *buf)
 
   stats->size = buf->size;
   stats->fill = (double) buf->curfill / (double) buf->size * 100.0;
+  stats->prebuffer_fill = (double) buf->prebuffer_size / (double) buf->size;
   stats->prebuffering = buf->prebuffering;
   stats->paused = buf->paused;
   stats->eos = buf->eos;
@@ -768,5 +769,3 @@ buffer_stats_t *buffer_statistics (buf_t *buf)
 
   return stats;
 }
-
-    

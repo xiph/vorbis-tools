@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: status.c,v 1.3 2001/12/19 04:59:17 volsung Exp $
+ last mod: $Id: status.c,v 1.4 2001/12/20 00:24:54 volsung Exp $
 
  ********************************************************************/
 
@@ -43,7 +43,8 @@ void write_buffer_state_string (char *dest, buffer_stats_t *buf_stats)
   char *sep = "(";
 
   if (buf_stats->prebuffering) {
-    cur += sprintf (cur, "%sPrebuf", sep);
+    cur += sprintf (cur, "%sPrebuf to %1.f%%", sep, 
+		    100.0f * buf_stats->prebuffer_fill);
     sep = comma;
   }
   if (buf_stats->paused) {

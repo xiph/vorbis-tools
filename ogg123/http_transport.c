@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.6 2001/12/20 00:10:14 jack Exp $
+ last mod: $Id: http_transport.c,v 1.7 2001/12/20 00:24:54 volsung Exp $
  
 ********************************************************************/
 
@@ -61,6 +61,8 @@ size_t write_callback (void *ptr, size_t size, size_t nmemb, void *arg)
   buf_t *buf = arg;
 
   buffer_submit_data(buf, ptr, size*nmemb);
+
+  pthread_testcancel();
 
   return size * nmemb;
 }

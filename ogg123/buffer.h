@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: buffer.h,v 1.4 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: buffer.h,v 1.5 2001/12/20 00:24:54 volsung Exp $
  
 ********************************************************************/
 
@@ -85,6 +85,7 @@ typedef struct action_t {
 typedef struct buffer_stats_t {
   long size;
   double fill;
+  double prebuffer_fill;
   int prebuffering;
   int paused;
   int eos;
