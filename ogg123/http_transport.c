@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.3 2001/12/19 04:59:16 volsung Exp $
+ last mod: $Id: http_transport.c,v 1.4 2001/12/19 05:37:32 volsung Exp $
  
 ********************************************************************/
 
@@ -27,8 +27,11 @@
 #include "transport.h"
 #include "buffer.h"
 #include "status.h"
+#include "callbacks.h"
 
 #define INPUT_BUFFER_SIZE 32768
+
+extern stat_format_t *stat_format;  /* Bad hack!  Will fix after RC3! */
 
 typedef struct http_private_t {
   buf_t *buf;
@@ -62,11 +65,28 @@ size_t write_callback (void *ptr, size_t size, size_t nmemb, void *arg)
   return size * nmemb;
 }
 
+int progress_callback (void *arg, size_t dltotal, size_t dlnow,
+		       size_t ultotal, size_t ulnow)
+{
+  data_source_t *source = arg;
+  print_statistics_arg_t *pstats_arg;
+
+  pstats_arg = new_print_statistics_arg(stat_format,
+					source->transport->statistics(source),
+					NULL);
+
+  print_statistics_action(NULL, pstats_arg);
+
+  return 0;
+}
+
 
 /* -------------------------- Private functions --------------------- */
 
-void set_curl_opts (CURL *handle, buf_t *buf, char *url, http_private_t *priv)
+void set_curl_opts (CURL *handle, buf_t *buf, char *url, data_source_t *source)
 {
+  http_private_t *private = (http_private_t *) source;
+
   curl_easy_setopt(handle, CURLOPT_FILE, buf);
   curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_callback);
   curl_easy_setopt(handle, CURLOPT_URL, url);
@@ -79,8 +99,10 @@ void set_curl_opts (CURL *handle, buf_t *buf, char *url, http_private_t *priv)
     curl_easy_setopt (handle, CURLOPT_HTTPPROXYTUNNEL, inputOpts.ProxyTunnel);
   */
   curl_easy_setopt(handle, CURLOPT_MUTE, 1);
-  curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, priv->error);
-  curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 1);
+  curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, private->error);
+  curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
+  curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, source);
+  //curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 1);
   curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123 "VERSION);
 }
 
@@ -188,7 +210,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
   if (private->curl_handle == NULL)
     goto fail;
 
-  set_curl_opts(private->curl_handle, private->buf, source_string, private);
+  set_curl_opts(private->curl_handle, private->buf, source_string, source);
 
   /* Start thread */
   if (pthread_create(&private->curl_thread, NULL, 
@@ -196,6 +218,12 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
 		     new_curl_thread_arg(private->buf, source, 
 					 private->curl_handle)) != 0)
     goto fail;
+
+
+  stat_format[2].enabled = 0;  /* remaining playback time */
+  stat_format[3].enabled = 0;  /* total playback time  */
+  stat_format[6].enabled = 1;  /* Input buffer fill % */
+  stat_format[7].enabled = 1;  /* Input buffer state  */
 
   return source;
 
