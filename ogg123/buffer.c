@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.18 2002/07/06 18:18:32 volsung Exp $
+ last mod: $Id: buffer.c,v 1.19 2002/07/14 05:38:00 volsung Exp $
 
  ********************************************************************/
 
@@ -532,7 +532,7 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
     if (buf->curfill == 0 && buf->eos)
       break; /* No more data to read */
       
-    if (buf->curfill == 0 && (buf->prebuffering && !buf->eos)) {
+    if (buf->curfill == 0 || (buf->prebuffering && !buf->eos)) {
       DEBUG("Waiting for more data to copy.");
       COND_WAIT(buf->playback_cond, buf->mutex);
     }
