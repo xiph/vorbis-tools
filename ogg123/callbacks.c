@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: callbacks.c,v 1.8 2003/01/12 20:19:22 volsung Exp $
+ last mod: $Id: callbacks.c,v 1.9 2003/09/05 19:25:30 volsung Exp $
 
  ********************************************************************/
 
@@ -61,7 +61,8 @@ void audio_reopen_action (buf_t *buf, void *arg)
 				     current->options);
     else
       current->device = ao_open_file(current->driver_id, current->filename,
-				     0, &format, current->options);
+				     1 /*overwrite*/, &format, 
+				     current->options);
     
     /* Report errors */
     if (current->device == NULL) {
