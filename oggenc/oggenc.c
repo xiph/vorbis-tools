@@ -323,8 +323,7 @@ static void print_deprecated_message(void) {
                     "(for example, certain audio streaming applications).\n"
                     "Usage of the bitrate management engine will generally decrease quality,\n"
                     "using the normal fully VBR modes (quality specified using -q) is\n"
-                    "very highly recommended for most users.\n"
-                    "Usage of the --managed option will become MANDATORY in the next release.\n\n"));
+                    "very highly recommended for most users.\n\n"));
 }
 
 static void usage(void)
@@ -344,7 +343,9 @@ static void usage(void)
         " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"
 		" -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
 		"                      to encode at a bitrate averaging this. Takes an\n"
-		"                      argument in kbps.\n"
+		"                      argument in kbps. This uses the bitrate management\n"
+        "                      engine, and is not recommended for most users.\n"
+        "                      See -q, --quality for a better alternative.\n"
 		" -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
 		"                      encoding for a fixed-size channel.\n"
 		" -M, --max-bitrate    Specify a maximum bitrate in kbps. Useful for\n"
@@ -518,7 +519,9 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		{
 			case 0:
                 if(!strcmp(long_options[option_index].name, "managed")) {
-                    fprintf(stderr, _("Enabling bitrate management engine\n"));
+                    if(!opt->quiet)
+                        fprintf(stderr, 
+                                _("Enabling bitrate management engine\n"));
                     opt->managed = 1;
                 }
                 else if(!strcmp(long_options[option_index].name, 
@@ -573,7 +576,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 			case 'b':
                 if(!opt->managed) {
                     print_deprecated_message();
-                    opt->managed = 1;
+                    exit(1);
                 }
 
    				if(sscanf(optarg, "%d", &opt->nominal_bitrate)
