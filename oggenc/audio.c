@@ -72,8 +72,10 @@ input_format *open_audio_file(FILE *in, oe_enc_opt *opt)
 		if(formats[j].id_func(buf, size))
 		{
 			/* ok, we now have something that can handle the file */
-			if(formats[j].open_func(in, opt, buf, size))
+			if(formats[j].open_func(in, opt, buf, size)) {
+                free(buf);
 				return &formats[j];
+            }
 		}
 		j++;
 	}
