@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.1 2001/01/17 11:02:45 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.2 2001/01/18 10:54:32 msmith Exp $
  */
 
 
@@ -199,7 +199,7 @@ int vcedit_write(vcedit_state *state, FILE *out)
 
 	ogg_stream_init(&streamout, state->serial);
 
-	vorbis_analysis_commentheader_out(state->vc, &header_comments);
+	vorbis_commentheader_out(state->vc, &header_comments);
 
 	ogg_stream_packetin(&streamout, &header_main);
 	ogg_stream_packetin(&streamout, &header_comments);
@@ -264,7 +264,7 @@ int vcedit_write(vcedit_state *state, FILE *out)
 
 	vorbis_comment_clear(state->vc);
 
-	vorbis_analysis_commentheader_clear(&header_comments);
+	ogg_packet_clear(&header_comments);
 	free(state->mainbuf);
 	free(state->bookbuf);
 
