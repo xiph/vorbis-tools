@@ -281,7 +281,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	format.blocksize = READ_U32_BE(buf2+4);
 
 	if( format.blocksize == 0 &&
-		format.samplesize == 16)
+		(format.samplesize == 16 || format.samplesize == 8))
 	{
 		/* From here on, this is very similar to the wav code. Oh well. */
 		
@@ -310,7 +310,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	{
 		fprintf(stderr, 
 				"Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-				" Must be 16 bit PCM.\n");
+				" Must be 8 or 16 bit PCM.\n");
 		return 0;
 	}
 }
@@ -385,7 +385,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
 	if(format.format == 1)
 	{
-		samplesize = 2;
+		samplesize = format.samplesize/8;
 		opt->read_samples = wav_read;
 	}
 	else if(format.format == 3)
@@ -404,7 +404,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
 
 	if( format.align == format.channels*samplesize &&
-		format.samplesize == 8*samplesize)
+			format.samplesize == samplesize*8)
 	{
 		if(format.samplerate != 44100)
 			fprintf(stderr, "Warning: Vorbis is currently not tuned for input\n"
@@ -478,8 +478,7 @@ long wav_read(void *in, float **buffer, int samples)
 		{
 			for(j=0; j < f->channels; j++)
 			{
-				buffer[j][i] = ( (int)(bufu[i*f->channels + j + 1]) - 128 ) 
-					/ 255.0f ;
+				buffer[j][i]=((int)(bufu[i*f->channels + j])-128)/128.0f;
 			}
 		}
 	}
