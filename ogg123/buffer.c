@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.19 2002/07/14 05:38:00 volsung Exp $
+ last mod: $Id: buffer.c,v 1.20 2003/05/03 14:24:33 volsung Exp $
 
  ********************************************************************/
 
@@ -360,7 +360,7 @@ buf_t *buffer_create (long size, long prebuffer,
   buf_t *buf = malloc (sizeof(buf_t) + sizeof (char) * (size - 1));
 
   if (buf == NULL) {
-      perror (_("malloc"));
+      perror ("malloc");
       exit(1);
   }
 
