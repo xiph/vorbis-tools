@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii ogg123.1
 .\"
-.TH ogg123 1 "July 29, 2000" "" "Vorbis Tools"
+.TH ogg123 1 "June 19, 2001" "" "Vorbis Tools"
 
 .SH NAME
 ogg123 \- plays Ogg Vorbis files
@@ -58,15 +58,15 @@ Quiet mode.  No messages are displayed.
 .IP "-V, --version"
 Display version information.
 .IP "-v, --verbose"
-Increase verbosity.  (Currently not implemented.)
+Increase verbosity.
 .IP "-z, --shuffle"
-Play files in random order.
+Play files in pseudo-random order.
 
 .SH DEVICES
 
 .B ogg123
-supports a variety of audio output devices.  Only those devices
-supported by the target platform will be compiled in.
+supports a variety of audio output devices through libao.  Only those
+devices supported by the target platform will be compiled in.
 
 .IP null
 Null driver.  All audio data is discarded.  (Note: Audio data is not
@@ -165,7 +165,7 @@ Use the ESD driver
 .RE
 .PP
 
-Use the WAV driver with the default output file, "ouput.wav":
+Use the WAV driver with the default output file, "output.wav":
 .RS
 .B ogg123 -d wav test.ogg
 .RE
@@ -227,7 +227,10 @@ Per-user config file to override the system wide output device settings.
 
 .SH BUGS
 
-The WAV driver does not interpret the file "-" as stdout.
+The WAV driver does not interpret the file "-" as stdout. Note that
+there are issues with streaming WAV-format audio, so there is no way
+to fix this properly. Use the raw output driver if you need to use
+ogg123 in a pipe.
 
 .SH AUTHORS
 
