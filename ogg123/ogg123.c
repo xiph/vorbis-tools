@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.21 2001/01/25 06:39:31 giles Exp $
+ last mod: $Id: ogg123.c,v 1.22 2001/01/25 11:31:14 msmith Exp $
 
  ********************************************************************/
 
@@ -99,9 +99,8 @@ int main(int argc, char **argv)
     int option_index = 1;
     ao_option_t *temp_options = NULL;
     int temp_driver_id = -1;
-    devices_t *current;
-    int bits, rate, channels;
     buf_t *buffer = NULL;
+	devices_t *current;
 
     opt.read_file = NULL;
     opt.shuffle = 0;
@@ -185,36 +184,8 @@ int main(int argc, char **argv)
 
     /* Open all of the devices */
 
-    /* FIXME: OggVorbis files aren't all 16 bit 44.1k stereo. */
-    /* Heck, they might not even be Vorbis :) PCM-Ogg? */
-    bits = 16;
-    rate = 44100;
-    channels = 2;
-    current = opt.outdevices;
-
     if (opt.verbose > 0)
 	fprintf(stderr, "Opening devices...\n");
-
-    while (current != NULL) {
-	ao_info_t *info = ao_get_driver_info(current->driver_id);
-
-	if (opt.verbose > 0) {
-	    fprintf(stderr, "Device:   %s\n", info->name);
-	    fprintf(stderr, "Author:   %s\n", info->author);
-	    fprintf(stderr, "Comments: %s\n", info->comment);
-	}
-
-	current->device = ao_open(current->driver_id, bits, rate, channels,
-				  current->options);
-	if (current->device == NULL) {
-	    fprintf(stderr, "Error opening device.\n");
-	    exit(1);
-	}
-	if (opt.quiet < 1)
-	    fprintf(stderr, "\n");	// Gotta keep 'em separated ...
-
-	current = current->next_device;
-    }
 
     if (opt.buffer_size)
       buffer = fork_writer (opt.buffer_size, opt.outdevices);
@@ -373,6 +344,9 @@ void play_file(ogg123_options_t opt, buf_t *buffer)
 	vorbis_comment *vc = ov_comment(&vf, -1);
 	vorbis_info *vi = ov_info(&vf, -1);
 
+	if(open_audio_devices(&opt, vi->rate, vi->channels) < 0)
+		exit(1);
+
 	if (opt.quiet < 1) {
 	    for (i = 0; i < vc->comments; i++) {
 		char *cc = vc->user_comments[i];	/* current comment */
@@ -489,4 +463,49 @@ FILE *http_open(char *server, int port, char *path)
 	return NULL;
     }
     return fdopen(sockfd, "r+b");
+}
+
+int open_audio_devices(ogg123_options_t *opt, int rate, int channels)
+{
+    static int prevrate=0, prevchan=0;
+    devices_t *current;
+
+    if(prevrate == rate && prevchan == channels)
+	return 0;
+
+	if(prevrate !=0 && prevchan!=0)
+	{
+		current = opt->outdevices;
+    	while (current != NULL) {
+	      ao_close(current->device);
+		  current = current->next_device;
+		}
+    }
+
+    prevrate = rate;
+    prevchan = channels;
+
+	current = opt->outdevices;
+    while (current != NULL) {
+	ao_info_t *info = ao_get_driver_info(current->driver_id);
+
+	if (opt->verbose > 0) {
+	    fprintf(stderr, "Device:   %s\n", info->name);
+	    fprintf(stderr, "Author:   %s\n", info->author);
+	    fprintf(stderr, "Comments: %s\n", info->comment);
+	}
+
+	current->device = ao_open(current->driver_id, 16, rate, channels,
+				  current->options);
+	if (current->device == NULL) {
+	    fprintf(stderr, "Error opening device.\n");
+	    return -1;
+	}
+	if (opt->quiet < 1)
+	    fprintf(stderr, "\n");	// Gotta keep 'em separated ...
+
+	current = current->next_device;
+    }
+
+    return 0;
 }
