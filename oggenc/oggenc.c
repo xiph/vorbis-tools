@@ -47,6 +47,7 @@ struct option long_options[] = {
 	{"raw-bits",1,0,'B'},
 	{"raw-chan",1,0,'C'},
 	{"raw-rate",1,0,'R'},
+    {"raw-endianness",1,0, 0},
 	{"bitrate",1,0,'b'},
 	{"min-bitrate",1,0,'m'},
 	{"max-bitrate",1,0,'M'},
@@ -71,7 +72,7 @@ int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
+		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,DEFAULT_NAMEFMT_REMOVE, 
         DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,128,-1,0.3,0};
 	int i;
 
@@ -181,6 +182,7 @@ int main(int argc, char **argv)
 			enc_opts.rate=opt.raw_samplerate;
 			enc_opts.channels=opt.raw_channels;
 			enc_opts.samplesize=opt.raw_samplesize;
+            enc_opts.endianness=opt.raw_endianness;
 			raw_open(in, &enc_opts);
 			foundformat=1;
 		}
@@ -339,6 +341,7 @@ static void usage(void)
 		" -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
 		" -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
 		" -R, --raw-rate=n     Set samples/sec for raw input. Default is 44100\n"
+        " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"
 		" -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
 		"                      to encode at a bitrate averaging this. Takes an\n"
 		"                      argument in kbps.\n"
@@ -517,6 +520,15 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 if(!strcmp(long_options[option_index].name, "managed")) {
                     fprintf(stderr, _("Enabling bitrate management engine\n"));
                     opt->managed = 1;
+                }
+                else if(!strcmp(long_options[option_index].name, 
+                            "raw-endianness")) {
+				    if (opt->rawmode != 1)
+    				{
+	    				opt->rawmode = 1;
+		    			fprintf(stderr, _("WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"));
+			    	}
+                    opt->raw_endianness = atoi(optarg);
                 }
                 else {
 				    fprintf(stderr, _("Internal error parsing command line options\n"));

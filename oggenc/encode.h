@@ -57,6 +57,7 @@ typedef struct
 	int raw_samplesize;
 	int raw_samplerate;
 	int raw_channels;
+    int raw_endianness;
 
 	char *namefmt;
     char *namefmt_remove;
@@ -92,6 +93,7 @@ typedef struct
 	int channels;
 	long rate;
 	int samplesize;
+    int endianness;
 
 	/* Various bitrate/quality options */
     int managed;
