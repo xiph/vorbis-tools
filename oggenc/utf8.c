@@ -18,7 +18,7 @@
 #ifdef _WIN32
 #include <windows.h>
 
-int utf8_encode(const char *from, char **to, const char *encoding)
+int utf8_encode(char *from, char **to, const char *encoding)
 {
 	/* Thanks to Peter Harris <peter.harris@hummingbird.com> for this win32
 	 * code.
@@ -33,7 +33,7 @@ int utf8_encode(const char *from, char **to, const char *encoding)
 	wchars = MultiByteToWideChar(GetConsoleCP(), MB_PRECOMPOSED, from,
 			strlen(from), NULL, 0);
 
-	if(whars == 0)
+	if(wchars == 0)
 	{
 		fprintf(stderr, "Unicode translation error %d\n", GetLastError());
 		return 1;
