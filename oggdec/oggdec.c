@@ -13,6 +13,11 @@
 #include <errno.h>
 #include <string.h>
 
+#if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
+#include <fcntl.h>
+#include <io.h>
+#endif
+
 #include <vorbis/vorbisfile.h>
 
 struct option long_options[] = {
