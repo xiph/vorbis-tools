@@ -53,7 +53,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %postun
 
 %changelog
-* Mon Jan 22 2000 Jack Moffitt <jack@icecast.org>
+* Mon Jan 22 2001 Jack Moffitt <jack@icecast.org>
 - updated for prebeta4 builds
 * Sun Oct 29 2000 Jack Moffitt <jack@icecast.org>
 - initial spec file created
