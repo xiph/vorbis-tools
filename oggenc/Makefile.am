@@ -8,7 +8,7 @@ bin_PROGRAMS = oggenc
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
-oggenc_LDADD = @VORBISENC_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@
+oggenc_LDADD = @VORBISENC_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@
 oggenc_SOURCES = oggenc.c audio.c encode.c getopt.c getopt1.c\
 		platform.c utf8.c utf8.h\
 		audio.h encode.h platform.h getopt.h
