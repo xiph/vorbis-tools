@@ -39,7 +39,7 @@ static void usage(void) {
     fprintf(stderr, "Usage: oggdec [flags] file1.ogg file1.wav [file2.ogg file2.wav ... fileN.ogg fileN.ogg]\n"
                     "\n"
                     "Supported flags:\n"
-                    " --quiet, -q      Quiet mode. No console output.\n"
+                    " --quiet, -Q      Quiet mode. No console output.\n"
                     " --help,  -h      Produce this help message.\n"
                     " --version, -v    Print out version number.\n"
                     " --bits, -b       Bit depth for output (8 and 16 supported)\n"
