@@ -1,7 +1,3 @@
-# Configure paths for libao
-# Jack Moffitt <jack@icecast.org> 10-21-2000
-# Shamelessly stolen from Owen Taylor and Manish Singh
-
 # ogg.m4
 # Configure paths for libogg
 # Jack Moffitt <jack@icecast.org> 10-21-2000

@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.12 2000/12/12 14:06:49 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.13 2000/12/17 20:29:32 giles Exp $
 
  ********************************************************************/
 
@@ -169,6 +169,29 @@ usage ()
   fprintf (o, "  -z, --shuffle  shuffle play\n");
 }
 
+int add_option(ao_option_t **op_h, const char *optstring)
+{
+	char *key, *value;
+	int  result;
+
+	key = strdup(optstring);
+	if (key == NULL) return 0;
+
+	value = strchr(key, ':');
+	if (value == NULL) {
+		free(key);
+		return 0;
+	}
+	
+	/* split by replacing the separator with a null */
+	*value++ = '\0';
+
+	result = ao_append_option(op_h, key, value);
+	free (key);
+	
+	return (result);
+}
+
 int get_default_device(void)
 {
 	FILE *fp;
@@ -242,7 +265,7 @@ main (int argc, char **argv)
 	  param.seekpos = atof (optarg);
 	  break;
 	case 'o':
-	  if (optarg && !ao_append_option(&temp_options, optarg))
+	  if (optarg && !add_option(&temp_options, optarg))
 	    {
 	      fprintf(stderr, "Incorrect option format: %s.\n", optarg);
 	      exit(1);
