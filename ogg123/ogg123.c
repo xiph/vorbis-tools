@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.54 2001/12/19 06:24:16 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.55 2001/12/20 02:51:22 volsung Exp $
 
  ********************************************************************/
 
@@ -391,7 +391,8 @@ void play (char *source_string)
   }
   
   if ( (decoder = format->init(source, &options, &new_audio_fmt, 
-			       &decoder_callbacks, audio_buffer)) == NULL ) {
+			       &decoder_callbacks,
+			       decoder_callbacks_arg)) == NULL ) {
     status_error("Error opening %s using the %s module."
 		 "  The file may be corrupted.\n", source_string,
 		 format->name);
@@ -417,6 +418,10 @@ void play (char *source_string)
     buffer_reset (audio_buffer);
     buffer_thread_start (audio_buffer);
   }
+
+  /* Show which file we are playing */
+  decoder_callbacks.printf_metadata(decoder_callbacks_arg, 1,
+				    "Playing: %s", source_string);
 
   /* Skip over audio */
   if (options.seekpos > 0.0) {
