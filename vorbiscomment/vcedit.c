@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.17 2002/01/26 11:06:43 segher Exp $
+ * last modified: $Id: vcedit.c,v 1.18 2002/03/30 14:40:59 msmith Exp $
  */
 
 #include <stdio.h>
@@ -124,6 +124,7 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 	op->e_o_s=0;
 	op->granulepos=0;
 
+	oggpack_writeclear(&opb);
 	return 0;
 }
 

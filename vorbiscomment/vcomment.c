@@ -55,6 +55,7 @@ void print_comments(FILE *out, vorbis_comment *vc, int raw);
 int  add_comment(char *line, vorbis_comment *vc, int raw);
 
 param_t	*new_param(void);
+void free_param(param_t *param);
 void parse_options(int argc, char *argv[], param_t *param);
 void open_files(param_t *p);
 void close_files(param_t *p);
@@ -101,6 +102,7 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
+            free_param(param);
 			return 1;
 		}
 
@@ -112,6 +114,7 @@ int main(int argc, char **argv)
 		vcedit_clear(state);
 
 		close_files(param);
+        free_param(param);
 		return 0;		
 	}
 
@@ -123,6 +126,7 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
+            free_param(param);
 			return 1;
 		}
 
@@ -161,6 +165,7 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to write comments to output file: %s\n"), 
 					vcedit_error(state));
+            free_param(param);
 			return 1;
 		}
 
@@ -168,11 +173,13 @@ int main(int argc, char **argv)
 		vcedit_clear(state);
 		
 		close_files(param);
+        free_param(param);
 		return 0;
 	}
 
 	/* should never reach this point */
 	fprintf(stderr, _("no action specified\n"));
+    free_param(param);
 	return 1;
 }
 
@@ -298,6 +305,11 @@ void usage(void)
 	); 
 }
 
+void free_param(param_t *param) {
+    free(param->infilename);
+    free(param->outfilename);
+    free(param);
+}
 
 /**********
 
