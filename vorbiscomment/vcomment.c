@@ -26,6 +26,7 @@ struct option long_options[] = {
 	{"write",0,0,'w'},
 	{"help",0,0,'h'},
 	{"quiet",0,0,'q'},
+    {"version", 0, 0, 'V'},
 	{"commentfile",1,0,'c'},
 	{NULL,0,0,0}
 };
@@ -331,7 +332,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 
 	setlocale(LC_ALL, "");
 
-	while ((ret = getopt_long(argc, argv, "alwhqc:t:",
+	while ((ret = getopt_long(argc, argv, "alwhqVc:t:",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -347,6 +348,10 @@ void parse_options(int argc, char *argv[], param_t *param)
 			case 'a':
 				param->mode = MODE_APPEND;
 				break;
+            case 'V':
+                fprintf(stderr, "Vorbiscomment " VERSION "\n");
+                exit(0);
+                break;
 			case 'h':
 				usage();
 				exit(0);
