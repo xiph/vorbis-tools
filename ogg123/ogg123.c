@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.2 2000/09/27 06:12:32 jack Exp $
+ last mod: $Id: ogg123.c,v 1.3 2000/10/11 04:19:51 jack Exp $
 
  ********************************************************************/
 
@@ -38,9 +38,10 @@
 #include <fcntl.h> /* !!! */
 #include <time.h> /* !!! */
 #include <sys/time.h> /* !!! */
-#include "vorbis/codec.h"
-#include "vorbis/vorbisfile.h"
-#include "libao/audio_out.h"
+#include <ogg/ogg.h>
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h>
+#include <ao/ao.h>
 
 char convbuffer[4096];	/* take 8k out of the data segment, not the stack */
 int convsize = 4096;
@@ -310,14 +311,14 @@ main (int argc, char **argv)
   return (0);
 }
 
-void
-play_file (void)
+void play_file(void)
 {
-  OggVorbis_File vf;
-  int current_section = -1, eos = 0, ret;
-  long t_min = 0, c_min = 0, r_min = 0;
-  double t_sec = 0, c_sec = 0, r_sec = 0;
-  int is_big_endian = ao_is_big_endian();
+	OggVorbis_File vf;
+	int current_section = -1, eof = 0, eos = 0, ret;
+	int old_section = -1;
+	long t_min = 0, c_min = 0, r_min = 0;
+	double t_sec = 0, c_sec = 0, r_sec = 0;
+	int is_big_endian = ao_is_big_endian();
 
   if (strcmp (param.read_file, "-"))	/* input file not stdin */
     {
@@ -407,97 +408,91 @@ play_file (void)
       param.instream = stdin;
     }
 
-  if ((ov_open (param.instream, &vf, NULL, 0)) < 0)
-    {
-      fprintf (stderr, "E: input not an Ogg Vorbis audio stream.\n");
-      return;
-    }
+	if ((ov_open(param.instream, &vf, NULL, 0)) < 0) {
+		fprintf(stderr, "E: input not an Ogg Vorbis audio stream.\n");
+		return;
+	}
   
-  /* Throw the comments plus a few lines about the bitstream we're
-     decoding */
+	/* Throw the comments plus a few lines about the bitstream we're
+	** decoding */
 
-  {
-    vorbis_comment *vc = ov_comment (&vf, -1);
-    vorbis_info * vi = ov_info (&vf, -1);
+	while (!eof) {
+		int i;
+		vorbis_comment *vc = ov_comment(&vf, -1);
+		vorbis_info *vi = ov_info(&vf, -1);
+
+		for (i = 0; i < vc->comments; i++) {
+			char *cc = vc->user_comments[i]; /* current comment */
+			if (!strncasecmp ("ARTIST=", cc, 7))
+				fprintf(stderr, "Artist: %s\n", cc + 7);
+			else if (!strncasecmp("ALBUM=", cc, 6))
+				fprintf(stderr, "Album: %s\n", cc + 6);
+			else if (!strncasecmp("TITLE=", cc, 6))
+				fprintf(stderr, "Title: %s\n", cc + 6);
+			else if (!strncasecmp("VERSION=", cc, 8))
+				fprintf(stderr, "Version: %s\n", cc + 8);
+			else if (!strncasecmp("ORGANIZATION=", cc, 13))
+				fprintf(stderr, "Organization: %s\n", cc + 13);
+			else if (!strncasecmp("GENRE=", cc, 6))
+				fprintf(stderr, "Genre: %s\n", cc + 6);
+			else if (!strncasecmp("DESCRIPTION=", cc, 12))
+				fprintf(stderr, "Description: %s\n", cc + 12);
+			else if (!strncasecmp("DATE=", cc, 5))
+				fprintf(stderr, "Date: %s\n", cc + 5);
+			else if (!strncasecmp("LOCATION=", cc, 9))
+				fprintf(stderr, "Location: %s\n", cc + 9);
+			else if (!strncasecmp("COPYRIGHT=", cc, 10))
+				fprintf(stderr, "Copyright: %s\n", cc + 10);
+			else
+				fprintf(stderr, "Unrecognized comment: %s\n", cc);
+		}
     
-    int i;
-    for (i = 0; i < vc->comments; i++)
-      {
-	char *cc = vc->user_comments[i]; /* current comment */
-	if (!strncasecmp ("ARTIST=", cc, 7))
-	  fprintf (stderr, "Artist: %s\n", cc + 7);
-	else if (!strncasecmp ("ALBUM=", cc, 6))
-	  fprintf (stderr, "Album: %s\n", cc + 6);
-	else if (!strncasecmp ("TITLE=", cc, 6))
-	  fprintf (stderr, "Title: %s\n", cc + 6);
-	else if (!strncasecmp ("VERSION=", cc, 8))
-	  fprintf (stderr, "Version: %s\n", cc + 8);
-	else if (!strncasecmp ("ORGANIZATION=", cc, 13))
-	  fprintf (stderr, "Organization: %s\n", cc + 13);
-	else if (!strncasecmp ("GENRE=", cc, 6))
-	  fprintf (stderr, "Genre: %s\n", cc + 6);
-	else if (!strncasecmp ("DESCRIPTION=", cc, 12))
-	  fprintf (stderr, "Description: %s\n", cc + 12);
-	else if (!strncasecmp ("DATE=", cc, 5))
-	  fprintf (stderr, "Date: %s\n", cc + 5);
-	else if (!strncasecmp ("LOCATION=", cc, 9))
-	  fprintf (stderr, "Location: %s\n", cc + 9);
-	else if (!strncasecmp ("COPYRIGHT=", cc, 10))
-	  fprintf (stderr, "Copyright: %s\n", cc + 10);
-	else
-	  fprintf (stderr, "Unrecognized comment: %s\n", cc);
-      }
-    
-    fprintf (stderr, "\nBitstream is %d channel, %ldHz\n", vi->channels,
-	     vi->rate);
-    fprintf (stderr, "Encoded by: %s\n\n", vc->vendor);
-  }
+		fprintf(stderr, "\nBitstream is %d channel, %ldHz\n", vi->channels, vi->rate);
+		fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
 
-  if (param.verbose > 0)
-    {
-      info.u_time = ov_time_total (&vf, -1); /* Seconds with double 
-					      * precision */
-      t_min = (long) info.u_time / (long) 60;
-      t_sec = info.u_time - 60 * t_min;
-    }
+		if (param.verbose > 0) {
+			/* Seconds with double precision */
+			info.u_time = ov_time_total(&vf, -1);
+			t_min = (long)info.u_time / (long)60;
+			t_sec = info.u_time - 60 * t_min;
+		}
 
-  while (! eos)
-    {
-      switch ((ret = ov_read (&vf, convbuffer, sizeof (convbuffer), 
-			      is_big_endian, 2, 1, &current_section))) {
-      case 0: /* End of file */
-	eos = 1;
-	break;
-      case -1: /* Stream error */
-	fprintf (stderr, "W: Stream error\n");
-	break;
-      default:
-	devices_write (convbuffer, ret, param.outdevices);
-	if (param.verbose > 0)
-	  {
-	    info.u_pos = ov_time_tell (&vf);
-	    c_min = (long) info.u_pos / (long) 60;
-	    c_sec = info.u_pos - 60 * c_min;
-	    r_min = (long) (info.u_time - info.u_pos) / (long) 60;
-	    r_sec = (info.u_time - info.u_pos) - 60 * r_min;
-	    fprintf (stderr,
-		     "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f,"
-		     " Bitrate: %.1f   \r",
-		     c_min, c_sec,
-		     r_min, r_sec,
-		     t_min, t_sec,
-		     (float) ov_bitrate_instant (&vf) / 1000.0F);
-	  }
-      }
-    }
-  ov_clear (&vf);
+		eos = 0;
+		while (!eos) {
+			old_section = current_section;
+			switch ((ret = ov_read (&vf, convbuffer, sizeof (convbuffer), is_big_endian, 2, 1, &current_section))) {
+			case 0: /* End of file */
+				eof = 1;
+				break;
+			case -1: /* Stream error */
+				fprintf(stderr, "W: Stream error\n");
+				break;
+			default: /* less bytes than we asked for */
+				/* did we enter a new logical bitstream */
+				if (old_section != current_section && old_section != -1)
+					eos = 1;
+
+				devices_write(convbuffer, ret, param.outdevices);
+				if (param.verbose > 0) {
+					info.u_pos = ov_time_tell(&vf);
+					c_min = (long)info.u_pos / (long)60;
+					c_sec = info.u_pos - 60 * c_min;
+					r_min = (long)(info.u_time - info.u_pos) / (long)60;
+					r_sec = (info.u_time - info.u_pos) - 60 * r_min;
+					fprintf (stderr, "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f, Bitrate: %.1f   \r", c_min, c_sec, r_min, r_sec, t_min, t_sec, (float)ov_bitrate_instant(&vf) / 1000.0F);
+				}
+			}
+		}
+	}
+
+	ov_clear (&vf);
       
-  fprintf (stderr, "\nDone.\n");
+	fprintf (stderr, "\nDone.\n");
 }
 
-int get_tcp_socket (void)
+int get_tcp_socket(void)
 {
-  return socket (PF_INET, SOCK_STREAM, 0);
+	return socket(AF_INET, SOCK_STREAM, 0);
 }
 
 FILE *http_open (char *server, int port, char *path)
