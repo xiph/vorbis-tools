@@ -7,7 +7,7 @@
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.6 2002/01/29 10:37:08 msmith Exp $
+ * last modified: $Id: vcut.c,v 1.7 2002/11/12 12:45:21 msmith Exp $
  */
 
 #include <stdio.h>
@@ -24,9 +24,11 @@
 #include "i18n.h"
 
 #ifdef _WIN32
-#define FORMAT_INT64 "%I64d"
+#define FORMAT_INT64	  "%I64d"
+#define FORMAT_INT64_TIME "+%I64d"
 #else
-#define FORMAT_INT64 "%Ld"
+#define FORMAT_INT64	  "%Ld"
+#define FORMAT_INT64_TIME "+%Ld"
 #endif
 
 static vcut_packet *save_packet(ogg_packet *packet)
@@ -353,6 +355,8 @@ static void submit_headers_to_stream(ogg_stream_state *stream, vcut_state *s)
 }
 									
 /* Pull out and save the 3 header packets from the input file.
+ * If the cutpoint arg was given as seconds, find the number
+ * of samples.
  */
 static int process_headers(vcut_state *s)
 {
@@ -362,6 +366,7 @@ static int process_headers(vcut_state *s)
 	int bytes;
 	int i;
 	unsigned char *buffer;
+	ogg_int64_t samples;
 
 	ogg_sync_init(s->sync_in);
 	
@@ -435,6 +440,11 @@ static int process_headers(vcut_state *s)
 
 	vorbis_comment_clear(&vc);
 
+	if(s->time) {
+	  samples = s->cutpoint * s->vi->rate;
+	  s->cutpoint = samples;
+	}
+
 	return 0;
 }
 
@@ -442,8 +452,10 @@ static int process_headers(vcut_state *s)
 int main(int argc, char **argv)
 {
 	ogg_int64_t cutpoint;
+	ogg_int64_t cutpoint_secs = 0;
 	FILE *in,*out1,*out2;
 	int ret=0;
+	int time=0;
 	vcut_state *state;
 
 	setlocale(LC_ALL, "");
@@ -453,7 +465,7 @@ int main(int argc, char **argv)
 	if(argc<5)
 	{
 		fprintf(stderr, 
-				_("Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"));
+				_("Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"));
 		exit(1);
 	}
 
@@ -476,23 +488,34 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	if(sscanf(argv[4], FORMAT_INT64, &cutpoint) != 1) {
-        fprintf(stderr, _("Couldn't parse cutpoint \"%s\"\n"), argv[4]);
-        exit(1);
-    }
+	if(strchr(argv[4], '+') != NULL) {
+	  if(sscanf(argv[4], FORMAT_INT64_TIME, &cutpoint) != 1) {
+	    fprintf(stderr, _("Couldn't parse cutpoint \"%s\"\n"), argv[4]);
+            exit(1);
+	  }
+	  time = 1;
+	} else if(sscanf(argv[4], FORMAT_INT64, &cutpoint) != 1) {
+	    fprintf(stderr, _("Couldn't parse cutpoint \"%s\"\n"), argv[4]);
+            exit(1);
+	}
 
-	fprintf(stderr, _("Processing: Cutting at %lld\n"), cutpoint);
+	if(time) {
+	  fprintf(stderr, _("Processing: Cutting at %lld seconds\n"), cutpoint);
+	} else {
+	  fprintf(stderr, _("Processing: Cutting at %lld samples\n"), cutpoint);
+	}
 
 	state = vcut_new();
 
 	vcut_set_files(state, in,out1,out2);
-	vcut_set_cutpoint(state, cutpoint);
+	vcut_set_cutpoint(state, cutpoint, time);
 
 	if(vcut_process(state))
 	{
 		fprintf(stderr, _("Processing failed\n"));
 		ret = 1;
 	}
+
 
 	vcut_free(state);
 
@@ -629,10 +652,14 @@ void vcut_set_files(vcut_state *s, FILE *in, FILE *out1, FILE *out2)
 	s->out2 = out2;
 }
 
-void vcut_set_cutpoint(vcut_state *s, ogg_int64_t cutpoint)
+void vcut_set_cutpoint(vcut_state *s, ogg_int64_t cutpoint, int time)
 {
 	s->cutpoint = cutpoint;
+	s->time = 1;
 }
 
+void vcut_time_to_samples(ogg_int64_t *time, ogg_int64_t *samples, FILE *in)
+{
 
+}
 

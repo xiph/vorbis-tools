@@ -18,6 +18,7 @@ typedef struct {
 	vorbis_info *vi;
 	int prevW;
 	ogg_int64_t initialgranpos;
+	int time;
 	ogg_int64_t cutpoint;
 	unsigned int serial;
 	vcut_packet **headers; /* 3 */
@@ -28,7 +29,7 @@ typedef struct {
 
 int vcut_process(vcut_state *state);
 void vcut_set_files(vcut_state *s, FILE *in, FILE *out1, FILE *out2);
-void vcut_set_cutpoint(vcut_state *s, ogg_int64_t cutpoint);
+void vcut_set_cutpoint(vcut_state *s, ogg_int64_t cutpoint, int time);
 vcut_state *vcut_new(void);
 void vcut_free(vcut_state *state);
 
