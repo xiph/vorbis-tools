@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.5 2001/12/24 16:01:05 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.6 2001/12/24 20:39:46 volsung Exp $
 
  ********************************************************************/
 
@@ -278,6 +278,6 @@ void cmdline_usage (void)
 	 "  -z, --shuffle  shuffle play\n"
 	 "\n"
 	 "ogg123 will skip to the next song on SIGINT (Ctrl-C); two SIGINTs within\n"
-	 "s seconds make ogg123 terinate.\n"
+	 "s milliseconds make ogg123 terinate.\n"
 	 "  -l, --delay=s  set s [milliseconds] (default 250).\n");
 }
