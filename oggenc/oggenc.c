@@ -538,12 +538,12 @@ void parse_options(int argc, char **argv, oe_options *opt)
 				if (opt->rawmode != 1)
 				{
 					opt->rawmode = 1;
-					fprintf(stderr, "WARNING: Raw samplerate specified for non-raw data. Assuming input is raw.\n");
+					fprintf(stderr, "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n");
 				}
 				if(sscanf(optarg, "%u", &opt->raw_samplerate) != 1)
 				{
 					opt->raw_samplerate = 44100; /* Failed, so just set to 44100 */
-					fprintf(stderr, "WARNING: Invalid samplerate specified, assuming 44100.\n");
+					fprintf(stderr, "WARNING: Invalid sample rate specified, assuming 44100.\n");
 				}
 				break;
 			case '?':
