@@ -30,13 +30,22 @@ void test_any(struct charset *charset)
 
   /* Decoder */
 
-  assert(charset_mbtowc(charset, 0, (char *)(-1), 0) == 0);
+  assert(charset_mbtowc(charset, 0, 0, 0) == 0);
   assert(charset_mbtowc(charset, 0, 0, 1) == 0);
+  assert(charset_mbtowc(charset, 0, (char *)(-1), 0) == 0);
 
-  assert(charset_mbtowc(charset, &wc, "x", 0) == 0);
-  assert(charset_mbtowc(charset, &wc, "x", 1) == 1 && wc == 'x');
-  assert(charset_mbtowc(charset, &wc, "x", 2) == 1 && wc == 'x');
+  assert(charset_mbtowc(charset, 0, "a", 0) == 0);
+  assert(charset_mbtowc(charset, 0, "", 1) == 0);
+  assert(charset_mbtowc(charset, 0, "b", 1) == 1);
+  assert(charset_mbtowc(charset, 0, "", 2) == 0);
+  assert(charset_mbtowc(charset, 0, "c", 2) == 1);
+
+  wc = 'x';
+  assert(charset_mbtowc(charset, &wc, "a", 0) == 0 && wc == 'x');
   assert(charset_mbtowc(charset, &wc, "", 1) == 0 && wc == 0);
+  assert(charset_mbtowc(charset, &wc, "b", 1) == 1 && wc == 'b');
+  assert(charset_mbtowc(charset, &wc, "", 2) == 0 && wc == 0);
+  assert(charset_mbtowc(charset, &wc, "c", 2) == 1 && wc == 'c');
 
   /* Encoder */
 
@@ -80,6 +89,30 @@ void test_utf8()
 	 wc == 1 << 26);
   assert(charset_mbtowc(charset, &wc, "\375\277\277\277\277\277", 9) == 6 &&
 	 wc == 0x7fffffff);
+
+  assert(charset_mbtowc(charset, &wc, "\302\000", 2) == -1);
+  assert(charset_mbtowc(charset, &wc, "\302\300", 2) == -1);
+  assert(charset_mbtowc(charset, &wc, "\340\040\200", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\340\340\200", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\340\240\000", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\340\240\300", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\360\020\200\200", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\360\320\200\200", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\360\220\000\200", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\360\220\300\200", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\360\220\200\000", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\360\220\200\300", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\077\277\277\277\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\377\277\277\277\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\277\077\277\277\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\277\377\277\277\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\277\277\277\077\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\277\277\277\377\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\277\277\277\277\077", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\375\277\277\277\277\377", 9) == -1);
+
+  assert(charset_mbtowc(charset, &wc, "\376\277\277\277\277\277", 9) == -1);
+  assert(charset_mbtowc(charset, &wc, "\377\277\277\277\277\277", 9) == -1);
 
   /* Encoder */
   strcpy(s, ".......");

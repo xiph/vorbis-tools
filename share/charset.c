@@ -88,7 +88,7 @@ int utf8_mbtowc(int *pwc, const char *s, size_t n)
   else if (c < 0xc2)
     return -1;
   else if (c < 0xe0) {
-    if (n >= 2) {
+    if (n >= 2 && (s[1] & 0xc0) == 0x80) {
       if (pwc)
 	*pwc = ((c & 0x1f) << 6) | (s[1] & 0x3f);
       return 2;
@@ -176,7 +176,7 @@ int utf8_wctomb(char *s, int wc1)
  */
 
 struct charset {
-  int min, max;
+  int max;
   int (*mbtowc)(void *table, int *pwc, const char *s, size_t n);
   int (*wctomb)(void *table, char *s, int wc);
   void *map;
@@ -190,11 +190,6 @@ int charset_mbtowc(struct charset *charset, int *pwc, const char *s, size_t n)
 int charset_wctomb(struct charset *charset, char *s, int wc)
 {
   return (*charset->wctomb)(charset->map, s, wc);
-}
-
-int charset_min(struct charset *charset)
-{
-  return charset->min;
 }
 
 int charset_max(struct charset *charset)
@@ -398,21 +393,21 @@ int wctomb_8bit(void *map1, char *s, int wc1)
  */
 
 struct charset charset_utf8 = {
-  1, 6,
+  6,
   &mbtowc_utf8,
   &wctomb_utf8,
   0
 };
 
 struct charset charset_iso1 = {
-  1, 1,
+  1,
   &mbtowc_iso1,
   &wctomb_iso1,
   0
 };
 
 struct charset charset_ascii = {
-  1, 1,
+  1,
   &mbtowc_ascii,
   &wctomb_ascii,
   0
@@ -449,7 +444,6 @@ struct charset *charset_find(const char *code)
 	    maps[i].charset = 0;
 	  }
 	  else {
-	    maps[i].charset->min = 1;
 	    maps[i].charset->max = 1;
 	    maps[i].charset->mbtowc = &mbtowc_8bit;
 	    maps[i].charset->wctomb = &wctomb_8bit;
@@ -488,7 +482,7 @@ int charset_convert(const char *fromcode, const char *tocode,
   if (!charset1 || !charset2 )
     return -1;
 
-  tobuf = (char *)malloc((fromlen / charset1->min) * charset2->max + 1);
+  tobuf = (char *)malloc(fromlen * charset2->max + 1);
   if (!tobuf)
     return -2;
 
