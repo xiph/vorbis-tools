@@ -9,7 +9,7 @@ Release:	%{release}
 Group:		Libraries/Multimedia
 Copyright:	GPL
 URL:		http://www.xiph.org/
-Vendor:		Xiphophorus <team@xiph.org>
+Vendor:		Xiph.org Foundation <team@xiph.org>
 Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-root
 Requires:       libogg >= 1.0rc3
