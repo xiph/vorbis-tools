@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.20 2002/07/09 12:44:54 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.21 2002/09/12 12:41:52 msmith Exp $
  */
 
 #include <stdio.h>
@@ -42,6 +42,7 @@ vorbis_comment *vcedit_comments(vcedit_state *state)
 
 static void vcedit_clear_internals(vcedit_state *state)
 {
+    char *tmp;
 	if(state->vc)
 	{
 		vorbis_comment_clear(state->vc);
@@ -68,7 +69,9 @@ static void vcedit_clear_internals(vcedit_state *state)
         free(state->vi);
     }
 
+    tmp = state->lasterror;
     memset(state, 0, sizeof(*state));
+    state->lasterror = tmp;
 }
 
 void vcedit_clear(vcedit_state *state)
@@ -452,12 +455,10 @@ int vcedit_write(vcedit_state *state, void *out)
 				 * write the page out now */
 				if(state->write(ogout.header,1,ogout.header_len, 
 						out) != (size_t) ogout.header_len) {
-                    fprintf(stderr, "Bumming out\n");
 					goto cleanup;
                 }
 				if(state->write(ogout.body,1,ogout.body_len, out) !=
 						(size_t) ogout.body_len) {
-                    fprintf(stderr, "Bumming out 2\n");
 					goto cleanup;
                 }
 			}
