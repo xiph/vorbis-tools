@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.25 2001/02/20 08:10:22 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.26 2001/02/20 21:03:51 msmith Exp $
 
  ********************************************************************/
 
@@ -498,7 +498,7 @@ int open_audio_devices(ogg123_options_t *opt, int rate, int channels)
 	    fprintf(stderr, "Device:   %s\n", info->name);
 	    fprintf(stderr, "Author:   %s\n", info->author);
 	    fprintf(stderr, "Comments: %s\n", info->comment);
-	    fprintf(stderr, "\n");	// Gotta keep 'em separated ...
+	    fprintf(stderr, "\n");	
 	}
 
 	current->device = ao_open(current->driver_id, 16, rate, channels,
