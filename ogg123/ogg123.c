@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.67 2003/09/01 20:02:58 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.68 2003/09/01 22:50:32 volsung Exp $
 
  ********************************************************************/
 
@@ -473,8 +473,12 @@ void play (char *source_string)
 
   /* Skip over audio */
   if (options.seekpos > 0.0) {
-    if (!format->seek(decoder, options.seekpos, DECODER_SEEK_START))
+    if (!format->seek(decoder, options.seekpos, DECODER_SEEK_START)) {
       status_error(_("Could not skip %f seconds of audio."), options.seekpos);
+      if (audio_buffer != NULL)
+	buffer_thread_kill(audio_buffer);
+      return;
+    }
   }
 
   /* Main loop:  Iterates over all of the logical bitstreams in the file */
