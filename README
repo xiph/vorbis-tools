@@ -45,8 +45,8 @@ and as root if desired :
 
 make install
 
-This will install the tools into /usr/local/bin and API manpages
-into /usr/local/man.
+This will install the tools into /usr/local/bin and manpages into
+/usr/local/man.
 
 BUILDING FROM TARBALL DISTRIBUTIONS:
 
