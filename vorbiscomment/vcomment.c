@@ -474,11 +474,9 @@ void open_files(param_t *p)
 
 void close_files(param_t *p)
 {
-	/* FIXME: should handle stdin/out */
-
-	if (p->in != NULL) fclose(p->in);
-	if (p->out != NULL) fclose(p->out);
-	if (p->com != NULL) fclose(p->com);
+	if (p->in != NULL && p->in != stdin) fclose(p->in);
+	if (p->out != NULL && p->out != stdout) fclose(p->out);
+	if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
 
 	if(p->tempoutfile)
 		rename(p->outfilename, p->infilename);
