@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: status.c,v 1.5 2001/12/22 00:02:19 volsung Exp $
+ last mod: $Id: status.c,v 1.6 2002/01/11 11:14:24 segher Exp $
 
  ********************************************************************/
 
@@ -113,6 +113,9 @@ int print_statistics_line (stat_format_t stats[])
 {
   int len = 0;
   char *str = temp_buffer;
+
+  if (max_verbosity == 0)
+    return 0;
 
   /* Put the clear line text into the same string buffer so that the
      line is cleared and redrawn all at once.  This reduces
