@@ -2,7 +2,7 @@
 
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = oggenc
+SUBDIRS = oggenc vorbiscomment
 
 EXTRA_DIST = README
 
