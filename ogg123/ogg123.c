@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.62 2002/07/06 03:23:13 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.63 2002/07/06 13:50:57 volsung Exp $
 
  ********************************************************************/
 
@@ -256,9 +256,10 @@ void print_audio_devices_info(audio_device_t *d)
   while (d != NULL) {
     info = ao_driver_info(d->driver_id);
     
-    status_message(2, _("\nDevice:   %s"), info->name);
-    status_message(2, _("Author:   %s"), info->author);
-    status_message(2, _("Comments: %s\n"), info->comment);
+    status_message(2, _("\nAudio Device:   %s"), info->name);
+    status_message(3, _("Author:   %s"), info->author);
+    status_message(3, _("Comments: %s"), info->comment);
+    status_message(2, "");
 
     d = d->next_device;
   }
