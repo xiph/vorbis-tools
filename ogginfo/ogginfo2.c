@@ -90,6 +90,7 @@ typedef struct {
 
     long bytes;
     ogg_int64_t lastgranulepos;
+    ogg_int64_t firstgranulepos;
 
     int doneheaders;
 } misc_vorbis_info;
@@ -366,6 +367,11 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                         inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
         }
+        else {
+            warn(_("Negative granulepos on vorbis stream outside of headers. This file was created by a buggy encoder\n"));
+        }
+        if(inf->firstgranulepos < 0) { /* Not set yet */
+        }
         inf->bytes += page->header_len + page->body_len;
     }
 }
@@ -376,6 +382,7 @@ static void vorbis_end(stream_processor *stream)
     long minutes, seconds;
     double bitrate, time;
 
+    /* This should be lastgranulepos - startgranulepos, or something like that*/
     time = (double)inf->lastgranulepos / inf->vi.rate;
     minutes = (long)time / 60;
     seconds = (long)time - minutes*60;
