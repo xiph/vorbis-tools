@@ -1,3 +1,4 @@
+*.pbproj
 *.tar.gz
 *.zip
 Makefile
