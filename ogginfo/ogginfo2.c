@@ -559,8 +559,8 @@ static void process_file(char *filename) {
     ogg_sync_init(&sync);
 
     while(get_next_page(file, &sync, &page, &written)) {
-        gotpage = 1;
         stream_processor *p = find_stream_processor(processors, &page);
+        gotpage = 1;
 
         if(!p) {
             error(_("Could not find a processor for stream, bailing\n"));
