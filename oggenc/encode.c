@@ -407,7 +407,7 @@ void start_encode_full(char *fn, char *outfn, int bitrate, float quality,
         fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat quality level %2.2f using constrained VBR "),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
-                quality);
+                quality * 10);
         print_brconstraints(min,max);
         fprintf(stderr, "\n");
     }
