@@ -28,6 +28,7 @@ struct option long_options[] = {
     {"endianness", 1, 0, 'e'},
     {"raw", 1, 0, 'R'},
     {"sign", 1, 0, 's'},
+    {"output", 1, 0, 'o'},
     {NULL,0,0,0}
 };
 
@@ -39,9 +40,10 @@ static int endian = 0;
 static int raw = 0;
 static int sign = 1;
 unsigned char headbuf[44]; /* The whole buffer */
+char *outfilename = NULL;
 
 static void usage(void) {
-    fprintf(stderr, "Usage: oggdec [flags] file1.ogg file1.wav [file2.ogg file2.wav ... fileN.ogg fileN.ogg]\n"
+    fprintf(stderr, "Usage: oggdec [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
                     "\n"
                     "Supported flags:\n"
                     " --quiet, -Q      Quiet mode. No console output.\n"
@@ -53,6 +55,9 @@ static void usage(void) {
                     " --sign, -s       Sign for output PCM, 0 for unsigned, 1 for\n"
                     "                  signed (default 1)\n"
                     " --raw, -R        Raw (headerless) output.\n"
+                    " --output, -o     Output to given filename. May only be used\n"
+                    "                  if there is only one input file\n"
+
             );
 
 }
@@ -92,6 +97,8 @@ static void parse_options(int argc, char **argv)
             case 'e':
                 endian = atoi(optarg);
                 break;
+            case 'o':
+                outfilename = strdup(optarg);
             case 'R':
                 raw = atoi(optarg);
                 break;
@@ -298,16 +305,33 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    for(i=optind; i < argc; i+= 2) {
+    if(argc - optind > 1 && outfilename) {
+        fprintf(stderr, "ERROR: Can only specify one input file if output filename is specified\n");
+        return 1;
+    }
+    
+    for(i=optind; i < argc; i++) {
         char *in, *out;
         if(!strcmp(argv[i], "-"))
             in = NULL;
         else
             in = argv[i];
-        if(!strcmp(argv[i+1], "-"))
-            out = NULL;
-        else
-            out = argv[i+1];
+
+        if(outfilename) {
+            if(!strcmp(outfilename, "-"))
+                out = NULL;
+            else
+                out = outfilename;
+        }
+        else {
+            char *end = strrchr(argv[i], '.');
+            end = end?end:(argv[i] + strlen(argv[i]) + 1);
+
+            out = malloc(strlen(argv[i]) + 10);
+            strncpy(out, argv[i], end-argv[i]);
+            out[end-argv[i]] = 0;
+            strcat(out, ".wav");
+        }
 
         if(decode_file(in,out))
             return 1;
