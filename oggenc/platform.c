@@ -14,6 +14,7 @@
 
 #include "platform.h"
 #include "encode.h"
+#include "i18n.h"
 #include <stdlib.h>
 #if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
 #include <fcntl.h>
@@ -66,10 +67,20 @@ void timer_clear(void *timer)
 	free((time_t *)timer);
 }
 
+int create_directories(char *fn) 
+{
+    /* FIXME: Please implement me */
+    return 0;
+}
+
 #else /* unix. Or at least win32 */
 
 #include <sys/time.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
 
 void *timer_start(void)
 {
@@ -93,6 +104,46 @@ void timer_clear(void *timer)
 {
 	free((time_t *)timer);
 }
+
+int create_directories(char *fn)
+{
+    char *end, *start;
+    struct stat statbuf;
+    char segment[FILENAME_MAX];
+
+    start = fn;
+
+    while((end = strchr(start+1, '/')) != NULL)
+    {
+        memcpy(segment, fn, end-fn);
+        segment[end-fn+1] = 0;
+
+        if(stat(segment,&statbuf)) {
+            if(errno == ENOENT) {
+                if(mkdir(segment, 0777)) {
+                    fprintf(stderr, _("Couldn't create directory \"%s\": %s\n"),
+                                segment, strerror(errno));
+                    return -1;
+                }
+            }
+            else {
+                fprintf(stderr, _("Error checking for existence of directory %s: %s\n"), 
+                            segment, strerror(errno));
+                return -1;
+            }
+        }
+        else if(!S_ISDIR(statbuf.st_mode)) {
+            fprintf(stderr, _("Error: path segment \"%s\" is not a directory\n"),
+                    segment);
+        }
+
+        start = end+1;
+    }
+
+    return 0;
+
+}
+
 #endif
 
 

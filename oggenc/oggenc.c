@@ -249,6 +249,15 @@ int main(int argc, char **argv)
                 out_fn = strdup("default.ogg");
             }
 
+            /* Create any missing subdirectories, if possible */
+            if(create_directories(out_fn)) {
+                if(closein)
+                    fclose(in);
+				fprintf(stderr, _("ERROR: Could not create required subdirectories for output filename \"%s\"\n"), out_fn);
+				errors++;
+				free(out_fn);
+				continue;
+            }
 
 			out = fopen(out_fn, "wb");
 			if(out == NULL)
@@ -318,7 +327,7 @@ static void print_deprecated_message(void) {
 static void usage(void)
 {
 	fprintf(stdout, 
-		_("\n"
+		_("%s%s\n"
 		"Usage: oggenc [options] input.wav [...]\n"
 		"\n"
 		"OPTIONS:\n"
@@ -795,5 +804,4 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 		add_tag(vc, opt, "tracknumber", opt->tracknum[i]);
 	}
 }
-
 

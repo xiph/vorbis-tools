@@ -19,6 +19,7 @@ typedef void (*error_func)(char *errormessage);
 void *timer_start(void);
 double timer_time(void *);
 void timer_clear(void *);
+int create_directories(char *);
 
 void update_statistics_full(char *fn, long total, long done, double time);
 void update_statistics_notime(char *fn, long total, long done, double time);
