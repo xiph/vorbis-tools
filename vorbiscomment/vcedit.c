@@ -6,12 +6,12 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.5 2001/01/30 10:42:49 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.6 2001/02/10 06:26:22 msmith Exp $
  */
-
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 
@@ -27,12 +27,10 @@ vcedit_state *vcedit_new_state(void)
 	return state;
 }
 
-void vcedit_clear(vcedit_state *state)
+char *vcedit_error(vcedit_state *state)
 {
-	if(state)
-		free(state);
+	return state->lasterror;
 }
-
 
 vorbis_comment *vcedit_comments(vcedit_state *state)
 {
@@ -61,8 +59,23 @@ static void vcedit_clear_internals(vcedit_state *state)
 	}
 }
 
+void vcedit_clear(vcedit_state *state)
+{
+	if(state)
+	{
+		vcedit_clear_internals(state);
+		free(state);
+	}
+}
 
 int vcedit_open(vcedit_state *state, FILE *in)
+{
+	return vcedit_open_callbacks(state, (void *)in, 
+			(vcedit_read_func)fread, (vcedit_write_func)fwrite);
+}
+
+int vcedit_open_callbacks(vcedit_state *state, void *in,
+		vcedit_read_func read_func, vcedit_write_func write_func)
 {
 
 	char *buffer;
@@ -76,21 +89,23 @@ int vcedit_open(vcedit_state *state, FILE *in)
 
 
 	state->in = in;
+	state->read = read_func;
+	state->write = write_func;
 
 	state->oy = malloc(sizeof(ogg_sync_state));
 	ogg_sync_init(state->oy);
 
 	buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-	bytes = fread(buffer, 1, CHUNKSIZE, state->in);
+	bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
 
 	ogg_sync_wrote(state->oy, bytes);
 
 	if(ogg_sync_pageout(state->oy, &og) != 1)
 	{
 		if(bytes<CHUNKSIZE)
-			fprintf(stderr, "Input truncated or empty.\n");
+			state->lasterror = "Input truncated or empty.";
 		else
-			fprintf(stderr, "Input does not appear to be an Ogg bitstream.\n");
+			state->lasterror = "Input is not an Ogg bitstream.";
 		goto err;
 	}
 
@@ -106,19 +121,19 @@ int vcedit_open(vcedit_state *state, FILE *in)
 
 	if(ogg_stream_pagein(state->os, &og) < 0)
 	{
-		fprintf(stderr, "Error reading first page of Ogg bitstream.\n");
+		state->lasterror = "Error reading first page of Ogg bitstream.";
 		goto err;
 	}
 
 	if(ogg_stream_packetout(state->os, &header_main) != 1)
 	{
-		fprintf(stderr, "Error reading initial header packet.\n");
+		state->lasterror = "Error reading initial header packet.";
 		goto err;
 	}
 
 	if(vorbis_synthesis_headerin(&vi, state->vc, &header_main) < 0)
 	{
-		fprintf(stderr, "Ogg bitstream does not contain vorbis data.\n");
+		state->lasterror = "Ogg bitstream does not contain vorbis data.";
 		goto err;
 	}
 
@@ -141,7 +156,7 @@ int vcedit_open(vcedit_state *state, FILE *in)
 					if(result == 0) break;
 					if(result == -1)
 					{
-						fprintf(stderr, "Corrupt secondary header.\n");
+						state->lasterror = "Corrupt secondary header.";
 						goto err;
 					}
 					vorbis_synthesis_headerin(&vi, state->vc, header);
@@ -159,10 +174,10 @@ int vcedit_open(vcedit_state *state, FILE *in)
 		}
 
 		buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-		bytes = fread(buffer, 1, CHUNKSIZE, state->in);
+		bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
 		if(bytes == 0 && i < 2)
 		{
-			fprintf(stderr, "EOF before end of vorbis headers.\n");
+			state->lasterror = "EOF before end of vorbis headers.";
 			goto err;
 		}
 		ogg_sync_wrote(state->oy, bytes);
@@ -177,7 +192,7 @@ err:
 	return -1;
 }
 
-int vcedit_write(vcedit_state *state, FILE *out)
+int vcedit_write(vcedit_state *state, void *out)
 {
 	ogg_stream_state streamout;
 	ogg_packet header_main;
@@ -212,20 +227,20 @@ int vcedit_write(vcedit_state *state, FILE *out)
 
 	while((result = ogg_stream_flush(&streamout, &ogout)))
 	{
-		if(fwrite(ogout.header,1,ogout.header_len, out) != ogout.header_len)
+		if(state->write(ogout.header,1,ogout.header_len, out) != ogout.header_len)
 			goto cleanup;
-		if(fwrite(ogout.body,1,ogout.body_len, out) != ogout.body_len)
+		if(state->write(ogout.body,1,ogout.body_len, out) != ogout.body_len)
 			goto cleanup;
 	}
 
-	while(!(eosin && eosout))
+	while(!eosout)
 	{
-		while(!(eosin && !eosout))
+		while(!eosout)
 		{
 			result = ogg_sync_pageout(state->oy, &ogin);
 			if(result==0) break; /* Need more data... */
 			else if(result ==-1)
-				fprintf(stderr, "Recoverable error in bitstream\n");
+				continue;
 			else
 			{
 				ogg_stream_pagein(state->os, &ogin);
@@ -234,50 +249,71 @@ int vcedit_write(vcedit_state *state, FILE *out)
 				{
 					result = ogg_stream_packetout(state->os, &op);
 					if(result==0)break;
-					else if(result==-1) 
-						fprintf(stderr, "Recoverable error in bitstream\n");
+					else if(result==-1)
+						continue;
 					else
 					{
 						ogg_stream_packetin(&streamout, &op);
 	
-						while(!(eosin && eosout))
+						while(!eosout)
 						{
-							int result = ogg_stream_pageout(&streamout, &ogout);
+							int result=ogg_stream_pageout(&streamout, &ogout);
 							if(result==0)break;
 	
-							if(fwrite(ogout.header,1,ogout.header_len, out) !=
-									ogout.header_len)
+							if(state->write(ogout.header,1,ogout.header_len, 
+										out) != ogout.header_len)
 								goto cleanup;
-							if(fwrite(ogout.body,1,ogout.body_len, out) !=
-									ogout.body_len)
+							if(state->write(ogout.body,1,ogout.body_len, 
+										out) != ogout.body_len)
 								goto cleanup;
 	
-							if(ogg_page_eos(&ogout)) eosout = 1;
+							if(ogg_page_eos(&ogout)) eosout=1;
 						}
 					}
 				}
 				if(ogg_page_eos(&ogin)) eosin = 1;
 			}
 		}
-		if(!(eosin && eosout))
+		if(!eosin)
 		{
 			buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-			bytes = fread(buffer,1, CHUNKSIZE, state->in);
+			bytes = state->read(buffer,1, CHUNKSIZE, state->in);
 			ogg_sync_wrote(state->oy, bytes);
-			if(bytes == 0) eosin = 1;
+			if(bytes == 0) 
+			{
+				eosin = 1;
+				break;
+			}
 		}
 	}
 
-	if(!feof(state->in)) /* We reached eos, not eof */
+	while(!eosin) /* We reached eos, not eof */
 	{
-		/* We copy the rest of the stream (other logical 
-		 * streams) untouched. */
-		bytes = 1;
-		while(bytes)
+		/* We copy the rest of the stream (other logical streams)
+		 * through, a page at a time. */
+		while(1)
 		{
-			bytes = fread(buffer, 1, CHUNKSIZE, state->in);
-			fwrite(buffer, 1, bytes, out);
+			result = ogg_sync_pageout(state->oy, &ogin);
+			if(result==0) break;
+			if(result<0)
+				state->lasterror = "Corrupt or missing data, continuing...";
+			else
+			{
+				/* Don't bother going through the rest, we can just 
+				 * write the page out now */
+				if(state->write(ogout.header,1,ogout.header_len, 
+						out) != ogout.header_len)
+					goto cleanup;
+				if(state->write(ogout.body,1,ogout.body_len, out) !=
+						ogout.body_len)
+					goto cleanup;
+			}
 		}
+		buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
+		bytes = state->read(buffer,1, CHUNKSIZE, state->in);
+		ogg_sync_wrote(state->oy, bytes);
+		if(bytes == 0) eosin = 1;
+		break;
 	}
 							
 
@@ -291,11 +327,11 @@ cleanup:
 	vcedit_clear_internals(state);
 	if(!(eosin && eosout))
 	{
-		fprintf(stderr, "Error writing stream to output.\n"
-				        "Output stream may be corrupted or truncated.\n");
+		state->lasterror =  "Error writing stream to output.\n"
+				        "Output stream may be corrupted or truncated.";
 		return -1;
 	}
 
 	return 0;
 }
-	
+

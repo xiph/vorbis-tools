@@ -83,7 +83,8 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, "Failed to open file as vorbis.\n");
+			fprintf(stderr, "Failed to open file as vorbis: %s\n", 
+					vcedit_error(state));
 			return 1;
 		}
 
@@ -104,7 +105,8 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, "Failed to open file as vorbis.\n");
+			fprintf(stderr, "Failed to open file as vorbis: %s\n", 
+					vcedit_error(state));
 			return 1;
 		}
 
@@ -131,7 +133,8 @@ int main(int argc, char **argv)
 		/* write out the modified stream */
 		if(vcedit_write(state, param->out) < 0)
 		{
-			fprintf(stderr, "Failed to write comments to output file\n");
+			fprintf(stderr, "Failed to write comments to output file: %s\n", 
+					vcedit_error(state));
 			return 1;
 		}
 
