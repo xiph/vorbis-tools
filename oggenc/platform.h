@@ -3,9 +3,8 @@
 
 #include <stdio.h>
 
-#ifdef __sun__ /* Right way to do this? */
+#ifdef __sun
 #include <alloca.h>
-#include <malloc.h>
 #endif
 
 #ifdef __OS2__
