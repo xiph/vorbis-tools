@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: playlist.c,v 1.2 2002/07/06 19:12:18 volsung Exp $
+ last mod: $Id: playlist.c,v 1.3 2002/07/13 17:57:10 volsung Exp $
 
  ********************************************************************/
 
@@ -25,6 +25,11 @@
 #include <dirent.h>
 #include "playlist.h"
 #include "i18n.h"
+
+/* Work with *BSD differences */
+#if !defined(NAME_MAX) && defined(MAXNAMLEN) 
+#define NAME_MAX MAXNAMLEN
+#endif
 
 playlist_element_t *playlist_element_create(char *filename)
 {
@@ -207,7 +212,8 @@ int playlist_append_from_file(playlist_t *list, char *playlist_filename)
 	if (playlist_append_directory(list, filename) == 0)
 	  fprintf(stderr, 
 		  _("Warning from playlist %s: "
-		    "Could not read directory %s.\n"), filename);
+		    "Could not read directory %s.\n"), playlist_filename,
+		  filename);
       } else {
 	playlist_append_file(list, filename);
       }
