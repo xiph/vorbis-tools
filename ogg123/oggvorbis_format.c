@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.10 2003/01/11 22:51:44 volsung Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.11 2003/01/12 20:19:22 volsung Exp $
 
  ********************************************************************/
 
@@ -124,8 +124,8 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.channels = priv->vi->channels;
 
    
-    print_vorbis_comments(priv->vc, cb, decoder->callback_arg);
     print_vorbis_stream_info(decoder);
+    print_vorbis_comments(priv->vc, cb, decoder->callback_arg);
     priv->bos = 0;
   }
 

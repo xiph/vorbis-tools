@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: flac_format.c,v 1.1 2003/01/11 22:51:44 volsung Exp $
+ last mod: $Id: flac_format.c,v 1.2 2003/01/12 20:19:22 volsung Exp $
 
  ********************************************************************/
 
@@ -205,11 +205,11 @@ int flac_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.channels = priv->channels;
     decoder->actual_fmt.word_size = ((priv->bits_per_sample + 7) / 8);
 
+    print_flac_stream_info(decoder);
     if (priv->comments != NULL) 
       print_flac_comments(&priv->comments->data.vorbis_comment, cb,
 			  decoder->callback_arg);
 
-    print_flac_stream_info(decoder);
     priv->bos = 0;
   }
 

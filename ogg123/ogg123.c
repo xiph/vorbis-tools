@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.65 2002/07/06 19:12:18 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.66 2003/01/12 20:19:22 volsung Exp $
 
  ********************************************************************/
 
@@ -416,11 +416,11 @@ void play (char *source_string)
   /* Select appropriate callbacks */
   if (audio_buffer != NULL) {
     decoder_callbacks.printf_error = &decoder_buffered_error_callback;
-    decoder_callbacks.printf_metadata = &decoder_buffered_error_callback;
+    decoder_callbacks.printf_metadata = &decoder_buffered_metadata_callback;
     decoder_callbacks_arg = audio_buffer;
   } else {
     decoder_callbacks.printf_error = &decoder_error_callback;
-    decoder_callbacks.printf_metadata = &decoder_error_callback;
+    decoder_callbacks.printf_metadata = &decoder_metadata_callback;
     decoder_callbacks_arg = NULL;
   }
 

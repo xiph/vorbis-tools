@@ -91,6 +91,7 @@ AC_ARG_ENABLE(ogginfo,[  --disable-ogginfo  Skip building ogginfo], build_ogginf
 AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$enableval", build_vcut="yes")
 AC_ARG_ENABLE(vorbiscomment, [  --disable-vorbiscomment   Skip building vorbiscomment], build_vorbiscomment="$enableval", build_vorbiscomment="yes")
 AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_flac="$enableval", build_flac="yes")
+AC_ARG_WITH(speex,    [  --without-speex    Do not compile Speex support], build_speex="$enableval", build_speex="yes")
 
 dnl --------------------------------------------------
 dnl Check for generally needed libraries
@@ -125,6 +126,8 @@ if test "x$build_ogg123" = xyes; then
   fi
 fi
 
+dnl -------------------- FLAC ----------------------
+
 FLAC_LIBS=
 
 AC_CHECK_LIB(m,log,FLAC_EXTRA_LIBS="-lm")
@@ -146,6 +149,31 @@ else
 fi
 AM_CONDITIONAL(HAVE_LIBFLAC, test "x$build_flac" = xyes)
 AC_SUBST(FLAC_LIBS)
+
+dnl ------------------- Speex ------------------------
+
+SPEEX_LIBS=
+
+AC_CHECK_LIB(m,log,SPEEX_EXTRA_LIBS="-lm")
+AC_CHECK_LIB(speex, speex_decoder_init,have_libspeex=yes,
+  AC_MSG_WARN(libspeex missing)
+  have_libspeex=no, $SPEEX_EXTRA_LIBS
+)
+AC_CHECK_HEADER(speex.h,,
+  AC_MSG_WARN(libspeex headers missing)
+  have_libspeex=no,[ ])
+
+if test "x$have_libspeex" = xyes; then
+   if test "x$build_speex" = xyes; then
+      AC_DEFINE(HAVE_LIBSPEEX)
+      SPEEX_LIBS="$SPEEX_EXTRA_LIBS -lspeex"
+   fi
+else
+   build_speex="no"
+fi
+AM_CONDITIONAL(HAVE_LIBSPEEX, test "x$build_speex" = xyes)
+AC_SUBST(SPEEX_LIBS)
+
 
 dnl --------------------------------------------------
 dnl Check for library functions

@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: callbacks.c,v 1.7 2002/07/06 04:27:19 msmith Exp $
+ last mod: $Id: callbacks.c,v 1.8 2003/01/12 20:19:22 volsung Exp $
 
  ********************************************************************/
 
@@ -351,5 +351,6 @@ void decoder_buffered_metadata_callback (void *arg, int verbosity,
     }
   }
 
+  sm_arg->verbosity = verbosity;
   buffer_append_action_at_end(buf, &status_message_action, sm_arg);
 }

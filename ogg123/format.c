@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: format.c,v 1.4 2003/01/11 22:51:44 volsung Exp $
+ last mod: $Id: format.c,v 1.5 2003/01/12 20:19:22 volsung Exp $
 
  ********************************************************************/
 
@@ -23,17 +23,24 @@
 #include "i18n.h"
 
 extern format_t oggvorbis_format;
+extern format_t speex_format;
 
 #ifdef HAVE_LIBFLAC
 extern format_t flac_format;
 extern format_t oggflac_format;
 #endif
 
+#ifdef HAVE_LIBSPEEX
+extern format_t speex_format;
+#endif
 
 format_t *formats[] = { 
 #ifdef HAVE_LIBFLAC
 			&flac_format,
 			&oggflac_format,
+#endif
+#ifdef HAVE_LIBSPEEX
+			&speex_format,
 #endif
 			&oggvorbis_format, 
 			NULL };

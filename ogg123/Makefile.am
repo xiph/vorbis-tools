@@ -14,18 +14,23 @@ ogg123sources = audio.c buffer.c callbacks.c \
                 format.h ogg123.h playlist.h status.h \
                 transport.h vorbis_comments.h
 flacsources = flac_format.c easyflac.c easyflac.h
+speexsources = speex_format.c
 
 
 if HAVE_LIBFLAC
-
-buildsources = $(ogg123sources) $(flacsources)
+flaccompile = $(flacsources)
 flaclibs = @FLAC_LIBS@
-
 else
-
-buildsources = $(ogg123sources)
+flaccompile =
 flaclibs = 
+endif
 
+if HAVE_LIBSPEEX
+speexcompile = $(speexsources)
+speexlibs = @SPEEX_LIBS@
+else
+speexcompile = 
+speexlibs = 
 endif
 
 
@@ -45,16 +50,17 @@ INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@ @CURL_CFLAGS@ \
 ogg123_LDADD = @SHARE_LIBS@ \
 	       @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @AO_LIBS@ \
                @SOCKET_LIBS@ @LIBICONV@ @CURL_LIBS@ @PTHREAD_CFLAGS@ \
-               @PTHREAD_LIBS@ @I18N_LIBS@ $(flaclibs)
+               @PTHREAD_LIBS@ @I18N_LIBS@ $(flaclibs) $(speexlibs)
+
 ogg123_DEPENDENCIES = @SHARE_LIBS@
-ogg123_SOURCES = $(buildsources)
+ogg123_SOURCES = $(ogg123sources) $(speexcompile) $(flaccompile)
 
 man_MANS = $(mans) 
 doc_DATA = $(docs)
 
 endif
 
-EXTRA_DIST = $(ogg123sources) $(flacsources) $(mans) $(docs)
+EXTRA_DIST = $(ogg123sources) $(flacsources) $(speexsources) $(mans) $(docs)
 
 
 debug:
