@@ -734,6 +734,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    ret = 0;
+
     for(f=optind; f < argc; f++) {
         flawed = 0;
         process_file(argv[f]);
