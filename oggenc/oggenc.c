@@ -97,8 +97,6 @@ int main(int argc, char **argv)
 		if(!strcmp(infiles[i], "-") && numfiles > 1)
 		{
 			fprintf(stderr, "ERROR: Multiple files specified when using stdin\n");
-            for(i=0; i < numfiles; i++)
-                fprintf(stderr, "%d: %s\n", i, infiles[i]);
 			exit(1);
 		}
 	}
