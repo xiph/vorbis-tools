@@ -12,7 +12,7 @@ oggdec - simple decoder, Ogg Vorbis file to PCM audio file (WAV or RAW).
 ] [
 .B -e endianness
 ] [
-.B -R rawness
+.B -R
 ] [
 .B -s signedness
 ] [
@@ -50,7 +50,7 @@ Display version information.
 Bits per sample.  Valid values are 8 or 16.
 .IP "-e n, --endian=n"
 Set endianness for 16-bit output.  0 (default) is little-endian (Intel byte order).  1 is big-endian (sane byte order).
-.IP "-R n, --raw=n"
+.IP "-R, --raw"
 Output in raw format.  If not specified, writes WAV file (RIFF headers).
 .IP "-s n, --sign=n"
 Set signedness for output.  0 for unsigned, 1 (default) for signed.

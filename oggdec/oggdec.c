@@ -26,7 +26,7 @@ struct option long_options[] = {
     {"version", 0, 0, 'v'},
     {"bits", 1, 0, 'b'},
     {"endianness", 1, 0, 'e'},
-    {"raw", 1, 0, 'R'},
+    {"raw", 0, 0, 'R'},
     {"sign", 1, 0, 's'},
     {"output", 1, 0, 'o'},
     {NULL,0,0,0}
@@ -100,7 +100,7 @@ static void parse_options(int argc, char **argv)
             case 'o':
                 outfilename = strdup(optarg);
             case 'R':
-                raw = atoi(optarg);
+                raw = 1;
                 break;
             default:
                 fprintf(stderr, "Internal error: Unrecognised argument\n");
