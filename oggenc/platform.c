@@ -123,6 +123,10 @@ int create_directories(char *fn)
     char *segment = malloc(strlen(fn)+1);
 
     start = fn;
+#ifdef _WIN32
+    if(strlen(fn) >= 3 && isalpha(fn[0] && fn[1]==':'))
+        start = start+2;
+#endif
 
     while((end = strpbrk(start+1, PATH_SEPS)) != NULL)
     {
