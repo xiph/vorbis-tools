@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-26 11:24+0100\n"
+"POT-Creation-Date: 2002-02-05 10:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,9 +153,9 @@ msgstr ""
 msgid "(NULL)"
 msgstr ""
 
-#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:439 oggenc/oggenc.c:444
-#: oggenc/oggenc.c:449 oggenc/oggenc.c:454 oggenc/oggenc.c:459
-#: oggenc/oggenc.c:464
+#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:465 oggenc/oggenc.c:470
+#: oggenc/oggenc.c:475 oggenc/oggenc.c:480 oggenc/oggenc.c:485
+#: oggenc/oggenc.c:490
 msgid "(none)"
 msgstr ""
 
@@ -617,41 +617,33 @@ msgid ""
 " At other than 44.1/48 kHz quality will be significantly degraded.\n"
 msgstr ""
 
-#: oggenc/encode.c:57
-msgid "Encoding with VBR\n"
-msgstr ""
-
-#: oggenc/encode.c:60
+#: oggenc/encode.c:59
 msgid "Mode initialisation failed: invalid parameters for quality\n"
 msgstr ""
 
-#: oggenc/encode.c:67
-msgid "Encoding with managed bitrates.\n"
-msgstr ""
-
-#: oggenc/encode.c:73
+#: oggenc/encode.c:71
 msgid "Mode initialisation failed: invalid parameters for bitrate\n"
 msgstr ""
 
-#: oggenc/encode.c:112
+#: oggenc/encode.c:110
 msgid "Failed writing header to output stream\n"
 msgstr ""
 
-#: oggenc/encode.c:180
+#: oggenc/encode.c:178
 msgid "Failed writing data to output stream\n"
 msgstr ""
 
-#: oggenc/encode.c:226
+#: oggenc/encode.c:224
 #, c-format
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c"
 msgstr ""
 
-#: oggenc/encode.c:236
+#: oggenc/encode.c:234
 #, c-format
 msgid "\tEncoding [%2dm%.2ds so far] %c"
 msgstr ""
 
-#: oggenc/encode.c:254
+#: oggenc/encode.c:252
 #, c-format
 msgid ""
 "\n"
@@ -659,104 +651,126 @@ msgid ""
 "Done encoding file \"%s\"\n"
 msgstr ""
 
-#: oggenc/encode.c:256
+#: oggenc/encode.c:254
 msgid ""
 "\n"
 "\n"
 "Done encoding.\n"
 msgstr ""
 
-#: oggenc/encode.c:260
+#: oggenc/encode.c:258
 #, c-format
 msgid ""
 "\n"
 "\tFile length:  %dm %04.1fs\n"
 msgstr ""
 
-#: oggenc/encode.c:264
+#: oggenc/encode.c:262
 #, c-format
 msgid "\tElapsed time: %dm %04.1fs\n"
 msgstr ""
 
-#: oggenc/encode.c:267
+#: oggenc/encode.c:265
 #, c-format
 msgid "\tRate:         %.4f\n"
 msgstr ""
 
-#: oggenc/encode.c:268
+#: oggenc/encode.c:266
 #, c-format
 msgid ""
 "\tAverage bitrate: %.1f kb/s\n"
 "\n"
 msgstr ""
 
-#: oggenc/encode.c:291
+#: oggenc/encode.c:290
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
 "         %s%s%s at quality %2.2f\n"
 msgstr ""
 
-#: oggenc/encode.c:292 oggenc/encode.c:298
+#: oggenc/encode.c:291 oggenc/encode.c:298
 msgid "standard input"
 msgstr ""
 
-#: oggenc/encode.c:293 oggenc/encode.c:299
+#: oggenc/encode.c:292 oggenc/encode.c:299
 msgid "standard output"
 msgstr ""
 
-#: oggenc/encode.c:296
+#: oggenc/encode.c:295
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
-"         %s%s%s at bitrate %d kbps\n"
+"         %s%s%s at bitrate %d kbps,\n"
+"using full bitrate management engine\n"
 msgstr ""
 
-#: oggenc/oggenc.c:88
+#: oggenc/oggenc.c:90
 #, c-format
 msgid ""
 "%s%s\n"
 "ERROR: No input files specified. Use -h for help.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:103
+#: oggenc/oggenc.c:105
 msgid "ERROR: Multiple files specified when using stdin\n"
 msgstr ""
 
-#: oggenc/oggenc.c:110
+#: oggenc/oggenc.c:112
 msgid ""
 "ERROR: Multiple input files with specified output filename: suggest using -"
 "n\n"
 msgstr ""
 
-#: oggenc/oggenc.c:164
+#: oggenc/oggenc.c:166
 #, c-format
-msgid "ERROR: Cannot open input file \"%s\"\n"
+msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgstr ""
 
-#: oggenc/oggenc.c:191
+#: oggenc/oggenc.c:193
 #, c-format
 msgid "Opening with %s module: %s\n"
 msgstr ""
 
-#: oggenc/oggenc.c:200
+#: oggenc/oggenc.c:202
 #, c-format
 msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr ""
 
-#: oggenc/oggenc.c:247
+#: oggenc/oggenc.c:249
 msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
 msgstr ""
 
 #: oggenc/oggenc.c:257
 #, c-format
-msgid "ERROR: Cannot open output file \"%s\"\n"
+msgid ""
+"ERROR: Could not create required subdirectories for output filename \"%s\"\n"
 msgstr ""
 
-#: oggenc/oggenc.c:306
+#: oggenc/oggenc.c:268
+#, c-format
+msgid "ERROR: Cannot open output file \"%s\": %s\n"
+msgstr ""
+
+#: oggenc/oggenc.c:316
+msgid ""
+"WARNING: Usage of the bitrate options (-b, -m, -M) has been deprecated\n"
+"To use these, you must specify that you wish to use managed mode, using\n"
+"the --managed option.\n"
+"This will cause oggenc to enable the full bitrate management engine.\n"
+"You should do this ONLY if bitrate management is critical to your usage\n"
+"(for example, certain audio streaming applications).\n"
+"Usage of the bitrate management engine will generally decrease quality,\n"
+"using the normal fully VBR modes (quality specified using -q) is\n"
+"very highly recommended for most users.\n"
+"Usage of the -managed option will become MANDATORY in the next release.\n"
+"\n"
+msgstr ""
+
+#: oggenc/oggenc.c:331
 #, c-format
 msgid ""
-"\n"
+"%s%s\n"
 "Usage: oggenc [options] input.wav [...]\n"
 "\n"
 "OPTIONS:\n"
@@ -777,6 +791,7 @@ msgid ""
 " -q, --quality        Specify quality between 0 (low) and 10 (high),\n"
 "                      instead of specifying a particular bitrate.\n"
 "                      This is the normal mode of operation.\n"
+"                      Fractional qualities (e.g. 2.75) are permitted\n"
 " -s, --serial         Specify a serial number for the stream. If encoding\n"
 "                      multiple files, this will be incremented for each\n"
 "                      stream after the first.\n"
@@ -840,101 +855,120 @@ msgid ""
 "\n"
 msgstr ""
 
-#: oggenc/oggenc.c:469
+#: oggenc/oggenc.c:495
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
 msgstr ""
 
-#: oggenc/oggenc.c:491
+#: oggenc/oggenc.c:518
+msgid "Enabling bitrate management engine\n"
+msgstr ""
+
+#: oggenc/oggenc.c:522
 msgid "Internal error parsing command line options\n"
 msgstr ""
 
-#: oggenc/oggenc.c:531
+#: oggenc/oggenc.c:569
 #, c-format
 msgid "Warning: nominal bitrate \"%s\" not recognised\n"
 msgstr ""
 
-#: oggenc/oggenc.c:538
+#: oggenc/oggenc.c:582
 #, c-format
 msgid "Warning: minimum bitrate \"%s\" not recognised\n"
 msgstr ""
 
-#: oggenc/oggenc.c:545
+#: oggenc/oggenc.c:594
 #, c-format
 msgid "Warning: maximum bitrate \"%s\" not recognised\n"
 msgstr ""
 
-#: oggenc/oggenc.c:551
+#: oggenc/oggenc.c:600
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr ""
 
-#: oggenc/oggenc.c:558
+#: oggenc/oggenc.c:607
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:563
+#: oggenc/oggenc.c:612
 msgid "WARNING: negative quality specified, setting to minimum.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:569
+#: oggenc/oggenc.c:618
 msgid "WARNING: Multiple name formats specified, using final\n"
 msgstr ""
 
-#: oggenc/oggenc.c:578
+#: oggenc/oggenc.c:627
 msgid "WARNING: Multiple name format filters specified, using final\n"
 msgstr ""
 
-#: oggenc/oggenc.c:587
+#: oggenc/oggenc.c:636
 msgid ""
 "WARNING: Multiple name format filter replacements specified, using final\n"
 msgstr ""
 
-#: oggenc/oggenc.c:595
+#: oggenc/oggenc.c:644
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
 msgstr ""
 
-#: oggenc/oggenc.c:614
+#: oggenc/oggenc.c:663
 msgid ""
 "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
 msgstr ""
 
 #. Failed, so just set to 16
-#: oggenc/oggenc.c:619 oggenc/oggenc.c:623
+#: oggenc/oggenc.c:668 oggenc/oggenc.c:672
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:630
+#: oggenc/oggenc.c:679
 msgid ""
 "WARNING: Raw channel count specified for non-raw data. Assuming input is "
 "raw.\n"
 msgstr ""
 
 #. Failed, so just set to 2
-#: oggenc/oggenc.c:635
+#: oggenc/oggenc.c:684
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:646
+#: oggenc/oggenc.c:695
 msgid ""
 "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
 msgstr ""
 
 #. Failed, so just set to 44100
-#: oggenc/oggenc.c:651
+#: oggenc/oggenc.c:700
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:655
+#: oggenc/oggenc.c:704
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr ""
 
-#: oggenc/oggenc.c:679
+#: oggenc/oggenc.c:726
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr ""
 
-#: oggenc/oggenc.c:698
+#: oggenc/oggenc.c:745
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
+msgstr ""
+
+#: oggenc/platform.c:139
+#, c-format
+msgid "Couldn't create directory \"%s\": %s\n"
+msgstr ""
+
+#: oggenc/platform.c:146
+#, c-format
+msgid "Error checking for existence of directory %s: %s\n"
+msgstr ""
+
+#: oggenc/platform.c:157
+#, c-format
+msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr ""
 
 #: ogginfo/ogginfo.c:33
@@ -1103,27 +1137,27 @@ msgstr ""
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr ""
 
-#: vcut/vcut.c:126
+#: vcut/vcut.c:131
 msgid "Page error. Corrupt input.\n"
 msgstr ""
 
-#: vcut/vcut.c:143
+#: vcut/vcut.c:148
 msgid "Bitstream error, continuing\n"
 msgstr ""
 
-#: vcut/vcut.c:168
+#: vcut/vcut.c:173
 msgid "Found EOS before cut point.\n"
 msgstr ""
 
-#: vcut/vcut.c:177
+#: vcut/vcut.c:182
 msgid "Setting eos: update sync returned 0\n"
 msgstr ""
 
-#: vcut/vcut.c:187
+#: vcut/vcut.c:192
 msgid "Cutpoint not within stream. Second file will be empty\n"
 msgstr ""
 
-#: vcut/vcut.c:220
+#: vcut/vcut.c:225
 msgid "Unhandled special case: first file too short?\n"
 msgstr ""
 
@@ -1131,87 +1165,92 @@ msgstr ""
 #. * spectacularly unlucky? Doubt it, but let's check for it just
 #. * in case.
 #.
-#: vcut/vcut.c:279
+#: vcut/vcut.c:284
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
 "       ogg page. File may not decode correctly.\n"
 msgstr ""
 
-#: vcut/vcut.c:292
+#: vcut/vcut.c:297
 msgid "Recoverable bitstream error\n"
 msgstr ""
 
-#: vcut/vcut.c:302
+#: vcut/vcut.c:307
 msgid "Bitstream error\n"
 msgstr ""
 
-#: vcut/vcut.c:325
+#: vcut/vcut.c:330
 msgid "Update sync returned 0, setting eos\n"
 msgstr ""
 
-#: vcut/vcut.c:371
+#: vcut/vcut.c:376
 msgid "Input not ogg.\n"
 msgstr ""
 
-#: vcut/vcut.c:381
+#: vcut/vcut.c:386
 msgid "Error in first page\n"
 msgstr ""
 
-#: vcut/vcut.c:386
+#: vcut/vcut.c:391
 msgid "error in first packet\n"
 msgstr ""
 
-#: vcut/vcut.c:392
+#: vcut/vcut.c:397
 msgid "Error in primary header: not vorbis?\n"
 msgstr ""
 
-#: vcut/vcut.c:412
+#: vcut/vcut.c:417
 msgid "Secondary header corrupt\n"
 msgstr ""
 
-#: vcut/vcut.c:425
+#: vcut/vcut.c:430
 msgid "EOF in headers\n"
 msgstr ""
 
-#: vcut/vcut.c:451
+#: vcut/vcut.c:456
 msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"
 msgstr ""
 
-#: vcut/vcut.c:455
+#: vcut/vcut.c:460
 msgid ""
 "WARNING: vcut is still experimental code.\n"
 "Check that the output files are correct before deleting sources.\n"
 "\n"
 msgstr ""
 
-#: vcut/vcut.c:460
+#: vcut/vcut.c:465
 #, c-format
 msgid "Couldn't open %s for reading\n"
 msgstr ""
 
-#: vcut/vcut.c:465 vcut/vcut.c:470
+#: vcut/vcut.c:470 vcut/vcut.c:475
 #, c-format
 msgid "Couldn't open %s for writing\n"
 msgstr ""
 
-#: vcut/vcut.c:476
+#: vcut/vcut.c:480
+#, c-format
+msgid "Couldn't parse cutpoint \"%s\"\n"
+msgstr ""
+
+#: vcut/vcut.c:484
 #, c-format
 msgid "Processing: Cutting at %lld\n"
 msgstr ""
 
-#: vcut/vcut.c:485
+#: vcut/vcut.c:493
 msgid "Processing failed\n"
 msgstr ""
 
-#: vcut/vcut.c:506
+#: vcut/vcut.c:514
 msgid "Error reading headers\n"
 msgstr ""
 
-#: vcut/vcut.c:529
+#: vcut/vcut.c:537
 msgid "Error writing first output file\n"
 msgstr ""
 
-#: vcut/vcut.c:537
+#: vcut/vcut.c:545
 msgid "Error writing second output file\n"
 msgstr ""
 
@@ -1252,36 +1291,36 @@ msgid ""
 "Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr ""
 
-#: vorbiscomment/vcomment.c:102 vorbiscomment/vcomment.c:124
+#: vorbiscomment/vcomment.c:100 vorbiscomment/vcomment.c:122
 #, c-format
 msgid "Failed to open file as vorbis: %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:140
+#: vorbiscomment/vcomment.c:138
 #, c-format
 msgid "Bad comment: \"%s\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:152
+#: vorbiscomment/vcomment.c:150
 #, c-format
 msgid "bad comment: \"%s\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:162
+#: vorbiscomment/vcomment.c:160
 #, c-format
 msgid "Failed to write comments to output file: %s\n"
 msgstr ""
 
 #. should never reach this point
-#: vorbiscomment/vcomment.c:175
+#: vorbiscomment/vcomment.c:173
 msgid "no action specified\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:252
+#: vorbiscomment/vcomment.c:250
 msgid "Couldn't convert comment to UTF8, cannot add\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:270
+#: vorbiscomment/vcomment.c:268
 msgid ""
 "Usage: \n"
 "  vorbiscomment [-l] file.ogg (to list the comments)\n"
@@ -1303,26 +1342,26 @@ msgid ""
 "   file or stdin is disabled)\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:341
+#: vorbiscomment/vcomment.c:339
 msgid "Internal error parsing command options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:420
+#: vorbiscomment/vcomment.c:422
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:436
+#: vorbiscomment/vcomment.c:438
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:451
+#: vorbiscomment/vcomment.c:453
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:468
+#: vorbiscomment/vcomment.c:470
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr ""
