@@ -36,7 +36,7 @@ struct vorbis_release {
         {"Xiphophorus libVorbis I 20011231", "1.0 rc3"},
         {"Xiph.Org libVorbis I 20020717", "1.0"},
         {"Xiph.Org libVorbis I 20030909", "1.0.1"},
-        {"Xiph.Org libVorbis I 20040629", "1.1.0 rc1"},
+        {"Xiph.Org libVorbis I 20040629", "1.1.0"},
         {NULL, NULL},
     };
 
@@ -728,7 +728,7 @@ static void process_file(char *filename) {
 }
 
 static void usage(void) {
-    printf(_("ogginfo 1.0.1\n"
+    printf(_("ogginfo 1.1.0\n"
              "(c) 2003 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
