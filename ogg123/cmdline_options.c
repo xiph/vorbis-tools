@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.12 2002/07/06 19:12:17 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.13 2002/07/11 02:44:39 volsung Exp $
 
  ********************************************************************/
 
@@ -46,6 +46,7 @@ struct option long_options[] = {
     {"ntimes", required_argument, 0, 'y'},
     {"shuffle", no_argument, 0, 'z'},
     {"list", required_argument, 0, '@'},
+    {"audio-buffer", required_argument, 0, 0},
     {0, 0, 0, 0}
 };
 
@@ -67,9 +68,13 @@ int parse_cmdline_options (int argc, char **argv,
 
       switch (ret) {
       case 0:
-	status_error(_("Internal error: long option given when none expected.\n"));
-	exit(1);
-	
+	if(!strcmp(long_options[option_index].name, "audio-buffer")) {
+	  ogg123_opts->buffer_size = 1024 * atoi(optarg);
+	} else {
+	  status_error(_("Internal error parsing command line options.\n"));
+	  exit(1);
+	}
+	break;
       case 'b':
 	ogg123_opts->input_buffer_size = atoi(optarg) * 1024;
 	if (ogg123_opts->input_buffer_size < MIN_INPUT_BUFFER_SIZE * 1024) {
