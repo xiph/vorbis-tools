@@ -20,9 +20,7 @@ The Ogg Vorbis homepage is located at 'http://www.xiph.org/ogg/vorbis/'.
 Up to date technical documents, contact information, source code and
 pre-built utilities may be found there.
 
-BUILD:
-
-A standard build should consist of nothing more than:
+BUILDING FROM CVS:
 
 ./autogen.sh
 make 
@@ -35,10 +33,20 @@ This will install the Ogg libraries (static and shared) into
 /usr/local/lib, includes into /usr/local/include and API manpages
 (once we write some) into /usr/local/man.
 
+BUILDING FROM TARBALL DISTRIBUTIONS:
+
+./configure
+make
+
+and as root if desired :
+
+make install
+
 BUILDING RPMS:
 
 RPMs may be built by:
 
-./autogen.sh
+after autogen.sh or configure
+
 make dist
 rpm -ta vorbis-tools-<version>.tar.gz
