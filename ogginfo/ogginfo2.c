@@ -713,7 +713,7 @@ static void usage(void) {
     printf(_("ogginfo 1.0\n"
              "(c) 2002 Michael Smith <msmith@labyrinth.net.au>\n"
              "\n"
-             "Usage: ogginfo [flags] files1.ogg [file2.ogg ... fileN.ogg]\n"
+             "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
              "Flags supported:\n"
              "\t-h Show this help message\n"
              "\t-q Make less verbose. Once will remove detailed informative\n"
