@@ -250,6 +250,8 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	format.samplesize = READ_U16_BE(buffer+6);
 	format.rate = (int)read_IEEE80(buffer+8);
 
+    aiff->bigendian = 1;
+
 	if(aifc)
 	{
 		if(len < 22)
