@@ -160,7 +160,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
             header = 1;
             inf->doneheaders++;
             if(inf->doneheaders == 3) {
-                if(ogg_page_granulepos(page) != 0 || ogg_page_continued(page))
+                if(ogg_page_granulepos(page) != 0)
                     warn(_("Warning: Vorbis stream %d does not have headers "
                            "correctly framed. Terminal header page contains "
                            "additional packets or has non-zero granulepos\n"),
