@@ -21,6 +21,7 @@
 #define READSIZE 1024
 
 
+static void update_statistics(char *fn, long total, long done, double time,long counter);
 int oe_write_page(ogg_page *page, FILE *fp);
 
 int oe_encode(oe_enc_opt *opt)
@@ -34,10 +35,11 @@ int oe_encode(oe_enc_opt *opt)
 	vorbis_block     vb;
 
 	long samplesdone=0;
+	long counter=0,counter2=0;
     int eos;
-	long bytes_written = 0, packetsdone=0;
+	long bytes_written = 0;
 
-	TIMER *timer;
+	void *timer;
 
 
 	/* get start time. */
@@ -67,9 +69,12 @@ int oe_encode(oe_enc_opt *opt)
 
 		/* And stream them out */
 		ogg_stream_packetin(&os,&header_main);
+		/* Possibly need to flush page here? */
 		ogg_stream_packetin(&os,&header_comments);
 		ogg_stream_packetin(&os,&header_codebooks);
 
+		/* Write out the headers - this ensures that the audio data starts at
+		 * the start of a new page, making streaming easier */
 		while((result = ogg_stream_flush(&os, &og)))
 		{
 			if(!result) break;
@@ -93,16 +98,14 @@ int oe_encode(oe_enc_opt *opt)
 		{
 			samplesdone += samples_read;
 
-			/* Call progress update every 10 pages */
-			if(!opt->quiet && packetsdone>=10)
+			if((counter++%16==0) && !opt->quiet)
 			{
 				double time;
 
-				packetsdone = 0;
 				time = timer_time(timer);
 
-				opt->progress_update(opt->filename, opt->total_samples_per_channel, 
-						samplesdone, time);
+				update_statistics(opt->filename, 
+						opt->total_samples_per_channel, samplesdone,time,counter2++);
 			}
 
 			/* Tell the library how many samples (per channel) we wrote 
@@ -120,7 +123,6 @@ int oe_encode(oe_enc_opt *opt)
 
 			/* Add packet to bitstream */
 			ogg_stream_packetin(&os,&op);
-			packetsdone++;
 
 			/* If we've gone over a page boundary, we can do actual output,
 			   so do so (for however many pages are available) */
@@ -147,8 +149,27 @@ int oe_encode(oe_enc_opt *opt)
 
 	if(!opt->quiet)
 	{
-		double time_elapsed = timer_time(timer);
-		opt->end_encode(opt->filename, time_elapsed, opt->rate, samplesdone, bytes_written);
+		double time_elapsed, speed_ratio;
+		if(opt->filename)
+			fprintf(stderr, "\n\nDone encoding file \"%s\"\n", opt->filename);
+		else
+			fprintf(stderr, "\n\nDone encoding.\n");
+
+		time_elapsed = timer_time(timer);
+		speed_ratio = (double)samplesdone / (double)opt->rate / time_elapsed;
+		
+
+		fprintf(stderr, "\n\tFile length:  %dm %04.1fs\n",
+				(int)(samplesdone/opt->rate/60),
+				samplesdone/opt->rate - 
+				floor(samplesdone/opt->rate/60)*60);
+		fprintf(stderr, "\tElapsed time: %dm %04.1fs\n",
+				(int)(time_elapsed/60),
+				time_elapsed - floor(time_elapsed/60)*60);
+		fprintf(stderr, "\tRate:         %.4f\n", speed_ratio);
+		fprintf(stderr, "\tAverage bitrate: %.1f kb/s\n\n", 
+			8./1000.*((double)bytes_written/((double)samplesdone/(double)opt->rate)));
+
 	}
 
 	timer_clear(timer);
@@ -156,30 +177,41 @@ int oe_encode(oe_enc_opt *opt)
 	return 0;
 }
 
-void update_statistics_full(char *fn, long total, long done, double time)
+static void update_statistics(char *fn, long total, long done, double time,long counter)
 {
 	static char *spinner="|/-\\";
-	static int spinpoint = 0;
 	double remain_time;
 	int minutes=0,seconds=0;
-	
-	remain_time = time/((double)done/(double)total) - time;
-	minutes = ((int)remain_time)/60;
-	seconds = (int)(remain_time - (double)((int)remain_time/60)*60);
 
-	fprintf(stderr, "\rEncoding %s%s%s [%5.1f%%] [%2dm%.2ds remaining] %c", 
-			fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
-			done*100.0/total, minutes, seconds, spinner[spinpoint++%4]);
-}
+	if(total)
+	{
+		remain_time = time/((double)done/(double)total) - time;
+		minutes = ((int)remain_time)/60;
+		seconds = (int)(remain_time - (float)((int)remain_time/60)*60);
+	}
 
-void update_statistics_notime(char *fn, long total, long done, double time)
-{
-	static char *spinner="|/-\\";
-	static int spinpoint =0;
-	
-	fprintf(stderr, "\rEncoding %s%s%s %c", 
-			fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
-			spinner[spinpoint++%4]);
+	if(fn && total && time > 1.0)
+		fprintf(stderr, "\rEncoding \"%s\" [%5.1f%%] [%2dm%.2ds remaining] %c", fn, 
+				done*100.0/total, minutes, seconds,
+				spinner[counter%4]);
+	else if(fn && total)
+		fprintf(stderr, "\rEncoding \"%s\" [%5.1f%%] %c", fn, 
+				done*100.0/total,
+				spinner[counter%4]);
+	else if(fn)
+		fprintf(stderr, "\rEncoding \"%s\" [???%%] %c", fn, 
+				spinner[counter%4]);
+	else if(total && time > 1.0)
+		fprintf(stderr, "\rEncoding to standard output [%5.1f%%] [%dm%ds remaining] %c", 
+				done*100.0/total, minutes, seconds,
+				spinner[counter%4]);
+	else if(total)
+		fprintf(stderr, "\rEncoding to standard output [%5.1f%%] %c", 
+				done*100.0/total,
+				spinner[counter%4]);
+	else
+		fprintf(stderr, "\rEncoding to standard output [???%%] %c",
+				spinner[counter%4]);
 }
 
 int oe_write_page(ogg_page *page, FILE *fp)
@@ -190,26 +222,5 @@ int oe_write_page(ogg_page *page, FILE *fp)
 	return page->header_len+page->body_len;
 }
 
-void final_statistics(char *fn, double time, int rate, long samples, long bytes)
-{
-	double speed_ratio;
-	if(fn)
-		fprintf(stderr, "\n\nDone encoding file \"%s\"\n", fn);
-	else
-		fprintf(stderr, "\n\nDone encoding.\n");
-
-	speed_ratio = (double)samples / (double)rate / time;
-	
-	fprintf(stderr, "\n\tFile length:  %dm %04.1fs\n",
-			(int)(samples/rate/60),
-			samples/rate - 
-			floor(samples/rate/60)*60);
-	fprintf(stderr, "\tElapsed time: %dm %04.1fs\n",
-			(int)(time/60),
-			time - floor(time/60)*60);
-	fprintf(stderr, "\tRate:         %.4f\n", speed_ratio);
-	fprintf(stderr, "\tAverage bitrate: %.1f kb/s\n\n", 
-		8./1000.*((double)bytes/((double)samples/(double)rate)));
-}
 
 

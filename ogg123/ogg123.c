@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.1 2000/09/07 00:57:47 jack Exp $
+ last mod: $Id: ogg123.c,v 1.2 2000/09/27 06:12:32 jack Exp $
 
  ********************************************************************/
 
@@ -38,9 +38,9 @@
 #include <fcntl.h> /* !!! */
 #include <time.h> /* !!! */
 #include <sys/time.h> /* !!! */
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
-#include <libao/audio_out.h>
+#include "vorbis/codec.h"
+#include "vorbis/vorbisfile.h"
+#include "libao/audio_out.h"
 
 char convbuffer[4096];	/* take 8k out of the data segment, not the stack */
 int convsize = 4096;
@@ -317,7 +317,8 @@ play_file (void)
   int current_section = -1, eos = 0, ret;
   long t_min = 0, c_min = 0, r_min = 0;
   double t_sec = 0, c_sec = 0, r_sec = 0;
- 
+  int is_big_endian = ao_is_big_endian();
+
   if (strcmp (param.read_file, "-"))	/* input file not stdin */
     {
       if (!strncmp (param.read_file, "http://", 7))
@@ -462,7 +463,8 @@ play_file (void)
 
   while (! eos)
     {
-      switch ((ret = ov_read (&vf, convbuffer, sizeof (convbuffer), 0, 2, 1, &current_section))) {
+      switch ((ret = ov_read (&vf, convbuffer, sizeof (convbuffer), 
+			      is_big_endian, 2, 1, &current_section))) {
       case 0: /* End of file */
 	eos = 1;
 	break;

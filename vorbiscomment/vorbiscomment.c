@@ -1,7 +1,22 @@
+/* This program is provided under the GNU General Public License, version 2, 
+ * which is included with this program.
+ *
+ * (c) 2000 Michael Smith <msmith@labyrinth.net.au>
+ * Portions (c) 2000 Kenneth C. Arnold <kcarnold@yahoo.com>
+ * 
+ * *********************************************************************
+ * Vorbis comment field editor - designed to be wrapped by scripts, etc.
+ * and as a proof of concept/example code/
+ * 
+ * last mod: $Id: vorbiscomment.c,v 1.2 2000/09/27 06:12:32 jack Exp $
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <vorbis/codec.h>
+#include "vorbis/codec.h"
+#include "../lib/bitwise.h"
 
 #define CHUNK 4096
 
@@ -10,10 +25,11 @@ int edit_comments(vorbis_comment *in, vorbis_comment *out);
 int main(int argc, char **argv)
 {
 
-	unsigned char *buffer;
+	char *buffer;
 	int bytes;
 	int i;
 	int serial;
+	int result;
 	int eosin=0,eosout=0;
 	FILE *input, *output;
 
@@ -31,8 +47,10 @@ int main(int argc, char **argv)
 
 	ogg_packet	 	*header;
 	ogg_packet header_main;
+	ogg_packet header_main_original;
 	ogg_packet header_comments;
 	ogg_packet header_codebooks;
+	ogg_packet header_codebooks_original;
 
 	if(argc == 3)
 	{
@@ -108,13 +126,13 @@ int main(int argc, char **argv)
 	    exit(1);
 	  }
 	
-	if(ogg_stream_packetout(&os,&header_main)!=1)
+	if(ogg_stream_packetout(&os,&header_main_original)!=1)
 	  {
 	    fprintf(stderr, "First header broken\n");
 	    exit(1);
 	  }
 	
-	if(vorbis_synthesis_headerin(&vi,&vc,&header_main)<0)
+	if(vorbis_synthesis_headerin(&vi,&vc,&header_main_original)<0)
 	  {
 	    fprintf(stderr, "ogg, but not vorbis\n");
 	    exit(1);
@@ -140,7 +158,7 @@ int main(int argc, char **argv)
 		    }
 		  vorbis_synthesis_headerin(&vi,&vc,header);
 		  i++;
-		  header = &header_codebooks;
+		  header = &header_codebooks_original;
 		}
 	      }
 	  }
@@ -200,13 +218,20 @@ int main(int argc, char **argv)
 	    ogg_stream_packetin(&out,&header_main);
 	    ogg_stream_packetin(&out,&header_comments);
 	    ogg_stream_packetin(&out,&header_codebooks);
+
+	    while((result = ogg_stream_flush(&os, &og)))
+	    {
+		if(!result) break;
+		fwrite(og.header,1, og.header_len, output);
+		fwrite(og.body,1,og.body_len, output);
+	    }
 	    
 	    /* Hard bit - stream ogg packets out, ogg packets in */
 	    
 	    while(!(eosin && eosout)){
 	      while(!(eosin && !eosout)){
 
-		int result=ogg_sync_pageout(&oy,&og);
+		result=ogg_sync_pageout(&oy,&og);
 		if(result==0)break;
 		else if(result==-1)fprintf(stderr, "Error in bitstream, continuing\n");
 		else
@@ -259,7 +284,6 @@ int main(int argc, char **argv)
 int edit_comments(vorbis_comment *in, vorbis_comment *out)
 {
   char comment[1024];
-  int pos = 0, ret = 0;
   vorbis_comment_init(out);
   
   while (1)
