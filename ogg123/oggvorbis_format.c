@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.2 2001/12/19 02:52:54 volsung Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.3 2001/12/28 00:22:36 segher Exp $
 
  ********************************************************************/
 
@@ -115,7 +115,7 @@ decoder_t* ovf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
 
   if (ret < 0) {
     free(private);
-    free(source);
+/*    free(source);     nope.  caller frees. */ 
     return NULL;
   }
 
