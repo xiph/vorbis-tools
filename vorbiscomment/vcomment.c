@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <getopt.h>
+#include "getopt.h"
 
 #include "vcedit.h"
 
@@ -193,7 +193,7 @@ int  add_comment(char *line, vorbis_comment *vc)
 	 * as the comment spec requires. For the moment, we
 	 * also restrict ourselves to 0-terminated values */
 
-	mark = index(line, '=');
+	mark = strchr(line, '=');
 	if (mark == NULL) return -1;
 
 	value = line;
