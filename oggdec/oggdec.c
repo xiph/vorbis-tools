@@ -99,6 +99,7 @@ static void parse_options(int argc, char **argv)
                 break;
             case 'o':
                 outfilename = strdup(optarg);
+                break;
             case 'R':
                 raw = 1;
                 break;
@@ -126,8 +127,8 @@ int write_prelim_header(OggVorbis_File *vf, FILE *out, ogg_int64_t knownlength) 
     int align = channels*bits/8;
     int samplesize = bits;
 
-    if(knownlength)
-        size = (unsigned int)knownlength;
+    if(knownlength && knownlength*bits/8*channels < size)
+        size = (unsigned int)knownlength*bits/8*channels;
 
     memcpy(headbuf, "RIFF", 4);
     WRITE_U32(headbuf+4, size-8);
