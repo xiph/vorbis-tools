@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.39 2001/06/19 19:42:35 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.40 2001/07/06 22:11:37 volsung Exp $
 
  ********************************************************************/
 
@@ -86,8 +86,10 @@ void usage(void)
 	    "  -V, --version  display Ogg123 version\n"
 	    "  -d, --device=d uses 'd' as an output device\n"
 	    "      Possible devices are (some may not be compiled):\n"
-	    "      null (output nothing), oss (for Linux and *BSD),\n"
-	    "      irix, solaris, wav (write to a .WAV file)\n"
+	    "      null (output nothing), oss (for Linux and FreeBSD),\n"
+	    "      alsa (for Linux), sun (for NetBSD, OpenBSD, Solaris),\n"
+	    "      irix, arts (aRts sound daemon), esd (ESounD daemon),\n"
+	    "      raw (write to a file), wav (write to a .WAV file)\n"
 	    "  -k n, --skip n  Skip the first 'n' seconds\n"
 	    "  -o, --device-option=k:v passes special option k with value\n"
 	    "      v to previously specified device (with -d).  See\n"

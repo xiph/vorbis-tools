@@ -76,13 +76,24 @@ written to
 output overhead. 
 
 .IP oss
-Open Sound System driver for Linux and {Net,Free,Open}BSD.
+Open Sound System driver for Linux and FreeBSD.
 .RS
 Options:
 .RS 
 .IP dsp
 DSP device for soundcard.  Defaults to  
 .B /dev/dsp.
+.RE
+.RE
+
+.IP sun
+Sun Audio driver for NetBSD, OpenBSD, and Solaris.
+.RS
+Options:
+.RS
+.IP dev
+Audio device for soundcard.  Defaults to  
+.B /dev/audio.
 .RE
 .RE
 
@@ -100,6 +111,14 @@ Override the default buffer size (in bytes).
 .RE
 .RE
 
+.IP irix
+IRIX audio driver.  Note that this driver has
+.B not 
+been tested!
+
+.IP arts
+aRts Sound Daemon.
+
 .IP esd
 Enlightened Sound Daemon.
 .RS
@@ -111,15 +130,19 @@ after a colon, as in "whizbang.com:555".  (Default = localhost)
 .RE
 .RE
 
-.IP solaris
-Solaris audio driver.  Note that this driver has
-.B not 
-been tested!
-
-.IP irix
-IRIX audio driver.  Note that this driver has
-.B not 
-been tested!
+.IP raw
+Raw sample output.  Writes raw audio samples to a file.
+.RS
+Options:
+.RS
+.IP file
+Sets the output file.  (Default = "output.raw")
+.RE
+.RS
+.IP byteorder
+Choose big endian, little endian, or native byte order.  (Default = "native")
+.RE
+.RE
 
 .IP wav
 WAV file output.  Writes the sound data to disk in uncompressed form.
