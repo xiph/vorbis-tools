@@ -20,8 +20,8 @@ typedef struct {
 	ogg_int64_t initialgranpos;
 	ogg_int64_t cutpoint;
 	unsigned int serial;
-	vcut_packet **headers; //3
-	vcut_packet **packets; //2
+	vcut_packet **headers; /* 3 */
+	vcut_packet **packets; /* 2 */
 
 	FILE *in,*out1,*out2;
 } vcut_state;
