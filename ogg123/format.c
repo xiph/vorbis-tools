@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: format.c,v 1.2 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: format.c,v 1.3 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -20,6 +20,7 @@
 
 #include "transport.h"
 #include "format.h"
+#include "i18n.h"
 
 extern format_t oggvorbis_format;
 
@@ -55,7 +56,7 @@ decoder_stats_t *malloc_decoder_stats (decoder_stats_t *to_copy)
   new_stats = malloc(sizeof(decoder_stats_t));
 
   if (new_stats == NULL) {
-    fprintf(stderr, "Error: Could not allocate memory in malloc_decoder_stats()\n");
+    fprintf(stderr, _("Error: Could not allocate memory in malloc_decoder_stats()\n"));
     exit(1);
   }
 

@@ -2,13 +2,17 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+datadir = @datadir@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
 bin_PROGRAMS = vorbiscomment
 mandir = @MANDIR@
 man_MANS = vorbiscomment.1
 
-INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@
+INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
 
-vorbiscomment_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @SHARE_LIBS@
+vorbiscomment_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @SHARE_LIBS@ @I18N_LIBS@
 vorbiscomment_DEPENDENCIES = @SHARE_LIBS@
 
 vorbiscomment_SOURCES = vcedit.c vcedit.h vcomment.c

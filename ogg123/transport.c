@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: transport.c,v 1.2 2001/12/19 02:52:54 volsung Exp $
+ last mod: $Id: transport.c,v 1.3 2002/01/26 11:06:38 segher Exp $
 
  ********************************************************************/
 
@@ -19,6 +19,7 @@
 #include <string.h>
 
 #include "transport.h"
+#include "i18n.h"
 
 extern transport_t file_transport;
 extern transport_t http_transport;
@@ -55,7 +56,7 @@ data_source_stats_t *malloc_data_source_stats (data_source_stats_t *to_copy)
   new_stats = malloc(sizeof(data_source_stats_t));
 
   if (new_stats == NULL) {
-    fprintf(stderr, "Error: Could not allocate memory in malloc_data_source_stats()\n");
+    fprintf(stderr, _("Error: Could not allocate memory in malloc_data_source_stats()\n"));
     exit(1);
   }
 

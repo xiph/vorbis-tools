@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.7 2001/12/20 00:24:54 volsung Exp $
+ last mod: $Id: http_transport.c,v 1.8 2002/01/26 11:06:37 segher Exp $
  
 ********************************************************************/
 
@@ -28,6 +28,7 @@
 #include "buffer.h"
 #include "status.h"
 #include "callbacks.h"
+#include "i18n.h"
 
 #define INPUT_BUFFER_SIZE 32768
 
@@ -115,7 +116,7 @@ curl_thread_arg_t *new_curl_thread_arg (buf_t *buf, data_source_t *data_source,
   curl_thread_arg_t *arg;
 
   if ( (arg = malloc(sizeof(curl_thread_arg_t))) == NULL ) {
-    status_error("Error: Out of memory in new_curl_thread_arg().\n");
+    status_error(_("Error: Out of memory in new_curl_thread_arg().\n"));
     exit(1);
   }  
   
@@ -140,7 +141,7 @@ void *curl_thread_func (void *arg)
   sigaddset (&set, SIGTSTP);
   sigaddset (&set, SIGCONT);
   if (pthread_sigmask (SIG_BLOCK, &set, NULL) != 0)
-    status_error("Error: Could not set signal mask.");
+    status_error(_("Error: Could not set signal mask."));
 
   ret = curl_easy_perform((CURL *) myarg->curl_handle);
 
@@ -192,7 +193,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
 						  buffer in pull mode. */
 				  0 /* Irrelevant */);
     if (private->buf == NULL) {
-      status_error("Error: Unable to create input buffer.\n");
+      status_error(_("Error: Unable to create input buffer.\n"));
       exit(1);
     }
 
@@ -203,7 +204,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     private->stats.input_buffer_used = 0;
 
   } else {
-    fprintf(stderr, "Error: Out of memory.\n");
+    fprintf(stderr, _("Error: Out of memory.\n"));
     exit(1);
   }
 

@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.59 2002/01/19 08:22:29 segher Exp $
+ last mod: $Id: ogg123.c,v 1.60 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -41,6 +41,8 @@
 #include "compat.h"
 
 #include "ogg123.h"
+#include "i18n.h"
+
 
 void exit_cleanup ();
 void play (char *source_string);
@@ -67,9 +69,9 @@ INIT(int, 0);
 
 file_option_t file_opts[] = {
   /* found, name, description, type, ptr, default */
-  {0, "default_device", "default output device", opt_type_string,
+  {0, "default_device", N_("default output device"), opt_type_string,
    &options.default_device, NULL},
-  {0, "shuffle",        "shuffle playlist",      opt_type_bool,
+  {0, "shuffle",        N_("shuffle playlist"),      opt_type_bool,
    &options.shuffle,        &int_0},
   {0, NULL,             NULL,                    0,               NULL,                NULL}
 };
@@ -250,9 +252,9 @@ void print_audio_devices_info(audio_device_t *d)
   while (d != NULL) {
     info = ao_driver_info(d->driver_id);
     
-    status_message(2, "\nDevice:   %s", info->name);
-    status_message(2, "Author:   %s", info->author);
-    status_message(2, "Comments: %s\n", info->comment);
+    status_message(2, _("\nDevice:   %s"), info->name);
+    status_message(2, _("Author:   %s"), info->author);
+    status_message(2, _("Comments: %s\n"), info->comment);
 
     d = d->next_device;
   }
@@ -269,6 +271,8 @@ int main(int argc, char **argv)
   int optind;
 
   setlocale(LC_ALL, "");
+  bindtextdomain(PACKAGE, LOCALEDIR);
+  textdomain(PACKAGE);
 
   ao_initialize();
   stat_format = stat_format_create();
@@ -306,7 +310,7 @@ int main(int argc, char **argv)
 				 audio_play_callback, &audio_play_arg,
 				 AUDIO_CHUNK_SIZE);
     if (audio_buffer == NULL) {
-      status_error("Error: Could not create audio buffer.\n");
+      status_error(_("Error: Could not create audio buffer.\n"));
       exit(1);
     }
   } else
@@ -380,26 +384,26 @@ void play (char *source_string)
 
   /* Locate and use transport for this data source */  
   if ( (transport = select_transport(source_string)) == NULL ) {
-    status_error("No module could be found to read from %s.\n", source_string);
+    status_error(_("No module could be found to read from %s.\n"), source_string);
     return;
   }
   
   if ( (source = transport->open(source_string, &options)) == NULL ) {
-    status_error("Cannot open %s.\n", source_string);
+    status_error(_("Cannot open %s.\n"), source_string);
     return;
   }
 
   /* Detect the file format and initialize a decoder */
   if ( (format = select_format(source)) == NULL ) {
-    status_error("The file format of %s is not supported.\n", source_string);
+    status_error(_("The file format of %s is not supported.\n"), source_string);
     return;
   }
   
   if ( (decoder = format->init(source, &options, &new_audio_fmt, 
 			       &decoder_callbacks,
 			       decoder_callbacks_arg)) == NULL ) {
-    status_error("Error opening %s using the %s module."
-		 "  The file may be corrupted.\n", source_string,
+    status_error(_("Error opening %s using the %s module."
+		 "  The file may be corrupted.\n"), source_string,
 		 format->name);
     return;
   }
@@ -423,12 +427,12 @@ void play (char *source_string)
 
   /* Show which file we are playing */
   decoder_callbacks.printf_metadata(decoder_callbacks_arg, 1,
-				    "Playing: %s", source_string);
+				    _("Playing: %s"), source_string);
 
   /* Skip over audio */
   if (options.seekpos > 0.0) {
     if (!format->seek(decoder, options.seekpos, DECODER_SEEK_START))
-      status_error("Could not skip %f seconds of audio.", options.seekpos);
+      status_error(_("Could not skip %f seconds of audio."), options.seekpos);
   }
 
   /* Main loop:  Iterates over all of the logical bitstreams in the file */
@@ -466,7 +470,7 @@ void play (char *source_string)
 	eof = eos = 1;
 	break;
       } else if (ret < 0) {
-	status_error("Error: Decoding failure.\n");
+	status_error(_("Error: Decoding failure.\n"));
 	break;
       }
 
@@ -539,7 +543,7 @@ void play (char *source_string)
   transport->close(source);
   status_reset_output_lock();  /* In case we were killed mid-output */
 
-  status_message(1, "Done.");
+  status_message(1, _("Done."));
   
   if (sig_request.exit)
     exit (0);

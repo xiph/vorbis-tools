@@ -18,8 +18,10 @@
 #include <locale.h>
 #include "getopt.h"
 #include "utf8.h"
+#include "i18n.h"
 
 #include "vcedit.h"
+
 
 /* getopt format struct */
 struct option long_options[] = {
@@ -77,6 +79,10 @@ int main(int argc, char **argv)
 	param_t	*param;
 	int i;
 
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+
 	/* initialize the cmdline interface */
 	param = new_param();
 	parse_options(argc, argv, param);
@@ -93,7 +99,7 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, "Failed to open file as vorbis: %s\n", 
+			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
 			return 1;
 		}
@@ -115,7 +121,7 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, "Failed to open file as vorbis: %s\n", 
+			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
 			return 1;
 		}
@@ -131,7 +137,7 @@ int main(int argc, char **argv)
 		for(i=0; i < param->commentcount; i++)
 		{
 			if(add_comment(param->comments[i], vc) < 0)
-				fprintf(stderr, "Bad comment: \"%s\"\n", param->comments[i]);
+				fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
 		}
 
 		/* build the replacement structure */
@@ -143,7 +149,7 @@ int main(int argc, char **argv)
 			while (fgets(buf, 1024, param->com))
 				if (add_comment(buf, vc) < 0) {
 					fprintf(stderr,
-						"bad comment: \"%s\"\n",
+						_("bad comment: \"%s\"\n"),
 						buf);
 				}
 			
@@ -153,7 +159,7 @@ int main(int argc, char **argv)
 		/* write out the modified stream */
 		if(vcedit_write(state, param->out) < 0)
 		{
-			fprintf(stderr, "Failed to write comments to output file: %s\n", 
+			fprintf(stderr, _("Failed to write comments to output file: %s\n"), 
 					vcedit_error(state));
 			return 1;
 		}
@@ -166,7 +172,7 @@ int main(int argc, char **argv)
 	}
 
 	/* should never reach this point */
-	fprintf(stderr, "no action specified\n");
+	fprintf(stderr, _("no action specified\n"));
 	return 1;
 }
 
@@ -243,8 +249,8 @@ int  add_comment(char *line, vorbis_comment *vc)
         free(utf8_value);
 		return 0;
 	} else {
-		fprintf(stderr, "Couldn't convert comment to UTF8, "
-			"cannot add\n");
+		fprintf(stderr, _("Couldn't convert comment to UTF8, "
+			"cannot add\n"));
 		return -1;
 	}
 }
@@ -261,7 +267,7 @@ int  add_comment(char *line, vorbis_comment *vc)
 void usage(void)
 {
 	fprintf(stderr, 
-		"Usage: \n"
+		_("Usage: \n"
 		"  vorbiscomment [-l] file.ogg (to list the comments)\n"
 		"  vorbiscomment -a in.ogg out.ogg (to append comments)\n"
 		"  vorbiscomment -w in.ogg out.ogg (to modify comments)\n"
@@ -278,7 +284,7 @@ void usage(void)
 		"   the command line using the -t option. e.g.\n"
 		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
 		"   (note that when using this, reading comments from the comment\n"
-		"   file or stdin is disabled)\n"
+		"   file or stdin is disabled)\n")
 	); 
 }
 
@@ -332,7 +338,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
-				fprintf(stderr, "Internal error parsing command options\n");
+				fprintf(stderr, _("Internal error parsing command options\n"));
 				exit(1);
 				break;
 			case 'l':
@@ -411,7 +417,7 @@ void open_files(param_t *p)
 	}
 	if (p->in == NULL) {
 		fprintf(stderr,
-			"Error opening input file '%s'.\n",
+			_("Error opening input file '%s'.\n"),
 			p->infilename);
 		exit(1);
 	}
@@ -427,7 +433,7 @@ void open_files(param_t *p)
 		}
 		if(p->out == NULL) {
 			fprintf(stderr,
-				"Error opening output file '%s'.\n",
+				_("Error opening output file '%s'.\n"),
 				p->outfilename);
 			exit(1);
 		}
@@ -442,7 +448,7 @@ void open_files(param_t *p)
 		}
 		if (p->com == NULL) {
 			fprintf(stderr,
-				"Error opening comment file '%s'.\n",
+				_("Error opening comment file '%s'.\n"),
 				p->commentfilename);
 			exit(1);
 		}
@@ -459,7 +465,7 @@ void open_files(param_t *p)
 		}
 		if (p->com == NULL) {
 			fprintf(stderr,
-				"Error opening comment file '%s'\n",
+				_("Error opening comment file '%s'\n"),
 				p->commentfilename);
 			exit(1);
 		}

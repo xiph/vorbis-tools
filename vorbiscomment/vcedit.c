@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.16 2001/12/19 02:53:00 volsung Exp $
+ * last modified: $Id: vcedit.c,v 1.17 2002/01/26 11:06:43 segher Exp $
  */
 
 #include <stdio.h>
@@ -16,6 +16,8 @@
 #include <vorbis/codec.h>
 
 #include "vcedit.h"
+#include "i18n.h"
+
 
 #define CHUNKSIZE 4096
 
@@ -209,9 +211,9 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	if(ogg_sync_pageout(state->oy, &og) != 1)
 	{
 		if(bytes<CHUNKSIZE)
-			state->lasterror = "Input truncated or empty.";
+			state->lasterror = _("Input truncated or empty.");
 		else
-			state->lasterror = "Input is not an Ogg bitstream.";
+			state->lasterror = _("Input is not an Ogg bitstream.");
 		goto err;
 	}
 
@@ -227,19 +229,19 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 
 	if(ogg_stream_pagein(state->os, &og) < 0)
 	{
-		state->lasterror = "Error reading first page of Ogg bitstream.";
+		state->lasterror = _("Error reading first page of Ogg bitstream.");
 		goto err;
 	}
 
 	if(ogg_stream_packetout(state->os, &header_main) != 1)
 	{
-		state->lasterror = "Error reading initial header packet.";
+		state->lasterror = _("Error reading initial header packet.");
 		goto err;
 	}
 
 	if(vorbis_synthesis_headerin(&state->vi, state->vc, &header_main) < 0)
 	{
-		state->lasterror = "Ogg bitstream does not contain vorbis data.";
+		state->lasterror = _("Ogg bitstream does not contain vorbis data.");
 		goto err;
 	}
 
@@ -262,7 +264,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 					if(result == 0) break;
 					if(result == -1)
 					{
-						state->lasterror = "Corrupt secondary header.";
+						state->lasterror = _("Corrupt secondary header.");
 						goto err;
 					}
 					vorbis_synthesis_headerin(&state->vi, state->vc, header);
@@ -283,7 +285,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 		bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
 		if(bytes == 0 && i < 2)
 		{
-			state->lasterror = "EOF before end of vorbis headers.";
+			state->lasterror = _("EOF before end of vorbis headers.");
 			goto err;
 		}
 		ogg_sync_wrote(state->oy, bytes);
@@ -439,7 +441,7 @@ int vcedit_write(vcedit_state *state, void *out)
 			result = ogg_sync_pageout(state->oy, &ogout);
 			if(result==0) break;
 			if(result<0)
-				state->lasterror = "Corrupt or missing data, continuing...";
+				state->lasterror = _("Corrupt or missing data, continuing...");
 			else
 			{
 				/* Don't bother going through the rest, we can just 
@@ -474,8 +476,8 @@ cleanup:
 	if(!state->eosin)
 	{
 		state->lasterror =  
-			"Error writing stream to output. "
-			"Output stream may be corrupted or truncated.";
+			_("Error writing stream to output. "
+			"Output stream may be corrupted or truncated.");
 		return -1;
 	}
 

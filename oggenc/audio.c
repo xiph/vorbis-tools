@@ -16,6 +16,7 @@
 #include <math.h>
 #include "audio.h"
 #include "platform.h"
+#include "i18n.h"
 
 #define WAV_HEADER_SIZE 44
 
@@ -34,8 +35,8 @@
 
 /* Define the supported formats here */
 input_format formats[] = {
-	{wav_id, 12, wav_open, wav_close, "wav", "WAV file reader"},
-	{aiff_id, 12, aiff_open, wav_close, "aiff", "AIFF/AIFC file reader"},
+	{wav_id, 12, wav_open, wav_close, "wav", N_("WAV file reader")},
+	{aiff_id, 12, aiff_open, wav_close, "aiff", N_("AIFF/AIFC file reader")},
 	{NULL, 0, NULL, NULL, NULL, NULL}
 };
 
@@ -108,7 +109,7 @@ static int find_wav_chunk(FILE *in, char *type, unsigned int *len)
 	{
 		if(fread(buf,1,8,in) < 8) /* Suck down a chunk specifier */
 		{
-			fprintf(stderr, "Warning: Unexpected EOF in reading WAV header\n");
+			fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
 			return 0; /* EOF before reaching the appropriate chunk */
 		}
 
@@ -119,7 +120,7 @@ static int find_wav_chunk(FILE *in, char *type, unsigned int *len)
 				return 0;
 
 			buf[4] = 0;
-			fprintf(stderr, "Skipping chunk of type \"%s\", length %d\n", buf, *len);
+			fprintf(stderr, _("Skipping chunk of type \"%s\", length %d\n"), buf, *len);
 		}
 		else
 		{
@@ -137,7 +138,7 @@ static int find_aiff_chunk(FILE *in, char *type, unsigned int *len)
 	{
 		if(fread(buf,1,8,in) <8)
 		{
-			fprintf(stderr, "Warning: Unexpected EOF in AIFF chunk\n");
+			fprintf(stderr, _("Warning: Unexpected EOF in AIFF chunk\n"));
 			return 0;
 		}
 
@@ -222,13 +223,13 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 
 	if(!find_aiff_chunk(in, "COMM", &len))
 	{
-		fprintf(stderr, "Warning: No common chunk found in AIFF file\n");
+		fprintf(stderr, _("Warning: No common chunk found in AIFF file\n"));
 		return 0; /* EOF before COMM chunk */
 	}
 
 	if(len < 18) 
 	{
-		fprintf(stderr, "Warning: Truncated common chunk in AIFF header\n");
+		fprintf(stderr, _("Warning: Truncated common chunk in AIFF header\n"));
 		return 0; /* Weird common chunk */
 	}
 
@@ -236,7 +237,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 
 	if(fread(buffer,1,len,in) < len)
 	{
-		fprintf(stderr, "Warning: Unexpected EOF in reading AIFF header\n");
+		fprintf(stderr, _("Warning: Unexpected EOF in reading AIFF header\n"));
 		return 0;
 	}
 
@@ -249,31 +250,31 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	{
 		if(len < 22)
 		{
-			fprintf(stderr, "Warning: AIFF-C header truncated.\n");
+			fprintf(stderr, _("Warning: AIFF-C header truncated.\n"));
 			return 0;
 		}
 		else if(memcmp(buffer+18, "NONE", 4)) 
 		{
-			fprintf(stderr, "Warning: Can't handle compressed AIFF-C\n");
+			fprintf(stderr, _("Warning: Can't handle compressed AIFF-C\n"));
 			return 0; /* Compressed. Can't handle */
 		}
 	}
 
 	if(!find_aiff_chunk(in, "SSND", &len))
 	{
-		fprintf(stderr, "Warning: No SSND chunk found in AIFF file\n");
+		fprintf(stderr, _("Warning: No SSND chunk found in AIFF file\n"));
 		return 0; /* No SSND chunk -> no actual audio */
 	}
 
 	if(len < 8) 
 	{
-		fprintf(stderr, "Warning: Corrupted SSND chunk in AIFF header\n");
+		fprintf(stderr, _("Warning: Corrupted SSND chunk in AIFF header\n"));
 		return 0; 
 	}
 
 	if(fread(buf2,1,8, in) < 8)
 	{
-		fprintf(stderr, "Warning: Unexpected EOF reading AIFF header\n");
+		fprintf(stderr, _("Warning: Unexpected EOF reading AIFF header\n"));
 		return 0;
 	}
 
@@ -286,8 +287,8 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 		/* From here on, this is very similar to the wav code. Oh well. */
 		
 		if(format.rate != 44100 && format.rate != 48000)
-			fprintf(stderr, "Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-				" At other than 44.1/48 kHz quality will be degraded.\n",
+			fprintf(stderr, _("Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
+				" At other than 44.1/48 kHz quality will be degraded.\n"),
 				(float)format.rate * 1.0e-3);
 
 		opt->rate = format.rate;
@@ -310,8 +311,8 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	else
 	{
 		fprintf(stderr, 
-				"Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-				" Must be 8 or 16 bit PCM.\n");
+				_("Warning: OggEnc does not support this type of AIFF/AIFC file\n"
+				" Must be 8 or 16 bit PCM.\n"));
 		return 0;
 	}
 }
@@ -353,7 +354,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
 	if(len < 16) 
 	{
-		fprintf(stderr, "Warning: Unrecognised format chunk in WAV header\n");
+		fprintf(stderr, _("Warning: Unrecognised format chunk in WAV header\n"));
 		return 0; /* Weird format chunk */
 	}
 
@@ -365,12 +366,12 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	 */
 	if(len!=16 && len!=18)
 		fprintf(stderr, 
-				"Warning: INVALID format chunk in wav header.\n"
-				" Trying to read anyway (may not work)...\n");
+				_("Warning: INVALID format chunk in wav header.\n"
+				" Trying to read anyway (may not work)...\n"));
 
 	if(fread(buf,1,16,in) < 16)
 	{
-		fprintf(stderr, "Warning: Unexpected EOF in reading WAV header\n");
+		fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
 		return 0;
 	}
 
@@ -402,8 +403,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	else
 	{
 		fprintf(stderr, 
-				"ERROR: Wav file is unsupported type (must be standard PCM\n"
-				" or type 3 floating point PCM\n");
+				_("ERROR: Wav file is unsupported type (must be standard PCM\n"
+				" or type 3 floating point PCM\n"));
 		return 0;
 	}
 
@@ -413,8 +414,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 			format.samplesize == samplesize*8)
 	{
 		if(format.samplerate != 44100 && format.samplerate != 48000)
-			fprintf(stderr, "Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-					" At other than 44.1/48 kHz quality will be degraded.\n",
+			fprintf(stderr, _("Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
+					" At other than 44.1/48 kHz quality will be degraded.\n"),
 					(float)format.samplerate * 1.0e-3);
 
 		/* OK, good - we have the one supported format,
@@ -456,8 +457,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	else
 	{
 		fprintf(stderr, 
-				"ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
-				"or floating point PCM\n");
+				_("ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+				"or floating point PCM\n"));
 		return 0;
 	}
 }
@@ -554,8 +555,8 @@ int raw_open(FILE *in, oe_enc_opt *opt)
 	wavfile *wav = malloc(sizeof(wavfile));
 
 	if(opt->rate != 44100 && opt->rate != 48000)
-		fprintf(stderr, "Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-				" At other than 44.1/48 kHz quality will be significantly degraded.\n",
+		fprintf(stderr, _("Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
+				" At other than 44.1/48 kHz quality will be significantly degraded.\n"),
 				(float)opt->rate * 1.0e-3);
 
 	/* construct fake wav header ;) */

@@ -16,6 +16,7 @@
 #include "platform.h"
 #include <vorbis/vorbisenc.h>
 #include "encode.h"
+#include "i18n.h"
 
 
 #define READSIZE 1024
@@ -53,23 +54,23 @@ int oe_encode(oe_enc_opt *opt)
 
 	if(opt->quality >= 0.0f)
 	{
-		printf("Encoding with VBR\n");
+		printf(_("Encoding with VBR\n"));
 		if(vorbis_encode_init_vbr(&vi, opt->channels, opt->rate, opt->quality))
 		{
-			fprintf(stderr, "Mode initialisation failed: invalid parameters for quality\n");
+			fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
 			vorbis_info_clear(&vi);
 			return 1;
 		}
 	}
 	else
 	{
-		printf("Encoding with managed bitrates.\n");
+		printf(_("Encoding with managed bitrates.\n"));
 		if(vorbis_encode_init(&vi, opt->channels, opt->rate, 
                     opt->max_bitrate>0?opt->max_bitrate*1000:-1,
 				    opt->bitrate*1000, 
                     opt->min_bitrate>0?opt->min_bitrate*1000:-1))
 		{
-			fprintf(stderr, "Mode initialisation failed: invalid parameters for bitrate\n");
+			fprintf(stderr, _("Mode initialisation failed: invalid parameters for bitrate\n"));
 			vorbis_info_clear(&vi);
 			return 1;
 		}
@@ -108,7 +109,7 @@ int oe_encode(oe_enc_opt *opt)
 			ret = oe_write_page(&og, opt->out);
 			if(ret != og.header_len + og.body_len)
 			{
-				opt->error("Failed writing header to output stream\n");
+				opt->error(_("Failed writing header to output stream\n"));
 				ret = 1;
 				goto cleanup; /* Bail and try to clean up stuff */
 			}
@@ -176,7 +177,7 @@ int oe_encode(oe_enc_opt *opt)
 					ret = oe_write_page(&og, opt->out);
 					if(ret != og.header_len + og.body_len)
 					{
-						opt->error("Failed writing data to output stream\n");
+						opt->error(_("Failed writing data to output stream\n"));
 						ret = 1;
 						goto cleanup; /* Bail */
 					}
@@ -221,7 +222,8 @@ void update_statistics_full(char *fn, long total, long done, double time)
 	minutes = ((int)remain_time)/60;
 	seconds = (int)(remain_time - (double)((int)remain_time/60)*60);
 
-	fprintf(stderr, "\r\t[%5.1f%%] [%2dm%.2ds remaining] %c", 
+	fprintf(stderr, "\r");
+	fprintf(stderr, _("\t[%5.1f%%] [%2dm%.2ds remaining] %c"), 
 			done*100.0/total, minutes, seconds, spinner[spinpoint++%4]);
 }
 
@@ -230,7 +232,8 @@ void update_statistics_notime(char *fn, long total, long done, double time)
 	static char *spinner="|/-\\";
 	static int spinpoint =0;
 	
-	fprintf(stderr, "\r\tEncoding [%2dm%.2ds so far] %c", 
+	fprintf(stderr, "\r");
+	fprintf(stderr, _("\tEncoding [%2dm%.2ds so far] %c"), 
             ((int)time)/60, (int)(time - (double)((int)time/60)*60),
 			spinner[spinpoint++%4]);
 }
@@ -248,21 +251,21 @@ void final_statistics(char *fn, double time, int rate, long samples, long bytes)
 {
 	double speed_ratio;
 	if(fn)
-		fprintf(stderr, "\n\nDone encoding file \"%s\"\n", fn);
+		fprintf(stderr, _("\n\nDone encoding file \"%s\"\n"), fn);
 	else
-		fprintf(stderr, "\n\nDone encoding.\n");
+		fprintf(stderr, _("\n\nDone encoding.\n"));
 
 	speed_ratio = (double)samples / (double)rate / time;
 	
-	fprintf(stderr, "\n\tFile length:  %dm %04.1fs\n",
+	fprintf(stderr, _("\n\tFile length:  %dm %04.1fs\n"),
 			(int)(samples/rate/60),
 			samples/rate - 
 			floor(samples/rate/60)*60);
-	fprintf(stderr, "\tElapsed time: %dm %04.1fs\n",
+	fprintf(stderr, _("\tElapsed time: %dm %04.1fs\n"),
 			(int)(time/60),
 			time - floor(time/60)*60);
-	fprintf(stderr, "\tRate:         %.4f\n", speed_ratio);
-	fprintf(stderr, "\tAverage bitrate: %.1f kb/s\n\n", 
+	fprintf(stderr, _("\tRate:         %.4f\n"), speed_ratio);
+	fprintf(stderr, _("\tAverage bitrate: %.1f kb/s\n\n"), 
 		8./1000.*((double)bytes/((double)samples/(double)rate)));
 }
 
@@ -285,15 +288,15 @@ void encode_error(char *errmsg)
 void start_encode_full(char *fn, char *outfn, int bitrate, float quality)
 {
     if(quality >= 0.0f)
-        fprintf(stderr, "Encoding %s%s%s to \n         %s%s%s at quality %2.2f\n",
-			    fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
-                outfn?"\"":"", outfn?outfn:"standard output", outfn?"\"":"",
+        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s at quality %2.2f\n"),
+			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 quality * 10);
     else
-        fprintf(stderr, "Encoding %s%s%s to \n         "
-                "%s%s%s at bitrate %d kbps\n",
-			    fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
-                outfn?"\"":"", outfn?outfn:"standard output", outfn?"\"":"",
+        fprintf(stderr, _("Encoding %s%s%s to \n         "
+                "%s%s%s at bitrate %d kbps\n"),
+			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 bitrate);
 }
 

@@ -7,7 +7,7 @@
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.4 2001/12/19 02:52:59 volsung Exp $
+ * last modified: $Id: vcut.c,v 1.5 2002/01/26 11:06:42 segher Exp $
  */
 
 #include <stdio.h>
@@ -19,6 +19,10 @@
 #include <string.h>
 
 #include "vcut.h"
+
+#include <locale.h>
+#include "i18n.h"
+
 
 static vcut_packet *save_packet(ogg_packet *packet)
 {
@@ -119,7 +123,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 		{
 			int result = ogg_sync_pageout(s->sync_in, &page);
 			if(result==0) break;
-			else if(result<0) fprintf(stderr, "Page error. Corrupt input.\n");
+			else if(result<0) fprintf(stderr, _("Page error. Corrupt input.\n"));
 			else
 			{
 				granpos = ogg_page_granulepos(&page);
@@ -136,7 +140,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 
 						if(result==0) break;
 						else if(result==-1)
-							fprintf(stderr, "Bitstream error, continuing\n");
+							fprintf(stderr, _("Bitstream error, continuing\n"));
 						else
 						{
 							/* We need to save the last packet in the first
@@ -161,7 +165,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 
 				if(ogg_page_eos(&page))
 				{
-					fprintf(stderr, "Found EOS before cut point.\n");
+					fprintf(stderr, _("Found EOS before cut point.\n"));
 					eos=1;
 				}
 			}
@@ -170,7 +174,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 		{
 			if(update_sync(s,in)==0) 
 			{
-				fprintf(stderr, "Setting eos: update sync returned 0\n");
+				fprintf(stderr, _("Setting eos: update sync returned 0\n"));
 				eos=1;
 			}
 		}
@@ -180,7 +184,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 	if(granpos < s->cutpoint)
 	{
 		fprintf(stderr, 
-				"Cutpoint not within stream. Second file will be empty\n");
+				_("Cutpoint not within stream. Second file will be empty\n"));
 		write_pages_to_file(stream, f,0);
 
 		return -1;
@@ -213,7 +217,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 	/* Check that we got at least two packets here, which we need later */
 	if(!s->packets[0] || !s->packets[1])
 	{
-		fprintf(stderr, "Unhandled special case: first file too short?\n");
+		fprintf(stderr, _("Unhandled special case: first file too short?\n"));
 		return -1;
 	}
 
@@ -272,8 +276,8 @@ static int process_second_stream(vcut_state *s, ogg_stream_state *stream,
 		 * spectacularly unlucky? Doubt it, but let's check for it just
 		 * in case.
 		 */
-		fprintf(stderr, "ERROR: First two audio packets did not fit into one\n"
-				        "       ogg page. File may not decode correctly.\n");
+		fprintf(stderr, _("ERROR: First two audio packets did not fit into one\n"
+				        "       ogg page. File may not decode correctly.\n"));
 		fwrite(page.header,1,page.header_len,f);
 		fwrite(page.body,1,page.body_len,f);
 	}
@@ -285,7 +289,7 @@ static int process_second_stream(vcut_state *s, ogg_stream_state *stream,
 			result=ogg_sync_pageout(s->sync_in, &page);
 			if(result==0) break;
 			else if(result==-1)
-				fprintf(stderr, "Recoverable bitstream error\n");
+				fprintf(stderr, _("Recoverable bitstream error\n"));
 			else
 			{
 				page_granpos = ogg_page_granulepos(&page) - s->cutpoint;
@@ -295,7 +299,7 @@ static int process_second_stream(vcut_state *s, ogg_stream_state *stream,
 				{
 					result = ogg_stream_packetout(s->stream_in, &packet);
 					if(result==0) break;
-					else if(result==-1) fprintf(stderr, "Bitstream error\n");
+					else if(result==-1) fprintf(stderr, _("Bitstream error\n"));
 					else
 					{
 						int bs = get_blocksize(s, s->vi, &packet);
@@ -318,7 +322,7 @@ static int process_second_stream(vcut_state *s, ogg_stream_state *stream,
 		{
 			if(update_sync(s, in)==0)
 			{
-				fprintf(stderr, "Update sync returned 0, setting eos\n");
+				fprintf(stderr, _("Update sync returned 0, setting eos\n"));
 				eos=1;
 			}
 		}
@@ -364,7 +368,7 @@ static int process_headers(vcut_state *s)
 	ogg_sync_wrote(s->sync_in, bytes);
 
 	if(ogg_sync_pageout(s->sync_in, &page)!=1){
-		fprintf(stderr, "Input not ogg.\n");
+		fprintf(stderr, _("Input not ogg.\n"));
 		return -1;
 	}
 
@@ -374,18 +378,18 @@ static int process_headers(vcut_state *s)
 
 	if(ogg_stream_pagein(s->stream_in, &page) <0)
 	{
-		fprintf(stderr, "Error in first page\n");
+		fprintf(stderr, _("Error in first page\n"));
 		return -1;
 	}
 
 	if(ogg_stream_packetout(s->stream_in, &packet)!=1){
-		fprintf(stderr, "error in first packet\n");
+		fprintf(stderr, _("error in first packet\n"));
 		return -1;
 	}
 
 	if(vorbis_synthesis_headerin(s->vi, &vc, &packet)<0)
 	{
-		fprintf(stderr, "Error in primary header: not vorbis?\n");
+		fprintf(stderr, _("Error in primary header: not vorbis?\n"));
 		return -1;
 	}
 
@@ -405,7 +409,7 @@ static int process_headers(vcut_state *s)
 					res = ogg_stream_packetout(s->stream_in, &packet);
 					if(res==0)break;
 					if(res<0){
-						fprintf(stderr, "Secondary header corrupt\n");
+						fprintf(stderr, _("Secondary header corrupt\n"));
 						return -1;
 					}
 					s->headers[i+1] = save_packet(&packet);
@@ -418,7 +422,7 @@ static int process_headers(vcut_state *s)
 		bytes=fread(buffer,1,4096,s->in);
 		if(bytes==0 && i<2)
 		{
-			fprintf(stderr, "EOF in headers\n");
+			fprintf(stderr, _("EOF in headers\n"));
 			return -1;
 		}
 		ogg_sync_wrote(s->sync_in, bytes);
@@ -437,35 +441,39 @@ int main(int argc, char **argv)
 	int ret=0;
 	vcut_state *state;
 
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+
 	if(argc<5)
 	{
 		fprintf(stderr, 
-				"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n");
+				_("Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"));
 		exit(1);
 	}
 
-	fprintf(stderr, "WARNING: vcut is still experimental code.\n"
-		"Check that the output files are correct before deleting sources.\n\n");
+	fprintf(stderr, _("WARNING: vcut is still experimental code.\n"
+		"Check that the output files are correct before deleting sources.\n\n"));
 
 	in = fopen(argv[1], "rb");
 	if(!in) {
-		fprintf(stderr, "Couldn't open %s for reading\n", argv[1]);
+		fprintf(stderr, _("Couldn't open %s for reading\n"), argv[1]);
 		exit(1);
 	}
 	out1 = fopen(argv[2], "wb");
 	if(!out1) {
-		fprintf(stderr, "Couldn't open %s for writing\n", argv[2]);
+		fprintf(stderr, _("Couldn't open %s for writing\n"), argv[2]);
 		exit(1);
 	}
 	out2 = fopen(argv[3], "wb");
 	if(!out2) {
-		fprintf(stderr, "Couldn't open %s for writing\n", argv[3]);
+		fprintf(stderr, _("Couldn't open %s for writing\n"), argv[3]);
 		exit(1);
 	}
 
 	sscanf(argv[4], "%Ld", &cutpoint);
 
-	fprintf(stderr, "Processing: Cutting at %lld\n", cutpoint);
+	fprintf(stderr, _("Processing: Cutting at %lld\n"), cutpoint);
 
 	state = vcut_new();
 
@@ -474,7 +482,7 @@ int main(int argc, char **argv)
 
 	if(vcut_process(state))
 	{
-		fprintf(stderr, "Processing failed\n");
+		fprintf(stderr, _("Processing failed\n"));
 		ret = 1;
 	}
 
@@ -495,7 +503,7 @@ int vcut_process(vcut_state *s)
 	/* Read headers in, and save them */
 	if(process_headers(s))
 	{
-		fprintf(stderr, "Error reading headers\n");
+		fprintf(stderr, _("Error reading headers\n"));
 		return -1;
 	}
 
@@ -518,7 +526,7 @@ int vcut_process(vcut_state *s)
 	
 	if(process_first_stream(s, &stream_out_first, s->in, s->out1))
 	{
-		fprintf(stderr, "Error writing first output file\n");
+		fprintf(stderr, _("Error writing first output file\n"));
 		return -1;
 	}
 
@@ -526,7 +534,7 @@ int vcut_process(vcut_state *s)
 
 	if(process_second_stream(s, &stream_out_second, s->in, s->out2))
 	{
-		fprintf(stderr, "Error writing second output file\n");
+		fprintf(stderr, _("Error writing second output file\n"));
 		return -1;
 	}
 	ogg_stream_clear(&stream_out_second);

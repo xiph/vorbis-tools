@@ -21,6 +21,8 @@
 #include "encode.h"
 #include "audio.h"
 #include "utf8.h"
+#include "i18n.h"
+
 
 #define VERSION_STRING "OggEnc v0.9 (libvorbis rc3)\n"
 #define COPYRIGHT "(c) 2001 Michael Smith <msmith@labyrinth.net.au)\n"
@@ -76,12 +78,14 @@ int main(int argc, char **argv)
 	int errors=0;
 
 	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
 
 	parse_options(argc, argv, &opt);
 
 	if(optind >= argc)
 	{
-		fprintf(stderr, VERSION_STRING COPYRIGHT "\nERROR: No input files specified. Use -h for help.\n");
+		fprintf(stderr, _("%s%s\nERROR: No input files specified. Use -h for help.\n"), VERSION_STRING, COPYRIGHT);
 		return 1;
 	}
 	else
@@ -96,14 +100,14 @@ int main(int argc, char **argv)
 	{
 		if(!strcmp(infiles[i], "-") && numfiles > 1)
 		{
-			fprintf(stderr, "ERROR: Multiple files specified when using stdin\n");
+			fprintf(stderr, _("ERROR: Multiple files specified when using stdin\n"));
 			exit(1);
 		}
 	}
 
 	if(numfiles > 1 && opt.outfile)
 	{
-		fprintf(stderr, "ERROR: Multiple input files with specified output filename: suggest using -n\n");
+		fprintf(stderr, _("ERROR: Multiple input files with specified output filename: suggest using -n\n"));
 		exit(1);
 	}
 
@@ -157,7 +161,7 @@ int main(int argc, char **argv)
 
 			if(in == NULL)
 			{
-				fprintf(stderr, "ERROR: Cannot open input file \"%s\"\n", infiles[i]);
+				fprintf(stderr, _("ERROR: Cannot open input file \"%s\"\n"), infiles[i]);
 				free(out_fn);
 				errors++;
 				continue;
@@ -184,7 +188,7 @@ int main(int argc, char **argv)
 			if(format)
 			{
                 if(!opt.quiet)
-				    fprintf(stderr, "Opening with %s module: %s\n", 
+				    fprintf(stderr, _("Opening with %s module: %s\n"), 
 					    	format->format, format->description);
 				foundformat=1;
 			}
@@ -193,7 +197,7 @@ int main(int argc, char **argv)
 
 		if(!foundformat)
 		{
-			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]?infiles[i]:"(stdin)");
+			fprintf(stderr, _("ERROR: Input file \"%s\" is not a supported format\n"), infiles[i]?infiles[i]:"(stdin)");
     		if(closein)
 				fclose(in);
 			errors++;
@@ -240,7 +244,7 @@ int main(int argc, char **argv)
 				strcat(out_fn, ".ogg");
 			}
             else {
-                fprintf(stderr, "WARNING: No filename, defaulting to \"default.ogg\"\n");
+                fprintf(stderr, _("WARNING: No filename, defaulting to \"default.ogg\"\n"));
                 out_fn = strdup("default.ogg");
             }
 
@@ -250,7 +254,7 @@ int main(int argc, char **argv)
 			{
 				if(closein)
 					fclose(in);
-				fprintf(stderr, "ERROR: Cannot open output file \"%s\"\n", out_fn);
+				fprintf(stderr, _("ERROR: Cannot open output file \"%s\"\n"), out_fn);
 				errors++;
 				free(out_fn);
 				continue;
@@ -299,9 +303,7 @@ int main(int argc, char **argv)
 static void usage(void)
 {
 	fprintf(stdout, 
-		VERSION_STRING
-		COPYRIGHT
-		"\n"
+		_("\n"
 		"Usage: oggenc [options] input.wav [...]\n"
 		"\n"
 		"OPTIONS:\n"
@@ -369,7 +371,7 @@ static void usage(void)
 		" You can specify taking the file from stdin by using - as the input filename.\n"
 		" In this mode, output is to stdout unless an outfile filename is specified\n"
 		" with -o\n"
-		"\n");
+		"\n"), VERSION_STRING, COPYRIGHT);
 }
 
 static int strncpy_filtered(char *dst, char *src, int len, char *remove_list, 
@@ -434,37 +436,37 @@ static char *generate_name_string(char *format, char *remove_list,
 					*(buffer+(used++)) = '%';
 					break;
 				case 'a':
-					string = artist?artist:"(none)";
+					string = artist?artist:_("(none)");
 					used += strncpy_filtered(buffer+used, string, buflen-used, 
                             remove_list, replace_list);
 					break;
 				case 'd':
-					string = date?date:"(none)";
+					string = date?date:_("(none)");
 					used += strncpy_filtered(buffer+used, string, buflen-used,
                             remove_list, replace_list);
 					break;
                 case 'g':
-                    string = genre?genre:"(none)";
+                    string = genre?genre:_("(none)");
                     used += strncpy_filtered(buffer+used, string, buflen-used,
                             remove_list, replace_list);
                     break;
 				case 't':
-					string = title?title:"(none)";
+					string = title?title:_("(none)");
 					used += strncpy_filtered(buffer+used, string, buflen-used,
                             remove_list, replace_list);
 					break;
 				case 'l':
-					string = album?album:"(none)";
+					string = album?album:_("(none)");
 					used += strncpy_filtered(buffer+used, string, buflen-used,
                             remove_list, replace_list);
 					break;
 				case 'n':
-					string = track?track:"(none)";
+					string = track?track:_("(none)");
 					used += strncpy_filtered(buffer+used, string, buflen-used,
                             remove_list, replace_list);
 					break;
 				default:
-					fprintf(stderr, "WARNING: Ignoring illegal escape character '%c' in name format\n", *(format - 1));
+					fprintf(stderr, _("WARNING: Ignoring illegal escape character '%c' in name format\n"), *(format - 1));
 					break;
 			}
 		}
@@ -486,7 +488,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		switch(ret)
 		{
 			case 0:
-				fprintf(stderr, "Internal error parsing command line options\n");
+				fprintf(stderr, _("Internal error parsing command line options\n"));
 				exit(1);
 				break;
 			case 'a':
@@ -526,45 +528,45 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 			case 'b':
 				if(sscanf(optarg, "%d", &opt->nominal_bitrate)
 						!= 1) {
-					fprintf(stderr, "Warning: nominal bitrate \"%s\" not recognised\n", optarg);
+					fprintf(stderr, _("Warning: nominal bitrate \"%s\" not recognised\n"), optarg);
 					opt->nominal_bitrate = -1;
 				}
 				break;
 			case 'm':
 				if(sscanf(optarg, "%d", &opt->min_bitrate)
 						!= 1) {
-					fprintf(stderr, "Warning: minimum bitrate \"%s\" not recognised\n", optarg);
+					fprintf(stderr, _("Warning: minimum bitrate \"%s\" not recognised\n"), optarg);
 					opt->min_bitrate = -1;
 				}
 				break;
 			case 'M':
 				if(sscanf(optarg, "%d", &opt->max_bitrate)
 						!= 1) {
-					fprintf(stderr, "Warning: maximum bitrate \"%s\" not recognised\n", optarg);
+					fprintf(stderr, _("Warning: maximum bitrate \"%s\" not recognised\n"), optarg);
 					opt->max_bitrate = -1;
 				}
 				break;
 			case 'q':
 				if(sscanf(optarg, "%f", &opt->quality) != 1) {
-					fprintf(stderr, "Quality option \"%s\" not recognised, ignoring\n", optarg);
+					fprintf(stderr, _("Quality option \"%s\" not recognised, ignoring\n"), optarg);
 					break;
 				}
 				opt->quality *= 0.1;
 				if(opt->quality > 1.0f)
 				{
 					opt->quality = 1.0f;
-					fprintf(stderr, "WARNING: quality setting too high, setting to maximum quality.\n");
+					fprintf(stderr, _("WARNING: quality setting too high, setting to maximum quality.\n"));
 				}
 				else if(opt->quality < 0.0f)
 				{
 					opt->quality = 0.0f;
-					fprintf(stderr, "WARNING: negative quality specified, setting to minimum.\n");
+					fprintf(stderr, _("WARNING: negative quality specified, setting to minimum.\n"));
 				}
 				break;
 			case 'n':
 				if(opt->namefmt)
 				{
-					fprintf(stderr, "WARNING: Multiple name formats specified, using final\n");
+					fprintf(stderr, _("WARNING: Multiple name formats specified, using final\n"));
 					free(opt->namefmt);
 				}
 				opt->namefmt = strdup(optarg);
@@ -573,7 +575,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				if(opt->namefmt_remove && opt->namefmt_remove != 
                         DEFAULT_NAMEFMT_REMOVE)
 				{
-					fprintf(stderr, "WARNING: Multiple name format filters specified, using final\n");
+					fprintf(stderr, _("WARNING: Multiple name format filters specified, using final\n"));
 					free(opt->namefmt_remove);
 				}
 				opt->namefmt_remove = strdup(optarg);
@@ -582,7 +584,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				if(opt->namefmt_replace && opt->namefmt_replace != 
                         DEFAULT_NAMEFMT_REPLACE)
                 {
-					fprintf(stderr, "WARNING: Multiple name format filter replacements specified, using final\n");
+					fprintf(stderr, _("WARNING: Multiple name format filter replacements specified, using final\n"));
 					free(opt->namefmt_replace);
 				}
 				opt->namefmt_replace = strdup(optarg);
@@ -590,7 +592,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 			case 'o':
 				if(opt->outfile)
 				{
-					fprintf(stderr, "WARNING: Multiple output files specified, suggest using -n\n");
+					fprintf(stderr, _("WARNING: Multiple output files specified, suggest using -n\n"));
 					free(opt->outfile);
 				}
 				opt->outfile = strdup(optarg);
@@ -609,28 +611,28 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				if (opt->rawmode != 1)
 				{
 					opt->rawmode = 1;
-					fprintf(stderr, "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n");
+					fprintf(stderr, _("WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"));
 				}
 				if(sscanf(optarg, "%u", &opt->raw_samplesize) != 1)
 				{
 					opt->raw_samplesize = 16; /* Failed, so just set to 16 */
-					fprintf(stderr, "WARNING: Invalid bits/sample specified, assuming 16.\n");
+					fprintf(stderr, _("WARNING: Invalid bits/sample specified, assuming 16.\n"));
 				}
 				if((opt->raw_samplesize != 8) && (opt->raw_samplesize != 16))
 				{
-					fprintf(stderr, "WARNING: Invalid bits/sample specified, assuming 16.\n");
+					fprintf(stderr, _("WARNING: Invalid bits/sample specified, assuming 16.\n"));
 				}
 				break;
 			case 'C':
 				if (opt->rawmode != 1)
 				{
 					opt->rawmode = 1;
-					fprintf(stderr, "WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n");
+					fprintf(stderr, _("WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n"));
 				}
 				if(sscanf(optarg, "%u", &opt->raw_channels) != 1)
 				{
 					opt->raw_channels = 2; /* Failed, so just set to 2 */
-					fprintf(stderr, "WARNING: Invalid channel count specified, assuming 2.\n");
+					fprintf(stderr, _("WARNING: Invalid channel count specified, assuming 2.\n"));
 				}
 				break;
 			case 'N':
@@ -641,16 +643,16 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				if (opt->rawmode != 1)
 				{
 					opt->rawmode = 1;
-					fprintf(stderr, "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n");
+					fprintf(stderr, _("WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"));
 				}
 				if(sscanf(optarg, "%u", &opt->raw_samplerate) != 1)
 				{
 					opt->raw_samplerate = 44100; /* Failed, so just set to 44100 */
-					fprintf(stderr, "WARNING: Invalid sample rate specified, assuming 44100.\n");
+					fprintf(stderr, _("WARNING: Invalid sample rate specified, assuming 44100.\n"));
 				}
 				break;
 			case '?':
-				fprintf(stderr, "WARNING: Unknown option specified, ignoring->\n");
+				fprintf(stderr, _("WARNING: Unknown option specified, ignoring->\n"));
 				break;
 			default:
 				usage();
@@ -674,7 +676,7 @@ static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 		free(utf8);
 	}
 	else
-		fprintf(stderr, "Couldn't convert comment to UTF-8, cannot add\n");
+		fprintf(stderr, _("Couldn't convert comment to UTF-8, cannot add\n"));
 }
 
 static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
@@ -693,7 +695,7 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 		if(filenum >= opt->title_count)
 		{
 			if(!opt->quiet)
-				fprintf(stderr, "WARNING: Insufficient titles specified, defaulting to final title.\n");
+				fprintf(stderr, _("WARNING: Insufficient titles specified, defaulting to final title.\n"));
 			i = opt->title_count-1;
 		}
 		else

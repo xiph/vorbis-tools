@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cfgfile_options.c,v 1.2 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: cfgfile_options.c,v 1.3 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -28,6 +28,7 @@
 
 #include "cfgfile_options.h"
 #include "status.h"
+#include "i18n.h"
 
 /* ------------------- Private Functions ---------------------- */
 
@@ -47,10 +48,10 @@ int parse_error (parse_code_t pcode, int lineno, const char *filename,
 {
   if (pcode == parse_syserr) {
     if (errno != EEXIST && errno != ENOENT)
-      perror ("System error");
+      perror (_("System error"));
     return -1;
   } else {
-    status_error ("=== Parse error: %s on line %d of %s (%s)\n", 
+    status_error (_("=== Parse error: %s on line %d of %s (%s)\n"), 
 		  parse_error_string(pcode), 
 		  lineno, filename, line);
     return 0;
@@ -126,20 +127,16 @@ void file_options_describe (file_option_t opts[], FILE *f)
 
   /* Column headers */
   /* Name */
-  totalWidth += fprintf (f, "Name");
-  totalWidth += print_space (f, (colWidths[0] - 4), ' ');
+  totalWidth += fprintf (f, "%-*s", colWidths[0], _("Name"));
   
   /* Description */
-  totalWidth += fprintf (f, "Description");
-  totalWidth += print_space (f, (colWidths[1] - 11), ' ');
+  totalWidth += fprintf (f, "%-*s", colWidths[1], _("Description"));
   
   /* Type */
-  totalWidth += fprintf (f, "Type");
-  totalWidth += print_space (f, (colWidths[2] - 4), ' ');
+  totalWidth += fprintf (f, "%-*s", colWidths[2], _("Type"));
   
   /* Default */
-  totalWidth += fprintf (f, "Default");
-  totalWidth += print_space (f, (colWidths[3] - 7), ' ');
+  totalWidth += fprintf (f, "%-*s", colWidths[3], _("Default"));
 
   fputc ('\n', f);
   
@@ -165,38 +162,38 @@ void file_options_describe (file_option_t opts[], FILE *f)
       w = colWidths[2];
       switch (opt->type) {
       case opt_type_none:
-	w -= fprintf (f, "none");
+	w -= fprintf (f, _("none"));
 	break;
       case opt_type_bool:
-	w -= fprintf (f, "bool");
+	w -= fprintf (f, _("bool"));
 	break;
       case opt_type_char:
-	w -= fprintf (f, "char");
+	w -= fprintf (f, _("char"));
 	break;
       case opt_type_string:
-	w -= fprintf (f, "string");
+	w -= fprintf (f, _("string"));
 	break;
       case opt_type_int:
-	w -= fprintf (f, "int");
+	w -= fprintf (f, _("int"));
 	break;
       case opt_type_float:
-	w -= fprintf (f, "float");
+	w -= fprintf (f, _("float"));
 	break;
       case opt_type_double:
-	w -= fprintf (f, "double");
+	w -= fprintf (f, _("double"));
 	break;
       default:
-	w -= fprintf (f, "other");
+	w -= fprintf (f, _("other"));
       }
       print_space (f, w, ' ');
 
       /* default */
       if (opt->dfl == NULL)
-	fputs ("(NULL)", f);
+	fputs (_("(NULL)"), f);
       else {
 	switch (opt->type) {
 	case opt_type_none:
-	  fputs ("(none)", f);
+	  fputs (_("(none)"), f);
 	  break;
 	case opt_type_char:
 	  fputc (*(char *) opt->dfl, f);
@@ -422,19 +419,19 @@ const char *parse_error_string (parse_code_t pcode)
 {
   switch (pcode) {
   case parse_ok:
-    return "Success";
+    return _("Success");
   case parse_syserr:
     return strerror(errno);
   case parse_keynotfound:
-    return "Key not found";
+    return _("Key not found");
   case parse_nokey:
-    return "No key";
+    return _("No key");
   case parse_badvalue:
-    return "Bad value";
+    return _("Bad value");
   case parse_badtype:
-    return "Bad type in options list";
+    return _("Bad type in options list");
   default:
-    return "Unknown error";
+    return _("Unknown error");
   }
 }
 

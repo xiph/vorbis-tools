@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: file_transport.c,v 1.3 2001/12/19 06:29:44 volsung Exp $
+ last mod: $Id: file_transport.c,v 1.4 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -20,6 +20,7 @@
 #include <string.h>
 
 #include "transport.h"
+#include "i18n.h"
 
 
 typedef struct file_private_t {
@@ -54,7 +55,7 @@ data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
     private->stats.bytes_read = 0;
     private->stats.input_buffer_used = 0;
   } else {
-    fprintf(stderr, "Error: Out of memory.\n");
+    fprintf(stderr, _("Error: Out of memory.\n"));
     exit(1);
   }
 

@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: status.c,v 1.6 2002/01/11 11:14:24 segher Exp $
+ last mod: $Id: status.c,v 1.7 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -20,6 +20,7 @@
 #include <pthread.h>
 
 #include "status.h"
+#include "i18n.h"
 
 char temp_buffer[200];
 int last_line_len = 0;
@@ -43,16 +44,16 @@ void write_buffer_state_string (char *dest, buffer_stats_t *buf_stats)
   char *sep = "(";
 
   if (buf_stats->prebuffering) {
-    cur += sprintf (cur, "%sPrebuf to %1.f%%", sep, 
+    cur += sprintf (cur, _("%sPrebuf to %1.f%%"), sep, 
 		    100.0f * buf_stats->prebuffer_fill);
     sep = comma;
   }
   if (buf_stats->paused) {
-    cur += sprintf (cur, "%sPaused", sep);
+    cur += sprintf (cur, _("%sPaused"), sep);
     sep = comma;
   }
   if (buf_stats->eos) {
-    cur += sprintf (cur, "%sEOS", sep);
+    cur += sprintf (cur, _("%sEOS"), sep);
     sep = comma;
   }
   if (cur != dest)
@@ -187,25 +188,25 @@ stat_format_t *stat_format_create ()
 
   stats = calloc(NUM_STATS + 1, sizeof(stat_format_t));  /* One extra for end flag */
   if (stats == NULL) {
-    fprintf(stderr, "Memory allocation error in stats_init()\n");
+    fprintf(stderr, _("Memory allocation error in stats_init()\n"));
     exit(1);
   }
 
   cur = stats + 0; /* currently playing file / stream */
   cur->verbosity = 3; 
   cur->enabled = 0;
-  cur->formatstr = "File: %s"; 
+  cur->formatstr = _("File: %s"); 
   cur->type = stat_stringarg;
   
   cur = stats + 1; /* current playback time (preformatted) */
   cur->verbosity = 1;
   cur->enabled = 1;
-  cur->formatstr = "Time: %s"; 
+  cur->formatstr = _("Time: %s"); 
   cur->type = stat_stringarg;
   cur->arg.stringarg = calloc(TIME_STR_SIZE, sizeof(char));
 
   if (cur->arg.stringarg == NULL) {
-    fprintf(stderr, "Memory allocation error in stats_init()\n");
+    fprintf(stderr, _("Memory allocation error in stats_init()\n"));
     exit(1);
   }  
   write_time_string(cur->arg.stringarg, 0.0);
@@ -219,7 +220,7 @@ stat_format_t *stat_format_create ()
   cur->arg.stringarg = calloc(TIME_STR_SIZE, sizeof(char));
 
   if (cur->arg.stringarg == NULL) {
-    fprintf(stderr, "Memory allocation error in stats_init()\n");
+    fprintf(stderr, _("Memory allocation error in stats_init()\n"));
     exit(1);
   }
   write_time_string(cur->arg.stringarg, 0.0);
@@ -228,12 +229,12 @@ stat_format_t *stat_format_create ()
   cur = stats + 3; /* total playback time (preformatted) */
   cur->verbosity = 1;
   cur->enabled = 1;
-  cur->formatstr = "of %s";
+  cur->formatstr = _("of %s");
   cur->type = stat_stringarg;
   cur->arg.stringarg = calloc(TIME_STR_SIZE, sizeof(char));
 
   if (cur->arg.stringarg == NULL) {
-    fprintf(stderr, "Memory allocation error in stats_init()\n");
+    fprintf(stderr, _("Memory allocation error in stats_init()\n"));
     exit(1);
   }
   write_time_string(cur->arg.stringarg, 0.0);
@@ -248,13 +249,13 @@ stat_format_t *stat_format_create ()
   cur = stats + 5; /* average bitrate (not yet implemented) */
   cur->verbosity = 2;
   cur->enabled = 0;
-  cur->formatstr = "Avg bitrate: %5.1f";
+  cur->formatstr = _("Avg bitrate: %5.1f");
   cur->type = stat_doublearg;
 
   cur = stats + 6; /* input buffer fill % */
   cur->verbosity = 2;
   cur->enabled = 0;
-  cur->formatstr = " Input Buffer %5.1f%%";
+  cur->formatstr = _(" Input Buffer %5.1f%%");
   cur->type = stat_doublearg;
 
   cur = stats + 7; /* input buffer status */
@@ -265,7 +266,7 @@ stat_format_t *stat_format_create ()
   cur->arg.stringarg = calloc(STATE_STR_SIZE, sizeof(char));
 
   if (cur->arg.stringarg == NULL) {
-    fprintf(stderr, "Memory allocation error in stats_init()\n");
+    fprintf(stderr, _("Memory allocation error in stats_init()\n"));
     exit(1);
   }
 
@@ -273,7 +274,7 @@ stat_format_t *stat_format_create ()
   cur = stats + 8; /* output buffer fill % */
   cur->verbosity = 2;
   cur->enabled = 0;
-  cur->formatstr = " Output Buffer %5.1f%%"; 
+  cur->formatstr = _(" Output Buffer %5.1f%%"); 
   cur->type = stat_doublearg;
 
   cur = stats + 9; /* output buffer status */
@@ -284,7 +285,7 @@ stat_format_t *stat_format_create ()
   cur->arg.stringarg = calloc(STATE_STR_SIZE, sizeof(char));
 
   if (cur->arg.stringarg == NULL) {
-    fprintf(stderr, "Memory allocation error in stats_init()\n");
+    fprintf(stderr, _("Memory allocation error in stats_init()\n"));
     exit(1);
   }
 

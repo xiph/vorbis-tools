@@ -2,6 +2,10 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+datadir = @datadir@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
 bin_PROGRAMS = ogg123
 docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
 doc_DATA = ogg123rc-example
@@ -9,11 +13,11 @@ mandir = @MANDIR@
 man_MANS = ogg123.1
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@ @CURL_CFLAGS@ \
-           @PTHREAD_CFLAGS@ @SHARE_CFLAGS@
+           @PTHREAD_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
 
 ogg123_LDADD = @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @AO_LIBS@ \
                @SOCKET_LIBS@ @LIBICONV@ @SHARE_LIBS@ @CURL_LIBS@ @PTHREAD_CFLAGS@ \
-               @PTHREAD_LIBS@
+               @PTHREAD_LIBS@ @I18N_LIBS@
 ogg123_DEPENDENCIES = @SHARE_LIBS@
 ogg123_SOURCES = audio.c buffer.c callbacks.c \
                  cfgfile_options.c cmdline_options.c \

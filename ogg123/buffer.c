@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.14 2002/01/19 09:30:37 segher Exp $
+ last mod: $Id: buffer.c,v 1.15 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -27,6 +27,7 @@
 
 #include "compat.h"
 #include "buffer.h"
+#include "i18n.h"
 
 #define MIN(x,y)       ( (x) < (y) ? (x) : (y) )
 #define MIN3(x,y,z)    MIN(x,MIN(y,z))
@@ -103,7 +104,7 @@ action_t *malloc_action (action_func_t action_func, void *action_arg)
   action = malloc(sizeof(action_t));
   
   if (action == NULL) {
-    fprintf(stderr, "Error: Out of memory in malloc_action().\n");
+    fprintf(stderr, _("Error: Out of memory in malloc_action().\n"));
     exit(1);
   }
 
@@ -334,7 +335,7 @@ buffer_stats_t *malloc_buffer_stats ()
   new_stats = malloc(sizeof(buffer_stats_t));
 
   if (new_stats == NULL) {
-    fprintf(stderr, "Error: Could not allocate memory in malloc_buffer_stats()\n");
+    fprintf(stderr, _("Error: Could not allocate memory in malloc_buffer_stats()\n"));
     exit(1);
   }
 
@@ -353,7 +354,7 @@ buf_t *buffer_create (long size, long prebuffer,
   buf_t *buf = malloc (sizeof(buf_t) + sizeof (char) * (size - 1));
 
   if (buf == NULL) {
-      perror ("malloc");
+      perror (_("malloc"));
       exit(1);
   }
 

@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.5 2002/01/23 16:14:25 segher Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.6 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -23,6 +23,7 @@
 #include "transport.h"
 #include "format.h"
 #include "utf8.h"
+#include "i18n.h"
 
 
 typedef struct ovf_private_t {
@@ -46,18 +47,18 @@ struct {
   char *key;         /* includes the '=' for programming convenience */
   char *formatstr;   /* formatted output */
 } vorbis_comment_keys[] = {
-  {"ARTIST=", "Artist: %s"},
-  {"ALBUM=", "Album: %s"},
-  {"TITLE=", "Title: %s"},
-  {"VERSION=", "Version: %s"},
-  {"TRACKNUMBER=", "Track number: %s"},
-  {"ORGANIZATION=", "Organization: %s"},
-  {"GENRE=", "Genre: %s"},
-  {"DESCRIPTION=", "Description: %s"},
-  {"DATE=", "Date: %s"},
-  {"LOCATION=", "Location: %s"},
-  {"COPYRIGHT=", "Copyright %s"},
-  {NULL, "Comment: %s"}
+  {"ARTIST=", N_("Artist: %s")},
+  {"ALBUM=", N_("Album: %s")},
+  {"TITLE=", N_("Title: %s")},
+  {"VERSION=", N_("Version: %s")},
+  {"TRACKNUMBER=", N_("Track number: %s")},
+  {"ORGANIZATION=", N_("Organization: %s")},
+  {"GENRE=", N_("Genre: %s")},
+  {"DESCRIPTION=", N_("Description: %s")},
+  {"DATE=", N_("Date: %s")},
+  {"LOCATION=", N_("Location: %s")},
+  {"COPYRIGHT=", N_("Copyright %s")},
+  {NULL, N_("Comment: %s")}
 };
 
 
@@ -105,7 +106,7 @@ decoder_t* ovf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     private->stats.instant_bitrate = 0;
     private->stats.avg_bitrate = 0;
   } else {
-    fprintf(stderr, "Error: Out of memory.\n");
+    fprintf(stderr, _("Error: Out of memory.\n"));
     exit(1);
   }
 
@@ -166,13 +167,13 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       
       if (cb->printf_error != NULL)
 	cb->printf_error(decoder->callback_arg, INFO,
-			   "--- Hole in the stream; probably harmless\n");
+			   _("--- Hole in the stream; probably harmless\n"));
     
     } else if (ret < 0) {
       
       if (cb->printf_error != NULL)
 	cb->printf_error(decoder->callback_arg, ERROR,
-			 "=== Vorbis library reported a stream error.\n");
+			 _("=== Vorbis library reported a stream error.\n"));
       
     } else {
       
@@ -366,23 +367,23 @@ void print_stream_info (decoder_t *decoder)
     
 
   cb->printf_metadata(decoder->callback_arg, 3,
-		      "Version is %d", 
+		      _("Version is %d"), 
 		      priv->vi->version);
   
   cb->printf_metadata(decoder->callback_arg, 3,
-		      "Bitrate hints: upper=%ld nominal=%ld lower=%ld "
-		      "window=%ld", 
+		      _("Bitrate hints: upper=%ld nominal=%ld lower=%ld "
+		      "window=%ld"), 
 		      priv->vi->bitrate_upper,
 		      priv->vi->bitrate_nominal,
 		      priv->vi->bitrate_lower,
 		      priv->vi->bitrate_window);
   
   cb->printf_metadata(decoder->callback_arg, 2,
-		      "Bitstream is %d channel, %ldHz",
+		      _("Bitstream is %d channel, %ldHz"),
 		      priv->vi->channels,
 		      priv->vi->rate);
   
   cb->printf_metadata(decoder->callback_arg, 3,
-		      "Encoded by: %s", priv->vc->vendor);
+		      _("Encoded by: %s"), priv->vc->vendor);
 }
 

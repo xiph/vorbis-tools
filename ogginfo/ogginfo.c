@@ -16,6 +16,8 @@
 #include <vorbis/codec.h>
 #include <locale.h>
 #include "utf8.h"
+#include "i18n.h"
+
 
 int dointegritycheck(char *filename);
 
@@ -24,14 +26,16 @@ int main(int ac,char **av)
   int i;
 
   setlocale(LC_ALL, "");
+  bindtextdomain(PACKAGE, LOCALEDIR);
+  textdomain(PACKAGE);
 
   if ( ac < 2 ) {
-    fprintf(stderr,"Usage: %s [filename1.ogg] ... [filenameN.ogg]\n",av[0]);
+    fprintf(stderr,_("Usage: %s [filename1.ogg] ... [filenameN.ogg]\n"),av[0]);
     return(0);
   }
 
   for(i=1;i!=ac;i++) {
-    printf("filename=%s\n",av[i]);
+    printf(_("filename=%s\n"),av[i]);
     dointegritycheck(av[i]);
     if (i < ac - 1)
       printf("\n---\n\n");
@@ -61,30 +65,30 @@ void print_header_info(vorbis_comment *vc, vorbis_info *vi)
       printf("%s\n",vc->user_comments[i]);
   }
 
-  printf("vendor=%s\n", vc->vendor);
+  printf(_("vendor=%s\n"), vc->vendor);
 
-  printf("version=%d\n"
+  printf(_("version=%d\n"
 	 "channels=%d\n"
-	 "rate=%ld\n",
+	 "rate=%ld\n"),
 	 vi->version, vi->channels, vi->rate);
   
-  printf("bitrate_upper=");
+  printf(_("bitrate_upper="));
   if (vi->bitrate_upper < 0) 
-    printf("none\n");
+    printf(_("none\n"));
   else 
     printf("%ld\n", vi->bitrate_upper);
   
-  printf("bitrate_nominal=");
+  printf(_("bitrate_nominal="));
   if (vi->bitrate_nominal < 0) 
-    printf("none\n");
+    printf(_("none\n"));
   else 
     printf("%ld\n", vi->bitrate_nominal);
   
-  printf("bitrate_lower=");
+  printf(_("bitrate_lower="));
   if (vi->bitrate_lower < 0) 
-    printf("none\n");
+    printf(_("none\n"));
   else 
-    printf("%ld\n", vi->bitrate_lower);
+    printf(_("%ld\n"), vi->bitrate_lower);
 }
 
 
@@ -93,9 +97,9 @@ void print_stream_info (double playtime, ogg_int64_t bits)
   long playmin, playsec;
 
   calc_playtime(playtime, &playmin, &playsec);
-  printf("bitrate_average=%ld\n", (long) (bits/playtime));
-  printf("length=%f\n", playtime);
-  printf("playtime=%ld:%02ld\n", playmin, playsec);
+  printf(_("bitrate_average=%ld\n"), (long) (bits/playtime));
+  printf(_("length=%f\n"), playtime);
+  printf(_("playtime=%ld:%02ld\n"), playmin, playsec);
 }
 
 /* Test the integrity of the stream header.  
@@ -293,7 +297,7 @@ int dointegritycheck(char *filename)
 
   fp = fopen(filename,"rb");
   if (!fp) {
-    fprintf(stderr,"Unable to open \"%s\": %s\n",
+    fprintf(stderr,_("Unable to open \"%s\": %s\n"),
 	    filename,
 	    strerror(errno));
     return 0;
@@ -312,24 +316,24 @@ int dointegritycheck(char *filename)
 
     /* Output test results */
     if (header_state == 1) {
-      printf("\nserial=%ld\n", serialno);
-      printf("header_integrity=pass\n");
+      printf(_("\nserial=%ld\n"), serialno);
+      printf(_("header_integrity=pass\n"));
       print_header_info(&vc, &vi);
     } else
-      printf("header_integrity=fail\n");
+      printf(_("header_integrity=fail\n"));
     
     if (stream_state >= 0) {
       playtime = (double) final_granulepos / vi.rate;
       total_playtime += playtime;
-      printf("stream_integrity=pass\n");
+      printf(_("stream_integrity=pass\n"));
       print_stream_info(playtime, bits);
     } else
-      printf("stream_integrity=fail\n");
+      printf(_("stream_integrity=fail\n"));
     
     if (stream_state > 0)
-      printf("stream_truncated=false\n");
+      printf(_("stream_truncated=false\n"));
     else
-      printf("stream_truncated=true\n");
+      printf(_("stream_truncated=true\n"));
     
     /* clean up this logical bitstream; before exit we see if we're
        followed by another [chained] */
@@ -337,8 +341,8 @@ int dointegritycheck(char *filename)
   }
   
   calc_playtime(total_playtime, &total_playmin, &total_playsec);
-  printf("\ntotal_length=%f\n", total_playtime);
-  printf("total_playtime=%ld:%02ld\n", total_playmin, total_playsec);
+  printf(_("\ntotal_length=%f\n"), total_playtime);
+  printf(_("total_playtime=%ld:%02ld\n"), total_playmin, total_playsec);
 
   if (header_state >= 0) {
 

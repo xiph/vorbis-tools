@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.9 2002/01/01 02:22:14 jack Exp $
+ last mod: $Id: cmdline_options.c,v 1.10 2002/01/26 11:06:37 segher Exp $
 
  ********************************************************************/
 
@@ -23,6 +23,7 @@
 #include "getopt.h"
 #include "cmdline_options.h"
 #include "status.h"
+#include "i18n.h"
 
 #define MIN_INPUT_BUFFER_SIZE 8
 
@@ -65,13 +66,13 @@ int parse_cmdline_options (int argc, char **argv,
 
       switch (ret) {
       case 0:
-	status_error("Internal error: long option given when none expected.\n");
+	status_error(_("Internal error: long option given when none expected.\n"));
 	exit(1);
 	
       case 'b':
 	ogg123_opts->input_buffer_size = atoi(optarg) * 1024;
 	if (ogg123_opts->input_buffer_size < MIN_INPUT_BUFFER_SIZE * 1024) {
-	  status_error("Input buffer size smaller than minimum size of %dkB.",
+	  status_error(_("Input buffer size smaller than minimum size of %dkB."),
 		       MIN_INPUT_BUFFER_SIZE);
 	  ogg123_opts->input_buffer_size = MIN_INPUT_BUFFER_SIZE * 1024;
 	}
@@ -83,14 +84,14 @@ int parse_cmdline_options (int argc, char **argv,
 	  parse_code_t pcode = parse_line(file_opts, tmp);
 
 	  if (pcode != parse_ok)
-	    status_error("=== Error \"%s\" while parsing config option from command line.\n"
-			 "=== Option was: %s\n",
+	    status_error(_("=== Error \"%s\" while parsing config option from command line.\n"
+			 "=== Option was: %s\n"),
 			 parse_error_string(pcode), optarg);
 	  free (tmp);
 	}
 	else {
 	  /* not using the status interface here */
-	  fprintf (stdout, "Available options:\n");
+	  fprintf (stdout, _("Available options:\n"));
 	  file_options_describe(file_opts, stdout);
 	  exit (0);
 	}
@@ -99,7 +100,7 @@ int parse_cmdline_options (int argc, char **argv,
       case 'd':
 	temp_driver_id = ao_driver_id(optarg);
 	if (temp_driver_id < 0) {
-	    status_error("=== No such device %s.\n", optarg);
+	    status_error(_("=== No such device %s.\n"), optarg);
 	    exit(1);
 	}
 
@@ -119,12 +120,12 @@ int parse_cmdline_options (int argc, char **argv,
 	    free(current->filename);
 	    current->filename = strdup(optarg);
 	  } else {
-	    status_error("=== Driver %s is not a file output driver.\n",
+	    status_error(_("=== Driver %s is not a file output driver.\n"),
 			 info->short_name);
 	    exit(1);
 	  }
 	} else {
-	  status_error("=== Cannot specify output file without specifying a driver.\n");
+	  status_error(_("=== Cannot specify output file without specifying a driver.\n"));
 	  exit (1);
 	}
 	break;
@@ -139,7 +140,7 @@ int parse_cmdline_options (int argc, char **argv,
 	  
 	case 'o':
 	  if (optarg && !add_ao_option(current_options, optarg)) {
-	    status_error("=== Incorrect option format: %s.\n", optarg);
+	    status_error(_("=== Incorrect option format: %s.\n"), optarg);
 	    exit(1);
 	  }
 	  break;
@@ -154,7 +155,7 @@ int parse_cmdline_options (int argc, char **argv,
 	  if (ogg123_opts->input_prebuffer < 0.0f || 
 	      ogg123_opts->input_prebuffer > 100.0f) {
 
-	    status_error ("--- Prebuffer value invalid. Range is 0-100.\n");
+	    status_error (_("--- Prebuffer value invalid. Range is 0-100.\n"));
 	    ogg123_opts->input_prebuffer = 
 	      ogg123_opts->input_prebuffer < 0.0f ? 0.0f : 100.0f;
 	  }
@@ -169,14 +170,14 @@ int parse_cmdline_options (int argc, char **argv,
 	break;
 	
       case 'V':
-	status_error("ogg123 from " PACKAGE " " VERSION "\n");
+	status_error(_("ogg123 from %s %s\n"), PACKAGE, VERSION);
 	exit(0);
 	break;
 
       case 'x':
 	ogg123_opts->nth = atoi(optarg);
 	if (ogg123_opts->nth == 0) {
-	  status_error("--- Cannot play every 0th chunk!\n");
+	  status_error(_("--- Cannot play every 0th chunk!\n"));
 	  ogg123_opts->nth = 1;
 	}
 	break;
@@ -184,8 +185,8 @@ int parse_cmdline_options (int argc, char **argv,
       case 'y':
 	ogg123_opts->ntimes = atoi(optarg);
 	if (ogg123_opts->ntimes == 0) {
-	  status_error("--- Cannot play every chunk 0 times.\n"
-		 "--- To do a test decode, use the null output driver.\n");
+	  status_error(_("--- Cannot play every chunk 0 times.\n"
+		 "--- To do a test decode, use the null output driver.\n"));
 	  ogg123_opts->ntimes = 1;
 	}
 	break;
@@ -211,7 +212,7 @@ int parse_cmdline_options (int argc, char **argv,
 	  temp_driver_id = ao_driver_id(ogg123_opts->default_device);
 
 	  if (temp_driver_id < 0)
-	    status_error("--- Driver %s specified in configuration file invalid.\n",
+	    status_error(_("--- Driver %s specified in configuration file invalid.\n"),
 			 ogg123_opts->default_device);
       }
       
@@ -221,7 +222,7 @@ int parse_cmdline_options (int argc, char **argv,
 
       /* Finally, give up */
       if (temp_driver_id < 0) {
-	status_error("=== Could not load default driver and no driver specified in config file. Exiting.\n");
+	status_error(_("=== Could not load default driver and no driver specified in config file. Exiting.\n"));
 	exit(1);
       }
 
@@ -242,14 +243,14 @@ void cmdline_usage (void)
   ao_info **devices = ao_driver_info_list(&driver_count);
 
   printf ( 
-         "ogg123 from " PACKAGE " " VERSION "\n"
+         _("ogg123 from %s %s\n"
 	 " by the Xiphophorus Team (http://www.xiph.org/)\n\n"
 	 "Usage: ogg123 [<options>] <input file> ...\n\n"
 	 "  -h, --help     this help\n"
 	 "  -V, --version  display Ogg123 version\n"
 	 "  -d, --device=d uses 'd' as an output device\n"
 	 "      Possible devices are ('*'=live, '@'=file):\n"
-	 "        ");
+	 "        "), PACKAGE, VERSION);
   
   for(i = 0; i < driver_count; i++) {
     printf ("%s", devices[i]->short_name);
@@ -263,7 +264,7 @@ void cmdline_usage (void)
   printf ("\n");
   
   printf (
-	 "  -f, --file=filename  Set the output filename for a previously\n"
+	 _("  -f, --file=filename  Set the output filename for a previously\n"
 	 "      specified file device (with -d).\n"
 	 "  -k n, --skip n  Skip the first 'n' seconds\n"
 	 "  -o, --device-option=k:v passes special option k with value\n"
@@ -279,5 +280,5 @@ void cmdline_usage (void)
 	 "\n"
 	 "ogg123 will skip to the next song on SIGINT (Ctrl-C); two SIGINTs within\n"
 	 "s milliseconds make ogg123 terminate.\n"
-	 "  -l, --delay=s  set s [milliseconds] (default 500).\n");
+	 "  -l, --delay=s  set s [milliseconds] (default 500).\n"));
 }

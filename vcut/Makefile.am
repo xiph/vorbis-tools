@@ -2,13 +2,17 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+datadir = @datadir@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
 bin_PROGRAMS = vcut
 mandir = @MANDIR@
 man_MANS = vcut.1
 
-INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
+INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
 
-vcut_LDADD = @VORBIS_LIBS@ @OGG_LIBS@
+vcut_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @I18N_LIBS@
 
 vcut_SOURCES = vcut.c vcut.h
 
