@@ -39,6 +39,7 @@ typedef struct {
 	int		mainlen;
 	int		booklen;
 	char 	    *lasterror;
+	char   *vendor;
 	int prevW;
 } vcedit_state;
 

@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.12 2001/08/12 05:02:27 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.13 2001/08/15 08:33:26 msmith Exp $
  */
 
 #include <stdio.h>
@@ -57,6 +57,11 @@ static void vcedit_clear_internals(vcedit_state *state)
 		free(state->oy);
 		state->oy=NULL;
 	}
+	if(state->vendor)
+	{
+		free(state->vendor);
+		state->vendor=NULL;
+	}
 }
 
 void vcedit_clear(vcedit_state *state)
@@ -66,6 +71,57 @@ void vcedit_clear(vcedit_state *state)
 		vcedit_clear_internals(state);
 		free(state);
 	}
+}
+
+/* Next two functions pulled straight from libvorbis, apart from one change
+ * - we don't want to overwrite the vendor string.
+ */
+static void _v_writestring(oggpack_buffer *o,char *s)
+{
+	while(*s)
+	{
+		oggpack_write(o,*s++,8);
+	}
+}
+
+static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
+{
+	oggpack_buffer opb;
+
+	oggpack_writeinit(&opb);
+
+	/* preamble */  
+	oggpack_write(&opb,0x03,8);
+	_v_writestring(&opb,"vorbis");
+
+	/* vendor */
+	oggpack_write(&opb,strlen(vendor),32);
+	_v_writestring(&opb,vendor);
+
+	/* comments */
+	oggpack_write(&opb,vc->comments,32);
+	if(vc->comments){
+		int i;
+		for(i=0;i<vc->comments;i++){
+			if(vc->user_comments[i]){
+				oggpack_write(&opb,vc->comment_lengths[i],32);
+				_v_writestring(&opb,vc->user_comments[i]);
+			}else{
+				oggpack_write(&opb,0,32);
+			}
+		}
+	}
+	oggpack_write(&opb,1,1);
+
+	op->packet = _ogg_malloc(oggpack_bytes(&opb));
+	memcpy(op->packet, opb.buffer, oggpack_bytes(&opb));
+
+	op->bytes=oggpack_bytes(&opb);
+	op->b_o_s=0;
+	op->e_o_s=0;
+	op->granulepos=0;
+
+	return 0;
 }
 
 static int _blocksize(vcedit_state *s, ogg_packet *p)
@@ -223,6 +279,10 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 		ogg_sync_wrote(state->oy, bytes);
 	}
 
+	/* Copy the vendor tag */
+	state->vendor = malloc(strlen(state->vc->vendor) +1);
+	strcpy(state->vendor, state->vc->vendor);
+
 	/* Headers are done! */
 	return 0;
 
@@ -260,7 +320,7 @@ int vcedit_write(vcedit_state *state, void *out)
 
 	ogg_stream_init(&streamout, state->serial);
 
-	vorbis_commentheader_out(state->vc, &header_comments);
+	_commentheader_out(state->vc, state->vendor, &header_comments);
 
 	ogg_stream_packetin(&streamout, &header_main);
 	ogg_stream_packetin(&streamout, &header_comments);
