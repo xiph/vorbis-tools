@@ -5,7 +5,7 @@
  * (c) 2001 Ralph Giles <giles@ashlu.bc.ca>
  *
  * Front end to show how to use vcedit;
- * note that it's not very useful on its own.
+ * Of limited usability on its own, but could be useful.
  */
 
 

@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.3 2001/01/22 11:44:04 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.4 2001/01/23 10:39:29 msmith Exp $
  */
 
 
@@ -212,8 +212,10 @@ int vcedit_write(vcedit_state *state, FILE *out)
 
 	while((result = ogg_stream_flush(&streamout, &ogout)))
 	{
-		fwrite(ogout.header,1,ogout.header_len, out);
-		fwrite(ogout.body,1,ogout.body_len, out);
+		if(fwrite(ogout.header,1,ogout.header_len, out) != ogout.header_len)
+			goto cleanup;
+		if(fwrite(ogout.body,1,ogout.body_len, out) != ogout.body_len)
+			goto cleanup;
 	}
 
 	while(!(eosin && eosout))
@@ -243,8 +245,12 @@ int vcedit_write(vcedit_state *state, FILE *out)
 							int result = ogg_stream_pageout(&streamout, &ogout);
 							if(result==0)break;
 	
-							fwrite(ogout.header,1,ogout.header_len, out);
-							fwrite(ogout.body,1,ogout.body_len, out);
+							if(fwrite(ogout.header,1,ogout.header_len, out) !=
+									ogout.header_len)
+								goto cleanup;
+							if(fwrite(ogout.body,1,ogout.body_len, out) !=
+									ogout.body_len)
+								goto cleanup;
 	
 							if(ogg_page_eos(&ogout)) eosout = 1;
 						}
@@ -262,6 +268,7 @@ int vcedit_write(vcedit_state *state, FILE *out)
 		}
 	}
 
+cleanup:
 	ogg_stream_clear(&streamout);
 	ogg_packet_clear(&header_comments);
 
@@ -269,6 +276,13 @@ int vcedit_write(vcedit_state *state, FILE *out)
 	free(state->bookbuf);
 
 	vcedit_clear_internals(state);
+	if(!(eosin && eosout))
+	{
+		fprintf(stderr, "Error writing stream to output.\n"
+				        "Output stream may be corrupted or truncated.\n");
+		return -1;
+	}
+
 	return 0;
 }
 	
