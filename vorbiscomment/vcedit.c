@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.2 2001/01/18 10:54:32 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.3 2001/01/22 11:44:04 msmith Exp $
  */
 
 
@@ -24,36 +24,41 @@ vcedit_state *vcedit_new_state(void)
 	vcedit_state *state = malloc(sizeof(vcedit_state));
 	memset(state, 0, sizeof(vcedit_state));
 
-	state->oy = malloc(sizeof(ogg_sync_state));
-	state->og = malloc(sizeof(ogg_page));
-	state->os = malloc(sizeof(ogg_stream_state));
-
-	state->vc = malloc(sizeof(vorbis_comment));
-
 	return state;
 }
 
 void vcedit_clear(vcedit_state *state)
 {
 	if(state)
-	{
-		if(state->oy)
-			free(state->oy);
-		if(state->og)
-			free(state->og);
-		if(state->os)
-			free(state->os);
-		if(state->vc)
-			free(state->vc);
-
 		free(state);
-	}
 }
 
 
 vorbis_comment *vcedit_comments(vcedit_state *state)
 {
 	return state->vc;
+}
+
+static void vcedit_clear_internals(vcedit_state *state)
+{
+	if(state->vc)
+	{
+		vorbis_comment_clear(state->vc);
+		free(state->vc);
+		state->vc=NULL;
+	}
+	if(state->os)
+	{
+		ogg_stream_clear(state->os);
+		free(state->os);
+		state->os=NULL;
+	}
+	if(state->oy)
+	{
+		ogg_sync_clear(state->oy);
+		free(state->oy);
+		state->oy=NULL;
+	}
 }
 
 
@@ -66,10 +71,13 @@ int vcedit_open(vcedit_state *state, FILE *in)
 	ogg_packet	header_main;
 	ogg_packet  header_comments;
 	ogg_packet	header_codebooks;
+	ogg_page    og;
 	vorbis_info vi;
+
 
 	state->in = in;
 
+	state->oy = malloc(sizeof(ogg_sync_state));
 	ogg_sync_init(state->oy);
 
 	buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
@@ -77,7 +85,7 @@ int vcedit_open(vcedit_state *state, FILE *in)
 
 	ogg_sync_wrote(state->oy, bytes);
 
-	if(ogg_sync_pageout(state->oy, state->og) != 1)
+	if(ogg_sync_pageout(state->oy, &og) != 1)
 	{
 		if(bytes<CHUNKSIZE)
 			fprintf(stderr, "Input truncated or empty.\n");
@@ -86,14 +94,17 @@ int vcedit_open(vcedit_state *state, FILE *in)
 		goto err;
 	}
 
-	state->serial = ogg_page_serialno(state->og);
+	state->serial = ogg_page_serialno(&og);
 
+	state->os = malloc(sizeof(ogg_stream_state));
 	ogg_stream_init(state->os, state->serial);
 
 	vorbis_info_init(&vi);
+
+	state->vc = malloc(sizeof(vorbis_comment));
 	vorbis_comment_init(state->vc);
 
-	if(ogg_stream_pagein(state->os, state->og) < 0)
+	if(ogg_stream_pagein(state->os, &og) < 0)
 	{
 		fprintf(stderr, "Error reading first page of Ogg bitstream.\n");
 		goto err;
@@ -119,11 +130,11 @@ int vcedit_open(vcedit_state *state, FILE *in)
 	header = &header_comments;
 	while(i<2) {
 		while(i<2) {
-			int result = ogg_sync_pageout(state->oy, state->og);
+			int result = ogg_sync_pageout(state->oy, &og);
 			if(result == 0) break; /* Too little data so far */
 			else if(result == 1)
 			{
-				ogg_stream_pagein(state->os, state->og);
+				ogg_stream_pagein(state->os, &og);
 				while(i<2)
 				{
 					result = ogg_stream_packetout(state->os, header);
@@ -162,13 +173,7 @@ int vcedit_open(vcedit_state *state, FILE *in)
 	return 0;
 
 err:
-	if(state->vc)
-		vorbis_comment_clear(state->vc);
-	if(state->os)
-		ogg_stream_clear(state->os);
-	if(state->oy)
-		ogg_sync_clear(state->oy);
-
+	vcedit_clear_internals(state);
 	return -1;
 }
 
@@ -179,7 +184,7 @@ int vcedit_write(vcedit_state *state, FILE *out)
 	ogg_packet header_comments;
 	ogg_packet header_codebooks;
 
-	ogg_page og;
+	ogg_page ogout, ogin;
 	ogg_packet op;
 	int result;
 	char *buffer;
@@ -205,23 +210,23 @@ int vcedit_write(vcedit_state *state, FILE *out)
 	ogg_stream_packetin(&streamout, &header_comments);
 	ogg_stream_packetin(&streamout, &header_codebooks);
 
-	while((result = ogg_stream_flush(&streamout, &og)))
+	while((result = ogg_stream_flush(&streamout, &ogout)))
 	{
-		fwrite(og.header,1,og.header_len, out);
-		fwrite(og.body,1,og.body_len, out);
+		fwrite(ogout.header,1,ogout.header_len, out);
+		fwrite(ogout.body,1,ogout.body_len, out);
 	}
 
 	while(!(eosin && eosout))
 	{
 		while(!(eosin && !eosout))
 		{
-			result = ogg_sync_pageout(state->oy, state->og);
+			result = ogg_sync_pageout(state->oy, &ogin);
 			if(result==0) break; /* Need more data... */
 			else if(result ==-1)
 				fprintf(stderr, "Recoverable error in bitstream\n");
 			else
 			{
-				ogg_stream_pagein(state->os, state->og);
+				ogg_stream_pagein(state->os, &ogin);
 	
 				while(1)
 				{
@@ -235,17 +240,17 @@ int vcedit_write(vcedit_state *state, FILE *out)
 	
 						while(!(eosin && eosout))
 						{
-							int result = ogg_stream_pageout(&streamout, &og);
+							int result = ogg_stream_pageout(&streamout, &ogout);
 							if(result==0)break;
 	
-							fwrite(og.header,1,og.header_len, out);
-							fwrite(og.body,1,og.body_len, out);
+							fwrite(ogout.header,1,ogout.header_len, out);
+							fwrite(ogout.body,1,ogout.body_len, out);
 	
-							if(ogg_page_eos(&og)) eosout = 1;
+							if(ogg_page_eos(&ogout)) eosout = 1;
 						}
 					}
 				}
-				if(ogg_page_eos(state->og)) eosin = 1;
+				if(ogg_page_eos(&ogin)) eosin = 1;
 			}
 		}
 		if(!(eosin && eosout))
@@ -257,17 +262,13 @@ int vcedit_write(vcedit_state *state, FILE *out)
 		}
 	}
 
-	ogg_stream_clear(state->os);
 	ogg_stream_clear(&streamout);
-
-	ogg_sync_clear(state->oy);
-
-	vorbis_comment_clear(state->vc);
-
 	ogg_packet_clear(&header_comments);
+
 	free(state->mainbuf);
 	free(state->bookbuf);
 
+	vcedit_clear_internals(state);
 	return 0;
 }
 	

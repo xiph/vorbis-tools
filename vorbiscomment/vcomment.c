@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <getopt.h>
 
 #include "vcedit.h"
@@ -65,7 +66,6 @@ int main(int argc, char **argv)
 	vcedit_state *state;
 	vorbis_comment *vc;
 	param_t	*param;
-	FILE *in, *out;
 
 	/* initialize the cmdline interface */
 	param = new_param();
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 		return 0;		
 	}
 
-	if (param->mode = MODE_WRITE) {
+	if (param->mode == MODE_WRITE) {
 
 		state = vcedit_new_state();
 
@@ -186,14 +186,17 @@ int  add_comment(char *line, vorbis_comment *vc)
 	}
 
 	/* validation: basically, we assume it's a tag
-	/* if it has an '=' after one or more alpha chars */
+	 * if it has an '=' after one or more valid characters,
+	 * as the comment spec requires. For the moment, we
+	 * also restrict ourselves to 0-terminated values */
 
 	mark = index(line, '=');
 	if (mark == NULL) return -1;
 
 	value = line;
 	while (value < mark) {
-		if (!isalpha(*value++)) return -1;
+		if(*value < 0x20 || *value > 0x7d || *value == 0x3d) return -1;
+		value++;
 	}
 
 	/* split the line by turning the '=' in to a null */

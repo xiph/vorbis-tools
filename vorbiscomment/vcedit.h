@@ -16,7 +16,6 @@
 
 typedef struct {
 	ogg_sync_state		*oy;
-	ogg_page		*og;
 	ogg_stream_state	*os;
 
 	vorbis_comment		*vc;
