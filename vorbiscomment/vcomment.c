@@ -47,7 +47,7 @@ typedef struct {
 
 /* prototypes */
 void usage(void);
-void print_comments(FILE *out, vorbis_comment *vc);
+void print_comments(FILE *out, vorbis_comment *vc, char *encoding);
 int  add_comment(char *line, vorbis_comment *vc, char *encoding);
 
 param_t	*new_param(void);
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 
 		/* extract and display the comments */
 		vc = vcedit_comments(state);
-		print_comments(param->com, vc);
+		print_comments(param->com, vc, param->encoding);
 
 		/* done */
 		vcedit_clear(state);
@@ -177,12 +177,21 @@ int main(int argc, char **argv)
 
 ***********/
 
-void print_comments(FILE *out, vorbis_comment *vc)
+void print_comments(FILE *out, vorbis_comment *vc, char *encoding)
 {
 	int i;
+    char *decoded_value;
 
 	for (i = 0; i < vc->comments; i++)
-		fprintf(out, "%s\n", vc->user_comments[i]);
+    {
+	    if (utf8_decode(vc->user_comments[i], &decoded_value, encoding) == 0)
+        {
+    		fprintf(out, "%s\n", decoded_value);
+            free(decoded_value);
+        }
+        else
+            fprintf(out, "%s\n", vc->user_comments[i]);
+    }
 }
 
 /**********

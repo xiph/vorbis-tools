@@ -194,7 +194,47 @@ int simple_utf8_encode(const char *from, char **to, const char *encoding)
 
 int utf8_decode(char *from, char **to, const char *encoding)
 {
+#ifdef HAVE_ICONV
+	static unsigned char buffer[BUFSIZE];
+    char *from_p, *to_p;
+	size_t from_left, to_left;
+	iconv_t cd;
+	cd = iconv_open(encoding, "UTF-8");
+	if(cd == (iconv_t)(-1))
+	{
+		perror("iconv_open");
+	}
+	
+	from_left = strlen(from);
+	to_left = BUFSIZE;
+	from_p = from;
+	to_p = buffer;
+	
+	if(iconv(cd, (ICONV_CONST char **)(&from_p), &from_left, &to_p, 
+				&to_left) == (size_t)-1)
+	{
+		iconv_close(cd);
+		switch(errno)
+		{
+		case E2BIG:
+		case EILSEQ:
+		case EINVAL:
+			return 3;
+		default:
+			perror("iconv");
+		}
+	}
+	else
+	{
+		iconv_close(cd);
+	}
+	*to = malloc(BUFSIZE - to_left + 1);
+	buffer[BUFSIZE - to_left] = 0;
+	strcpy(*to, buffer);
+	return 0;
+#else
 	return 1;  /* Dummy stub */
+#endif /* HAVE_ICONV */
 }
 
 charset_map *get_map(const char *encoding)
