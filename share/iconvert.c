@@ -52,7 +52,7 @@ int iconvert(const char *fromcode, const char *tocode,
   iconv_t cd1, cd2;
   char *ib;
   char *ob;
-  char *utfbuf, *outbuf, *newbuf;
+  char *utfbuf = 0, *outbuf, *newbuf;
   size_t utflen, outlen, ibl, obl, k;
   char tbuf[2048];
 
