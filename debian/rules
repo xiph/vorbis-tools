@@ -75,7 +75,7 @@ binary-arch: build install
 #	dh_installexamples
 	dh_installmime
 	dh_installman
-	dh_undocumented
+	#dh_undocumented
 	dh_installchangelogs 
 	dh_link
 	dh_strip
