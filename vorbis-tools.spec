@@ -1,5 +1,5 @@
 %define name	vorbis-tools
-%define version	1.0beta4
+%define version	1.0rc1
 %define release 1
 
 Summary:	Several Ogg Vorbis Tools
