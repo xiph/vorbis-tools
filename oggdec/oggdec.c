@@ -128,7 +128,7 @@ int write_prelim_header(OggVorbis_File *vf, FILE *out, ogg_int64_t knownlength) 
     int samplesize = bits;
 
     if(knownlength && knownlength*bits/8*channels < size)
-        size = (unsigned int)knownlength*bits/8*channels;
+        size = (unsigned int)(knownlength*bits/8*channels+44) ;
 
     memcpy(headbuf, "RIFF", 4);
     WRITE_U32(headbuf+4, size-8);
