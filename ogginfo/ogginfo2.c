@@ -150,6 +150,8 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
     int k;
 
     ogg_stream_pagein(&stream->os, page);
+    if(inf->doneheaders < 3)
+        header = 1;
 
     while(ogg_stream_packetout(&stream->os, &packet) > 0) {
         if(inf->doneheaders < 3) {
@@ -158,7 +160,6 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                        "packet - invalid vorbis stream (%d)\n"), stream->num);
                 continue;
             }
-            header = 1;
             inf->doneheaders++;
             if(inf->doneheaders == 3) {
                 if(ogg_page_granulepos(page) != 0 || ogg_stream_packetpeek(&stream->os, NULL) == 1)
