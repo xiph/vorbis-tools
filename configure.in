@@ -23,7 +23,7 @@ CFLAGS="$cflags_save"
 
 AM_PROG_LIBTOOL
 
-ALL_LINGUAS="fr nl sv"
+ALL_LINGUAS="da es fr hr hu nl ru sv"
 AM_GNU_GETTEXT
 
 dnl --------------------------------------------------
