@@ -184,9 +184,9 @@ int res_init(res_state *state, int channels, int outfreq, int infreq, res_parame
 		/* push the cutoff frequency down to the output frequency */
 		cutoff = cutoff * outfreq / infreq; 
 
-		/* compensate for the sharper roll-off requirement
-		 * (this method I found empirically, and don't understand, but it's fast) */
-		beta = beta * outfreq * outfreq / (infreq * infreq);
+        /* compensate for the sharper roll-off requirement
+         * by using a bigger hammer */
+        taps = taps * infreq/outfreq;
 	}
 
 	assert(taps >= (infreq + outfreq - 1) / outfreq);
