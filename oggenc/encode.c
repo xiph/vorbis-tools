@@ -45,6 +45,8 @@ int oe_encode(oe_enc_opt *opt)
 
 	/* get start time. */
 	timer = timer_start();
+    opt->start_encode(opt->infilename, opt->filename, opt->bitrate, 
+            opt->quality);
 
 	/* Have vorbisenc choose a mode for us */
 	vorbis_info_init(&vi);
@@ -211,8 +213,7 @@ void update_statistics_full(char *fn, long total, long done, double time)
 	minutes = ((int)remain_time)/60;
 	seconds = (int)(remain_time - (double)((int)remain_time/60)*60);
 
-	fprintf(stderr, "\rEncoding %s%s%s [%5.1f%%] [%2dm%.2ds remaining] %c", 
-			fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
+	fprintf(stderr, "\r\t[%5.1f%%] [%2dm%.2ds remaining] %c", 
 			done*100.0/total, minutes, seconds, spinner[spinpoint++%4]);
 }
 
@@ -221,8 +222,8 @@ void update_statistics_notime(char *fn, long total, long done, double time)
 	static char *spinner="|/-\\";
 	static int spinpoint =0;
 	
-	fprintf(stderr, "\rEncoding %s%s%s %c", 
-			fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
+	fprintf(stderr, "\r\tEncoding [%2dm%.2ds so far] %c", 
+            ((int)time)/60, (int)(time - (double)((int)time/60)*60),
 			spinner[spinpoint++%4]);
 }
 
@@ -273,5 +274,23 @@ void encode_error(char *errmsg)
 	fprintf(stderr, "\n%s\n", errmsg);
 }
 
+void start_encode_full(char *fn, char *outfn, int bitrate, float quality)
+{
+    if(quality >= 0.0f)
+        fprintf(stderr, "Encoding %s%s%s to \n         %s%s%s at quality %f\n",
+			    fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
+                outfn?"\"":"", outfn?outfn:"standard output", outfn?"\"":"",
+                quality);
+    else
+        fprintf(stderr, "Encoding %s%s%s to \n         "
+                "%s%s%s at bitrate %d kbps\n",
+			    fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
+                outfn?"\"":"", outfn?outfn:"standard output", outfn?"\"":"",
+                bitrate);
+}
+
+void start_encode_null(char *fn, char *outfn, int bitrate, float quality)
+{
+}
 
 

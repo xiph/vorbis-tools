@@ -366,9 +366,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if(len!=16)
 		fprintf(stderr, 
 				"Warning: INVALID format chunk in wav header.\n"
-				" Trying to read anyway (may not work)...\n"
-				" The program that created this wav file is broken.\n"
-				" Don't use it, or report a bug.\n");
+				" Trying to read anyway (may not work)...\n");
 
 	if(fread(buf,1,16,in) < 16)
 	{

@@ -122,6 +122,7 @@ int main(int argc, char **argv)
 
 		enc_opts.serialno = opt.serial++;
 		enc_opts.progress_update = update_statistics_full;
+        enc_opts.start_encode = start_encode_full;
 		enc_opts.end_encode = final_statistics;
 		enc_opts.error = encode_error;
 		
@@ -132,6 +133,7 @@ int main(int argc, char **argv)
 		{
 			setbinmode(stdin);
 			in = stdin;
+            infiles[i] = NULL;
 			if(!opt.outfile)
 			{
 				setbinmode(stdout);
@@ -170,8 +172,9 @@ int main(int argc, char **argv)
 			format = open_audio_file(in, &enc_opts);
 			if(format)
 			{
-				fprintf(stderr, "Opening with %s module: %s\n", 
-						format->format, format->description);
+                if(!opt.quiet)
+				    fprintf(stderr, "Opening with %s module: %s\n", 
+					    	format->format, format->description);
 				foundformat=1;
 			}
 
@@ -240,6 +243,7 @@ int main(int argc, char **argv)
 		enc_opts.out = out;
 		enc_opts.comments = &vc;
 		enc_opts.filename = out_fn;
+		enc_opts.infilename = infiles[i];
 		enc_opts.bitrate = opt.nominal_bitrate; 
 		enc_opts.min_bitrate = opt.min_bitrate;
 		enc_opts.max_bitrate = opt.max_bitrate;
@@ -250,6 +254,7 @@ int main(int argc, char **argv)
 
 		if(opt.quiet)
 		{
+            enc_opts.start_encode = start_encode_null;
 			enc_opts.progress_update = update_statistics_null;
 			enc_opts.end_encode = final_statistics_null;
 		}
