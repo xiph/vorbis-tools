@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.11 2001/08/11 14:59:07 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.12 2001/08/12 05:02:27 msmith Exp $
  */
 
 #include <stdio.h>
@@ -90,10 +90,7 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p)
 	char *buffer;
 	int bytes;
 
-	if(p)
-		result = ogg_stream_packetout(s->os, p);
-	else
-		result = ogg_stream_packetpeek(s->os, NULL);
+	result = ogg_stream_packetout(s->os, p);
 
 	if(result > 0)
 		return 1;
@@ -106,8 +103,6 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p)
 			ogg_sync_wrote(s->oy, bytes);
 			if(bytes == 0) 
 				return 0;
-			else if(bytes < CHUNKSIZE)
-				s->eof=1;
 		}
 
 		ogg_stream_pagein(s->os, &og);
@@ -249,6 +244,7 @@ int vcedit_write(vcedit_state *state, void *out)
 	int result;
 	char *buffer;
 	int bytes, eosin=0;
+	int needflush=0, needout=0;
 
 	header_main.bytes = state->mainlen;
 	header_main.packet = state->mainbuf;
@@ -286,8 +282,32 @@ int vcedit_write(vcedit_state *state, void *out)
 		size = _blocksize(state, &op);
 		granpos += size;
 
-		if(state->eof && ogg_stream_packetpeek(state->os, NULL) <= 0)
-			op.e_o_s = 1;
+		if(needflush)
+		{
+			if(ogg_stream_flush(&streamout, &ogout))
+			{
+				if(state->write(ogout.header,1,ogout.header_len, 
+							out) != (size_t) ogout.header_len)
+					goto cleanup;
+				if(state->write(ogout.body,1,ogout.body_len, 
+							out) != (size_t) ogout.body_len)
+					goto cleanup;
+			}
+		}
+		else if(needout)
+		{
+			if(ogg_stream_pageout(&streamout, &ogout))
+			{
+				if(state->write(ogout.header,1,ogout.header_len, 
+							out) != (size_t) ogout.header_len)
+					goto cleanup;
+				if(state->write(ogout.body,1,ogout.body_len, 
+							out) != (size_t) ogout.body_len)
+					goto cleanup;
+			}
+		}
+
+		needflush=needout=0;
 
 		if(op.granulepos == -1)
 		{
@@ -301,32 +321,17 @@ int vcedit_write(vcedit_state *state, void *out)
 			{
 				granpos = op.granulepos;
 				ogg_stream_packetin(&streamout, &op);
-				if(ogg_stream_flush(&streamout, &ogout))
-				{
-					if(state->write(ogout.header,1,ogout.header_len, 
-								out) != (size_t) ogout.header_len)
-						goto cleanup;
-					if(state->write(ogout.body,1,ogout.body_len, 
-								out) != (size_t) ogout.body_len)
-						goto cleanup;
-				}
+				needflush=1;
 			}
 			else 
 			{
 				ogg_stream_packetin(&streamout, &op);
-				if(ogg_stream_pageout(&streamout, &ogout))
-				{
-					if(state->write(ogout.header,1,ogout.header_len, 
-								out) != (size_t) ogout.header_len)
-						goto cleanup;
-					if(state->write(ogout.body,1,ogout.body_len, 
-								out) != (size_t) ogout.body_len)
-						goto cleanup;
-				}
+				needout=1;
 			}
 		}		
 	}
 
+	streamout.e_o_s = 1;
 	while(ogg_stream_flush(&streamout, &ogout))
 	{
 		if(state->write(ogout.header,1,ogout.header_len, 

@@ -40,7 +40,6 @@ typedef struct {
 	int		booklen;
 	char 	    *lasterror;
 	int prevW;
-	int eof;
 } vcedit_state;
 
 extern vcedit_state *	vcedit_new_state(void);
