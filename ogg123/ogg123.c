@@ -1,4 +1,4 @@
-/* ogg123.c by Kenneth Arnold <kcarnold@yahoo.com> */
+/* ogg123.c by Kenneth Arnold <kcarnold@arnoldnet.net> */
 /* Modified to use libao by Stan Seibert <volsung@asu.edu> */
 
 /********************************************************************
@@ -14,13 +14,11 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.26 2001/02/20 21:03:51 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.27 2001/02/22 02:37:59 kcarnold Exp $
 
  ********************************************************************/
 
 /* FIXME : That was a messy message. Fix it. */
-
-#define OGG123_VERSION "0.6 (CVS post-beta3)"
 
 #include <string.h>
 #include <stdlib.h>
@@ -74,7 +72,7 @@ void usage(void)
     o = stderr;
 
     fprintf(o,
-	    "Ogg123 " OGG123_VERSION "\n"
+	    "Ogg123 from " PACKAGE " " VERSION "\n"
 	    " by Kenneth Arnold <kcarnold@arnoldnet.net> and others\n\n"
 	    "Usage: ogg123 [<options>] <input file> ...\n\n"
 	    "  -h, --help     this help\n"
@@ -155,7 +153,7 @@ int main(int argc, char **argv)
 	    opt.verbose++;
 	    break;
 	case 'V':
-	    fprintf(stderr, "Ogg123 %s\n", OGG123_VERSION);
+	    fprintf(stderr, "Ogg123 from " PACKAGE " " VERSION "\n");
 	    exit(0);
 	case 'z':
 	    opt.shuffle = 1;
