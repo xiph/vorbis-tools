@@ -33,6 +33,7 @@ struct option long_options[] = {
 	{"artist",1,0,'a'},
 	{"album",1,0,'l'},
 	{"title",1,0,'t'},
+    {"genre",1,0,'G'},
 	{"names",1,0,'n'},
     {"name-remove",1,0,'X'},
     {"name-replace",1,0,'P'},
@@ -55,17 +56,18 @@ struct option long_options[] = {
 	
 static char *generate_name_string(char *format, char *remove_list, 
         char *replace_list, char *artist, char *title, char *album, 
-        char *track, char *date);
+        char *track, char *date, char *genre);
 static void parse_options(int argc, char **argv, oe_options *opt);
 static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
-		char **artist,char **album, char **title, char **tracknum, char **date);
+		char **artist,char **album, char **title, char **tracknum, char **date,
+        char **genre);
 static void usage(void);
 
 int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
+		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
         DEFAULT_NAMEFMT_REPLACE, NULL, -1,128,-1, -1.0f,0};
 	int i;
 
@@ -120,7 +122,8 @@ int main(int argc, char **argv)
 		FILE *in, *out = NULL;
 		int foundformat = 0;
 		int closeout = 0, closein = 0;
-		char *artist=NULL, *album=NULL, *title=NULL, *track=NULL, *date=NULL;
+		char *artist=NULL, *album=NULL, *title=NULL, *track=NULL;
+        char *date=NULL, *genre=NULL;
 		input_format *format;
 
 		/* Set various encoding defaults */
@@ -132,7 +135,8 @@ int main(int argc, char **argv)
 		enc_opts.error = encode_error;
 		
 		/* OK, let's build the vorbis_comments structure */
-		build_comments(&vc, &opt, i, &artist, &album, &title, &track, &date);
+		build_comments(&vc, &opt, i, &artist, &album, &title, &track, 
+                &date, &genre);
 
 		if(!strcmp(infiles[i], "-"))
 		{
@@ -208,7 +212,8 @@ int main(int argc, char **argv)
 			else if(opt.namefmt)
 			{
 				out_fn = generate_name_string(opt.namefmt, opt.namefmt_remove, 
-                        opt.namefmt_replace, artist, title, album, track,date);
+                        opt.namefmt_replace, artist, title, album, track,date,
+                        genre);
 			}
 			else if(opt.title)
 			{
@@ -337,6 +342,7 @@ static void usage(void)
 		" -t, --title          Title for this track\n"
 		" -l, --album          Name of album\n"
 		" -a, --artist         Name of artist\n"
+        " -g, --genre          Genre of track\n"
 		"                      If multiple input files are given, then multiple\n"
 		"                      instances of the previous five arguments will be used,\n"
 		"                      in the order they are given. If fewer titles are\n"
@@ -400,7 +406,7 @@ static int strncpy_filtered(char *dst, char *src, int len, char *remove_list,
 
 static char *generate_name_string(char *format, char *remove_list,
         char *replace_list, char *artist, char *title, char *album, 
-        char *track, char *date)
+        char *track, char *date, char *genre)
 {
 	char *buffer;
 	char next;
@@ -432,6 +438,11 @@ static char *generate_name_string(char *format, char *remove_list,
 					used += strncpy_filtered(buffer+used, string, buflen-used,
                             remove_list, replace_list);
 					break;
+                case 'g':
+                    string = genre?genre:"(none)";
+                    used += strncpy_filtered(buffer+used, string, buflen-used,
+                            remove_list, replace_list);
+                    break;
 				case 't':
 					string = title?title:"(none)";
 					used += strncpy_filtered(buffer+used, string, buflen-used,
@@ -464,7 +475,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -487,6 +498,14 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				break;
 			case 'e':
 				opt->encoding = strdup(optarg);
+				break;
+            case 'G':
+                opt->genre = realloc(opt->genre, (++opt->genre_count)*sizeof(char *));
+                opt->genre[opt->genre_count - 1] = strdup(optarg);
+                break;
+			case 'h':
+				usage();
+				exit(0);
 				break;
 			case 'l':
 				opt->album = realloc(opt->album, (++opt->album_count)*sizeof(char *));
@@ -557,10 +576,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 					free(opt->outfile);
 				}
 				opt->outfile = strdup(optarg);
-				break;
-			case 'h':
-				usage();
-				exit(0);
 				break;
 			case 'Q':
 				opt->quiet = 1;
@@ -642,7 +657,8 @@ static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 }
 
 static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
-		char **artist, char **album, char **title, char **tracknum, char **date)
+		char **artist, char **album, char **title, char **tracknum, 
+        char **date, char **genre)
 {
 	int i;
 
@@ -676,6 +692,17 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 		*artist = opt->artist[i];
 		add_tag(vc, opt, "artist", opt->artist[i]);
 	}
+
+    if(opt->genre_count)
+    {
+        if(filenum >= opt->genre_count)
+            i = opt->genre_count-1;
+        else
+            i = filenum;
+
+        *genre = opt->genre[i];
+        add_tag(vc, opt, "genre", opt->genre[i]);
+    }
 
 	if(opt->date_count)
 	{

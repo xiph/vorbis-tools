@@ -47,6 +47,8 @@ typedef struct
 	int track_count;
 	char **dates;
 	int date_count;
+	char **genre;
+	int genre_count;
 
 	int quiet;
 

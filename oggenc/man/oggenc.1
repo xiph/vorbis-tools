@@ -51,6 +51,10 @@ oggenc \- encode audio into the Ogg Vorbis format
 .B -l
 .I album
 ]
+[
+.B -G
+.I genre
+]
 .I input_files \fR...
 
 .SH DESCRIPTION
@@ -101,7 +105,7 @@ Write the Ogg Vorbis stream to
 .I output_file (only valid if a single input file is specified)
 
 .IP "-n pattern, --names=pattern"
-Produce filenames as this string, with %a, %t, %l replaced by artist,
+Produce filenames as this string, with %a, %t, %l, %G replaced by artist,
 title, album respectively (see below for specifying these). Also, %%
 gives a literal %.
 
@@ -114,6 +118,10 @@ instances will be added to each of the input files specified.
 .IP "-a artist, --artist artist"
 Set the artist comment field in the comments to
 .I artist.
+
+.IP "-G genre, --genre genre"
+Set the genre comment field in the comments to
+.I genre.
 
 .IP "-d date, --date date"
 Sets the date comment field to the given value. This should be the date of recording.
