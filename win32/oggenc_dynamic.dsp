@@ -113,6 +113,10 @@ SOURCE=..\oggenc\platform.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\oggenc\resample.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\share\utf8.c
 # End Source File
 # End Group

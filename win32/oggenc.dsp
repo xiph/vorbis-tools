@@ -112,6 +112,10 @@ SOURCE=..\oggenc\platform.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\oggenc\resample.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\share\utf8.c
 # End Source File
 # End Group
@@ -133,6 +137,10 @@ SOURCE=..\include\getopt.h
 # Begin Source File
 
 SOURCE=..\oggenc\platform.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\oggenc\resample.h
 # End Source File
 # Begin Source File
 
