@@ -30,6 +30,21 @@
 #define INT64FORMAT "%Ld"
 #endif
 
+struct vorbis_release {
+    char *vendor_string;
+    char *desc;
+} releases[] = {
+        {"Xiphophorus libVorbis I 20000508", "1.0 beta 1 or beta 2"},
+        {"Xiphophorus libVorbis I 20001031", "1.0 beta 3"},
+        {"Xiphophorus libVorbis I 20010225", "1.0 beta 4"},
+        {"Xiphophorus libVorbis I 20010615", "1.0 rc1"},
+        {"Xiphophorus libVorbis I 20010813", "1.0 rc2"},
+        {"Xiphophorus libVorbis I 20011217", "1.0 rc3"},
+        {"Xiphophorus libVorbis I 20011231", "1.0 rc3"},
+        {NULL, NULL},
+    };
+
+
 /* TODO:
  *
  * - detect decreasing granulepos
@@ -130,6 +145,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
     ogg_packet packet;
     misc_vorbis_info *inf = stream->data;
     int i, header=0;
+    int k;
 
     ogg_stream_pagein(&stream->os, page);
 
@@ -152,7 +168,17 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                        "information follows...\n"), stream->num);
 
                 info(_("Version: %d\n"), inf->vi.version);
-                info(_("Vendor: %s\n"), inf->vc.vendor);
+                k = 0;
+                while(releases[k].vendor_string) {
+                    if(!strcmp(inf->vc.vendor, releases[k].vendor_string)) {
+                        info(_("Vendor: %s (%s)\n"), inf->vc.vendor, 
+                                    releases[k].desc);
+                        break;
+                    }
+                    k++;
+                }
+                if(!releases[k].vendor_string)
+                    info(_("Vendor: %s\n"), inf->vc.vendor);
                 info(_("Channels: %d\n"), inf->vi.channels);
                 info(_("Rate: %ld\n\n"), inf->vi.rate);
 
