@@ -597,8 +597,10 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				opt->artist[opt->artist_count - 1] = strdup(optarg);
 				break;
 			case 'c':
-                if(strchr(optarg, '=') == NULL)
-                    fprintf(stderr, _("Warning: Illegal comment used (\"%s\")\n"), optarg);
+                if(strchr(optarg, '=') == NULL) {
+                    fprintf(stderr, _("Warning: Illegal comment used (\"%s\"), ignoring.\n"), optarg);
+                    break;
+                }
 				opt->comments = realloc(opt->comments, (++opt->comment_count)*sizeof(char *));
 				opt->comments[opt->comment_count - 1] = strdup(optarg);
 				break;
