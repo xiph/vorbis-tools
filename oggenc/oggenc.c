@@ -290,13 +290,14 @@ void usage(void)
 		" -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
 		"                      to encode at a bitrate averaging this. Takes an\n"
 		"                      argument in kbps.\n"
-		" -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
+/* these options are not supported by the rc2 vorbisenc. don't mention them. */
+/*		" -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
 		"                      encoding for a fixed-size channel.\n"
-		" -M, --max-bitrate    Specify a maximum bitrate in kbps. Usedful for\n"
-		"                      streaming purposes.\n"
+		" -M, --max-bitrate    Specify a maximum bitrate in kbps. Useful in\n"
+		"                      for streaming applications.\n"
 		" -q, --quality        Specify quality between 0 (low) and 10 (high),\n"
 		"                      instead of specifying a particular bitrate.\n"
-		"                      This is the normal mode of operation.\n"
+		"                      This is the normal mode of operation.\n"		*/
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
