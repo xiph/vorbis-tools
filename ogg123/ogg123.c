@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.6 2000/10/30 17:19:59 jack Exp $
+ last mod: $Id: ogg123.c,v 1.7 2000/10/30 21:33:05 jack Exp $
 
  ********************************************************************/
 
@@ -488,14 +488,15 @@ void play_file(void)
 		eos = 0;
 		while (!eos) {
 			old_section = current_section;
-			switch ((ret = ov_read (&vf, convbuffer, sizeof (convbuffer), is_big_endian, 2, 1, &current_section))) {
-			case 0: /* End of file */
+			ret = ov_read(&vf, convbuffer, sizeof (convbuffer), is_big_endian, 2, 1, &current_section);
+			if (ret == 0) {
+				/* End of file */
 				eof = eos = 1;
-				break;
-			case -1: /* Stream error */
+			} else if (ret < 0) {
+				/* Stream error */
 				fprintf(stderr, "W: Stream error\n");
-				break;
-			default: /* less bytes than we asked for */
+			} else {
+				/* less bytes than we asked for */
 				/* did we enter a new logical bitstream */
 				if (old_section != current_section && old_section != -1)
 					eos = 1;
@@ -513,7 +514,7 @@ void play_file(void)
 		}
 	}
 
-	ov_clear (&vf);
+	ov_clear(&vf);
       
 	if (param.quiet < 1)
 		fprintf (stderr, "\nDone.\n");
