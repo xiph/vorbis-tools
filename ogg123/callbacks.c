@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: callbacks.c,v 1.4 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: callbacks.c,v 1.5 2002/02/07 04:40:49 segher Exp $
 
  ********************************************************************/
 
@@ -31,7 +31,11 @@ int audio_play_callback (void *ptr, int nbytes, int eos, void *arg)
   audio_play_arg_t *play_arg = (audio_play_arg_t *) arg;
   int ret;
 
+  pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
+
   ret = audio_devices_write(play_arg->devices, ptr, nbytes);
+
+  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 
   return ret ? nbytes : 0;
 }

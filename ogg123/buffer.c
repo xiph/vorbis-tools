@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.15 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: buffer.c,v 1.16 2002/02/07 04:40:49 segher Exp $
 
  ********************************************************************/
 
@@ -233,7 +233,7 @@ void *buffer_thread_func (void *arg)
     /* No need to lock mutex here because the other thread will
        NEVER reduce the number of bytes stored in the buffer */
     DEBUG("Sending %d bytes to the audio device", write_amount);
-    buf->write_func(buf->buffer + buf->start, write_amount,
+    write_amount = buf->write_func(buf->buffer + buf->start, write_amount,
 		    /* Only set EOS if this is the last chunk */
 		    write_amount == buf->curfill ? buf->eos : 0,
 		    buf->write_arg);
