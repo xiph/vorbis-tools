@@ -28,6 +28,7 @@ struct option long_options[] = {
 	{"quiet",0,0,'q'},
     {"version", 0, 0, 'V'},
 	{"commentfile",1,0,'c'},
+    {"raw", 0,0,'R'},
 	{NULL,0,0,0}
 };
 
@@ -40,6 +41,7 @@ typedef struct {
 	int commentcount;
 	char **comments;
 	int tempoutfile;
+    int raw;
 } param_t;
 
 #define MODE_NONE  0
@@ -49,8 +51,8 @@ typedef struct {
 
 /* prototypes */
 void usage(void);
-void print_comments(FILE *out, vorbis_comment *vc);
-int  add_comment(char *line, vorbis_comment *vc);
+void print_comments(FILE *out, vorbis_comment *vc, int raw);
+int  add_comment(char *line, vorbis_comment *vc, int raw);
 
 param_t	*new_param(void);
 void parse_options(int argc, char *argv[], param_t *param);
@@ -104,7 +106,7 @@ int main(int argc, char **argv)
 
 		/* extract and display the comments */
 		vc = vcedit_comments(state);
-		print_comments(param->com, vc);
+		print_comments(param->com, vc, param->raw);
 
 		/* done */
 		vcedit_clear(state);
@@ -134,7 +136,7 @@ int main(int argc, char **argv)
 
 		for(i=0; i < param->commentcount; i++)
 		{
-			if(add_comment(param->comments[i], vc) < 0)
+			if(add_comment(param->comments[i], vc, param->raw) < 0)
 				fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
 		}
 
@@ -145,7 +147,7 @@ int main(int argc, char **argv)
 			char *buf = (char *)malloc(sizeof(char)*1024);
 
 			while (fgets(buf, 1024, param->com))
-				if (add_comment(buf, vc) < 0) {
+				if (add_comment(buf, vc, param->raw) < 0) {
 					fprintf(stderr,
 						_("bad comment: \"%s\"\n"),
 						buf);
@@ -183,14 +185,14 @@ int main(int argc, char **argv)
 
 ***********/
 
-void print_comments(FILE *out, vorbis_comment *vc)
+void print_comments(FILE *out, vorbis_comment *vc, int raw)
 {
 	int i;
     char *decoded_value;
 
 	for (i = 0; i < vc->comments; i++)
     {
-	    if (utf8_decode(vc->user_comments[i], &decoded_value) >= 0)
+	    if (!raw && utf8_decode(vc->user_comments[i], &decoded_value) >= 0)
         {
     		fprintf(out, "%s\n", decoded_value);
             free(decoded_value);
@@ -211,7 +213,7 @@ void print_comments(FILE *out, vorbis_comment *vc)
 
 ***********/
 
-int  add_comment(char *line, vorbis_comment *vc)
+int  add_comment(char *line, vorbis_comment *vc, int raw)
 {
 	char	*mark, *value, *utf8_value;
 
@@ -239,8 +241,12 @@ int  add_comment(char *line, vorbis_comment *vc)
 	*mark = '\0';	
 	value++;
 
+    if(raw) {
+        vorbis_comment_add_tag(vc, line, value);
+        return 0;
+    }
 	/* convert the value from the native charset to UTF-8 */
-	if (utf8_encode(value, &utf8_value) >= 0) {
+    else if (utf8_encode(value, &utf8_value) >= 0) {
 		
 		/* append the comment and return */
 		vorbis_comment_add_tag(vc, line, utf8_value);
@@ -282,7 +288,13 @@ void usage(void)
 		"   the command line using the -t option. e.g.\n"
 		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
 		"   (note that when using this, reading comments from the comment\n"
-		"   file or stdin is disabled)\n")
+		"   file or stdin is disabled)\n"
+        "   Raw mode (--raw, -R) will read and write comments in utf8,\n"
+        "   rather than converting to the user's character set. This is\n"
+        "   useful for using vorbiscomment in scripts. However, this is\n"
+        "   not sufficient for general round-tripping of comments in all\n"
+        "   cases.\n")
+        
 	); 
 }
 
@@ -313,6 +325,8 @@ param_t *new_param(void)
 	param->comments=NULL;
 	param->tempoutfile=0;
 
+    param->raw = 0;
+
 	return param;
 }
 
@@ -332,7 +346,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 
 	setlocale(LC_ALL, "");
 
-	while ((ret = getopt_long(argc, argv, "alwhqVc:t:",
+	while ((ret = getopt_long(argc, argv, "alwhqVc:t:R",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -342,6 +356,8 @@ void parse_options(int argc, char *argv[], param_t *param)
 			case 'l':
 				param->mode = MODE_LIST;
 				break;
+            case 'R':
+                param->raw = 1;
 			case 'w':
 				param->mode = MODE_WRITE;
 				break;
@@ -427,6 +443,10 @@ void open_files(param_t *p)
 	if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) { 
 
 		/* open output for write mode */
+        if(!strcmp(p->infilename, p->outfilename)) {
+            fprintf(stderr, _("Input filename may not be the same as output filename\n"));
+            exit(1);
+        }
 
 		if (strncmp(p->outfilename,"-",2) == 0) {
 			p->out = stdout;
@@ -495,9 +515,9 @@ void close_files(param_t *p)
          */
 		if(rename(p->outfilename, p->infilename)) {
             if(remove(p->infilename))
-                fprintf(stderr, "Error removing old file %s\n", p->infilename);
+                fprintf(stderr, _("Error removing old file %s\n"), p->infilename);
             else if(rename(p->outfilename, p->infilename)) 
-                fprintf(stderr, "Error renaming %s to %s\n", p->outfilename, 
+                fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename, 
                         p->infilename);
         }
     }
