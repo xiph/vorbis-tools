@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.20 2001/01/22 21:19:57 jack Exp $
+ last mod: $Id: ogg123.c,v 1.21 2001/01/25 06:39:31 giles Exp $
 
  ********************************************************************/
 
@@ -43,7 +43,8 @@ struct {
   {"ARTIST=", "Artist: %s\n"},
   {"ALBUM=", "Album: %s\n"},
   {"TITLE=", "Title: %s\n"},
-  {"VERSION", "Version: %s\n"},
+  {"VERSION=", "Version: %s\n"},
+  {"TRACKNUMBER=", "Track number: %s\n"},
   {"ORGANIZATION=", "Organization: %s\n"},
   {"GENRE=", "Genre: %s\n"},
   {"DESCRIPTION=", "Description: %s\n"},
