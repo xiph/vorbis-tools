@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.4 2000/10/30 04:39:21 jack Exp $
+ last mod: $Id: ogg123.c,v 1.5 2000/10/30 16:41:51 jack Exp $
 
  ********************************************************************/
 
@@ -60,12 +60,14 @@ struct
   char *read_file;		/* File to decode */
   char shuffle; /* Should we shuffle playing? */
   signed short int verbose;	/* Verbose output if > 0, quiet if < 0 */
+  signed short int quiet;	/* Be quiet (no title) */
+  double seekpos;		/* Amount to seek by */
   FILE *instream;		/* Stream to read from. */
   devices *outdevices;		/* Streams to write to. */
 }
 param =
 {
-NULL, 0, 0, NULL, NULL};
+NULL, 0, 0, 0, 0, NULL, NULL};
 
 struct
 {
@@ -82,6 +84,7 @@ struct option long_options[] = {
   {"help", no_argument, 0, 'h'},
   {"version", no_argument, 0, 'V'},
   {"device", required_argument, 0, 'd'},
+  {"skip", required_argument, 0, 'k'},
   {"device-option", required_argument, 0, 'o'},
   {"verbose", no_argument, 0, 'v'},
   {"quiet", no_argument, 0, 'q'},
@@ -152,6 +155,7 @@ usage ()
   fprintf (o, "      Possible devices are (some may not be compiled):\n");
   fprintf (o, "      null (output nothing), oss (for Linux and *BSD),\n");
   fprintf (o, "      irix, solaris, wav (write to a .WAV file)\n");
+  fprintf (o, "  -k n, --skip n  Skip the first 'n' seconds\n");
   fprintf (o, 
            "  -o, --device-option=k:v passes special option k with value\n");
   fprintf (o, 
@@ -161,7 +165,7 @@ usage ()
 
   fprintf (o,
 	   "  -v, --verbose  display progress and other useful stuff (not yet)\n");
-  fprintf (o, "  -q, --quiet    don't display anything (not yet)\n");
+  fprintf (o, "  -q, --quiet    don't display anything (no title)\n");
   fprintf (o, "  -z, --shuffle  shuffle play\n");
 }
 
@@ -179,7 +183,7 @@ main (int argc, char **argv)
 
   ao_initialize();
 
-  while (-1 != (ret = getopt_long (argc, argv, "d:hqo:vV:z",
+  while (-1 != (ret = getopt_long (argc, argv, "d:hqk:o:vV:z",
 				   long_options, &option_index)))
     {
       switch (ret)
@@ -203,6 +207,9 @@ main (int argc, char **argv)
 	      exit(1);
 	    }
 	  break;
+	case 'k':
+	  param.seekpos = atof (optarg);
+	  break;
 	case 'o':
 	  if (optarg && !ao_append_option(&temp_options, optarg))
 	    {
@@ -214,7 +221,7 @@ main (int argc, char **argv)
 	  usage ();
 	  exit (0);
 	case 'q':
-	  param.verbose--;
+	  param.quiet++;
 	  break;
 	case 'v':
 	  param.verbose++;
@@ -259,14 +266,17 @@ main (int argc, char **argv)
   channels = 2;
   current = param.outdevices;
 
-  fprintf(stderr, "Opening devices...\n");
+  if (param.quiet < 1)
+	  fprintf(stderr, "Opening devices...\n");
 
   while (current != NULL) {
     ao_info_t *info = ao_get_driver_info(current->driver_id);
 
-    fprintf(stderr, "Device:   %s\n", info->name);
-    fprintf(stderr, "Author:   %s\n", info->author);
-    fprintf(stderr, "Comments: %s\n", info->comment);
+    if (param.quiet < 1) {
+    	fprintf(stderr, "Device:   %s\n", info->name);
+    	fprintf(stderr, "Author:   %s\n", info->author);
+    	fprintf(stderr, "Comments: %s\n", info->comment);
+    }
     
     current->device = ao_open(current->driver_id,bits,rate,channels,
 			     current->options);
@@ -275,8 +285,8 @@ main (int argc, char **argv)
 	fprintf(stderr, "Error opening device.\n");
 	exit(1);
       }
-  
-    fprintf(stderr, "\n"); // Gotta keep 'em separated ...
+    if (param.quiet < 1)
+    	fprintf(stderr, "\n"); // Gotta keep 'em separated ...
  
     current = current->next_device;
   }
@@ -323,6 +333,7 @@ void play_file(void)
 	long t_min = 0, c_min = 0, r_min = 0;
 	double t_sec = 0, c_sec = 0, r_sec = 0;
 	int is_big_endian = ao_is_big_endian();
+	double realseekpos = param.seekpos;
 
   if (strcmp (param.read_file, "-"))	/* input file not stdin */
     {
@@ -375,7 +386,8 @@ void play_file(void)
 	  {
 	    char last = 0, in = 0;
 	    int eol = 0;
-
+		
+	    /* Need to 'quiet' this header dump */
 	    fprintf (stderr, "HTTP Headers:\n");
 	    for (;;)
 	      {
@@ -397,7 +409,8 @@ void play_file(void)
 	}
       else
 	{
-	  fprintf (stderr, "Playing from file %s.\n", param.read_file);
+	  if (param.quiet < 1)
+	  	fprintf (stderr, "Playing from file %s.\n", param.read_file);
 	  /* Open the file. */
 	  if ((param.instream = fopen (param.read_file, "rb")) == NULL)
 	    {
@@ -408,7 +421,8 @@ void play_file(void)
     }
   else
     {
-      fprintf (stderr, "Playing from standard input.\n");
+      if (param.quiet < 1)
+	      fprintf (stderr, "Playing from standard input.\n");
       param.instream = stdin;
     }
 
@@ -425,34 +439,36 @@ void play_file(void)
 		vorbis_comment *vc = ov_comment(&vf, -1);
 		vorbis_info *vi = ov_info(&vf, -1);
 
-		for (i = 0; i < vc->comments; i++) {
-			char *cc = vc->user_comments[i]; /* current comment */
-			if (!strncasecmp ("ARTIST=", cc, 7))
-				fprintf(stderr, "Artist: %s\n", cc + 7);
-			else if (!strncasecmp("ALBUM=", cc, 6))
-				fprintf(stderr, "Album: %s\n", cc + 6);
-			else if (!strncasecmp("TITLE=", cc, 6))
-				fprintf(stderr, "Title: %s\n", cc + 6);
-			else if (!strncasecmp("VERSION=", cc, 8))
-				fprintf(stderr, "Version: %s\n", cc + 8);
-			else if (!strncasecmp("ORGANIZATION=", cc, 13))
-				fprintf(stderr, "Organization: %s\n", cc + 13);
-			else if (!strncasecmp("GENRE=", cc, 6))
-				fprintf(stderr, "Genre: %s\n", cc + 6);
-			else if (!strncasecmp("DESCRIPTION=", cc, 12))
-				fprintf(stderr, "Description: %s\n", cc + 12);
-			else if (!strncasecmp("DATE=", cc, 5))
-				fprintf(stderr, "Date: %s\n", cc + 5);
-			else if (!strncasecmp("LOCATION=", cc, 9))
-				fprintf(stderr, "Location: %s\n", cc + 9);
-			else if (!strncasecmp("COPYRIGHT=", cc, 10))
-				fprintf(stderr, "Copyright: %s\n", cc + 10);
-			else
-				fprintf(stderr, "Unrecognized comment: %s\n", cc);
-		}
+		if (param.quiet < 1) {
+			for (i = 0; i < vc->comments; i++) {
+				char *cc = vc->user_comments[i]; /* current comment */
+				if (!strncasecmp ("ARTIST=", cc, 7))
+					fprintf(stderr, "Artist: %s\n", cc + 7);
+				else if (!strncasecmp("ALBUM=", cc, 6))
+					fprintf(stderr, "Album: %s\n", cc + 6);
+				else if (!strncasecmp("TITLE=", cc, 6))
+					fprintf(stderr, "Title: %s\n", cc + 6);
+				else if (!strncasecmp("VERSION=", cc, 8))
+					fprintf(stderr, "Version: %s\n", cc + 8);
+				else if (!strncasecmp("ORGANIZATION=", cc, 13))
+					fprintf(stderr, "Organization: %s\n", cc + 13);
+				else if (!strncasecmp("GENRE=", cc, 6))
+					fprintf(stderr, "Genre: %s\n", cc + 6);
+				else if (!strncasecmp("DESCRIPTION=", cc, 12))
+					fprintf(stderr, "Description: %s\n", cc + 12);
+				else if (!strncasecmp("DATE=", cc, 5))
+					fprintf(stderr, "Date: %s\n", cc + 5);
+				else if (!strncasecmp("LOCATION=", cc, 9))
+					fprintf(stderr, "Location: %s\n", cc + 9);
+				else if (!strncasecmp("COPYRIGHT=", cc, 10))
+					fprintf(stderr, "Copyright: %s\n", cc + 10);
+				else
+					fprintf(stderr, "Unrecognized comment: %s\n", cc);
+			}
     
 		fprintf(stderr, "\nBitstream is %d channel, %ldHz\n", vi->channels, vi->rate);
 		fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
+		}
 
 		if (param.verbose > 0) {
 			/* Seconds with double precision */
@@ -460,6 +476,14 @@ void play_file(void)
 			t_min = (long)info.u_time / (long)60;
 			t_sec = info.u_time - 60 * t_min;
 		}
+
+		if ((realseekpos > ov_time_total (&vf, -1)) || (realseekpos < 0))
+	         /* If we're out of range set it to right before the end. If we set it
+        	  * right to the end when we seek it will go to the beginning of the sond */
+			realseekpos = ov_time_total (&vf, -1) - 0.01;
+ 
+		if (realseekpos > 0)
+			ov_time_seek (&vf, realseekpos);
 
 		eos = 0;
 		while (!eos) {
@@ -491,7 +515,8 @@ void play_file(void)
 
 	ov_clear (&vf);
       
-	fprintf (stderr, "\nDone.\n");
+	if (param.quiet < 1)
+		fprintf (stderr, "\nDone.\n");
 }
 
 int get_tcp_socket(void)
