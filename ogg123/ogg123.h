@@ -43,7 +43,6 @@ devices_t *append_device(devices_t * devices_list, int driver_id,
 void devices_write(void *ptr, size_t size, devices_t * d);
 void usage(void);
 int add_option(ao_option ** op_h, const char *optstring);
-int get_default_device(void);
 void play_file(ogg123_options_t opt);
 int get_tcp_socket(void); /* Will be going soon. */
 FILE *http_open(char *server, int port, char *path); /* ditto */

@@ -250,7 +250,7 @@ The use of
 .B /etc/ogg123rc
 and
 .B ~/.ogg123rc
-has been deprecated in favor of the configuration system provided by
+has been removed in favor of the configuration system provided by
 libao.
 
 .SH FILES
@@ -266,9 +266,11 @@ Per-user config file to override the system wide output device settings.
 
 .SH BUGS
 
-Note that there are issues with streaming WAV-format audio, so there
-is no way to fix this properly. Use the raw or au output driver if you
-need to use ogg123 in a pipe.
+Piped WAV files may cause strange behavior in other programs.  This is
+because WAV files store the data length in the header.  However, the
+output driver does not know the length when it writes the header, and
+there is no value that means "length unknown".  Use the raw or au
+output driver if you need to use ogg123 in a pipe.
 
 .SH SEE ALSO
 .BR libao.conf(5)

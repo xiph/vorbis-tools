@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.44 2001/08/07 21:37:50 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.45 2001/08/12 14:04:21 volsung Exp $
 
  ********************************************************************/
 
@@ -163,14 +163,19 @@ int main(int argc, char **argv)
 	    current_options = &current->options;
 	    break;
 	case 'f':
-	    info = ao_driver_info(temp_driver_id);
-	    if (info->type == AO_TYPE_FILE) {
-	        free(current->filename);
+	    if (temp_driver_id >= 0) {
+	      info = ao_driver_info(temp_driver_id);
+	      if (info->type == AO_TYPE_FILE) {
+		free(current->filename);
 		current->filename = strdup(optarg);
-	    } else {
+	      } else {
 	        fprintf(stderr, "Driver %s is not a file output driver.\n",
 			info->short_name);
 	        exit(1);
+	      }
+	    } else {
+	      fprintf(stderr, "Cannot specify output file without specifying a driver.\n");
+	      exit (1);
 	    }
 	    break;
 	case 'k':
@@ -209,19 +214,16 @@ int main(int argc, char **argv)
     }
 
     /* Add last device to device list or use the default device */
+    if (temp_driver_id < 0) 
+        temp_driver_id = ao_default_driver_id();
+	
     if (temp_driver_id < 0) {
-	temp_driver_id = get_default_device();
-	if(temp_driver_id < 0) {
-		temp_driver_id = ao_default_driver_id();
-	}
-	if (temp_driver_id < 0) {
-	    fprintf(stderr,
-		    "Could not load default driver and no ~/.ogg123rc found. Exiting.\n");
-	    exit(1);
-	}
-	opt.outdevices = append_device(opt.outdevices, temp_driver_id, 
-				       temp_options, NULL);
+        fprintf(stderr,
+	      "Could not load default driver.  Audio devices may be already in use.\nExiting.\n");
+        exit(1);
     }
+    opt.outdevices = append_device(opt.outdevices, temp_driver_id, 
+				       temp_options, NULL);
 
     if (optind == argc) {
 	usage();
