@@ -6,3 +6,5 @@ Release
 *.mak
 *.dep
 test.ogg
+Makefile.in
+Makefile
