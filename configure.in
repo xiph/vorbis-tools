@@ -102,6 +102,7 @@ dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------
 
+AC_FUNC_ALLOCA
 AM_ICONV
 AC_CHECK_FUNCS(atexit on_exit)
 AM_LANGINFO_CODESET

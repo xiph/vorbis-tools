@@ -1,9 +1,11 @@
 #ifndef __PLATFORM_H
 #define __PLATFORM_H
 
+#include <config.h>
+
 #include <stdio.h>
 
-#ifdef __sun
+#ifdef HAVE_ALLOCA_H
 #include <alloca.h>
 #endif
 
