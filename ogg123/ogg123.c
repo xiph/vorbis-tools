@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.53 2001/12/19 05:58:45 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.54 2001/12/19 06:24:16 volsung Exp $
 
  ********************************************************************/
 
@@ -315,13 +315,12 @@ int main(int argc, char **argv)
     srandom(time(NULL));
     
     for (i = optind; i < argc; i++) {
-      int j = optind + random() % (argc - i);
+      int j = i + random() % (argc - i);
       char *temp = argv[i];
       argv[i] = argv[j];
       argv[j] = temp;
     }
   }
-  
 
   /* Play the files/streams */
 
