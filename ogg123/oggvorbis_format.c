@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.9 2002/07/19 10:31:53 msmith Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.10 2003/01/11 22:51:44 volsung Exp $
 
  ********************************************************************/
 
@@ -23,6 +23,7 @@
 #include <vorbis/vorbisfile.h>
 #include "transport.h"
 #include "format.h"
+#include "vorbis_comments.h"
 #include "utf8.h"
 #include "i18n.h"
 
@@ -43,26 +44,9 @@ format_t oggvorbis_format;
 ov_callbacks vorbisfile_callbacks;
 
 
-/* Vorbis comment keys that need special formatting. */
-struct {
-  char *key;         /* includes the '=' for programming convenience */
-  char *formatstr;   /* formatted output */
-} vorbis_comment_keys[] = {
-  {"TRACKNUMBER=", N_("Track number:")},
-  {"REPLAYGAIN_TRACK_GAIN=", N_("ReplayGain (Track):")},
-  {"REPLAYGAIN_ALBUM_GAIN=", N_("ReplayGain (Album):")},
-  {"REPLAYGAIN_TRACK_PEAK=", N_("ReplayGain (Track) Peak:")},
-  {"REPLAYGAIN_ALBUM_PEAK=", N_("ReplayGain (Album) Peak:")},
-  {"COPYRIGHT=", N_("Copyright")},
-  {"=", N_("Comment:")},
-  {NULL, N_("Comment:")}
-};
-
-
-/* Private functions declarations */
-char *lookup_comment_prettyprint (char *comment, int *offset);
-void print_stream_comments (decoder_t *decoder);
-void print_stream_info (decoder_t *decoder);
+void print_vorbis_stream_info (decoder_t *decoder);
+void print_vorbis_comments (vorbis_comment *vc, decoder_callbacks_t *cb, 
+			    void *callback_arg);
 
 
 /* ----------------------------------------------------------- */
@@ -139,8 +123,9 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.rate = priv->vi->rate;
     decoder->actual_fmt.channels = priv->vi->channels;
 
-    print_stream_comments(decoder);
-    print_stream_info(decoder);
+   
+    print_vorbis_comments(priv->vc, cb, decoder->callback_arg);
+    print_vorbis_stream_info(decoder);
     priv->bos = 0;
   }
 
@@ -304,91 +289,7 @@ ov_callbacks vorbisfile_callbacks = {
 /* ------------------- Private functions -------------------- */
 
 
-char *lookup_comment_prettyprint (char *comment, int *offset)
-{
-  int i, j;
-  char *s;
-
-  /* Search for special-case formatting */
-  for (i = 0; vorbis_comment_keys[i].key != NULL; i++) {
-
-    if ( !strncasecmp (vorbis_comment_keys[i].key, comment,
-		       strlen(vorbis_comment_keys[i].key)) ) {
-
-      *offset = strlen(vorbis_comment_keys[i].key);
-      s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
-      if (s == NULL) {
-	fprintf(stderr, _("Error: Out of memory.\n"));
-	exit(1);
-      };
-      strcpy(s, vorbis_comment_keys[i].formatstr);
-      return s;
-    }
-
-  }
-
-  /* Use default formatting */
-  j = strcspn(comment, "=");
-  if (j) {
-    *offset = j + 1;
-    s = malloc(j + 2);
-    if (s == NULL) {
-      fprintf(stderr, _("Error: Out of memory.\n"));
-      exit(1);
-    };
-    strncpy(s, comment, j);
-    strcpy(s + j, ":");
-
-    /* Capitalize */
-    s[0] = toupper(s[0]);
-    for (i = 1; i < j; i++) {
-      s[i] = tolower(s[i]);
-    };
-    return s;
-  }
-
-  /* Unrecognized comment, use last format string */
-  *offset = 0;
-  s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
-  if (s == NULL) {
-    fprintf(stderr, _("Error: Out of memory.\n"));
-    exit(1);
-  };
-  strcpy(s, vorbis_comment_keys[i].formatstr);
-  return s;
-}
-
-
-void print_stream_comments (decoder_t *decoder)
-{
-  ovf_private_t *priv = decoder->private;
-  decoder_callbacks_t *cb = decoder->callbacks;
-  char *comment, *comment_prettyprint;
-  int offset;
-  int i;
-
-  
-  if (cb == NULL || cb->printf_metadata == NULL)
-    return;
-
-  for (i = 0; i < priv->vc->comments; i++) {
-    char *decoded_value;
-
-    comment = priv->vc->user_comments[i];
-    comment_prettyprint = lookup_comment_prettyprint(comment, &offset);
-
-    if (utf8_decode(comment + offset, &decoded_value) >= 0) {
-      cb->printf_metadata(decoder->callback_arg, 1,
-			       "%s %s", comment_prettyprint, decoded_value);
-      free(decoded_value);
-    } else
-      cb->printf_metadata(decoder->callback_arg, 1,
-			       "%s %s", comment_prettyprint, comment + offset);
-    free(comment_prettyprint);
-  }
-}
-
-void print_stream_info (decoder_t *decoder)
+void print_vorbis_stream_info (decoder_t *decoder)
 {
   ovf_private_t *priv = decoder->private;
   decoder_callbacks_t *cb = decoder->callbacks;
@@ -419,3 +320,26 @@ void print_stream_info (decoder_t *decoder)
 		      _("Encoded by: %s"), priv->vc->vendor);
 }
 
+void print_vorbis_comments (vorbis_comment *vc, decoder_callbacks_t *cb, 
+			    void *callback_arg)
+{
+  int i;
+  char *temp = NULL;
+  int temp_len = 0;
+    
+  for (i = 0; i < vc->comments; i++) {
+    
+    /* Gotta null terminate these things */
+    if (temp_len < vc->comment_lengths[i] + 1) {
+      temp_len = vc->comment_lengths[i] + 1;
+      temp = realloc(temp, sizeof(char) * temp_len);
+    }
+    
+    strncpy(temp, vc->user_comments[i], vc->comment_lengths[i]);
+    temp[vc->comment_lengths[i]] = '\0';
+    
+    print_vorbis_comment(temp, cb, callback_arg);
+  }
+  
+  free(temp);
+}

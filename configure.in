@@ -90,7 +90,7 @@ AC_ARG_ENABLE(oggenc, [  --disable-oggenc   Skip building oggenc], build_oggenc=
 AC_ARG_ENABLE(ogginfo,[  --disable-ogginfo  Skip building ogginfo], build_ogginfo="$enableval", build_ogginfo="yes")
 AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$enableval", build_vcut="yes")
 AC_ARG_ENABLE(vorbiscomment, [  --disable-vorbiscomment   Skip building vorbiscomment], build_vorbiscomment="$enableval", build_vorbiscomment="yes")
-
+AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_flac="$enableval", build_flac="yes")
 
 dnl --------------------------------------------------
 dnl Check for generally needed libraries
@@ -110,7 +110,7 @@ AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
 AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 
 dnl --------------------------------------------------
-dnl Check for ogg123 critical libraries
+dnl Check for ogg123 critical libraries and other optional libraries
 dnl --------------------------------------------------
 
 if test "x$build_ogg123" = xyes; then
@@ -124,7 +124,29 @@ if test "x$build_ogg123" = xyes; then
     AC_MSG_WARN([Prerequisites for ogg123 not met, ogg123 will not be built])
   fi
 fi
- 
+
+FLAC_LIBS=
+
+AC_CHECK_LIB(m,log,FLAC_EXTRA_LIBS="-lm")
+AC_CHECK_LIB(FLAC, FLAC__stream_decoder_process_single,have_libFLAC=yes,
+  AC_MSG_WARN(libFLAC missing)
+  have_libFLAC=no, $FLAC_EXTRA_LIBS
+)
+AC_CHECK_HEADER(FLAC/stream_decoder.h,,
+  AC_MSG_WARN(libFLAC headers missing)
+  have_libFLAC=no,[ ])
+
+if test "x$have_libFLAC" = xyes; then
+   if test "x$build_flac" = xyes; then
+      AC_DEFINE(HAVE_LIBFLAC)
+      FLAC_LIBS="$FLAC_EXTRA_LIBS -lFLAC -lOggFLAC"
+   fi
+else
+   build_flac="no"
+fi
+AM_CONDITIONAL(HAVE_LIBFLAC, test "x$build_flac" = xyes)
+AC_SUBST(FLAC_LIBS)
+
 dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------

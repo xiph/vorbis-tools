@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: format.c,v 1.3 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: format.c,v 1.4 2003/01/11 22:51:44 volsung Exp $
 
  ********************************************************************/
 
@@ -24,7 +24,19 @@
 
 extern format_t oggvorbis_format;
 
-format_t *formats[] = { &oggvorbis_format, NULL };
+#ifdef HAVE_LIBFLAC
+extern format_t flac_format;
+extern format_t oggflac_format;
+#endif
+
+
+format_t *formats[] = { 
+#ifdef HAVE_LIBFLAC
+			&flac_format,
+			&oggflac_format,
+#endif
+			&oggvorbis_format, 
+			NULL };
 
 
 format_t *get_format_by_name (char *name)
