@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.11 2003/01/12 20:19:22 volsung Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.12 2003/01/14 00:19:05 volsung Exp $
 
  ********************************************************************/
 
@@ -298,9 +298,13 @@ void print_vorbis_stream_info (decoder_t *decoder)
   if (cb == NULL || cb->printf_metadata == NULL)
     return;
     
+  cb->printf_metadata(decoder->callback_arg, 2,
+		      _("Ogg Vorbis stream: %d channel, %ld Hz"),
+		      priv->vi->channels,
+		      priv->vi->rate);
 
   cb->printf_metadata(decoder->callback_arg, 3,
-		      _("Version is %d"), 
+		      _("Vorbis format: Version %d"), 
 		      priv->vi->version);
   
   cb->printf_metadata(decoder->callback_arg, 3,
@@ -310,12 +314,7 @@ void print_vorbis_stream_info (decoder_t *decoder)
 		      priv->vi->bitrate_nominal,
 		      priv->vi->bitrate_lower,
 		      priv->vi->bitrate_window);
-  
-  cb->printf_metadata(decoder->callback_arg, 2,
-		      _("Bitstream is %d channel, %ldHz"),
-		      priv->vi->channels,
-		      priv->vi->rate);
-  
+    
   cb->printf_metadata(decoder->callback_arg, 3,
 		      _("Encoded by: %s"), priv->vc->vendor);
 }

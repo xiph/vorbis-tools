@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: flac_format.c,v 1.2 2003/01/12 20:19:22 volsung Exp $
+ last mod: $Id: flac_format.c,v 1.3 2003/01/14 00:19:05 volsung Exp $
 
  ********************************************************************/
 
@@ -457,13 +457,18 @@ void print_flac_stream_info (decoder_t *decoder)
     
 
   
-
-  cb->printf_metadata(decoder->callback_arg, 2,
-		      _("Audio is %d bits, %d channel, %ldHz"),
-		      priv->bits_per_sample,
-		      priv->channels,
-		      priv->rate);
-  
+  if (EasyFLAC__is_oggflac(priv->decoder))
+    cb->printf_metadata(decoder->callback_arg, 2,
+			_("Ogg FLAC stream: %d bits, %d channel, %ld Hz"),
+			priv->bits_per_sample,
+			priv->channels,
+			priv->rate);
+  else
+    cb->printf_metadata(decoder->callback_arg, 2,
+			_("FLAC stream: %d bits, %d channel, %ld Hz"),
+			priv->bits_per_sample,
+			priv->channels,
+			priv->rate);  
 }
 
 void print_flac_comments (FLAC__StreamMetadata_VorbisComment *f_comments,

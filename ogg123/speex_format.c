@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: speex_format.c,v 1.1 2003/01/12 20:19:22 volsung Exp $
+ last mod: $Id: speex_format.c,v 1.2 2003/01/14 00:19:05 volsung Exp $
 
  ********************************************************************/
 
@@ -354,15 +354,22 @@ void print_speex_info(SpeexHeader *header, decoder_callbacks_t *cb,
   int modeID = header->mode;
 
   if (header->vbr)
-    cb->printf_metadata(callback_arg, 3, 
-			_("Decoding %d Hz audio using %s mode (VBR)"),
+    cb->printf_metadata(callback_arg, 2, 
+			_("Ogg Speex stream: %d channel, %d Hz, %s mode (VBR)"),
+			header->nb_channels,
 			header->rate,
 			speex_mode_list[modeID]->modeName);
   else
-    cb->printf_metadata(callback_arg, 3,
-			_("Decoding %d Hz audio using %s mode"),
+    cb->printf_metadata(callback_arg, 2,
+			_("Ogg Speex stream: %d channel, %d Hz, %s mode"),
+			header->nb_channels,
 			header->rate,
 			speex_mode_list[modeID]->modeName);
+
+  cb->printf_metadata(callback_arg, 3, 
+		      _("Speex version: %s"),
+		      header->speex_version);
+
 }
 
 
