@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.33 2001/06/17 23:52:51 calc Exp $
+ last mod: $Id: ogg123.c,v 1.34 2001/06/18 03:01:51 calc Exp $
 
  ********************************************************************/
 
@@ -30,11 +30,16 @@
 #include <time.h>
 #include <getopt.h>
 
+#include <signal.h>
+
 #include "ogg123.h"
 
 char convbuffer[4096];		/* take 8k out of the data segment, not the stack */
 int convsize = 4096;
 buf_t * buffer = NULL;
+
+static char skipfile_requested;
+static void (*old_sig)(int);
 
 struct {
     char *key;			/* includes the '=' for programming convenience */
@@ -220,6 +225,36 @@ int main(int argc, char **argv)
     return (0);
 }
 
+/* Two signal handlers, one for SIGINT, and the second for
+ * SIGALRM.  They are de/activated on an as-needed basis by the
+ * player to allow the user to stop ogg123 or skip songs.
+ */
+
+void signal_skipfile(int which_signal)
+{
+  skipfile_requested = 1;
+
+  /* libao, when writing wav's, traps SIGINT so it correctly
+   * closes things down in the event of an interrupt.  We
+   * honour this.   libao will re-raise SIGINT once it cleans
+   * up properly, causing the application to exit.  This is 
+   * desired since we would otherwise re-open output.wav 
+   * and blow away existing "output.wav" file.
+   */
+
+  if (old_sig != NULL) {
+    signal(which_signal,old_sig);
+    raise(which_signal);
+  }
+
+}
+
+void signal_activate_skipfile(int ignored)
+{
+  old_sig = signal(SIGINT,signal_skipfile);
+}
+
+
 void play_file(ogg123_options_t opt)
 {
     /* Oh my gosh this is disgusting. Big cleanups here will include an
@@ -327,6 +362,15 @@ void play_file(ogg123_options_t opt)
     /* Throw the comments plus a few lines about the bitstream we're
      * decoding */
 
+
+    /* Setup so that pressing ^C in the first second of playback
+     * interrupts the program, but after the first second, skips
+     * the song.  This functionality is similar to mpg123's abilities. */
+
+    skipfile_requested = 0;
+    signal(SIGALRM,signal_activate_skipfile);
+    alarm(1);
+
     while (!eof) {
 	int i;
 	vorbis_comment *vc = ov_comment(&vf, -1);
@@ -373,7 +417,14 @@ void play_file(ogg123_options_t opt)
 	    ov_time_seek(&vf, realseekpos);
 
 	eos = 0;
+
 	while (!eos) {
+
+	    if (skipfile_requested) {
+	      eof = eos = 1;
+	      break;
+  	    }
+
 	    old_section = current_section;
 	    ret =
 		ov_read(&vf, convbuffer, sizeof(convbuffer), is_big_endian,
@@ -419,6 +470,10 @@ void play_file(ogg123_options_t opt)
 	    }
 	}
     }
+
+    alarm(0);
+    signal(SIGALRM,SIG_DFL);
+    signal(SIGINT,old_sig);
 
     ov_clear(&vf);
 

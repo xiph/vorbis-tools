@@ -195,6 +195,21 @@ Create an echo effect with esd and a slow computer:
 .RE
 .PP
 
+.SH INTERRUPT
+You can abort
+.B ogg123
+at any time by pressing Ctrl-C.  If you are playing multiple
+files, this will stop the current file and begin playing the
+next one.  If you want to abort playing immediately instead
+of skipping to the next file, press Ctrl-C within the first
+second of the playback of a new file.
+.P
+Note that the result of pressing Ctrl-C might not be audible
+immediately, due to audio data buffering in the audio device.
+This delay is system dependent, but it is usually not more
+than one or two seconds.
+
+
 .SH FILES
 
 .TP
