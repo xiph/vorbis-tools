@@ -485,10 +485,9 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res <= 0) {
             warn(_("Warning: Invalid header page, no packet found\n"));
-            return NULL;
+            other_start(stream, NULL);
         }
-
-        if(packet.bytes >= 7 && memcmp(packet.packet, "\001vorbis", 7)==0)
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\001vorbis", 7)==0)
             vorbis_start(stream);
         else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) 
             other_start(stream, "MIDI");
