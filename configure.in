@@ -5,7 +5,7 @@ dnl Initialization
 dnl ------------------------------------------------
 
 AC_INIT(oggenc/encode.c)
-AM_INIT_AUTOMAKE(vorbis-tools,1.0rc2)
+AM_INIT_AUTOMAKE(vorbis-tools,1.0rc3)
 
 dnl --------------------------------------------------  
 dnl Check for programs
@@ -124,4 +124,4 @@ AC_SUBST(SHARE_LIBS)
 AC_SUBST(CURL_CFLAGS)
 AC_SUBST(CURL_LIBS)
 
-AC_OUTPUT(Makefile include/Makefile share/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
+AC_OUTPUT(Makefile include/Makefile share/Makefile win32/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)

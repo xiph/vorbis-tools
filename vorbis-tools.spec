@@ -1,5 +1,5 @@
 %define name	vorbis-tools
-%define version	1.0rc2
+%define version	1.0rc3
 %define release 1
 
 Summary:	Several Ogg Vorbis Tools
@@ -12,9 +12,9 @@ URL:		http://www.xiph.org/
 Vendor:		Xiphophorus <team@xiph.org>
 Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-root
-Requires:       libogg >= 1.0rc2
-Requires:       libvorbis >= 1.0rc2
-Requires:       libao >= 0.8.0
+Requires:       libogg >= 1.0rc3
+Requires:       libvorbis >= 1.0rc3
+Requires:       libao >= 0.8.2
 Requires:       libcurl >= 7.8
 Prefix:		%{_prefix}
 
@@ -57,6 +57,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %postun
 
 %changelog
+* Mon Dec 31 2001 Jack Moffitt <jack@xiph.org>
+- Update for rc3 release.
 * Sun Oct 07 2001 Jack Moffitt <jack@xiph.org>
 - Updated for configurable prefix
 * Sun Aug 12 2001 Greg Maxwell <greg@linuxpower.cx>

@@ -53,6 +53,7 @@ int oe_encode(oe_enc_opt *opt)
 
 	if(opt->quality >= 0.0f)
 	{
+		printf("Encoding with VBR\n");
 		if(vorbis_encode_init_vbr(&vi, opt->channels, opt->rate, opt->quality))
 		{
 			fprintf(stderr, "Mode initialisation failed: invalid parameters for quality\n");
@@ -62,6 +63,7 @@ int oe_encode(oe_enc_opt *opt)
 	}
 	else
 	{
+		printf("Encoding with managed bitrates.\n");
 		if(vorbis_encode_init(&vi, opt->channels, opt->rate, 
                     opt->max_bitrate>0?opt->max_bitrate*1000:-1,
 				    opt->bitrate*1000, 
