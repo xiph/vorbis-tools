@@ -32,13 +32,54 @@ dnl --------------------------------------------------
 
 AC_CANONICAL_HOST
 
-case $host in 
-       *-*-darwin*)
-                DEBUG="-DDARWIN -Wall -g -O0 -fsigned-char"
-                CFLAGS="-DDARWIN -Wall -g -O4 -ffast-math -fsigned-char"
-                PROFILE="-DDARWIN -Wall -g -pg -O4 -ffast-math -fsigned-char";;
-esac
-
+casecflags_save="$CFLAGS"
+ldflags_save="$LDFLAGS"
+if test -z "$GCC"; then
+        case $host in
+        *-*-irix*)
+                DEBUG="-g -signed"
+                CFLAGS="-O2 -w -signed"
+                PROFILE="-p -g3 -O2 -signed"
+                ;;
+        sparc-sun-solaris*)
+                DEBUG="-v -g"
+                CFLAGS="-xO4 -fast -w -fsimple -native -xcg92"
+                PROFILE="-v -xpg -g -xO4 -fast -native -fsimple -xcg92 -Dsuncc"
+                ;;
+        *)
+                DEBUG="-g"
+                CFLAGS="-O"
+                PROFILE="-g -p"
+                ;;
+        esac
+else
+        case $host in
+        *-*-linux*)
+                DEBUG="-g -Wall -fsigned-char"
+                CFLAGS="-O20 -ffast-math -fsigned-char"
+                PROFILE="-Wall -W -pg -g -O20 -ffast-math -fsigned-char"
+                ;;
+        sparc-sun-*)
+                DEBUG="-g -Wall -fsigned-char -mv8"
+                CFLAGS="-O20 -ffast-math -fsigned-char -mv8"
+                PROFILE="-pg -g -O20 -fsigned-char -mv8"
+                ;;
+        *-*-darwin*)
+                DEBUG="-fno-common -g -Wall -fsigned-char"
+                CFLAGS="-fno-common -O4 -Wall -fsigned-char -ffast-math"
+                PROFILE="-fno-common -O4 -Wall -pg -g -fsigned-char -ffast-math"
+                ;;
+        *)
+                DEBUG="-g -Wall -fsigned-char"
+                CFLAGS="-O20 -fsigned-char"
+                PROFILE="-O20 -g -pg -fsigned-char"
+                ;;
+        esac
+fi
+CFLAGS="$CFLAGS $cflags_save"
+DEBUG="$DEBUG $cflags_save"
+PROFILE="$PROFILE $cflags_save"
+LDFLAGS="$LDFLAGS $ldflags_save"
 
 dnl --------------------------------------------------
 dnl Check for headers
