@@ -25,7 +25,11 @@ typedef struct ogg123_options_s {
   double seekpos;             /* Amount to seek by */
   FILE *instream;             /* Stream to read from. */
   devices_t *outdevices;      /* Streams to write to. */
+  int buffer_size;            /* Size of the buffer in chunks. */
 } ogg123_options_t;           /* Changed in 0.6 to be non-static */
+
+/* This goes here because it relies on some of the above. */
+#include "buffer.h"
 
 devices_t *append_device(devices_t * devices_list, int driver_id,
                          ao_option_t * options);
@@ -33,7 +37,7 @@ void devices_write(void *ptr, size_t size, devices_t * d);
 void usage(void);
 int add_option(ao_option_t ** op_h, const char *optstring);
 int get_default_device(void);
-void play_file(ogg123_options_t opt);
+void play_file(ogg123_options_t opt, buf_t *buffer);
 int get_tcp_socket(void); /* Will be going soon. */
 FILE *http_open(char *server, int port, char *path); /* ditto */
 

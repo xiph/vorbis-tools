@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.17 2000/12/30 04:43:47 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.18 2000/12/30 05:44:31 kcarnold Exp $
 
  ********************************************************************/
 
@@ -28,8 +28,8 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <errno.h>
-#include <getopt.h>
 #include <time.h>
+#include <getopt.h>
 
 #include "ogg123.h"
 
@@ -62,6 +62,7 @@ struct option long_options[] = {
     {"verbose", no_argument, 0, 'v'},
     {"quiet", no_argument, 0, 'q'},
     {"shuffle", no_argument, 0, 'z'},
+    {"buffer", required_argument, 0, 'b'},
     {0, 0, 0, 0}
 };
 
@@ -76,7 +77,7 @@ void usage(void)
 	    "Usage: ogg123 [<options>] <input file> ...\n\n"
 	    "  -h, --help     this help\n"
 	    "  -V, --version  display Ogg123 version\n"
-	    "  -d, --device=d uses 'd' as an output device)\n"
+	    "  -d, --device=d uses 'd' as an output device\n"
 	    "      Possible devices are (some may not be compiled):\n"
 	    "      null (output nothing), oss (for Linux and *BSD),\n"
 	    "      irix, solaris, wav (write to a .WAV file)\n"
@@ -84,6 +85,7 @@ void usage(void)
 	    "  -o, --device-option=k:v passes special option k with value\n"
 	    "      v to previously specified device (with -d).  See\n"
 	    "      man page for more info.\n"
+	    "  -b n, --buffer n  use a buffer of 'n' chunks (4096 bytes)\n"
 	    "  -v, --verbose  display progress and other useful stuff\n"
 	    "  -q, --quiet    don't display anything (no title)\n"
 	    "  -z, --shuffle  shuffle play\n");
@@ -98,6 +100,7 @@ int main(int argc, char **argv)
     int temp_driver_id = -1;
     devices_t *current;
     int bits, rate, channels;
+    buf_t *buffer = NULL;
 
     opt.read_file = NULL;
     opt.shuffle = 0;
@@ -106,18 +109,22 @@ int main(int argc, char **argv)
     opt.seekpos = 0;
     opt.instream = NULL;
     opt.outdevices = NULL;
+    opt.buffer_size = 0;
 
     ao_initialize();
 
     temp_driver_id = get_default_device();
 
-    while (-1 != (ret = getopt_long(argc, argv, "d:hqk:o:vV:z",
+    while (-1 != (ret = getopt_long(argc, argv, "b:d:hk:o:qvV:z",
 				    long_options, &option_index))) {
 	switch (ret) {
 	case 0:
 	    fprintf(stderr,
 		    "Internal error: long option given when none expected.\n");
 	    exit(1);
+	case 'b':
+	  opt.buffer_size = atoi (optarg);
+	  break;
 	case 'd':
 	    /* Need to store previous device before gathering options for
 	       this device */
@@ -216,6 +223,9 @@ int main(int argc, char **argv)
 	current = current->next_device;
     }
 
+    if (opt.buffer_size)
+      buffer = fork_writer (opt.buffer_size, opt.outdevices);
+    
     if (opt.shuffle) {
 	/* Messy code that I didn't write -ken */
 	int i;
@@ -233,21 +243,23 @@ int main(int argc, char **argv)
 	}
 	for (i = 0; i < nb; i++) {
 	    opt.read_file = argv[p[i] + optind];
-	    play_file(opt);
+	    play_file(opt, buffer);
 	}
     } else {
 	while (optind < argc) {
 	    opt.read_file = argv[optind];
-	    play_file(opt);
+	    play_file(opt, buffer);
 	    optind++;
 	}
     }
 
+    buffer_shutdown (buffer);
+
     while (opt.outdevices != NULL) {
-	ao_close(opt.outdevices->device);
-	current = opt.outdevices->next_device;
-	free(opt.outdevices);
-	opt.outdevices = current;
+      ao_close(opt.outdevices->device);
+      current = opt.outdevices->next_device;
+      free(opt.outdevices);
+      opt.outdevices = current;
     }
 
     ao_shutdown();
@@ -255,7 +267,7 @@ int main(int argc, char **argv)
     return (0);
 }
 
-void play_file(ogg123_options_t opt)
+void play_file(ogg123_options_t opt, buf_t *buffer)
 {
     /* Oh my gosh this is disgusting. Big cleanups here will include an
        almost complete rewrite of the hacked-out HTTP streaming, a shift
@@ -322,12 +334,13 @@ void play_file(ogg123_options_t opt)
 		char last = 0, in = 0;
 		int eol = 0;
 
-		/* Need to 'quiet' this header dump */
-		fprintf(stderr, "HTTP Headers:\n");
+		if (opt.verbose > 0)
+		  fprintf(stderr, "HTTP Headers:\n");
 		for (;;) {
 		    last = in;
 		    in = getc(opt.instream);
-		    putc(in, stderr);
+		    if (opt.verbose > 0)
+		      putc(in, stderr);
 		    if (last == 13 && in == 10) {
 			if (eol)
 			    break;
@@ -372,7 +385,7 @@ void play_file(ogg123_options_t opt)
 		int i;
 
 		for (i = 0; ogg_comment_keys[i].key != NULL; i++)
-		    if (!strncmp
+		    if (!strncasecmp
 			(ogg_comment_keys[i].key, cc,
 			 strlen(ogg_comment_keys[i].key))) {
 			fprintf(stderr, ogg_comment_keys[i].formatstr,
@@ -421,7 +434,17 @@ void play_file(ogg123_options_t opt)
 		if (old_section != current_section && old_section != -1)
 		    eos = 1;
 
-		devices_write(convbuffer, ret, opt.outdevices);
+		if (buffer)
+		  {
+		    chunk_t chunk;
+		    chunk.len = ret;
+		    memcpy (chunk.data, convbuffer, ret);
+		    
+		    submit_chunk (buffer, chunk);
+		  }
+		else
+		  devices_write(convbuffer, ret, opt.outdevices);
+		
 		if (opt.verbose > 0) {
 		    u_pos = ov_time_tell(&vf);
 		    c_min = (long) u_pos / (long) 60;
