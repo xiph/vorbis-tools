@@ -15,8 +15,6 @@ oggenc_DEPENDENCIES = @SHARE_LIBS@
 oggenc_SOURCES = oggenc.c audio.c encode.c platform.c \
                  audio.h encode.h platform.h
 
-#EXTRA_DIST = oggenc.dsp build_oggenc.bat
-
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
 

@@ -90,7 +90,7 @@ SOCKET_LIBS=
 AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
 AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 
-SHARE_LIBS='$(top_srcdir)/share/libutf8.a $(top_srcdir)/share/libgetopt.a'
+SHARE_LIBS='$(top_builddir)/share/libutf8.a $(top_builddir)/share/libgetopt.a'
 SHARE_CFLAGS='-I$(top_srcdir)/include'
 
 dnl --------------------------------------------------
