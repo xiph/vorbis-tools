@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="oggenc" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="oggdec" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
-CFG=oggenc - Win32 Debug
+CFG=oggdec - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "oggenc.mak".
+!MESSAGE NMAKE /f "oggdec.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "oggenc.mak" CFG="oggenc - Win32 Debug"
+!MESSAGE NMAKE /f "oggdec.mak" CFG="oggdec - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "oggenc - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "oggenc - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "oggdec - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "oggdec - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -28,7 +28,7 @@ CFG=oggenc - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "oggenc - Win32 Release"
+!IF  "$(CFG)" == "oggdec - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -37,8 +37,8 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Release\oggenc\static"
-# PROP Intermediate_Dir "Release\oggenc\static"
+# PROP Output_Dir "Release\oggdec\static"
+# PROP Intermediate_Dir "Release\oggdec\static"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /MD /W3 /GX /O2 /I "..\include" /I "..\..\ogg\include" /I "..\..\vorbis\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /FD /c
@@ -52,17 +52,17 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 ogg_static.lib vorbis_static.lib vorbisenc_static.lib /nologo /subsystem:console /machine:I386 /libpath:"..\..\ogg\win32\Static_Release" /libpath:"..\..\vorbis\win32\Vorbis_Static_Release" /libpath:"..\..\vorbis\win32\VorbisEnc_Static_Release"
 
-!ELSEIF  "$(CFG)" == "oggenc - Win32 Debug"
+!ELSEIF  "$(CFG)" == "oggdec - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "oggenc___Win32_Debug"
-# PROP BASE Intermediate_Dir "oggenc___Win32_Debug"
+# PROP BASE Output_Dir "oggdec___Win32_Debug"
+# PROP BASE Intermediate_Dir "oggdec___Win32_Debug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Debug\oggenc\static"
-# PROP Intermediate_Dir "Debug\oggenc\static"
+# PROP Output_Dir "Debug\oggdec\static"
+# PROP Intermediate_Dir "Debug\oggdec\static"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -81,18 +81,18 @@ LINK32=link.exe
 
 # Begin Target
 
-# Name "oggenc - Win32 Release"
-# Name "oggenc - Win32 Debug"
+# Name "oggdec - Win32 Release"
+# Name "oggdec - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\oggenc\audio.c
+SOURCE=..\oggdec\audio.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\encode.c
+SOURCE=..\oggdec\encode.c
 # End Source File
 # Begin Source File
 
@@ -104,15 +104,15 @@ SOURCE=..\share\getopt1.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\oggenc.c
+SOURCE=..\oggdec\oggdec.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\platform.c
+SOURCE=..\oggdec\platform.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\resample.c
+SOURCE=..\oggdec\resample.c
 # End Source File
 # Begin Source File
 
@@ -124,11 +124,11 @@ SOURCE=..\share\utf8.c
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\oggenc\audio.h
+SOURCE=..\oggdec\audio.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\encode.h
+SOURCE=..\oggdec\encode.h
 # End Source File
 # Begin Source File
 
@@ -136,11 +136,11 @@ SOURCE=..\include\getopt.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\platform.h
+SOURCE=..\oggdec\platform.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\oggenc\resample.h
+SOURCE=..\oggdec\resample.h
 # End Source File
 # Begin Source File
 
