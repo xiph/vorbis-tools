@@ -83,7 +83,9 @@ oggenc \- encode audio into the Ogg Vorbis format
 .SH DESCRIPTION
 .B oggenc
 reads audio data in either raw, WAV, or AIFF format and encodes it into an
-Ogg Vorbis stream.  If the input file "-" is specified, audio data is
+Ogg Vorbis stream.
+.B oggenc
+may also read audio data from FLAC and Ogg FLAC files depending upon compile-time options.  If the input file "-" is specified, audio data is
 read from
 .I stdin
 and the Vorbis stream is written to
@@ -142,6 +144,9 @@ for lower-bitrate encoding.
 Sets an advanced option. See the Advanced Options section for details.
 .IP "-s, --serial"
 Forces a specific serial number in the output stream. This is primarily useful for testing.
+.IP "--discard-comments"
+Prevents comments in FLAC and Ogg FLAC files from being copied to the
+output Ogg Vorbis file.
 .IP "-o output_file, --output=output_file"
 Write the Ogg Vorbis stream to
 .I output_file (only valid if a single input file is specified)
