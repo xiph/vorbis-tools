@@ -92,8 +92,8 @@ dnl --------------------------------------------------
 dnl Check for generally needed libraries
 dnl --------------------------------------------------
 
-AM_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
-AM_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
+XIPH_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
+XIPH_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
 
 SHARE_LIBS='$(top_builddir)/share/libutf8.a $(top_builddir)/share/libgetopt.a'
 SHARE_CFLAGS='-I$(top_srcdir)/include'
@@ -111,7 +111,7 @@ dnl --------------------------------------------------
 
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
-  AM_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
+  XIPH_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
   AM_PATH_CURL(,build_ogg123=no; AC_MSG_WARN(libcurl missing))
 
   ACX_PTHREAD(,build_ogg123=no; AC_MSG_WARN(POSIX threads missing))
