@@ -483,7 +483,10 @@ int vcedit_write(vcedit_state *state, void *out)
 
 cleanup:
 	ogg_stream_clear(&streamout);
-	ogg_packet_clear(&header_comments);
+
+    /* We don't ogg_packet_clear() this, because the memory was allocated in
+       _commentheader_out(), so we mirror that here */
+    _ogg_free(header_comments.packet);
 
 	free(state->mainbuf);
 	free(state->bookbuf);
