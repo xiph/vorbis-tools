@@ -40,13 +40,12 @@ int oe_encode(oe_enc_opt *opt)
 	long bytes_written = 0, packetsdone=0;
 	double time_elapsed;
 	int ret=0;
+	TIMER *timer;
 
     if(opt->channels > 255) {
         fprintf(stderr, _("255 channels should be enough for anyone. (Sorry, vorbis doesn't support more)\n"));
         return 1;
     }
-
-	TIMER *timer;
 
 	/* get start time. */
 	timer = timer_start();
