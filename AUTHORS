@@ -1,14 +1,16 @@
 oggenc:
 Michael Smith <msmith@labyrinth.net.au>
 
+oggdec:
+Michael Smith <msmith@labyrinth.net.au>
+
 ogg123:
 Kenneth Arnold <ogg123@arnoldnet.net>
 Stan Seibert <volsung@xiph.org>
 Segher Boessenkool <segher@xiph.org>
 
 ogginfo:
-JAmes Atwill <ogg@linuxstuff.org>
-Stan Seibert <volsung@xiph.org>
+Michael Smith <msmith@labyrinth.net.au>
 
 vcut:
 Michael Smith <msmith@labyrinth.net.au>
@@ -16,4 +18,4 @@ Michael Smith <msmith@labyrinth.net.au>
 vorbiscomment:
 Michael Smith <msmith@labyrinth.net.au>
 
-and the rest of the Xiphophorus Company.
+and the rest of the Xiph.org Foundation.

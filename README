@@ -22,8 +22,9 @@ win32/		Win32 build stuff
 DEPENDENCIES:
 
 All of the tools require libogg and libvorbis to be installed (along
-with the header files).  Additionally, ogg123 requires libao and
-libcurl.  The libraries libogg, libvorbis, and libao are all available at
+with the header files).  Additionally, ogg123 requires libao, libcurl,
+and a POSIX-compatible thread library.  The libraries libogg,
+libvorbis, and libao are all available at
   http://www.vorbis.com/download.psp
 
 The libcurl library is packaged with most Linux distributions.  The
@@ -32,8 +33,8 @@ source code can also be downloaded from:
 
 CONTACT:
 
-The Ogg Vorbis homepage is located at 'http://www.xiph.org/ogg/vorbis/'.
-Up to date technical documents, contact information, source code and
+The Ogg Vorbis homepage is located at 'http://www.vorbis.com'. Up to
+date technical documents, contact information, source code and
 pre-built utilities may be found there.
 
 BUILDING FROM CVS:
