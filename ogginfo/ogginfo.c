@@ -1,4 +1,12 @@
-// gcc ogginfo.c -o ogginfo -lvorbisfile -lvorbis -Wall
+/* ogginfo
+ *
+ * This program is distributed under the GNU General Public License, version 2.
+ * A copy of this license is included with this source.
+ *
+ * Copyright 2001, JAmes Atwill <ogg@linuxstuff.org>
+ *
+ * Portions from libvorbis examples, (c) Monty <monty@xiph.org>
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
