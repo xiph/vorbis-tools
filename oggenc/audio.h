@@ -27,6 +27,7 @@ typedef struct {
 
 typedef struct {
 	short channels;
+	short samplesize;
 	long totalsamples;
 	long samplesread;
 	FILE *f;

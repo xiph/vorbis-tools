@@ -35,6 +35,9 @@ struct option long_options[] = {
 	{"output",1,0,'o'},
 	{"version",0,0,'v'},
 	{"raw",0,0,'r'},
+	{"raw-bits",1,0,'B'},
+	{"raw-chan",1,0,'C'},
+	{"raw-rate",1,0,'R'},
 	{"bitrate",1,0,'b'},
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
@@ -51,7 +54,7 @@ void usage(void);
 int main(int argc, char **argv)
 {
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, 
-		0,0, NULL,NULL,128,0}; /* Default values */
+		0, 0,16,44100,2, NULL,NULL,128,0}; /* Default values */
 	int i;
 
 	char **infiles;
@@ -149,6 +152,9 @@ int main(int argc, char **argv)
 
 		if(opt.rawmode)
 		{
+			enc_opts.rate=opt.raw_samplerate;
+			enc_opts.channels=opt.raw_channels;
+			enc_opts.samplesize=opt.raw_samplesize;
 			raw_open(in, &enc_opts);
 			foundformat=1;
 		}
@@ -266,6 +272,9 @@ void usage(void)
 		" -q, --quiet          Produce no output to stderr\n"
 		" -h, --help           Print this help text\n"
 		" -r, --raw            Raw mode. Input files are read directly as PCM data\n"
+		" -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
+		" -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
+		" -R, --raw-rate=n     Set samples/sec for raw input. Default is 44100\n"
 		" -b, --bitrate        Choose a bitrate to encode at. Internally,\n"
 		"                      a mode approximating this value is chosen.\n"
 		"                      Takes an argument in kbps. Default is 128kbps\n"
@@ -377,7 +386,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:c:d:hl:n:N:o:qrs:t:v", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:hl:n:N:o:qrR:s:t:v", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -445,9 +454,49 @@ void parse_options(int argc, char **argv, oe_options *opt)
 				fprintf(stderr, VERSION_STRING);
 				exit(0);
 				break;
+			case 'B':
+				if (opt->rawmode != 1)
+				{
+					opt->rawmode = 1;
+					fprintf(stderr, "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n");
+				}
+				if(sscanf(optarg, "%u", &opt->raw_samplesize) != 1)
+				{
+					opt->raw_samplesize = 16; /* Failed, so just set to 16 */
+					fprintf(stderr, "WARNING: Invalid bits/sample specified, assuming 16.\n");
+				}
+				if((opt->raw_samplesize != 8) && (opt->raw_samplesize != 16))
+				{
+					fprintf(stderr, "WARNING: Invalid bits/sample specified, assuming 16.\n");
+				}
+				break;
+			case 'C':
+				if (opt->rawmode != 1)
+				{
+					opt->rawmode = 1;
+					fprintf(stderr, "WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n");
+				}
+				if(sscanf(optarg, "%u", &opt->raw_channels) != 1)
+				{
+					opt->raw_channels = 2; /* Failed, so just set to 2 */
+					fprintf(stderr, "WARNING: Invalid channel count specified, assuming 2.\n");
+				}
+				break;
 			case 'N':
 				opt->tracknum = realloc(opt->tracknum, (++opt->track_count)*sizeof(char *));
 				opt->tracknum[opt->track_count - 1] = strdup(optarg);
+				break;
+			case 'R':
+				if (opt->rawmode != 1)
+				{
+					opt->rawmode = 1;
+					fprintf(stderr, "WARNING: Raw samplerate specified for non-raw data. Assuming input is raw.\n");
+				}
+				if(sscanf(optarg, "%u", &opt->raw_samplerate) != 1)
+				{
+					opt->raw_samplerate = 44100; /* Failed, so just set to 44100 */
+					fprintf(stderr, "WARNING: Invalid samplerate specified, assuming 44100.\n");
+				}
 				break;
 			case '?':
 				fprintf(stderr, "WARNING: Unknown option specified, ignoring->\n");

@@ -43,7 +43,11 @@ typedef struct
 	int date_count;
 
 	int quiet;
+
 	int rawmode;
+	int raw_samplesize;
+	int raw_samplerate;
+	int raw_channels;
 
 	char *namefmt;
 	char *outfile;
@@ -66,6 +70,7 @@ typedef struct
 	long total_samples_per_channel;
 	int channels;
 	long rate;
+	int samplesize;
 	int bitrate;
 
 	FILE *out;

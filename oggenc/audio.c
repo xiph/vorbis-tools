@@ -297,6 +297,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 		aiff->f = in;
 		aiff->samplesread = 0;
 		aiff->channels = format.channels;
+		aiff->samplesize = format.samplesize;
 		aiff->totalsamples = format.totalframes;
 		aiff->bigendian = 1;
 
@@ -419,6 +420,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 		wav->bigendian = 0;
 		wav->channels = format.channels; /* This is in several places. The price
 											of trying to abstract stuff. */
+		wav->samplesize = format.samplesize;
 
 		if(len)
 		{
@@ -456,56 +458,58 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 long wav_read(void *in, float **buffer, int samples)
 {
 	wavfile *f = (wavfile *)in;
-	signed char *buf = alloca(samples*2*f->channels);
-	long bytes_read = fread(buf, 1, samples*2*f->channels, f->f);
+	int sampbyte = f->samplesize / 8;
+	signed char *buf = alloca(samples*sampbyte*f->channels);
+	long bytes_read = fread(buf, 1, samples*sampbyte*f->channels, f->f);
 	int i,j;
 	long realsamples;
 
 	if(f->totalsamples && f->samplesread + 
-			bytes_read/(2*f->channels) > f->totalsamples) 
-		bytes_read = 2*f->channels*(f->totalsamples - f->samplesread);
-	realsamples = bytes_read/(2*f->channels);
+			bytes_read/(sampbyte*f->channels) > f->totalsamples) 
+		bytes_read = sampbyte*f->channels*(f->totalsamples - f->samplesread);
+
+	realsamples = bytes_read/(sampbyte*f->channels);
 	f->samplesread += realsamples;
 		
-	if(!f->bigendian)
+	if(f->samplesize==8)
 	{
+		unsigned char *bufu = (unsigned char *)buf;
 		for(i = 0; i < realsamples; i++)
 		{
 			for(j=0; j < f->channels; j++)
 			{
-				buffer[j][i] = ((buf[i*2*f->channels + 2*j + 1]<<8) |
-						        (buf[i*2*f->channels + 2*j] & 0xff))/32768.0f;
+				buffer[j][i] = ( (int)(bufu[i*f->channels + j + 1]) - 128 ) 
+					/ 255.0f ;
 			}
 		}
 	}
 	else
 	{
-		for(i = 0; i < realsamples; i++)
+		if(!f->bigendian)
 		{
-			for(j=0; j < f->channels; j++)
+			for(i = 0; i < realsamples; i++)
 			{
-				buffer[j][i]=((buf[i*2*f->channels + 2*j]<<8) |
-						      (buf[i*2*f->channels + 2*j + 1] & 0xff))/32768.0f;
+				for(j=0; j < f->channels; j++)
+				{
+					buffer[j][i] = ((buf[i*2*f->channels + 2*j + 1]<<8) |
+							        (buf[i*2*f->channels + 2*j] & 0xff))/32768.0f;
+				}
+			}
+		}
+		else
+		{
+			for(i = 0; i < realsamples; i++)
+			{
+				for(j=0; j < f->channels; j++)
+				{
+					buffer[j][i]=((buf[i*2*f->channels + 2*j]<<8) |
+							      (buf[i*2*f->channels + 2*j + 1] & 0xff))/32768.0f;
+				}
 			}
 		}
 	}
 
 	return realsamples;
-}
-
-long raw_read_stereo(void *in, float **buffer, int samples)
-{
-	signed char *buf = alloca(samples*4);
-	long bytes_read = fread(buf,1,samples*4, (FILE *)in);
-	int i;
-
-	for(i=0;i<bytes_read/4; i++)
-	{
-		buffer[0][i] = ((buf[i*4+1]<<8) | (((int)buf[i*4]) & 0xff))/32768.0f;
-		buffer[1][i] = ((buf[i*4+3]<<8) | (((int)buf[i*4+2]) & 0xff))/32768.0f;
-	}
-
-	return bytes_read/4;
 }
 
 long wav_ieee_read(void *in, float **buffer, int samples)
@@ -540,10 +544,28 @@ void wav_close(void *info)
 
 int raw_open(FILE *in, oe_enc_opt *opt)
 {
-	opt->rate = 44100; /* we assume this */
-	opt->channels = 2;
-	opt->readdata = (void *)in;
-	opt->read_samples = raw_read_stereo; /* it's the same, currently */
+	wav_fmt format; /* fake wave header ;) */
+	wavfile *wav = malloc(sizeof(wavfile));
+
+	if(opt->rate != 44100)
+		fprintf(stderr,"Warning: Vorbis is currently untuned for input\n"
+				       "at other than 44.1kHz, quality may be degraded.\n");
+
+	/* construct fake wav header ;) */
+	format.format =      2; 
+	format.channels =    opt->channels;
+	format.samplerate =  opt->rate;
+	format.samplesize =  opt->samplesize;
+	format.bytespersec = opt->channels * opt->rate * opt->samplesize / 8;
+	format.align =       format.bytespersec;
+	wav->f =             in;
+	wav->samplesread =   0;
+	wav->bigendian =     0;
+	wav->channels =      format.channels;
+	wav->samplesize =    opt->samplesize;
+
+	opt->read_samples = wav_read;
+	opt->readdata = (void *)wav;
 	opt->total_samples_per_channel = 0; /* raw mode, don't bother */
 	return 1;
 }
