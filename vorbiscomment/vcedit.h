@@ -1,5 +1,5 @@
-/* This program is licensed under the GNU General Public License, version 2,
- * a copy of which is included with this program.
+/* This program is licensed under the GNU Library General Public License, version 2,
+ * a copy of which is included with this program (with filename LICENSE.LGPL).
  *
  * (c) 2000-2001 Michael Smith <msmith@labyrinth.net.au>
  *

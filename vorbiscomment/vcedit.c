@@ -1,12 +1,12 @@
-/* This program is licensed under the GNU General Public License, version 2,
- * a copy of which is included with this program.
+/* This program is licensed under the GNU Library General Public License, version 2,
+ * a copy of which is included with this program (LICENCE.LGPL).
  *
  * (c) 2000-2001 Michael Smith <msmith@labyrinth.net.au>
  *
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.9 2001/02/17 11:45:02 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.10 2001/03/04 06:01:27 msmith Exp $
  */
 
 #include <stdio.h>
