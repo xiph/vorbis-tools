@@ -257,8 +257,8 @@ int oe_encode(oe_enc_opt *opt)
 		{
 			samplesdone += samples_read;
 
-			/* Call progress update every 10 pages */
-			if(packetsdone>=10)
+			/* Call progress update every 40 pages */
+			if(packetsdone>=40)
 			{
 				double time;
 
