@@ -11,6 +11,7 @@
 
 /* Win32 support routines */
 
+#ifdef _WIN32
 
 #include "platform.h"
 #include "encode.h"
@@ -60,4 +61,4 @@ void timer_clear(void *timer)
 	free((time_t *)timer);
 }
 
-
+#endif  /* _WIN32 */
