@@ -7,7 +7,7 @@
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.5 2002/01/26 11:06:42 segher Exp $
+ * last modified: $Id: vcut.c,v 1.6 2002/01/29 10:37:08 msmith Exp $
  */
 
 #include <stdio.h>
@@ -23,6 +23,11 @@
 #include <locale.h>
 #include "i18n.h"
 
+#ifdef _WIN32
+#define FORMAT_INT64 "%I64d"
+#else
+#define FORMAT_INT64 "%Ld"
+#endif
 
 static vcut_packet *save_packet(ogg_packet *packet)
 {
@@ -471,7 +476,10 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	sscanf(argv[4], "%Ld", &cutpoint);
+	if(sscanf(argv[4], FORMAT_INT64, &cutpoint) != 1) {
+        fprintf(stderr, _("Couldn't parse cutpoint \"%s\"\n"), argv[4]);
+        exit(1);
+    }
 
 	fprintf(stderr, _("Processing: Cutting at %lld\n"), cutpoint);
 
