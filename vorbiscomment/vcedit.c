@@ -6,12 +6,13 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.19 2002/07/09 12:20:43 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.20 2002/07/09 12:44:54 msmith Exp $
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 
@@ -441,7 +442,8 @@ int vcedit_write(vcedit_state *state, void *out)
 		while(1)
 		{
 			result = ogg_sync_pageout(state->oy, &ogout);
-			if(result==0) break;
+			if(result==0)
+                break;
 			if(result<0)
 				state->lasterror = _("Corrupt or missing data, continuing...");
 			else
@@ -449,11 +451,15 @@ int vcedit_write(vcedit_state *state, void *out)
 				/* Don't bother going through the rest, we can just 
 				 * write the page out now */
 				if(state->write(ogout.header,1,ogout.header_len, 
-						out) != (size_t) ogout.header_len)
+						out) != (size_t) ogout.header_len) {
+                    fprintf(stderr, "Bumming out\n");
 					goto cleanup;
+                }
 				if(state->write(ogout.body,1,ogout.body_len, out) !=
-						(size_t) ogout.body_len)
+						(size_t) ogout.body_len) {
+                    fprintf(stderr, "Bumming out 2\n");
 					goto cleanup;
+                }
 			}
 		}
 		buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
@@ -473,11 +479,11 @@ cleanup:
 
 	free(state->mainbuf);
 	free(state->bookbuf);
+    state->mainbuf = state->bookbuf = NULL;
 
-	vcedit_clear_internals(state);
 	if(!state->eosin)
 	{
-		state->lasterror =  
+		state->lasterror =
 			_("Error writing stream to output. "
 			"Output stream may be corrupted or truncated.");
 		return -1;

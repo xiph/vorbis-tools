@@ -102,7 +102,9 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
+            close_files(param);
             free_param(param);
+            vcedit_clear(state);
 			return 1;
 		}
 
@@ -126,7 +128,9 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
+            close_files(param);
             free_param(param);
+            vcedit_clear(state);
 			return 1;
 		}
 
@@ -165,7 +169,9 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to write comments to output file: %s\n"), 
 					vcedit_error(state));
+            close_files(param);
             free_param(param);
+            vcedit_clear(state);
 			return 1;
 		}
 
