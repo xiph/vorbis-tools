@@ -549,6 +549,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 					fprintf(stderr, "Quality option \"%s\" not recognised, ignoring\n", optarg);
 					break;
 				}
+				opt->quality *= 0.1;
 				if(opt->quality > 1.0f)
 				{
 					opt->quality = 1.0f;

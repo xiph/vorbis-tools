@@ -283,10 +283,10 @@ void encode_error(char *errmsg)
 void start_encode_full(char *fn, char *outfn, int bitrate, float quality)
 {
     if(quality >= 0.0f)
-        fprintf(stderr, "Encoding %s%s%s to \n         %s%s%s at quality %f\n",
+        fprintf(stderr, "Encoding %s%s%s to \n         %s%s%s at quality %2.2f\n",
 			    fn?"\"":"", fn?fn:"standard input", fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:"standard output", outfn?"\"":"",
-                quality);
+                quality * 10);
     else
         fprintf(stderr, "Encoding %s%s%s to \n         "
                 "%s%s%s at bitrate %d kbps\n",
