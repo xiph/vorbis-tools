@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.4 2002/01/03 10:40:40 segher Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.5 2002/01/23 16:14:25 segher Exp $
 
  ********************************************************************/
 
@@ -177,7 +177,7 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     } else {
       
       bytes_read += ret;
-      ptr += ret;
+      ptr = (void *)((unsigned char *)ptr + ret);
       nbytes -= ret;
 
       /* did we enter a new logical bitstream? */
