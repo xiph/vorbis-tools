@@ -161,7 +161,7 @@ int utf8_encode(char *from, char **to, const char *encoding)
 */
 int simple_utf8_encode(const char *from, char **to, const char *encoding)
 {
-	// can you always know this will be 16 bit?
+	/* can you always know this will be 16 bit? */
 	unsigned short *unicode;
 	charset_map *map;
 	int index = 0;
