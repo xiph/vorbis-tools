@@ -134,10 +134,14 @@ dnl --------------------------------------------------
 dnl Work around FHS stupidity
 dnl --------------------------------------------------
 
-if test "$prefix" = "/usr"; then
-    MANDIR='$(datadir)/man'
+if test -z "$mandir"; then
+    if test "$prefix" = "/usr"; then
+        MANDIR='$(datadir)/man'
+    else
+        MANDIR='$(prefix)/man'
+    fi
 else
-    MANDIR='$(prefix)/man'
+    MANDIR=$mandir
 fi
 AC_SUBST(MANDIR)
 
