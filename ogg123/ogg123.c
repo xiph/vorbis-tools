@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.35 2001/06/19 16:47:42 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.36 2001/06/19 17:15:32 kcarnold Exp $
 
  ********************************************************************/
 
@@ -69,6 +69,7 @@ struct option long_options[] = {
     {"quiet", no_argument, 0, 'q'},
     {"shuffle", no_argument, 0, 'z'},
     {"buffer", required_argument, 0, 'b'},
+    {"delay", required_argument, 0, 'l'},
     {0, 0, 0, 0}
 };
 
@@ -94,7 +95,11 @@ void usage(void)
 	    "  -b n, --buffer n  use a buffer of 'n' chunks (4096 bytes)\n"
 	    "  -v, --verbose  display progress and other useful stuff\n"
 	    "  -q, --quiet    don't display anything (no title)\n"
-	    "  -z, --shuffle  shuffle play\n");
+	    "  -z, --shuffle  shuffle play\n"
+	    "\n"
+	    "ogg123 will skip to the next song on SIGINT (Ctrl-C) after s seconds after\n"
+	    "song start."
+	    "  -l, --delay=s  set s (default 1). If s=-1, disable song skip.\n");
 }
 
 int main(int argc, char **argv)
@@ -115,10 +120,11 @@ int main(int argc, char **argv)
     opt.instream = NULL;
     opt.outdevices = NULL;
     opt.buffer_size = 0;
+    opt.delay = 1;
 
     ao_initialize();
 
-    while (-1 != (ret = getopt_long(argc, argv, "b:d:hk:o:qvVz",
+    while (-1 != (ret = getopt_long(argc, argv, "b:d:hl:k:o:qvVz",
 				    long_options, &option_index))) {
 	switch (ret) {
 	case 0:
@@ -141,6 +147,9 @@ int main(int argc, char **argv)
 	    break;
 	case 'k':
 	    opt.seekpos = atof(optarg);
+	    break;
+	case 'l':
+	    opt.delay = atoi(optarg);
 	    break;
 	case 'o':
 	    if (optarg && !add_option(current_options, optarg)) {
@@ -359,17 +368,15 @@ void play_file(ogg123_options_t opt)
 	return;
     }
 
-    /* Throw the comments plus a few lines about the bitstream we're
-     * decoding */
-
-
     /* Setup so that pressing ^C in the first second of playback
      * interrupts the program, but after the first second, skips
      * the song.  This functionality is similar to mpg123's abilities. */
 
-    skipfile_requested = 0;
-    signal(SIGALRM,signal_activate_skipfile);
-    alarm(1);
+    if (opt.delay > 0) {
+        skipfile_requested = 0;
+	signal(SIGALRM,signal_activate_skipfile);
+	alarm(opt.delay);
+    }
 
     while (!eof) {
 	int i;
@@ -424,7 +431,7 @@ void play_file(ogg123_options_t opt)
 	      eof = eos = 1;
 	      skipfile_requested = 0;
 	      signal(SIGALRM,signal_activate_skipfile);
-	      alarm(1);
+	      alarm(opt.delay);
 	      break;
   	    }
 
