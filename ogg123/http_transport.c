@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.11 2002/07/17 12:12:18 calc Exp $
+ last mod: $Id: http_transport.c,v 1.12 2003/08/06 23:14:12 volsung Exp $
  
 ********************************************************************/
 
@@ -46,6 +46,7 @@ typedef struct http_private_t {
   pthread_t curl_thread;
 
   CURL *curl_handle;
+  struct curl_slist *header_list;
   char error[CURL_ERROR_SIZE];
 
   data_source_t *data_source;
@@ -117,7 +118,8 @@ void set_curl_opts (http_private_t *private)
   curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
   curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, private);
   curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0);
-  curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123 "VERSION);
+  curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123/"VERSION);
+  curl_easy_setopt(handle, CURLOPT_HTTPHEADER, private->header_list);
   curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1);
 }
 
@@ -149,6 +151,9 @@ void *curl_thread_func (void *arg)
 
   curl_easy_cleanup(myarg->curl_handle);
   myarg->curl_handle = 0;
+
+  curl_slist_free_all(myarg->header_list);
+  myarg->header_list = NULL;
 
   return (void *) ret;
 }
@@ -193,6 +198,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     }
 
     private->curl_handle = NULL;
+    private->header_list = NULL;
     private->data_source = source;
     private->stats.transfer_rate = 0;
     private->stats.bytes_read = 0;
@@ -203,6 +209,15 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     fprintf(stderr, _("Error: Out of memory.\n"));
     exit(1);
   }
+
+  /* ogg123 only accepts Ogg files, and optionally FLAC as well */
+#ifdef HAVE_LIBFLAC
+  private->header_list = curl_slist_append(NULL, "Accept: application/ogg audio/x-flac;q=0.9");
+#else
+  private->header_list = curl_slist_append(NULL, "Accept: application/ogg");
+#endif
+  if (private->header_list == NULL)
+    goto fail;
 
   /* Open URL */
   private->curl_handle = curl_easy_init();
@@ -228,6 +243,8 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
 fail:
   if (private->curl_handle != NULL)
     curl_easy_cleanup(private->curl_handle);
+  if (private->header_list != NULL)
+    curl_slist_free_all(private->header_list);
   free(source->source_string);
   free(private);
   free(source);
