@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <locale.h>
 #include "getopt.h"
 #include "utf8.h"
@@ -478,6 +481,12 @@ void close_files(param_t *p)
 	if (p->out != NULL && p->out != stdout) fclose(p->out);
 	if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
 
-	if(p->tempoutfile)
+	if(p->tempoutfile) {
+		/* this is not portable to non-posix systems */
+		struct stat st;
+
+		stat(p->infilename, &st);
 		rename(p->outfilename, p->infilename);
+		chmod(p->infilename, st.st_mode);
+	}
 }
