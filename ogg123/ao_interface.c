@@ -19,6 +19,7 @@ devices_t *append_device(devices_t * devices_list, int driver_id,
     }
     devices_list->driver_id = driver_id;
     devices_list->options = options;
+    devices_list->device = NULL;
     devices_list->next_device = NULL;
 
     return devices_list;
@@ -75,12 +76,12 @@ int get_default_device(void)
 
     fp = fopen(filename, "r");
     /* if no ~/.ogg123rc can be found, try /etc/ogg123rc instead */
-    if (!fp) fp = fopen("/etc/ogg123.rc", "r");
+    if (!fp) fp = fopen("/etc/ogg123rc", "r");
 
     /* This is a very simplistic parser. If more options are ever added,
        it will need a serious overhaul. */
     if (fp) {
-      if (fgets(line, 100, fp)) {
+      while (fgets(line, 100, fp)) {
 	if (strncmp(line, "default_device=", 15) == 0) {
 	  device = &line[15];
 	  for (i = 0; i < strlen(device); i++)

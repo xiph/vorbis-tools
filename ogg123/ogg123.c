@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.31 2001/03/24 02:31:39 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.32 2001/04/08 02:33:30 jack Exp $
 
  ********************************************************************/
 
@@ -213,7 +213,8 @@ int main(int argc, char **argv)
     }
 
     while (opt.outdevices != NULL) {
-      ao_close(opt.outdevices->device);
+      if (opt.outdevices->device)
+        ao_close(opt.outdevices->device);
       current = opt.outdevices->next_device;
       free(opt.outdevices);
       opt.outdevices = current;
