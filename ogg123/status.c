@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: status.c,v 1.2 2001/12/19 02:52:54 volsung Exp $
+ last mod: $Id: status.c,v 1.3 2001/12/19 04:59:17 volsung Exp $
 
  ********************************************************************/
 
@@ -238,7 +238,7 @@ stat_format_t *stat_format_create ()
   cur = stats + 4; /* instantaneous bitrate */
   cur->verbosity = 2;
   cur->enabled = 1;
-  cur->formatstr = "Bitrate: %5.1f";
+  cur->formatstr = " (%.1f kbps)";
   cur->type = stat_doublearg;
 
   cur = stats + 5; /* average bitrate (not yet implemented) */

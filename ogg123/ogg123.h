@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.h,v 1.10 2001/12/19 02:52:54 volsung Exp $
+ last mod: $Id: ogg123.h,v 1.11 2001/12/19 04:59:17 volsung Exp $
 
  ********************************************************************/
 
@@ -32,6 +32,9 @@ typedef struct ogg123_options_t {
 
   long buffer_size;           /* Size of audio buffer */
   float prebuffer;            /* Percent of buffer to fill before playing */
+  long input_buffer_size;     /* Size of input audio buffer */
+  float input_prebuffer;
+
   char *default_device;       /* Name of default driver to use */
 
   audio_device_t *devices;    /* Audio devices to use */

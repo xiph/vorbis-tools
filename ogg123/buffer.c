@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.10 2001/12/19 03:47:40 volsung Exp $
+ last mod: $Id: buffer.c,v 1.11 2001/12/19 04:59:16 volsung Exp $
 
  ********************************************************************/
 
@@ -31,6 +31,8 @@
 #define MIN(x,y)       ( (x) < (y) ? (x) : (y) )
 #define MIN3(x,y,z)    MIN(x,MIN(y,z))
 #define MIN4(w,x,y,z)  MIN( MIN(w,x), MIN(y,z) )
+
+#define DEBUG_BUFFER
 
 /* Special debugging code.  THIS IS NOT PORTABLE! */
 #ifdef DEBUG_BUFFER
@@ -248,8 +250,7 @@ void *buffer_thread_func (void *arg)
     buf->curfill -= write_amount;
     buf->position += write_amount;
     buf->start = (buf->start + write_amount) % buf->size;
-    DEBUG("Updated buffer fill, curfill = %ld, position = %ld", buf->curfill,
-	  buf->position);
+    DEBUG("Updated buffer fill, curfill = %ld", buf->curfill);
 
     /* If we've essentially emptied the buffer and prebuffering is enabled,
        we need to do another prebuffering session */
@@ -382,9 +383,12 @@ buf_t *buffer_create (long size, long prebuffer,
   pthread_cond_init(&buf->write_cond, NULL);
   pthread_cond_init(&buf->playback_cond, NULL);
   
-  /* Correct for impossible chunk sizes */
+  /* Correct for impossible prebuffer and chunk sizes */
   if (audio_chunk_size > size || audio_chunk_size == 0)
     audio_chunk_size = size / 2;
+  
+  if (prebuffer > size)
+    prebuffer = prebuffer / 2;
 
   buf->audio_chunk_size = audio_chunk_size;
 
@@ -517,10 +521,10 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
 
     DEBUG("Obtaining lock on buffer");
     /* Block until we can read something */
-    if (buf->curfill == 0) {
-      if (buf->eos)
-	break; /* No more data to read */
+    if (buf->curfill == 0 && buf->eos)
+      break; /* No more data to read */
       
+    if (buf->curfill == 0 && (buf->prebuffering && !buf->eos)) {
       DEBUG("Waiting for more data to copy.");
       COND_WAIT(buf->playback_cond, buf->mutex);
     }
@@ -538,13 +542,15 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
        3. Do not run off the end of the buffer. */
     write_amount = compute_dequeue_size(buf, nbytes);
 
+    UNLOCK_MUTEX(buf->mutex);
     execute_actions(buf, &buf->actions, buf->position);
-    
+
     /* No need to lock mutex here because the other thread will
        NEVER reduce the number of bytes stored in the buffer */
     DEBUG("Copying %d bytes from the buffer", write_amount);
     memcpy(data, buf->buffer + buf->start, write_amount);
-    
+    LOCK_MUTEX(buf->mutex);
+
     buf->curfill -= write_amount;
     data += write_amount;
     nbytes -= write_amount;

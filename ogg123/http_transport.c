@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.2 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: http_transport.c,v 1.3 2001/12/19 04:59:16 volsung Exp $
  
 ********************************************************************/
 
@@ -161,7 +161,9 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     source->transport = &http_transport;
     source->private = private;
     
-    private->buf = buffer_create (INPUT_BUFFER_SIZE, 0, 
+    private->buf = buffer_create (ogg123_opts->input_buffer_size,
+				  ogg123_opts->input_buffer_size *
+				  ogg123_opts->input_prebuffer / 100.0, 
 				  NULL, NULL,  /* No write callback, using
 						  buffer in pull mode. */
 				  0 /* Irrelevant */);

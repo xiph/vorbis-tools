@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.2 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.3 2001/12/19 04:59:16 volsung Exp $
 
  ********************************************************************/
 
@@ -23,6 +23,8 @@
 #include "getopt.h"
 #include "cmdline_options.h"
 #include "status.h"
+
+#define MIN_INPUT_BUFFER_SIZE 8
 
 struct option long_options[] = {
   /* GNU standard options */
@@ -67,7 +69,12 @@ int parse_cmdline_options (int argc, char **argv,
 	exit(1);
 	
       case 'b':
-	ogg123_opts->buffer_size = atoi(optarg) * 1024;
+	ogg123_opts->input_buffer_size = atoi(optarg) * 1024;
+	if (ogg123_opts->input_buffer_size < MIN_INPUT_BUFFER_SIZE * 1024) {
+	  status_error("Input buffer size smaller than minimum size of %dkB.",
+		       MIN_INPUT_BUFFER_SIZE);
+	  ogg123_opts->input_buffer_size = MIN_INPUT_BUFFER_SIZE * 1024;
+	}
 	break;
 	
       case 'c':
@@ -143,13 +150,13 @@ int parse_cmdline_options (int argc, char **argv,
 	  break;
 	  
 	case 'p':
-	  ogg123_opts->prebuffer = atof (optarg);
-	  if (ogg123_opts->prebuffer < 0.0f || 
-	      ogg123_opts->prebuffer > 100.0f) {
+	  ogg123_opts->input_prebuffer = atof (optarg);
+	  if (ogg123_opts->input_prebuffer < 0.0f || 
+	      ogg123_opts->input_prebuffer > 100.0f) {
 
 	    status_error ("--- Prebuffer value invalid. Range is 0-100.\n");
-	    ogg123_opts->prebuffer = 
-	      ogg123_opts->prebuffer < 0.0f ? 0.0f : 100.0f;
+	    ogg123_opts->input_prebuffer = 
+	      ogg123_opts->input_prebuffer < 0.0f ? 0.0f : 100.0f;
 	  }
 	  break;
 
@@ -262,8 +269,8 @@ void cmdline_usage (void)
 	 "  -o, --device-option=k:v passes special option k with value\n"
 	 "      v to previously specified device (with -d).  See\n"
 	 "      man page for more info.\n"
-	 "  -b n, --buffer n  use a buffer of approximately 'n' kilobytes\n"
-	 "  -p n, --prebuffer n  prebuffer n%% of the buffer before playing\n"
+	 "  -b n, --buffer n  use an input buffer of 'n' kilobytes\n"
+	 "  -p n, --prebuffer n  load n%% of the input buffer before playing\n"
 	 "  -v, --verbose  display progress and other status information\n"
 	 "  -q, --quiet    don't display anything (no title)\n"
 	 "  -x n, --nth    play every 'n'th block\n"

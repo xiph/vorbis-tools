@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.50 2001/12/19 02:52:54 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.51 2001/12/19 04:59:16 volsung Exp $
 
  ********************************************************************/
 
@@ -60,10 +60,6 @@ audio_play_arg_t audio_play_arg;
 /* This macro is used to create some dummy variables to hold default values
    for the options. */
 #define INIT(type, value) type type##_##value = value
-char char_n = 'n';
-float float_50f = 50.0f;
-float float_0f = 0.0f;
-INIT(int, 10000);
 INIT(int, 1);
 INIT(int, 0);
 
@@ -73,12 +69,6 @@ file_option_t file_opts[] = {
    &options.default_device, NULL},
   {0, "shuffle",        "shuffle playlist",      opt_type_bool,
    &options.shuffle,        &int_0},
-  {0, "verbose",        "verbosity level",       opt_type_int,
-   &options.verbosity,        &int_1},
-  {0, "outbuffer",      "out buffer size (kB)",  opt_type_int,
-   &options.buffer_size, &int_0},
-  {0, "outprebuffer",   "out prebuffer (%)",     opt_type_float,
-   &options.prebuffer,   &float_0f},
   {0, NULL,             NULL,                    0,               NULL,                NULL}
 };
 
@@ -134,14 +124,16 @@ void signal_handler (int signo)
 
 void options_init (ogg123_options_t *opts)
 {
-  opts->verbosity = 1;
+  opts->verbosity = 2;
   opts->shuffle = 0;
   opts->delay = 2;
   opts->nth = 1;
   opts->ntimes = 1;
   opts->seekpos = 0.0;
-  opts->buffer_size = 0;
+  opts->buffer_size = 0; //128 * 1024;
   opts->prebuffer = 0.0f;
+  opts->input_buffer_size = 32 * 1024;
+  opts->input_prebuffer = 50.0f;
   opts->default_device = NULL;
 
   opts->status_freq = 10.0;
