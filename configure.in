@@ -67,7 +67,7 @@ dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------
 
-dnl none
+AC_FUNC_SMMAP
 
 dnl --------------------------------------------------
 dnl Work around FHS stupidity
