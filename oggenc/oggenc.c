@@ -318,7 +318,7 @@ int main(int argc, char **argv)
             else {
                 fprintf(stderr, _("ERROR: Can't downmix except from stereo to mono\n"));
                 errors++;
-                if(opt.resamplefreq)
+                if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate)
                     clear_resample(&enc_opts);
                 goto clear_all;
             }
@@ -348,7 +348,7 @@ int main(int argc, char **argv)
             clear_scaler(&enc_opts);
         if(opt.downmix)
             clear_downmix(&enc_opts);
-        if(opt.resamplefreq)
+        if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate)
             clear_resample(&enc_opts);
 clear_all:
 
