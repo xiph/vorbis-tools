@@ -5,7 +5,7 @@ dnl Initialization
 dnl ------------------------------------------------
 
 AC_INIT(oggenc/encode.c)
-AM_INIT_AUTOMAKE(vorbis-tools,1.0beta3)
+AM_INIT_AUTOMAKE(vorbis-tools,1.0prebeta4)
 
 dnl --------------------------------------------------  
 dnl Check for programs

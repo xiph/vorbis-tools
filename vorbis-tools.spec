@@ -1,5 +1,5 @@
 %define name	vorbis-tools
-%define version	1.0beta3
+%define version	1.0prebeta4
 %define release 1
 
 Summary:	Several Ogg Vorbis Tools
@@ -12,9 +12,9 @@ URL:		http://www.xiph.org/
 Vendor:		Xiphophorus <team@xiph.org>
 Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-root
-Requires:       libogg >= 1.0beta3
-Requires:       libvorbis >= 1.0beta3
-Requires:       libao >= 0.5.0
+Requires:       libogg >= 1.0prebeta4
+Requires:       libvorbis >= 1.0prebeta4
+Requires:       libao >= 0.6.0
 
 %description
 vorbis-tools contains oggenc (and encoder) and ogg123 (a playback tool)
@@ -51,6 +51,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 %postun
 
+* Mon Jan 22 2000 Jack Moffitt <jack@icecast.org>
+- updated for prebeta4 builds
 %changelog
 * Sun Oct 29 2000 Jack Moffitt <jack@icecast.org>
 - initial spec file created
