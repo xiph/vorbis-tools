@@ -58,6 +58,7 @@ struct option long_options[] = {
     {"managed", 0, 0, 0},
     {"resample",1,0,0},
     {"downmix", 0,0,0},
+    {"advanced-encode-option", 1, 0, 'A'},
 	{NULL,0,0,0}
 };
 	
@@ -74,8 +75,9 @@ int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,DEFAULT_NAMEFMT_REMOVE, 
-        DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,-1,-1,0.3,0, 0,0};
+		0, NULL, 0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,
+        DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
+        NULL, 0, -1,-1,-1,0.3,0, 0,0};
 	int i;
 
 	char **infiles;
@@ -290,6 +292,8 @@ int main(int argc, char **argv)
 		enc_opts.min_bitrate = opt.min_bitrate;
 		enc_opts.max_bitrate = opt.max_bitrate;
 		enc_opts.quality = opt.quality;
+        enc_opts.advopt = opt.advopt;
+        enc_opts.advopt_count = opt.advopt_count;
 
         if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate) {
             int fromrate = enc_opts.rate;
@@ -543,7 +547,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
+	while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -583,6 +587,24 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 }
 
 				break;
+            case 'A':
+                {
+                    char *arg = strdup(optarg);
+                    char *val;
+
+                    val = strchr(arg, '=');
+                    if(val == NULL) {
+                        fprintf(stderr, _("No value for advanced encoder option found\n"));
+                        break;
+                    }
+                    else
+                        *val++=0;
+
+                    opt->advopt = realloc(opt->advopt, (++opt->advopt_count)*sizeof(adv_opt));
+                    opt->advopt[opt->advopt_count - 1].arg = arg;
+                    opt->advopt[opt->advopt_count - 1].val = val;
+                    break;
+                }
 			case 'a':
 				opt->artist = realloc(opt->artist, (++opt->artist_count)*sizeof(char *));
 				opt->artist[opt->artist_count - 1] = strdup(optarg);

@@ -11,7 +11,7 @@ typedef void (*progress_func)(char *fn, long totalsamples,
 typedef void (*enc_end_func)(char *fn, double time, int rate, 
 		long samples, long bytes);
 typedef void (*enc_start_func)(char *fn, char *outfn, int bitrate, 
-        float quality, int managed);
+        float quality, int managed, int min_br, int max_br);
 typedef void (*error_func)(char *errormessage);
 
 
@@ -24,14 +24,19 @@ void update_statistics_full(char *fn, long total, long done, double time);
 void update_statistics_notime(char *fn, long total, long done, double time);
 void update_statistics_null(char *fn, long total, long done, double time);
 void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
-        int managed);
+        int managed, int min, int max);
 void start_encode_null(char *fn, char *outfn, int bitrate, float quality,
-        int managed);
+        int managed, int min, int max);
 void final_statistics(char *fn, double time, int rate, long total_samples,
 		long bytes);
 void final_statistics_null(char *fn, double time, int rate, long total_samples,
 		long bytes);
 void encode_error(char *errmsg);
+
+typedef struct {
+    char *arg;
+    char *val;
+} adv_opt;
 
 typedef struct
 {
@@ -49,6 +54,8 @@ typedef struct
 	int date_count;
 	char **genre;
 	int genre_count;
+    adv_opt *advopt;
+    int advopt_count;
 
 	int quiet;
 
@@ -104,6 +111,8 @@ typedef struct
 	int min_bitrate;
 	int max_bitrate;
 	float quality;
+    adv_opt *advopt;
+    int advopt_count;
 
 	FILE *out;
 	char *filename;

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 #include "platform.h"
 #include <vorbis/vorbisenc.h>
@@ -23,6 +24,80 @@
 
 
 int oe_write_page(ogg_page *page, FILE *fp);
+
+#define SETD(toset) \
+    do {\
+        if(sscanf(opts[i].val, "%lf", &dval) != 1)\
+            fprintf(stderr, "For option %s, couldn't read value %s as double\n",\
+                    opts[i].arg, opts[i].val);\
+        else\
+            toset = dval;\
+    } while(0)
+
+#define SETL(toset) \
+    do {\
+        if(sscanf(opts[i].val, "%ld", &lval) != 1)\
+            fprintf(stderr, "For option %s, couldn't read value %s as integer\n",\
+                    opts[i].arg, opts[i].val);\
+        else\
+            toset = lval;\
+    } while(0)
+
+static void set_advanced_encoder_options(adv_opt *opts, int count, 
+        vorbis_info *vi)
+{
+    int hard = 0;
+    int avg = 0;
+    struct ovectl_ratemanage_arg ai;
+    int i;
+    double dval;
+    long lval;
+
+    vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE_GET, &ai);
+
+    for(i=0; i < count; i++) {
+        fprintf(stderr, _("Setting advanced encoder option \"%s\" to %s\n"),
+                opts[i].arg, opts[i].val);
+
+        if(!strcmp(opts[i].arg, "average_bitrate_window")) {
+            SETD(ai.bitrate_av_window);
+            avg = 1;
+        }
+        else if(!strcmp(opts[i].arg, "average_bitrate_window_center")) {
+            SETD(ai.bitrate_av_window_center);
+            avg = 1;
+        }
+        else if(!strcmp(opts[i].arg, "average_bitrate_low")) {
+            SETL(ai.bitrate_av_lo);
+            avg = 1;
+        }
+        else if(!strcmp(opts[i].arg, "average_bitrate_high")) {
+            SETL(ai.bitrate_av_hi);
+            avg = 1;
+        }
+        else if(!strcmp(opts[i].arg, "hard_bitrate_min")) {
+            SETL(ai.bitrate_hard_min);
+            hard = 1;
+        }
+        else if(!strcmp(opts[i].arg, "hard_bitrate_max")) {
+            SETL(ai.bitrate_hard_max);
+            hard = 1;
+        }
+        else if(!strcmp(opts[i].arg, "hard_bitrate_window")) {
+            SETD(ai.bitrate_hard_window);
+            hard = 1;
+        }
+        else {
+            fprintf(stderr, _("Unrecognised advanced option \"%s\"\n"), 
+                    opts[i].arg);
+        }
+    }
+
+    if(hard)
+        vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE_HARD, &ai);
+    if(avg)
+        vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE_AVG, &ai);
+}
 
 int oe_encode(oe_enc_opt *opt)
 {
@@ -50,7 +125,7 @@ int oe_encode(oe_enc_opt *opt)
 	/* get start time. */
 	timer = timer_start();
     opt->start_encode(opt->infilename, opt->filename, opt->bitrate, 
-            opt->quality, opt->managed);
+            opt->quality, opt->managed, opt->min_bitrate, opt->max_bitrate);
 
 	/* Have vorbisenc choose a mode for us */
 	vorbis_info_init(&vi);
@@ -87,7 +162,10 @@ int oe_encode(oe_enc_opt *opt)
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, NULL);
 	}
 
+    set_advanced_encoder_options(opt->advopt, opt->advopt_count, &vi);
+
     vorbis_encode_setup_init(&vi);
+
 
 	/* Now, set up the analysis engine, stream encoder, and other
 	   preparation before the encoding begins.
@@ -298,10 +376,30 @@ void encode_error(char *errmsg)
 	fprintf(stderr, "\n%s\n", errmsg);
 }
 
-void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
-        int managed)
+static void print_brconstraints(int min, int max)
 {
-    if(bitrate > 0 && !managed)
+    if(min > 0 && max > 0)
+        fprintf(stderr, "(min %d kbps, max %d kbps)", min,max);
+    else if(min > 0)
+        fprintf(stderr, "(min %d kbps, no max)", min);
+    else if(max > 0)
+        fprintf(stderr, "(no min, max %d kbps)", max);
+    else
+        fprintf(stderr, "(no min or max)");
+}
+
+void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
+        int managed, int min, int max)
+{
+    if(bitrate < 0 && !managed && (min > 0 || max > 0)) {
+        fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat quality level %2.2f using constrained VBR "),
+			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
+                outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
+                quality);
+        print_brconstraints(min,max);
+        fprintf(stderr, "\n");
+    }
+    else if(bitrate > 0 && !managed)
         fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s \nat approximate bitrate %d kbps (VBR encoding enabled)\n"),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
@@ -311,17 +409,19 @@ void start_encode_full(char *fn, char *outfn, int bitrate, float quality,
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 quality * 10);
-    else
+    else {
         fprintf(stderr, _("Encoding %s%s%s to \n         "
-                "%s%s%s \nat bitrate %d kbps, "
-                "using bitrate management engine\n"),
+                "%s%s%s \nat bitrate %d kbps "),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 bitrate);
+        print_brconstraints(min,max);
+        fprintf(stderr, ", \nusing full bitrate management engine\n");
+    }
 }
 
 void start_encode_null(char *fn, char *outfn, int bitrate, float quality, 
-        int managed)
+        int managed, int min, int max)
 {
 }
 
