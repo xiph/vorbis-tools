@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.61 2002/06/02 03:07:11 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.62 2002/07/06 03:23:13 volsung Exp $
 
  ********************************************************************/
 
@@ -28,6 +28,8 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <locale.h>
 
 #include "audio.h"
@@ -38,6 +40,7 @@
 #include "format.h"
 #include "transport.h"
 #include "status.h"
+#include "playlist.h"
 #include "compat.h"
 
 #include "ogg123.h"
@@ -270,6 +273,11 @@ void print_audio_devices_info(audio_device_t *d)
 int main(int argc, char **argv)
 {
   int optind;
+  char **playlist_array;
+  playlist_t *list = playlist_create();
+  int items;
+  struct stat stat_buf;
+  int i;
 
   setlocale(LC_ALL, "");
   bindtextdomain(PACKAGE, LOCALEDIR);
@@ -286,23 +294,39 @@ int main(int argc, char **argv)
   audio_play_arg.devices = options.devices;
   audio_play_arg.stat_format = stat_format;
 
+  /* Add remaining arguments to playlist */
+  for (i = optind; i < argc; i++) {
+    if (stat(argv[i], &stat_buf) == 0) {
+
+      if (S_ISDIR(stat_buf.st_mode)) {
+	if (playlist_append_directory(list, argv[i]) == 0)
+	  fprintf(stderr, 
+		  _("Warning: Could not read directory %s.\n"), argv[i]);
+      } else {
+	playlist_append_file(list, argv[i]);
+      }
+    } else
+      fprintf(stderr,
+	      _("Warning: Could not access %s.\n"), argv[i]);
+
+  }
+
+
+  /* Do we have anything left to play? */
+  if (playlist_length(list) == 0) {
+    cmdline_usage();
+    exit(1);
+  } else {
+    playlist_array = playlist_to_array(list, &items);
+    playlist_destroy(list);
+    list = NULL;
+  }
+
   /* Don't use status_message until after this point! */
   status_set_verbosity(options.verbosity);
 
   print_audio_devices_info(options.devices);
 
-  /* Setup signal handlers and callbacks */
-
-  ATEXIT (exit_cleanup);
-  signal (SIGINT, signal_handler);
-  signal (SIGTSTP, signal_handler);
-  signal (SIGCONT, signal_handler);
-
-  /* Do we have anything left to play? */
-  if (optind == argc) {
-    cmdline_usage();
-    exit(1);
-  }
   
   /* Setup buffer */ 
   if (options.buffer_size > 0) {
@@ -324,21 +348,30 @@ int main(int argc, char **argv)
     
     srandom(time(NULL));
     
-    for (i = optind; i < argc; i++) {
-      int j = i + random() % (argc - i);
-      char *temp = argv[i];
-      argv[i] = argv[j];
-      argv[j] = temp;
+    for (i = 0; i < items; i++) {
+      int j = i + random() % (items - i);
+      char *temp = playlist_array[i];
+      playlist_array[i] = playlist_array[j];
+      playlist_array[j] = temp;
     }
   }
 
-  /* Play the files/streams */
+  /* Setup signal handlers and callbacks */
 
-  while (optind < argc && !sig_request.exit) {
-    play(argv[optind]);
-    optind++;
+  ATEXIT (exit_cleanup);
+  signal (SIGINT, signal_handler);
+  signal (SIGTSTP, signal_handler);
+  signal (SIGCONT, signal_handler);
+
+
+  /* Play the files/streams */
+  i = 0;
+  while (i < items && !sig_request.exit) {
+    play(playlist_array[i]);
+    i++;
   }
 
+  playlist_array_destroy(playlist_array, items);
 
   exit (0);
 }

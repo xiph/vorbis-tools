@@ -27,10 +27,11 @@ ogg123_DEPENDENCIES = @SHARE_LIBS@
 ogg123_SOURCES = audio.c buffer.c callbacks.c \
                 cfgfile_options.c cmdline_options.c \
                 file_transport.c format.c http_transport.c \
-                ogg123.c oggvorbis_format.c status.c transport.c     \
+                ogg123.c oggvorbis_format.c playlist.c \
+                status.c transport.c \
                 audio.h buffer.h callbacks.h compat.h \
                 cfgfile_options.h cmdline_options.h \
-                format.h ogg123.h status.h transport.h
+                format.h ogg123.h playlist.h status.h transport.h
 
 man_MANS = $(mans) 
 doc_DATA = $(docs)
