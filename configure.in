@@ -32,6 +32,14 @@ dnl --------------------------------------------------
 
 AC_CANONICAL_HOST
 
+case $host in 
+       *-*-darwin*)
+                DEBUG="-DDARWIN -Wall -g -O0 -fsigned-char"
+                CFLAGS="-DDARWIN -Wall -g -O4 -ffast-math -fsigned-char"
+                PROFILE="-DDARWIN -Wall -g -pg -O4 -ffast-math -fsigned-char";;
+esac
+
+
 dnl --------------------------------------------------
 dnl Check for headers
 dnl --------------------------------------------------

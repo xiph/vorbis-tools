@@ -5,13 +5,17 @@
  * that program is used in this buffer.
  */
 
+#include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h> /* for fork and pipe*/
 #include <fcntl.h>
+
+#ifndef DARWIN
 #include <malloc.h>
+#endif
 
 #include "ogg123.h"
 #include "buffer.h"

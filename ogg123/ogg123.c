@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.22 2001/01/25 11:31:14 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.23 2001/01/30 10:42:48 msmith Exp $
 
  ********************************************************************/
 
@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <sys/socket.h>
 #include <errno.h>
 #include <time.h>
 #include <getopt.h>

@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.4 2001/01/23 10:39:29 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.5 2001/01/30 10:42:49 msmith Exp $
  */
 
 
@@ -267,6 +267,19 @@ int vcedit_write(vcedit_state *state, FILE *out)
 			if(bytes == 0) eosin = 1;
 		}
 	}
+
+	if(!feof(state->in)) /* We reached eos, not eof */
+	{
+		/* We copy the rest of the stream (other logical 
+		 * streams) untouched. */
+		bytes = 1;
+		while(bytes)
+		{
+			bytes = fread(buffer, 1, CHUNKSIZE, state->in);
+			fwrite(buffer, 1, bytes, out);
+		}
+	}
+							
 
 cleanup:
 	ogg_stream_clear(&streamout);
