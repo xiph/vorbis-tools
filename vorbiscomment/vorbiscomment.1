@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii vorbiscomment.1
 .\"
-.TH VORBISCOMMENT 1 "December 21, 2001" Xiphophorus "Vorbis Tools"
+.TH VORBISCOMMENT 1 "December 24, 2001" Xiphophorus "Vorbis Tools"
 
 .SH NAME
 vorbiscomment \- edits Ogg Vorbis comments
@@ -24,25 +24,43 @@ vorbiscomment \- edits Ogg Vorbis comments
 
 .SH DESCRIPTION
 .B vorbiscomment
-reads, modifies, and appends Ogg Vorbis audio files tags.
+reads, modifies, and appends Ogg Vorbis audio file metadata tags.
 
 .SH OPTIONS
 .IP "-a"
 Append comments.
-.IP "-c"
-Take comments from a file.
+.IP "-c commentfile"
+Take comments from a file. The file is the same format as is output by the the -l option: one element per line in 'tag=value' format.
 .IP "-h"
 Show command help.
 .IP "-l"
-List the comments.
+List the comments in the ogg vorbis file.
 .IP "-q"
 Quiet mode.  No messages are displayed.
-.IP "-t tag=value"
+.IP "-t 'tag=value'"
+Specify a new tag on the command line. Each tag is given as a single string. The part before the '=' is treated as the tag name and the part after as the value.
 .IP "-w"
-Modify comments.
+Replace comments with the new set given either on the command line with -t or from a file with -c.
 
-.\" .SH EXAMPLES
 .\" Examples go here
+.SH EXAMPLES
+
+To just see what comment tags are in a file:
+
+    vorbiscomment -l file.ogg
+
+To edit those comments:
+
+    vorbiscomment -l file.ogg > file.txt
+    [edit the comments in file.txt to your statisfaction]
+    vorbiscomment -w -c file.txt file.ogg newfile.ogg
+
+To simply add a comment:
+
+    vorbiscomment -a -t 'ARTIST=No One You Know' file.ogg newfile.ogg
+
+.SH SEE ALSO
+See http://xiph.org/ogg/vorbis/doc/vcomment.html for documentation on the Ogg Vorbis tag format, including a suggested list of canonical tag names.
 
 .SH AUTHORS
 
@@ -51,7 +69,7 @@ Program Authors:
 .br
 Michael Smith <msmith@labyrinth.net.au>
 .br
-Ralph Giles <giles@ashlu.bc.ca>
+Ralph Giles <giles@xiph.org>
 .br
 
 .TP
