@@ -1,6 +1,6 @@
 %define name	vorbis-tools
 %define version	1.0rc3
-%define release 1
+%define release 2
 
 Summary:	Several Ogg Vorbis Tools
 Name:		%{name}
@@ -15,7 +15,8 @@ BuildRoot:	%{_tmppath}/%{name}-root
 Requires:       libogg >= 1.0rc3
 Requires:       libvorbis >= 1.0rc3
 Requires:       libao >= 0.8.2
-Requires:       libcurl >= 7.8
+Requires:       curl >= 7.8
+BuildRequires:	curl-devel >= 7.8
 Prefix:		%{_prefix}
 
 %description
@@ -57,6 +58,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %postun
 
 %changelog
+* Fri Mar 22 2002 Jack Moffitt <jack@xiph.org>
+- Update curl dependency info (Closes bug #130)
 * Mon Dec 31 2001 Jack Moffitt <jack@xiph.org>
 - Update for rc3 release.
 * Sun Oct 07 2001 Jack Moffitt <jack@xiph.org>
