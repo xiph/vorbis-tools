@@ -291,11 +291,6 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	{
 		/* From here on, this is very similar to the wav code. Oh well. */
 		
-		if(format.rate != 44100 && format.rate != 48000)
-			fprintf(stderr, _("Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-				" At other than 44.1/48 kHz quality will be degraded.\n"),
-				(float)format.rate * 1.0e-3);
-
 		opt->rate = format.rate;
 		opt->channels = format.channels;
 		opt->read_samples = wav_read; /* Similar enough, so we use the same */
@@ -418,11 +413,6 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if( format.align == format.channels*samplesize &&
 			format.samplesize == samplesize*8)
 	{
-		if(format.samplerate != 44100 && format.samplerate != 48000)
-			fprintf(stderr, _("Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-					" At other than 44.1/48 kHz quality will be degraded.\n"),
-					(float)format.samplerate * 1.0e-3);
-
 		/* OK, good - we have the one supported format,
 		   now we want to find the size of the file */
 		opt->rate = format.samplerate;
@@ -558,11 +548,6 @@ int raw_open(FILE *in, oe_enc_opt *opt)
 {
 	wav_fmt format; /* fake wave header ;) */
 	wavfile *wav = malloc(sizeof(wavfile));
-
-	if(opt->rate != 44100 && opt->rate != 48000)
-		fprintf(stderr, _("Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-				" At other than 44.1/48 kHz quality will be significantly degraded.\n"),
-				(float)opt->rate * 1.0e-3);
 
 	/* construct fake wav header ;) */
 	format.format =      2; 
