@@ -385,7 +385,7 @@ static void usage(void)
 		"                      instead of specifying a particular bitrate.\n"
 		"                      This is the normal mode of operation.\n"
         "                      Fractional qualities (e.g. 2.75) are permitted\n"
-        " --resample n         Resample input data to sampling rate n\n"
+        " --resample n         Resample input data to sampling rate n (Hz)\n"
         " --downmix            Downmix stereo to mono. Only allowed on stereo\n"
         "                      input.\n"
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
@@ -577,6 +577,11 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                         fprintf(stderr, _("WARNING: Couldn't read resampling frequency \"%s\"\n"), optarg);
     					opt->resamplefreq = 0;
                     }
+                    if(opt->resamplefreq < 100) /* User probably specified it
+                                                   in kHz accidently */
+                        fprintf(stderr, 
+                                _("Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"), 
+                                opt->resamplefreq, opt->resamplefreq*1000);
                 }
                 else if(!strcmp(long_options[option_index].name, "downmix")) {
                     opt->downmix = 1;
