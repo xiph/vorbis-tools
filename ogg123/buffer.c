@@ -15,6 +15,7 @@
 #include <sys/time.h>
 #include <unistd.h> /* for fork and pipe*/
 #include <fcntl.h>
+#include <signal.h>
 
 #include "ogg123.h"
 #include "buffer.h"
@@ -31,6 +32,8 @@ void buffer_init (buf_t *buf, long size)
 void writer_main (volatile buf_t *buf, devices_t *d)
 {
   devices_t *d1;
+  signal (SIGINT, SIG_IGN);
+
   while (! (buf->status & STAT_SHUTDOWN && buf->reader == buf->writer))
     {
       /* Writer just waits on reader to be done with buf_write.
@@ -38,6 +41,11 @@ void writer_main (volatile buf_t *buf, devices_t *d)
 
       write (buf->fds[1], "1", 1); /* This identifier could hold a lot
 				    * more detail in the future. */
+
+      if (buf->status & STAT_FLUSH) {
+	buf->reader = buf->writer;
+	buf->status &= ~STAT_FLUSH;
+      }
 
       while (buf->reader == buf->writer && !(buf->status & STAT_SHUTDOWN));
 
@@ -177,6 +185,11 @@ void submit_chunk (buf_t *buf, chunk_t chunk)
     buf->reader = buf->buffer;
   else
     buf->reader++;
+}
+
+void buffer_flush (buf_t *buf)
+{
+  buf->status |= STAT_FLUSH;
 }
 
 void buffer_shutdown (buf_t *buf)

@@ -24,10 +24,10 @@ typedef struct buf_s
 buf_t *fork_writer (long size, devices_t *d);
 void submit_chunk (buf_t *buf, chunk_t chunk);
 void buffer_shutdown (buf_t *buf);
+void buffer_flush (buf_t *buf);
 
 #define STAT_FLUSH 1
 #define STAT_SHUTDOWN 2
-
 
 #endif /* !defined (__BUFFER_H) */
 

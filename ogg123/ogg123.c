@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.38 2001/06/19 19:11:13 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.39 2001/06/19 19:42:35 kcarnold Exp $
 
  ********************************************************************/
 
@@ -434,6 +434,9 @@ void play_file(ogg123_options_t opt)
 	      skipfile_requested = 0;
 	      signal(SIGALRM,signal_activate_skipfile);
 	      alarm(opt.delay);
+	      if (buffer) {
+		buffer_flush (buffer);
+	      }
 	      break;
   	    }
 
