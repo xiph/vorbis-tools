@@ -68,7 +68,7 @@ int main(int argc, char **argv)
 	/* Default values */
 	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
-        DEFAULT_NAMEFMT_REPLACE, NULL, -1,-1,-1, 0.3,0};
+        DEFAULT_NAMEFMT_REPLACE, NULL, -1,-1,-1,-1,0};
 	int i;
 
 	char **infiles;
@@ -657,6 +657,9 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				exit(0);
 		}
 	}
+
+	if (opt->min_bitrate < 0 && opt->nominal_bitrate < 0 && opt->max_bitrate < 0 && opt->quality < 0.f)
+		opt->quality = 0.3f;
 }
 
 static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
