@@ -42,7 +42,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 /usr/bin/oggenc
 /usr/bin/ogg123
 /usr/bin/vorbiscomment
-%{_mandir}/man1/*
+/usr/man/man1/ogg123.1.gz
+/usr/man/man1/oggenc.1.gz
 
 %clean 
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
