@@ -2,6 +2,6 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-EXTRA_DIST = README.Debian changelog control copyright rules vorbis-tools.dirs\
-	vorbis-tools.docs vorbis-tools.files vorbis-tools.manpages  \
-	vorbis-tools.mime vorbis-tools.undocumented
+EXTRA_DIST = changelog control copyright rules vorbis-tools.README.Debian \
+	vorbis-tools.files vorbis-tools.manpages vorbis-tools.mime \
+	vorbis-tools.undocumented
