@@ -2,7 +2,7 @@ Source: vorbis-tools
 Section: sound
 Priority: optional
 Maintainer: Christopher L Cheney <ccheney@debian.org>
-Build-Depends: debhelper
+Build-Depends: debhelper, libao0-dev, libogg0-dev, libvorbis0-dev
 Standards-Version: 3.1.1
 
 Package: vorbis-tools
