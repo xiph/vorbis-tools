@@ -2,7 +2,7 @@ vorbis-tools (1.0beta3-1) unstable; urgency=low
 
   * Initial Release.
 
- -- Chris Cheney <ccheney@debian.org>  Tue, 31 Oct 2000 16:38:42 -0600
+ -- Christopher L Cheney <ccheney@debian.org>  Tue, 31 Oct 2000 16:38:42 -0600
 
 Local variables:
 mode: debian-changelog
