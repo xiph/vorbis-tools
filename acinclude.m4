@@ -249,7 +249,7 @@ AC_ARG_ENABLE(aotest, [  --disable-aotest       Do not try to compile and run a 
   # see where dl* and friends live
   AC_CHECK_FUNCS(dlopen, [AO_DL_LIBS=""], [
     AC_CHECK_LIB(dl, dlopen, [AO_DL_LIBS="-ldl"], [
-      AC_MSG_ERROR([could not find dlopen() needed by libao sound drivers
+      AC_MSG_WARN([could not find dlopen() needed by libao sound drivers
       your system may not be supported.])
     ])
   ])
