@@ -1,10 +1,13 @@
 ## Process this file with automake to produce Makefile.in
 
-AUTOMAKE_OPTIONS = foreign dist-zip
+AUTOMAKE_OPTIONS = foreign
 
-SUBDIRS = oggenc ogg123 vorbiscomment
+bin_PROGRAMS = ogg123
 
-EXTRA_DIST = README
+INCLUDES = @AO_CFLAGS@
+ogg123_LDFLAGS = -lvorbisfile @AO_LIBS@
+
+ogg123_SOURCES = ogg123.c
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
