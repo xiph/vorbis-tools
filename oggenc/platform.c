@@ -108,8 +108,12 @@ void timer_clear(void *timer)
 #include <direct.h>
 
 #define PATH_SEPS "/\\"
-#define stat _stat
 #define mkdir(x,y) _mkdir((x))
+
+/* MSVC does this, borland doesn't? */
+#ifndef __BORLANDC__
+#define stat _stat
+#endif
 
 #else
 
@@ -150,8 +154,10 @@ int create_directories(char *fn)
                 return -1;
             }
         }
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__BORLANDC__)
         else if(!(_S_IFDIR & statbuf.st_mode)) {
+#elif defined(__BORLANDC__)
+        else if(!(S_IFDIR & statbuf.st_mode)) {
 #else
         else if(!S_ISDIR(statbuf.st_mode)) {
 #endif
