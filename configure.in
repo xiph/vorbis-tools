@@ -1,7 +1,5 @@
 dnl Process this file with autoconf to produce a configure script
 
-AC_REQUIRE(2.50)
-
 dnl ------------------------------------------------
 dnl Initialization
 dnl ------------------------------------------------
