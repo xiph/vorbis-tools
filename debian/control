@@ -10,4 +10,5 @@ Architecture: any
 Depends: ${shlibs:Depends}
 Description: Several Ogg Vorbis Tools
  vorbis-tools contains oggenc (an encoder), ogg123 (a playback tool),
- ogginfo (displays ogg information), and vorbiscomment (ogg comment editor)
+ ogginfo (displays ogg information), vcut (ogg file splitter), and
+ vorbiscomment (ogg comment editor)
