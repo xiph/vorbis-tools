@@ -50,9 +50,10 @@ can be streamed via HTTP.
 
 .SH OPTIONS
 .IP "-b n, --buffer n"
-Use a buffer of approximately 'n' kilobytes.
+Use an input buffer of approximately 'n' kilobytes.
 .IP "-p n, --prebuffer n"
-Prebuffer 'n' percent of the buffer.
+Prebuffer 'n' percent of the input buffer.  Playback won't begin until
+this prebuffer is complete.
 .IP "-d device, --device device"
 Specify output device.  See
 .B DEVICES
