@@ -121,10 +121,6 @@ if test "x$build_ogg123" = xyes; then
   AM_PATH_CURL(,build_ogg123=no; AC_MSG_WARN(libcurl missing))
 
   ACX_PTHREAD(,build_ogg123=no; AC_MSG_WARN(POSIX threads missing))
-
-  if test "x$build_ogg123" != xyes; then
-    AC_MSG_WARN([Prerequisites for ogg123 not met, ogg123 will not be built])
-  fi
 fi
 
 dnl -------------------- FLAC ----------------------
@@ -252,3 +248,9 @@ AC_SUBST(I18N_CFLAGS)
 AC_SUBST(I18N_LIBS)
 
 AC_OUTPUT(Makefile intl/Makefile po/Makefile.in include/Makefile share/Makefile win32/Makefile oggdec/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
+
+if test "x$build_ogg123" != xyes; then
+    AC_MSG_WARN([Prerequisites for ogg123 not met, ogg123 will be skipped.
+    Please ensure that you have POSIX threads, libcurl and libao libraries and
+    headers present if you would like to build ogg123.])
+fi
