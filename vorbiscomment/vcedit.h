@@ -27,6 +27,7 @@ typedef struct {
 	ogg_stream_state	*os;
 
 	vorbis_comment		*vc;
+	vorbis_info          vi;
 
 	vcedit_read_func read;
 	vcedit_write_func write;
@@ -38,6 +39,8 @@ typedef struct {
 	int		mainlen;
 	int		booklen;
 	char 	    *lasterror;
+	int prevW;
+	int eof;
 } vcedit_state;
 
 extern vcedit_state *	vcedit_new_state(void);
