@@ -1,3 +1,15 @@
+vorbis-tools (1.0rc1-1) unstable; urgency=low
+
+  * New upstream. (Closes: #87697, #87907, #98937)
+  * Fixed versioned depends. (Closes: #88561, #89772)
+  * Changed clean method to distclean. (Closes: #96775)
+  * Updated description. (Closes: #88573)
+  * debian dir is maintained in upstream cvs. (Closes: #96773)
+  * Updated manpage for upstream. (Closes: #90873, #92229)
+  * Applied patch for randomize ogg123 for upstream (Closes: #84336, #98945)
+
+ -- Christopher L Cheney <ccheney@debian.org>  Sun, 17 Jun 2001 20:00:00 -0500
+
 vorbis-tools (1.0beta4-1) unstable; urgency=low
 
   * New upstream.
