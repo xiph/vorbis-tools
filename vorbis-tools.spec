@@ -13,10 +13,14 @@ Vendor:		Xiphophorus <team@xiph.org>
 Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-root
 Requires:       libogg >= 1.0rc3
+BuildRequires:	libogg-devel >= 1.0rc3
 Requires:       libvorbis >= 1.0rc3
+BuildRequires:	libvorbis-devel >= 1.0rc3
 Requires:       libao >= 0.8.2
+BuildRequires:	libao-devel >= 0.8.2
 Requires:       curl >= 7.8
 BuildRequires:	curl-devel >= 7.8
+
 Prefix:		%{_prefix}
 
 %description
@@ -58,6 +62,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %postun
 
 %changelog
+* Fri May 23 2002 Thomas Vander Stichele <thomas@apestaart.org>
+- Added more BuildRequires: for obvious packages
 * Fri Mar 22 2002 Jack Moffitt <jack@xiph.org>
 - Update curl dependency info (Closes bug #130)
 * Mon Dec 31 2001 Jack Moffitt <jack@xiph.org>
