@@ -1,78 +1,51 @@
 .\" Process this file with
 .\" groff -man -Tascii ogginfo.1
 .\"
-.TH ogginfo 1 "July 8, 2001" "" "Vorbis Tools"
+.TH ogginfo 1 "July 10, 2002" "" "Vorbis Tools"
 
 .SH NAME
-ogginfo \- gives information about Ogg files.
+ogginfo \- gives information about Ogg files, and does extensive validity checking
 
 .SH SYNOPSIS
 .B ogginfo
+[
+.B -q
+] [
+.B -v
+] [
+.B -h
+]
 .I file1.ogg
 .B ...
 .I fileN.ogg
 
 .SH DESCRIPTION
 .B ogginfo
-reads one or more Ogg files and decodes the comments contained within, writing
-them to standard output, in a "attribute=value" format, one per line.
-The first attribute printed will always be the
-.B filename
-of the stream. 
-.B ogginfo
-cannot accept URLs.
+reads one or more Ogg files and prints information about stream contents 
+(including chained and/or multiplexed streams) to standard output. It will 
+detect (but not correct) a wide range of common defects, with many 
+additional checks specifically for Ogg Vorbis streams.
 
-In addition to the comments,
+For all stream types
 .B ogginfo
-will also print the following attributes for each logical bitstream within the file:
-.RS
-.IP serial
-The serial number of the logical bitstream.
-.IP header_integrity
-"pass" if the header is intact, and "fail" if it is corrupted.
-.IP stream_integrity
-"pass" if the stream contains no bad packets or holes (not counting the last 
-packet), and "fail" otherwise.
-.IP stream_truncated
-"true" if the last good packet in the stream is not marked as the last packet
-and "false" if the stream is complete.
-.IP vendor
-The vendor string of the encoder used to make this stream.
-.IP bitrate_upper
-The upper bitrate limit of the stream, or "none" if not set.
-.IP bitrate_nominal
-The "target" bitrate of the stream, or "none" if not set.
-.IP bitrate_lower
-The lower bitrate limit of the stream, or "none" if not set.
-.IP bitrate_average
-The average bitrate of the stream.
-.IP length
-Length of of the file in seconds.
-.IP playtime
-Playing time in a humanly-readable MM:SS format.
-.RE
+will print the filename being processed, the stream serial numbers, and various
+common error conditions.
 
-At the end of each file,
-.B ogginfo
-will also print:
-.RS
-.IP total_playtime
-The total playing time for the entire file in seconds.
-.RE
+For
+.B Vorbis
+streams, information including the version used for encoding, the sample rate
+and number of channels, the bitrate and playback length, and the contents of
+the comment header are printed.
 
 .SH OPTIONS
-None.
-
-.SH BUGS
-
-Although
-.B ogginfo 
-properly handles chained bitstreams, it cannot handle multiplexed
-logical bitstreams
-
-.SH AUTHORS
+.IP -h
+Show a help and usage message
+.IP -q
+Quiet mode. This may be specified multiple times. Doing so once will remove
+the detailed informative messages, twice will remove warnings as well.
+.IP -v
+Verbose mode. At the current time, this does not do anything.
 
 .br
-JAmes Atwill <ogg@linuxstuff.org>
-.br
-Stan Seibert <indigo@aztec.asu.edu>
+Michael Smith <msmith@labyrinth.net.au>
+
