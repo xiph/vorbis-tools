@@ -79,7 +79,7 @@ typedef struct {
     vorbis_info vi;
     vorbis_comment vc;
 
-    long bytes;
+    ogg_int64_t bytes;
     ogg_int64_t lastgranulepos;
     ogg_int64_t firstgranulepos;
 
