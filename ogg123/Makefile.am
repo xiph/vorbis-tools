@@ -3,10 +3,9 @@
 AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = ogg123
-man_MANS = ogg123.1
-
-docdir = $(prefix)/doc/$(PACKAGE)-$(VERSION)
+docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
 doc_DATA = ogg123rc-example
+man_MANS = ogg123.1
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@
 
@@ -14,7 +13,7 @@ ogg123_LDFLAGS = @OGG_LIBS@ @VORBIS_LIBS@ @VORBISFILE_LIBS@ @AO_LIBS@
 
 ogg123_SOURCES = ogg123.c
 
-EXTRA_DIST = $(man_MANS)
+EXTRA_DIST = $(man_MANS) $(doc_DATA)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
