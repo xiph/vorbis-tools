@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.8 2002/05/03 01:20:53 segher Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.9 2002/07/19 10:31:53 msmith Exp $
 
  ********************************************************************/
 
@@ -49,9 +49,10 @@ struct {
   char *formatstr;   /* formatted output */
 } vorbis_comment_keys[] = {
   {"TRACKNUMBER=", N_("Track number:")},
-  {"RG_RADIO=", N_("ReplayGain (Track):")},
-  {"RG_AUDIOPHILE=", N_("ReplayGain (Album):")},
-  {"RG_PEAK=", N_("ReplayGain Peak:")},
+  {"REPLAYGAIN_TRACK_GAIN=", N_("ReplayGain (Track):")},
+  {"REPLAYGAIN_ALBUM_GAIN=", N_("ReplayGain (Album):")},
+  {"REPLAYGAIN_TRACK_PEAK=", N_("ReplayGain (Track) Peak:")},
+  {"REPLAYGAIN_ALBUM_PEAK=", N_("ReplayGain (Album) Peak:")},
   {"COPYRIGHT=", N_("Copyright")},
   {"=", N_("Comment:")},
   {NULL, N_("Comment:")}
