@@ -2,13 +2,11 @@ Source: vorbis-tools
 Section: sound
 Priority: optional
 Maintainer: Christopher L Cheney <ccheney@debian.org>
-Build-Depends: debhelper, libao0-dev, libogg0-dev, libvorbis0-dev
+Build-Depends: debhelper, libao-dev, libogg-dev, libvorbis-dev
 Standards-Version: 3.1.1
 
 Package: vorbis-tools
 Architecture: any
 Depends: ${shlibs:Depends}
-Replaces: ogg123
-Conflicts: ogg123
 Description: Several Ogg Vorbis Tools
  vorbis-tools contains oggenc (an encoder) and ogg123 (a playback tool)
