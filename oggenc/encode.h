@@ -56,6 +56,8 @@ typedef struct
 	int raw_channels;
 
 	char *namefmt;
+    char *namefmt_remove;
+    char *namefmt_replace;
 	char *outfile;
 	/* All 3 in kbps */
 	int min_bitrate;

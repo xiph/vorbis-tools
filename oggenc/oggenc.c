@@ -34,6 +34,8 @@ struct option long_options[] = {
 	{"album",1,0,'l'},
 	{"title",1,0,'t'},
 	{"names",1,0,'n'},
+    {"name-remove",1,0,'X'},
+    {"name-replace",1,0,'P'},
 	{"output",1,0,'o'},
 	{"version",0,0,'v'},
 	{"raw",0,0,'r'},
@@ -51,17 +53,20 @@ struct option long_options[] = {
 	{NULL,0,0,0}
 };
 	
-char *generate_name_string(char *format, char *artist, char *title, char *album, char *track, char *date);
-void parse_options(int argc, char **argv, oe_options *opt);
-void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
-		char **artist, char **album, char **title, char **tracknum, char **date);
-void usage(void);
+static char *generate_name_string(char *format, char *remove_list, 
+        char *replace_list, char *artist, char *title, char *album, 
+        char *track, char *date);
+static void parse_options(int argc, char **argv, oe_options *opt);
+static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
+		char **artist,char **album, char **title, char **tracknum, char **date);
+static void usage(void);
 
 int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL, -1,128,-1, -1.0f,0}; 
+		0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
+        DEFAULT_NAMEFMT_REPLACE, NULL, -1,128,-1, -1.0f,0};
 	int i;
 
 	char **infiles;
@@ -202,7 +207,8 @@ int main(int argc, char **argv)
 			}
 			else if(opt.namefmt)
 			{
-				out_fn = generate_name_string(opt.namefmt, artist, title, album, track,date);
+				out_fn = generate_name_string(opt.namefmt, opt.namefmt_remove, 
+                        opt.namefmt_replace, artist, title, album, track,date);
 			}
 			else if(opt.title)
 			{
@@ -277,7 +283,7 @@ int main(int argc, char **argv)
 
 }
 
-void usage(void)
+static void usage(void)
 {
 	fprintf(stdout, 
 		VERSION_STRING
@@ -316,6 +322,14 @@ void usage(void)
 		"                      %%n, %%d replaces by artist, title, album, track number,\n"
 		"                      and date, respectively (see below for specifying these).\n"
 		"                      %%%% gives a literal %%.\n"
+        " -X, --name-remove=s  Remove the specified characters from parameters to the\n"
+        "                      -n format string. Useful to ensure legal filenames.\n"
+        " -P, --name-replace=s Replace characters remove by --name-remove with the\n"
+        "                      characters specified. If this string shorter than the\n"
+        "                      --name-remove list or is not specified, the extra\n"
+        "                      characters are just removed.\n"
+        "                      Default settings for the above two arguments are platform\n"
+        "                      specific.\n"
 		" -c, --comment=c      Add the given string as an extra comment. This may be\n"
 		"                      used multiple times.\n"
 		" -d, --date           Date for track (usually date of performance)\n"
@@ -347,12 +361,49 @@ void usage(void)
 		"\n");
 }
 
-char *generate_name_string(char *format, 
-		char *artist, char *title, char *album, char *track, char *date)
+static int strncpy_filtered(char *dst, char *src, int len, char *remove_list, 
+        char *replace_list)
+{
+    char *hit, *drop_margin;
+    int used=0;
+
+    if(remove_list == NULL || *remove_list == 0)
+    {
+        strncpy(dst, src, len-1);
+        dst[len-1] = 0;
+        return strlen(dst);
+    }
+
+    drop_margin = remove_list + (replace_list == NULL?0:strlen(replace_list));
+
+    while(*src && used < len-1)
+    {
+        if((hit = strchr(remove_list, *src)) != NULL)
+        {
+            if(hit < drop_margin)
+            {
+                *dst++ = replace_list[hit - remove_list];
+                used++;
+            }
+        }
+        else
+        {
+            *dst++ = *src;
+            used++;
+        }
+        src++;
+    }
+    *dst = 0;
+
+    return used;
+}
+
+static char *generate_name_string(char *format, char *remove_list,
+        char *replace_list, char *artist, char *title, char *album, 
+        char *track, char *date)
 {
 	char *buffer;
 	char next;
-	int len;
 	char *string;
 	int used=0;
 	int buflen;
@@ -373,33 +424,28 @@ char *generate_name_string(char *format,
 					break;
 				case 'a':
 					string = artist?artist:"(none)";
-					len = strlen(string);
-					strncpy(buffer+used, string, buflen-used);
-					used += len;
+					used += strncpy_filtered(buffer+used, string, buflen-used, 
+                            remove_list, replace_list);
 					break;
 				case 'd':
 					string = date?date:"(none)";
-					len = strlen(string);
-					strncpy(buffer+used, string, buflen-used);
-					used += len;
+					used += strncpy_filtered(buffer+used, string, buflen-used,
+                            remove_list, replace_list);
 					break;
 				case 't':
 					string = title?title:"(none)";
-					len = strlen(string);
-					strncpy(buffer+used, string, buflen-used);
-					used += len;
+					used += strncpy_filtered(buffer+used, string, buflen-used,
+                            remove_list, replace_list);
 					break;
 				case 'l':
 					string = album?album:"(none)";
-					len = strlen(string);
-					strncpy(buffer+used, string, buflen-used);
-					used += len;
+					used += strncpy_filtered(buffer+used, string, buflen-used,
+                            remove_list, replace_list);
 					break;
 				case 'n':
 					string = track?track:"(none)";
-					len = strlen(string);
-					strncpy(buffer+used, string, buflen-used);
-					used += len;
+					used += strncpy_filtered(buffer+used, string, buflen-used,
+                            remove_list, replace_list);
 					break;
 				default:
 					fprintf(stderr, "WARNING: Ignoring illegal escape character '%c' in name format\n", *(format - 1));
@@ -413,12 +459,12 @@ char *generate_name_string(char *format,
 	return buffer;
 }
 
-void parse_options(int argc, char **argv, oe_options *opt)
+static void parse_options(int argc, char **argv, oe_options *opt)
 {
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:m:M:n:N:o:q:QrR:s:t:v", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -485,6 +531,24 @@ void parse_options(int argc, char **argv, oe_options *opt)
 					free(opt->namefmt);
 				}
 				opt->namefmt = strdup(optarg);
+				break;
+            case 'X':
+				if(opt->namefmt_remove && opt->namefmt_remove != 
+                        DEFAULT_NAMEFMT_REMOVE)
+				{
+					fprintf(stderr, "WARNING: Multiple name format filters specified, using final\n");
+					free(opt->namefmt_remove);
+				}
+				opt->namefmt_remove = strdup(optarg);
+				break;
+            case 'P':
+				if(opt->namefmt_replace && opt->namefmt_replace != 
+                        DEFAULT_NAMEFMT_REPLACE)
+                {
+					fprintf(stderr, "WARNING: Multiple name format filter replacements specified, using final\n");
+					free(opt->namefmt_replace);
+				}
+				opt->namefmt_replace = strdup(optarg);
 				break;
 			case 'o':
 				if(opt->outfile)
@@ -562,7 +626,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	}
 }
 
-void add_tag(vorbis_comment *vc, oe_options *opt, char *name, char *value)
+static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 {
 	char *utf8;
 	if(utf8_encode(value, &utf8, opt->encoding) == 0)
@@ -577,7 +641,7 @@ void add_tag(vorbis_comment *vc, oe_options *opt, char *name, char *value)
 		fprintf(stderr, "Couldn't convert comment to UTF8, cannot add\n");
 }
 
-void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
+static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
 		char **artist, char **album, char **title, char **tracknum, char **date)
 {
 	int i;
