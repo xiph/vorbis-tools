@@ -20,7 +20,7 @@
 #include "encode.h"
 #include "audio.h"
 
-#define VERSION_STRING "OggEnc v0.6 (libvorbis beta4)\n"
+#define VERSION_STRING "OggEnc v0.7 (libvorbis beta4)\n"
 #define COPYRIGHT "(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
