@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.9 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: buffer.c,v 1.10 2001/12/19 03:47:40 volsung Exp $
 
  ********************************************************************/
 
@@ -91,6 +91,14 @@ void buffer_thread_cleanup (void *arg)
   pthread_mutex_destroy(&buf->mutex);
   pthread_cond_destroy(&buf->playback_cond);
   pthread_cond_destroy(&buf->write_cond);
+}
+
+
+void buffer_mutex_unlock (void *arg)
+{
+  buf_t *buf = (buf_t *)arg;
+
+  UNLOCK_MUTEX(buf->mutex);
 }
 
 
@@ -270,6 +278,8 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
 
   DEBUG("Enter submit_data_chunk, size %d", size);
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   /* Put the data into the buffer as space is made available */
   while (size > 0) {
     
@@ -317,6 +327,8 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
       
     UNLOCK_MUTEX(buf->mutex);
   }
+
+  pthread_cleanup_pop(0);
 
   DEBUG("Exit submit_data_chunk");
 }
@@ -437,9 +449,13 @@ void buffer_thread_pause (buf_t *buf)
 {
   DEBUG("Pausing playback thread");
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
   buf->paused = 1;
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -447,10 +463,14 @@ void buffer_thread_unpause (buf_t *buf)
 {
   DEBUG("Unpausing playback thread");
   
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
   buf->paused = 0;
   COND_SIGNAL(buf->playback_cond);
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -487,6 +507,8 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
   orig_size = nbytes;
 
   DEBUG("Enter buffer_get_data");
+
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   LOCK_MUTEX(buf->mutex);
 
@@ -536,6 +558,8 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
   }
 
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
   
   pthread_testcancel();
 
@@ -548,21 +572,29 @@ void buffer_mark_eos (buf_t *buf)
 {
   DEBUG("buffer_mark_eos");
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
   buf->eos = 1;
   buf->prebuffering = 0;
   COND_SIGNAL(buf->playback_cond);
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 void buffer_abort_write (buf_t *buf)
 {
   DEBUG("buffer_mark_eos");
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
   buf->abort_write = 1;
   COND_SIGNAL(buf->write_cond);
   UNLOCK_MUTEX(buf->mutex);  
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -575,6 +607,8 @@ void buffer_action_now (buf_t *buf, action_func_t action_func,
   
   action = malloc_action(action_func, action_arg);
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
 
   action->position = buf->position;
@@ -584,6 +618,8 @@ void buffer_action_now (buf_t *buf, action_func_t action_func,
   buf->actions = action;
 
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -594,6 +630,8 @@ void buffer_insert_action_at_end (buf_t *buf, action_func_t action_func,
 
   action = malloc_action(action_func, action_arg);
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
 
   /* Stick after the last item in the buffer */
@@ -602,6 +640,8 @@ void buffer_insert_action_at_end (buf_t *buf, action_func_t action_func,
   in_order_add_action(&buf->actions, action, INSERT);
 
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -612,6 +652,8 @@ void buffer_append_action_at_end (buf_t *buf, action_func_t action_func,
 
   action = malloc_action(action_func, action_arg);
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
 
   /* Stick after the last item in the buffer */
@@ -620,6 +662,8 @@ void buffer_append_action_at_end (buf_t *buf, action_func_t action_func,
   in_order_add_action(&buf->actions, action, APPEND);
 
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -630,6 +674,8 @@ void buffer_insert_action_at (buf_t *buf, action_func_t action_func,
 
   action = malloc_action(action_func, action_arg);
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
   
   action->position = position;
@@ -637,6 +683,8 @@ void buffer_insert_action_at (buf_t *buf, action_func_t action_func,
   in_order_add_action(&buf->actions, action, INSERT);
 
   UNLOCK_MUTEX(buf->mutex);  
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -647,13 +695,17 @@ void buffer_append_action_at (buf_t *buf, action_func_t action_func,
 
   action = malloc_action(action_func, action_arg);
 
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
+
   LOCK_MUTEX(buf->mutex);
   
   action->position = position;
 
   in_order_add_action(&buf->actions, action, APPEND);
 
-  UNLOCK_MUTEX(buf->mutex);  
+  UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 }
 
 
@@ -664,6 +716,8 @@ void buffer_wait_for_empty (buf_t *buf)
   int empty = 0;
 
   DEBUG("Enter buffer_wait_for_empty");
+
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
   
   LOCK_MUTEX(buf->mutex);
   while (!empty) {
@@ -675,6 +729,8 @@ void buffer_wait_for_empty (buf_t *buf)
       empty = 1;
   }
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 
   DEBUG("Exit buffer_wait_for_empty");
 }
@@ -689,6 +745,8 @@ long buffer_full (buf_t *buf)
 buffer_stats_t *buffer_statistics (buf_t *buf)
 {
   buffer_stats_t *stats;
+
+  pthread_cleanup_push(buffer_mutex_unlock, buf);
   
   LOCK_MUTEX(buf->mutex);
 
@@ -701,6 +759,8 @@ buffer_stats_t *buffer_statistics (buf_t *buf)
   stats->eos = buf->eos;
 
   UNLOCK_MUTEX(buf->mutex);
+
+  pthread_cleanup_pop(0);
 
   return stats;
 }

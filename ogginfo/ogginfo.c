@@ -46,7 +46,7 @@ void calc_playtime(double playtime, long *playmin, long *playsec)
 
 void print_header_info(vorbis_comment *vc, vorbis_info *vi)
 {
-  int rc,i;
+  int i;
 
   for (i=0; i < vc->comments; i++) {
     printf("%s\n",vc->user_comments[i]);
@@ -102,7 +102,6 @@ int test_header (FILE *fp, ogg_sync_state *oy, ogg_stream_state *os,
   ogg_packet       op; /* one raw packet of data for decode */
   char *buffer;
   int bytes;
-  int eos=0;
   int i;
   
   /* grab some data at the head of the stream.  We want the first page
@@ -304,7 +303,7 @@ int dointegritycheck(char *filename)
 
     /* Output test results */
     if (header_state == 1) {
-      printf("\nserial=%d\n", serialno);
+      printf("\nserial=%ld\n", serialno);
       printf("header_integrity=pass\n");
       print_header_info(&vc, &vi);
     } else
