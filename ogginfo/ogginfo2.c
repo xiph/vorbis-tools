@@ -399,13 +399,13 @@ static void vorbis_end(stream_processor *stream)
     info(_("Vorbis stream %d:\n"
            "\tTotal data length: %I64d bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kbps\n"), 
+           "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
 #else
     info(_("Vorbis stream %d:\n"
            "\tTotal data length: %lld bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kbps\n"), 
+           "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
 #endif
 
