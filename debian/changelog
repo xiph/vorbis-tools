@@ -1,11 +1,17 @@
 vorbis-tools (1.0beta4-1) unstable; urgency=low
 
+  * New upstream.
   * Fix for multi open /dev/dsp (closes: #81146)
+
+ -- Christopher L Cheney <ccheney@debian.org>  Wed, 24 Jan 2001 23:03:21 -0600
+
+vorbis-tools (1.0beta3-2) unstable; urgency=low
+
   * Use abcde (closes: #70032)
   * Fixed (closes: #72381)
   * Corrected README.Debian (closes: #78803)
 
- -- Christopher L Cheney <ccheney@debian.org>  Wed, 24 Jan 2001 23:03:21 -0600
+ -- Christopher L Cheney <ccheney@debian.org>  Sat,  3 Feb 2001 13:38:34 -0600
 
 vorbis-tools (1.0beta3-1) unstable; urgency=low
 
