@@ -92,6 +92,8 @@ static int printinfo = 1;
 static int printwarn = 1;
 static int verbose = 1;
 
+static int flawed;
+
 static stream_set *create_stream_set(void) {
     stream_set *set = calloc(1, sizeof(stream_set));
 
@@ -118,6 +120,7 @@ static void warn(char *format, ...)
 {
     va_list ap;
 
+    flawed = 1;
     if(!printwarn)
         return;
 
@@ -129,6 +132,8 @@ static void warn(char *format, ...)
 static void error(char *format, ...) 
 {
     va_list ap;
+
+    flawed = 1;
 
     va_start(ap, format);
     vfprintf(stdout, format, ap);
@@ -730,9 +735,12 @@ int main(int argc, char **argv) {
     }
 
     for(f=optind; f < argc; f++) {
+        flawed = 0;
         process_file(argv[f]);
+        if(flawed != 0)
+            ret = flawed;
     }
 
-    return 0;
+    return ret;
 }
 
