@@ -115,13 +115,16 @@ int wav_open(FILE *in, oe_enc_opt *opt)
 
 	if( format.format == 1 &&
 		(format.channels == 2 || format.channels == 1) &&
-		format.samplerate == 44100 &&
 		format.align == format.channels*2 && /* We could deal with this one pretty easily */
 		format.samplesize == 16)
 	{
+		if(format.samplerate != 44100)
+			fprintf(stderr, "Warning: Vorbis is currently not tuned for input\n"
+							" at other than 44.1kHz. Quality may be somewhat\n"
+							" degraded.\n");
 		/* OK, good - we have the one supported format,
 		   now we want to find the size of the file */
-		opt->rate = 44100;
+		opt->rate = format.samplerate;
 		opt->channels = format.channels;
 		if(opt->channels ==2)
 			opt->read_samples = wav_read_stereo;
