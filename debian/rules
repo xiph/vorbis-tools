@@ -47,8 +47,6 @@ install: build
 	# Add here commands to install the package into debian/tmp.
 	$(MAKE) install DESTDIR=`pwd`/debian/tmp
 
-	dh_movefiles
-
 # Build architecture-independent files here.
 binary-indep: build install
 # We have nothing to do by default.
@@ -57,10 +55,12 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installmime
+	dh_movefiles
+
 	dh_installdocs
 	dh_installexamples
-	dh_installmanpages
+	dh_installmime
+	dh_installman
 	dh_undocumented
 	dh_installchangelogs 
 	dh_link
