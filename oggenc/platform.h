@@ -1,8 +1,6 @@
 #ifndef __PLATFORM_H
 #define __PLATFORM_H
 
-#include <config.h>
-
 #include <stdio.h>
 
 #ifdef HAVE_ALLOCA_H
