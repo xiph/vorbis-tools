@@ -124,7 +124,7 @@ int create_directories(char *fn)
 
     start = fn;
 #ifdef _WIN32
-    if(strlen(fn) >= 3 && isalpha(fn[0] && fn[1]==':'))
+    if(strlen(fn) >= 3 && isalpha(fn[0]) && fn[1]==':')
         start = start+2;
 #endif
 
