@@ -335,7 +335,7 @@ int wav_id(unsigned char *buf, int len)
 
 int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 {
-	unsigned char buf[18];
+	unsigned char buf[16];
 	unsigned int len;
 	int samplesize;
 	wav_fmt format;
@@ -350,7 +350,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if(!find_wav_chunk(in, "fmt ", &len))
 		return 0; /* EOF */
 
-	if(len>18 || len < 16) 
+	if(len < 16) 
 	{
 		fprintf(stderr, "Warning: Unrecognised format chunk in WAV header\n");
 		return 0; /* Weird format chunk */
@@ -365,13 +365,20 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if(len!=16)
 		fprintf(stderr, 
 				"Warning: INVALID format chunk in wav header.\n"
-				" Trying to read anyway (may not work)...\n");
+				" Trying to read anyway (may not work)...\n"
+				" The program that created this wav file is broken.\n"
+				" Don't use it, or report a bug.\n");
 
-	if(fread(buf,1,len,in) < len)
+	if(fread(buf,1,16,in) < len)
 	{
 		fprintf(stderr, "Warning: Unexpected EOF in reading WAV header\n");
 		return 0;
 	}
+
+	/* Deal with stupid broken apps. Don't use these programs.
+	 */
+	if(len - 16 > 0 && !seek_forward(in, len-16))
+	    return 0;
 
 	format.format =      READ_U16_LE(buf); 
 	format.channels =    READ_U16_LE(buf+2); 
