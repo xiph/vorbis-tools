@@ -392,11 +392,19 @@ static void vorbis_end(stream_processor *stream)
     seconds = (long)time - minutes*60;
     bitrate = inf->bytes*8 / time / 1000.0;
 
+#ifdef _WIN32
+    info(_("Vorbis stream %d:\n"
+           "\tTotal data length: %I64d bytes\n"
+           "\tPlayback length: %ldm:%02lds\n"
+           "\tAverage bitrate: %f kbps\n"), 
+            stream->num,inf->bytes, minutes, seconds, bitrate);
+#else
     info(_("Vorbis stream %d:\n"
            "\tTotal data length: %lld bytes\n"
            "\tPlayback length: %ldm:%02lds\n"
            "\tAverage bitrate: %f kbps\n"), 
             stream->num,inf->bytes, minutes, seconds, bitrate);
+#endif
 
     vorbis_comment_clear(&inf->vc);
     vorbis_info_clear(&inf->vi);
