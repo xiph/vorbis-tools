@@ -36,6 +36,7 @@ struct vorbis_release {
         {"Xiphophorus libVorbis I 20011231", "1.0 rc3"},
         {"Xiph.Org libVorbis I 20020717", "1.0"},
         {"Xiph.Org libVorbis I 20030909", "1.0.1"},
+        {"Xiph.Org libVorbis I 20040629", "1.1.0 rc1"},
         {NULL, NULL},
     };
 
@@ -567,6 +568,12 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             vorbis_start(stream);
         else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) 
             other_start(stream, "MIDI");
+        else if(packet.bytes >= 4 && memcmp(packet.packet, "fLaC", 4)==0) 
+            other_start(stream, "FLAC");
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0) 
+            other_start(stream, "speex");
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\200theora", 7)==0) 
+            other_start(stream, "Theora");
         else
             other_start(stream, NULL);
 
@@ -587,7 +594,8 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
 
    if(stream->serial == 0 || stream->serial == -1) {
        info(_("Note: Stream %d has serial number %d, which is legal but may "
-              "cause problems with some tools."), stream->num, stream->serial);
+              "cause problems with some tools.\n"), stream->num, 
+               stream->serial);
    }
 
    return stream;
