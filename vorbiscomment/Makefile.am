@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = vorbiscomment
 
-oggenc_SOURCES = vorbiscomment.c
+vorbiscomment_SOURCES = vorbiscomment.c
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
