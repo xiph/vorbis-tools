@@ -52,7 +52,7 @@ void setbinmode(FILE *f)
 }
 #endif
 
-#ifdef __WATCOMC__ || __BORLANDC__
+#if defined(__WATCOMC__) || defined(__BORLANDC__)
 void setbinmode(FILE *f)
 {
 	setmode(fileno(f), O_BINARY);
