@@ -17,6 +17,10 @@ AC_ARG_ENABLE(oggtest, [  --disable-oggtest       Do not try to compile and run 
     ogg_args="$ogg_args --prefix=$ogg_prefix"
     OGG_CFLAGS="-I$ogg_prefix/include"
     OGG_LIBS="-L$ogg_prefix/lib"
+  elif test "$prefix" != ""; then
+    ogg_args="$ogg_args --prefix=$prefix"
+    OGG_CFLAGS="-I$prefix/include"
+    OGG_LIBS="-L$prefix/lib"
   fi
 
   OGG_LIBS="$OGG_LIBS -logg"
@@ -110,6 +114,10 @@ AC_ARG_ENABLE(vorbistest, [  --disable-vorbistest       Do not try to compile an
     vorbis_args="$vorbis_args --prefix=$vorbis_prefix"
     VORBIS_CFLAGS="-I$vorbis_prefix/include"
     VORBIS_LIBDIR="-L$vorbis_prefix/lib"
+  elif test "$prefix" != ""; then
+    vorbis_args="$vorbis_args --prefix=$prefix"
+    VORBIS_CFLAGS="-I$prefix/include"
+    VORBIS_LIBDIR="-L$prefix/lib"
   fi
 
   VORBIS_LIBS="$VORBIS_LIBDIR -lvorbis -lm"
@@ -208,6 +216,10 @@ AC_ARG_ENABLE(aotest, [  --disable-aotest       Do not try to compile and run a 
     ao_args="$ao_args --prefix=$ao_prefix"
     AO_CFLAGS="-I$ao_prefix/include"
     AO_LIBS="-L$ao_prefix/lib"
+  elif test "$prefix" != ""; then
+    ao_args="$ao_args --prefix=$prefix"
+    AO_CFLAGS="-I$prefix/include"
+    AO_LIBS="-L$prefix/lib"
   fi
 
   # see where dl* and friends live
