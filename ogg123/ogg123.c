@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.55 2001/12/20 02:51:22 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.56 2001/12/24 15:58:03 volsung Exp $
 
  ********************************************************************/
 
@@ -27,6 +27,7 @@
 #include <getopt.h>
 #include <signal.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 #include "audio.h"
 #include "buffer.h"
@@ -82,20 +83,22 @@ signal_request_t sig_request = {0, 0, 0, 0};
 
 void signal_handler (int signo)
 {
+  struct timeval tv;
+  ogg_int64_t now;
   switch (signo) {
-  case SIGALRM:
-    sig_request.ticks++;
-    if (sig_request.ticks < options.delay) {
-      signal (SIGALRM, signal_handler);
-      alarm(1);
-    }
-    break;
-
   case SIGINT:
-    if (sig_request.ticks < options.delay)
+
+    gettimeofday(&tv, 0);
+
+    /* Units of milliseconds (need the cast to force 64 arithmetics) */
+    now = (ogg_int64_t) tv.tv_sec * 1000 + tv.tv_usec / 1000;
+
+    if ( (now - sig_request.last_ctrl_c) <= options.delay)
       sig_request.exit = 1;
     else
       sig_request.skipfile = 1;
+
+    sig_request.last_ctrl_c = now;
     break;
 
   case SIGTSTP:
@@ -126,7 +129,7 @@ void options_init (ogg123_options_t *opts)
 {
   opts->verbosity = 2;
   opts->shuffle = 0;
-  opts->delay = 2;
+  opts->delay = 500;
   opts->nth = 1;
   opts->ntimes = 1;
   opts->seekpos = 0.0;
@@ -324,7 +327,7 @@ int main(int argc, char **argv)
 
   /* Play the files/streams */
 
-  while (optind < argc) {
+  while (optind < argc && !sig_request.exit) {
     play(argv[optind]);
     optind++;
   }
@@ -403,13 +406,10 @@ void play (char *source_string)
   select_stats(stat_format, &options, source, decoder, audio_buffer);
 
 
-  /* Reset all of the signal flags and setup the timer */
+  /* Reset all of the signal flags */
   sig_request.skipfile = 0;
   sig_request.exit     = 0;
   sig_request.pause    = 0;
-  sig_request.ticks    = 0;
-  alarm(1); /* Count seconds */
-
 
   /* Start the audio playback thread before we begin sending data */    
   if (audio_buffer != NULL) {
@@ -533,7 +533,6 @@ void play (char *source_string)
   display_statistics_quick(stat_format, audio_buffer, source, decoder); 
    
   
-  alarm(0);  
   format->cleanup(decoder);
   transport->close(source);
   status_reset_output_lock();  /* In case we were killed mid-output */

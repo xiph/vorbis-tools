@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.h,v 1.11 2001/12/19 04:59:17 volsung Exp $
+ last mod: $Id: ogg123.h,v 1.12 2001/12/24 15:58:03 volsung Exp $
 
  ********************************************************************/
 
@@ -24,8 +24,8 @@
 typedef struct ogg123_options_t {
   long int verbosity;         /* Verbose output if > 1, quiet if 0 */
 
-  int shuffle;               /* Should we shuffle playing? */
-  int delay;                  /* delay for skip to next song */
+  int shuffle;                /* Should we shuffle playing? */
+  ogg_int64_t delay;          /* delay (in millisecs) for skip to next song */
   int nth;                    /* Play every nth chunk */
   int ntimes;                 /* Play every chunk n times */
   double seekpos;             /* Position in file to seek to */
@@ -46,7 +46,7 @@ typedef struct signal_request_t {
   int skipfile;
   int exit;
   int pause;
-  ogg_int64_t ticks;
+  ogg_int64_t last_ctrl_c;
 } signal_request_t;
 
 #endif /* __OGG123_H__ */

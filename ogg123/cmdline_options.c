@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.3 2001/12/19 04:59:16 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.4 2001/12/24 15:58:03 volsung Exp $
 
  ********************************************************************/
 
@@ -134,7 +134,7 @@ int parse_cmdline_options (int argc, char **argv,
 	  break;
 	  
 	case 'l':
-	  ogg123_opts->delay = atoi(optarg);
+	  ogg123_opts->delay = 1000 * atoi(optarg);
 	  break;
 	  
 	case 'o':
@@ -277,7 +277,7 @@ void cmdline_usage (void)
 	 "  -y n, --ntimes repeat every played block 'n' times\n"
 	 "  -z, --shuffle  shuffle play\n"
 	 "\n"
-	 "ogg123 will skip to the next song on SIGINT (Ctrl-C) after s seconds after\n"
-	 "song start.\n"
-	 "  -l, --delay=s  set s (default 1). If s=-1, disable song skip.\n");
+	 "ogg123 will skip to the next song on SIGINT (Ctrl-C); two SIGINTs within\n"
+	 "s seconds make ogg123 terinate.\n"
+	 "  -l, --delay=s  set s [milliseconds] (default 250).\n");
 }
