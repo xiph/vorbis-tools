@@ -12,8 +12,8 @@ oggenc \- encode audio into the Ogg Vorbis format
 .B -hrq
 ]
 [
-.B -m
-.I mode 
+.B -b
+.I bitrate 
 ]
 [
 .B -o
@@ -67,8 +67,8 @@ Assume input data is raw 44.1 kHz, 16 bit, little-endian audio data with no
 header information.
 .IP "-q, --quiet"
 Quiet mode.  No messages are displayed.
-.IP "-m n, --mode=n"
-Sets encoding mode to n (n should be between 1 and 6, higher numbers give higher bitrates)
+.IP "-b n, --bitrate=n"
+Sets encoding to the bitrate closest to n (in kb/s). Defaults to 160 kb/s for stereo.
 .IP "-o output_file, --output=output_file"
 Write the Ogg Vorbis stream to
 .I output_file (only valid if a single input file is specified)
@@ -121,7 +121,7 @@ oggenc somefile.wav -o out.ogg
 
 Specifying a high-quality mode (approx 256 kbps):
 .RS
-oggenc infile.wav -m 5 out.ogg
+oggenc infile.wav -b 256 out.ogg
 .RE
 .PP
 
@@ -139,7 +139,7 @@ string given as an argument to -n is used to generate filenames, as shown
 in the section above. This example gives filenames 
 like "The Tea Party - Touch.ogg":
 .RS
-oggenc -m 4 -a "The Tea Party" -l "Triptych" -t "Touch" track01.wav -t
+oggenc -b 192 -a "The Tea Party" -l "Triptych" -t "Touch" track01.wav -t
 "Underground" track02.wav -t "Great Big Lie" track03.wav -n "%a - %t.ogg"
 .RE
 .PP

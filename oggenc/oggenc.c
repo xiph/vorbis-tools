@@ -21,6 +21,7 @@
 #include "audio.h"
 
 #define VERSION_STRING "OggEnc v0.5 (libvorbis beta3)\n"
+#define COPYRIGHT "(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
 /* Define supported formats here */
@@ -66,7 +67,7 @@ int main(int argc, char **argv)
 
 	if(optind >= argc)
 	{
-		fprintf(stderr, "ERROR: No input files specified. Use -h for help.\n");
+		fprintf(stderr, VERSION_STRING COPYRIGHT "\nERROR: No input files specified. Use -h for help.\n");
 		return 1;
 	}
 	else
@@ -257,7 +258,7 @@ void usage(void)
 {
 	fprintf(stdout, 
 		VERSION_STRING
-		"(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
+		COPYRIGHT
 		"\n"
 		"Usage: oggenc [options] input.wav [...]\n"
 		"\n"
@@ -302,16 +303,12 @@ void usage(void)
 		" with -o\n"
 		"\n"
 		"MODES:\n"
-		" OggEnc support multiple different modes. Each of these is a fully VBR mode,\n"
-		" but they vary in intended (average) bitrate. The following table shows \n"
-		" approximate average bitrates (note that mode 3 is the default)\n"
-		"     Mode    |    Bitrate (stereo)\n"
-		"       1     |       N/A\n"
-		"       2     |    128 kbps\n"
-		"      *3     |    160 kbps\n"
-		"       4     |    192 kbps\n"
-		"       5     |    256 kbps\n"
-		"       6     |    350 kbps\n\n");
+		" OggEnc currently supports 5 different modes. Each of these is a fully VBR\n"
+		" (variable bitrate) mode, but they vary in intended average bitrate. The \n"
+		" bitrate option (--bitrate, -b) will choose the mode closest to the chosen\n"
+		" bitrate. The 5 modes are approximately 128,160,192,256, and 350 kbps (for\n"
+		" stereo input. Halve these numbers for mono input).\n"
+		" The default is the 160 kbps mode.\n");
 }
 
 char *generate_name_string(char *format, 
