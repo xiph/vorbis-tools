@@ -1,193 +1,193 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
-.\" 
-.\" 
-.TH "oggenc" "1" "2003 September 1" "Xiph.org Foundation" "Vorbis Tools"
-.SH "NAME"
+.\"
+.TH oggenc 1 "2003 September 1" "Xiph.org Foundation" "Vorbis Tools"
+
+.SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
 
-.SH "SYNOPSIS"
+.SH SYNOPSIS
 .B oggenc
 [
-.B \-hrQ
+.B -hrQ
 ]
 [
-.B \-B
+.B -B
 .I raw input sample size
 ]
 [
-.B \-C
+.B -C
 .I raw input number of channels
 ]
 [
-.B \-R
+.B -R
 .I raw input samplerate
 ]
 [
-.B \-b
+.B -b
 .I nominal bitrate
 ]
 [
-.B \-m
+.B -m
 .I minimum bitrate
 ]
 [
-.B \-M
+.B -M
 .I maximum bitrate
 ]
 [
-.B \-q
+.B -q
 .I quality
 ]
 [
-.B \-\-resample 
+.B --resample 
 .I frequency
 ]
 [
-.B \-\-downmix 
+.B --downmix 
 ]
 [
-.B \-s
+.B -s
 .I serial
 ]
 [
-.B \-o
+.B -o
 .I output_file
 ]
 [
-.B \-n
+.B -n
 .I pattern
 ]
 [
-.B \-c
+.B -c
 .I extra_comment
 ]
 [
-.B \-a
+.B -a
 .I artist
 ]
 [
-.B \-t
+.B -t
 .I title
 ]
 [
-.B \-l
+.B -l
 .I album
 ]
 [
-.B \-G
+.B -G
 .I genre
 ]
 .I input_files \fR...
 
-.SH "DESCRIPTION"
+.SH DESCRIPTION
 .B oggenc
 reads audio data in either raw, WAV, or AIFF format and encodes it into an
 Ogg Vorbis stream.
 .B oggenc
-may also read audio data from FLAC and Ogg FLAC files depending upon compile\-time options.  If the input file "\-" is specified, audio data is
+may also read audio data from FLAC and Ogg FLAC files depending upon compile-time options.  If the input file "-" is specified, audio data is
 read from
 .I stdin
 and the Vorbis stream is written to
 .I stdout
 unless the
-.B \-o
+.B -o
 option is used to redirect the output.  By default, disk files are
 output to Ogg Vorbis files of the same name, with the extension
 changed to ".ogg".  This naming convention can be overridden by the
-.B \-o
+.B -o
 option (in the case of one file) or the
-.B \-n
+.B -n
 option (in the case of several files). Finally, if none of these
 are available, the output filename will be the input filename with the
 extension (that part after the final dot) replaced with ogg, so file.wav
 will become file.ogg
 
-.SH "OPTIONS"
-.IP "\-h, \-\-help"
+.SH OPTIONS
+.IP "-h, --help"
 Show command help.
-.IP "\-r, \-\-raw"
-Assume input data is raw little\-endian audio data with no
+.IP "-r, --raw"
+Assume input data is raw little-endian audio data with no
 header information. If other options are not specified, defaults to 44.1kHz
 stereo 16 bit. See next three options for how to change this.
-.IP "\-B n, \-\-raw\-bits=n"
+.IP "-B n, --raw-bits=n"
 Sets raw mode input sample size in bits. Default is 16.
-.IP "\-C n, \-\-raw\-chan=n"
+.IP "-C n, --raw-chan=n"
 Sets raw mode input number of channels. Default is 2.
-.IP "\-R n, \-\-raw\-rate=n"
+.IP "-R n, --raw-rate=n"
 Sets raw mode input samplerate. Default is 44100.
-.IP "\-\-raw\-endianness n
+.IP "--raw-endianness n
 Sets raw mode endianness to big endian (1) or little endian (0). Default is
 little endian.
-.IP "\-Q, \-\-quiet"
+.IP "-Q, --quiet"
 Quiet mode.  No messages are displayed.
-.IP "\-b n, \-\-bitrate=n"
+.IP "-b n, --bitrate=n"
 Sets encoding to the bitrate closest to n (in kb/s).
-.IP "\-m n, \-\-min\-bitrate=n"
+.IP "-m n, --min-bitrate=n"
 Sets minimum bitrate to n (in kb/s).
-.IP "\-M n, \-\-max\-bitrate=n"
+.IP "-M n, --max-bitrate=n"
 Sets maximum bitrate to n (in kb/s).
-.IP "\-\-managed"
+.IP "--managed"
 Set bitrate management mode. This turns off the normal VBR encoding, but allows
 hard or soft bitrate constraints to be enforced by the encoder. This mode is
 much slower, and may also be lower quality. It is primarily useful for creating
 files for streaming.
-.IP "\-q n, \-\-quality=n"
-Sets encoding quality to n, between \-1 (low) and 10 (high). This is the default mode of operation, with a default quality level of 3. Fractional quality levels such as 2.5 are permitted. Normal quality range is 0 \- 10.
-.IP "\-\-resample n"
+.IP "-q n, --quality=n"
+Sets encoding quality to n, between -1 (low) and 10 (high). This is the default mode of operation, with a default quality level of 3. Fractional quality levels such as 2.5 are permitted. Normal quality range is 0 - 10.
+.IP "--resample n"
 Resample input to the given sample rate (in Hz) before encoding. Primarily
-useful for downsampling for lower\-bitrate encoding.
-.IP "\-\-downmix"
-Downmix input from stereo to mono (has no effect on non\-stereo streams). Useful
-for lower\-bitrate encoding.
-.IP "\-\-advanced\-encode\-option optionname=value"
+useful for downsampling for lower-bitrate encoding.
+.IP "--downmix"
+Downmix input from stereo to mono (has no effect on non-stereo streams). Useful
+for lower-bitrate encoding.
+.IP "--advanced-encode-option optionname=value"
 Sets an advanced option. See the Advanced Options section for details.
-.IP "\-s, \-\-serial"
+.IP "-s, --serial"
 Forces a specific serial number in the output stream. This is primarily useful for testing.
-.IP "\-\-discard\-comments"
+.IP "--discard-comments"
 Prevents comments in FLAC and Ogg FLAC files from being copied to the
 output Ogg Vorbis file.
-.IP "\-o output_file, \-\-output=output_file"
+.IP "-o output_file, --output=output_file"
 Write the Ogg Vorbis stream to
 .I output_file
 (only valid if a single input file is specified).
 
-.IP "\-n pattern, \-\-names=pattern"
+.IP "-n pattern, --names=pattern"
 Produce filenames as this string, with %g, %a, %l, %n, %t, %d replaced by
 genre, artist, album, track number, title, and date, respectively (see below
 for specifying these). Also, %% gives a literal %.
 
-.IP "\-c comment, \-\-comment comment"
+.IP "-c comment, --comment comment"
 Add the string
 .I comment
 as an extra comment.  This may be used multiple times, and all
 instances will be added to each of the input files specified. The argument
 should be in the form "tag=value".
 
-.IP "\-a artist, \-\-artist artist"
+.IP "-a artist, --artist artist"
 Set the artist comment field in the comments to
 .I artist.
 
-.IP "\-G genre, \-\-genre genre"
+.IP "-G genre, --genre genre"
 Set the genre comment field in the comments to
 .I genre.
 
-.IP "\-d date, \-\-date date"
+.IP "-d date, --date date"
 Sets the date comment field to the given value. This should be the date of recording.
 
-.IP "\-N n, \-\-tracknum n"
+.IP "-N n, --tracknum n"
 Sets the track number comment field to the given value.
 
-.IP "\-t title, \-\-title title"
+.IP "-t title, --title title"
 Set the track title comment field to
 .I title.
 
-.IP "\-l album, \-\-album album"
+.IP "-l album, --album album"
 Set the album comment field to
 .I album.
-.PP 
+.PP
 
-Note that the \fB\-a\fR, \fB\-t\fR, and \fB\-l\fR options can be given
+Note that the \fB-a\fR, \fB-t\fR, and \fB-l\fR options can be given
 multiple times.  They will be applied, one to each file, in the order
 given.  If there are fewer album, title, or artist comments given than
 there are input files,
@@ -195,9 +195,10 @@ there are input files,
 will reuse the final one for the remaining files, and issue a warning
 in the case of repeated titles.
 
-.SH "ADVANCED ENCODER OPTIONS"
+.SH ADVANCED ENCODER OPTIONS
+
 Oggenc allows you to set a number of advanced encoder options using the
-.B \-\-advanced\-encode\-option
+.B --advanced-encode-option
 option. These are intended for very advanced users only, and should be
 approached with caution. They may significantly degrade audio quality
 if misused. Not all these options are currently documented.
@@ -210,82 +211,85 @@ fractional (e.g. 3.5)
 Set the lowpass frequency to NN kHz. 
 
 
-.SH "EXAMPLES"
+.SH EXAMPLES
+
 Simplest version. Produces output as somefile.ogg:
 .RS
 oggenc somefile.wav
 .RE
-.PP 
+.PP
 
 Specifying an output filename:
 .RS
-oggenc somefile.wav \-o out.ogg
+oggenc somefile.wav -o out.ogg
 .RE
-.PP 
+.PP
 
-Specifying a high\-quality encoding averaging 256 kbps (but still VBR).
+Specifying a high-quality encoding averaging 256 kbps (but still VBR).
 .RS
-oggenc infile.wav \-b 256 out.ogg
+oggenc infile.wav -b 256 out.ogg
 .RE
-.PP 
+.PP
 
 Specifying a maximum and average bitrate, and enforcing these.
 .RS
-oggenc infile.wav \-\-managed \-b 128 \-M 160 out.ogg
+oggenc infile.wav --managed -b 128 -M 160 out.ogg
 .RE
-.PP 
+.PP
 
 Specifying quality rather than bitrate (to a very high quality mode)
 .RS
-oggenc infile.wav \-q 6 out.ogg
+oggenc infile.wav -q 6 out.ogg
 .RE
-.PP 
+.PP
 
 Downsampling and downmixing to 11 kHz mono before encoding.
 .RS
-oggenc \-\-resample 11025 \-\-downmix infile.wav \-q 1 out.ogg
+oggenc --resample 11025 --downmix infile.wav -q 1 out.ogg
 .RE
-.PP 
+.PP
 
 Adding some info about the track:
 .RS
-oggenc somefile.wav \-t "The track title" \-a "artist who performed this" \-l
-"name of album" \-c
+oggenc somefile.wav -t "The track title" -a "artist who performed this" -l
+"name of album" -c
 "OTHERFIELD=contents of some other field not explictly supported"
 .RE
-.PP 
+.PP
 
 This encodes the three files, each with the
 same artist/album tag, but with different title tags on each one. The
-string given as an argument to \-n is used to generate filenames, as shown
+string given as an argument to -n is used to generate filenames, as shown
 in the section above. This example gives filenames
-like "The Tea Party \- Touch.ogg":
+like "The Tea Party - Touch.ogg":
 .RS
-oggenc \-b 192 \-a "The Tea Party" \-l "Triptych" \-t "Touch" track01.wav \-t
-"Underground" track02.wav \-t "Great Big Lie" track03.wav \-n "%a \- %t.ogg"
+oggenc -b 192 -a "The Tea Party" -l "Triptych" -t "Touch" track01.wav -t
+"Underground" track02.wav -t "Great Big Lie" track03.wav -n "%a - %t.ogg"
 .RE
-.PP 
+.PP
 
 Encoding from stdin, to stdout (you can also use the various tagging
-options, like \-t, \-a, \-l, etc.):
+options, like -t, -a, -l, etc.):
 .RS
-oggenc \-
+oggenc -
 .RE
-.PP 
+.PP
 
-.SH "AUTHORS"
-.TP 
+.SH AUTHORS
+
+.TP
 Program Author:
-.br 
+.br
 Michael Smith <msmith@xiph.org>
 
-.TP 
+.TP
 Manpage Author:
-.br 
+.br
 Stan Seibert <indigo@aztec.asu.edu>
 
-.SH "BUGS"
+.SH BUGS
 Reading type 3 wav files (floating point samples) probably doesn't work other than on intel (or other 32 bit, little endian machines). 
 
-.SH "SEE ALSO"
+.SH SEE ALSO
+
 .BR ogg123 (1)

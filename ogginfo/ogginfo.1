@@ -1,25 +1,25 @@
 .\" Process this file with
 .\" groff -man -Tascii ogginfo.1
-.\" 
-.\" 
-.TH "ogginfo" "1" "July 10, 2002" "" "Vorbis Tools"
-.SH "NAME"
+.\"
+.TH ogginfo 1 "July 10, 2002" "" "Vorbis Tools"
+
+.SH NAME
 ogginfo \- gives information about Ogg files, and does extensive validity checking
 
-.SH "SYNOPSIS"
+.SH SYNOPSIS
 .B ogginfo
 [
-.B \-q
+.B -q
 ] [
-.B \-v
+.B -v
 ] [
-.B \-h
+.B -h
 ]
 .I file1.ogg
 .B ...
 .I fileN.ogg
 
-.SH "DESCRIPTION"
+.SH DESCRIPTION
 .B ogginfo
 reads one or more Ogg files and prints information about stream contents 
 (including chained and/or multiplexed streams) to standard output. It will 
@@ -37,15 +37,15 @@ streams, information including the version used for encoding, the sample rate
 and number of channels, the bitrate and playback length, and the contents of
 the comment header are printed.
 
-.SH "OPTIONS"
-.IP \-h
+.SH OPTIONS
+.IP -h
 Show a help and usage message.
-.IP \-q
+.IP -q
 Quiet mode. This may be specified multiple times. Doing so once will remove
 the detailed informative messages, twice will remove warnings as well.
-.IP \-v
+.IP -v
 Verbose mode. At the current time, this does not do anything.
 
-.br 
+.br
 Michael Smith <msmith@xiph.org>
 
