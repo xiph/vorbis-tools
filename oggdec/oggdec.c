@@ -32,7 +32,7 @@ struct option long_options[] = {
     {NULL,0,0,0}
 };
 
-#define VERSIONSTRING "OggDec 1.0\n"
+#define VERSIONSTRING "OggDec 1.0.1\n"
 
 static int quiet = 0;
 static int bits = 16;

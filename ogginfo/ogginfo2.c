@@ -719,8 +719,8 @@ static void process_file(char *filename) {
 }
 
 static void usage(void) {
-    printf(_("ogginfo 1.0\n"
-             "(c) 2002 Michael Smith <msmith@xiph.org>\n"
+    printf(_("ogginfo 1.0.1\n"
+             "(c) 2003 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
              "Flags supported:\n"
