@@ -7,7 +7,7 @@
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.7 2002/11/12 12:45:21 msmith Exp $
+ * last modified: $Id: vcut.c,v 1.8 2003/09/02 00:19:27 volsung Exp $
  */
 
 #include <stdio.h>
@@ -27,8 +27,8 @@
 #define FORMAT_INT64	  "%I64d"
 #define FORMAT_INT64_TIME "+%I64d"
 #else
-#define FORMAT_INT64	  "%Ld"
-#define FORMAT_INT64_TIME "+%Ld"
+#define FORMAT_INT64	  "%lld"
+#define FORMAT_INT64_TIME "+%lld"
 #endif
 
 static vcut_packet *save_packet(ogg_packet *packet)
@@ -655,7 +655,7 @@ void vcut_set_files(vcut_state *s, FILE *in, FILE *out1, FILE *out2)
 void vcut_set_cutpoint(vcut_state *s, ogg_int64_t cutpoint, int time)
 {
 	s->cutpoint = cutpoint;
-	s->time = 1;
+	s->time = time;
 }
 
 void vcut_time_to_samples(ogg_int64_t *time, ogg_int64_t *samples, FILE *in)

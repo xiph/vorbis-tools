@@ -11,12 +11,13 @@ vcut \- cuts Ogg Vorbis files
 .I infile.ogg
 .I outfile1.ogg
 .I outfile2.ogg
-.I cutpoint
+.I [ cutpoint | +cutpoint]
 
 .SH DESCRIPTION
 .B vcut
 reads an Ogg Vorbis audio file and splits it at the given cutpoint, which is a
-sample number.
+sample number.  If the cutpoint is prefixed with '+', the cutpoint is an
+integer number of seconds.
 
 .SH AUTHORS
 
