@@ -21,16 +21,16 @@
 
 /* Macros to read header data */
 #define READ_U32_LE(buf) \
-	(((buf)[3]<<24)|((buf)[2]<<16)|((buf)[1]<<8)|((buf)[0]&0xff));
+	(((buf)[3]<<24)|((buf)[2]<<16)|((buf)[1]<<8)|((buf)[0]&0xff))
 
 #define READ_U16_LE(buf) \
-	(((buf)[1]<<8)|((buf)[0]&0xff));
+	(((buf)[1]<<8)|((buf)[0]&0xff))
 
 #define READ_U32_BE(buf) \
-	(((buf)[0]<<24)|((buf)[1]<<16)|((buf)[2]<<8)|((buf)[3]&0xff));
+	(((buf)[0]<<24)|((buf)[1]<<16)|((buf)[2]<<8)|((buf)[3]&0xff))
 
 #define READ_U16_BE(buf) \
-	(((buf)[0]<<8)|((buf)[1]&0xff));
+	(((buf)[0]<<8)|((buf)[1]&0xff))
 
 /* Define the supported formats here */
 input_format formats[] = {
@@ -334,7 +334,7 @@ int wav_id(unsigned char *buf, int len)
 
 int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 {
-	unsigned char buf[16];
+	unsigned char buf[18];
 	unsigned int len;
 	int samplesize;
 	wav_fmt format;
@@ -349,13 +349,24 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if(!find_wav_chunk(in, "fmt ", &len))
 		return 0; /* EOF */
 
-	if(len!=16) 
+	if(len>18 || len < 16) 
 	{
 		fprintf(stderr, "Warning: Unrecognised format chunk in WAV header\n");
 		return 0; /* Weird format chunk */
 	}
 
-	if(fread(buf,1,16,in) < 16)
+	/* A common error is to have an 18-byte format chunk with the last two
+	 * bytes 0. This is incorrect, but sufficiently common that we only warn
+	 * about it instead of refusing it. 
+	 * Please, if you have a program that's creating these 18 byte chunks, send
+	 * a bug report to whoever makes it 
+	 */
+	if(len!=16)
+		fprintf(stderr, 
+				"Warning: INVALID format chunk in wav header.\n"
+				" Trying to read anyway (may not work)...\n");
+
+	if(fread(buf,1,len,in) < len)
 	{
 		fprintf(stderr, "Warning: Unexpected EOF in reading WAV header\n");
 		return 0;
