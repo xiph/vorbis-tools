@@ -259,7 +259,7 @@ msgstr ""
 "konfigurationsfilen. Avslutar.\n"
 
 #: ogg123/cmdline_options.c:246
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiphophorus Team (http://www.xiph.org/)\n"
@@ -354,7 +354,7 @@ msgid "shuffle playlist"
 msgstr "blanda spellistan"
 
 #: ogg123/ogg123.c:255
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "Device:   %s"
@@ -368,7 +368,7 @@ msgid "Author:   %s"
 msgstr "Författare:   %s"
 
 #: ogg123/ogg123.c:257
-#, c-format
+#, fuzzy, c-format
 msgid "Comments: %s\n"
 msgstr "Kommentarer: %s\n"
 
@@ -416,7 +416,7 @@ msgid "Done."
 msgstr "Klar."
 
 #: ogg123/oggvorbis_format.c:50 ogg123/oggvorbis_format.c:54
-#, c-format
+#, fuzzy, c-format
 msgid "Track number: %s"
 msgstr "Spår: %s"
 
@@ -431,19 +431,19 @@ msgid "ReplayGain (Album): %s"
 msgstr ""
 
 #: ogg123/oggvorbis_format.c:53
-#, c-format
+#, fuzzy, c-format
 msgid "ReplayGain Peak: %s"
-msgstr ""
+msgstr "Spelar: %s"
 
 #: ogg123/oggvorbis_format.c:55
-#, c-format
+#, fuzzy, c-format
 msgid "Copyright %s"
 msgstr "Copyright %s"
 
 #: ogg123/oggvorbis_format.c:56
-#, c-format
+#, fuzzy, c-format
 msgid "Comment: %s"
-msgstr "Kommentar: %s"
+msgstr "Kommentarer: %s\n"
 
 #: ogg123/oggvorbis_format.c:165
 msgid "--- Hole in the stream; probably harmless\n"
@@ -709,7 +709,7 @@ msgstr ""
 "\n"
 
 #: oggenc/encode.c:290
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Encoding %s%s%s to \n"
 "         %s%s%s at quality %2.2f\n"
@@ -726,15 +726,14 @@ msgid "standard output"
 msgstr "standard ut"
 
 #: oggenc/encode.c:295
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Encoding %s%s%s to \n"
 "         %s%s%s at bitrate %d kbps,\n"
 "using full bitrate management engine\n"
 msgstr ""
-"Kodar %s%s%s till\n"
-"         %s%s%s med bithastighet %d kbps,\n"
-"med komplett bithastighethanteringsmotor\n"
+"Kodar %s%s%s till \n"
+"         %s%s%s med kvalitet %2.2f\n"
 
 #: oggenc/oggenc.c:91
 #, c-format
@@ -1098,7 +1097,7 @@ msgid "filename=%s\n"
 msgstr "filenamn=%s\n"
 
 #: ogginfo/ogginfo.c:68
-#, c-format
+#, fuzzy, c-format
 msgid "vendor=%s\n"
 msgstr "säljare=%s\n"
 
@@ -1114,12 +1113,14 @@ msgstr ""
 "hastighet=%ld\n"
 
 #: ogginfo/ogginfo.c:75
+#, fuzzy
 msgid "bitrate_upper="
-msgstr ""
+msgstr "undre bithastighet="
 
 #: ogginfo/ogginfo.c:77 ogginfo/ogginfo.c:83 ogginfo/ogginfo.c:89
+#, fuzzy
 msgid "none\n"
-msgstr ""
+msgstr "Klar."
 
 #: ogginfo/ogginfo.c:81
 msgid "bitrate_nominal="
@@ -1186,16 +1187,16 @@ msgid "stream_truncated=true\n"
 msgstr ""
 
 #: ogginfo/ogginfo.c:344
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "total_length=%f\n"
-msgstr ""
+msgstr "längd=%f\n"
 
 #: ogginfo/ogginfo.c:345
-#, c-format
+#, fuzzy, c-format
 msgid "total_playtime=%ld:%02ld\n"
-msgstr ""
+msgstr "speltid=%ld:%02ld\n"
 
 #: share/getopt.c:673
 #, c-format
@@ -1525,6 +1526,104 @@ msgstr "Misslyckades att öppna utfil \"%s\".\n"
 msgid "Error renaming %s to %s\n"
 msgstr "Misslyckades att öppna infil \"%s\".\n"
 
+#, fuzzy
+#~ msgid "Internal error parsing command line options.\n"
+#~ msgstr "Internt fel vid tolkning av kommandoflaggor\n"
+
+#, fuzzy
+#~ msgid "--- Cannot open playlist file %s.  Skipped.\n"
+#~ msgstr "FEL: Kan inte öppna infil \"%s\": %s\n"
+
+#, fuzzy
+#~ msgid "Warning: Could not read directory %s.\n"
+#~ msgstr "Kunde inte skapa katalog \"%s\": %s\n"
+
+#, fuzzy
+#~ msgid "Comment:"
+#~ msgstr "Kommentar: %s"
+
+#, fuzzy
+#~ msgid "Error: Out of memory in create_playlist_member().\n"
+#~ msgstr "Fel: Slut på minne i new_status_message_arg().\n"
+
+#, fuzzy
+#~ msgid "Error: Out of memory in playlist_to_array().\n"
+#~ msgstr "Fel: Slut på minne i malloc_action().\n"
+
+#, fuzzy
+#~ msgid "Unrecognised advanced option \"%s\"\n"
+#~ msgstr "%s: okänd flagga \"--%s\"\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Encoding %s%s%s to \n"
+#~ "         %s%s%s \n"
+#~ "at quality level %2.2f using constrained VBR "
+#~ msgstr ""
+#~ "Kodar %s%s%s till \n"
+#~ "         %s%s%s med kvalitet %2.2f\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Encoding %s%s%s to \n"
+#~ "         %s%s%s \n"
+#~ "at approximate bitrate %d kbps (VBR encoding enabled)\n"
+#~ msgstr ""
+#~ "Kodar %s%s%s till\n"
+#~ "         %s%s%s med bithastighet %d kbps,\n"
+#~ "med komplett bithastighethanteringsmotor\n"
+
+#, fuzzy
+#~ msgid "Version: %d\n"
+#~ msgstr "Version: %s"
+
+#, fuzzy
+#~ msgid ""
+#~ "Rate: %ld\n"
+#~ "\n"
+#~ msgstr "Datum: %s"
+
+#, fuzzy
+#~ msgid "Nominal bitrate: %f kb/s\n"
+#~ msgstr ""
+#~ "\tGenomsnittlig bithastighet: %.1f kb/s\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid "Upper bitrate: %f kb/s\n"
+#~ msgstr ""
+#~ "\tGenomsnittlig bithastighet: %.1f kb/s\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid "Lower bitrate: %f kb/s\n"
+#~ msgstr ""
+#~ "\tGenomsnittlig bithastighet: %.1f kb/s\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid "Error opening input file \"%s\": %s\n"
+#~ msgstr "Misslyckades att öppna infil \"%s\".\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Processing file \"%s\"...\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Kodning av \"%s\" klar\n"
+
+#, fuzzy
+#~ msgid "Could not find a processor for stream, bailing\n"
+#~ msgstr "Kunde inte öppna %s för att läsa\n"
+
+#, fuzzy
+#~ msgid "No input files specified. \"ogginfo -h\" for help\n"
+#~ msgstr ""
+#~ "%s%s\n"
+#~ "FEL: Ingen infil angiven. Använd -h för hjälp.\n"
+
 #~ msgid "Artist: %s"
 #~ msgstr "Artist: %s"
 
@@ -1534,9 +1633,6 @@ msgstr "Misslyckades att öppna infil \"%s\".\n"
 #~ msgid "Title: %s"
 #~ msgstr "Titel: %s"
 
-#~ msgid "Version: %s"
-#~ msgstr "Version: %s"
-
 #~ msgid "Organization: %s"
 #~ msgstr "Organisation: %s"
 
@@ -1545,9 +1641,6 @@ msgstr "Misslyckades att öppna infil \"%s\".\n"
 
 #~ msgid "Description: %s"
 #~ msgstr "Beskrivning: %s"
-
-#~ msgid "Date: %s"
-#~ msgstr "Datum: %s"
 
 #~ msgid "Location: %s"
 #~ msgstr "Plats: %s"

@@ -256,7 +256,7 @@ msgid ""
 msgstr ""
 
 #: ogg123/cmdline_options.c:246
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiphophorus Team (http://www.xiph.org/)\n"
@@ -1055,7 +1055,7 @@ msgid "filename=%s\n"
 msgstr "bestandnaam=%s\n"
 
 #: ogginfo/ogginfo.c:68
-#, c-format
+#, fuzzy, c-format
 msgid "vendor=%s\n"
 msgstr "fabrikant=%s\n"
 
@@ -1143,16 +1143,16 @@ msgid "stream_truncated=true\n"
 msgstr ""
 
 #: ogginfo/ogginfo.c:344
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "total_length=%f\n"
-msgstr ""
+msgstr "lengte=%f\n"
 
 #: ogginfo/ogginfo.c:345
-#, c-format
+#, fuzzy, c-format
 msgid "total_playtime=%ld:%02ld\n"
-msgstr ""
+msgstr "speeltijd=%ld:%02ld\n"
 
 #: share/getopt.c:673
 #, c-format

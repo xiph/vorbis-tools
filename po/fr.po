@@ -280,7 +280,7 @@ msgstr ""
 
 # FIXME: c'est quoi ce « live »
 #: ogg123/cmdline_options.c:246
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiphophorus Team (http://www.xiph.org/)\n"
@@ -359,7 +359,7 @@ msgid "shuffle playlist"
 msgstr "mélange la liste des morceaux"
 
 #: ogg123/ogg123.c:255
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "Device:   %s"
@@ -373,7 +373,7 @@ msgid "Author:   %s"
 msgstr "Auteur :    %s"
 
 #: ogg123/ogg123.c:257
-#, c-format
+#, fuzzy, c-format
 msgid "Comments: %s\n"
 msgstr "Commentaires : %s\n"
 
@@ -423,7 +423,7 @@ msgid "Done."
 msgstr "Terminé."
 
 #: ogg123/oggvorbis_format.c:50 ogg123/oggvorbis_format.c:54
-#, c-format
+#, fuzzy, c-format
 msgid "Track number: %s"
 msgstr "Numéro de chanson : %s"
 
@@ -438,19 +438,19 @@ msgid "ReplayGain (Album): %s"
 msgstr ""
 
 #: ogg123/oggvorbis_format.c:53
-#, c-format
+#, fuzzy, c-format
 msgid "ReplayGain Peak: %s"
-msgstr ""
+msgstr "Écoute de : %s"
 
 #: ogg123/oggvorbis_format.c:55
-#, c-format
+#, fuzzy, c-format
 msgid "Copyright %s"
 msgstr "Copyright %s"
 
 #: ogg123/oggvorbis_format.c:56
-#, c-format
+#, fuzzy, c-format
 msgid "Comment: %s"
-msgstr "Commentaire : %s"
+msgstr "Commentaires : %s\n"
 
 #: ogg123/oggvorbis_format.c:165
 msgid "--- Hole in the stream; probably harmless\n"
@@ -721,7 +721,7 @@ msgid ""
 msgstr ""
 
 #: oggenc/encode.c:290
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Encoding %s%s%s to \n"
 "         %s%s%s at quality %2.2f\n"
@@ -738,12 +738,14 @@ msgid "standard output"
 msgstr "sortie standard"
 
 #: oggenc/encode.c:295
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Encoding %s%s%s to \n"
 "         %s%s%s at bitrate %d kbps,\n"
 "using full bitrate management engine\n"
 msgstr ""
+"Encodage %s%s%s de \n"
+"         %s%s%s à la qualité %2.2f\n"
 
 #: oggenc/oggenc.c:91
 #, c-format
@@ -1065,7 +1067,7 @@ msgid "filename=%s\n"
 msgstr "fichier=%s\n"
 
 #: ogginfo/ogginfo.c:68
-#, c-format
+#, fuzzy, c-format
 msgid "vendor=%s\n"
 msgstr "vendeur=%s\n"
 
@@ -1483,6 +1485,84 @@ msgstr "Erreur lors de l'ouverture du fichier de sortie « %s ».\n"
 msgid "Error renaming %s to %s\n"
 msgstr "Erreur lors de la lecture des entêtes\n"
 
+#, fuzzy
+#~ msgid "Internal error parsing command line options.\n"
+#~ msgstr ""
+#~ "Erreur interne lors de l'analyse des options sur la ligne de commande\n"
+
+#, fuzzy
+#~ msgid "--- Cannot open playlist file %s.  Skipped.\n"
+#~ msgstr "Erreur : impossible d'ouvrir le fichier d'entrée « %s » : %s\n"
+
+#, fuzzy
+#~ msgid "Warning: Could not read directory %s.\n"
+#~ msgstr "Impossible de créer le répertoire « %s » : %s\n"
+
+#, fuzzy
+#~ msgid "Comment:"
+#~ msgstr "Commentaire : %s"
+
+#, fuzzy
+#~ msgid "Error: Out of memory in create_playlist_member().\n"
+#~ msgstr "Erreur : Plus de mémoire dans new_status_message_arg().\n"
+
+#, fuzzy
+#~ msgid "Error: Out of memory in playlist_to_array().\n"
+#~ msgstr "Erreur : Plus de mémoire dans malloc_action().\n"
+
+#, fuzzy
+#~ msgid "Unrecognised advanced option \"%s\"\n"
+#~ msgstr "%s : option « --%s » non reconnue\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Encoding %s%s%s to \n"
+#~ "         %s%s%s \n"
+#~ "at quality level %2.2f using constrained VBR "
+#~ msgstr ""
+#~ "Encodage %s%s%s de \n"
+#~ "         %s%s%s à la qualité %2.2f\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Encoding %s%s%s to \n"
+#~ "         %s%s%s \n"
+#~ "at approximate bitrate %d kbps (VBR encoding enabled)\n"
+#~ msgstr ""
+#~ "Encodage %s%s%s de \n"
+#~ "         %s%s%s à la qualité %2.2f\n"
+
+#, fuzzy
+#~ msgid "Version: %d\n"
+#~ msgstr "Version : %s"
+
+#, fuzzy
+#~ msgid ""
+#~ "Rate: %ld\n"
+#~ "\n"
+#~ msgstr "Date : %s"
+
+#, fuzzy
+#~ msgid "Error opening input file \"%s\": %s\n"
+#~ msgstr "Erreur lors de l'ouverture du fichier d'entrée « %s ».\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Processing file \"%s\"...\n"
+#~ "\n"
+#~ msgstr "Échec du traitement\n"
+
+#, fuzzy
+#~ msgid "Could not find a processor for stream, bailing\n"
+#~ msgstr "Impossible d'ouvrir %s pour le lire\n"
+
+#, fuzzy
+#~ msgid "No input files specified. \"ogginfo -h\" for help\n"
+#~ msgstr ""
+#~ "%s%s\n"
+#~ "Erreur : aucun fichier d'entrée n'a été spécifié. Voir -h pour de "
+#~ "l'aide.\n"
+
 #~ msgid "Artist: %s"
 #~ msgstr "Artiste : %s"
 
@@ -1492,9 +1572,6 @@ msgstr "Erreur lors de la lecture des entêtes\n"
 #~ msgid "Title: %s"
 #~ msgstr "Titre : %s"
 
-#~ msgid "Version: %s"
-#~ msgstr "Version : %s"
-
 #~ msgid "Organization: %s"
 #~ msgstr "Organisation : %s"
 
@@ -1503,9 +1580,6 @@ msgstr "Erreur lors de la lecture des entêtes\n"
 
 #~ msgid "Description: %s"
 #~ msgstr "Description : %s"
-
-#~ msgid "Date: %s"
-#~ msgstr "Date : %s"
 
 #~ msgid "Location: %s"
 #~ msgstr "Position : %s"
