@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.6 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.7 2002/04/10 02:40:42 volsung Exp $
 
  ********************************************************************/
 
@@ -42,21 +42,16 @@ format_t oggvorbis_format;
 ov_callbacks vorbisfile_callbacks;
 
 
-/* Known vorbis comment keys */
+/* Vorbis comment keys that need special formatting. */
 struct {
   char *key;         /* includes the '=' for programming convenience */
   char *formatstr;   /* formatted output */
 } vorbis_comment_keys[] = {
-  {"ARTIST=", N_("Artist: %s")},
-  {"ALBUM=", N_("Album: %s")},
-  {"TITLE=", N_("Title: %s")},
-  {"VERSION=", N_("Version: %s")},
   {"TRACKNUMBER=", N_("Track number: %s")},
-  {"ORGANIZATION=", N_("Organization: %s")},
-  {"GENRE=", N_("Genre: %s")},
-  {"DESCRIPTION=", N_("Description: %s")},
-  {"DATE=", N_("Date: %s")},
-  {"LOCATION=", N_("Location: %s")},
+  {"RG_RADIO=", N_("ReplayGain (Track): %s")},
+  {"RG_AUDIOPHILE=", N_("ReplayGain (Album): %s")},
+  {"RG_PEAK=", N_("ReplayGain Peak: %s")},
+  {"TRACKNUMBER=", N_("Track number: %s")},  
   {"COPYRIGHT=", N_("Copyright %s")},
   {NULL, N_("Comment: %s")}
 };
@@ -309,22 +304,55 @@ ov_callbacks vorbisfile_callbacks = {
 
 char *lookup_comment_formatstr (char *comment, int *offset)
 {
-  int i;
+  int i, j;
+  char *s;
 
+  /* Search for special-case formatting */
   for (i = 0; vorbis_comment_keys[i].key != NULL; i++) {
 
     if ( !strncasecmp (vorbis_comment_keys[i].key, comment,
 		       strlen(vorbis_comment_keys[i].key)) ) {
 
       *offset = strlen(vorbis_comment_keys[i].key);
-      return vorbis_comment_keys[i].formatstr;
+      s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
+      if (s == NULL) {
+	fprintf(stderr, _("Error: Out of memory.\n"));
+	exit(1);
+      };
+      strcpy(s, vorbis_comment_keys[i].formatstr);
+      return s;
     }
 
   }
 
-  /* Unrecognized comment, use last format string */
+  /* Use default formatting */
   *offset = 0;
-  return vorbis_comment_keys[i].formatstr;
+  if (i = strcspn(comment, "=")) {
+    s = malloc(strlen(comment) + 2);
+    if (s == NULL) {
+      fprintf(stderr, _("Error: Out of memory.\n"));
+      exit(1);
+    };
+    strncpy(s, comment, i);
+    strncpy(s + i, ": ", 2);
+    strcpy(s+i+2, comment+i+1);
+
+    /* Capitalize */
+    s[0] = toupper(s[0]);
+    for (j = 1; j < i; j++) {
+      s[j] = tolower(s[j]);
+    };
+    return s;
+  }
+
+  /* Unrecognized comment, use last format string */
+  s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
+  if (s == NULL) {
+    fprintf(stderr, _("Error: Out of memory.\n"));
+    exit(1);
+  };
+  strcpy(s, vorbis_comment_keys[i].formatstr);
+  return s;
 }
 
 
@@ -353,6 +381,7 @@ void print_stream_comments (decoder_t *decoder)
     } else
       cb->printf_metadata(decoder->callback_arg, 1,
 			       comment_formatstr, comment + offset);
+    free(comment_formatstr);
   }
 }
 
