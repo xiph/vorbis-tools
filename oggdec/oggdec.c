@@ -201,6 +201,13 @@ static int decode_file(char *infile, char *outfile)
         }
     }
 
+
+    if(ov_open(in, &vf, NULL, 0) < 0) {
+        fprintf(stderr, "ERROR: Failed to open input as vorbis\n");
+        fclose(in);
+        return 1;
+    }
+
     if(!outfile) {
 #ifdef __BORLANDC__
         setmode(fileno(stdout), O_BINARY);
@@ -215,13 +222,6 @@ static int decode_file(char *infile, char *outfile)
             fprintf(stderr, "ERROR: Failed to open output file: %s\n", strerror(errno));
             return 1;
         }
-    }
-
-    if(ov_open(in, &vf, NULL, 0) < 0) {
-        fprintf(stderr, "ERROR: Failed to open input as vorbis\n");
-        fclose(in);
-        fclose(out);
-        return 1;
     }
 
     if(ov_seekable(&vf)) {
