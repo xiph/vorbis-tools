@@ -128,7 +128,7 @@ AC_ARG_ENABLE(vorbistest, [  --disable-vorbistest       Do not try to compile an
 
   VORBISFILE_LIBS="$VORBIS_LIBS -lvorbisfile"
   VORBISENC_LIBS="$VORBIS_LIBS -lvorbisenc"
-  VORBIS_LIBS="$VORBIS_LIBS -lvorbis -lm"
+  VORBIS_LIBS="$VORBIS_LIBS -lvorbis"
 
   if test "x$vorbis_includes" != "x" ; then
     VORBIS_CFLAGS="-I$vorbis_includes"
@@ -138,6 +138,12 @@ AC_ARG_ENABLE(vorbistest, [  --disable-vorbistest       Do not try to compile an
     VORBIS_CFLAGS="-I$prefix/include"
   fi
 
+  xiph_saved_LIBS="$LIBS"
+  LIBS=""
+  AC_SEARCH_LIBS(cos, m, [VORBIS_LIBS="$VORBIS_LIBS $LIBS"], [
+    AC_MSG_WARN([cos() not found in math library, vorbis installation may not work])
+  ])
+  LIBS="$xiph_saved_LIBS"
 
   AC_MSG_CHECKING(for Vorbis)
   no_vorbis=""
