@@ -445,8 +445,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 			}
 			else
 			{
-				opt->total_samples_per_channel = (ftell(in) - pos)/(format.channels*2);
-				wav->totalsamples = len/(format.channels*2);
+				opt->total_samples_per_channel = (ftell(in) - pos)/(format.channels*samplesize);
+				wav->totalsamples = len/(format.channels*samplesize);
 				fseek(in,pos, SEEK_SET);
 			}
 		}
