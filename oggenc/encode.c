@@ -238,8 +238,6 @@ int oe_encode(oe_enc_opt *opt)
 				ret = 1;
 				goto cleanup; /* Bail and try to clean up stuff */
 			}
-			else
-				bytes_written += ret;
 		}
 	}
 
