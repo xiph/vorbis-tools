@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
 .\"
-.TH oggenc 1 "2003 December 30" "Xiph.org Foundation" "Vorbis Tools"
+.TH oggenc 1 "2005 March 3" "Xiph.org Foundation" "Vorbis Tools"
 
 .SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
@@ -106,6 +106,8 @@ will become file.ogg
 .SH OPTIONS
 .IP "-h, --help"
 Show command help.
+.IP "-v, --version"
+Show the version number.
 .IP "-r, --raw"
 Assume input data is raw little-endian audio data with no
 header information. If other options are not specified, defaults to 44.1kHz
@@ -122,11 +124,11 @@ little endian.
 .IP "-Q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
-Sets encoding to the bitrate closest to n (in kb/s).
+Sets target bitrate to n (in kb/s). The encoder will attempt to encode at approximately this bitrate. By default, this remains a VBR encoding. See the --managed option to force a managed bitrate encoding at the selected bitrate.
 .IP "-m n, --min-bitrate=n"
-Sets minimum bitrate to n (in kb/s).
+Sets minimum bitrate to n (in kb/s). Enables bitrate management mode (see --managed).
 .IP "-M n, --max-bitrate=n"
-Sets maximum bitrate to n (in kb/s).
+Sets maximum bitrate to n (in kb/s). Enables bitrate management mode (see --managed).
 .IP "--managed"
 Set bitrate management mode. This turns off the normal VBR encoding, but allows
 hard or soft bitrate constraints to be enforced by the encoder. This mode is
@@ -156,6 +158,10 @@ Write the Ogg Vorbis stream to
 Produce filenames as this string, with %g, %a, %l, %n, %t, %d replaced by
 genre, artist, album, track number, title, and date, respectively (see below
 for specifying these). Also, %% gives a literal %.
+.IP "-X, --name-remove=s"
+Remove the specified characters from parameters to the -n format string. This is useful to ensure legal filenames are generated.
+.IP "-P, --name-replace=s"
+Replace characters removed by --name-remove with the characters specified. If this string is shorter than the --name-remove list, or is not specified, the extra characters are just removed. The default settings for this option, and the -X option above, are platform specific (and chosen to ensure legal filenames are generated for each platform).
 
 .IP "-c comment, --comment comment"
 Add the string
