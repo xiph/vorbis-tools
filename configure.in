@@ -1,0 +1,78 @@
+dnl Process this file with autoconf to produce a configure script
+
+dnl ------------------------------------------------
+dnl Initialization
+dnl ------------------------------------------------
+
+AC_INIT(oggenc/encode.c)
+AM_INIT_AUTOMAKE(vorbis-tools,1.0.0)
+
+dnl --------------------------------------------------  
+dnl Check for programs
+dnl --------------------------------------------------  
+
+dnl save $CFLAGS since AC_PROG_CC likes to insert "-g -O2"
+dnl if $CFLAGS is blank
+cflags_save="$CFLAGS"
+AC_PROG_CC
+CFLAGS="$cflags_save"
+
+AM_PROG_LIBTOOL
+
+dnl --------------------------------------------------  
+dnl Additional arguments
+dnl --------------------------------------------------  
+
+AC_ARG_WITH(ogg, [  --with-ogg=DIR          Set where the Ogg library is located]) 
+AC_ARG_WITH(vorbis, [  --with-vorbis=DIR          Set where the Vorbis library is located]) 
+
+dnl --------------------------------------------------
+dnl Set build flags based on environment
+dnl --------------------------------------------------
+
+AC_CANONICAL_HOST
+
+dnl --------------------------------------------------
+dnl Check for headers
+dnl --------------------------------------------------
+
+dnl none
+
+dnl --------------------------------------------------
+dnl Check for typedefs, structures, etc
+dnl --------------------------------------------------
+
+dnl none
+
+dnl --------------------------------------------------
+dnl Check for libraries
+dnl --------------------------------------------------
+
+dnl Check for libogg
+if test -n $with_ogg; then
+	CFLAGS="$CFLAGS -I$with_ogg/include -L$with_ogg/lib"
+fi 
+AC_CHECK_LIB(ogg, oggpack_read, LIBS="$LIBS -logg", AC_MSG_ERROR([You must have libogg to compile vorbis!!!]))
+
+dnl Check for libvorbis
+if test -n $with_vorbis; then
+	CFLAGS="$CFLAGS -I$with_vorbis/include -L$with_vorbis/lib"
+fi
+AC_CHECK_LIB(vorbis, vorbis_info_init, LIBS="$LIBS -lvorbis", AC_MSG_ERROR([You must have libvorbis to compile vorbis-tools!!!]))
+
+dnl --------------------------------------------------
+dnl Check for library functions
+dnl --------------------------------------------------
+
+dnl none
+
+dnl --------------------------------------------------
+dnl Do substitutions
+dnl --------------------------------------------------
+
+AC_SUBST(LIBS)
+AC_SUBST(DEBUG)
+AC_SUBST(PROFILE)
+AC_SUBST(CC)
+
+AC_OUTPUT(Makefile oggenc/Makefile)
