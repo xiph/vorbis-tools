@@ -46,7 +46,7 @@ int utf8_encode(char *from, char **to, const char *encoding)
 		return 1;
 	}
 
-	err = MultiByteToWideChar(GetConsoleCP(), MB_PRECOMPOSED, from, 
+	err = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, from, 
 			strlen(from), unicode, wchars);
 	if(err != wchars)
 	{
