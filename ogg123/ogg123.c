@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.14 2000/12/25 21:24:25 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.15 2000/12/25 22:03:24 kcarnold Exp $
 
  ********************************************************************/
 
@@ -41,28 +41,10 @@
 #include <vorbis/vorbisfile.h>
 #include <ao/ao.h>
 
+#include "ogg123.h"
+
 char convbuffer[4096];		/* take 8k out of the data segment, not the stack */
 int convsize = 4096;
-
-/* For facilitating output to multiple devices */
-typedef struct devices_s {
-    int driver_id;
-    ao_device_t *device;
-    ao_option_t *options;
-    struct devices_s *next_device;
-} devices_t;
-
-typedef struct ogg123_options_s {
-    char *read_file;		/* File to decode */
-    char shuffle;		/* Should we shuffle playing? */
-    signed short int verbose;	/* Verbose output if > 0, quiet if < 0 */
-    signed short int quiet;	/* Be quiet (no title) */
-    double seekpos;		/* Amount to seek by */
-    FILE *instream;		/* Stream to read from. */
-    devices_t *outdevices;	/* Streams to write to. */
-} ogg123_options_t;		/* Changed in 0.6 to be non-static */
-
-/* There used to be an "info" struct here that served little purpose. */
 
 struct {
     char *key;			/* includes the '=' for programming convenience */
@@ -93,10 +75,6 @@ struct option long_options[] = {
     {0, 0, 0, 0}
 };
 
-/* FIXME: XXX: YUCK: fixme. */
-void play_file(ogg123_options_t opt);	/* This really needs to go in a header file. */
-FILE *http_open(char *server, int port, char *path);
-
 devices_t *append_device(devices_t * devices_list, int driver_id,
 			 ao_option_t * options)
 {
@@ -125,7 +103,7 @@ void devices_write(void *ptr, size_t size, devices_t * d)
     }
 }
 
-void usage()
+void usage(void)
 {
     FILE *o;
     o = stderr;
@@ -195,7 +173,7 @@ int get_default_device(void)
        it will need a serious overhaul. */
     fp = fopen(filename, "r");
     if (fp) {
-      if (getline(line, 100, fp)) {
+      if (fgets(line, 100, fp)) {
 	if (strncmp(line, "default_device=", 15) == 0) {
 	  device = &line[15];
 	  for (i = 0; i < strlen(device); i++)
@@ -501,7 +479,7 @@ void play_file(ogg123_options_t opt)
 			break;
 		    }
 		if (ogg_comment_keys[i].key == NULL)
-		    fprintf(stderr, "Unrecognized comment: '%s'\n");
+		    fprintf(stderr, "Unrecognized comment: '%s'\n", cc);
 	    }
 
 	    fprintf(stderr, "\nBitstream is %d channel, %ldHz\n",
