@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.41 2001/08/04 02:57:01 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.42 2001/08/04 23:54:37 volsung Exp $
 
  ********************************************************************/
 
@@ -34,8 +34,9 @@
 
 #include "ogg123.h"
 
-char convbuffer[4096];		/* take 8k out of the data segment, not the stack */
-int convsize = 4096;
+/* take buffer out of the data segment, not the stack */
+char convbuffer[BUFFER_CHUNK_SIZE];
+int convsize = BUFFER_CHUNK_SIZE;
 buf_t * buffer = NULL;
 
 static char skipfile_requested;
@@ -102,7 +103,7 @@ void usage(void)
 	    "  -o, --device-option=k:v passes special option k with value\n"
 	    "      v to previously specified device (with -d).  See\n"
 	    "      man page for more info.\n"
-	    "  -b n, --buffer n  use a buffer of 'n' chunks (4096 bytes)\n"
+	    "  -b n, --buffer n  use a buffer of approximately 'n' kilobytes\n"
 	    "  -v, --verbose  display progress and other useful stuff\n"
 	    "  -q, --quiet    don't display anything (no title)\n"
 	    "  -z, --shuffle  shuffle play\n"
@@ -143,7 +144,7 @@ int main(int argc, char **argv)
 		    "Internal error: long option given when none expected.\n");
 	    exit(1);
 	case 'b':
-	  opt.buffer_size = atoi (optarg);
+	  opt.buffer_size = atoi(optarg) / (BUFFER_CHUNK_SIZE / 1024);
 	  break;
 	case 'd':
 	    temp_driver_id = ao_driver_id(optarg);

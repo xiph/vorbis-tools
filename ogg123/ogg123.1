@@ -11,7 +11,11 @@ ogg123 \- plays Ogg Vorbis files
 [
 .B -vqzVh
 ] [
-.B -k seconds 
+.B -k
+.I seconds 
+] [
+.B -b
+.I buffer_size 
 ] [
 .B -d
 .I driver 
@@ -40,7 +44,7 @@ can be streamed via HTTP.
 
 .SH OPTIONS
 .IP "-b n, --buffer n"
-Use a buffer of 'n' chunks (4096 bytes)
+Use a buffer of approximately 'n' kilobytes.
 .IP "-d device, --device device"
 Specify output device.  See
 .B DEVICES
