@@ -7,7 +7,7 @@
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.1 2001/03/24 14:12:35 msmith Exp $
+ * last modified: $Id: vcut.c,v 1.2 2001/07/04 14:48:55 msmith Exp $
  */
 
 #include <stdio.h>
@@ -18,16 +18,13 @@
 #include <errno.h>
 #include <string.h>
 
-/* Erk. We need some internal headers too (at the moment, anyway) */
-#include "lib/codec_internal.h"
-#include "lib/misc.h"
-
 #include "vcut.h"
 
 int main(int argc, char **argv)
 {
 	ogg_int64_t cutpoint;
 	FILE *in,*out1,*out2;
+	int ret=0;
 
 	if(argc<5)
 	{
@@ -35,6 +32,9 @@ int main(int argc, char **argv)
 				"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n");
 		exit(1);
 	}
+
+	fprintf(stderr, "WARNING: vcut is still experimental code.\n"
+		"Check that the output files are correct before deleting sources.\n\n");
 
 	in = fopen(argv[1], "rb");
 	if(!in) {
@@ -57,14 +57,14 @@ int main(int argc, char **argv)
 	if(vcut_process(in,out1,out2,cutpoint))
 	{
 		fprintf(stderr, "Processing failed\n");
-		exit(1);
+		ret = 1;
 	}
 
 	fclose(in);
 	fclose(out1);
 	fclose(out2);
 
-	return 0;
+	return ret;
 }
 
 int vcut_process(FILE *in, FILE *first, FILE *second, ogg_int64_t cutpoint)
@@ -78,30 +78,49 @@ int vcut_process(FILE *in, FILE *first, FILE *second, ogg_int64_t cutpoint)
 	s->cutpoint = cutpoint;
 
 	/* Read headers in, and save them */
-	vcut_process_headers(s, in);
+	if(vcut_process_headers(s, in))
+	{
+		fprintf(stderr, "Error reading headers\n");
+		//cleanup();
+	}
 
 	/* ok, headers are all in, and saved */
-	fprintf(stderr, "Header reading complete\n");
-
 	vorbis_synthesis_init(s->vd,s->vi);
 	vorbis_block_init(s->vd,s->vb);
 
-	ogg_stream_init(&stream_out_first, s->serial); /* first file gets original */
+	ogg_stream_init(&stream_out_first,s->serial); /* first file gets original */
 	srand(time(NULL));
 	ogg_stream_init(&stream_out_second, rand()); /* second gets random */
 
 	vcut_submit_headers_to_stream(&stream_out_first, s);
-	vcut_submit_headers_to_stream(&stream_out_second, s);
-
 	vcut_flush_pages_to_file(&stream_out_first, first);
+
+	vcut_submit_headers_to_stream(&stream_out_second, s);
 	vcut_flush_pages_to_file(&stream_out_second, second);
 
-	vcut_process_first_stream(s, &stream_out_first, in, first);
+	
+	if(vcut_process_first_stream(s, &stream_out_first, in, first))
+	{
+		fprintf(stderr, "Error writing first output file\n");
+		//cleanup();
+	}
+
 	ogg_stream_clear(&stream_out_first);
-	vcut_process_second_stream(s, &stream_out_second, in, second);
+
+	if(vcut_process_second_stream(s, &stream_out_second, in, second))
+	{
+		fprintf(stderr, "Error writing second output file\n");
+		//cleanup();
+	}
 	ogg_stream_clear(&stream_out_second);
 
 	/* Free some memory! */
+	vorbis_block_clear(s->vb);
+	vorbis_dsp_clear(s->vd);
+	vorbis_info_clear(s->vi);
+
+	ogg_sync_clear(s->sync_in);
+
 	return 0;
 }
 
@@ -116,11 +135,17 @@ vcut_state *vcut_new_state()
 	s->vi = malloc(sizeof(vorbis_info));
 	s->vb = malloc(sizeof(vorbis_block));
 
+	s->headers = malloc(sizeof(vcut_packet)*3);
+	memset(s->headers, 0, sizeof(vcut_packet)*3);
+	s->packets = malloc(sizeof(vcut_packet)*2);
+	memset(s->packets, 0, sizeof(vcut_packet)*2);
+
 	return s;
 }
 
 
-void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in, FILE *f)
+int vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, 
+		FILE *in, FILE *f)
 {
 	int eos=0;
 	ogg_page page;
@@ -138,10 +163,8 @@ void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in
 			else
 			{
 				granpos = ogg_page_granulepos(&page);
-				fprintf(stderr, "Input page: %lld\n", granpos);
 				ogg_stream_pagein(s->stream_in, &page);
 
-				fprintf(stderr, "granpos: %lld, cutpoint; %lld\n", granpos, s->cutpoint);
 				if(granpos < s->cutpoint)
 				{
 					while(1)
@@ -149,7 +172,7 @@ void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in
 						result=ogg_stream_packetout(s->stream_in, &packet);
 
 						/* throw away result */
-						vcut_get_blocksize(s,s->vb,&packet);
+						vcut_get_blocksize(s,s->vi,&packet);
 
 						if(result==0) break;
 						else if(result==-1)
@@ -158,7 +181,6 @@ void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in
 						{
 							/* Free these somewhere: FIXME!!! */
 							s->packets[0] = vcut_save_packet(&packet);
-							// Count pcm?? 
 							ogg_stream_packetin(stream, &packet);
 							vcut_write_pages_to_file(stream, f);
 						}
@@ -167,7 +189,7 @@ void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in
 				}
 				else
 				{
-					fprintf(stderr, "Page passes cutpoint\n");
+					fprintf(stderr, "DEBUG: Page passes cutpoint\n");
 					eos=1; /* This way we break out */
 				}
 
@@ -189,15 +211,24 @@ void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in
 		}
 	}
 
+	/* Now, check to see if we reached a real EOS */
+	if(granpos < s->cutpoint)
+	{
+		fprintf(stderr, 
+				"Cutpoint not within stream. Second file will be empty\n");
+		vcut_write_pages_to_file(stream, f);
+		return -1;
+	}
+
 	while((result = ogg_stream_packetout(s->stream_in, &packet))!=0)
 	{
-		int bs = vcut_get_blocksize(s, s->vb, &packet);
+		int bs;
+		
+		bs = vcut_get_blocksize(s, s->vi, &packet);
 		prevgranpos += bs;
 
-		fprintf(stderr, "prevgranpos += %d -> %lld\n", bs, prevgranpos);
 		if(prevgranpos > s->cutpoint)
 		{
-			fprintf(stderr, "Passed cutpoint: %lld\n", s->cutpoint);
 			s->packets[1] = vcut_save_packet(&packet);
 			packet.granulepos = s->cutpoint; /* Set it! */
 			packet.e_o_s = 1;
@@ -210,16 +241,23 @@ void vcut_process_first_stream(vcut_state *s, ogg_stream_state *stream, FILE *in
 		vcut_write_pages_to_file(stream,f);
 	}
 
+	/* Check that we got at least two packets here */
+	if(!s->packets[0] || !s->packets[1])
+	{
+		fprintf(stderr, "Unhandled special case: first file too short?\n");
+		return -1;
+	}
+
 	vcut_write_pages_to_file(stream,f);
 
 	/* Remaining samples in first packet */
 	s->initialgranpos = prevgranpos - s->cutpoint; 
-	fprintf(stderr, "Trimming %lld samples from end of first stream (placing on second stream\n", s->initialgranpos);
+	fprintf(stderr, "DEBUG: Trimming %lld samples from end of first stream (placing on second stream\n", s->initialgranpos);
 
-	fprintf(stderr, "Completed first stream!\n");
+	return 0;
 }
 
-void vcut_process_second_stream(vcut_state *s, ogg_stream_state *stream, FILE *in, FILE *f)
+int vcut_process_second_stream(vcut_state *s, ogg_stream_state *stream, FILE *in, FILE *f)
 {
 	ogg_packet packet;
 	ogg_page page;
@@ -246,7 +284,9 @@ void vcut_process_second_stream(vcut_state *s, ogg_stream_state *stream, FILE *i
 
 	while(ogg_stream_flush(stream, &page)!=0)
 	{
-		fprintf(stderr, "Flushing (should be only one page)\n");
+		/* What happens if this _IS_ more than one page? (e.g. really big 
+		 * packets - high bitrate modes or whatever) */
+		fprintf(stderr, "DEBUG: Flushing (should only happen _once_)\n");
 		fwrite(page.header,1,page.header_len,f);
 		fwrite(page.body,1,page.body_len,f);
 	}
@@ -271,11 +311,10 @@ void vcut_process_second_stream(vcut_state *s, ogg_stream_state *stream, FILE *i
 					else if(result==-1) fprintf(stderr, "Bitstream error\n");
 					else
 					{
-						int bs = vcut_get_blocksize(s, s->vb, &packet);
+						int bs = vcut_get_blocksize(s, s->vi, &packet);
 						current_granpos += bs;
 						if(current_granpos > page_granpos)
 						{
-							fprintf(stderr, "INFO: Truncating at granpos=%lld->%lld\n", current_granpos, page_granpos);
 							current_granpos = page_granpos;
 						}
 
@@ -296,28 +335,19 @@ void vcut_process_second_stream(vcut_state *s, ogg_stream_state *stream, FILE *i
 			}
 		}
 	}
+
+	return 0;
 }			
 
-long vcut_get_blocksize(vcut_state *s, vorbis_block *vb, ogg_packet *op)
+/* Do we want to move this functionality into core libvorbis? Then we 
+ * wouldn't need the internal headers to be included. That would be good.
+ */
+long vcut_get_blocksize(vcut_state *s, vorbis_info *vi, ogg_packet *op)
 {
-	vorbis_info *vi = vb->vd->vi;
-	oggpack_buffer *opb = &vb->opb;
-	int mode;
-	codec_setup_info *ci = vi->codec_setup;
-	int ret;
+	int this = vorbis_packet_blocksize(vi, op);
+	int ret = (this+s->prevW)/4;
 
-	oggpack_readinit(opb,op->packet, op->bytes);
-
-	if(oggpack_read(opb,1)!=0) return 0;
-
-	mode = oggpack_read(opb, 
-			((backend_lookup_state *)vb->vd->backend_state)->modebits);
-
-	ret = (ci->blocksizes[ci->mode_param[mode]->blockflag] + 
-			ci->blocksizes[s->prevW])/4;
-
-	/* remember to init prevW to appropriate thing */
-	s->prevW = ci->mode_param[mode]->blockflag;
+	s->prevW = this;
 	return ret;
 }
 
@@ -348,7 +378,7 @@ void vcut_submit_headers_to_stream(ogg_stream_state *stream, vcut_state *s)
 }
 									
 
-void vcut_process_headers(vcut_state *s, FILE *in)
+int vcut_process_headers(vcut_state *s, FILE *in)
 {
 	vorbis_comment vc;
 	ogg_page page;
@@ -368,7 +398,7 @@ void vcut_process_headers(vcut_state *s, FILE *in)
 
 	if(ogg_sync_pageout(s->sync_in, &page)!=1){
 		fprintf(stderr, "Input not ogg.\n");
-		exit(1);
+		return -1;
 	}
 
 	s->serial = ogg_page_serialno(&page);
@@ -378,21 +408,20 @@ void vcut_process_headers(vcut_state *s, FILE *in)
 	if(ogg_stream_pagein(s->stream_in, &page) <0)
 	{
 		fprintf(stderr, "Error in first page\n");
-		exit(1);
+		return -1;
 	}
 
 	if(ogg_stream_packetout(s->stream_in, &packet)!=1){
 		fprintf(stderr, "error in first packet\n");
-		exit(1);
+		return -1;
 	}
 
 	if(vorbis_synthesis_headerin(s->vi, &vc, &packet)<0)
 	{
 		fprintf(stderr, "Error in primary header: not vorbis?\n");
-		exit(1);
+		return -1;
 	}
 
-	fprintf(stderr, "headerin: read primary header\n");
 	s->headers[0] = vcut_save_packet(&packet);
 
 	i=0;
@@ -410,7 +439,7 @@ void vcut_process_headers(vcut_state *s, FILE *in)
 					if(res==0)break;
 					if(res<0){
 						fprintf(stderr, "Secondary header corrupt\n");
-						exit(1);
+						return -1;
 					}
 					s->headers[i+1] = vcut_save_packet(&packet);
 					vorbis_synthesis_headerin(s->vi,&vc,&packet);
@@ -423,10 +452,14 @@ void vcut_process_headers(vcut_state *s, FILE *in)
 		if(bytes==0 && i<2)
 		{
 			fprintf(stderr, "EOF in headers\n");
-			exit(1);
+			return -1;
 		}
 		ogg_sync_wrote(s->sync_in, bytes);
 	}
+
+	vorbis_comment_clear(&vc);
+
+	return 0;
 }
 
 vcut_packet *vcut_save_packet(ogg_packet *packet)
