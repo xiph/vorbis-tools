@@ -2,7 +2,7 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-bin_PROGRAMS = vorbiscomment
+EXTRA_PROGRAMS = vorbiscomment
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 

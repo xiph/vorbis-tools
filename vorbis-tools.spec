@@ -17,8 +17,7 @@ Requires:       libvorbis >= 1.0beta3
 Requires:       libao >= 0.5.0
 
 %description
-vorbis-tools contains oggenc (and encoder), ogg123 (a playback tool), and
-vorbiscomment (a comment editor)
+vorbis-tools contains oggenc (and encoder) and ogg123 (a playback tool)
 
 %prep
 %setup -q -n %{name}-%{version}
