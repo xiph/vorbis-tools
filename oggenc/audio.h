@@ -9,6 +9,8 @@ int setup_resample(oe_enc_opt *opt);
 void clear_resample(oe_enc_opt *opt);
 void setup_downmix(oe_enc_opt *opt);
 void clear_downmix(oe_enc_opt *opt);
+void setup_scaler(oe_enc_opt *opt, float scale);
+void clear_scaler(oe_enc_opt *opt);
 
 typedef struct
 {

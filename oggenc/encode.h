@@ -78,10 +78,11 @@ typedef struct
 
 	/* Float from 0 to 1 (low->high) */
 	float quality;
-        int   quality_set;
+    int quality_set;
 
     int resamplefreq;
     int downmix;
+    float scale;
 
 	unsigned int serial;
 } oe_options;
@@ -112,7 +113,7 @@ typedef struct
 	int min_bitrate;
 	int max_bitrate;
 	float quality;
-        int quality_set;
+    int quality_set;
     adv_opt *advopt;
     int advopt_count;
 

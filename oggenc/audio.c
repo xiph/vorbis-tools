@@ -588,7 +588,7 @@ typedef struct {
     int done;
 } resampler;
 
-long read_resampled(void *d, float **buffer, int samples)
+static long read_resampled(void *d, float **buffer, int samples)
 {
     resampler *rs = d;
     long in_samples;
@@ -667,10 +667,53 @@ void clear_resample(oe_enc_opt *opt) {
 typedef struct {
     audio_read_func real_reader;
     void *real_readdata;
+    int channels;
+    float scale_factor;
+} scaler;
+
+static long read_scaler(void *data, float **buffer, int samples) {
+    scaler *d = data;
+    long in_samples = d->real_reader(d->real_readdata, buffer, samples);
+    int i,j;
+
+    for(i=0; i < d->channels; i++) {
+        for(j=0; j < in_samples; j++) {
+            buffer[i][j] *= d->scale_factor;
+        }
+    }
+
+    return in_samples;
+}
+
+
+void setup_scaler(oe_enc_opt *opt, float scale) {
+    scaler *d = calloc(1, sizeof(scaler));
+
+    d->real_reader = opt->read_samples;
+    d->real_readdata = opt->readdata;
+
+    opt->read_samples = read_scaler;
+    opt->readdata = d;
+    d->channels = opt->channels;
+    d->scale_factor = scale;
+}
+
+void clear_scaler(oe_enc_opt *opt) {
+    scaler *d = opt->readdata;
+
+    opt->read_samples = d->real_reader;
+    opt->readdata = d->real_readdata;
+
+    free(d);
+}
+
+typedef struct {
+    audio_read_func real_reader;
+    void *real_readdata;
     float **bufs;
 } downmix;
 
-long read_downmix(void *data, float **buffer, int samples)
+static long read_downmix(void *data, float **buffer, int samples)
 {
     downmix *d = data;
     long in_samples = d->real_reader(d->real_readdata, d->bufs, samples);

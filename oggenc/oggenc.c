@@ -58,6 +58,7 @@ struct option long_options[] = {
     {"managed", 0, 0, 0},
     {"resample",1,0,0},
     {"downmix", 0,0,0},
+    {"scale", 1, 0, 0}, 
     {"advanced-encode-option", 1, 0, 0},
 	{NULL,0,0,0}
 };
@@ -77,7 +78,7 @@ int main(int argc, char **argv)
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 			  0, NULL, 0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,
 			  DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
-			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0}; 
+			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0}; 
 
 	int i;
 
@@ -323,6 +324,12 @@ int main(int argc, char **argv)
             }
         }
 
+        if(opt.scale > 0.f) {
+            setup_scaler(&enc_opts, opt.scale);
+            if(!opt.quiet)
+                fprintf(stderr, _("Scaling input to %f\n"), opt.scale);
+        }
+
 
 		if(!enc_opts.total_samples_per_channel)
 			enc_opts.progress_update = update_statistics_notime;
@@ -337,6 +344,8 @@ int main(int argc, char **argv)
 		if(oe_encode(&enc_opts))
 			errors++;
 
+        if(opt.scale > 0)
+            clear_scaler(&enc_opts);
         if(opt.downmix)
             clear_downmix(&enc_opts);
         if(opt.resamplefreq)
@@ -556,12 +565,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		{
 			case 0:
                 if(!strcmp(long_options[option_index].name, "managed")) {
-		  if(!opt->managed){
-                    if(!opt->quiet)
-		      fprintf(stderr, 
-			      _("Enabling bitrate management engine\n"));
-                    opt->managed = 1;
-		  }
+		            if(!opt->managed){
+                        if(!opt->quiet)
+            		        fprintf(stderr, 
+                                    _("Enabling bitrate management engine\n"));
+                        opt->managed = 1;
+        		    }
                 }
                 else if(!strcmp(long_options[option_index].name, 
                             "raw-endianness")) {
@@ -589,6 +598,14 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 }
                 else if(!strcmp(long_options[option_index].name, "downmix")) {
                     opt->downmix = 1;
+                }
+                else if(!strcmp(long_options[option_index].name, "scale")) {
+                    opt->scale = atof(optarg);
+				    if(sscanf(optarg, "%f", &opt->scale) != 1) {
+                        opt->scale = 0;
+                        fprintf(stderr, _("Warning: Couldn't parse scaling factor \"%s\"\n"), 
+                                optarg);
+                    }
                 }
                 else if(!strcmp(long_options[option_index].name, "advanced-encode-option")) {
                     char *arg = strdup(optarg);
