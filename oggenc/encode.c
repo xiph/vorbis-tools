@@ -38,6 +38,7 @@ int oe_encode(oe_enc_opt *opt)
     int eos;
 	long bytes_written = 0, packetsdone=0;
 	double time_elapsed;
+	int ret=0;
 
 	TIMER *timer;
 
@@ -81,7 +82,15 @@ int oe_encode(oe_enc_opt *opt)
 		while((result = ogg_stream_flush(&os, &og)))
 		{
 			if(!result) break;
-			bytes_written += oe_write_page(&og, opt->out);
+			ret = oe_write_page(&og, opt->out);
+			if(!ret)
+			{
+				opt->error("Failed writing header to output stream\n");
+				ret = 1;
+				goto cleanup; /* Bail and try to clean up stuff */
+			}
+			else
+				bytes_written += ret;
 		}
 	}
 
@@ -138,7 +147,15 @@ int oe_encode(oe_enc_opt *opt)
 				int result = ogg_stream_pageout(&os,&og);
 				if(!result) break;
 
-				bytes_written += oe_write_page(&og, opt->out);
+				ret = oe_write_page(&og, opt->out);
+				if(!ret)
+				{
+					opt->error("Failed writing data to output stream\n");
+					ret = 1;
+					goto cleanup; /* Bail */
+				}
+				else
+					bytes_written += ret; 
 
 				if(ogg_page_eos(&og))
 					eos = 1;
@@ -147,6 +164,7 @@ int oe_encode(oe_enc_opt *opt)
 	}
 
 	/* Cleanup time */
+cleanup:
 
 	ogg_stream_clear(&os);
 
@@ -159,7 +177,7 @@ int oe_encode(oe_enc_opt *opt)
 
 	timer_clear(timer);
 
-	return 0;
+	return ret;
 }
 
 void update_statistics_full(char *fn, long total, long done, double time)
@@ -190,10 +208,11 @@ void update_statistics_notime(char *fn, long total, long done, double time)
 
 int oe_write_page(ogg_page *page, FILE *fp)
 {
-	fwrite(page->header,1,page->header_len, fp);
-	fwrite(page->body,1,page->body_len, fp);
+	int written;
+	written = fwrite(page->header,1,page->header_len, fp);
+	written += fwrite(page->body,1,page->body_len, fp);
 
-	return page->header_len+page->body_len;
+	return written;
 }
 
 void final_statistics(char *fn, double time, int rate, long samples, long bytes)
@@ -227,6 +246,11 @@ void final_statistics_null(char *fn, double time, int rate, long samples,
 void update_statistics_null(char *fn, long total, long done, double time)
 {
 	/* So is this */
+}
+
+void encode_error(char *errmsg)
+{
+	fprintf(stderr, "\n%s\n", errmsg);
 }
 
 

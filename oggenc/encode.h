@@ -11,6 +11,7 @@ typedef void (*progress_func)(char *fn, long totalsamples,
 		long samples, double time);
 typedef void (*enc_end_func)(char *fn, double time, int rate, 
 		long samples, long bytes);
+typedef void (*error_func)(char *errormessage);
 
 
 void *timer_start(void);
@@ -24,6 +25,7 @@ void final_statistics(char *fn, double time, int rate, long total_samples,
 		long bytes);
 void final_statistics_null(char *fn, double time, int rate, long total_samples,
 		long bytes);
+void encode_error(char *errmsg);
 
 typedef struct
 {
@@ -56,6 +58,7 @@ typedef struct
 	audio_read_func read_samples;
 	progress_func progress_update;
 	enc_end_func end_encode;
+	error_func error;
 	
 	void *readdata;
 

@@ -116,6 +116,7 @@ int main(int argc, char **argv)
 		enc_opts.serialno = nextserial++;
 		enc_opts.progress_update = update_statistics_full;
 		enc_opts.end_encode = final_statistics;
+		enc_opts.error = encode_error;
 		
 		/* OK, let's build the vorbis_comments structure */
 		build_comments(&vc, &opt, i, &artist, &album, &title, &track, &date);
@@ -235,7 +236,7 @@ int main(int argc, char **argv)
 			enc_opts.end_encode = final_statistics_null;
 		}
 
-		oe_encode(&enc_opts);
+		oe_encode(&enc_opts); /* Should we care about return val? */
 
 		if(out_fn) free(out_fn);
 		vorbis_comment_clear(&vc);
