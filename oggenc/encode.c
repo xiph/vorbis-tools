@@ -342,7 +342,7 @@ void update_statistics_full(char *fn, long total, long done, double time)
 	seconds = (int)(remain_time - (double)((int)remain_time/60)*60);
 
 	fprintf(stderr, "\r");
-	fprintf(stderr, _("\t[%5.1f%%] [%2dm%.2ds remaining] %c"), 
+	fprintf(stderr, _("\t[%5.1f%%] [%2dm%.2ds remaining] %c "), 
 			done*100.0/total, minutes, seconds, spinner[spinpoint++%4]);
 }
 
@@ -352,7 +352,7 @@ void update_statistics_notime(char *fn, long total, long done, double time)
 	static int spinpoint =0;
 	
 	fprintf(stderr, "\r");
-	fprintf(stderr, _("\tEncoding [%2dm%.2ds so far] %c"), 
+	fprintf(stderr, _("\tEncoding [%2dm%.2ds so far] %c "), 
             ((int)time)/60, (int)(time - (double)((int)time/60)*60),
 			spinner[spinpoint++%4]);
 }
