@@ -41,18 +41,16 @@ struct vorbis_release {
 
 /* TODO:
  *
- * - detect decreasing granulepos
  * - detect violations of muxing constraints
- * - better EOS detection (when EOS not explicitly set)
- * - detect granulepos 'gaps' (possibly vorbis-specific).
- * - check for serial number == (unsigned)-1 (will break some tools?)
- * - more options (e.g. less or more verbose)
+ * - detect granulepos 'gaps' (possibly vorbis-specific). (seperate from 
+ *   serial-number gaps)
  */
 
 typedef struct _stream_processor {
     void (*process_page)(struct _stream_processor *, ogg_page *);
     void (*process_end)(struct _stream_processor *);
     int isillegal;
+    int constraint_violated;
     int shownillegal;
     int isnew;
     long seqno;
@@ -93,6 +91,9 @@ static int printwarn = 1;
 static int verbose = 1;
 
 static int flawed;
+
+#define CONSTRAINT_PAGE_AFTER_EOS   1
+#define CONSTRAINT_MUXING_VIOLATED  2
 
 static stream_set *create_stream_set(void) {
     stream_set *set = calloc(1, sizeof(stream_set));
@@ -488,6 +489,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
     ogg_uint32_t serial = ogg_page_serialno(page);
     int i, found = 0;
     int invalid = 0;
+    int constraint = 0;
     stream_processor *stream;
 
     for(i=0; i < set->used; i++) {
@@ -500,6 +502,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             /* if we have detected EOS, then this can't occur here. */
             if(stream->end) {
                 stream->isillegal = 1;
+                stream->constraint_violated = CONSTRAINT_PAGE_AFTER_EOS;
                 return stream;
             }
 
@@ -516,8 +519,10 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
      * XXX: might this sometimes catch ok streams if EOS flag is missing,
      * but the stream is otherwise ok?
      */
-    if(streams_open(set) && !set->in_headers)
+    if(streams_open(set) && !set->in_headers) {
+        constraint = CONSTRAINT_MUXING_VIOLATED;
         invalid = 1;
+    }
 
     set->in_headers = 1;
 
@@ -534,6 +539,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
 
     stream->isnew = 1;
     stream->isillegal = invalid;
+    stream->constraint_violated = constraint;
 
     {
         int res;
@@ -568,6 +574,11 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
    stream->start = ogg_page_bos(page);
    stream->end = ogg_page_eos(page);
    stream->serial = serial;
+
+   if(stream->serial == 0 || stream->serial == -1) {
+       info(_("Note: Stream %d has serial number %d, which is legal but may "
+              "cause problems with some tools."), stream->num, stream->serial);
+   }
 
    return stream;
 }
@@ -628,10 +639,28 @@ static void process_file(char *filename) {
         }
 
         if(p->isillegal && !p->shownillegal) {
+            char *constraint;
+            switch(p->constraint_violated) {
+                case CONSTRAINT_PAGE_AFTER_EOS:
+                    constraint = _("Page found for stream after EOS flag");
+                    break;
+                case CONSTRAINT_MUXING_VIOLATED:
+                    constraint = _("Ogg muxing constraints violated, new "
+                                   "stream before EOS of all previous streams");
+                    break;
+                default:
+                    constraint = _("Error unknown.");
+            }
+
             warn(_("Warning: illegally placed page(s) for logical stream %d\n"
-                   "This indicates a corrupt ogg file.\n"), p->num);
+                   "This indicates a corrupt ogg file: %s.\n"), 
+                    p->num, constraint);
             p->shownillegal = 1;
-            continue;
+            /* If it's a new stream, we want to continue processing this page
+             * anyway to suppress additional spurious errors
+             */
+            if(!p->isnew)
+                continue;
         }
 
         if(p->isnew) {
@@ -664,6 +693,7 @@ static void process_file(char *filename) {
                     p->process_end(p);
                 info(_("Logical stream %d ended\n"), p->num);
                 p->isillegal = 1;
+                p->constraint_violated = CONSTRAINT_PAGE_AFTER_EOS;
             }
         }
     }
