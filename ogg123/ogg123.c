@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.10 2000/11/04 06:23:21 xiphmont Exp $
+ last mod: $Id: ogg123.c,v 1.11 2000/12/04 14:16:30 msmith Exp $
 
  ********************************************************************/
 
@@ -27,8 +27,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/socket.h> /* !!! */
 #include <sys/types.h>
+#include <sys/socket.h> /* !!! */
 #include <unistd.h>
 #include <netdb.h>
 #include <netinet/in.h>
