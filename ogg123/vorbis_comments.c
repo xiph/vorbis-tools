@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: vorbis_comments.c,v 1.2 2003/06/24 12:34:40 giles Exp $
+ last mod: $Id: vorbis_comments.c,v 1.3 2003/06/24 12:37:52 giles Exp $
 
  ********************************************************************/
 
@@ -35,8 +35,8 @@ struct {
   {"TRACKNUMBER=", N_("Track number:")},
   {"REPLAYGAIN_TRACK_GAIN=", N_("ReplayGain (Track):")},
   {"REPLAYGAIN_ALBUM_GAIN=", N_("ReplayGain (Album):")},
-  {"REPLAYGAIN_TRACK_PEAK=", N_("ReplayGain (Track) Peak:")},
-  {"REPLAYGAIN_ALBUM_PEAK=", N_("ReplayGain (Album) Peak:")},
+  {"REPLAYGAIN_TRACK_PEAK=", N_("ReplayGain Peak (Track):")},
+  {"REPLAYGAIN_ALBUM_PEAK=", N_("ReplayGain Peak (Album):")},
   {"COPYRIGHT=", N_("Copyright")},
   {"=", N_("Comment:")},
   {NULL, N_("Comment:")}
