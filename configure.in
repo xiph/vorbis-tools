@@ -78,19 +78,11 @@ PROFILE="$PROFILE $cflags_save"
 LDFLAGS="$LDFLAGS $ldflags_save"
 
 dnl --------------------------------------------------
-dnl Check for libraries
+dnl Check for generally needed libraries
 dnl --------------------------------------------------
 
 AM_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
 AM_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
-AM_PATH_AO(,AC_MSG_ERROR(libao needed!))
-AM_PATH_CURL(,AC_MSG_ERROR(libcurl needed!))
-
-ACX_PTHREAD(,AC_MSG_ERROR(POSIX threads required!))
-
-SOCKET_LIBS=
-AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
-AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 
 SHARE_LIBS='$(top_builddir)/share/libutf8.a $(top_builddir)/share/libgetopt.a'
 SHARE_CFLAGS='-I$(top_srcdir)/include'
@@ -98,6 +90,30 @@ SHARE_CFLAGS='-I$(top_srcdir)/include'
 I18N_CFLAGS='-I$(top_srcdir)/intl'
 I18N_LIBS=$INTLLIBS
 
+SOCKET_LIBS=
+AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
+AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
+
+dnl --------------------------------------------------
+dnl Check for ogg123 critical libraries
+dnl --------------------------------------------------
+
+AC_ARG_ENABLE(ogg123,[  --disable-ogg123   Skip building ogg123 (a playback utility)], build_ogg123="$enableval", build_ogg123="yes")
+
+if test "x$build_ogg123" = xyes; then
+  AC_MSG_RESULT([checking for ogg123 requirements])
+  AM_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
+  AM_PATH_CURL(,build_ogg123=no; AC_MSG_WARN(libcurl missing))
+
+  ACX_PTHREAD(,build_ogg123=no; AC_MSG_WARN(POSIX threads missing))
+
+  if test "x$build_ogg123" != xyes; then
+    AC_MSG_WARN([Prerequisites for ogg123 not met, ogg123 will not be built])
+  fi
+fi
+
+AM_CONDITIONAL(BUILD_OGG123, test "x$build_ogg123" = xyes)
+ 
 dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------
