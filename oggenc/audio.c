@@ -19,6 +19,10 @@
 #include "i18n.h"
 #include "resample.h"
 
+#ifdef HAVE_LIBFLAC
+#include "flac.h"
+#endif
+
 #define WAV_HEADER_SIZE 44
 
 /* Macros to read header data */
@@ -38,6 +42,10 @@
 input_format formats[] = {
 	{wav_id, 12, wav_open, wav_close, "wav", N_("WAV file reader")},
 	{aiff_id, 12, aiff_open, wav_close, "aiff", N_("AIFF/AIFC file reader")},
+#ifdef HAVE_LIBFLAC
+	{flac_id,     4, flac_open, flac_close, "flac", N_("FLAC file reader")},
+	{oggflac_id, 32, flac_open, flac_close, "ogg", N_("Ogg FLAC file reader")},
+#endif
 	{NULL, 0, NULL, NULL, NULL, NULL}
 };
 

@@ -56,6 +56,7 @@ typedef struct
 	int genre_count;
     adv_opt *advopt;
     int advopt_count;
+	int copy_comments;
 
 	int quiet;
 
@@ -106,6 +107,7 @@ typedef struct
 	int samplesize;
     int endianness;
     int resamplefreq;
+	int copy_comments;
 
 	/* Various bitrate/quality options */
     int managed;

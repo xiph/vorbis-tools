@@ -60,6 +60,7 @@ struct option long_options[] = {
     {"downmix", 0,0,0},
     {"scale", 1, 0, 0}, 
     {"advanced-encode-option", 1, 0, 0},
+	{"discard-comments", 0, 0, 0},
 	{NULL,0,0,0}
 };
 	
@@ -76,7 +77,7 @@ int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-			  0, NULL, 0, NULL, 0, NULL, 0, 0, 0,16,44100,2, 0, NULL,
+			  0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0,16,44100,2, 0, NULL,
 			  DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
 			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0}; 
 
@@ -148,7 +149,9 @@ int main(int argc, char **argv)
         enc_opts.start_encode = start_encode_full;
 		enc_opts.end_encode = final_statistics;
 		enc_opts.error = encode_error;
-		
+		enc_opts.comments = &vc;
+		enc_opts.copy_comments = opt.copy_comments;
+
 		/* OK, let's build the vorbis_comments structure */
 		build_comments(&vc, &opt, i, &artist, &album, &title, &track, 
                 &date, &genre);
@@ -624,6 +627,10 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     opt->advopt[opt->advopt_count - 1].arg = arg;
                     opt->advopt[opt->advopt_count - 1].val = val;
                 }
+                else if(!strcmp(long_options[option_index].name, "discard-comments")) {
+		  opt->copy_comments = 0;
+		}
+
                 else {
 				    fprintf(stderr, _("Internal error parsing command line options\n"));
 				    exit(1);
