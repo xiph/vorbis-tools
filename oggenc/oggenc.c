@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL, -1,128,-1, 0.5f,0}; 
+		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL, -1,128,-1, -1.0f,0}; 
 	int i;
 
 	char **infiles;
@@ -243,6 +243,7 @@ int main(int argc, char **argv)
 		enc_opts.bitrate = opt.nominal_bitrate; 
 		enc_opts.min_bitrate = opt.min_bitrate;
 		enc_opts.max_bitrate = opt.max_bitrate;
+		enc_opts.quality = opt.quality;
 
 		if(!enc_opts.total_samples_per_channel)
 			enc_opts.progress_update = update_statistics_notime;

@@ -49,12 +49,25 @@ int oe_encode(oe_enc_opt *opt)
 	/* Have vorbisenc choose a mode for us */
 	vorbis_info_init(&vi);
 
-	if(opt->bitrate >= 0 || opt->min_bitrate >= 0 || opt->max_bitrate >=0)
-		vorbis_encode_init(&vi, opt->channels, opt->rate, opt->min_bitrate*1000,
-				opt->bitrate*1000, opt->max_bitrate*1000);
+	if(opt->quality >= 0.0f)
+	{
+		if(vorbis_encode_init_vbr(&vi, opt->channels, opt->rate, opt->quality))
+		{
+			fprintf(stderr, "Mode initialisation failed: invalid parameters for quality\n");
+			vorbis_info_clear(&vi);
+			return 1;
+		}
+	}
 	else
-		vorbis_encode_init_vbr(&vi, opt->channels, opt->rate, opt->quality);
-
+	{
+		if(vorbis_encode_init(&vi, opt->channels, opt->rate, opt->min_bitrate*1000,
+				opt->bitrate*1000, opt->max_bitrate*1000))
+		{
+			fprintf(stderr, "Mode initialisation failed: invalid parameters for bitrate\n");
+			vorbis_info_clear(&vi);
+			return 1;
+		}
+	}
 
 	/* Now, set up the analysis engine, stream encoder, and other
 	   preparation before the encoding begins.
