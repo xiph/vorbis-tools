@@ -8,7 +8,7 @@ INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
 vorbiscomment_LDADD = @VORBIS_LIBS@ @OGG_LIBS@
 
-vorbiscomment_SOURCES = vcedit.c vcedit.h vcomment.c
+vorbiscomment_SOURCES = vcedit.c vcedit.h vcomment.c getopt.c getopt.h getopt1.c
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
