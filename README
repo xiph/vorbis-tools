@@ -9,8 +9,9 @@ DIRECTORIES:
 debian/		debian packaging stuff
 include/	header files shared between the tools
 intl/		GNU gettext library from gettext-0.10.40 (for i18n support)
-ogg123/		an ogg vorbis commandline audio player
+ogg123/		an ogg vorbis command line audio player
 oggenc/		the ogg vorbis encoder
+oggenc/		a simple, portable command line decoder (to wav and raw)
 ogginfo/	provides information (tags, bitrate, length, etc.) about 
 		an ogg vorbis file
 po/		translations for non-English languages
