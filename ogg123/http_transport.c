@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.10 2002/06/02 03:07:11 volsung Exp $
+ last mod: $Id: http_transport.c,v 1.11 2002/07/17 12:12:18 calc Exp $
  
 ********************************************************************/
 
@@ -118,6 +118,7 @@ void set_curl_opts (http_private_t *private)
   curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, private);
   curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0);
   curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123 "VERSION);
+  curl_easy_setopt(handle, CURLOPT_FOLLOWLOCATION, 1);
 }
 
 
