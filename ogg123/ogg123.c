@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.45 2001/08/12 14:04:21 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.46 2001/08/13 02:10:39 volsung Exp $
 
  ********************************************************************/
 
@@ -213,17 +213,19 @@ int main(int argc, char **argv)
 	}
     }
 
-    /* Add last device to device list or use the default device */
-    if (temp_driver_id < 0) 
+    /* Use the default device if needed */
+    if (temp_driver_id < 0) {
         temp_driver_id = ao_default_driver_id();
 	
-    if (temp_driver_id < 0) {
-        fprintf(stderr,
-	      "Could not load default driver.  Audio devices may be already in use.\nExiting.\n");
-        exit(1);
-    }
-    opt.outdevices = append_device(opt.outdevices, temp_driver_id, 
+	if (temp_driver_id < 0) {
+	  fprintf(stderr,
+		  "Could not load default driver.  Audio devices may be already in use.\nExiting.\n");
+	  exit(1);
+	}
+
+	opt.outdevices = append_device(opt.outdevices, temp_driver_id, 
 				       temp_options, NULL);
+    }
 
     if (optind == argc) {
 	usage();
