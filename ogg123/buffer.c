@@ -8,7 +8,6 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h> /* for fork and pipe*/
 #include <fcntl.h>
@@ -76,7 +75,7 @@ buf_t *fork_writer (long size, devices_t *d)
   /* Get the shared memory segment. */
   int shmid = shmget (IPC_PRIVATE,
 			  sizeof(buf_t) + sizeof (chunk_t) * (size - 1),
-			  IPC_CREAT|S_IREAD|S_IWRITE);
+			  IPC_CREAT|SHM_R|SHM_W);
 
   if (shmid == -1)
     {
@@ -92,7 +91,10 @@ buf_t *fork_writer (long size, devices_t *d)
       perror ("shmat");
       exit (1);
     }
-  
+
+  /* Remove segment after last process detaches it or terminates. */
+  shmctl(shmid, IPC_RMID, 0);
+
   buffer_init (buf, size);
   
   /* Create a pipe for communication between the two processes. Unlike
