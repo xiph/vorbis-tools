@@ -91,13 +91,13 @@ to
 .B enabler.raw
 as big-endian signed 16-bit (any of the following):
 .RS
-oggdec -R 1 -e 1 -b 16 enabler.ogg
+oggdec -R -e 1 -b 16 enabler.ogg
 .RE
 .RS
-oggdec -R 1 -e 1 -b 16 -o enabler.raw - < enabler.ogg
+oggdec -R -e 1 -b 16 -o enabler.raw - < enabler.ogg
 .RE
 .RS
-oggdec -R 1 -e 1 -b 16 - < enabler.ogg > enabler.raw
+oggdec -R -e 1 -b 16 - < enabler.ogg > enabler.raw
 .RE
 
 Mass decoding (foo.ogg to foo.wav, bar.ogg to bar.wav, quux.ogg to quux.wav, etc.):
