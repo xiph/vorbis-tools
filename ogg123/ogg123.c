@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.68 2003/09/01 22:50:32 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.69 2003/09/01 23:54:02 volsung Exp $
 
  ********************************************************************/
 
@@ -140,6 +140,7 @@ void options_init (ogg123_options_t *opts)
   opts->nth = 1;
   opts->ntimes = 1;
   opts->seekpos = 0.0;
+  opts->endpos = -1.0; /* Mark as unset */
   opts->buffer_size = 128 * 1024;
   opts->prebuffer = 0.0f;
   opts->input_buffer_size = 64 * 1024;
@@ -253,6 +254,18 @@ void display_statistics_quick (stat_format_t *stat_format,
     print_statistics_action(NULL, pstats_arg);
 }
 
+double current_time (decoder_t *decoder)
+{
+  decoder_stats_t *stats;
+  double ret;
+
+  stats = decoder->format->statistics(decoder);
+  ret = stats->current_time;
+
+  free(stats);
+
+  return ret;
+}
 
 void print_audio_devices_info(audio_device_t *d)
 {
@@ -546,6 +559,11 @@ void play (char *source_string)
 	next_status = status_interval;
       } else
 	next_status -= ret;
+
+      if (options.endpos > 0.0 && options.endpos <= current_time(decoder)) {
+	eof = eos = 1;
+	break;
+      }
 
 
       /* Write audio data block to output, skipping or repeating chunks

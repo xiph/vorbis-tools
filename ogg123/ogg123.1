@@ -76,7 +76,13 @@ will overwrite it.
 .IP "-h, --help"
 Show command help.
 .IP "-k n, --skip n"
-Skip the first 'n' seconds
+Skip the first 'n' seconds.  'n' may also be in minutes:seconds or 
+hours:minutes:seconds form.
+.IP "-K n, --end n"
+Stops playing 'n' seconds from the start of the stream.  'n' may also have the
+same format as used in the
+.I --skip
+option.
 .IP "-o option:value, --device-option option:value"
 Assigns the option
 .I option

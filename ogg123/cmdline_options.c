@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.14 2003/09/01 19:36:39 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.15 2003/09/01 23:54:01 volsung Exp $
 
  ********************************************************************/
 
@@ -37,6 +37,7 @@ struct option long_options[] = {
     {"device", required_argument, 0, 'd'},
     {"file", required_argument, 0, 'f'},
     {"skip", required_argument, 0, 'k'},
+    {"end", required_argument, 0, 'K'},
     {"delay", required_argument, 0, 'l'},
     {"device-option", required_argument, 0, 'o'},
     {"prebuffer", required_argument, 0, 'p'},
@@ -50,6 +51,17 @@ struct option long_options[] = {
     {0, 0, 0, 0}
 };
 
+double strtotime(char *s)
+{
+	double time;
+
+	time = strtod(s, &s);
+
+	while (*s == ':')
+		time = 60 * time + strtod(s + 1, &s);
+
+	return time;
+}
 
 int parse_cmdline_options (int argc, char **argv,
 			   ogg123_options_t *ogg123_opts,
@@ -63,7 +75,7 @@ int parse_cmdline_options (int argc, char **argv,
   audio_device_t *current;
   int ret;
 
-  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:o:p:qvVx:y:z@:",
+  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qvVx:y:z@:",
 				  long_options, &option_index))) {
 
       switch (ret) {
@@ -137,7 +149,11 @@ int parse_cmdline_options (int argc, char **argv,
 	break;
 
 	case 'k':
-	  ogg123_opts->seekpos = atof(optarg);
+	  ogg123_opts->seekpos = strtotime(optarg);
+	  break;
+	  
+	case 'K':
+	  ogg123_opts->endpos = strtotime(optarg);
 	  break;
 	  
 	case 'l':
@@ -216,6 +232,14 @@ int parse_cmdline_options (int argc, char **argv,
       }
   }
 
+  /* Sanity check bad option combinations */
+  if (ogg123_opts->endpos > 0.0 &&
+      ogg123_opts->seekpos > ogg123_opts->endpos) {
+    status_error(_("=== Option conflict: End time is before start time.\n"));
+    exit(1);
+  }
+
+
   /* Add last device to device list or use the default device */
   if (temp_driver_id < 0) {
 
@@ -278,7 +302,8 @@ void cmdline_usage (void)
   printf (
 	 _("  -f, --file=filename  Set the output filename for a previously\n"
 	 "      specified file device (with -d).\n"
-	 "  -k n, --skip n  Skip the first 'n' seconds\n"
+	 "  -k n, --skip n  Skip the first 'n' seconds (or hh:mm:ss format)\n"
+	 "  -K n, --end n   End at 'n' seconds (or hh:mm:ss format)\n"
 	 "  -o, --device-option=k:v passes special option k with value\n"
 	 "      v to previously specified device (with -d).  See\n"
 	 "      man page for more info.\n"

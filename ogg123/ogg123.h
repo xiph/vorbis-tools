@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.h,v 1.14 2002/07/06 19:12:18 volsung Exp $
+ last mod: $Id: ogg123.h,v 1.15 2003/09/01 23:54:02 volsung Exp $
 
  ********************************************************************/
 
@@ -30,6 +30,7 @@ typedef struct ogg123_options_t {
   int nth;                    /* Play every nth chunk */
   int ntimes;                 /* Play every chunk n times */
   double seekpos;             /* Position in file to seek to */
+  double endpos;              /* Position in file to play to (greater than seekpos) */
 
   long buffer_size;           /* Size of audio buffer */
   float prebuffer;            /* Percent of buffer to fill before playing */
