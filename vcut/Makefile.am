@@ -8,7 +8,7 @@ man_MANS = vcut.1
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
-vcut_LDADD = @OGG_LIBS@ @VORBIS_LIBS@
+vcut_LDADD = @VORBIS_LIBS@ @OGG_LIBS@
 
 vcut_SOURCES = vcut.c vcut.h
 
