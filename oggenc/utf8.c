@@ -12,12 +12,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utf8.h"
+
 
 #ifdef _WIN32
+#include <windows.h>
+
 int utf8_encode(const char *from, char **to, const char *encoding)
 {
-	fprintf(stderr, "Sorry, not implemented currently on win32\n");
-	return 1;
+	/* Thanks to Peter Harris <peter.harris@hummingbird.com> for this win32
+	 * code.
+	 *
+	 * We ignore 'encoding' and assume that the input is in the 'code page'
+	 * of the console. Reasonable, since oggenc is a console app.
+	 */
+
+	unsigned short *unicode;
+	int wchars, err;
+
+	wchars = MultiByteToWideChar(GetConsoleCP(), MB_PRECOMPOSED, from,
+			strlen(from), NULL, 0);
+
+	if(whars == 0)
+	{
+		fprintf(stderr, "Unicode translation error %d\n", GetLastError());
+		return 1;
+	}
+
+	unicode = calloc(wchars + 1, sizeof(unsigned short));
+	if(unicode == NULL) 
+	{
+		fprintf(stderr, "Out of memory processing string to UTF8\n");
+		return 1;
+	}
+
+	err = MultiByteToWideChar(GetConsoleCP(), MB_PRECOMPOSED, from, 
+			strlen(from), unicode, wchars);
+	if(err != wchars)
+	{
+		free(unicode);
+		fprintf(stderr, "Unicode translation error %d\n", GetLastError());
+		return 1;
+	}
+
+	/* On NT-based windows systems, we could use WideCharToMultiByte(), but 
+	 * MS doesn't actually have a consistent API across win32.
+	 */
+	*to = make_utf8_string(unicode);
+
+	free(unicode);
+	return 0;
 }
 
 #else /* End win32. Rest is for real operating systems */
@@ -27,7 +71,6 @@ int utf8_encode(const char *from, char **to, const char *encoding)
 #include <errno.h>
 #endif
 
-#include "utf8.h"
 #include "charsetmap.h"
 
 #define BUFSIZE 256
@@ -157,18 +200,20 @@ charset_map *get_map(const char *encoding)
 	return NULL;
 }
 
+#endif /* The rest is used by everthing */
+
 char *make_utf8_string(const unsigned short *unicode)
 {
 	int size = 0, index = 0, out_index = 0;
 	unsigned char *out;
 	unsigned short c;
 
-        /* first calculate the size of the target string */
+    /* first calculate the size of the target string */
 	c = unicode[index++];
 	while(c) {
 		if(c < 0x0080) {
 			size += 1;
-		} else if(c < 0x8000) {
+		} else if(c < 0x0800) {
 			size += 2;
 		} else {
 			size += 3;
@@ -176,7 +221,7 @@ char *make_utf8_string(const unsigned short *unicode)
 		c = unicode[index++];
 	}	
 
-	out = malloc(size);
+	out = malloc(size + 1);
 	index = 0;
 
 	c = unicode[index++];
@@ -194,10 +239,8 @@ char *make_utf8_string(const unsigned short *unicode)
 		}
 		c = unicode[index++];
 	}
-	out[out_index] = 0x0000;
+	out[out_index] = 0x00;
 
 	return out;
 }
-
-#endif
 
