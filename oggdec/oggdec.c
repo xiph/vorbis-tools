@@ -68,7 +68,7 @@ static void parse_options(int argc, char **argv)
     int option_index = 1;
     int ret;
 
-    while((ret = getopt_long(argc, argv, "Qhvb:e:r:s:", 
+    while((ret = getopt_long(argc, argv, "Qhvb:e:r:s:o:", 
                     long_options, &option_index)) != -1)
     {
         switch(ret)
@@ -296,12 +296,6 @@ int main(int argc, char **argv)
 
     if(optind >= argc) {
         fprintf(stderr, "ERROR: No input files specified. Use -h for help\n");
-        return 1;
-    }
-
-    if((argc - optind) % 2 != 0) {
-        fprintf(stderr, "ERROR: Not enough output files specified. See usage (below) for details.\n");
-        usage();
         return 1;
     }
 
