@@ -15,7 +15,6 @@
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
-#include <ao/ao.h>
 
 void doinfo(char *);
 int  dointegritycheck(char *);
@@ -54,7 +53,7 @@ void doinfo(char *filename)
 
   memset(&vf,0,sizeof(OggVorbis_File));
   
-  fp = fopen(filename,"r");
+  fp = fopen(filename,"rb");
   if (!fp) {
     fprintf(stderr,"Unable to open \"%s\": %s\n",
 	    filename,
@@ -108,7 +107,7 @@ int dointegritycheck(char *filename)
   
   /********** Decode setup ************/
 
-  fp = fopen(filename,"r");
+  fp = fopen(filename,"rb");
   if (!fp) {
     fprintf(stderr,"Unable to open \"%s\": %s\n",
 	    filename,
