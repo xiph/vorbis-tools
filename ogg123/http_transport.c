@@ -11,9 +11,11 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.8 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: http_transport.c,v 1.9 2002/05/05 03:45:04 segher Exp $
  
 ********************************************************************/
+
+#ifdef HAVE_CURL
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -329,3 +331,5 @@ transport_t http_transport = {
   &http_tell,
   &http_close
 };
+
+#endif /* HAVE_CURL */

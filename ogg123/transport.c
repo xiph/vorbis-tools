@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: transport.c,v 1.3 2002/01/26 11:06:38 segher Exp $
+ last mod: $Id: transport.c,v 1.4 2002/05/05 03:45:04 segher Exp $
 
  ********************************************************************/
 
@@ -22,9 +22,17 @@
 #include "i18n.h"
 
 extern transport_t file_transport;
+#ifdef HAVE_CURL
 extern transport_t http_transport;
+#endif
 
-transport_t *transports[] = { &http_transport, &file_transport, NULL };
+transport_t *transports[] = {
+#ifdef HAVE_CURL
+  &http_transport,
+#endif
+  &file_transport,
+  NULL
+};
 
 
 transport_t *get_transport_by_name (char *name)
