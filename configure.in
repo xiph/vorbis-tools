@@ -10,6 +10,7 @@ dnl Apparently we need a newer version than we used to.
 AC_PREREQ(2.53)
 
 AM_INIT_AUTOMAKE(vorbis-tools,1.0.1)
+AM_MAINTAINER_MODE
 
 dnl --------------------------------------------------  
 dnl Check for programs
