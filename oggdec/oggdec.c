@@ -324,7 +324,10 @@ int main(int argc, char **argv)
             out = malloc(strlen(argv[i]) + 10);
             strncpy(out, argv[i], end-argv[i]);
             out[end-argv[i]] = 0;
-            strcat(out, ".wav");
+            if(raw)
+                strcat(out, ".raw");
+            else
+                strcat(out, ".wav");
         }
 
         if(decode_file(in,out))
