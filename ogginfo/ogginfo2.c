@@ -30,7 +30,6 @@
 #define INT64FORMAT "%Ld"
 #endif
 
-
 /* TODO:
  *
  * - detect decreasing granulepos
@@ -47,6 +46,8 @@ typedef struct _stream_processor {
     int isillegal;
     int shownillegal;
     int isnew;
+    long seqno;
+    int lostseq;
 
     int start;
     int end;
@@ -142,6 +143,11 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
             header = 1;
             inf->doneheaders++;
             if(inf->doneheaders == 3) {
+                if(ogg_page_granulepos(page) != 0 || ogg_page_continued(page))
+                    warn(_("Warning: Vorbis stream %d does not have headers "
+                           "correctly framed. Terminal header page contains "
+                           "additional packets or has non-zero granulepos\n"),
+                            stream->num);
                 info(_("Vorbis headers parsed for stream %d, "
                        "information follows...\n"), stream->num);
 
@@ -171,8 +177,147 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                 if(inf->vc.comments > 0)
                     info(_("User comments section follows...\n"));
 
-                for(i=0; i < inf->vc.comments; i++)
-                    info("\t%s\n", inf->vc.user_comments[i]);
+                for(i=0; i < inf->vc.comments; i++) {
+                    char *sep = strchr(inf->vc.user_comments[i], '=');
+                    char *decoded;
+                    int j;
+                    int broken = 0;
+                    unsigned char *val;
+                    int bytes;
+                    int remaining;
+
+                    if(sep == NULL) {
+                        warn(_("Warning: Comment %d in stream %d is invalidly "
+                               "formatted, does not contain '=': \"%s\"\n"), 
+                               i, stream->num, inf->vc.user_comments[i]);
+                        continue;
+                    }
+
+                    for(j=0; j < sep-inf->vc.user_comments[i]; j++) {
+                        if(inf->vc.user_comments[i][j] < 0x20 ||
+                           inf->vc.user_comments[i][j] > 0x7D) {
+                            warn(_("Warning: Invalid comment fieldname in "
+                                   "comment %d (stream %d): \"%s\"\n"),
+                                    i, stream->num, inf->vc.user_comments[i]);
+                            broken = 1;
+                            break;
+                        }
+                    }
+
+                    if(broken)
+                        continue;
+
+                    val = inf->vc.user_comments[i];
+
+                    j = sep-inf->vc.user_comments[i]+1;
+                    while(j < inf->vc.comment_lengths[i])
+                    {
+                        remaining = inf->vc.comment_lengths[i] - j;
+                        if((val[j] & 0x80) == 0)
+                            bytes = 1;
+                        else if((val[j] & 0x40) == 0)
+                            bytes = 2;
+                        else if((val[j] & 0x20) == 0)
+                            bytes = 3;
+                        else if((val[j] & 0x10) == 0)
+                            bytes = 4;
+                        else if((val[j] & 0x08) == 0)
+                            bytes = 5;
+                        else if((val[j] & 0x04) == 0)
+                            bytes = 6;
+                        else {
+                            warn(_("Warning: Illegal UTF-8 sequence in comment "
+                                   "%d (stream %d): length marker wrong\n"),
+                                    i, stream->num);
+                            broken = 1;
+                            break;
+                        }
+
+                        if(bytes > remaining) {
+                            warn(_("Warning: Illegal UTF-8 sequence in comment "
+                                   "%d (stream %d): too few bytes\n"),
+                                    i, stream->num);
+                            broken = 1;
+                            break;
+                        }
+
+                        switch(bytes) {
+                            case 1:
+                                /* No more checks needed */
+                                break;
+                            case 2:
+                                if((val[j+1] & 0xC0) != 0x80)
+                                    broken = 1;
+                                if((val[j] & 0xFE) == 0xC0)
+                                    broken = 1;
+                                break;
+                            case 3:
+                                if(!((val[j] == 0xE0 && val[j+1] >= 0xA0 && 
+                                        val[j+1] <= 0xBF && 
+                                        (val[j+2] & 0xC0) == 0x80) ||
+                                   (val[j] >= 0xE1 && val[j] <= 0xEC &&
+                                        (val[j+1] & 0xC0) == 0x80 &&
+                                        (val[j+2] & 0xC0) == 0x80) ||
+                                   (val[j] == 0xED && val[j+1] >= 0x80 &&
+                                        val[j+1] <= 0x9F &&
+                                        (val[j+2] & 0xC0) == 0x80) ||
+                                   (val[j] >= 0xEE && val[j] <= 0xEF &&
+                                        (val[j+1] & 0xC0) == 0x80 &&
+                                        (val[j+2] & 0xC0) == 0x80)))
+                                    broken = 1;
+                                if(val[j] == 0xE0 && (val[j+1] & 0xE0) == 0x80)
+                                    broken = 1;
+                                break;
+                            case 4:
+                                if(!((val[j] == 0xF0 && val[j+1] >= 0x90 &&
+                                        val[j+1] <= 0xBF &&
+                                        (val[j+2] & 0xC0) == 0x80 &&
+                                        (val[j+3] & 0xC0) == 0x80) ||
+                                     (val[j] >= 0xF1 && val[j] <= 0xF3 &&
+                                        (val[j+1] & 0xC0) == 0x80 &&
+                                        (val[j+2] & 0xC0) == 0x80 &&
+                                        (val[j+3] & 0xC0) == 0x80) ||
+                                     (val[j] == 0xF4 && val[j+1] >= 0x80 &&
+                                        val[j+1] <= 0x8F &&
+                                        (val[j+2] & 0xC0) == 0x80 &&
+                                        (val[j+3] & 0xC0) == 0x80)))
+                                    broken = 1;
+                                if(val[j] == 0xF0 && (val[j+1] & 0xF0) == 0x80)
+                                    broken = 1;
+                                break;
+                            /* 5 and 6 aren't actually allowed at this point*/  
+                            case 5:
+                                broken = 1;
+                                break;
+                            case 6:
+                                broken = 1;
+                                break;
+                        }
+
+                        if(broken) {
+                            warn(_("Warning: Illegal UTF-8 sequence in comment "
+                                   "%d (stream %d): invalid sequence\n"),
+                                    i, stream->num);
+                            broken = 1;
+                            break;
+                        }
+
+                        j += bytes;
+                    }
+
+                    if(!broken) {
+                        /* A hack around brokenness in the utf8 decoder */
+                        if(strlen(sep+1) == 0)
+                            decoded = sep+1;
+                        else if(utf8_decode(sep+1, &decoded) < 0) {
+                            warn(_("Warning: Failure in utf8 decoder. This "
+                                   "should be impossible\n"));
+                            continue;
+                        }
+                        *sep = 0;
+                        info("\t%s=%s\n", inf->vc.user_comments[i], decoded);
+                    }
+                }
             }
         }
     }
@@ -370,7 +515,8 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
    return stream;
 }
 
-static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page)
+static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page, 
+        ogg_int64_t *written)
 {
     int ret;
     char *buffer;
@@ -378,13 +524,17 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page)
 
     while((ret = ogg_sync_pageout(sync, page)) <= 0) {
         if(ret < 0)
-            warn(_("Warning: Hole in data found. Corrupted ogg\n"));
+            warn(_("Warning: Hole in data found at approximate offset "
+                   INT64FORMAT " bytes. Corrupted ogg.\n"), *written);
 
         buffer = ogg_sync_buffer(sync, CHUNK);
         bytes = fread(buffer, 1, CHUNK, f);
-        ogg_sync_wrote(sync, bytes);
-        if(bytes == 0)
+        if(bytes <= 0) {
+            ogg_sync_wrote(sync, 0);
             return 0;
+        }
+        ogg_sync_wrote(sync, bytes);
+        *written += bytes;
     }
 
     return 1;
@@ -395,6 +545,8 @@ static void process_file(char *filename) {
     ogg_sync_state sync;
     ogg_page page;
     stream_set *processors = create_stream_set();
+    int gotpage = 0;
+    ogg_int64_t written = 0;
 
     if(!file) {
         error(_("Error opening input file \"%s\": %s\n"), filename,
@@ -402,11 +554,12 @@ static void process_file(char *filename) {
         return;
     }
 
-    info(_("Processing file \"%s\"...\n\n"), filename);
+    printf(_("Processing file \"%s\"...\n\n"), filename);
 
     ogg_sync_init(&sync);
 
-    while(get_next_page(file, &sync, &page)) {
+    while(get_next_page(file, &sync, &page, &written)) {
+        gotpage = 1;
         stream_processor *p = find_stream_processor(processors, &page);
 
         if(!p) {
@@ -432,6 +585,17 @@ static void process_file(char *filename) {
             warn(_("Warning: stream start flag found in mid-stream "
                       "on stream %d\n"), p->num);
 
+        if(p->seqno++ != ogg_page_pageno(&page)) {
+            if(!p->lostseq) 
+                warn(_("Warning: sequence number gap in stream %d. Got page "
+                       "%ld when expecting page %ld. Indicates missing data.\n"
+                       ), p->num, ogg_page_pageno(&page), p->seqno - 1);
+            p->seqno = ogg_page_pageno(&page);
+            p->lostseq = 1;
+        }
+        else
+            p->lostseq = 0;
+
         if(!p->isillegal) {
             p->process_page(p, &page);
 
@@ -443,6 +607,10 @@ static void process_file(char *filename) {
             }
         }
     }
+
+    if(!gotpage)
+        error(_("Error: No ogg data found in file \"%s\".\n"
+                "Input probably not ogg.\n"), filename);
 
     free_stream_set(processors);
 
@@ -501,7 +669,8 @@ int main(int argc, char **argv) {
         printwarn = 0;
 
     if(optind >= argc) {
-        fprintf(stderr, _("No input files specified. \"ogginfo -h\" for help\n"));
+        fprintf(stderr, 
+                _("No input files specified. \"ogginfo -h\" for help\n"));
         return 1;
     }
 
