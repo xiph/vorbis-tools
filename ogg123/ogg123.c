@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.36 2001/06/19 17:15:32 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.37 2001/06/19 18:58:27 kcarnold Exp $
 
  ********************************************************************/
 
@@ -387,6 +387,7 @@ void play_file(ogg123_options_t opt)
 		exit(1);
 
 	if (opt.quiet < 1) {
+	    if (eos && opt.verbose) fprintf (stderr, "\n");
 	    for (i = 0; i < vc->comments; i++) {
 		char *cc = vc->user_comments[i];	/* current comment */
 		int i;
@@ -405,10 +406,11 @@ void play_file(ogg123_options_t opt)
 
 	    fprintf(stderr, "\nBitstream is %d channel, %ldHz\n",
 		    vi->channels, vi->rate);
-	    fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
+	    if (opt.verbose > 1)
+	      fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
 	}
 
-	if (opt.verbose > 0) {
+	if (opt.verbose > 0 && ov_seekable(&vf)) {
 	    /* Seconds with double precision */
 	    u_time = ov_time_total(&vf, -1);
 	    t_min = (long) u_time / (long) 60;
@@ -467,15 +469,26 @@ void play_file(ogg123_options_t opt)
 		  devices_write(convbuffer, ret, opt.outdevices);
 		
 		if (opt.verbose > 0) {
-		    u_pos = ov_time_tell(&vf);
-		    c_min = (long) u_pos / (long) 60;
-		    c_sec = u_pos - 60 * c_min;
-		    r_min = (long) (u_time - u_pos) / (long) 60;
-		    r_sec = (u_time - u_pos) - 60 * r_min;
-		    fprintf(stderr,
-			    "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f, Bitrate: %.1f   \r",
-			    c_min, c_sec, r_min, r_sec, t_min, t_sec,
-			    (float) ov_bitrate_instant(&vf) / 1000.0F);
+		    if (ov_seekable (&vf)) {
+		      u_pos = ov_time_tell(&vf);
+		      c_min = (long) u_pos / (long) 60;
+		      c_sec = u_pos - 60 * c_min;
+		      r_min = (long) (u_time - u_pos) / (long) 60;
+		      r_sec = (u_time - u_pos) - 60 * r_min;
+		      fprintf(stderr,
+			      "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f, Bitrate: %.1f   \r",
+			      c_min, c_sec, r_min, r_sec, t_min, t_sec,
+			      (float) ov_bitrate_instant(&vf) / 1000.0F);
+		    } else {
+		      /* working around a bug in vorbisfile */
+		      u_pos = (double) ov_pcm_tell(&vf) / (double) vi->rate;
+		      c_min = (long) u_pos / (long) 60;
+		      c_sec = u_pos - 60 * c_min;
+		      fprintf(stderr,
+			      "\rTime: %02li:%05.2f, Bitrate: %.1f   \r",
+			      c_min, c_sec,
+			      (float) ov_bitrate_instant (&vf) / 1000.0F);
+		    }
 		}
 	    }
 	}
