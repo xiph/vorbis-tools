@@ -59,7 +59,10 @@ double timer_time(void *timer)
 	time_t now = time(NULL);
 	time_t start = *((time_t *)timer);
 
-	return (double)(now-start);
+    if(now-start)
+    	return (double)(now-start);
+    else
+        return 1; /* To avoid division by zero later, for very short inputs */
 }
 
 
