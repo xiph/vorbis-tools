@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.16 2000/12/25 22:20:41 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.17 2000/12/30 04:43:47 msmith Exp $
 
  ********************************************************************/
 
@@ -314,6 +314,8 @@ void play_file(ogg123_options_t opt)
 		    "Accept: */*\r\n"
 		    "User-Agent: ogg123\r\n"
 		    "Host: %s\r\n\r\n\r\n", path, server);
+
+		fflush(opt.instream); /* Make sure these are all actually sent */
 
 	    /* Dump headers */
 	    {
