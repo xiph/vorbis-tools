@@ -3,6 +3,18 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
+Project: "oggdec"=".\oggdec.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "oggenc"=".\oggenc.dsp" - Package Owner=<4>
 
 Package=<5>
@@ -61,6 +73,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name vorbiscomment
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name oggdec
     End Project Dependency
 }}}
 

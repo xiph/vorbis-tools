@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 ogg_static.lib vorbis_static.lib vorbisenc_static.lib /nologo /subsystem:console /machine:I386 /libpath:"..\..\ogg\win32\Static_Release" /libpath:"..\..\vorbis\win32\Vorbis_Static_Release" /libpath:"..\..\vorbis\win32\VorbisEnc_Static_Release"
+# ADD LINK32 ogg_static.lib vorbis_static.lib vorbisenc_static.lib vorbisfile_static.lib /nologo /subsystem:console /machine:I386 /libpath:"..\..\ogg\win32\Static_Release" /libpath:"..\..\vorbis\win32\Vorbis_Static_Release" /libpath:"..\..\vorbis\win32\VorbisEnc_Static_Release" /libpath:"..\..\vorbis\win32\VorbisFile_Static_Release"
 
 !ELSEIF  "$(CFG)" == "oggdec - Win32 Debug"
 
@@ -75,7 +75,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ogg_static_d.lib vorbis_static_d.lib vorbisenc_static_d.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"..\..\ogg\win32\Static_Debug" /libpath:"..\..\vorbis\win32\Vorbis_Static_Debug" /libpath:"..\..\vorbis\win32\VorbisEnc_Static_Debug"
+# ADD LINK32 ogg_static_d.lib vorbis_static_d.lib vorbisenc_static_d.lib vorbisfile_static_d.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"..\..\ogg\win32\Static_Debug" /libpath:"..\..\vorbis\win32\Vorbis_Static_Debug" /libpath:"..\..\vorbis\win32\VorbisEnc_Static_Debug" /libpath:"..\..\vorbis\win32\VorbisFile_Static_Debug"
 
 !ENDIF 
 
@@ -88,14 +88,6 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\oggdec\audio.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\oggdec\encode.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\share\getopt.c
 # End Source File
 # Begin Source File
@@ -106,46 +98,10 @@ SOURCE=..\share\getopt1.c
 
 SOURCE=..\oggdec\oggdec.c
 # End Source File
-# Begin Source File
-
-SOURCE=..\oggdec\platform.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\oggdec\resample.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\share\utf8.c
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\oggdec\audio.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\oggdec\encode.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\include\getopt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\oggdec\platform.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\oggdec\resample.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\include\utf8.h
-# End Source File
 # End Group
 # Begin Group "Resource Files"
 
