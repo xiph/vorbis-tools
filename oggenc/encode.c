@@ -154,32 +154,36 @@ int oe_encode(oe_enc_opt *opt)
 		{
 
 			/* Do the main analysis, creating a packet */
-			vorbis_analysis(&vb, &op);
+			vorbis_analysis(&vb, NULL);
+			vorbis_bitrate_addblock(&vb);
 
-			/* Add packet to bitstream */
-			ogg_stream_packetin(&os,&op);
-			packetsdone++;
-
-			/* If we've gone over a page boundary, we can do actual output,
-			   so do so (for however many pages are available) */
-
-			while(!eos)
+			while(vorbis_bitrate_flushpacket(&vd, &op)) 
 			{
-				int result = ogg_stream_pageout(&os,&og);
-				if(!result) break;
+				/* Add packet to bitstream */
+				ogg_stream_packetin(&os,&op);
+				packetsdone++;
 
-				ret = oe_write_page(&og, opt->out);
-				if(ret != og.header_len + og.body_len)
+				/* If we've gone over a page boundary, we can do actual output,
+				   so do so (for however many pages are available) */
+
+				while(!eos)
 				{
-					opt->error("Failed writing data to output stream\n");
-					ret = 1;
-					goto cleanup; /* Bail */
-				}
-				else
-					bytes_written += ret; 
+					int result = ogg_stream_pageout(&os,&og);
+					if(!result) break;
 
-				if(ogg_page_eos(&og))
-					eos = 1;
+					ret = oe_write_page(&og, opt->out);
+					if(ret != og.header_len + og.body_len)
+					{
+						opt->error("Failed writing data to output stream\n");
+						ret = 1;
+						goto cleanup; /* Bail */
+					}
+					else
+						bytes_written += ret; 
+	
+					if(ogg_page_eos(&og))
+						eos = 1;
+				}
 			}
 		}
 	}

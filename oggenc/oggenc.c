@@ -22,7 +22,7 @@
 #include "audio.h"
 #include "utf8.h"
 
-#define VERSION_STRING "OggEnc v0.8 (libvorbis rc2)\n"
+#define VERSION_STRING "OggEnc v0.9 (libvorbis rc3)\n"
 #define COPYRIGHT "(c) 2001 Michael Smith <msmith@labyrinth.net.au)\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
@@ -525,16 +525,31 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				opt->title[opt->title_count - 1] = strdup(optarg);
 				break;
 			case 'b':
-				opt->nominal_bitrate = atoi(optarg);
+				if(sscanf(optarg, "%d", &opt->nominal_bitrate)
+						!= 1) {
+					fprintf(stderr, "Warning: nominal bitrate \"%s\" not recognised\n", optarg);
+					opt->nominal_bitrate = -1;
+				}
 				break;
 			case 'm':
-				opt->min_bitrate = atoi(optarg);
+				if(sscanf(optarg, "%d", &opt->min_bitrate)
+						!= 1) {
+					fprintf(stderr, "Warning: minimum bitrate \"%s\" not recognised\n", optarg);
+					opt->min_bitrate = -1;
+				}
 				break;
 			case 'M':
-				opt->max_bitrate = atoi(optarg);
+				if(sscanf(optarg, "%d", &opt->max_bitrate)
+						!= 1) {
+					fprintf(stderr, "Warning: maximum bitrate \"%s\" not recognised\n", optarg);
+					opt->max_bitrate = -1;
+				}
 				break;
 			case 'q':
-				opt->quality = (float)(atof(optarg) * 0.1);
+				if(sscanf(optarg, "%f", &opt->quality) != 1) {
+					fprintf(stderr, "Quality option \"%s\" not recognised, ignoring\n", optarg);
+					break;
+				}
 				if(opt->quality > 1.0f)
 				{
 					opt->quality = 1.0f;

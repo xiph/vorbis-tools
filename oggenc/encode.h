@@ -61,12 +61,15 @@ typedef struct
     char *namefmt_remove;
     char *namefmt_replace;
 	char *outfile;
+
 	/* All 3 in kbps */
 	int min_bitrate;
 	int nominal_bitrate;
 	int max_bitrate;
+
 	/* Float from 0 to 1 (low->high) */
 	float quality;
+
 	unsigned int serial;
 } oe_options;
 
@@ -87,6 +90,8 @@ typedef struct
 	int channels;
 	long rate;
 	int samplesize;
+
+	/* Various bitrate/quality options */
 	int bitrate;
 	int min_bitrate;
 	int max_bitrate;
