@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: http_transport.c,v 1.9 2002/05/05 03:45:04 segher Exp $
+ last mod: $Id: http_transport.c,v 1.10 2002/06/02 03:07:11 volsung Exp $
  
 ********************************************************************/
 
@@ -26,6 +26,7 @@
 #include <curl/easy.h>
 #include <pthread.h>
 
+#include "ogg123.h"
 #include "transport.h"
 #include "buffer.h"
 #include "status.h"
@@ -35,24 +36,21 @@
 #define INPUT_BUFFER_SIZE 32768
 
 extern stat_format_t *stat_format;  /* Bad hack!  Will fix after RC3! */
+extern signal_request_t sig_request;  /* Need access to global cancel flag */
 
 typedef struct http_private_t {
+  int cancel_flag;
+
   buf_t *buf;
   
   pthread_t curl_thread;
 
   CURL *curl_handle;
   char error[CURL_ERROR_SIZE];
+
+  data_source_t *data_source;
   data_source_stats_t stats;
 } http_private_t;
-
-
-typedef struct curl_thread_arg_t {
-  buf_t *buf;
-  data_source_t *data_source;
-  http_private_t *http_private;
-  CURL *curl_handle;
-} curl_thread_arg_t;
 
 
 transport_t http_transport;  /* Forward declaration */
@@ -61,11 +59,15 @@ transport_t http_transport;  /* Forward declaration */
 
 size_t write_callback (void *ptr, size_t size, size_t nmemb, void *arg)
 {
-  buf_t *buf = arg;
+  http_private_t *myarg = arg;
 
-  buffer_submit_data(buf, ptr, size*nmemb);
+  if (myarg->cancel_flag || sig_request.cancel)
+    return 0;
 
-  pthread_testcancel();
+  buffer_submit_data(myarg->buf, ptr, size*nmemb);
+
+  if (myarg->cancel_flag || sig_request.cancel)
+    return 0;
 
   return size * nmemb;
 }
@@ -73,8 +75,12 @@ size_t write_callback (void *ptr, size_t size, size_t nmemb, void *arg)
 int progress_callback (void *arg, size_t dltotal, size_t dlnow,
 		       size_t ultotal, size_t ulnow)
 {
-  data_source_t *source = arg;
+  http_private_t *myarg = arg;
   print_statistics_arg_t *pstats_arg;
+  data_source_t *source = myarg->data_source;
+
+  if (myarg->cancel_flag || sig_request.cancel)
+    return -1;
 
   pstats_arg = new_print_statistics_arg(stat_format,
 					source->transport->statistics(source),
@@ -82,19 +88,22 @@ int progress_callback (void *arg, size_t dltotal, size_t dlnow,
 
   print_statistics_action(NULL, pstats_arg);
 
+  if (myarg->cancel_flag || sig_request.cancel)
+    return -1;
+
   return 0;
 }
 
 
 /* -------------------------- Private functions --------------------- */
 
-void set_curl_opts (CURL *handle, buf_t *buf, char *url, data_source_t *source)
+void set_curl_opts (http_private_t *private)
 {
-  http_private_t *private = (http_private_t *) source;
+  CURL *handle = private->curl_handle;
 
-  curl_easy_setopt(handle, CURLOPT_FILE, buf);
+  curl_easy_setopt(handle, CURLOPT_FILE, private);
   curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_callback);
-  curl_easy_setopt(handle, CURLOPT_URL, url);
+  curl_easy_setopt(handle, CURLOPT_URL, private->data_source->source_string);
   /*
   if (inputOpts.ProxyPort)
     curl_easy_setopt(handle, CURLOPT_PROXYPORT, inputOpts.ProxyPort);
@@ -106,34 +115,15 @@ void set_curl_opts (CURL *handle, buf_t *buf, char *url, data_source_t *source)
   curl_easy_setopt(handle, CURLOPT_MUTE, 1);
   curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, private->error);
   curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
-  curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, source);
+  curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, private);
   curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0);
   curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123 "VERSION);
 }
 
 
-curl_thread_arg_t *new_curl_thread_arg (buf_t *buf, data_source_t *data_source,
-					CURL *curl_handle)
-{
-  curl_thread_arg_t *arg;
-
-  if ( (arg = malloc(sizeof(curl_thread_arg_t))) == NULL ) {
-    status_error(_("Error: Out of memory in new_curl_thread_arg().\n"));
-    exit(1);
-  }  
-  
-  arg->buf = buf;
-  arg->data_source = data_source;
-  arg->http_private = data_source->private;
-  arg->curl_handle = curl_handle;
-
-  return arg;
-}
-
-
 void *curl_thread_func (void *arg)
 {
-  curl_thread_arg_t *myarg = (curl_thread_arg_t *) arg;
+  http_private_t *myarg = (http_private_t *) arg;
   CURLcode ret;
   sigset_t set;
 
@@ -147,15 +137,17 @@ void *curl_thread_func (void *arg)
 
   ret = curl_easy_perform((CURL *) myarg->curl_handle);
 
+  if (myarg->cancel_flag || sig_request.cancel) {
+    buffer_abort_write(myarg->buf);
+    ret = 0;  // "error" was on purpose
+  } else
+    buffer_mark_eos(myarg->buf);
+
   if (ret != 0)
-    status_error(myarg->http_private->error);
-    
-  buffer_mark_eos(myarg->buf);
+    status_error(myarg->error);
 
   curl_easy_cleanup(myarg->curl_handle);
   myarg->curl_handle = 0;
-
-  free(arg);
 
   return (void *) ret;
 }
@@ -200,10 +192,11 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     }
 
     private->curl_handle = NULL;
-
+    private->data_source = source;
     private->stats.transfer_rate = 0;
     private->stats.bytes_read = 0;
     private->stats.input_buffer_used = 0;
+    private->cancel_flag = 0;
 
   } else {
     fprintf(stderr, _("Error: Out of memory.\n"));
@@ -211,17 +204,15 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
   }
 
   /* Open URL */
-  private->curl_handle = curl_easy_init ();
+  private->curl_handle = curl_easy_init();
   if (private->curl_handle == NULL)
     goto fail;
 
-  set_curl_opts(private->curl_handle, private->buf, source_string, source);
+  set_curl_opts(private);
 
   /* Start thread */
-  if (pthread_create(&private->curl_thread, NULL, 
-		     curl_thread_func,
-		     new_curl_thread_arg(private->buf, source, 
-					 private->curl_handle)) != 0)
+  if (pthread_create(&private->curl_thread, NULL, curl_thread_func, 
+		     private) != 0)
     goto fail;
 
 
@@ -265,6 +256,9 @@ int http_read (data_source_t *source, void *ptr, size_t size, size_t nmemb)
   http_private_t *private = source->private;
   int bytes_read;
 
+  if (private->cancel_flag || sig_request.cancel)
+    return 0;
+
   bytes_read = buffer_get_data(private->buf, ptr, size * nmemb);
 
   private->stats.bytes_read += bytes_read;
@@ -307,7 +301,7 @@ void http_close (data_source_t *source)
 {
   http_private_t *private = source->private;
 
-  pthread_cancel(private->curl_thread);
+  private->cancel_flag = 1;
   buffer_abort_write(private->buf);
   pthread_join(private->curl_thread, NULL);
 

@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.60 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: ogg123.c,v 1.61 2002/06/02 03:07:11 volsung Exp $
 
  ********************************************************************/
 
@@ -78,7 +78,7 @@ file_option_t file_opts[] = {
 
 
 /* Flags set by the signal handler to control the threads */
-signal_request_t sig_request = {0, 0, 0, 0};
+signal_request_t sig_request = {0, 0, 0, 0, 0};
 
 
 /* ------------------------------- signal handler ------------------------- */
@@ -101,6 +101,7 @@ void signal_handler (int signo)
     else
       sig_request.skipfile = 1;
 
+    sig_request.cancel = 1;
     sig_request.last_ctrl_c = now;
     break;
 
@@ -365,6 +366,11 @@ void play (char *source_string)
   int next_status = 0;
   static int status_interval = 0;
 
+  /* Reset all of the signal flags */
+  sig_request.cancel   = 0;
+  sig_request.skipfile = 0;
+  sig_request.exit     = 0;
+  sig_request.pause    = 0;
 
   /* Set preferred audio format (used by decoder) */
   new_audio_fmt.big_endian = ao_is_big_endian();
@@ -402,20 +408,17 @@ void play (char *source_string)
   if ( (decoder = format->init(source, &options, &new_audio_fmt, 
 			       &decoder_callbacks,
 			       decoder_callbacks_arg)) == NULL ) {
-    status_error(_("Error opening %s using the %s module."
-		 "  The file may be corrupted.\n"), source_string,
-		 format->name);
+
+    // We may have failed because of user command
+    if (!sig_request.cancel)
+      status_error(_("Error opening %s using the %s module."
+		     "  The file may be corrupted.\n"), source_string,
+		   format->name);
     return;
   }
 
   /* Decide which statistics are valid */
   select_stats(stat_format, &options, source, decoder, audio_buffer);
-
-
-  /* Reset all of the signal flags */
-  sig_request.skipfile = 0;
-  sig_request.exit     = 0;
-  sig_request.pause    = 0;
 
   /* Start the audio playback thread before we begin sending data */    
   if (audio_buffer != NULL) {

@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
  
- last mod: $Id: buffer.h,v 1.5 2001/12/20 00:24:54 volsung Exp $
+ last mod: $Id: buffer.h,v 1.6 2002/06/02 03:07:10 volsung Exp $
  
 ********************************************************************/
 
@@ -51,6 +51,8 @@ typedef struct buf_t
 			     if possible */
   long prebuffer_size;    /* number of bytes to prebuffer */
   long size;              /* buffer size, for reference */
+
+  int cancel_flag;        /* When set, the playback thread should exit */
 
   /* ----- Everything after this point is protected by mutex ----- */
 

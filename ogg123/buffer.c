@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.16 2002/02/07 04:40:49 segher Exp $
+ last mod: $Id: buffer.c,v 1.17 2002/06/02 03:07:10 volsung Exp $
 
  ********************************************************************/
 
@@ -28,6 +28,7 @@
 #include "compat.h"
 #include "buffer.h"
 #include "i18n.h"
+#include "ogg123.h"
 
 #define MIN(x,y)       ( (x) < (y) ? (x) : (y) )
 #define MIN3(x,y,z)    MIN(x,MIN(y,z))
@@ -48,6 +49,8 @@ FILE *debugfile;
 #define COND_WAIT(cond, mutex) { DEBUG("Unlocking %s and waiting on %s", #mutex, #cond); pthread_cond_wait(&(cond), &(mutex)); }
 #define COND_SIGNAL(cond) { DEBUG("Signalling %s", #cond); pthread_cond_signal(&(cond)); }
 
+extern signal_request_t sig_request;  /* Need access to global cancel flag */
+
 
 /* -------------------- Private Functions ------------------ */
 
@@ -58,7 +61,8 @@ void buffer_init_vars (buf_t *buf)
   buf->paused = 0;
   buf->eos = 0;
   buf->abort_write = 0;
-  
+  buf->cancel_flag = 0;
+
   buf->curfill = 0;
   buf->start = 0;
   buf->position = 0;
@@ -196,7 +200,10 @@ void *buffer_thread_func (void *arg)
   
   /* This test is safe since curfill will never decrease and eos will
      never be unset. */
-  while ( !(buf->eos && buf->curfill == 0) ) {
+  while ( !(buf->eos && buf->curfill == 0)) {
+
+    if (buf->cancel_flag || sig_request.cancel)
+      break;
     
     DEBUG("Check for something to play");
     /* Block until we can play something */
@@ -208,12 +215,13 @@ void *buffer_thread_func (void *arg)
       DEBUG("Waiting for more data to play.");
       COND_WAIT(buf->playback_cond, buf->mutex);
     }
-
+    
     DEBUG("Ready to play");
     
     UNLOCK_MUTEX(buf->mutex);
 
-    pthread_testcancel();
+    if (buf->cancel_flag || sig_request.cancel)
+      break;
 
     /* Don't need to lock buffer while running actions since position
        won't change.  We clear out any actions before we compute the
@@ -225,8 +233,6 @@ void *buffer_thread_func (void *arg)
 
     /* Need to be locked while we check things. */
     write_amount = compute_dequeue_size(buf, buf->audio_chunk_size);
-
-    pthread_testcancel();
 
     UNLOCK_MUTEX(buf->mutex);
  
@@ -481,10 +487,10 @@ void buffer_thread_kill (buf_t *buf)
 {
   DEBUG("Attempting to kill playback thread.");
 
-  /* End thread */
-  pthread_cancel (buf->thread);
+  /* Flag the cancellation */
+  buf->cancel_flag = 1;
   
-  /* Signal all the playback condition to wake stuff up */
+  /* Signal the playback condition to wake stuff up */
   COND_SIGNAL(buf->playback_cond);
 
   pthread_join(buf->thread, NULL);
@@ -517,6 +523,9 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
 
   /* Put the data into the buffer as space is made available */
   while (nbytes > 0) {
+
+    if (buf->abort_write)
+      break;
 
     DEBUG("Obtaining lock on buffer");
     /* Block until we can read something */
@@ -590,13 +599,13 @@ void buffer_mark_eos (buf_t *buf)
 
 void buffer_abort_write (buf_t *buf)
 {
-  DEBUG("buffer_mark_eos");
+  DEBUG("buffer_abort_write");
 
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   LOCK_MUTEX(buf->mutex);
   buf->abort_write = 1;
-  COND_SIGNAL(buf->write_cond);
+  COND_SIGNAL(buf->playback_cond);
   UNLOCK_MUTEX(buf->mutex);  
 
   pthread_cleanup_pop(0);

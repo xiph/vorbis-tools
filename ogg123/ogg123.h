@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.h,v 1.12 2001/12/24 15:58:03 volsung Exp $
+ last mod: $Id: ogg123.h,v 1.13 2002/06/02 03:07:11 volsung Exp $
 
  ********************************************************************/
 
@@ -43,6 +43,7 @@ typedef struct ogg123_options_t {
 } ogg123_options_t;
 
 typedef struct signal_request_t {
+  int cancel;
   int skipfile;
   int exit;
   int pause;

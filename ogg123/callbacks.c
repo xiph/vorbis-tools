@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: callbacks.c,v 1.5 2002/02/07 04:40:49 segher Exp $
+ last mod: $Id: callbacks.c,v 1.6 2002/06/02 03:07:11 volsung Exp $
 
  ********************************************************************/
 
@@ -31,11 +31,7 @@ int audio_play_callback (void *ptr, int nbytes, int eos, void *arg)
   audio_play_arg_t *play_arg = (audio_play_arg_t *) arg;
   int ret;
 
-  pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
-
   ret = audio_devices_write(play_arg->devices, ptr, nbytes);
-
-  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 
   return ret ? nbytes : 0;
 }
@@ -45,11 +41,6 @@ void audio_reopen_action (buf_t *buf, void *arg)
   audio_reopen_arg_t *reopen_arg = (audio_reopen_arg_t *) arg;
   audio_device_t *current;
   ao_sample_format format;
-
-  /* We DO NOT want to get cancelled part way through this and have our
-     audio devices in an unknown state */
-  pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
-
 
   close_audio_devices (reopen_arg->devices);
   
@@ -117,8 +108,6 @@ void audio_reopen_action (buf_t *buf, void *arg)
   /* Cleanup argument */
   free(reopen_arg->format);
   free(reopen_arg);
-  
-  pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);  
 }
 
 
