@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.8 2002/01/01 01:31:09 jack Exp $
+ last mod: $Id: cmdline_options.c,v 1.9 2002/01/01 02:22:14 jack Exp $
 
  ********************************************************************/
 
@@ -243,7 +243,7 @@ void cmdline_usage (void)
 
   printf ( 
          "ogg123 from " PACKAGE " " VERSION "\n"
-	 " by the Xiphophorus Team (http://www.xiph.org/) and others\n\n"
+	 " by the Xiphophorus Team (http://www.xiph.org/)\n\n"
 	 "Usage: ogg123 [<options>] <input file> ...\n\n"
 	 "  -h, --help     this help\n"
 	 "  -V, --version  display Ogg123 version\n"
