@@ -12,6 +12,9 @@ URL:		http://www.xiph.org/
 Vendor:		Xiphophorus <team@xiph.org>
 Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-root
+Requires:       libogg >= 1.0.0
+Requires:       libvorbis >= 1.0.0
+Requires:       libao >= 1.0.0
 
 %description
 vorbis-tools contains oggenc (and encoder), ogg123 (a playback tool), and
