@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.17 2002/06/02 03:07:10 volsung Exp $
+ last mod: $Id: buffer.c,v 1.18 2002/07/06 18:18:32 volsung Exp $
 
  ********************************************************************/
 
@@ -281,7 +281,7 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   /* Put the data into the buffer as space is made available */
-  while (size > 0) {
+  while (size > 0 && !buf->abort_write) {
     
     /* Section 1: Write a chunk of data */
     DEBUG("Obtaining lock on buffer");
@@ -605,6 +605,7 @@ void buffer_abort_write (buf_t *buf)
 
   LOCK_MUTEX(buf->mutex);
   buf->abort_write = 1;
+  COND_SIGNAL(buf->write_cond);
   COND_SIGNAL(buf->playback_cond);
   UNLOCK_MUTEX(buf->mutex);  
 
