@@ -2,6 +2,8 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+SUBDIRS = man
+
 bin_PROGRAMS = oggenc
 
 oggenc_SOURCES = oggenc.c audio.c encode.c oe_unix.c getopt.c getopt1.c\
