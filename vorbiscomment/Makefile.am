@@ -2,12 +2,12 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-EXTRA_PROGRAMS = vorbiscomment
+bin_PROGRAMS = vorbiscomment
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
 vorbiscomment_LDFLAGS = @OGG_LIBS@ @VORBIS_LIBS@
-vorbiscomment_SOURCES = vcedit.c vcomment.c
+vorbiscomment_SOURCES = vcedit.c vcedit.h vcomment.c
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

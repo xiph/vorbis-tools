@@ -16,24 +16,24 @@
 
 typedef struct {
 	ogg_sync_state		*oy;
-	ogg_page			*og;
+	ogg_page		*og;
 	ogg_stream_state	*os;
 
 	vorbis_comment		*vc;
 
-	FILE 		  *in;
-	long 		   serial;
-	unsigned char *mainbuf;
-	unsigned char *bookbuf;
-	int			   mainlen;
-	int 		   booklen;
+	FILE		*in;
+	long		serial;
+	unsigned char	*mainbuf;
+	unsigned char	*bookbuf;
+	int		mainlen;
+	int		booklen;
 } vcedit_state;
 
 extern vcedit_state *	vcedit_new_state(void);
-extern void         	vcedit_clear(vcedit_state *state);
-extern vorbis_comment * vcedit_comments(vcedit_state *state);
-extern int				vcedit_open(vcedit_state *state, FILE *in);
-extern int				vcedit_write(vcedit_state *state, FILE *out);
+extern void		vcedit_clear(vcedit_state *state);
+extern vorbis_comment *	vcedit_comments(vcedit_state *state);
+extern int		vcedit_open(vcedit_state *state, FILE *in);
+extern int		vcedit_write(vcedit_state *state, FILE *out);
 
 
 
