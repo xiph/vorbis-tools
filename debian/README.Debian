@@ -1,6 +1,6 @@
 vorbis-tools for Debian
 -----------------------
 
-<possible notes regarding this package - if none, delete this file>
+Copy ogg123rc-example to ~/.ogg123rc
 
  -- Christopher L Cheney <ccheney@debian.org>, Tue, 31 Oct 2000 16:38:42 -0600
