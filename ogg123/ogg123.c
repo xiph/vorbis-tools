@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.29 2001/02/22 05:53:09 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.30 2001/02/24 00:52:22 jack Exp $
 
  ********************************************************************/
 
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 
     ao_initialize();
 
-    while (-1 != (ret = getopt_long(argc, argv, "b:d:hk:o:qvV:z",
+    while (-1 != (ret = getopt_long(argc, argv, "b:d:hk:o:qvVz",
 				    long_options, &option_index))) {
 	switch (ret) {
 	case 0:
