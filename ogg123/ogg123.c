@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.64 2002/07/06 16:18:31 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.65 2002/07/06 19:12:18 volsung Exp $
 
  ********************************************************************/
 
@@ -147,6 +147,8 @@ void options_init (ogg123_options_t *opts)
   opts->default_device = NULL;
 
   opts->status_freq = 10.0;
+  opts->playlist = NULL;
+
 }
 
 
@@ -275,7 +277,6 @@ int main(int argc, char **argv)
 {
   int optind;
   char **playlist_array;
-  playlist_t *list = playlist_create();
   int items;
   struct stat stat_buf;
   int i;
@@ -290,6 +291,7 @@ int main(int argc, char **argv)
   file_options_init(file_opts);
 
   parse_std_configs(file_opts);
+  options.playlist = playlist_create();
   optind = parse_cmdline_options(argc, argv, &options, file_opts);
 
   audio_play_arg.devices = options.devices;
@@ -300,27 +302,27 @@ int main(int argc, char **argv)
     if (stat(argv[i], &stat_buf) == 0) {
 
       if (S_ISDIR(stat_buf.st_mode)) {
-	if (playlist_append_directory(list, argv[i]) == 0)
+	if (playlist_append_directory(options.playlist, argv[i]) == 0)
 	  fprintf(stderr, 
 		  _("Warning: Could not read directory %s.\n"), argv[i]);
       } else {
-	playlist_append_file(list, argv[i]);
+	playlist_append_file(options.playlist, argv[i]);
       }
     } else /* If we can't stat it, it might be a non-disk source */
-      playlist_append_file(list, argv[i]);
+      playlist_append_file(options.playlist, argv[i]);
 
 
   }
 
 
   /* Do we have anything left to play? */
-  if (playlist_length(list) == 0) {
+  if (playlist_length(options.playlist) == 0) {
     cmdline_usage();
     exit(1);
   } else {
-    playlist_array = playlist_to_array(list, &items);
-    playlist_destroy(list);
-    list = NULL;
+    playlist_array = playlist_to_array(options.playlist, &items);
+    playlist_destroy(options.playlist);
+    options.playlist = NULL;
   }
 
   /* Don't use status_message until after this point! */
@@ -443,7 +445,7 @@ void play (char *source_string)
 			       &decoder_callbacks,
 			       decoder_callbacks_arg)) == NULL ) {
 
-    // We may have failed because of user command
+    /* We may have failed because of user command */
     if (!sig_request.cancel)
       status_error(_("Error opening %s using the %s module."
 		     "  The file may be corrupted.\n"), source_string,

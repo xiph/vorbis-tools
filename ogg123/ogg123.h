@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.h,v 1.13 2002/06/02 03:07:11 volsung Exp $
+ last mod: $Id: ogg123.h,v 1.14 2002/07/06 19:12:18 volsung Exp $
 
  ********************************************************************/
 
@@ -20,6 +20,7 @@
 
 #include <ogg/os_types.h>
 #include "audio.h"
+#include "playlist.h"
 
 typedef struct ogg123_options_t {
   long int verbosity;         /* Verbose output if > 1, quiet if 0 */
@@ -40,6 +41,8 @@ typedef struct ogg123_options_t {
   audio_device_t *devices;    /* Audio devices to use */
 
   double status_freq;         /* Number of status updates per second */
+
+  playlist_t *playlist;       /* List of files to play */
 } ogg123_options_t;
 
 typedef struct signal_request_t {

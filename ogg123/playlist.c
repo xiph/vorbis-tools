@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: playlist.c,v 1.1 2002/07/06 03:23:13 volsung Exp $
+ last mod: $Id: playlist.c,v 1.2 2002/07/06 19:12:18 volsung Exp $
 
  ********************************************************************/
 
@@ -172,29 +172,48 @@ int playlist_append_from_file(playlist_t *list, char *playlist_filename)
 {
   FILE *fp;
   char filename[NAME_MAX+1];
+  struct stat stat_buf;
   int length;
   int i;
 
-  fp = fopen(playlist_filename, "r");
+  if (strcmp(playlist_filename, "-") == 0)
+    fp = stdin;
+  else
+    fp = fopen(playlist_filename, "r");
 
   if (fp == NULL)
     return 0;
 
   while (!feof(fp)) {
-    fgets(filename, NAME_MAX+1 /* no, really! */, fp);
 
+    if ( fgets(filename, NAME_MAX+1 /* no, really! */, fp) == NULL )
+      continue;
+
+    filename[NAME_MAX] = '\0'; /* Just to make sure */
     length = strlen(filename);
 
-    // Skip blank lines
+    /* Skip blank lines */
     for (i = 0; i < length && isspace(filename[i]); i++);
     if (i == length)
       continue;
 
-    // Crop off last \n if present
+    /* Crop off last \n if present */
     if (filename[length - 1] == '\n')
       filename[length - 1] = '\0';
 
-    playlist_append_file(list, filename);
+    if (stat(filename, &stat_buf) == 0) {
+
+      if (S_ISDIR(stat_buf.st_mode)) {
+	if (playlist_append_directory(list, filename) == 0)
+	  fprintf(stderr, 
+		  _("Warning from playlist %s: "
+		    "Could not read directory %s.\n"), filename);
+      } else {
+	playlist_append_file(list, filename);
+      }
+    } else /* If we can't stat it, it might be a non-disk source */
+      playlist_append_file(list, filename);
+
   }
 
   return 1;
@@ -208,7 +227,7 @@ int playlist_length(playlist_t *list)
   playlist_element_t *element;
 
   element = list->head;  
-  length = 0; // don't count head node
+  length = 0; /* don't count head node */
   while (element->next != NULL) {
     length++;
     element = element->next;

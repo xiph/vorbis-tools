@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: cmdline_options.c,v 1.11 2002/07/03 03:18:31 volsung Exp $
+ last mod: $Id: cmdline_options.c,v 1.12 2002/07/06 19:12:17 volsung Exp $
 
  ********************************************************************/
 
@@ -45,6 +45,7 @@ struct option long_options[] = {
     {"nth", required_argument, 0, 'x'},
     {"ntimes", required_argument, 0, 'y'},
     {"shuffle", no_argument, 0, 'z'},
+    {"list", required_argument, 0, '@'},
     {0, 0, 0, 0}
 };
 
@@ -61,7 +62,7 @@ int parse_cmdline_options (int argc, char **argv,
   audio_device_t *current;
   int ret;
 
-  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:o:p:qvVx:y:z",
+  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:o:p:qvVx:y:z@:",
 				  long_options, &option_index))) {
 
       switch (ret) {
@@ -194,7 +195,13 @@ int parse_cmdline_options (int argc, char **argv,
       case 'z':
 	ogg123_opts->shuffle = 1;
 	break;
-	
+
+      case '@':
+	if (playlist_append_from_file(ogg123_opts->playlist, optarg) == 0)
+	  status_error(_("--- Cannot open playlist file %s.  Skipped.\n"),
+		       optarg);
+	break;
+		
       case '?':
 	break;
 	
