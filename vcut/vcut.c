@@ -1,13 +1,13 @@
 /* This program is licensed under the GNU General Public License, version 2,
  * a copy of which is included with this program.
  *
- * (c) 2000-2001 Michael Smith <msmith@labyrinth.net.au>
+ * (c) 2000-2001 Michael Smith <msmith@xiph.org>
  *
  *
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.8 2003/09/02 00:19:27 volsung Exp $
+ * last modified: $Id: vcut.c,v 1.9 2003/09/03 07:58:05 calc Exp $
  */
 
 #include <stdio.h>

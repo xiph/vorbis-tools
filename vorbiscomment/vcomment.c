@@ -1,7 +1,7 @@
 /* This program is licensed under the GNU General Public License, 
  * version 2, a copy of which is included with this program.
  *
- * (c) 2000-2002 Michael Smith <msmith@labyrinth.net.au>
+ * (c) 2000-2002 Michael Smith <msmith@xiph.org>
  * (c) 2001 Ralph Giles <giles@ashlu.bc.ca>
  *
  * Front end to show how to use vcedit;

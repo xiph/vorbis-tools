@@ -3,7 +3,7 @@
  * This program is distributed under the GNU General Public License, version 2.
  * A copy of this license is included with this source.
  *
- * Copyright 2002, Michael Smith <msmith@labyrinth.net.au>
+ * Copyright 2002, Michael Smith <msmith@xiph.org>
  *
  */
 

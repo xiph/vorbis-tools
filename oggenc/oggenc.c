@@ -3,7 +3,7 @@
  * This program is distributed under the GNU General Public License, version 2.
  * A copy of this license is included with this source.
  *
- * Copyright 2000-2002, Michael Smith <msmith@labyrinth.net.au>
+ * Copyright 2000-2002, Michael Smith <msmith@xiph.org>
  *
  * Portions from Vorbize, (c) Kenneth Arnold <kcarnold@yahoo.com>
  * and libvorbis examples, (c) Monty <monty@xiph.org>
@@ -26,7 +26,7 @@
 
 
 #define VERSION_STRING "OggEnc v1.0 (libvorbis 1.0)\n"
-#define COPYRIGHT "(c) 2000-2002 Michael Smith <msmith@labyrinth.net.au>\n"
+#define COPYRIGHT "(c) 2000-2002 Michael Smith <msmith@xiph.org>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 

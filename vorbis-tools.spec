@@ -60,14 +60,14 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/vcut.1*
 
 %changelog
-* Fri Jul 19 2002 Michael Smith <msmith@labyrinth.net.au>
+* Fri Jul 19 2002 Michael Smith <msmith@xiph.org>
 - Added oggdec and oggdec manpage.
 * Sun Jul 14 2002 Thomas Vander Stichele <thomas@apestaart.org>
 - updated for 1.0 release
 - added vcut, vcut man and vorbiscomment man
 - added LC_MESSAGES
 - removed libogg and libogg-devel from requires since libvorbis pulls that in
-* Fri Jul 12 2002 Michael Smith <msmith@labyrinth.net.au>
+* Fri Jul 12 2002 Michael Smith <msmith@xiph.org>
 - Version number updates for 1.0 release.
 * Fri May 23 2002 Thomas Vander Stichele <thomas@apestaart.org>
 - Added more BuildRequires: for obvious packages

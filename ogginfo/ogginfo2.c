@@ -2,7 +2,7 @@
  *
  * A tool to describe ogg file contents and metadata.
  *
- * Copyright 2002 Michael Smith <msmith@layrinth.net.au>
+ * Copyright 2002 Michael Smith <msmith@xiph.org>
  * Licensed under the GNU GPL, distributed with this program.
  */
 
@@ -711,7 +711,7 @@ static void process_file(char *filename) {
 
 static void usage(void) {
     printf(_("ogginfo 1.0\n"
-             "(c) 2002 Michael Smith <msmith@labyrinth.net.au>\n"
+             "(c) 2002 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
              "Flags supported:\n"
