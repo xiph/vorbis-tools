@@ -187,7 +187,9 @@ static int decode_file(char *infile, char *outfile)
     int percent = 0;
 
     if(!infile) {
-#ifdef _WIN32
+#ifdef __BORLANDC__
+        setmode(fileno(stdin), O_BINARY);
+#elif _WIN32
         _setmode(_fileno(stdin), _O_BINARY);
 #endif
         in = stdin;
@@ -201,7 +203,9 @@ static int decode_file(char *infile, char *outfile)
     }
 
     if(!outfile) {
-#ifdef _WIN32
+#ifdef __BORLANDC__
+        setmode(fileno(stdout), O_BINARY);
+#elif _WIN32
         _setmode(_fileno(stdout), _O_BINARY);
 #endif
         out = stdout;
