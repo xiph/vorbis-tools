@@ -37,7 +37,7 @@ char *rindex(char *s, int c)
 }
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) && defined(_MSC_VER)
 
 void setbinmode(FILE *f)
 {
@@ -52,7 +52,7 @@ void setbinmode(FILE *f)
 }
 #endif
 
-#ifdef __WATCOMC__
+#ifdef __WATCOMC__ || __BORLANDC__
 void setbinmode(FILE *f)
 {
 	setmode(fileno(f), O_BINARY);
