@@ -3,6 +3,7 @@
 AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = ogg123
+doc_DATA = ogg123rc-example
 man_MANS = ogg123.1
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@
