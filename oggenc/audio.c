@@ -329,7 +329,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	{
 		fprintf(stderr, 
 				_("Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-				" Must be 8, 16, or 24 bit PCM.\n"));
+				" Must be 8 or 16 bit PCM.\n"));
 		return 0;
 	}
 }
