@@ -266,7 +266,7 @@ int  add_comment(char *line, vorbis_comment *vc, int raw)
         free(utf8_value);
 		return 0;
 	} else {
-		fprintf(stderr, _("Couldn't convert comment to UTF8, "
+		fprintf(stderr, _("Couldn't convert comment to UTF-8, "
 			"cannot add\n"));
 		return -1;
 	}
@@ -302,7 +302,7 @@ void usage(void)
 		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
 		"   (note that when using this, reading comments from the comment\n"
 		"   file or stdin is disabled)\n"
-        "   Raw mode (--raw, -R) will read and write comments in utf8,\n"
+        "   Raw mode (--raw, -R) will read and write comments in UTF-8,\n"
         "   rather than converting to the user's character set. This is\n"
         "   useful for using vorbiscomment in scripts. However, this is\n"
         "   not sufficient for general round-tripping of comments in all\n"
