@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.7 2000/10/30 21:33:05 jack Exp $
+ last mod: $Id: ogg123.c,v 1.8 2000/10/31 01:06:22 jack Exp $
 
  ********************************************************************/
 
@@ -169,6 +169,39 @@ usage ()
   fprintf (o, "  -z, --shuffle  shuffle play\n");
 }
 
+int get_default_device(void)
+{
+	FILE *fp;
+	char filename[NAME_MAX];
+	char line[100];
+	char *device = NULL;
+	int i;
+
+	strncpy(filename, getenv("HOME"), NAME_MAX);
+	strcat(filename, "/.ogg123rc");
+
+	fp = fopen(filename, "r");
+	if (fp) {
+		if (fgets(line, 100, fp)) {
+			if (strncmp(line, "default_device=", 15) == 0) {
+				device = &line[15];
+				for (i = 0; i < strlen(device); i++)
+					if (device[i] == '\n' || device[i] == '\r')
+						device[i] = 0;
+			}
+		}
+		fclose(fp);
+	}
+
+	if (device) {
+		fprintf(stderr, "device short name = %s\n", device);
+		fprintf(stderr, "device_id is = %d\n", ao_get_driver_id(device));
+		return ao_get_driver_id(device);
+	}
+
+	return -1;
+}
+
 int
 main (int argc, char **argv)
 {
@@ -182,6 +215,8 @@ main (int argc, char **argv)
   int bits, rate, channels;
 
   ao_initialize();
+
+  temp_driver_id = get_default_device();
 
   while (-1 != (ret = getopt_long (argc, argv, "d:hqk:o:vV:z",
 				   long_options, &option_index)))
