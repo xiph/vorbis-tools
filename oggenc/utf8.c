@@ -123,7 +123,7 @@ int simple_utf8_encode(const char *from, char **to, const char *encoding)
 	int index = 0;
 	unsigned char c;
 	
-	unicode = malloc((strlen(from) * sizeof(int)) + 1);
+	unicode = malloc((strlen(from) + 1) * sizeof(short));
 
 	map = get_map(encoding);
 	
