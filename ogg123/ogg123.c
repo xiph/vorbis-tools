@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.8 2000/10/31 01:06:22 jack Exp $
+ last mod: $Id: ogg123.c,v 1.9 2000/11/01 00:58:31 jack Exp $
 
  ********************************************************************/
 
@@ -193,11 +193,7 @@ int get_default_device(void)
 		fclose(fp);
 	}
 
-	if (device) {
-		fprintf(stderr, "device short name = %s\n", device);
-		fprintf(stderr, "device_id is = %d\n", ao_get_driver_id(device));
-		return ao_get_driver_id(device);
-	}
+	if (device) return ao_get_driver_id(device);
 
 	return -1;
 }
