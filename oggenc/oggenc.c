@@ -411,7 +411,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:m:M:n:N:o:qQ:rR:s:t:v", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:m:M:n:N:o:q:QrR:s:t:v", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -465,9 +465,9 @@ void parse_options(int argc, char **argv, oe_options *opt)
 					opt->quality = 1.0f;
 					fprintf(stderr, "WARNING: quality setting too high, setting to maximum quality.\n");
 				}
-				else if(opt->quality < 0.f)
+				else if(opt->quality < 0.0f)
 				{
-					opt->quality = 0.f;
+					opt->quality = 0.0f;
 					fprintf(stderr, "WARNING: negative quality specified, setting to minimum.\n");
 				}
 				break;
