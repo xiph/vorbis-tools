@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.46 2001/08/13 02:10:39 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.47 2001/08/13 04:40:01 volsung Exp $
 
  ********************************************************************/
 
@@ -615,7 +615,7 @@ int open_audio_devices(ogg123_options_t *opt, int rate, int channels, buf_t **bu
 				     current->options);
     else
       current->device = ao_open_file(current->driver_id, current->filename,
-				     0, &format, current->options);
+				     1, &format, current->options);
 
     if (current->device == NULL) {
       switch (errno) {
