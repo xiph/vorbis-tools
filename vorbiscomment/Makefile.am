@@ -20,6 +20,8 @@ vorbiscomment_DEPENDENCIES = @SHARE_LIBS@
 
 vorbiscomment_SOURCES = $(vorbiscommentsources)
 
+EXTRA_vorbiscomment_SOURCES = $(man_MANS)
+
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
 

@@ -5,4 +5,4 @@ AUTOMAKE_OPTIONS = foreign
 mans = oggenc.1
 
 mandir = @MANDIR@
-man_MANS = $(mans)
+dist_man_MANS = $(mans)

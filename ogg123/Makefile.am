@@ -29,10 +29,12 @@ ogg123_SOURCES = audio.c buffer.c callbacks.c \
                 cfgfile_options.h cmdline_options.h \
                 format.h ogg123.h playlist.h status.h \
                 transport.h vorbis_comments.h
-EXTRA_ogg123_SOURCES = flac_format.c easyflac.c easyflac.h speex_format.c
 
 man_MANS = ogg123.1
 doc_DATA = ogg123rc-example
+
+EXTRA_ogg123_SOURCES = flac_format.c easyflac.c easyflac.h speex_format.c \
+                $(man_MANS) $(doc_DATA)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -19,7 +19,7 @@ ogginfo_LDADD = @SHARE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @I18N_LIBS@
 ogginfo_DEPENDENCIES = @SHARE_LIBS@
 
 ogginfo_SOURCES = $(ogginfosources)
-
+EXTRA_ogginfo_SOURCES = $(man_MANS) 
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -21,6 +21,7 @@ oggdec_SOURCES = $(oggdecsources)
 man_MANS = $(mans)
 mandir = @MANDIR@
 
+EXTRA_oggdec_SOURCES = $(man_MANS)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
