@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.5 2000/10/30 16:41:51 jack Exp $
+ last mod: $Id: ogg123.c,v 1.6 2000/10/30 17:19:59 jack Exp $
 
  ********************************************************************/
 
@@ -490,7 +490,7 @@ void play_file(void)
 			old_section = current_section;
 			switch ((ret = ov_read (&vf, convbuffer, sizeof (convbuffer), is_big_endian, 2, 1, &current_section))) {
 			case 0: /* End of file */
-				eof = 1;
+				eof = eos = 1;
 				break;
 			case -1: /* Stream error */
 				fprintf(stderr, "W: Stream error\n");
