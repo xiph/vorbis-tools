@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <stdarg.h>
+#include <getopt.h>
 
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
@@ -20,6 +22,24 @@
 #include "i18n.h"
 
 #define CHUNK 4500
+
+/* Different implementations have different format strings for 64 bit ints. */
+#ifdef _WIN32
+#define INT64FORMAT "%I64d"
+#else
+#define INT64FORMAT "%Ld"
+#endif
+
+
+/* TODO:
+ *
+ * - detect decreasing granulepos
+ * - detect violations of muxing constraints
+ * - better EOS detection (when EOS not explicitly set)
+ * - detect granulepos 'gaps' (possibly vorbis-specific).
+ * - check for serial number == (unsigned)-1 (will break some tools?)
+ * - more options (e.g. less or more verbose)
+ */
 
 typedef struct _stream_processor {
     void (*process_page)(struct _stream_processor *, ogg_page *);
@@ -57,6 +77,10 @@ typedef struct {
     int doneheaders;
 } misc_vorbis_info;
 
+static int printinfo = 1;
+static int printwarn = 1;
+static int verbose = 1;
+
 static stream_set *create_stream_set(void) {
     stream_set *set = calloc(1, sizeof(stream_set));
 
@@ -67,85 +91,124 @@ static stream_set *create_stream_set(void) {
     return set;
 }
 
+static void info(char *format, ...) 
+{
+    va_list ap;
+
+    if(!printinfo)
+        return;
+
+    va_start(ap, format);
+    vfprintf(stdout, format, ap);
+    va_end(ap);
+}
+
+static void warn(char *format, ...) 
+{
+    va_list ap;
+
+    if(!printwarn)
+        return;
+
+    va_start(ap, format);
+    vfprintf(stdout, format, ap);
+    va_end(ap);
+}
+
+static void error(char *format, ...) 
+{
+    va_list ap;
+
+    va_start(ap, format);
+    vfprintf(stdout, format, ap);
+    va_end(ap);
+}
+
 static void vorbis_process(stream_processor *stream, ogg_page *page )
 {
     ogg_packet packet;
-    misc_vorbis_info *info = stream->data;
+    misc_vorbis_info *inf = stream->data;
     int i, header=0;
 
     ogg_stream_pagein(&stream->os, page);
 
     while(ogg_stream_packetout(&stream->os, &packet) > 0) {
-        if(info->doneheaders < 3) {
-            if(vorbis_synthesis_headerin(&info->vi, &info->vc, &packet) < 0) {
-                fprintf(stderr, _("Warning: Could not decode vorbis header "
+        if(inf->doneheaders < 3) {
+            if(vorbis_synthesis_headerin(&inf->vi, &inf->vc, &packet) < 0) {
+                warn(_("Warning: Could not decode vorbis header "
                        "packet - invalid vorbis stream (%d)\n"), stream->num);
                 continue;
             }
             header = 1;
-            info->doneheaders++;
-            if(info->doneheaders == 3) {
-                fprintf(stderr, 
-                        _("Vorbis headers parsed for stream %d, "
-                          "information follows...\n"), stream->num);
+            inf->doneheaders++;
+            if(inf->doneheaders == 3) {
+                info(_("Vorbis headers parsed for stream %d, "
+                       "information follows...\n"), stream->num);
 
-                fprintf(stderr, _("Version: %d\n"), info->vi.version);
-                fprintf(stderr, _("Vendor: %s\n"), info->vc.vendor);
-                fprintf(stderr, _("Channels: %d\n"), info->vi.channels);
-                fprintf(stderr, _("Rate: %ld\n\n"), info->vi.rate);
+                info(_("Version: %d\n"), inf->vi.version);
+                info(_("Vendor: %s\n"), inf->vc.vendor);
+                info(_("Channels: %d\n"), inf->vi.channels);
+                info(_("Rate: %ld\n\n"), inf->vi.rate);
 
-                if(info->vi.bitrate_nominal >= 0)
-                    fprintf(stderr, _("Nominal bitrate: %f kb/s\n"), 
-                            (double)info->vi.bitrate_nominal / 1000.0);
+                if(inf->vi.bitrate_nominal >= 0)
+                    info(_("Nominal bitrate: %f kb/s\n"), 
+                            (double)inf->vi.bitrate_nominal / 1000.0);
                 else
-                    fprintf(stderr, _("Nominal bitrate not set\n"));
+                    info(_("Nominal bitrate not set\n"));
 
-                if(info->vi.bitrate_upper >= 0)
-                    fprintf(stderr, _("Upper bitrate: %f kb/s\n"), 
-                            (double)info->vi.bitrate_upper / 1000.0);
+                if(inf->vi.bitrate_upper >= 0)
+                    info(_("Upper bitrate: %f kb/s\n"), 
+                            (double)inf->vi.bitrate_upper / 1000.0);
                 else
-                    fprintf(stderr, _("Upper bitrate not set\n"));
+                    info(_("Upper bitrate not set\n"));
 
-                if(info->vi.bitrate_lower >= 0)
-                    fprintf(stderr, _("Lower bitrate: %f kb/s\n"), 
-                            (double)info->vi.bitrate_lower / 1000.0);
+                if(inf->vi.bitrate_lower >= 0)
+                    info(_("Lower bitrate: %f kb/s\n"), 
+                            (double)inf->vi.bitrate_lower / 1000.0);
                 else
-                    fprintf(stderr, _("Lower bitrate not set\n"));
+                    info(_("Lower bitrate not set\n"));
 
-                if(info->vc.comments > 0)
-                    fprintf(stderr, _("User comments section follows...\n"));
+                if(inf->vc.comments > 0)
+                    info(_("User comments section follows...\n"));
 
-                for(i=0; i < info->vc.comments; i++)
-                    fprintf(stderr, "\t%s\n", info->vc.user_comments[i]);
+                for(i=0; i < inf->vc.comments; i++)
+                    info("\t%s\n", inf->vc.user_comments[i]);
             }
         }
     }
 
     if(!header) {
-        info->bytes += page->header_len + page->body_len;
-        info->lastgranulepos = ogg_page_granulepos(page);
+        ogg_int64_t gp = ogg_page_granulepos(page);
+        if(gp > 0) {
+            if(gp < inf->lastgranulepos)
+                warn(_("Warning: granulepos in stream %d decreases from " 
+                        INT64FORMAT " to " INT64FORMAT "\n"), stream->num,
+                        inf->lastgranulepos, gp);
+            inf->lastgranulepos = gp;
+        }
+        inf->bytes += page->header_len + page->body_len;
     }
 }
 
 static void vorbis_end(stream_processor *stream) 
 {
-    misc_vorbis_info *info = stream->data;
+    misc_vorbis_info *inf = stream->data;
     long minutes, seconds;
     double bitrate, time;
 
-    time = (double)info->lastgranulepos / info->vi.rate;
+    time = (double)inf->lastgranulepos / inf->vi.rate;
     minutes = (long)time / 60;
     seconds = (long)time - minutes*60;
-    bitrate = info->bytes*8 / time / 1000.0;
+    bitrate = inf->bytes*8 / time / 1000.0;
 
-    fprintf(stderr, _("Vorbis stream %d:\n"
-                      "\tTotal data length: %ld bytes\n"
-                      "\tPlayback length: %ldm:%02lds\n"
-                      "\tAverage bitrate: %f kbps\n"), 
-            stream->num,info->bytes, minutes, seconds, bitrate);
+    info(_("Vorbis stream %d:\n"
+           "\tTotal data length: %ld bytes\n"
+           "\tPlayback length: %ldm:%02lds\n"
+           "\tAverage bitrate: %f kbps\n"), 
+            stream->num,inf->bytes, minutes, seconds, bitrate);
 
-    vorbis_comment_clear(&info->vc);
-    vorbis_info_clear(&info->vi);
+    vorbis_comment_clear(&inf->vc);
+    vorbis_info_clear(&inf->vi);
 
     free(stream->data);
 }
@@ -167,8 +230,9 @@ static void free_stream_set(stream_set *set)
     int i;
     for(i=0; i < set->used; i++) {
         if(!set->streams[i].end) {
-            fprintf(stderr, _("Warning: EOS not set on stream %d\n"), 
+            warn(_("Warning: EOS not set on stream %d\n"), 
                     set->streams[i].num);
+            set->streams[i].process_end(&set->streams[i]);
         }
         ogg_stream_clear(&set->streams[i].os);
     }
@@ -277,8 +341,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         ogg_stream_pagein(&stream->os, page);
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res <= 0) {
-            fprintf(stderr, _(
-                    "Warning: Invalid header page, no packet found\n"));
+            warn(_("Warning: Invalid header page, no packet found\n"));
             return NULL;
         }
 
@@ -291,7 +354,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
 
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res > 0) {
-            fprintf(stderr, _("Warning: Invalid header page in stream %d, "
+            warn(_("Warning: Invalid header page in stream %d, "
                               "contains multiple packets\n"), stream->num);
         }
 
@@ -315,7 +378,7 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page)
 
     while((ret = ogg_sync_pageout(sync, page)) <= 0) {
         if(ret < 0)
-            fprintf(stderr, _("Warning: Hole in data found. Corrupted ogg\n"));
+            warn(_("Warning: Hole in data found. Corrupted ogg\n"));
 
         buffer = ogg_sync_buffer(sync, CHUNK);
         bytes = fread(buffer, 1, CHUNK, f);
@@ -334,12 +397,12 @@ static void process_file(char *filename) {
     stream_set *processors = create_stream_set();
 
     if(!file) {
-        fprintf(stderr, _("Error opening input file \"%s\": %s\n"), filename,
+        error(_("Error opening input file \"%s\": %s\n"), filename,
                     strerror(errno));
         return;
     }
 
-    fprintf(stderr, _("Processing file \"%s\"...\n\n"), filename);
+    info(_("Processing file \"%s\"...\n\n"), filename);
 
     ogg_sync_init(&sync);
 
@@ -347,30 +410,26 @@ static void process_file(char *filename) {
         stream_processor *p = find_stream_processor(processors, &page);
 
         if(!p) {
-            fprintf(stderr, 
-                    _("Could not find a processor for stream, bailing\n"));
+            error(_("Could not find a processor for stream, bailing\n"));
             return;
         }
 
         if(p->isillegal && !p->shownillegal) {
-            fprintf(stderr, 
-                    _("Warning: illegally placed page(s) for logical stream %d\n"
-                      "This indicates a corrupt ogg file.\n"), p->num);
+            warn(_("Warning: illegally placed page(s) for logical stream %d\n"
+                   "This indicates a corrupt ogg file.\n"), p->num);
             p->shownillegal = 1;
             continue;
         }
 
         if(p->isnew) {
-            fprintf(stderr, _("New logical stream (#%d, serial: %08x): type %s\n"), 
+            info(_("New logical stream (#%d, serial: %08x): type %s\n"), 
                     p->num, p->serial, p->type);
             if(!p->start)
-                fprintf(stderr, 
-                        _("Warning: stream start flag not set on stream %d\n"),
+                warn(_("Warning: stream start flag not set on stream %d\n"),
                         p->num);
         }
         else if(p->start)
-            fprintf(stderr, 
-                    _("Warning: stream start flag found in mid-stream "
+            warn(_("Warning: stream start flag found in mid-stream "
                       "on stream %d\n"), p->num);
 
         if(!p->isillegal) {
@@ -379,7 +438,7 @@ static void process_file(char *filename) {
             if(p->end) {
                 if(p->process_end)
                     p->process_end(p);
-                fprintf(stderr, _("Logical stream %d ended\n"), p->num);
+                info(_("Logical stream %d ended\n"), p->num);
                 p->isillegal = 1;
             }
         }
@@ -392,8 +451,21 @@ static void process_file(char *filename) {
     fclose(file);
 }
 
+static void usage(void) {
+    printf(_("ogginfo 1.0\n"
+             "(c) 2002 Michael Smith <msmith@labyrinth.net.au>\n"
+             "\n"
+             "Usage: ogginfo [flags] files1.ogg [file2.ogg ... fileN.ogg]\n"
+             "Flags supported:\n"
+             "\t-h Show this help message\n"
+             "\t-q Make less verbose. Once will remove detailed informative\n"
+             "\t   messages, two will remove warnings\n"
+             "\t-v Make more verbose. This may enable more detailed checks\n"
+             "\t   for some stream types.\n\n"));
+}
+
 int main(int argc, char **argv) {
-    int f;
+    int f, ret;
 
     setlocale(LC_ALL, "");
     bindtextdomain(PACKAGE, LOCALEDIR);
@@ -401,14 +473,39 @@ int main(int argc, char **argv) {
 
     if(argc < 2) {
         fprintf(stderr, 
-                _("Usage: ogginfo file1.ogg [file2.ogg ... fileN.ogg]\n"
+                _("Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
                   "\n"
                   "Ogginfo is a tool for printing information about ogg files\n"
-                  "and for diagnosing problems with them.\n"));
+                  "and for diagnosing problems with them.\n"
+                  "Full help shown with \"ogginfo -h\".\n"));
         exit(1);
     }
 
-    for(f=1; f < argc; f++) {
+    while((ret = getopt(argc, argv, "hvq")) >= 0) {
+        switch(ret) {
+            case 'h':
+                usage();
+                return 0;
+            case 'v':
+                verbose++;
+                break;
+            case 'q':
+                verbose--;
+                break;
+        }
+    }
+
+    if(verbose < 1)
+        printinfo = 0;
+    if(verbose < 0) 
+        printwarn = 0;
+
+    if(optind >= argc) {
+        fprintf(stderr, _("No input files specified. \"ogginfo -h\" for help\n"));
+        return 1;
+    }
+
+    for(f=optind; f < argc; f++) {
         process_file(argv[f]);
     }
 
