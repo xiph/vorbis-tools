@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.66 2003/01/12 20:19:22 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.67 2003/09/01 20:02:58 volsung Exp $
 
  ********************************************************************/
 
@@ -180,7 +180,10 @@ void select_stats (stat_format_t *stats, ogg123_options_t *opts,
     stats[7].enabled = 0;
   }
     
-  /* Put logic here to decide if this stream needs a total time display */
+  /* Assume we need total time display, and let display_statistics()
+     determine at what point it should be turned off during playback */
+  stats[2].enabled = 1;  /* Remaining playback time */
+  stats[3].enabled = 1;  /* Total playback time */
 }
 
 
