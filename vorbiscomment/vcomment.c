@@ -435,7 +435,7 @@ void open_files(param_t *p)
 				(strncmp(p->commentfilename,"-",2) == 0)) {
 			p->com = stdin;
 		} else {
-			p->com = fopen(p->commentfilename, "rb");
+			p->com = fopen(p->commentfilename, "r");
 		}
 		if (p->com == NULL) {
 			fprintf(stderr,
@@ -452,7 +452,7 @@ void open_files(param_t *p)
 				(strncmp(p->commentfilename,"-",2) == 0)) {
 			p->com = stdout;
 		} else {
-			p->com = fopen(p->commentfilename, "wb");
+			p->com = fopen(p->commentfilename, "w");
 		}
 		if (p->com == NULL) {
 			fprintf(stderr,
