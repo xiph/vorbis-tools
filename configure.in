@@ -19,6 +19,8 @@ CFLAGS="$cflags_save"
 
 AM_PROG_LIBTOOL
 
+ALL_LINGUAS="nl"
+AM_GNU_GETTEXT
 
 dnl --------------------------------------------------
 dnl Set build flags based on environment
@@ -93,6 +95,9 @@ AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 SHARE_LIBS='$(top_builddir)/share/libutf8.a $(top_builddir)/share/libgetopt.a'
 SHARE_CFLAGS='-I$(top_srcdir)/include'
 
+I18N_CFLAGS='-I$(top_srcdir)/intl'
+I18N_LIBS=$INTLLIBS
+
 dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------
@@ -123,5 +128,7 @@ AC_SUBST(SHARE_CFLAGS)
 AC_SUBST(SHARE_LIBS)
 AC_SUBST(CURL_CFLAGS)
 AC_SUBST(CURL_LIBS)
+AC_SUBST(I18N_CFLAGS)
+AC_SUBST(I18N_LIBS)
 
-AC_OUTPUT(Makefile include/Makefile share/Makefile win32/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
+AC_OUTPUT(Makefile intl/Makefile po/Makefile.in include/Makefile share/Makefile win32/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
