@@ -36,7 +36,7 @@ static int sign = 1;
 unsigned char headbuf[44]; /* The whole buffer */
 
 static void usage(void) {
-    fprintf(stderr, "Usage: oggdec [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+    fprintf(stderr, "Usage: oggdec [flags] file1.ogg file1.wav [file2.ogg file2.wav ... fileN.ogg fileN.ogg]\n"
                     "\n"
                     "Supported flags:\n"
                     " --quiet, -q      Quiet mode. No console output.\n"
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     }
 
     if((argc - optind) % 2 != 0) {
-        fprintf(stderr, "ERROR: incorrect usage. Usage message follows\n");
+        fprintf(stderr, "ERROR: Not enough output files specified. See usage (below) for details.\n");
         usage();
         return 1;
     }
