@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.18 2002/03/30 14:40:59 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.19 2002/07/09 12:20:43 msmith Exp $
  */
 
 #include <stdio.h>
@@ -45,25 +45,29 @@ static void vcedit_clear_internals(vcedit_state *state)
 	{
 		vorbis_comment_clear(state->vc);
 		free(state->vc);
-		state->vc=NULL;
 	}
 	if(state->os)
 	{
 		ogg_stream_clear(state->os);
 		free(state->os);
-		state->os=NULL;
 	}
 	if(state->oy)
 	{
 		ogg_sync_clear(state->oy);
 		free(state->oy);
-		state->oy=NULL;
 	}
 	if(state->vendor)
-	{
 		free(state->vendor);
-		state->vendor=NULL;
-	}
+    if(state->mainbuf)
+        free(state->mainbuf);
+    if(state->bookbuf)
+        free(state->bookbuf);
+    if(state->vi) {
+       	vorbis_info_clear(state->vi);
+        free(state->vi);
+    }
+
+    memset(state, 0, sizeof(*state));
 }
 
 void vcedit_clear(vcedit_state *state)
@@ -130,7 +134,7 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 
 static int _blocksize(vcedit_state *s, ogg_packet *p)
 {
-	int this = vorbis_packet_blocksize(&s->vi, p);
+	int this = vorbis_packet_blocksize(s->vi, p);
 	int ret = (this + s->prevW)/4;
 
 	if(!s->prevW)
@@ -223,7 +227,8 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	state->os = malloc(sizeof(ogg_stream_state));
 	ogg_stream_init(state->os, state->serial);
 
-	vorbis_info_init(&state->vi);
+    state->vi = malloc(sizeof(vorbis_info));
+	vorbis_info_init(state->vi);
 
 	state->vc = malloc(sizeof(vorbis_comment));
 	vorbis_comment_init(state->vc);
@@ -240,7 +245,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 		goto err;
 	}
 
-	if(vorbis_synthesis_headerin(&state->vi, state->vc, &header_main) < 0)
+	if(vorbis_synthesis_headerin(state->vi, state->vc, &header_main) < 0)
 	{
 		state->lasterror = _("Ogg bitstream does not contain vorbis data.");
 		goto err;
@@ -268,7 +273,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 						state->lasterror = _("Corrupt secondary header.");
 						goto err;
 					}
-					vorbis_synthesis_headerin(&state->vi, state->vc, header);
+					vorbis_synthesis_headerin(state->vi, state->vc, header);
 					if(i==1)
 					{
 						state->booklen = header->bytes;
@@ -417,10 +422,6 @@ int vcedit_write(vcedit_state *state, void *out)
 					out) != (size_t) ogout.body_len)
 			goto cleanup;
 	}
-
-	/* FIXME: freeing this here probably leaks memory */
-	/* Done with this, now */
-	vorbis_info_clear(&state->vi);
 
 	if (state->extrapage)
 	{

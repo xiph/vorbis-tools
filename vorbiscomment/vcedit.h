@@ -27,7 +27,7 @@ typedef struct {
 	ogg_stream_state	*os;
 
 	vorbis_comment		*vc;
-	vorbis_info          vi;
+	vorbis_info         *vi;
 
 	vcedit_read_func read;
 	vcedit_write_func write;
