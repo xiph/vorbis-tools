@@ -14,12 +14,16 @@
 #include <string.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
+#include <locale.h>
+#include "utf8.h"
 
 int dointegritycheck(char *filename);
 
 int main(int ac,char **av)
 {
   int i;
+
+  setlocale(LC_ALL, "");
 
   if ( ac < 2 ) {
     fprintf(stderr,"Usage: %s [filename1.ogg] ... [filenameN.ogg]\n",av[0]);
@@ -49,7 +53,12 @@ void print_header_info(vorbis_comment *vc, vorbis_info *vi)
   int i;
 
   for (i=0; i < vc->comments; i++) {
-    printf("%s\n",vc->user_comments[i]);
+    char *decoded_value;
+
+    if (utf8_decode(vc->user_comments[i], &decoded_value) >= 0)
+      printf("%s\n",decoded_value);
+    else
+      printf("%s\n",vc->user_comments[i]);
   }
 
   printf("vendor=%s\n", vc->vendor);

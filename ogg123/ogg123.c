@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.57 2002/01/01 15:43:29 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.58 2002/01/03 10:40:40 segher Exp $
 
  ********************************************************************/
 
@@ -28,6 +28,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <locale.h>
 
 #include "audio.h"
 #include "buffer.h"
@@ -266,6 +267,8 @@ void print_audio_devices_info(audio_device_t *d)
 int main(int argc, char **argv)
 {
   int optind;
+
+  setlocale(LC_ALL, "");
 
   ao_initialize();
   stat_format = stat_format_create();

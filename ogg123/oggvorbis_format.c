@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.3 2001/12/28 00:22:36 segher Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.4 2002/01/03 10:40:40 segher Exp $
 
  ********************************************************************/
 
@@ -22,6 +22,7 @@
 #include <vorbis/vorbisfile.h>
 #include "transport.h"
 #include "format.h"
+#include "utf8.h"
 
 
 typedef struct ovf_private_t {
@@ -339,10 +340,17 @@ void print_stream_comments (decoder_t *decoder)
     return;
 
   for (i = 0; i < priv->vc->comments; i++) {
+    char *decoded_value;
+
     comment = priv->vc->user_comments[i];
     comment_formatstr = lookup_comment_formatstr(comment, &offset);
-    
-    cb->printf_metadata(decoder->callback_arg, 1,
+
+    if (utf8_decode(comment + offset, &decoded_value) >= 0) {
+      cb->printf_metadata(decoder->callback_arg, 1,
+			       comment_formatstr, decoded_value);
+      free(decoded_value);
+    } else
+      cb->printf_metadata(decoder->callback_arg, 1,
 			       comment_formatstr, comment + offset);
   }
 }
