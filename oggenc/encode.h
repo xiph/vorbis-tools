@@ -12,7 +12,7 @@ typedef void (*progress_func)(char *fn, long totalsamples,
 typedef void (*enc_end_func)(char *fn, double time, int rate, 
 		long samples, long bytes);
 typedef void (*enc_start_func)(char *fn, char *outfn, int bitrate, 
-        float quality);
+        float quality, int managed);
 typedef void (*error_func)(char *errormessage);
 
 
@@ -23,8 +23,10 @@ void timer_clear(void *);
 void update_statistics_full(char *fn, long total, long done, double time);
 void update_statistics_notime(char *fn, long total, long done, double time);
 void update_statistics_null(char *fn, long total, long done, double time);
-void start_encode_full(char *fn, char *outfn, int bitrate, float quality);
-void start_encode_null(char *fn, char *outfn, int bitrate, float quality);
+void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
+        int managed);
+void start_encode_null(char *fn, char *outfn, int bitrate, float quality,
+        int managed);
 void final_statistics(char *fn, double time, int rate, long total_samples,
 		long bytes);
 void final_statistics_null(char *fn, double time, int rate, long total_samples,
@@ -61,6 +63,7 @@ typedef struct
 	char *outfile;
 
 	/* All 3 in kbps */
+    int managed;
 	int min_bitrate;
 	int nominal_bitrate;
 	int max_bitrate;
@@ -90,6 +93,7 @@ typedef struct
 	int samplesize;
 
 	/* Various bitrate/quality options */
+    int managed;
 	int bitrate;
 	int min_bitrate;
 	int max_bitrate;

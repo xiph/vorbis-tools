@@ -53,6 +53,7 @@ struct option long_options[] = {
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
 	{"serial",1,0,'s'},
+    {"managed", 0, 0, 0},
 	{NULL,0,0,0}
 };
 	
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
 	/* Default values */
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
-        DEFAULT_NAMEFMT_REPLACE, NULL, -1,-1,-1,-1,0};
+        DEFAULT_NAMEFMT_REPLACE, NULL, 0, -1,128,-1,0.3,0};
 	int i;
 
 	char **infiles;
@@ -267,6 +268,7 @@ int main(int argc, char **argv)
 		enc_opts.comments = &vc;
 		enc_opts.filename = out_fn;
 		enc_opts.infilename = infiles[i];
+        enc_opts.managed = opt.managed;
 		enc_opts.bitrate = opt.nominal_bitrate; 
 		enc_opts.min_bitrate = opt.min_bitrate;
 		enc_opts.max_bitrate = opt.max_bitrate;
@@ -298,6 +300,19 @@ int main(int argc, char **argv)
 
 	return errors?1:0;
 
+}
+
+static void print_deprecated_message(void) {
+    fprintf(stderr, "WARNING: Usage of the bitrate options (-b, -m, -M) has been deprecated\n"
+                    "To use these, you must specify that you wish to use managed mode, using\n"
+                    "the --managed option.\n"
+                    "This will cause oggenc to enable the full bitrate management engine.\n"
+                    "You should do this ONLY if bitrate management is critical to your usage\n"
+                    "(for example, certain audio streaming applications).\n"
+                    "Usage of the bitrate management engine will generally decrease quality,\n"
+                    "using the normal fully VBR modes (quality specified using -q) is\n"
+                    "very highly recommended for most users.\n"
+                    "Usage of the -managed option will become MANDATORY in the next release.\n\n");
 }
 
 static void usage(void)
@@ -488,8 +503,15 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		switch(ret)
 		{
 			case 0:
-				fprintf(stderr, _("Internal error parsing command line options\n"));
-				exit(1);
+                if(!strcmp(long_options[option_index].name, "managed")) {
+                    fprintf(stderr, "Enabling bitrate management engine\n");
+                    opt->managed = 1;
+                }
+                else {
+				    fprintf(stderr, _("Internal error parsing command line options\n"));
+				    exit(1);
+                }
+
 				break;
 			case 'a':
 				opt->artist = realloc(opt->artist, (++opt->artist_count)*sizeof(char *));
@@ -526,13 +548,24 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				opt->title[opt->title_count - 1] = strdup(optarg);
 				break;
 			case 'b':
-				if(sscanf(optarg, "%d", &opt->nominal_bitrate)
-						!= 1) {
-					fprintf(stderr, _("Warning: nominal bitrate \"%s\" not recognised\n"), optarg);
-					opt->nominal_bitrate = -1;
+                if(!opt->managed) {
+                    print_deprecated_message();
+                    opt->managed = 1;
+                }
+
+   				if(sscanf(optarg, "%d", &opt->nominal_bitrate)
+    					!= 1) {
+	    			fprintf(stderr, _("Warning: nominal bitrate \"%s\" not recognised\n"), optarg);
+		    		opt->nominal_bitrate = -1;
 				}
+
 				break;
 			case 'm':
+                if(!opt->managed) {
+                    print_deprecated_message();
+                    opt->managed = 1;
+                }
+
 				if(sscanf(optarg, "%d", &opt->min_bitrate)
 						!= 1) {
 					fprintf(stderr, _("Warning: minimum bitrate \"%s\" not recognised\n"), optarg);
@@ -540,6 +573,11 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				}
 				break;
 			case 'M':
+                if(!opt->managed) {
+                    print_deprecated_message();
+                    opt->managed = 1;
+                }
+
 				if(sscanf(optarg, "%d", &opt->max_bitrate)
 						!= 1) {
 					fprintf(stderr, _("Warning: maximum bitrate \"%s\" not recognised\n"), optarg);
@@ -660,8 +698,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		}
 	}
 
-	if (opt->min_bitrate < 0 && opt->nominal_bitrate < 0 && opt->max_bitrate < 0 && opt->quality < 0.f)
-		opt->quality = 0.3f;
 }
 
 static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)

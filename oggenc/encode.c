@@ -47,14 +47,13 @@ int oe_encode(oe_enc_opt *opt)
 	/* get start time. */
 	timer = timer_start();
     opt->start_encode(opt->infilename, opt->filename, opt->bitrate, 
-            opt->quality);
+            opt->quality, opt->managed);
 
 	/* Have vorbisenc choose a mode for us */
 	vorbis_info_init(&vi);
 
-	if(opt->quality >= 0.0f)
+	if(!opt->managed)
 	{
-		printf(_("Encoding with VBR\n"));
 		if(vorbis_encode_init_vbr(&vi, opt->channels, opt->rate, opt->quality))
 		{
 			fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
@@ -64,7 +63,6 @@ int oe_encode(oe_enc_opt *opt)
 	}
 	else
 	{
-		printf(_("Encoding with managed bitrates.\n"));
 		if(vorbis_encode_init(&vi, opt->channels, opt->rate, 
                     opt->max_bitrate>0?opt->max_bitrate*1000:-1,
 				    opt->bitrate*1000, 
@@ -285,22 +283,25 @@ void encode_error(char *errmsg)
 	fprintf(stderr, "\n%s\n", errmsg);
 }
 
-void start_encode_full(char *fn, char *outfn, int bitrate, float quality)
+void start_encode_full(char *fn, char *outfn, int bitrate, float quality, 
+        int managed)
 {
-    if(quality >= 0.0f)
+    if(!managed)
         fprintf(stderr, _("Encoding %s%s%s to \n         %s%s%s at quality %2.2f\n"),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 quality * 10);
     else
         fprintf(stderr, _("Encoding %s%s%s to \n         "
-                "%s%s%s at bitrate %d kbps\n"),
+                "%s%s%s at bitrate %d kbps,\n"
+                "using full bitrate management engine\n"),
 			    fn?"\"":"", fn?fn:_("standard input"), fn?"\"":"",
                 outfn?"\"":"", outfn?outfn:_("standard output"), outfn?"\"":"",
                 bitrate);
 }
 
-void start_encode_null(char *fn, char *outfn, int bitrate, float quality)
+void start_encode_null(char *fn, char *outfn, int bitrate, float quality, 
+        int managed)
 {
 }
 
