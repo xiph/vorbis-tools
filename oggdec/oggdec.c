@@ -68,7 +68,7 @@ static void parse_options(int argc, char **argv)
     int option_index = 1;
     int ret;
 
-    while((ret = getopt_long(argc, argv, "Qhvb:e:r:s:o:", 
+    while((ret = getopt_long(argc, argv, "Qhvb:e:R:s:o:", 
                     long_options, &option_index)) != -1)
     {
         switch(ret)
