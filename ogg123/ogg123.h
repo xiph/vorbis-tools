@@ -3,6 +3,12 @@
 #ifndef __OGG123_H
 #define __OGG123_H
 
+/* Common includes */
+#include <ogg/ogg.h>
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h>
+#include <ao/ao.h>
+
 /* For facilitating output to multiple devices */
 typedef struct devices_s {
   int driver_id;
