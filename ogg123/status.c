@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: status.c,v 1.7 2002/01/26 11:06:37 segher Exp $
+ last mod: $Id: status.c,v 1.8 2002/03/19 09:50:09 msmith Exp $
 
  ********************************************************************/
 
@@ -44,7 +44,7 @@ void write_buffer_state_string (char *dest, buffer_stats_t *buf_stats)
   char *sep = "(";
 
   if (buf_stats->prebuffering) {
-    cur += sprintf (cur, _("%sPrebuf to %1.f%%"), sep, 
+    cur += sprintf (cur, _("%sPrebuf to %.1f%%"), sep, 
 		    100.0f * buf_stats->prebuffer_fill);
     sep = comma;
   }
