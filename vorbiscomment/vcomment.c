@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 #include "getopt.h"
 #include "utf8.h"
 
@@ -24,7 +25,6 @@ struct option long_options[] = {
 	{"help",0,0,'h'},
 	{"quiet",0,0,'q'},
 	{"commentfile",1,0,'c'},
-    {"encoding", 1,0,'e'},
 	{NULL,0,0,0}
 };
 
@@ -37,7 +37,6 @@ typedef struct {
 	int commentcount;
 	char **comments;
 	int tempoutfile;
-	char *encoding;
 } param_t;
 
 #define MODE_NONE  0
@@ -47,8 +46,8 @@ typedef struct {
 
 /* prototypes */
 void usage(void);
-void print_comments(FILE *out, vorbis_comment *vc, char *encoding);
-int  add_comment(char *line, vorbis_comment *vc, char *encoding);
+void print_comments(FILE *out, vorbis_comment *vc);
+int  add_comment(char *line, vorbis_comment *vc);
 
 param_t	*new_param(void);
 void parse_options(int argc, char *argv[], param_t *param);
@@ -98,7 +97,7 @@ int main(int argc, char **argv)
 
 		/* extract and display the comments */
 		vc = vcedit_comments(state);
-		print_comments(param->com, vc, param->encoding);
+		print_comments(param->com, vc);
 
 		/* done */
 		vcedit_clear(state);
@@ -128,7 +127,7 @@ int main(int argc, char **argv)
 
 		for(i=0; i < param->commentcount; i++)
 		{
-			if(add_comment(param->comments[i], vc, param->encoding) < 0)
+			if(add_comment(param->comments[i], vc) < 0)
 				fprintf(stderr, "Bad comment: \"%s\"\n", param->comments[i]);
 		}
 
@@ -139,7 +138,7 @@ int main(int argc, char **argv)
 			char *buf = (char *)malloc(sizeof(char)*1024);
 
 			while (fgets(buf, 1024, param->com))
-				if (add_comment(buf, vc, param->encoding) < 0) {
+				if (add_comment(buf, vc) < 0) {
 					fprintf(stderr,
 						"bad comment: \"%s\"\n",
 						buf);
@@ -177,14 +176,14 @@ int main(int argc, char **argv)
 
 ***********/
 
-void print_comments(FILE *out, vorbis_comment *vc, char *encoding)
+void print_comments(FILE *out, vorbis_comment *vc)
 {
 	int i;
     char *decoded_value;
 
 	for (i = 0; i < vc->comments; i++)
     {
-	    if (utf8_decode(vc->user_comments[i], &decoded_value, encoding) == 0)
+	    if (utf8_decode(vc->user_comments[i], &decoded_value) >= 0)
         {
     		fprintf(out, "%s\n", decoded_value);
             free(decoded_value);
@@ -197,7 +196,7 @@ void print_comments(FILE *out, vorbis_comment *vc, char *encoding)
 /**********
 
    Take a line of the form "TAG=value string", parse it, convert the
-   value to UTF-8 from the specified encoding, and add it to the
+   value to UTF-8, and add it to the
    vorbis_comment structure. Error checking is performed.
 
    Note that this assumes a null-terminated string, which may cause
@@ -205,7 +204,7 @@ void print_comments(FILE *out, vorbis_comment *vc, char *encoding)
 
 ***********/
 
-int  add_comment(char *line, vorbis_comment *vc, char *encoding)
+int  add_comment(char *line, vorbis_comment *vc)
 {
 	char	*mark, *value, *utf8_value;
 
@@ -234,7 +233,7 @@ int  add_comment(char *line, vorbis_comment *vc, char *encoding)
 	value++;
 
 	/* convert the value from the native charset to UTF-8 */
-	if (utf8_encode(value, &utf8_value, encoding) == 0) {
+	if (utf8_encode(value, &utf8_value) >= 0) {
 		
 		/* append the comment and return */
 		vorbis_comment_add_tag(vc, line, utf8_value);
@@ -307,9 +306,6 @@ param_t *new_param(void)
 	param->comments=NULL;
 	param->tempoutfile=0;
 
-	/* character encoding */
-	param->encoding = "ISO-8859-1";
-
 	return param;
 }
 
@@ -327,7 +323,9 @@ void parse_options(int argc, char *argv[], param_t *param)
 	int ret;
 	int option_index = 1;
 
-	while ((ret = getopt_long(argc, argv, "ae:lwhqc:t:",
+	setlocale(LC_ALL, "");
+
+	while ((ret = getopt_long(argc, argv, "alwhqc:t:",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -342,9 +340,6 @@ void parse_options(int argc, char *argv[], param_t *param)
 				break;
 			case 'a':
 				param->mode = MODE_APPEND;
-				break;
-			case 'e':
-				param->encoding = strdup(optarg);
 				break;
 			case 'h':
 				usage();

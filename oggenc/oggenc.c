@@ -15,6 +15,7 @@
 #include <getopt.h>
 #include <string.h>
 #include <time.h>
+#include <locale.h>
 
 #include "platform.h"
 #include "encode.h"
@@ -50,7 +51,6 @@ struct option long_options[] = {
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
 	{"serial",1,0,'s'},
-	{"encoding",1,0,'e'},
 	{NULL,0,0,0}
 };
 	
@@ -74,6 +74,8 @@ int main(int argc, char **argv)
 	char **infiles;
 	int numfiles;
 	int errors=0;
+
+	setlocale(LC_ALL, "");
 
 	parse_options(argc, argv, &opt);
 
@@ -320,8 +322,6 @@ static void usage(void)
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
-		" -e, --encoding       Specify an encoding for the comments given (not\n"
-		"                      supported on windows)\n"
 		"\n"
 		" Naming:\n"
 		" -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
@@ -477,7 +477,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -497,9 +497,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 			case 'd':
 				opt->dates = realloc(opt->dates, (++opt->date_count)*sizeof(char *));
 				opt->dates[opt->date_count - 1] = strdup(optarg);
-				break;
-			case 'e':
-				opt->encoding = strdup(optarg);
 				break;
             case 'G':
                 opt->genre = realloc(opt->genre, (++opt->genre_count)*sizeof(char *));
@@ -646,7 +643,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 {
 	char *utf8;
-	if(utf8_encode(value, &utf8, opt->encoding) == 0)
+	if(utf8_encode(value, &utf8) >= 0)
 	{
 		if(name == NULL)
 			vorbis_comment_add(vc, utf8);
@@ -655,7 +652,7 @@ static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 		free(utf8);
 	}
 	else
-		fprintf(stderr, "Couldn't convert comment to UTF8, cannot add\n");
+		fprintf(stderr, "Couldn't convert comment to UTF-8, cannot add\n");
 }
 
 static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 

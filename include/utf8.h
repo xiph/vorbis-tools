@@ -1,18 +1,23 @@
-/* OggEnc
+
+/*
+ * Convert a string between UTF-8 and the locale's charset.
+ * Invalid bytes are replaced by '#', and characters that are
+ * not available in the target encoding are replaced by '?'.
  *
- * This program is distributed under the GNU General Public License, version 2.
- * A copy of this license is included with this source.
+ * If the locale's charset is not set explicitly then it is
+ * obtained using nl_langinfo(CODESET), where available, the
+ * environment variable CHARSET, or assumed to be US-ASCII.
  *
- * Copyright © 2001, Daniel Resare <noa@metamatrix.se>
+ * Return value of conversion functions:
+ *
+ *  -1 : memory allocation failed
+ *   0 : data was converted exactly
+ *   1 : valid data was converted approximately (using '?')
+ *   2 : input was invalid (but still converted, using '#')
+ *   3 : unknown encoding (but still converted, using '?')
  */
 
-typedef struct
-{
-	char* name;
-	int mapping[256];
-} charset_map;
+void convert_set_charset(const char *charset);
 
-charset_map *get_map(const char *encoding);
-char *make_utf8_string(const unsigned short *unicode);
-int simple_utf8_encode(const char *from, char **to, const char *encoding);
-int utf8_encode(char *from, char **to, const char *encoding);
+int utf8_encode(const char *from, char **to);
+int utf8_decode(const char *from, char **to);

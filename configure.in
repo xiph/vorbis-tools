@@ -111,6 +111,7 @@ dnl --------------------------------------------------
 
 AM_ICONV
 AC_FUNC_SMMAP
+AM_LANGINFO_CODESET
 
 dnl --------------------------------------------------
 dnl Work around FHS stupidity
