@@ -571,6 +571,7 @@ int raw_open(FILE *in, oe_enc_opt *opt)
 	wav->bigendian =     0;
 	wav->channels =      format.channels;
 	wav->samplesize =    opt->samplesize;
+    wav->totalsamples =  0;
 
 	opt->read_samples = wav_read;
 	opt->readdata = (void *)wav;
