@@ -9,18 +9,19 @@
  ** and libvorbis examples, (c) Monty <monty@xiph.org>
  **/
 
-/* Win32 support routines */
+/* Platform support routines  - win32, OS/2, unix */
 
-#ifdef _WIN32
 
 #include "platform.h"
 #include "encode.h"
-
+#include <stdlib.h>
+#if defined(_WIN32) || defined(__EMX__)
 #include <fcntl.h>
 #include <io.h>
-#include <stdlib.h>
 #include <time.h>
+#endif
 
+#ifdef _WIN32
 /* This doesn't seem to exist on windows */
 char *rindex(char *s, int c)
 {
@@ -39,7 +40,17 @@ void setbinmode(FILE *f)
 {
 	_setmode( _fileno(f), _O_BINARY );
 }
+#endif /* win32 */
 
+#ifdef __EMX__
+void setbinmode(FILE *f) 
+{
+	        _fsetmode( f, "b");
+}
+#endif
+
+
+#if defined(_WIN32) || defined(__EMX__)
 void *timer_start(void)
 {
 	time_t *start = malloc(sizeof(time_t));
@@ -61,4 +72,33 @@ void timer_clear(void *timer)
 	free((time_t *)timer);
 }
 
-#endif  /* _WIN32 */
+#else /* unix. Or at least win32 */
+
+#include <sys/time.h>
+#include <unistd.h>
+
+void *timer_start(void)
+{
+	struct timeval *start = malloc(sizeof(struct timeval));
+	gettimeofday(start, NULL);
+	return (void *)start;
+}
+
+double timer_time(void *timer)
+{
+	struct timeval now;
+	struct timeval start = *((struct timeval *)timer);
+
+	gettimeofday(&now, NULL);
+
+	return (double)now.tv_sec - (double)start.tv_sec + 
+		((double)now.tv_usec - (double)start.tv_usec)/1000000.0;
+}
+
+void timer_clear(void *timer)
+{
+	free((time_t *)timer);
+}
+#endif
+
+

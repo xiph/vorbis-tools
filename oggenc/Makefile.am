@@ -9,8 +9,8 @@ bin_PROGRAMS = oggenc
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
 oggenc_LDFLAGS = @OGG_LIBS@ @VORBIS_LIBS@ @VORBISENC_LIBS@
-oggenc_SOURCES = oggenc.c audio.c encode.c oe_unix.c getopt.c getopt1.c\
-		oe_win32.c\
+oggenc_SOURCES = oggenc.c audio.c encode.c getopt.c getopt1.c\
+		platform.c\
 		audio.h encode.h platform.h getopt.h
 
 EXTRA_DIST = oggenc.dsp build_oggenc.bat
