@@ -16,6 +16,7 @@
 #include <string.h>
 #include <time.h>
 #include <locale.h>
+#include <errno.h>
 
 #include "platform.h"
 #include "encode.h"
@@ -162,7 +163,7 @@ int main(int argc, char **argv)
 
 			if(in == NULL)
 			{
-				fprintf(stderr, _("ERROR: Cannot open input file \"%s\"\n"), infiles[i]);
+				fprintf(stderr, _("ERROR: Cannot open input file \"%s\": %s\n"), infiles[i], strerror(errno));
 				free(out_fn);
 				errors++;
 				continue;
@@ -264,7 +265,7 @@ int main(int argc, char **argv)
 			{
 				if(closein)
 					fclose(in);
-				fprintf(stderr, _("ERROR: Cannot open output file \"%s\"\n"), out_fn);
+				fprintf(stderr, _("ERROR: Cannot open output file \"%s\": %s\n"), out_fn, strerror(errno));
 				errors++;
 				free(out_fn);
 				continue;

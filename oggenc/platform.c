@@ -67,20 +67,10 @@ void timer_clear(void *timer)
 	free((time_t *)timer);
 }
 
-int create_directories(char *fn) 
-{
-    /* FIXME: Please implement me */
-    return 0;
-}
-
 #else /* unix. Or at least win32 */
 
 #include <sys/time.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include <string.h>
 
 void *timer_start(void)
 {
@@ -105,45 +95,74 @@ void timer_clear(void *timer)
 	free((time_t *)timer);
 }
 
+#endif
+
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#ifdef _WIN32
+
+#include <direct.h>
+
+#define PATH_SEPS "/\\"
+#define stat _stat
+#define mkdir(x,y) _mkdir((x))
+
+#else
+
+#define PATH_SEPS "/"
+
+#endif
+
 int create_directories(char *fn)
 {
     char *end, *start;
     struct stat statbuf;
-    char segment[FILENAME_MAX];
+    char *segment = malloc(strlen(fn)+1);
 
     start = fn;
 
-    while((end = strchr(start+1, '/')) != NULL)
+    while((end = strpbrk(start+1, PATH_SEPS)) != NULL)
     {
         memcpy(segment, fn, end-fn);
-        segment[end-fn+1] = 0;
+        segment[end-fn] = 0;
 
         if(stat(segment,&statbuf)) {
             if(errno == ENOENT) {
                 if(mkdir(segment, 0777)) {
                     fprintf(stderr, _("Couldn't create directory \"%s\": %s\n"),
-                                segment, strerror(errno));
+                            segment, strerror(errno));
+                    free(segment);
                     return -1;
                 }
             }
             else {
                 fprintf(stderr, _("Error checking for existence of directory %s: %s\n"), 
                             segment, strerror(errno));
+                free(segment);
                 return -1;
             }
         }
+#ifdef _WIN32
+        else if(!(_S_IFDIR & statbuf.st_mode)) {
+#else
         else if(!S_ISDIR(statbuf.st_mode)) {
+#endif
             fprintf(stderr, _("Error: path segment \"%s\" is not a directory\n"),
                     segment);
+            free(segment);
+            return -1;
         }
 
         start = end+1;
     }
 
+    free(segment);
     return 0;
 
 }
 
-#endif
 
 
