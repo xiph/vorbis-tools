@@ -370,7 +370,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 				" The program that created this wav file is broken.\n"
 				" Don't use it, or report a bug.\n");
 
-	if(fread(buf,1,16,in) < len)
+	if(fread(buf,1,16,in) < 16)
 	{
 		fprintf(stderr, "Warning: Unexpected EOF in reading WAV header\n");
 		return 0;
