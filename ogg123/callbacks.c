@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: callbacks.c,v 1.6 2002/06/02 03:07:11 volsung Exp $
+ last mod: $Id: callbacks.c,v 1.7 2002/07/06 04:27:19 msmith Exp $
 
  ********************************************************************/
 
@@ -154,6 +154,7 @@ void print_statistics_action (buf_t *buf, void *arg)
   free(stats_arg->data_source_statistics);
   free(stats_arg->decoder_statistics);
   free(stats_arg);
+  free(buffer_stats);
 }
 
 
