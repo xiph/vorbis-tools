@@ -376,6 +376,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 				break;
             case 'R':
                 param->raw = 1;
+                break;
 			case 'w':
 				param->mode = MODE_WRITE;
 				break;
