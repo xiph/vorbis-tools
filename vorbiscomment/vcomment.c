@@ -24,6 +24,7 @@ struct option long_options[] = {
 	{"help",0,0,'h'},
 	{"quiet",0,0,'q'},
 	{"commentfile",1,0,'c'},
+    {"encoding", 1,0,'e'},
 	{NULL,0,0,0}
 };
 
@@ -228,6 +229,7 @@ int  add_comment(char *line, vorbis_comment *vc, char *encoding)
 		
 		/* append the comment and return */
 		vorbis_comment_add_tag(vc, line, utf8_value);
+        free(utf8_value);
 		return 0;
 	} else {
 		fprintf(stderr, "Couldn't convert comment to UTF8, "
@@ -316,7 +318,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 	int ret;
 	int option_index = 1;
 
-	while ((ret = getopt_long(argc, argv, "aelwhqc:t:",
+	while ((ret = getopt_long(argc, argv, "ae:lwhqc:t:",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -333,7 +335,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 				param->mode = MODE_APPEND;
 				break;
 			case 'e':
-				param->mode = strdup(optarg);
+				param->encoding = strdup(optarg);
 				break;
 			case 'h':
 				usage();
