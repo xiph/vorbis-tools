@@ -102,7 +102,7 @@ int oe_encode(oe_enc_opt *opt)
 		{
 			if(!result) break;
 			ret = oe_write_page(&og, opt->out);
-			if(!ret)
+			if(ret != og.header_len + og.body_len)
 			{
 				opt->error("Failed writing header to output stream\n");
 				ret = 1;
@@ -167,7 +167,7 @@ int oe_encode(oe_enc_opt *opt)
 				if(!result) break;
 
 				ret = oe_write_page(&og, opt->out);
-				if(!ret)
+				if(ret != og.header_len + og.body_len)
 				{
 					opt->error("Failed writing data to output stream\n");
 					ret = 1;
