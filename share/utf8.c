@@ -231,13 +231,13 @@ static char *current_charset = 0; /* means "US-ASCII" */
 void convert_set_charset(const char *charset)
 {
 
+  if (!charset)
+    charset = getenv("CHARSET");
+
 #ifdef HAVE_LANGINFO_CODESET
   if (!charset)
     charset = nl_langinfo(CODESET);
 #endif
-
-  if (!charset)
-    charset = getenv("CHARSET");
 
   free(current_charset);
   current_charset = 0;
