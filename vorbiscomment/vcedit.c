@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.21 2002/09/12 12:41:52 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.22 2002/09/12 12:48:27 msmith Exp $
  */
 
 #include <stdio.h>
@@ -199,6 +199,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 
 	char *buffer;
 	int bytes,i;
+    int chunks = 0;
 	ogg_packet *header;
 	ogg_packet	header_main;
 	ogg_packet  header_comments;
@@ -212,19 +213,25 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	state->oy = malloc(sizeof(ogg_sync_state));
 	ogg_sync_init(state->oy);
 
-	buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
-	bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
+    while(1)
+    {
+    	buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
+	    bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
 
-	ogg_sync_wrote(state->oy, bytes);
+    	ogg_sync_wrote(state->oy, bytes);
 
-	if(ogg_sync_pageout(state->oy, &og) != 1)
-	{
-		if(bytes<CHUNKSIZE)
-			state->lasterror = _("Input truncated or empty.");
-		else
-			state->lasterror = _("Input is not an Ogg bitstream.");
-		goto err;
-	}
+        if(ogg_sync_pageout(state->oy, &og) == 1)
+            break;
+
+        if(chunks++ >= 10) /* Bail if we don't find data in the first 40 kB */
+        {
+		    if(bytes<CHUNKSIZE)
+			    state->lasterror = _("Input truncated or empty.");
+    		else
+	    		state->lasterror = _("Input is not an Ogg bitstream.");
+		    goto err;
+    	}
+    }
 
 	state->serial = ogg_page_serialno(&og);
 
