@@ -11,5 +11,4 @@ Depends: ${shlibs:Depends}
 Replaces: ogg123
 Conflicts: ogg123
 Description: Several Ogg Vorbis Tools
- vorbis-tools contains oggenc (an encoder), ogg123 (a playback tool), and
- vorbiscomment (a comment editor)
+ vorbis-tools contains oggenc (an encoder) and ogg123 (a playback tool)
