@@ -14,9 +14,7 @@
 #include "encode.h"
 
 #include <stdlib.h>
-#ifndef _WIN32
 #include <sys/time.h>
-#endif
 #include <unistd.h>
 
 void *timer_start(void)
