@@ -20,7 +20,7 @@
 #include "encode.h"
 #include "audio.h"
 
-#define VERSION_STRING "OggEnc v0.5 (libvorbis beta3)\n"
+#define VERSION_STRING "OggEnc v0.6 (libvorbis beta4)\n"
 #define COPYRIGHT "(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
@@ -404,7 +404,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 			case 's':
 				/* Would just use atoi(), but that doesn't deal with unsigned
 				 * ints. Damn */
-				if(sscanf(optarg, "%u", opt->serial) != 1)
+				if(sscanf(optarg, "%u", &opt->serial) != 1)
 					opt->serial = 0; /* Failed, so just set to zero */
 				break;
 			case 't':
