@@ -5,6 +5,7 @@
 
 #ifdef __sun__ /* Right way to do this? */
 #include <alloca.h>
+#include <malloc.h>
 #endif
 
 #ifdef __OS2__

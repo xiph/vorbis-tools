@@ -168,7 +168,6 @@ int wav_open(FILE *in, oe_enc_opt *opt)
 		return 0; /* EOF */
 
 	if( format.format == 1 &&
-		(format.channels == 2 || format.channels == 1) &&
 		format.align == format.channels*2 && /* We could deal with this one pretty easily */
 		format.samplesize == 16)
 	{
@@ -180,13 +179,12 @@ int wav_open(FILE *in, oe_enc_opt *opt)
 		   now we want to find the size of the file */
 		opt->rate = format.samplerate;
 		opt->channels = format.channels;
-		if(opt->channels ==2)
-			opt->read_samples = wav_read_stereo;
-		else
-			opt->read_samples = wav_read_mono;
+		opt->read_samples = wav_read;
 
 		wav->f = in;
 		wav->samplesread = 0;
+		wav->channels = format.channels; /* This is in several places. The price
+											of trying to abstract stuff. */
 
 		if(len)
 		{
@@ -219,25 +217,31 @@ int wav_open(FILE *in, oe_enc_opt *opt)
 	}
 }
 
-long wav_read_stereo(void *in, float **buffer, int samples)
+long wav_read(void *in, float **buffer, int samples)
 {
-	signed char *buf = alloca(samples*4);
 	wavfile *f = (wavfile *)in;
-	long bytes_read = fread(buf, 1, samples*4, f->f);
-	int i;
+	signed char *buf = alloca(samples*2*f->channels);
+	long bytes_read = fread(buf, 1, samples*2*f->channels, f->f);
+	int i,j;
+	long realsamples;
 
-	if(f->totalsamples && f->samplesread + bytes_read/4 > f->totalsamples)
-		bytes_read = 4*(f->totalsamples - f->samplesread);
-	f->samplesread += bytes_read/4;
+	if(f->totalsamples && f->samplesread + 
+			bytes_read/(2*f->channels) > f->totalsamples) 
+		bytes_read = 2*f->channels*(f->totalsamples - f->samplesread);
+	realsamples = bytes_read/(2*f->channels);
+	f->samplesread += realsamples;
 		
 
-	for(i = 0; i < bytes_read/4; i++)
+	for(i = 0; i < realsamples; i++)
 	{
-		buffer[0][i] = ((buf[i*4+1]<<8) | (((int)buf[i*4]) & 0xff))/32768.0;
-		buffer[1][i] = ((buf[i*4+3]<<8) | (((int)buf[i*4+2]) & 0xff))/32768.0;
+		for(j=0; j < f->channels; j++)
+		{
+			buffer[j][i] = ((buf[i*2*f->channels + 2*j + 1]<<8) |
+					        (buf[i*2*f->channels + 2*j] & 0xff))/32768.0f;
+		}
 	}
 
-	return bytes_read/4;
+	return realsamples;
 }
 
 long raw_read_stereo(void *in, float **buffer, int samples)
@@ -248,29 +252,11 @@ long raw_read_stereo(void *in, float **buffer, int samples)
 
 	for(i=0;i<bytes_read/4; i++)
 	{
-		buffer[0][i] = ((buf[i*4+1]<<8) | (((int)buf[i*4]) & 0xff))/32768.0;
-		buffer[1][i] = ((buf[i*4+3]<<8) | (((int)buf[i*4+2]) & 0xff))/32768.0;
+		buffer[0][i] = ((buf[i*4+1]<<8) | (((int)buf[i*4]) & 0xff))/32768.0f;
+		buffer[1][i] = ((buf[i*4+3]<<8) | (((int)buf[i*4+2]) & 0xff))/32768.0f;
 	}
 
 	return bytes_read/4;
-}
-
-long wav_read_mono(void *in, float **buffer, int samples)
-{
-	signed char *buf = alloca(samples*2);
-	wavfile *f = (wavfile *)in;
-	long bytes_read = fread(buf, 1, samples*2, f->f);
-	int i;
-
-	if(f->totalsamples && f->samplesread + bytes_read/2 > f->totalsamples)
-		bytes_read = 2*(f->totalsamples - f->samplesread);
-	f->samplesread += bytes_read/2;
-
-
-	for(i=0;i<bytes_read/2; i++)
-		buffer[0][i] = ((buf[i*2+1]<<8) | (((int)buf[i*2]) & 0xff))/32768.0;
-
-	return bytes_read/2;
 }
 
 void wav_close(void *info)

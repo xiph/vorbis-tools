@@ -26,6 +26,7 @@ typedef struct {
 } wav_fmt;
 
 typedef struct {
+	int channels;
 	long totalsamples;
 	long samplesread;
 	FILE *f;
@@ -39,8 +40,7 @@ int wav_id(unsigned char *buf, int len);
 void wav_close(void *);
 void raw_close(void *);
 
-long wav_read_stereo(void *, float **buffer, int samples);
-long wav_read_mono(void *, float **buffer, int samples);
+long wav_read(void *, float **buffer, int samples);
 long raw_read_stereo(void *, float **buffer, int samples);
 
 #endif /* __AUDIO_H */
