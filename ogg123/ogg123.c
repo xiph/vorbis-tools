@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.52 2001/12/19 05:37:32 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.53 2001/12/19 05:58:45 volsung Exp $
 
  ********************************************************************/
 
@@ -132,7 +132,7 @@ void options_init (ogg123_options_t *opts)
   opts->seekpos = 0.0;
   opts->buffer_size = 128 * 1024;
   opts->prebuffer = 0.0f;
-  opts->input_buffer_size = 32 * 1024;
+  opts->input_buffer_size = 64 * 1024;
   opts->input_prebuffer = 50.0f;
   opts->default_device = NULL;
 
