@@ -653,7 +653,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				opt->rawmode = 1;
 				break;
 			case 'v':
-				fprintf(stderr, VERSION_STRING);
+				fprintf(stdout, VERSION_STRING);
 				exit(0);
 				break;
 			case 'B':
