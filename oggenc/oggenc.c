@@ -19,6 +19,7 @@
 #include "platform.h"
 #include "encode.h"
 #include "audio.h"
+#include "utf8.h"
 
 #define VERSION_STRING "OggEnc v0.7 (libvorbis rc1)\n"
 #define COPYRIGHT "(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
@@ -42,6 +43,7 @@ struct option long_options[] = {
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
 	{"serial",1,0,'s'},
+	{"encoding",1,0,'e'},
 	{NULL,0,0,0}
 };
 	
@@ -53,8 +55,8 @@ void usage(void);
 
 int main(int argc, char **argv)
 {
-	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, 
-		0, 0,16,44100,2, NULL,NULL,128,0}; /* Default values */
+	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
+		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL,128,0}; /* Default values */
 	int i;
 
 	char **infiles;
@@ -281,6 +283,7 @@ void usage(void)
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
+		" -e, --encoding       Specify an encoding for the comments given.\n"
 		"\n"
 		" Naming:\n"
 		" -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
@@ -306,12 +309,13 @@ void usage(void)
 		"                      once, for example, and have it used for all the files)\n"
 		"\n"
 		"INPUT FILES:\n"
-		" OggEnc input files must currently be 16 bit PCM WAV, AIFF, or AIFF/C files.\n"
-		" Files may be mono or stereo (or more channels) and sampling rates \n"
+		" OggEnc input files must currently be 16 or 8 bit PCM WAV, AIFF, or AIFF/C\n"
+		" files. Files may be mono or stereo (or more channels) and sampling rates \n"
 		" between 8kHz and 56kHz.\n"
-		" You can specify taking the file from stdin by using - as the input filename.\n"
 		" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-		" must be 16bit stereo little-endian PCM ('headerless wav').\n"
+		" must be 16bit stereo little-endian PCM ('headerless wav'), unless additional\n"
+		" parameters for raw mode are specified.\n"
+		" You can specify taking the file from stdin by using - as the input filename.\n"
 		" In this mode, output is to stdout unless an outfile filename is specified\n"
 		" with -o\n"
 		"\n"
@@ -386,7 +390,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:hl:n:N:o:qrR:s:t:v", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:n:N:o:qrR:s:t:v", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -406,6 +410,9 @@ void parse_options(int argc, char **argv, oe_options *opt)
 			case 'd':
 				opt->dates = realloc(opt->dates, (++opt->date_count)*sizeof(char *));
 				opt->dates[opt->date_count - 1] = strdup(optarg);
+				break;
+			case 'e':
+				opt->encoding = strdup(optarg);
 				break;
 			case 'l':
 				opt->album = realloc(opt->album, (++opt->album_count)*sizeof(char *));
@@ -508,6 +515,21 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	}
 }
 
+void add_tag(vorbis_comment *vc, oe_options *opt, char *name, char *value)
+{
+	char *utf8;
+	if(utf8_encode(value, &utf8, opt->encoding) == 0)
+	{
+		if(name == NULL)
+			vorbis_comment_add(vc, utf8);
+		else
+			vorbis_comment_add_tag(vc, name, utf8);
+		free(utf8);
+	}
+	else
+		fprintf(stderr, "Couldn't convert comment to UTF8, cannot add\n");
+}
+
 void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
 		char **artist, char **album, char **title, char **tracknum, char **date)
 {
@@ -516,7 +538,7 @@ void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 	vorbis_comment_init(vc);
 
 	for(i = 0; i < opt->comment_count; i++)
-		vorbis_comment_add(vc, opt->comments[i]);
+		add_tag(vc, opt, NULL, opt->comments[i]);
 
 	if(opt->title_count)
 	{
@@ -530,7 +552,7 @@ void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 			i = filenum;
 
 		*title = opt->title[i];
-		vorbis_comment_add_tag(vc, "title", opt->title[i]);
+		add_tag(vc, opt, "title", opt->title[i]);
 	}
 
 	if(opt->artist_count)
@@ -541,7 +563,7 @@ void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 			i = filenum;
 	
 		*artist = opt->artist[i];
-		vorbis_comment_add_tag(vc, "artist", opt->artist[i]);
+		add_tag(vc, opt, "artist", opt->artist[i]);
 	}
 
 	if(opt->date_count)
@@ -552,7 +574,7 @@ void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 			i = filenum;
 	
 		*date = opt->dates[i];
-		vorbis_comment_add_tag(vc, "date", opt->dates[i]);
+		add_tag(vc, opt, "date", opt->dates[i]);
 	}
 	
 	if(opt->album_count)
@@ -565,14 +587,14 @@ void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 			i = filenum;
 
 		*album = opt->album[i];	
-		vorbis_comment_add_tag(vc, "album", opt->album[i]);
+		add_tag(vc, opt, "album", opt->album[i]);
 	}
 
 	if(filenum < opt->track_count)
 	{
 		i = filenum;
 		*tracknum = opt->tracknum[i];
-		vorbis_comment_add_tag(vc, "tracknumber", opt->tracknum[i]);
+		add_tag(vc, opt, "tracknumber", opt->tracknum[i]);
 	}
 }
 
