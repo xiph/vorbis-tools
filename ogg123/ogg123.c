@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.37 2001/06/19 18:58:27 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.38 2001/06/19 19:11:13 kcarnold Exp $
 
  ********************************************************************/
 
@@ -387,7 +387,7 @@ void play_file(ogg123_options_t opt)
 		exit(1);
 
 	if (opt.quiet < 1) {
-	    if (eos && opt.verbose) fprintf (stderr, "\n");
+	    if (eos && opt.verbose) fprintf (stderr, "\r                                                      \r\n");
 	    for (i = 0; i < vc->comments; i++) {
 		char *cc = vc->user_comments[i];	/* current comment */
 		int i;
