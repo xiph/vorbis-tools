@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 #include <limits.h>
 
@@ -58,7 +59,7 @@ int add_option(ao_option_t ** op_h, const char *optstring)
 int get_default_device(void)
 {
     FILE *fp;
-    char filename[NAME_MAX];
+    char filename[FILENAME_MAX];
     char line[100];
     char *device = NULL;
     char *homedir = getenv("HOME");
@@ -66,10 +67,10 @@ int get_default_device(void)
 
     /* Maybe I'm being extremely paranoid, but if ogg123 is ever suid
        root (to access audio devices), this is a possible buffer overflow. */
-    if (homedir == NULL || strlen(homedir) >= NAME_MAX - 10)
+    if (homedir == NULL || strlen(homedir) >= FILENAME_MAX - 10)
 	return -1;
 
-    strncpy(filename, homedir, NAME_MAX);
+    strncpy(filename, homedir, FILENAME_MAX);
     strcat(filename, "/.ogg123rc");
 
 
