@@ -322,7 +322,7 @@ static void print_deprecated_message(void) {
                     "Usage of the bitrate management engine will generally decrease quality,\n"
                     "using the normal fully VBR modes (quality specified using -q) is\n"
                     "very highly recommended for most users.\n"
-                    "Usage of the -managed option will become MANDATORY in the next release.\n\n"));
+                    "Usage of the --managed option will become MANDATORY in the next release.\n\n"));
 }
 
 static void usage(void)
