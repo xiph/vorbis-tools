@@ -5,8 +5,6 @@ AUTOMAKE_OPTIONS = foreign
 mans = oggdec.1
 oggdecsources = oggdec.c
 
-if BUILD_OGGDEC
-
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -23,10 +21,6 @@ oggdec_SOURCES = $(oggdecsources)
 man_MANS = $(mans)
 mandir = @MANDIR@
 
-endif
-
-
-EXTRA_DIST = $(oggdecsources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -7,8 +7,6 @@ SUBDIRS = man
 oggencsources = oggenc.c audio.c encode.c platform.c \
                  audio.h encode.h platform.h resample.c resample.h
 
-if BUILD_OGGENC
-
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -24,9 +22,6 @@ oggenc_DEPENDENCIES = @SHARE_LIBS@
 
 oggenc_SOURCES = $(oggencsources)
 
-endif
-
-EXTRA_DIST = $(oggencsources)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -32,7 +32,7 @@ dnl --------------------------------------------------
 
 AC_CANONICAL_HOST
 
-casecflags_save="$CFLAGS"
+cflags_save="$CFLAGS"
 ldflags_save="$LDFLAGS"
 if test -z "$GCC"; then
         case $host in
@@ -110,6 +110,7 @@ SOCKET_LIBS=
 AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
 AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 
+
 dnl --------------------------------------------------
 dnl Check for ogg123 critical libraries and other optional libraries
 dnl --------------------------------------------------
@@ -128,12 +129,17 @@ fi
 
 dnl -------------------- FLAC ----------------------
 
-FLAC_LIBS=
-
-AC_CHECK_LIB(m,log,FLAC_EXTRA_LIBS="-lm")
-AC_CHECK_LIB(FLAC, FLAC__stream_decoder_process_single,have_libFLAC=yes,
-  AC_MSG_WARN(libFLAC missing)
-  have_libFLAC=no, $FLAC_EXTRA_LIBS
+FLAC_LIBS=""
+AC_CHECK_LIB(m,log,FLAC_LIBS="-lm")
+AC_CHECK_LIB(FLAC, [FLAC__stream_decoder_process_single],
+  [have_libFLAC=yes; FLAC_LIBS="-lFLAC $FLAC_LIBS"],
+  AC_MSG_WARN([libFLAC missing])
+  have_libFLAC=no, [$FLAC_LIBS]
+)
+AC_CHECK_LIB(OggFLAC, [OggFLAC__stream_decoder_new],
+  [FLAC_LIBS="-lOggFLAC $FLAC_LIBS"],
+  AC_MSG_WARN([libOggFLAC missing])
+  have_libFLAC=no, [$FLAC_LIBS]
 )
 AC_CHECK_HEADER(FLAC/stream_decoder.h,,
   AC_MSG_WARN(libFLAC headers missing)
@@ -142,22 +148,21 @@ AC_CHECK_HEADER(FLAC/stream_decoder.h,,
 if test "x$have_libFLAC" = xyes; then
    if test "x$build_flac" = xyes; then
       AC_DEFINE(HAVE_LIBFLAC)
-      FLAC_LIBS="$FLAC_EXTRA_LIBS -lFLAC -lOggFLAC"
    fi
 else
    build_flac="no"
+   FLAC_LIBS=""
 fi
-AM_CONDITIONAL(HAVE_LIBFLAC, test "x$build_flac" = xyes)
 AC_SUBST(FLAC_LIBS)
 
 dnl ------------------- Speex ------------------------
 
-SPEEX_LIBS=
-
-AC_CHECK_LIB(m,log,SPEEX_EXTRA_LIBS="-lm")
-AC_CHECK_LIB(speex, speex_decoder_init,have_libspeex=yes,
+SPEEX_LIBS=""
+AC_CHECK_LIB(m,log,SPEEX_LIBS="-lm")
+AC_CHECK_LIB(speex, [speex_decoder_init],
+  [have_libspeex=yes; SPEEX_LIBS="-lspeex $SPEEX_LIBS"],
   AC_MSG_WARN(libspeex missing)
-  have_libspeex=no, $SPEEX_EXTRA_LIBS
+  have_libspeex=no, [$SPEEX_LIBS]
 )
 AC_CHECK_HEADER(speex.h,,
   AC_MSG_WARN(libspeex headers missing)
@@ -166,14 +171,12 @@ AC_CHECK_HEADER(speex.h,,
 if test "x$have_libspeex" = xyes; then
    if test "x$build_speex" = xyes; then
       AC_DEFINE(HAVE_LIBSPEEX)
-      SPEEX_LIBS="$SPEEX_EXTRA_LIBS -lspeex"
    fi
 else
    build_speex="no"
+   SPEEX_LIBS=""
 fi
-AM_CONDITIONAL(HAVE_LIBSPEEX, test "x$build_speex" = xyes)
 AC_SUBST(SPEEX_LIBS)
-
 
 dnl --------------------------------------------------
 dnl Check for library functions
@@ -204,12 +207,39 @@ dnl --------------------------------------------------
 dnl Do substitutions
 dnl --------------------------------------------------
 
-AM_CONDITIONAL(BUILD_OGG123, test "x$build_ogg123" = xyes)
-AM_CONDITIONAL(BUILD_OGGDEC, test "x$build_oggdec" = xyes)
-AM_CONDITIONAL(BUILD_OGGENC, test "x$build_oggenc" = xyes)
-AM_CONDITIONAL(BUILD_OGGINFO, test "x$build_ogginfo" = xyes)
-AM_CONDITIONAL(BUILD_VCUT, test "x$build_vcut" = xyes)
-AM_CONDITIONAL(BUILD_VORBISCOMMENT, test "x$build_vorbiscomment" = xyes)
+# add optional subdirs to the build
+OPT_SUBDIRS=""
+if test "x$build_ogg123" = xyes; then
+  OPT_SUBDIRS="$OPT_SUBDIRS ogg123"
+  if test "x$have_libFLAC" = xyes; then
+    OGG123_FLAC_OBJS='flac_format.$(OBJEXT) easyflac.$(OBJEXT)'
+  else
+    OGG123_FLAC_OBJS=''
+  fi
+  AC_SUBST(OGG123_FLAC_OBJS)
+  if test "x$have_libspeex" = xyes; then
+    OGG123_SPEEX_OBJS='speex_format.$(OBJEXT)'
+  else
+    OGG123_SPEEX_OBJS=''
+  fi
+  AC_SUBST(OGG123_SPEEX_OBJS)
+fi
+if test "x$build_oggenc" = xyes; then
+  OPT_SUBDIRS="$OPT_SUBDIRS oggenc"
+fi
+if test "x$build_oggdec" = xyes; then
+  OPT_SUBDIRS="$OPT_SUBDIRS oggdec"
+fi
+if test "x$build_ogginfo" = xyes; then
+  OPT_SUBDIRS="$OPT_SUBDIRS ogginfo"
+fi
+if test "x$build_vcut" = xyes; then
+  OPT_SUBDIRS="$OPT_SUBDIRS vcut"
+fi
+if test "x$build_vorbiscomment" = xyes; then
+  OPT_SUBDIRS="$OPT_SUBDIRS vorbiscomment"
+fi
+AC_SUBST(OPT_SUBDIRS)
 
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)

@@ -2,7 +2,9 @@
 
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = po intl include share oggenc ogg123 vorbiscomment vcut oggdec ogginfo debian win32 
+SUBDIRS = po intl include share debian win32 @OPT_SUBDIRS@
+DIST_SUBDIRS = po intl include share debian win32 ogg123 oggenc oggdec ogginfo \
+	vcut vorbiscomment
 
 EXTRA_DIST = README AUTHORS COPYING vorbis-tools.spec acinclude.m4 config.h
 

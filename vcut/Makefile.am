@@ -5,8 +5,6 @@ AUTOMAKE_OPTIONS = foreign
 mans = vcut.1
 vcutsources = vcut.c vcut.h
 
-if BUILD_VCUT
-
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -20,10 +18,6 @@ INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
 vcut_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @I18N_LIBS@
 
 vcut_SOURCES = $(vcutsources)
-
-endif
-
-EXTRA_DIST = $(vcutsources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -2,9 +2,25 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-mans = ogg123.1
-docs = ogg123rc-example
-ogg123sources = audio.c buffer.c callbacks.c \
+datadir = @datadir@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
+docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
+mandir = @MANDIR@
+
+bin_PROGRAMS = ogg123
+
+CFLAGS = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@ @CURL_CFLAGS@ \
+           @PTHREAD_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
+
+ogg123_LDADD = @OGG123_FLAC_OBJS@ @OGG123_SPEEX_OBJS@ @SHARE_LIBS@ \
+	       @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @AO_LIBS@ \
+               @SOCKET_LIBS@ @LIBICONV@ @CURL_LIBS@ @PTHREAD_CFLAGS@ \
+               @PTHREAD_LIBS@ @I18N_LIBS@ @FLAC_LIBS@ @SPEEX_LIBS@
+
+ogg123_DEPENDENCIES = @OGG123_FLAC_OBJS@ @OGG123_SPEEX_OBJS@ @SHARE_LIBS@
+ogg123_SOURCES = audio.c buffer.c callbacks.c \
                 cfgfile_options.c cmdline_options.c \
                 file_transport.c format.c http_transport.c \
                 ogg123.c oggvorbis_format.c playlist.c \
@@ -13,55 +29,10 @@ ogg123sources = audio.c buffer.c callbacks.c \
                 cfgfile_options.h cmdline_options.h \
                 format.h ogg123.h playlist.h status.h \
                 transport.h vorbis_comments.h
-flacsources = flac_format.c easyflac.c easyflac.h
-speexsources = speex_format.c
+EXTRA_ogg123_SOURCES = flac_format.c easyflac.c easyflac.h speex_format.c
 
-
-if HAVE_LIBFLAC
-flaccompile = $(flacsources)
-flaclibs = @FLAC_LIBS@
-else
-flaccompile =
-flaclibs = 
-endif
-
-if HAVE_LIBSPEEX
-speexcompile = $(speexsources)
-speexlibs = @SPEEX_LIBS@
-else
-speexcompile = 
-speexlibs = 
-endif
-
-
-if BUILD_OGG123
-
-datadir = @datadir@
-localedir = $(datadir)/locale
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-
-bin_PROGRAMS = ogg123
-docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
-mandir = @MANDIR@
-
-INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@ @CURL_CFLAGS@ \
-           @PTHREAD_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
-
-ogg123_LDADD = @SHARE_LIBS@ \
-	       @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @AO_LIBS@ \
-               @SOCKET_LIBS@ @LIBICONV@ @CURL_LIBS@ @PTHREAD_CFLAGS@ \
-               @PTHREAD_LIBS@ @I18N_LIBS@ $(flaclibs) $(speexlibs)
-
-ogg123_DEPENDENCIES = @SHARE_LIBS@
-ogg123_SOURCES = $(ogg123sources) $(speexcompile) $(flaccompile)
-
-man_MANS = $(mans) 
-doc_DATA = $(docs)
-
-endif
-
-EXTRA_DIST = $(ogg123sources) $(flacsources) $(speexsources) $(mans) $(docs)
-
+man_MANS = ogg123.1
+doc_DATA = ogg123rc-example
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -5,8 +5,6 @@ AUTOMAKE_OPTIONS = foreign
 mans = ogginfo.1
 ogginfosources = ogginfo2.c
 
-if BUILD_OGGINFO
-
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -22,9 +20,6 @@ ogginfo_DEPENDENCIES = @SHARE_LIBS@
 
 ogginfo_SOURCES = $(ogginfosources)
 
-endif
-
-EXTRA_DIST = $(ogginfosources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

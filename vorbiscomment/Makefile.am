@@ -5,8 +5,6 @@ AUTOMAKE_OPTIONS = foreign
 mans = vorbiscomment.1
 vorbiscommentsources = vcedit.c vcedit.h vcomment.c
 
-if BUILD_VORBISCOMMENT
-
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -21,10 +19,6 @@ vorbiscomment_LDADD = @SHARE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @I18N_LIB
 vorbiscomment_DEPENDENCIES = @SHARE_LIBS@
 
 vorbiscomment_SOURCES = $(vorbiscommentsources)
-
-endif
-
-EXTRA_DIST = $(vorbiscommentsources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
