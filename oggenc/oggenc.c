@@ -436,7 +436,7 @@ static void usage(void)
 		" must be 16bit stereo little-endian PCM ('headerless wav'), unless additional\n"
 		" parameters for raw mode are specified.\n"
 		" You can specify taking the file from stdin by using - as the input filename.\n"
-		" In this mode, output is to stdout unless an outfile filename is specified\n"
+		" In this mode, output is to stdout unless an output filename is specified\n"
 		" with -o\n"
 		"\n"), VERSION_STRING, COPYRIGHT);
 }
