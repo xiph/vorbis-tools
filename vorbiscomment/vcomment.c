@@ -114,17 +114,17 @@ int main(int argc, char **argv)
 		vorbis_comment_init(vc);
 
 		/* build the replacement structure */
-		while (!feof(param->com)) {
+		{
 			/* FIXME should use a resizeable buffer! */
-			char *buf = (char *)malloc(1024*sizeof(char));
+			char *buf = (char *)malloc(sizeof(char)*1024);
 
-			fgets(buf, 1024, param->com);
-			if (add_comment(buf, vc) < 0) {
-				fprintf(stderr,
-					"bad comment:\n\t\"%s\"\n",
-					buf);
-			}
-
+			while (fgets(buf, 1024, param->com))
+				if (add_comment(buf, vc) < 0) {
+					fprintf(stderr,
+						"bad comment: \"%s\"\n",
+						buf);
+				}
+			
 			free(buf);
 		}
 
