@@ -33,8 +33,6 @@ void encode_error(char *errmsg);
 
 typedef struct
 {
-	char *encoding;
-
 	char **title;
 	int title_count;
 	char **artist;

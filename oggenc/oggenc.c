@@ -68,7 +68,7 @@ static void usage(void);
 int main(int argc, char **argv)
 {
 	/* Default values */
-	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
+	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 		0, NULL, 0, NULL, 0, 0, 0,16,44100,2, NULL,DEFAULT_NAMEFMT_REMOVE, 
         DEFAULT_NAMEFMT_REPLACE, NULL, -1,-1,-1,-1,0};
 	int i;
