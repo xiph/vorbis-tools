@@ -430,7 +430,8 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	if( format.align == format.channels*samplesize &&
 			format.samplesize == samplesize*8 && 
     		(format.samplesize == 24 || format.samplesize == 16 || 
-             format.samplesize == 8))
+             format.samplesize == 8 ||
+	     (format.samplesize == 32 && format.format == 3)))
 	{
 		/* OK, good - we have the one supported format,
 		   now we want to find the size of the file */
