@@ -48,12 +48,13 @@ typedef struct
 	char *namefmt;
 	char *outfile;
 	int kbps;
+	unsigned int serial;
 } oe_options;
 
 typedef struct
 {
 	vorbis_comment *comments;
-	long serialno;
+	unsigned int serialno;
 
 	audio_read_func read_samples;
 	progress_func progress_update;

@@ -38,6 +38,7 @@ struct option long_options[] = {
 	{"bitrate",1,0,'b'},
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
+	{"serial",1,0,'s'},
 	{NULL,0,0,0}
 };
 	
@@ -50,12 +51,11 @@ void usage(void);
 int main(int argc, char **argv)
 {
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, 
-		0,0, NULL,NULL,160}; /* Default values */
+		0,0, NULL,NULL,160,0}; /* Default values */
 	int i;
 
 	char **infiles;
 	int numfiles;
-	long nextserial;
 
 	parse_options(argc, argv, &opt);
 
@@ -87,9 +87,12 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	/* We randomly pick a serial number. This is then incremented for each file */
-	srand(time(NULL));
-	nextserial = rand();
+	if(opt.serial == 0)
+	{
+		/* We randomly pick a serial number. This is then incremented for each file */
+		srand(time(NULL));
+		opt.serial = rand();
+	}
 
 	for(i = 0; i < numfiles; i++)
 	{
@@ -108,7 +111,7 @@ int main(int argc, char **argv)
 
 		/* Set various encoding defaults */
 
-		enc_opts.serialno = nextserial++;
+		enc_opts.serialno = opt.serial++;
 		enc_opts.progress_update = update_statistics_full;
 		enc_opts.end_encode = final_statistics;
 		enc_opts.error = encode_error;
@@ -266,6 +269,9 @@ void usage(void)
 		" -b, --bitrate        Choose a bitrate to encode at. Internally,\n"
 		"                      a mode approximating this value is chosen.\n"
 		"                      Takes an argument in kbps. Default is 160kbps\n"
+		" -s, --serial         Specify a serial number for the stream. If encoding\n"
+		"                      multiple files, this will be incremented for each\n"
+		"                      stream after the first.\n"
 		"\n"
 		" Naming:\n"
 		" -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
@@ -370,7 +376,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:c:d:hl:n:N:o:qrt:v", 
+	while((ret = getopt_long(argc, argv, "a:b:c:d:hl:n:N:o:qrs:t:v", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -394,6 +400,12 @@ void parse_options(int argc, char **argv, oe_options *opt)
 			case 'l':
 				opt->album = realloc(opt->album, (++opt->album_count)*sizeof(char *));
 				opt->album[opt->album_count - 1] = strdup(optarg);
+				break;
+			case 's':
+				/* Would just use atoi(), but that doesn't deal with unsigned
+				 * ints. Damn */
+				if(sscanf(optarg, "%u", opt->serial) != 1)
+					opt->serial = 0; /* Failed, so just set to zero */
 				break;
 			case 't':
 				opt->title = realloc(opt->title, (++opt->title_count)*sizeof(char *));
