@@ -16,7 +16,6 @@
 
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
-#include <theora/theora.h>
 
 #include <locale.h>
 #include "utf8.h"
@@ -37,8 +36,7 @@ struct vorbis_release {
         {"Xiphophorus libVorbis I 20011231", "1.0 rc3"},
         {"Xiph.Org libVorbis I 20020717", "1.0"},
         {"Xiph.Org libVorbis I 20030909", "1.0.1"},
-        {"Xiph.Org libVorbis I 20040629", "1.1.0"},
-        {"Xiph.Org libVorbis I 20040629", "1.1.0"},
+        {"Xiph.Org libVorbis I 20040629", "1.1.0 rc1"},
         {NULL, NULL},
     };
 
@@ -89,17 +87,6 @@ typedef struct {
 
     int doneheaders;
 } misc_vorbis_info;
-
-typedef struct {
-   theora_info ti;
-   theora_comment tc;
-
-    ogg_int64_t bytes;
-    ogg_int64_t lastgranulepos;
-    ogg_int64_t firstgranulepos;
-
-    int doneheaders;
-} misc_theora_info;
 
 static int printinfo = 1;
 static int printwarn = 1;
@@ -428,118 +415,6 @@ static void vorbis_end(stream_processor *stream)
     free(stream->data);
 }
 
-static void theora_process(stream_processor *stream, ogg_page *page )
-{
-    ogg_packet packet;
-    misc_theora_info *inf = stream->data;
-    int i, header=0;
-    int k;
-
-    ogg_stream_pagein(&stream->os, page);
-    if(inf->doneheaders < 3)
-        header = 1;
-
-    while(ogg_stream_packetout(&stream->os, &packet) > 0) {
-        if(inf->doneheaders < 3) {
-			if(theora_decode_header(&inf->ti,&inf->tc,&packet)){
-				printf("Error parsing Theora stream headers; corrupt stream?\n");
-				exit(1);
-			}
-            inf->doneheaders++;
-            if(inf->doneheaders == 3) {
-				printf("Theora headers parsed for stream %d, information follows...\n\n",stream->num);
-				printf("Vendor: %s\n",inf->tc.vendor);
-				printf("Version: %d.%d.%d\n",inf->ti.version_major,inf->ti.version_minor,inf->ti.version_subminor);
-
-				printf("Size: %dx%d \n",inf->ti.width,inf->ti.height);
-				if(inf->ti.aspect_denominator){
-					printf("Pixel Aspect Ratio: %.2f/1 \n",(float)inf->ti.aspect_numerator/inf->ti.aspect_denominator);
-					printf("Frame Aspect Ratio: %.2f/1 \n",(float)(inf->ti.aspect_numerator*inf->ti.width)/(inf->ti.aspect_denominator*inf->ti.height));
-				}
-				else{
-					printf("No Aspect Ratio defined.\n");
-				}
-				
-				printf("Colorspace: ");
-				switch(inf->ti.colorspace){
-					case OC_CS_ITU_REC_470BG:
-						printf("ITU_REC_470BG");
-						break;
-					case OC_CS_ITU_REC_470M:
-						printf("ITU_REC_470M");
-						break;
-					
-				}
-				printf("\n");
-				
-				printf("Quality: %.2f\n",(float)inf->ti.quality/6.3);
-				printf("Target Bitrate: %d \n",inf->ti.target_bitrate);
-				
-				printf("\n");
-			}
-        }
-    }
-    if(!header) {
-        ogg_int64_t gp = ogg_page_granulepos(page);
-        if(gp >= 0) {
-            if(gp < inf->lastgranulepos)
-#ifdef _WIN32
-                warn(_("Warning: granulepos in stream %d decreases from %I64d to %I64d" ),
-                        stream->num, inf->lastgranulepos, gp);
-#else
-                warn(_("Warning: granulepos in stream %d decreases from %lld to %lld" ),
-                        stream->num, inf->lastgranulepos, gp);
-#endif
-            inf->lastgranulepos = gp;
-        }
-        else {
-            warn(_("Negative granulepos on theora stream outside of headers. This file was created by a buggy encoder\n"));
-        }
-        if(inf->firstgranulepos < 0) {
-        }
-        inf->bytes += page->header_len + page->body_len;
-    }
-
-}
-
-static void theora_end(stream_processor *stream) 
-{
-    misc_theora_info *inf = stream->data;
-    long minutes, seconds, milliseconds;
-    double bitrate, time;
-
-	
-    /* This should be lastgranulepos - startgranulepos, or something like that*/
-	//no theora stat in misc_theora_info
-    /*
-	time = theora_granule_time(&inf->td,inf->lastgranulepos);
-    minutes = (long)time / 60;
-    seconds = (long)time - minutes*60;
-    milliseconds = (long)((time - minutes*60 - seconds)*1000);
-    bitrate = inf->bytes*8 / time / 1000.0;
-
-#ifdef _WIN32
-    info(_("Vorbis stream %d:\n"
-           "\tTotal data length: %I64d bytes\n"
-           "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kbps\n"), 
-            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
-#else
-    info(_("Vorbis stream %d:\n"
-           "\tTotal data length: %lld bytes\n"
-           "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kbps\n"), 
-            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
-#endif
-*/
-    theora_comment_clear(&inf->tc);
-    theora_info_clear(&inf->ti);
-
-    free(stream->data);
-}
-
-
-
 static void process_null(stream_processor *stream, ogg_page *page)
 {
     /* This is for invalid streams. */
@@ -619,23 +494,6 @@ static void vorbis_start(stream_processor *stream)
     vorbis_info_init(&info->vi);
 
 }
-
-static void theora_start(stream_processor *stream)
-{
-    misc_theora_info *info;
-	
-    stream->type = "theora";
-    stream->process_page = theora_process;
-    stream->process_end = theora_end;
-
-    stream->data = calloc(1, sizeof(misc_theora_info));
-
-    info = stream->data;
-
-    theora_comment_init(&info->tc);
-    theora_info_init(&info->ti);
-}
-
 
 static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
 {
@@ -870,7 +728,7 @@ static void process_file(char *filename) {
 }
 
 static void usage(void) {
-    printf(_("ogginfo 1.1.0\n"
+    printf(_("ogginfo 1.0.1\n"
              "(c) 2003 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
@@ -935,3 +793,4 @@ int main(int argc, char **argv) {
 
     return ret;
 }
+
