@@ -59,6 +59,9 @@ dnl --------------------------------------------------
 AM_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
 AM_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
 AM_PATH_AO(,AC_MSG_ERROR(libao needed!))
+SOCKET_LIBS=
+AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
+AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 
 dnl --------------------------------------------------
 dnl Check for library functions
@@ -72,5 +75,6 @@ dnl --------------------------------------------------
 
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
+AC_SUBST(SOCKET_LIBS)
 
 AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile debian/Makefile)
