@@ -14,603 +14,583 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.13 2000/12/17 20:29:32 giles Exp $
+ last mod: $Id: ogg123.c,v 1.14 2000/12/25 21:24:25 kcarnold Exp $
 
  ********************************************************************/
 
-/* Takes a vorbis bitstream from stdin and writes raw stereo PCM to
-   stdout.  Decodes simple and chained OggVorbis files from beginning
-   to end.  Vorbisfile.a is somewhat more complex than the code below.  */
+/* FIXME : That was a messy message. Fix it. */
 
-#define OGG123_VERSION "0.1"
+#define OGG123_VERSION "0.6 (CVS post-beta3)"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/socket.h> /* !!! */
+#include <sys/socket.h>
 #include <unistd.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <errno.h>
 #include <math.h>
-#include <getopt.h> /* !!! */
-#include <fcntl.h> /* !!! */
-#include <time.h> /* !!! */
-#include <sys/time.h> /* !!! */
+#include <getopt.h>
+#include <fcntl.h>
+#include <time.h>
+#include <sys/time.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
 #include <ao/ao.h>
 
-char convbuffer[4096];	/* take 8k out of the data segment, not the stack */
+char convbuffer[4096];		/* take 8k out of the data segment, not the stack */
 int convsize = 4096;
 
 /* For facilitating output to multiple devices */
-typedef struct devices_struct 
-{
-  int driver_id;
-  ao_device_t *device;
-  ao_option_t *options;
-  struct devices_struct *next_device;
-} devices;
+typedef struct devices_s {
+    int driver_id;
+    ao_device_t *device;
+    ao_option_t *options;
+    struct devices_s *next_device;
+} devices_t;
 
-struct
-{
-  char *read_file;		/* File to decode */
-  char shuffle; /* Should we shuffle playing? */
-  signed short int verbose;	/* Verbose output if > 0, quiet if < 0 */
-  signed short int quiet;	/* Be quiet (no title) */
-  double seekpos;		/* Amount to seek by */
-  FILE *instream;		/* Stream to read from. */
-  devices *outdevices;		/* Streams to write to. */
-}
-param =
-{
-NULL, 0, 0, 0, 0, NULL, NULL};
+typedef struct ogg123_options_s {
+    char *read_file;		/* File to decode */
+    char shuffle;		/* Should we shuffle playing? */
+    signed short int verbose;	/* Verbose output if > 0, quiet if < 0 */
+    signed short int quiet;	/* Be quiet (no title) */
+    double seekpos;		/* Amount to seek by */
+    FILE *instream;		/* Stream to read from. */
+    devices_t *outdevices;	/* Streams to write to. */
+} ogg123_options_t;		/* Changed in 0.6 to be non-static */
 
-struct
-{
-  ogg_int64_t c_length;	/* Compressed length */
-  double u_time;	/* Uncompressed time */
-  ogg_int64_t c_pos;	/* Position in the compressed file */
-  double u_pos;		/* Position in the decoded output */
-}
-info =
-{
--1, -1, 0, 0};
+/* There used to be an "info" struct here that served little purpose. */
 
-struct option long_options[] = {
-  {"help", no_argument, 0, 'h'},
-  {"version", no_argument, 0, 'V'},
-  {"device", required_argument, 0, 'd'},
-  {"skip", required_argument, 0, 'k'},
-  {"device-option", required_argument, 0, 'o'},
-  {"verbose", no_argument, 0, 'v'},
-  {"quiet", no_argument, 0, 'q'},
-  {"shuffle", no_argument, 0, 'z'},
-  {0, 0, 0, 0}
+struct {
+    char *key;			/* includes the '=' for programming convenience */
+    char *formatstr;		/* formatted output */
+} ogg_comment_keys[] = {
+  {"ARTIST=", "Artist: %s\n"},
+  {"ALBUM=", "Album: %s\n"},
+  {"TITLE=", "Title: %s\n"},
+  {"VERSION", "Version: %s\n"},
+  {"ORGANIZATION=", "Organization: %s\n"},
+  {"GENRE=", "Genre: %s\n"},
+  {"DESCRIPTION=", "Description: %s\n"},
+  {"DATE=", "Date: %s\n"},
+  {"LOCATION=", "Location: %s\n"},
+  {"COPYRIGHT=", "Copyright %s\n"},
+  {NULL, NULL}
 };
 
-void play_file (void);		/* This really needs to go in a header file. */
-FILE *http_open (char *server, int port, char *path);
+struct option long_options[] = {
+    {"help", no_argument, 0, 'h'},
+    {"version", no_argument, 0, 'V'},
+    {"device", required_argument, 0, 'd'},
+    {"skip", required_argument, 0, 'k'},
+    {"device-option", required_argument, 0, 'o'},
+    {"verbose", no_argument, 0, 'v'},
+    {"quiet", no_argument, 0, 'q'},
+    {"shuffle", no_argument, 0, 'z'},
+    {0, 0, 0, 0}
+};
 
-void
-append_device (devices ** devices_list, int driver_id, ao_option_t *options)
+/* FIXME: XXX: YUCK: fixme. */
+void play_file(ogg123_options_t opt);	/* This really needs to go in a header file. */
+FILE *http_open(char *server, int port, char *path);
+
+devices_t *append_device(devices_t * devices_list, int driver_id,
+			 ao_option_t * options)
 {
-  if (*devices_list != NULL)
-    {
-      while ((*devices_list)->next_device != NULL)
-	{
-	  // Beware of pointers to pointers!
-	  devices_list = &((*devices_list)->next_device);
-	}
-      (*devices_list)->next_device = (devices *) malloc (sizeof (devices));
-      devices_list = &((*devices_list)->next_device);
+    devices_t *head = devices_list;
+
+    if (devices_list != NULL) {
+	while (devices_list->next_device != NULL)
+	    devices_list = devices_list->next_device;
+	devices_list = devices_list->next_device =
+	    malloc(sizeof(devices_t));
+    } else {
+	head = devices_list = (devices_t *) malloc(sizeof(devices_t));
     }
-  else
-    {
-      *devices_list = (devices *) malloc (sizeof (devices));
-    }
-  (*devices_list)->driver_id = driver_id;
-  (*devices_list)->options = options;
-  (*devices_list)->next_device = NULL;
+    devices_list->driver_id = driver_id;
+    devices_list->options = options;
+    devices_list->next_device = NULL;
+
+    return head;
 }
 
-void
-free_devices (devices * devices_list)
+void devices_write(void *ptr, size_t size, devices_t * d)
 {
-  devices temp_device;
-  while (devices_list->next_device)
-    {
-      temp_device = *devices_list;
-      free (devices_list);
-      devices_list = temp_device.next_device;
-    }
-  free (devices_list);
-}
-
-void
-devices_write (void *ptr, size_t size, devices *d)
-{
-  while (d)
-    {
-      ao_play(d->device, ptr, size);
-      d = d->next_device;
+    while (d != NULL) {
+	ao_play(d->device, ptr, size);
+	d = d->next_device;
     }
 }
 
-void
-usage ()
+void usage()
 {
-  FILE *o;
-  o = stderr;
+    FILE *o;
+    o = stderr;
 
-  fprintf (o, "Ogg123 %s\n", OGG123_VERSION);
-  fprintf (o, " by Kenneth Arnold <kcarnold@yahoo.com> and crew\n\n");
-  fprintf (o, "Usage: ogg123 [<options>] <input file> ...\n\n");
-  fprintf (o, "  -h, --help     this help\n");
-  fprintf (o, "  -V, --version  display Ogg123 version\n");
-  fprintf (o, "  -d, --device=d uses 'd' as an output device)\n");
-  fprintf (o, "      Possible devices are (some may not be compiled):\n");
-  fprintf (o, "      null (output nothing), oss (for Linux and *BSD),\n");
-  fprintf (o, "      irix, solaris, wav (write to a .WAV file)\n");
-  fprintf (o, "  -k n, --skip n  Skip the first 'n' seconds\n");
-  fprintf (o, 
-           "  -o, --device-option=k:v passes special option k with value\n");
-  fprintf (o, 
-           "      v to previously specified device (with -d).  See\n");
-  fprintf (o, 
-           "      man page for more info.\n");
-
-  fprintf (o,
-	   "  -v, --verbose  display progress and other useful stuff (not yet)\n");
-  fprintf (o, "  -q, --quiet    don't display anything (no title)\n");
-  fprintf (o, "  -z, --shuffle  shuffle play\n");
+    fprintf(o,
+	    "Ogg123 " OGG123_VERSION "\n"
+	    " by Kenneth Arnold <kcarnold@arnoldnet.net> and others\n\n"
+	    "Usage: ogg123 [<options>] <input file> ...\n\n"
+	    "  -h, --help     this help\n"
+	    "  -V, --version  display Ogg123 version\n"
+	    "  -d, --device=d uses 'd' as an output device)\n"
+	    "      Possible devices are (some may not be compiled):\n"
+	    "      null (output nothing), oss (for Linux and *BSD),\n"
+	    "      irix, solaris, wav (write to a .WAV file)\n"
+	    "  -k n, --skip n  Skip the first 'n' seconds\n"
+	    "  -o, --device-option=k:v passes special option k with value\n"
+	    "      v to previously specified device (with -d).  See\n"
+	    "      man page for more info.\n"
+	    "  -v, --verbose  display progress and other useful stuff\n"
+	    "  -q, --quiet    don't display anything (no title)\n"
+	    "  -z, --shuffle  shuffle play\n");
 }
 
-int add_option(ao_option_t **op_h, const char *optstring)
+int add_option(ao_option_t ** op_h, const char *optstring)
 {
-	char *key, *value;
-	int  result;
+    char *key, *value;
+    int result;
 
-	key = strdup(optstring);
-	if (key == NULL) return 0;
+    key = strdup(optstring);
+    if (key == NULL)
+	return 0;
 
-	value = strchr(key, ':');
-	if (value == NULL) {
-		free(key);
-		return 0;
-	}
-	
-	/* split by replacing the separator with a null */
-	*value++ = '\0';
+    value = strchr(key, ':');
+    if (value == NULL) {
+	free(key);
+	return 0;
+    }
 
-	result = ao_append_option(op_h, key, value);
-	free (key);
-	
-	return (result);
+    /* split by replacing the separator with a null */
+    *value++ = '\0';
+
+    result = ao_append_option(op_h, key, value);
+    free(key);
+
+    return (result);
 }
 
 int get_default_device(void)
 {
-	FILE *fp;
-	char filename[NAME_MAX];
-	char line[100];
-	char *device = NULL;
-	int i;
+    FILE *fp;
+    char filename[NAME_MAX];
+    char line[100];
+    char *device = NULL;
+    char *homedir = getenv("HOME");
+    int i;
 
-	strncpy(filename, getenv("HOME"), NAME_MAX);
-	strcat(filename, "/.ogg123rc");
-
-	fp = fopen(filename, "r");
-	if (fp) {
-		if (fgets(line, 100, fp)) {
-			if (strncmp(line, "default_device=", 15) == 0) {
-				device = &line[15];
-				for (i = 0; i < strlen(device); i++)
-					if (device[i] == '\n' || device[i] == '\r')
-						device[i] = 0;
-			}
-		}
-		fclose(fp);
-	}
-
-	if (device) return ao_get_driver_id(device);
-
+    /* Maybe I'm being extremely paranoid, but if ogg123 is ever suid
+       root (to access audio devices), this is a possible buffer overflow. */
+    if (homedir == NULL || strlen(homedir) >= NAME_MAX - 10)
 	return -1;
-}
 
-int
-main (int argc, char **argv)
-{
-  /* Parse command line */
+    strncpy(filename, homedir, NAME_MAX);
+    strcat(filename, "/.ogg123rc");
 
-  int ret;
-  int option_index = 1;
-  ao_option_t *temp_options = NULL;
-  int temp_driver_id = -1;
-  devices *current;
-  int bits, rate, channels;
 
-  ao_initialize();
-
-  temp_driver_id = get_default_device();
-
-  while (-1 != (ret = getopt_long (argc, argv, "d:hqk:o:vV:z",
-				   long_options, &option_index)))
-    {
-      switch (ret)
-	{
-	case 0:
-	  fprintf (stderr,
-		   "Internal error: long option given when none expected.\n");
-	  exit (1);
-	case 'd':
-	  /* Need to store previous device before gathering options for
-	     this device */
-	  if (temp_driver_id != -1)
-	    {
-	      append_device(&param.outdevices, temp_driver_id, temp_options);
-	      temp_options = NULL;
-	    }
-	  temp_driver_id = ao_get_driver_id(optarg);
-	  if (temp_driver_id < 0)
-	    {
-	      fprintf(stderr, "No such device %s.\n", optarg);
-	      exit(1);
-	    }
-	  break;
-	case 'k':
-	  param.seekpos = atof (optarg);
-	  break;
-	case 'o':
-	  if (optarg && !add_option(&temp_options, optarg))
-	    {
-	      fprintf(stderr, "Incorrect option format: %s.\n", optarg);
-	      exit(1);
-	    }
-	  break;
-	case 'h':
-	  usage ();
-	  exit (0);
-	case 'q':
-	  param.quiet++;
-	  break;
-	case 'v':
-	  param.verbose++;
-	  break;
-	case 'V':
-	  fprintf (stderr, "Ogg123 %s\n", OGG123_VERSION);
-	  exit (0);
-	case 'z':
-	  param.shuffle = 1;
-	  break;
-	case '?':
-	  break;
-	default:
-	  usage ();
-	  exit (1);
+    /* This is a very simplistic parser. If more options are ever added,
+       it will need a serious overhaul. */
+    fp = fopen(filename, "r");
+    if (fp) {
+      if (getline(line, 100, fp)) {
+	if (strncmp(line, "default_device=", 15) == 0) {
+	  device = &line[15];
+	  for (i = 0; i < strlen(device); i++)
+	    if (device[i] == '\n' || device[i] == '\r')
+	      device[i] = 0;
 	}
-    }
-  
-  /* Add last device to device list or use the default device */
-  if (temp_driver_id < 0)
-    {
-      temp_driver_id = ao_get_driver_id(NULL);
-      if (temp_driver_id < 0)
-	{
-	  fprintf(stderr, "Internal Error: Could not load default driver.\n");
-	  exit(1);
-	}
-    }
-
-  append_device(&param.outdevices, temp_driver_id, temp_options);
-  
-  if (optind == argc)
-    {
-      fprintf (stderr,
-	       "Please specify a file to decode on the command line.\n");
-      exit (1);
-    }
-
-  /* Open all of the devices */
-  bits = 16;
-  rate = 44100;
-  channels = 2;
-  current = param.outdevices;
-
-  if (param.quiet < 1)
-	  fprintf(stderr, "Opening devices...\n");
-
-  while (current != NULL) {
-    ao_info_t *info = ao_get_driver_info(current->driver_id);
-
-    if (param.quiet < 1) {
-    	fprintf(stderr, "Device:   %s\n", info->name);
-    	fprintf(stderr, "Author:   %s\n", info->author);
-    	fprintf(stderr, "Comments: %s\n", info->comment);
-    }
-    
-    current->device = ao_open(current->driver_id,bits,rate,channels,
-			     current->options);
-    if (current->device == NULL)
-      {
-	fprintf(stderr, "Error opening device.\n");
-	exit(1);
       }
-    if (param.quiet < 1)
-    	fprintf(stderr, "\n"); // Gotta keep 'em separated ...
- 
-    current = current->next_device;
-  }
-
-  if (param.shuffle)
-    {
-      int i;
-      int nb = argc - optind;
-      int *p = alloca(sizeof(int) * nb);
-      for (i = 0; i < nb; i++) p[i] = i;
-
-      srand (time (NULL));
-      for (i = 1; i < nb; i++) 
-	{
-	  int j = i * ((float) rand() / RAND_MAX);
-	  int temp = p[j]; p[j] = p[i]; p[i] = temp;
-	}
-      for (i = 0; i < nb; i++) 
-	{
-	  param.read_file = argv[p[i]+optind];
-	  play_file ();
-	}
+      fclose(fp);
     }
-  else
-    {
-      while (optind < argc)
-	{
-	  param.read_file = argv[optind];
-	  play_file ();
-	  optind++;
-	}
-    }
-
-  current = param.outdevices;
-
-  while(current != NULL)
-  {
-	  ao_close(current->device);
-	  current = current->next_device;
-  }
-
-  ao_shutdown();
-
-  return (0);
+    
+    if (device)
+      return ao_get_driver_id(device);
+    
+    return -1;
 }
 
-void play_file(void)
+int main(int argc, char **argv)
 {
-	OggVorbis_File vf;
-	int current_section = -1, eof = 0, eos = 0, ret;
-	int old_section = -1;
-	long t_min = 0, c_min = 0, r_min = 0;
-	double t_sec = 0, c_sec = 0, r_sec = 0;
-	int is_big_endian = ao_is_big_endian();
-	double realseekpos = param.seekpos;
+    ogg123_options_t opt;
+    int ret;
+    int option_index = 1;
+    ao_option_t *temp_options = NULL;
+    int temp_driver_id = -1;
+    devices_t *current;
+    int bits, rate, channels;
 
-  if (strcmp (param.read_file, "-"))	/* input file not stdin */
-    {
-      if (!strncmp (param.read_file, "http://", 7))
-	{
-	  /* Stream down over http */
-	  char *temp = NULL, *server = NULL, *port = NULL, *path = NULL;
-	  int index;
-	  long iport;
-	  
-	  temp = param.read_file + 7;
-	  for (index = 0; temp[index] != '/' && temp[index] != ':'; index++);
-	  server = (char *) malloc (index + 1);
-	  strncpy (server, temp, index);
-	  server[index] = '\0';
+    opt.read_file = NULL;
+    opt.shuffle = 0;
+    opt.verbose = 0;
+    opt.quiet = 0;
+    opt.seekpos = 0;
+    opt.instream = NULL;
+    opt.outdevices = NULL;
 
-	  /* Was a port specified? */
-	  if (temp[index] == ':')
+    ao_initialize();
+
+    temp_driver_id = get_default_device();
+
+    while (-1 != (ret = getopt_long(argc, argv, "d:hqk:o:vV:z",
+				    long_options, &option_index))) {
+	switch (ret) {
+	case 0:
+	    fprintf(stderr,
+		    "Internal error: long option given when none expected.\n");
+	    exit(1);
+	case 'd':
+	    /* Need to store previous device before gathering options for
+	       this device */
+	    if (temp_driver_id != -1) {
+		opt.outdevices =
+		    append_device(opt.outdevices, temp_driver_id,
+				  temp_options);
+		temp_options = NULL;
+	    }
+	    temp_driver_id = ao_get_driver_id(optarg);
+	    if (temp_driver_id < 0) {
+		fprintf(stderr, "No such device %s.\n", optarg);
+		exit(1);
+	    }
+	    break;
+	case 'k':
+	    opt.seekpos = atof(optarg);
+	    break;
+	case 'o':
+	    if (optarg && !add_option(&temp_options, optarg)) {
+		fprintf(stderr, "Incorrect option format: %s.\n", optarg);
+		exit(1);
+	    }
+	    break;
+	case 'h':
+	    usage();
+	    exit(0);
+	case 'q':
+	    opt.quiet++;
+	    break;
+	case 'v':
+	    opt.verbose++;
+	    break;
+	case 'V':
+	    fprintf(stderr, "Ogg123 %s\n", OGG123_VERSION);
+	    exit(0);
+	case 'z':
+	    opt.shuffle = 1;
+	    break;
+	case '?':
+	    break;
+	default:
+	    usage();
+	    exit(1);
+	}
+    }
+
+    /* Add last device to device list or use the default device */
+    if (temp_driver_id < 0) {
+	temp_driver_id = ao_get_driver_id(NULL);
+	if (temp_driver_id < 0) {
+	    fprintf(stderr,
+		    "Could not load default driver and no ~/.ogg123_rc found. Exiting.\n");
+	    exit(1);
+	}
+    }
+
+    opt.outdevices =
+	append_device(opt.outdevices, temp_driver_id, temp_options);
+
+    if (optind == argc) {
+	usage();
+	exit(1);
+    }
+
+    /* Open all of the devices */
+
+    /* FIXME: OggVorbis files aren't all 16 bit 44.1k stereo. */
+    /* Heck, they might not even be Vorbis :) PCM-Ogg? */
+    bits = 16;
+    rate = 44100;
+    channels = 2;
+    current = opt.outdevices;
+
+    if (opt.verbose > 0)
+	fprintf(stderr, "Opening devices...\n");
+
+    while (current != NULL) {
+	ao_info_t *info = ao_get_driver_info(current->driver_id);
+
+	if (opt.verbose > 0) {
+	    fprintf(stderr, "Device:   %s\n", info->name);
+	    fprintf(stderr, "Author:   %s\n", info->author);
+	    fprintf(stderr, "Comments: %s\n", info->comment);
+	}
+
+	current->device = ao_open(current->driver_id, bits, rate, channels,
+				  current->options);
+	if (current->device == NULL) {
+	    fprintf(stderr, "Error opening device.\n");
+	    exit(1);
+	}
+	if (opt.quiet < 1)
+	    fprintf(stderr, "\n");	// Gotta keep 'em separated ...
+
+	current = current->next_device;
+    }
+
+    if (opt.shuffle) {
+	/* Messy code that I didn't write -ken */
+	int i;
+	int nb = argc - optind;
+	int *p = alloca(sizeof(int) * nb);
+	for (i = 0; i < nb; i++)
+	    p[i] = i;
+
+	srand(time(NULL));
+	for (i = 1; i < nb; i++) {
+	    int j = i * ((float) rand() / RAND_MAX);
+	    int temp = p[j];
+	    p[j] = p[i];
+	    p[i] = temp;
+	}
+	for (i = 0; i < nb; i++) {
+	    opt.read_file = argv[p[i] + optind];
+	    play_file(opt);
+	}
+    } else {
+	while (optind < argc) {
+	    opt.read_file = argv[optind];
+	    play_file(opt);
+	    optind++;
+	}
+    }
+
+    while (opt.outdevices != NULL) {
+	ao_close(opt.outdevices->device);
+	current = opt.outdevices->next_device;
+	free(opt.outdevices);
+	opt.outdevices = current;
+    }
+
+    ao_shutdown();
+
+    return (0);
+}
+
+void play_file(ogg123_options_t opt)
+{
+    /* Oh my gosh this is disgusting. Big cleanups here will include an
+       almost complete rewrite of the hacked-out HTTP streaming, a shift
+       to using callbacks for the vorbisfile input, and a (mostly Unix-specific)
+       buffer. Probably use shm. */
+
+    OggVorbis_File vf;
+    int current_section = -1, eof = 0, eos = 0, ret;
+    int old_section = -1;
+    long t_min = 0, c_min = 0, r_min = 0;
+    double t_sec = 0, c_sec = 0, r_sec = 0;
+    int is_big_endian = ao_is_big_endian();
+    double realseekpos = opt.seekpos;
+
+    /* Junk left over from the failed info struct */
+    double u_time, u_pos;
+
+    if (strcmp(opt.read_file, "-")) {	/* input file not stdin */
+	if (!strncmp(opt.read_file, "http://", 7)) {
+	    /* Stream down over http */
+	    char *temp = NULL, *server = NULL, *port = NULL, *path = NULL;
+	    int index;
+	    long iport;
+
+	    temp = opt.read_file + 7;
+	    for (index = 0; temp[index] != '/' && temp[index] != ':';
+		 index++);
+	    server = (char *) malloc(index + 1);
+	    strncpy(server, temp, index);
+	    server[index] = '\0';
+
+	    /* Was a port specified? */
+	    if (temp[index] == ':') {
+		/* Grab the port. */
+		temp += index + 1;
+		for (index = 0; temp[index] != '/'; index++);
+		port = (char *) malloc(index + 1);
+		strncpy(port, temp, index);
+		port[index] = '\0';
+		if ((iport = atoi(port)) <= 0 || iport > 65535) {
+		    fprintf(stderr, "%s is not a valid port.\n", port);
+		    exit(1);
+		}
+	    } else
+		iport = 80;
+
+	    path = strdup(temp + index);
+
+	    if ((opt.instream = http_open(server, iport, path)) == NULL) {
+		fprintf(stderr, "Error while connecting to server!\n");
+		exit(1);
+	    }
+	    /* Send HTTP header */
+	    fprintf(opt.instream,
+		    "GET %s HTTP/1.0\r\n"
+		    "Accept: */*\r\n"
+		    "User-Agent: ogg123\r\n"
+		    "Host: %s\r\n\r\n\r\n", path, server);
+
+	    /* Dump headers */
 	    {
-	      /* Grab the port. */
-	      temp += index + 1;
-	      for (index = 0; temp[index] != '/'; index++);
-	      port = (char *) malloc (index + 1);
-	      strncpy (port, temp, index);
-	      port[index] = '\0';
-	      if ((iport = atoi (port)) <= 0 || iport > 65535)
-		{
-		  fprintf (stderr, "%s is not a valid port.\n", port);
-		  exit (1);
+		char last = 0, in = 0;
+		int eol = 0;
+
+		/* Need to 'quiet' this header dump */
+		fprintf(stderr, "HTTP Headers:\n");
+		for (;;) {
+		    last = in;
+		    in = getc(opt.instream);
+		    putc(in, stderr);
+		    if (last == 13 && in == 10) {
+			if (eol)
+			    break;
+			eol = 1;
+		    } else if (in != 10 && in != 13)
+			eol = 0;
 		}
 	    }
-	  else iport = 80;
-	  
-	  path = strdup (temp + index);
-
-	  if ((param.instream = http_open (server, iport, path)) == NULL)
-	    {
-	      fprintf (stderr, "Error while connecting to server!\n");
-	      exit (1);
-	    }
-	  /* Send HTTP header */
-	  fprintf (param.instream, 
-		   "GET %s HTTP/1.0\r\n"
-		   "Accept: */*\r\n"
-		   "User-Agent: ogg123\r\n"
-		   "Host: %s\r\n\r\n\r\n", 
-		   path, server);
-
-	  /* Dump headers */
-	  {
-	    char last = 0, in = 0;
-	    int eol = 0;
-		
-	    /* Need to 'quiet' this header dump */
-	    fprintf (stderr, "HTTP Headers:\n");
-	    for (;;)
-	      {
-		last = in;
-		in = getc (param.instream);
-		putc (in, stderr);
-		if (last == 13 && in == 10)
-		  {
-		    if (eol)
-		      break;
-		    eol = 1;
-		  }
-		else if (in != 10 && in != 13)
-		  eol = 0;
-	      }
-	  }
-	  free (server);
-	  free (path);
-	}
-      else
-	{
-	  if (param.quiet < 1)
-	  	fprintf (stderr, "Playing from file %s.\n", param.read_file);
-	  /* Open the file. */
-	  if ((param.instream = fopen (param.read_file, "rb")) == NULL)
-	    {
-	      fprintf (stderr, "Error opening input file.\n");
-	      exit (1);
+	    free(server);
+	    free(path);
+	} else {
+	    if (opt.quiet < 1)
+		fprintf(stderr, "Playing from file %s.\n", opt.read_file);
+	    /* Open the file. */
+	    if ((opt.instream = fopen(opt.read_file, "rb")) == NULL) {
+		fprintf(stderr, "Error opening input file.\n");
+		exit(1);
 	    }
 	}
-    }
-  else
-    {
-      if (param.quiet < 1)
-	      fprintf (stderr, "Playing from standard input.\n");
-      param.instream = stdin;
+    } else {
+	if (opt.quiet < 1)
+	    fprintf(stderr, "Playing from standard input.\n");
+	opt.instream = stdin;
     }
 
-	if ((ov_open(param.instream, &vf, NULL, 0)) < 0) {
-		fprintf(stderr, "E: input not an Ogg Vorbis audio stream.\n");
-		return;
-	}
-  
-	/* Throw the comments plus a few lines about the bitstream we're
-	** decoding */
+    if ((ov_open(opt.instream, &vf, NULL, 0)) < 0) {
+	fprintf(stderr, "E: input not an Ogg Vorbis audio stream.\n");
+	return;
+    }
 
-	while (!eof) {
+    /* Throw the comments plus a few lines about the bitstream we're
+       ** decoding */
+
+    while (!eof) {
+	int i;
+	vorbis_comment *vc = ov_comment(&vf, -1);
+	vorbis_info *vi = ov_info(&vf, -1);
+
+	if (opt.quiet < 1) {
+	    for (i = 0; i < vc->comments; i++) {
+		char *cc = vc->user_comments[i];	/* current comment */
 		int i;
-		vorbis_comment *vc = ov_comment(&vf, -1);
-		vorbis_info *vi = ov_info(&vf, -1);
 
-		if (param.quiet < 1) {
-			for (i = 0; i < vc->comments; i++) {
-				char *cc = vc->user_comments[i]; /* current comment */
-				if (!strncasecmp ("ARTIST=", cc, 7))
-					fprintf(stderr, "Artist: %s\n", cc + 7);
-				else if (!strncasecmp("ALBUM=", cc, 6))
-					fprintf(stderr, "Album: %s\n", cc + 6);
-				else if (!strncasecmp("TITLE=", cc, 6))
-					fprintf(stderr, "Title: %s\n", cc + 6);
-				else if (!strncasecmp("VERSION=", cc, 8))
-					fprintf(stderr, "Version: %s\n", cc + 8);
-				else if (!strncasecmp("ORGANIZATION=", cc, 13))
-					fprintf(stderr, "Organization: %s\n", cc + 13);
-				else if (!strncasecmp("GENRE=", cc, 6))
-					fprintf(stderr, "Genre: %s\n", cc + 6);
-				else if (!strncasecmp("DESCRIPTION=", cc, 12))
-					fprintf(stderr, "Description: %s\n", cc + 12);
-				else if (!strncasecmp("DATE=", cc, 5))
-					fprintf(stderr, "Date: %s\n", cc + 5);
-				else if (!strncasecmp("LOCATION=", cc, 9))
-					fprintf(stderr, "Location: %s\n", cc + 9);
-				else if (!strncasecmp("COPYRIGHT=", cc, 10))
-					fprintf(stderr, "Copyright: %s\n", cc + 10);
-				else
-					fprintf(stderr, "Unrecognized comment: %s\n", cc);
-			}
-    
-		fprintf(stderr, "\nBitstream is %d channel, %ldHz\n", vi->channels, vi->rate);
-		fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
-		}
+		for (i = 0; ogg_comment_keys[i].key != NULL; i++)
+		    if (!strncmp
+			(ogg_comment_keys[i].key, cc,
+			 strlen(ogg_comment_keys[i].key))) {
+			fprintf(stderr, ogg_comment_keys[i].formatstr,
+				cc + strlen(ogg_comment_keys[i].key));
+			break;
+		    }
+		if (ogg_comment_keys[i].key == NULL)
+		    fprintf(stderr, "Unrecognized comment: '%s'\n");
+	    }
 
-		if (param.verbose > 0) {
-			/* Seconds with double precision */
-			info.u_time = ov_time_total(&vf, -1);
-			t_min = (long)info.u_time / (long)60;
-			t_sec = info.u_time - 60 * t_min;
-		}
-
-		if ((realseekpos > ov_time_total (&vf, -1)) || (realseekpos < 0))
-	         /* If we're out of range set it to right before the end. If we set it
-        	  * right to the end when we seek it will go to the beginning of the sond */
-			realseekpos = ov_time_total (&vf, -1) - 0.01;
- 
-		if (realseekpos > 0)
-			ov_time_seek (&vf, realseekpos);
-
-		eos = 0;
-		while (!eos) {
-			old_section = current_section;
-			ret = ov_read(&vf, convbuffer, sizeof (convbuffer), is_big_endian, 2, 1, &current_section);
-			if (ret == 0) {
-				/* End of file */
-				eof = eos = 1;
-			} else if (ret < 0) {
-				/* Stream error */
-				fprintf(stderr, "W: Stream error\n");
-			} else {
-				/* less bytes than we asked for */
-				/* did we enter a new logical bitstream */
-				if (old_section != current_section && old_section != -1)
-					eos = 1;
-
-				devices_write(convbuffer, ret, param.outdevices);
-				if (param.verbose > 0) {
-					info.u_pos = ov_time_tell(&vf);
-					c_min = (long)info.u_pos / (long)60;
-					c_sec = info.u_pos - 60 * c_min;
-					r_min = (long)(info.u_time - info.u_pos) / (long)60;
-					r_sec = (info.u_time - info.u_pos) - 60 * r_min;
-					fprintf (stderr, "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f, Bitrate: %.1f   \r", c_min, c_sec, r_min, r_sec, t_min, t_sec, (float)ov_bitrate_instant(&vf) / 1000.0F);
-				}
-			}
-		}
+	    fprintf(stderr, "\nBitstream is %d channel, %ldHz\n",
+		    vi->channels, vi->rate);
+	    fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
 	}
 
-	ov_clear(&vf);
-      
-	if (param.quiet < 1)
-		fprintf (stderr, "\nDone.\n");
+	if (opt.verbose > 0) {
+	    /* Seconds with double precision */
+	    u_time = ov_time_total(&vf, -1);
+	    t_min = (long) u_time / (long) 60;
+	    t_sec = u_time - 60 * t_min;
+	}
+
+	if ((realseekpos > ov_time_total(&vf, -1)) || (realseekpos < 0))
+	    /* If we're out of range set it to right before the end. If we set it
+	     * right to the end when we seek it will go to the beginning of the sond */
+	    realseekpos = ov_time_total(&vf, -1) - 0.01;
+
+	if (realseekpos > 0)
+	    ov_time_seek(&vf, realseekpos);
+
+	eos = 0;
+	while (!eos) {
+	    old_section = current_section;
+	    ret =
+		ov_read(&vf, convbuffer, sizeof(convbuffer), is_big_endian,
+			2, 1, &current_section);
+	    if (ret == 0) {
+		/* End of file */
+		eof = eos = 1;
+	    } else if (ret < 0) {
+		/* Stream error */
+		fprintf(stderr, "W: Stream error\n");
+	    } else {
+		/* less bytes than we asked for */
+		/* did we enter a new logical bitstream */
+		if (old_section != current_section && old_section != -1)
+		    eos = 1;
+
+		devices_write(convbuffer, ret, opt.outdevices);
+		if (opt.verbose > 0) {
+		    u_pos = ov_time_tell(&vf);
+		    c_min = (long) u_pos / (long) 60;
+		    c_sec = u_pos - 60 * c_min;
+		    r_min = (long) (u_time - u_pos) / (long) 60;
+		    r_sec = (u_time - u_pos) - 60 * r_min;
+		    fprintf(stderr,
+			    "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f, Bitrate: %.1f   \r",
+			    c_min, c_sec, r_min, r_sec, t_min, t_sec,
+			    (float) ov_bitrate_instant(&vf) / 1000.0F);
+		}
+	    }
+	}
+    }
+
+    ov_clear(&vf);
+
+    if (opt.quiet < 1)
+	fprintf(stderr, "\nDone.\n");
 }
 
 int get_tcp_socket(void)
 {
-	return socket(AF_INET, SOCK_STREAM, 0);
+    return socket(AF_INET, SOCK_STREAM, 0);
 }
 
-FILE *http_open (char *server, int port, char *path)
+FILE *http_open(char *server, int port, char *path)
 {
-  int sockfd = get_tcp_socket ();
-  struct hostent *host;
-  struct sockaddr_in sock_name;
+    int sockfd = get_tcp_socket();
+    struct hostent *host;
+    struct sockaddr_in sock_name;
 
-  if (sockfd == -1)
-    return NULL;
+    if (sockfd == -1)
+	return NULL;
 
-  if (!(host = gethostbyname (server)))
-    {
-      fprintf (stderr, "Unknown host: %s\n", server);
-      return NULL;
+    if (!(host = gethostbyname(server))) {
+	fprintf(stderr, "Unknown host: %s\n", server);
+	return NULL;
     }
 
-  memcpy (&sock_name.sin_addr, host->h_addr, host->h_length);
-  sock_name.sin_family = AF_INET;
-  sock_name.sin_port = htons (port);
+    memcpy(&sock_name.sin_addr, host->h_addr, host->h_length);
+    sock_name.sin_family = AF_INET;
+    sock_name.sin_port = htons(port);
 
-  if (connect (sockfd, (struct sockaddr *) &sock_name, sizeof (sock_name)))
-    {
-      if (errno == ECONNREFUSED)
-	  fprintf (stderr, "Connection refused\n");
-      return NULL;
+    if (connect(sockfd, (struct sockaddr *) &sock_name, sizeof(sock_name))) {
+	if (errno == ECONNREFUSED)
+	    fprintf(stderr, "Connection refused\n");
+	return NULL;
     }
-  return fdopen (sockfd, "r+b");
-}  
+    return fdopen(sockfd, "r+b");
+}
