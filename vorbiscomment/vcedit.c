@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.14 2001/10/18 10:28:17 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.15 2001/11/07 12:45:03 msmith Exp $
  */
 
 #include <stdio.h>
@@ -140,10 +140,9 @@ static int _blocksize(vcedit_state *s, ogg_packet *p)
 	return ret;
 }
 
-static int _fetch_next_packet(vcedit_state *s, ogg_packet *p)
+static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
 {
 	int result;
-	ogg_page og;
 	char *buffer;
 	int bytes;
 
@@ -153,7 +152,9 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p)
 		return 1;
 	else
 	{
-		while(ogg_sync_pageout(s->oy, &og) <= 0)
+		if(s->eosin)
+			return 0;
+		while(ogg_sync_pageout(s->oy, page) <= 0)
 		{
 			buffer = ogg_sync_buffer(s->oy, CHUNKSIZE);
 			bytes = s->read(buffer,1, CHUNKSIZE, s->in);
@@ -161,9 +162,17 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p)
 			if(bytes == 0) 
 				return 0;
 		}
+		if(ogg_page_eos(page))
+			s->eosin = 1;
+		else if(ogg_page_serialno(page) != s->serial)
+		{
+			s->eosin = 1;
+			s->extrapage = 1;
+			return 0;
+		}
 
-		ogg_stream_pagein(s->os, &og);
-		return _fetch_next_packet(s, p);
+		ogg_stream_pagein(s->os, page);
+		return _fetch_next_packet(s, p, page);
 	}
 }
 
@@ -299,13 +308,16 @@ int vcedit_write(vcedit_state *state, void *out)
 	ogg_packet header_comments;
 	ogg_packet header_codebooks;
 
-	ogg_page ogout;
+	ogg_page ogout, ogin;
 	ogg_packet op;
 	ogg_int64_t granpos = 0;
 	int result;
 	char *buffer;
-	int bytes, eosin=0;
+	int bytes;
 	int needflush=0, needout=0;
+
+	state->eosin = 0;
+	state->extrapage = 0;
 
 	header_main.bytes = state->mainlen;
 	header_main.packet = state->mainbuf;
@@ -337,7 +349,7 @@ int vcedit_write(vcedit_state *state, void *out)
 			goto cleanup;
 	}
 
-	while(_fetch_next_packet(state, &op))
+	while(_fetch_next_packet(state, &op, &ogin))
 	{
 		int size;
 		size = _blocksize(state, &op);
@@ -407,8 +419,18 @@ int vcedit_write(vcedit_state *state, void *out)
 	/* Done with this, now */
 	vorbis_info_clear(&state->vi);
 
-	eosin=0; /* clear it, because not all paths to here do */
-	while(!eosin) /* We reached eos, not eof */
+	if (state->extrapage)
+	{
+		if(state->write(ogin.header,1,ogin.header_len,
+		                out) != (size_t) ogin.header_len)
+			goto cleanup;
+		if (state->write(ogin.body,1,ogin.body_len, out) !=
+				(size_t) ogin.body_len)
+			goto cleanup;
+	}
+
+	state->eosin=0; /* clear it, because not all paths to here do */
+	while(!state->eosin) /* We reached eos, not eof */
 	{
 		/* We copy the rest of the stream (other logical streams)
 		 * through, a page at a time. */
@@ -435,7 +457,7 @@ int vcedit_write(vcedit_state *state, void *out)
 		ogg_sync_wrote(state->oy, bytes);
 		if(bytes == 0) 
 		{
-			eosin = 1;
+			state->eosin = 1;
 			break;
 		}
 	}
@@ -449,7 +471,7 @@ cleanup:
 	free(state->bookbuf);
 
 	vcedit_clear_internals(state);
-	if(!eosin)
+	if(!state->eosin)
 	{
 		state->lasterror =  
 			"Error writing stream to output. "

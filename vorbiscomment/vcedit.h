@@ -41,6 +41,8 @@ typedef struct {
 	char 	    *lasterror;
 	char   *vendor;
 	int prevW;
+	int extrapage;
+	int eosin;
 } vcedit_state;
 
 extern vcedit_state *	vcedit_new_state(void);
