@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.24 2001/02/19 05:18:09 jsquyres Exp $
+ last mod: $Id: ogg123.c,v 1.25 2001/02/20 08:10:22 msmith Exp $
 
  ********************************************************************/
 
@@ -99,6 +99,7 @@ int main(int argc, char **argv)
     int ret;
     int option_index = 1;
     ao_option_t *temp_options = NULL;
+    ao_option_t ** current_options = &temp_options;
     int temp_driver_id = -1;
     buf_t *buffer = NULL;
 	devices_t *current;
@@ -113,8 +114,6 @@ int main(int argc, char **argv)
     opt.buffer_size = 0;
 
     ao_initialize();
-
-    temp_driver_id = get_default_device();
 
     while (-1 != (ret = getopt_long(argc, argv, "b:d:hk:o:qvV:z",
 				    long_options, &option_index))) {
@@ -132,12 +131,16 @@ int main(int argc, char **argv)
 		fprintf(stderr, "No such device %s.\n", optarg);
 		exit(1);
 	    }
+	    current = append_device(opt.outdevices, temp_driver_id, NULL);
+	    if(opt.outdevices == NULL)
+		    opt.outdevices = current;
+	    current_options = &current->options;
 	    break;
 	case 'k':
 	    opt.seekpos = atof(optarg);
 	    break;
 	case 'o':
-	    if (optarg && !add_option(&temp_options, optarg)) {
+	    if (optarg && !add_option(current_options, optarg)) {
 		fprintf(stderr, "Incorrect option format: %s.\n", optarg);
 		exit(1);
 	    }
@@ -167,16 +170,17 @@ int main(int argc, char **argv)
 
     /* Add last device to device list or use the default device */
     if (temp_driver_id < 0) {
-	temp_driver_id = ao_get_driver_id(NULL);
+	temp_driver_id = get_default_device();
+	if(temp_driver_id < 0) {
+		temp_driver_id = ao_get_driver_id(NULL);
+	}
 	if (temp_driver_id < 0) {
 	    fprintf(stderr,
 		    "Could not load default driver and no ~/.ogg123_rc found. Exiting.\n");
 	    exit(1);
 	}
+	opt.outdevices = append_device(opt.outdevices, temp_driver_id, temp_options);
     }
-
-    opt.outdevices =
-	append_device(opt.outdevices, temp_driver_id, temp_options);
 
     if (optind == argc) {
 	usage();
@@ -494,6 +498,7 @@ int open_audio_devices(ogg123_options_t *opt, int rate, int channels)
 	    fprintf(stderr, "Device:   %s\n", info->name);
 	    fprintf(stderr, "Author:   %s\n", info->author);
 	    fprintf(stderr, "Comments: %s\n", info->comment);
+	    fprintf(stderr, "\n");	// Gotta keep 'em separated ...
 	}
 
 	current->device = ao_open(current->driver_id, 16, rate, channels,
@@ -502,9 +507,6 @@ int open_audio_devices(ogg123_options_t *opt, int rate, int channels)
 	    fprintf(stderr, "Error opening device.\n");
 	    return -1;
 	}
-	if (opt->quiet < 1)
-	    fprintf(stderr, "\n");	/* Gotta keep 'em separated ...  */
-
 	current = current->next_device;
     }
 

@@ -21,7 +21,7 @@ devices_t *append_device(devices_t * devices_list, int driver_id,
     devices_list->options = options;
     devices_list->next_device = NULL;
 
-    return head;
+    return devices_list;
 }
 
 void devices_write(void *ptr, size_t size, devices_t * d)
