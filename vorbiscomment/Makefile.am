@@ -6,7 +6,7 @@ bin_PROGRAMS = vorbiscomment
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@
 
-vorbiscomment_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @SHARE_LIBS@
+vorbiscomment_LDADD = @OGG_LIBS@ @VORBIS_LIBS@ @LIBICONV@ @SHARE_LIBS@
 vorbiscomment_DEPENDENCIES = @SHARE_LIBS@
 
 vorbiscomment_SOURCES = vcedit.c vcedit.h vcomment.c

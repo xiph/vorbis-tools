@@ -6,7 +6,7 @@ bin_PROGRAMS = vcut
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
 
-vcut_LDADD = @VORBIS_LIBS@ @OGG_LIBS@
+vcut_LDADD = @OGG_LIBS@ @VORBIS_LIBS@
 
 vcut_SOURCES = vcut.c vcut.h
 
