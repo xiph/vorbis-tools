@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.21 2003/06/24 11:39:37 giles Exp $
+ last mod: $Id: buffer.c,v 1.22 2003/09/01 20:15:19 volsung Exp $
 
  ********************************************************************/
 
@@ -437,7 +437,9 @@ void buffer_destroy (buf_t *buf)
 
   /* Cleanup pthread variables */
   pthread_mutex_destroy(&buf->mutex);
+  COND_SIGNAL(buf->write_cond);
   pthread_cond_destroy(&buf->write_cond);
+  COND_SIGNAL(buf->playback_cond);
   pthread_cond_destroy(&buf->playback_cond);
   
   free(buf);
