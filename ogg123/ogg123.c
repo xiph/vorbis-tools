@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.48 2001/10/02 03:10:42 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.49 2001/11/28 05:47:16 volsung Exp $
 
  ********************************************************************/
 
@@ -239,7 +239,7 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 
 	for (i = optind; i < argc; i++) {
-		int j = optind + rand() % (argc - i);
+		int j = i + rand() % (argc - i);
 		char *temp = argv[i];
 		argv[i] = argv[j];
 		argv[j] = temp;
