@@ -3,7 +3,7 @@
  * This program is distributed under the GNU General Public License, version 2.
  * A copy of this license is included with this source.
  *
- * Copyright 2000, Michael Smith <msmith@labyrinth.net.au>
+ * Copyright 2000-2002, Michael Smith <msmith@labyrinth.net.au>
  *
  * Portions from Vorbize, (c) Kenneth Arnold <kcarnold@yahoo.com>
  * and libvorbis examples, (c) Monty <monty@xiph.org>
@@ -25,7 +25,7 @@
 
 
 #define VERSION_STRING "OggEnc v0.9 (libvorbis rc3)\n"
-#define COPYRIGHT "(c) 2001 Michael Smith <msmith@labyrinth.net.au>\n"
+#define COPYRIGHT "(c) 2000-2002 Michael Smith <msmith@labyrinth.net.au>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
@@ -303,7 +303,7 @@ int main(int argc, char **argv)
 }
 
 static void print_deprecated_message(void) {
-    fprintf(stderr, "WARNING: Usage of the bitrate options (-b, -m, -M) has been deprecated\n"
+    fprintf(stderr, _("WARNING: Usage of the bitrate options (-b, -m, -M) has been deprecated\n"
                     "To use these, you must specify that you wish to use managed mode, using\n"
                     "the --managed option.\n"
                     "This will cause oggenc to enable the full bitrate management engine.\n"
@@ -312,7 +312,7 @@ static void print_deprecated_message(void) {
                     "Usage of the bitrate management engine will generally decrease quality,\n"
                     "using the normal fully VBR modes (quality specified using -q) is\n"
                     "very highly recommended for most users.\n"
-                    "Usage of the -managed option will become MANDATORY in the next release.\n\n");
+                    "Usage of the -managed option will become MANDATORY in the next release.\n\n"));
 }
 
 static void usage(void)
@@ -339,6 +339,7 @@ static void usage(void)
 		" -q, --quality        Specify quality between 0 (low) and 10 (high),\n"
 		"                      instead of specifying a particular bitrate.\n"
 		"                      This is the normal mode of operation.\n"
+        "                      Fractional qualities (e.g. 2.75) are permitted\n"
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
@@ -504,7 +505,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 		{
 			case 0:
                 if(!strcmp(long_options[option_index].name, "managed")) {
-                    fprintf(stderr, "Enabling bitrate management engine\n");
+                    fprintf(stderr, _("Enabling bitrate management engine\n"));
                     opt->managed = 1;
                 }
                 else {
