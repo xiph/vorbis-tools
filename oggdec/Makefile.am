@@ -2,6 +2,8 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+mans = oggdec.1
+
 if BUILD_OGGDEC
 
 datadir = @datadir@
@@ -17,12 +19,13 @@ oggdec_DEPENDENCIES = @SHARE_LIBS@
 
 oggdec_SOURCES = oggdec.c
 
+man_MANS = $(mans)
+mandir = @MANDIR@
+
 endif
 
-mandir = @MANDIR@
-man_MANS = oggdec.1
 
-EXTRA_DIST = $(man_MANS)
+EXTRA_DIST = $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
