@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.19 2001/01/15 04:50:23 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.20 2001/01/22 21:19:57 jack Exp $
 
  ********************************************************************/
 
@@ -126,14 +126,6 @@ int main(int argc, char **argv)
 	  opt.buffer_size = atoi (optarg);
 	  break;
 	case 'd':
-	    /* Need to store previous device before gathering options for
-	       this device */
-	    if (temp_driver_id != -1) {
-		opt.outdevices =
-		    append_device(opt.outdevices, temp_driver_id,
-				  temp_options);
-		temp_options = NULL;
-	    }
 	    temp_driver_id = ao_get_driver_id(optarg);
 	    if (temp_driver_id < 0) {
 		fprintf(stderr, "No such device %s.\n", optarg);
