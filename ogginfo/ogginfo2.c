@@ -366,7 +366,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                 warn(_("Warning: granulepos in stream %d decreases from %I64d to %I64d" ),
                         stream->num, inf->lastgranulepos, gp);
 #else
-                warn(_("Warning: granulepos in stream %d decreases from %Ld to %Ld" ),
+                warn(_("Warning: granulepos in stream %d decreases from %lld to %lld" ),
                         stream->num, inf->lastgranulepos, gp);
 #endif
             inf->lastgranulepos = gp;
@@ -393,7 +393,7 @@ static void vorbis_end(stream_processor *stream)
     bitrate = inf->bytes*8 / time / 1000.0;
 
     info(_("Vorbis stream %d:\n"
-           "\tTotal data length: %ld bytes\n"
+           "\tTotal data length: %lld bytes\n"
            "\tPlayback length: %ldm:%02lds\n"
            "\tAverage bitrate: %f kbps\n"), 
             stream->num,inf->bytes, minutes, seconds, bitrate);
@@ -595,7 +595,7 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
 #ifdef _WIN32
             warn(_("Warning: Hole in data found at approximate offset %I64d bytes. Corrupted ogg.\n"), *written);
 #else
-            warn(_("Warning: Hole in data found at approximate offset %Ld bytes. Corrupted ogg.\n"), *written);
+            warn(_("Warning: Hole in data found at approximate offset %lld bytes. Corrupted ogg.\n"), *written);
 #endif
 
         buffer = ogg_sync_buffer(sync, CHUNK);
