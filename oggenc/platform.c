@@ -21,22 +21,6 @@
 #include <time.h>
 #endif
 
-#if defined(_WIN32) || defined(__WATCOMC__)
-/* This doesn't seem to exist on windows */
-char *rindex(char *s, int c)
-{
-	char *ret = NULL;
-
-	while(*s)
-	{
-		if(*s == (char)c)
-			ret=s;
-		s++;
-	}
-	return ret;
-}
-#endif
-
 #if defined(_WIN32) && defined(_MSC_VER)
 
 void setbinmode(FILE *f)

@@ -199,7 +199,7 @@ int main(int argc, char **argv)
 				char *start, *end;
 
 				start = infiles[i];
-				end = rindex(infiles[i], '.');
+				end = strrchr(infiles[i], '.');
 				end = end?end:(start + strlen(infiles[i])+1);
 			
 				out_fn = malloc(end - start + 5);

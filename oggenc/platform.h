@@ -16,7 +16,6 @@
 #if defined(_WIN32) || defined(__OS2__)
 #include <malloc.h>
 
-char *rindex(char *s, int c);
 void setbinmode(FILE *);
 
 #else /* Unix, mostly */
