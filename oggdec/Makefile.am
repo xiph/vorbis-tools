@@ -1,0 +1,22 @@
+## Process this file with automake to produce Makefile.in
+
+AUTOMAKE_OPTIONS = foreign
+
+datadir = @datadir@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
+bin_PROGRAMS = oggdec
+
+INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@
+
+oggdec_LDADD = @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @SHARE_LIBS@
+oggdec_DEPENDENCIES = @SHARE_LIBS@
+
+oggdec_SOURCES = oggdec.c
+
+debug:
+	$(MAKE) all CFLAGS="@DEBUG@"
+
+profile:
+	$(MAKE) all CFLAGS="@PROFILE@"

@@ -132,4 +132,4 @@ AC_SUBST(CURL_LIBS)
 AC_SUBST(I18N_CFLAGS)
 AC_SUBST(I18N_LIBS)
 
-AC_OUTPUT(Makefile intl/Makefile po/Makefile.in include/Makefile share/Makefile win32/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
+AC_OUTPUT(Makefile intl/Makefile po/Makefile.in include/Makefile share/Makefile win32/Makefile oggdec/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
