@@ -58,7 +58,7 @@ struct option long_options[] = {
     {"managed", 0, 0, 0},
     {"resample",1,0,0},
     {"downmix", 0,0,0},
-    {"advanced-encode-option", 1, 0, 'A'},
+    {"advanced-encode-option", 1, 0, 0},
 	{NULL,0,0,0}
 };
 	
@@ -581,21 +581,14 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 else if(!strcmp(long_options[option_index].name, "downmix")) {
                     opt->downmix = 1;
                 }
-                else {
-				    fprintf(stderr, _("Internal error parsing command line options\n"));
-				    exit(1);
-                }
-
-				break;
-            case 'A':
-                {
+                else if(!strcmp(long_options[option_index].name, "advanced-encode-option")) {
                     char *arg = strdup(optarg);
                     char *val;
 
                     val = strchr(arg, '=');
                     if(val == NULL) {
                         fprintf(stderr, _("No value for advanced encoder option found\n"));
-                        break;
+                        continue;
                     }
                     else
                         *val++=0;
@@ -603,8 +596,13 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     opt->advopt = realloc(opt->advopt, (++opt->advopt_count)*sizeof(adv_opt));
                     opt->advopt[opt->advopt_count - 1].arg = arg;
                     opt->advopt[opt->advopt_count - 1].val = val;
-                    break;
                 }
+                else {
+				    fprintf(stderr, _("Internal error parsing command line options\n"));
+				    exit(1);
+                }
+
+				break;
 			case 'a':
 				opt->artist = realloc(opt->artist, (++opt->artist_count)*sizeof(char *));
 				opt->artist[opt->artist_count - 1] = strdup(optarg);
