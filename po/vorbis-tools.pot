@@ -1,12 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-02 17:10+0200\n"
+"POT-Creation-Date: 2003-06-24 13:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,76 +15,72 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ogg123/buffer.c:107
+#: ogg123/buffer.c:114
 msgid "Error: Out of memory in malloc_action().\n"
 msgstr ""
 
-#: ogg123/buffer.c:338
+#: ogg123/buffer.c:347
 msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr ""
 
-#: ogg123/buffer.c:357
-msgid "malloc"
-msgstr ""
-
-#: ogg123/callbacks.c:79
+#: ogg123/callbacks.c:70
 msgid "Error: Device not available.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:82
+#: ogg123/callbacks.c:73
 #, c-format
 msgid "Error: %s requires an output filename to be specified with -f.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:85
+#: ogg123/callbacks.c:76
 #, c-format
 msgid "Error: Unsupported option value to %s device.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:89
+#: ogg123/callbacks.c:80
 #, c-format
 msgid "Error: Cannot open device %s.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:93
+#: ogg123/callbacks.c:84
 #, c-format
 msgid "Error: Device %s failure.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:96
+#: ogg123/callbacks.c:87
 #, c-format
 msgid "Error: An output file cannot be given for %s device.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:99
+#: ogg123/callbacks.c:90
 #, c-format
 msgid "Error: Cannot open file %s for writing.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:103
+#: ogg123/callbacks.c:94
 #, c-format
 msgid "Error: File %s already exists.\n"
 msgstr ""
 
-#: ogg123/callbacks.c:106
+#: ogg123/callbacks.c:97
 #, c-format
 msgid "Error: This error should never happen (%d).  Panic!\n"
 msgstr ""
 
-#: ogg123/callbacks.c:131 ogg123/callbacks.c:136
+#: ogg123/callbacks.c:120 ogg123/callbacks.c:125
 msgid "Error: Out of memory in new_audio_reopen_arg().\n"
 msgstr ""
 
-#: ogg123/callbacks.c:179
+#: ogg123/callbacks.c:169
 msgid "Error: Out of memory in new_print_statistics_arg().\n"
 msgstr ""
 
-#: ogg123/callbacks.c:238
+#: ogg123/callbacks.c:228
 msgid "Error: Out of memory in new_status_message_arg().\n"
 msgstr ""
 
-#: ogg123/callbacks.c:284 ogg123/callbacks.c:303 ogg123/callbacks.c:340
-#: ogg123/callbacks.c:359
+#: ogg123/callbacks.c:274 ogg123/callbacks.c:293 ogg123/callbacks.c:330
+#: ogg123/callbacks.c:349
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr ""
 
@@ -153,9 +150,9 @@ msgstr ""
 msgid "(NULL)"
 msgstr ""
 
-#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:470 oggenc/oggenc.c:475
-#: oggenc/oggenc.c:480 oggenc/oggenc.c:485 oggenc/oggenc.c:490
-#: oggenc/oggenc.c:495
+#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:516 oggenc/oggenc.c:521
+#: oggenc/oggenc.c:526 oggenc/oggenc.c:531 oggenc/oggenc.c:536
+#: oggenc/oggenc.c:541
 msgid "(none)"
 msgstr ""
 
@@ -183,16 +180,16 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
-#: ogg123/cmdline_options.c:69
-msgid "Internal error: long option given when none expected.\n"
+#: ogg123/cmdline_options.c:74
+msgid "Internal error parsing command line options.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:75
+#: ogg123/cmdline_options.c:81
 #, c-format
 msgid "Input buffer size smaller than minimum size of %dkB."
 msgstr ""
 
-#: ogg123/cmdline_options.c:87
+#: ogg123/cmdline_options.c:93
 #, c-format
 msgid ""
 "=== Error \"%s\" while parsing config option from command line.\n"
@@ -200,64 +197,69 @@ msgid ""
 msgstr ""
 
 #. not using the status interface here
-#: ogg123/cmdline_options.c:94
+#: ogg123/cmdline_options.c:100
 msgid "Available options:\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:103
+#: ogg123/cmdline_options.c:109
 #, c-format
 msgid "=== No such device %s.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:123
+#: ogg123/cmdline_options.c:129
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:128
+#: ogg123/cmdline_options.c:134
 msgid "=== Cannot specify output file without specifying a driver.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:143
+#: ogg123/cmdline_options.c:149
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:158
+#: ogg123/cmdline_options.c:164
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:173
+#: ogg123/cmdline_options.c:179
 #, c-format
 msgid "ogg123 from %s %s\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:180
+#: ogg123/cmdline_options.c:186
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:188
+#: ogg123/cmdline_options.c:194
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:215
+#: ogg123/cmdline_options.c:206
+#, c-format
+msgid "--- Cannot open playlist file %s.  Skipped.\n"
+msgstr ""
+
+#: ogg123/cmdline_options.c:227
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:225
+#: ogg123/cmdline_options.c:237
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:246
+#: ogg123/cmdline_options.c:258
 #, c-format
 msgid ""
 "ogg123 from %s %s\n"
-" by the Xiphophorus Team (http://www.xiph.org/)\n"
+" by the Xiph.org Foundation (http://www.xiph.org/)\n"
 "\n"
 "Usage: ogg123 [<options>] <input file> ...\n"
 "\n"
@@ -268,7 +270,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: ogg123/cmdline_options.c:267
+#: ogg123/cmdline_options.c:279
 #, c-format
 msgid ""
 "  -f, --file=filename  Set the output filename for a previously\n"
@@ -290,153 +292,136 @@ msgid ""
 "  -l, --delay=s  set s [milliseconds] (default 500).\n"
 msgstr ""
 
-#: ogg123/file_transport.c:58 ogg123/http_transport.c:207
-#: ogg123/oggvorbis_format.c:104 ogg123/oggvorbis_format.c:319
-#: ogg123/oggvorbis_format.c:333 ogg123/oggvorbis_format.c:351
+#: ogg123/file_transport.c:58 ogg123/http_transport.c:203
+#: ogg123/oggvorbis_format.c:90
 msgid "Error: Out of memory.\n"
 msgstr ""
 
-#: ogg123/format.c:59
+#: ogg123/format.c:78
 msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr ""
 
-#: ogg123/http_transport.c:119
-msgid "Error: Out of memory in new_curl_thread_arg().\n"
-msgstr ""
-
-#: ogg123/http_transport.c:144
+#: ogg123/http_transport.c:137
 msgid "Error: Could not set signal mask."
 msgstr ""
 
-#: ogg123/http_transport.c:196
+#: ogg123/http_transport.c:191
 msgid "Error: Unable to create input buffer.\n"
 msgstr ""
 
 #. found, name, description, type, ptr, default
-#: ogg123/ogg123.c:72
+#: ogg123/ogg123.c:75
 msgid "default output device"
 msgstr ""
 
-#: ogg123/ogg123.c:74
+#: ogg123/ogg123.c:77
 msgid "shuffle playlist"
 msgstr ""
 
-#: ogg123/ogg123.c:255
+#: ogg123/ogg123.c:261
 #, c-format
 msgid ""
 "\n"
-"Device:   %s"
+"Audio Device:   %s"
 msgstr ""
 
-#: ogg123/ogg123.c:256
+#: ogg123/ogg123.c:262
 #, c-format
 msgid "Author:   %s"
 msgstr ""
 
-#: ogg123/ogg123.c:257
+#: ogg123/ogg123.c:263
 #, c-format
-msgid "Comments: %s\n"
+msgid "Comments: %s"
 msgstr ""
 
-#: ogg123/ogg123.c:313
+#: ogg123/ogg123.c:307 ogg123/playlist.c:155
+#, c-format
+msgid "Warning: Could not read directory %s.\n"
+msgstr ""
+
+#: ogg123/ogg123.c:341
 msgid "Error: Could not create audio buffer.\n"
 msgstr ""
 
-#: ogg123/ogg123.c:387
+#: ogg123/ogg123.c:429
 #, c-format
 msgid "No module could be found to read from %s.\n"
 msgstr ""
 
-#: ogg123/ogg123.c:392
+#: ogg123/ogg123.c:434
 #, c-format
 msgid "Cannot open %s.\n"
 msgstr ""
 
-#: ogg123/ogg123.c:398
+#: ogg123/ogg123.c:440
 #, c-format
 msgid "The file format of %s is not supported.\n"
 msgstr ""
 
-#: ogg123/ogg123.c:405
+#: ogg123/ogg123.c:450
 #, c-format
 msgid "Error opening %s using the %s module.  The file may be corrupted.\n"
 msgstr ""
 
-#: ogg123/ogg123.c:430
+#: ogg123/ogg123.c:469
 #, c-format
 msgid "Playing: %s"
 msgstr ""
 
-#: ogg123/ogg123.c:435
+#: ogg123/ogg123.c:474
 #, c-format
 msgid "Could not skip %f seconds of audio."
 msgstr ""
 
-#: ogg123/ogg123.c:473
+#: ogg123/ogg123.c:512
 msgid "Error: Decoding failure.\n"
 msgstr ""
 
 #. In case we were killed mid-output
-#: ogg123/ogg123.c:546
+#: ogg123/ogg123.c:585
 msgid "Done."
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:50 ogg123/oggvorbis_format.c:54
-#, c-format
-msgid "Track number: %s"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:51
-#, c-format
-msgid "ReplayGain (Track): %s"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:52
-#, c-format
-msgid "ReplayGain (Album): %s"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:53
-#, c-format
-msgid "ReplayGain Peak: %s"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:55
-#, c-format
-msgid "Copyright %s"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:56
-#, c-format
-msgid "Comment: %s"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:165
+#: ogg123/oggvorbis_format.c:152
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:171
+#: ogg123/oggvorbis_format.c:158
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:399
+#: ogg123/oggvorbis_format.c:302
 #, c-format
-msgid "Version is %d"
+msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:403
+#: ogg123/oggvorbis_format.c:307
+#, c-format
+msgid "Vorbis format: Version %d"
+msgstr ""
+
+#: ogg123/oggvorbis_format.c:311
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:411
-#, c-format
-msgid "Bitstream is %d channel, %ldHz"
-msgstr ""
-
-#: ogg123/oggvorbis_format.c:416
+#: ogg123/oggvorbis_format.c:319
 #, c-format
 msgid "Encoded by: %s"
+msgstr ""
+
+#: ogg123/playlist.c:41 ogg123/playlist.c:52
+msgid "Error: Out of memory in create_playlist_member().\n"
+msgstr ""
+
+#: ogg123/playlist.c:214
+#, c-format
+msgid "Warning from playlist %s: Could not read directory %s.\n"
+msgstr ""
+
+#: ogg123/playlist.c:259 ogg123/playlist.c:271
+msgid "Error: Out of memory in playlist_to_array().\n"
 msgstr ""
 
 #: ogg123/status.c:47
@@ -489,19 +474,19 @@ msgstr ""
 msgid " Output Buffer %5.1f%%"
 msgstr ""
 
-#: ogg123/transport.c:59
+#: ogg123/transport.c:67
 msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
 msgstr ""
 
-#: oggenc/audio.c:38
+#: oggenc/audio.c:39
 msgid "WAV file reader"
 msgstr ""
 
-#: oggenc/audio.c:39
+#: oggenc/audio.c:40
 msgid "AIFF/AIFC file reader"
 msgstr ""
 
-#: oggenc/audio.c:116 oggenc/audio.c:378
+#: oggenc/audio.c:116 oggenc/audio.c:383
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr ""
 
@@ -526,95 +511,126 @@ msgstr ""
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:257
+#: oggenc/audio.c:259
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr ""
 
-#: oggenc/audio.c:262
-msgid "Warning: Can't handle compressed AIFF-C\n"
+#: oggenc/audio.c:273
+#, c-format
+msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr ""
 
-#: oggenc/audio.c:269
+#: oggenc/audio.c:280
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr ""
 
-#: oggenc/audio.c:275
+#: oggenc/audio.c:286
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:281
+#: oggenc/audio.c:292
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:294 oggenc/audio.c:421
-#, c-format
-msgid ""
-"Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-" At other than 44.1/48 kHz quality will be degraded.\n"
-msgstr ""
-
-#: oggenc/audio.c:318
+#: oggenc/audio.c:323
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-" Must be 8 or 16 bit PCM.\n"
+" Must be 8, 16, or 24 bit PCM.\n"
 msgstr ""
 
-#: oggenc/audio.c:361
+#: oggenc/audio.c:366
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr ""
 
-#: oggenc/audio.c:373
+#: oggenc/audio.c:378
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
 msgstr ""
 
-#: oggenc/audio.c:410
+#: oggenc/audio.c:415
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
 msgstr ""
 
-#: oggenc/audio.c:464
+#: oggenc/audio.c:466
 msgid ""
-"ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+"ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
 
-#: oggenc/audio.c:562
+#: oggenc/audio.c:541
+msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
+msgstr ""
+
+#: oggenc/audio.c:547
 #, c-format
+msgid "Internal error: attempt to read unsupported bitdepth %d\n"
+msgstr ""
+
+#: oggenc/audio.c:644
 msgid ""
-"Warning: Vorbis is not currently tuned for this input (%.3f kHz).\n"
-" At other than 44.1/48 kHz quality will be significantly degraded.\n"
+"BUG: Got zero samples from resampler: your file will be truncated. Please "
+"report this.\n"
+msgstr ""
+
+#: oggenc/audio.c:662
+msgid "Couldn't initialise resampler\n"
 msgstr ""
 
 #: oggenc/encode.c:59
+#, c-format
+msgid "Setting advanced encoder option \"%s\" to %s\n"
+msgstr ""
+
+#: oggenc/encode.c:100
+#, c-format
+msgid "Changed lowpass frequency from %f kHz to %f kHz\n"
+msgstr ""
+
+#: oggenc/encode.c:103
+#, c-format
+msgid "Unrecognised advanced option \"%s\"\n"
+msgstr ""
+
+#: oggenc/encode.c:133
+msgid ""
+"255 channels should be enough for anyone. (Sorry, vorbis doesn't support "
+"more)\n"
+msgstr ""
+
+#: oggenc/encode.c:141
+msgid "Requesting a minimum or maximum bitrate requires --managed\n"
+msgstr ""
+
+#: oggenc/encode.c:159
 msgid "Mode initialisation failed: invalid parameters for quality\n"
 msgstr ""
 
-#: oggenc/encode.c:71
+#: oggenc/encode.c:183
 msgid "Mode initialisation failed: invalid parameters for bitrate\n"
 msgstr ""
 
-#: oggenc/encode.c:110
+#: oggenc/encode.c:237
 msgid "Failed writing header to output stream\n"
 msgstr ""
 
-#: oggenc/encode.c:178
+#: oggenc/encode.c:303
 msgid "Failed writing data to output stream\n"
 msgstr ""
 
-#: oggenc/encode.c:224
+#: oggenc/encode.c:349
 #, c-format
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c"
 msgstr ""
 
-#: oggenc/encode.c:234
+#: oggenc/encode.c:359
 #, c-format
 msgid "\tEncoding [%2dm%.2ds so far] %c"
 msgstr ""
 
-#: oggenc/encode.c:252
+#: oggenc/encode.c:377
 #, c-format
 msgid ""
 "\n"
@@ -622,122 +638,153 @@ msgid ""
 "Done encoding file \"%s\"\n"
 msgstr ""
 
-#: oggenc/encode.c:254
+#: oggenc/encode.c:379
 msgid ""
 "\n"
 "\n"
 "Done encoding.\n"
 msgstr ""
 
-#: oggenc/encode.c:258
+#: oggenc/encode.c:383
 #, c-format
 msgid ""
 "\n"
 "\tFile length:  %dm %04.1fs\n"
 msgstr ""
 
-#: oggenc/encode.c:262
+#: oggenc/encode.c:387
 #, c-format
 msgid "\tElapsed time: %dm %04.1fs\n"
 msgstr ""
 
-#: oggenc/encode.c:265
+#: oggenc/encode.c:390
 #, c-format
 msgid "\tRate:         %.4f\n"
 msgstr ""
 
-#: oggenc/encode.c:266
+#: oggenc/encode.c:391
 #, c-format
 msgid ""
 "\tAverage bitrate: %.1f kb/s\n"
 "\n"
 msgstr ""
 
-#: oggenc/encode.c:290
+#: oggenc/encode.c:428
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
-"         %s%s%s at quality %2.2f\n"
+"         %s%s%s \n"
+"at average bitrate %d kbps "
 msgstr ""
 
-#: oggenc/encode.c:291 oggenc/encode.c:298
+#: oggenc/encode.c:430 oggenc/encode.c:437 oggenc/encode.c:445
+#: oggenc/encode.c:452 oggenc/encode.c:458
 msgid "standard input"
 msgstr ""
 
-#: oggenc/encode.c:292 oggenc/encode.c:299
+#: oggenc/encode.c:431 oggenc/encode.c:438 oggenc/encode.c:446
+#: oggenc/encode.c:453 oggenc/encode.c:459
 msgid "standard output"
 msgstr ""
 
-#: oggenc/encode.c:295
+#: oggenc/encode.c:436
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
-"         %s%s%s at bitrate %d kbps,\n"
-"using full bitrate management engine\n"
+"         %s%s%s \n"
+"at approximate bitrate %d kbps (VBR encoding enabled)\n"
 msgstr ""
 
-#: oggenc/oggenc.c:91
+#: oggenc/encode.c:444
+#, c-format
+msgid ""
+"Encoding %s%s%s to \n"
+"         %s%s%s \n"
+"at quality level %2.2f using constrained VBR "
+msgstr ""
+
+#: oggenc/encode.c:451
+#, c-format
+msgid ""
+"Encoding %s%s%s to \n"
+"         %s%s%s \n"
+"at quality %2.2f\n"
+msgstr ""
+
+#: oggenc/encode.c:457
+#, c-format
+msgid ""
+"Encoding %s%s%s to \n"
+"         %s%s%s \n"
+"using bitrate management "
+msgstr ""
+
+#: oggenc/oggenc.c:97
 #, c-format
 msgid ""
 "%s%s\n"
 "ERROR: No input files specified. Use -h for help.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:106
+#: oggenc/oggenc.c:112
 msgid "ERROR: Multiple files specified when using stdin\n"
 msgstr ""
 
-#: oggenc/oggenc.c:113
+#: oggenc/oggenc.c:119
 msgid ""
 "ERROR: Multiple input files with specified output filename: suggest using -"
 "n\n"
 msgstr ""
 
-#: oggenc/oggenc.c:167
+#: oggenc/oggenc.c:173
 #, c-format
 msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgstr ""
 
-#: oggenc/oggenc.c:195
+#: oggenc/oggenc.c:201
 #, c-format
 msgid "Opening with %s module: %s\n"
 msgstr ""
 
-#: oggenc/oggenc.c:204
+#: oggenc/oggenc.c:210
 #, c-format
 msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr ""
 
-#: oggenc/oggenc.c:251
+#: oggenc/oggenc.c:260
 msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
 msgstr ""
 
-#: oggenc/oggenc.c:259
+#: oggenc/oggenc.c:268
 #, c-format
 msgid ""
 "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
 msgstr ""
 
-#: oggenc/oggenc.c:270
+#: oggenc/oggenc.c:279
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr ""
 
-#: oggenc/oggenc.c:318
-msgid ""
-"WARNING: Usage of the bitrate options (-b, -m, -M) has been deprecated\n"
-"To use these, you must specify that you wish to use managed mode, using\n"
-"the --managed option.\n"
-"This will cause oggenc to enable the full bitrate management engine.\n"
-"You should do this ONLY if bitrate management is critical to your usage\n"
-"(for example, certain audio streaming applications).\n"
-"Usage of the bitrate management engine will generally decrease quality,\n"
-"using the normal fully VBR modes (quality specified using -q) is\n"
-"very highly recommended for most users.\n"
-"\n"
+#: oggenc/oggenc.c:309
+#, c-format
+msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr ""
 
-#: oggenc/oggenc.c:332
+#: oggenc/oggenc.c:316
+msgid "Downmixing stereo to mono\n"
+msgstr ""
+
+#: oggenc/oggenc.c:319
+msgid "ERROR: Can't downmix except from stereo to mono\n"
+msgstr ""
+
+#: oggenc/oggenc.c:330
+#, c-format
+msgid "Scaling input to %f\n"
+msgstr ""
+
+#: oggenc/oggenc.c:374
 #, c-format
 msgid ""
 "%s%s\n"
@@ -765,6 +812,11 @@ msgid ""
 "                      instead of specifying a particular bitrate.\n"
 "                      This is the normal mode of operation.\n"
 "                      Fractional qualities (e.g. 2.75) are permitted\n"
+"                      Quality -1 is also possible, but may not be of\n"
+"                      acceptable quality.\n"
+" --resample n         Resample input data to sampling rate n (Hz)\n"
+" --downmix            Downmix stereo to mono. Only allowed on stereo\n"
+"                      input.\n"
 " -s, --serial         Specify a serial number for the stream. If encoding\n"
 "                      multiple files, this will be incremented for each\n"
 "                      stream after the first.\n"
@@ -789,7 +841,8 @@ msgid ""
 "platform\n"
 "                      specific.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
-"                      used multiple times.\n"
+"                      used multiple times. The argument should be in the\n"
+"                      format \"tag=value\".\n"
 " -d, --date           Date for track (usually date of performance)\n"
 " -N, --tracknum       Track number for this track\n"
 " -t, --title          Title for this track\n"
@@ -812,249 +865,433 @@ msgid ""
 "files)\n"
 "\n"
 "INPUT FILES:\n"
-" OggEnc input files must currently be 16 or 8 bit PCM WAV, AIFF, or AIFF/C\n"
+" OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or "
+"AIFF/C\n"
 " files, or 32 bit IEEE floating point WAV. Files may be mono or stereo\n"
 " (or more channels) and any sample rate.\n"
-" However, the encoder is only tuned for rates of 44.1 and 48 kHz and while\n"
-" other rates will be accepted quality may be significantly degraded.\n"
 " Alternatively, the --raw option may be used to use a raw PCM data file, "
 "which\n"
-" must be 16bit stereo little-endian PCM ('headerless wav'), unless "
+" must be 16 bit stereo little-endian PCM ('headerless wav'), unless "
 "additional\n"
 " parameters for raw mode are specified.\n"
 " You can specify taking the file from stdin by using - as the input "
 "filename.\n"
-" In this mode, output is to stdout unless an outfile filename is specified\n"
+" In this mode, output is to stdout unless an output filename is specified\n"
 " with -o\n"
 "\n"
 msgstr ""
 
-#: oggenc/oggenc.c:500
+#: oggenc/oggenc.c:546
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
 msgstr ""
 
-#: oggenc/oggenc.c:525
+#: oggenc/oggenc.c:572 oggenc/oggenc.c:688 oggenc/oggenc.c:701
 msgid "Enabling bitrate management engine\n"
 msgstr ""
 
-#: oggenc/oggenc.c:533
+#: oggenc/oggenc.c:581
 msgid ""
 "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:538
+#: oggenc/oggenc.c:584
+#, c-format
+msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
+msgstr ""
+
+#: oggenc/oggenc.c:591
+#, c-format
+msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
+msgstr ""
+
+#: oggenc/oggenc.c:597
+#, c-format
+msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
+msgstr ""
+
+#: oggenc/oggenc.c:607
+#, c-format
+msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
+msgstr ""
+
+#: oggenc/oggenc.c:617
+msgid "No value for advanced encoder option found\n"
+msgstr ""
+
+#: oggenc/oggenc.c:628
 msgid "Internal error parsing command line options\n"
 msgstr ""
 
-#: oggenc/oggenc.c:585
+#: oggenc/oggenc.c:639
+#, c-format
+msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
+msgstr ""
+
+#: oggenc/oggenc.c:674
 #, c-format
 msgid "Warning: nominal bitrate \"%s\" not recognised\n"
 msgstr ""
 
-#: oggenc/oggenc.c:598
+#: oggenc/oggenc.c:682
 #, c-format
 msgid "Warning: minimum bitrate \"%s\" not recognised\n"
 msgstr ""
 
-#: oggenc/oggenc.c:610
+#: oggenc/oggenc.c:695
 #, c-format
 msgid "Warning: maximum bitrate \"%s\" not recognised\n"
 msgstr ""
 
-#: oggenc/oggenc.c:616
+#: oggenc/oggenc.c:707
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr ""
 
-#: oggenc/oggenc.c:623
+#: oggenc/oggenc.c:715
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:628
-msgid "WARNING: negative quality specified, setting to minimum.\n"
-msgstr ""
-
-#: oggenc/oggenc.c:634
+#: oggenc/oggenc.c:721
 msgid "WARNING: Multiple name formats specified, using final\n"
 msgstr ""
 
-#: oggenc/oggenc.c:643
+#: oggenc/oggenc.c:730
 msgid "WARNING: Multiple name format filters specified, using final\n"
 msgstr ""
 
-#: oggenc/oggenc.c:652
+#: oggenc/oggenc.c:739
 msgid ""
 "WARNING: Multiple name format filter replacements specified, using final\n"
 msgstr ""
 
-#: oggenc/oggenc.c:660
+#: oggenc/oggenc.c:747
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
 msgstr ""
 
-#: oggenc/oggenc.c:679
+#: oggenc/oggenc.c:766
 msgid ""
 "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
 msgstr ""
 
 #. Failed, so just set to 16
-#: oggenc/oggenc.c:684 oggenc/oggenc.c:688
+#: oggenc/oggenc.c:771 oggenc/oggenc.c:775
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:695
+#: oggenc/oggenc.c:782
 msgid ""
 "WARNING: Raw channel count specified for non-raw data. Assuming input is "
 "raw.\n"
 msgstr ""
 
 #. Failed, so just set to 2
-#: oggenc/oggenc.c:700
+#: oggenc/oggenc.c:787
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:711
+#: oggenc/oggenc.c:798
 msgid ""
 "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
 msgstr ""
 
 #. Failed, so just set to 44100
-#: oggenc/oggenc.c:716
+#: oggenc/oggenc.c:803
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
 msgstr ""
 
-#: oggenc/oggenc.c:720
+#: oggenc/oggenc.c:807
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr ""
 
-#: oggenc/oggenc.c:742
+#: oggenc/oggenc.c:829
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr ""
 
-#: oggenc/oggenc.c:761
+#: oggenc/oggenc.c:848
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
-msgstr ""
-
-#: oggenc/platform.c:140
-#, c-format
-msgid "Couldn't create directory \"%s\": %s\n"
 msgstr ""
 
 #: oggenc/platform.c:147
 #, c-format
+msgid "Couldn't create directory \"%s\": %s\n"
+msgstr ""
+
+#: oggenc/platform.c:154
+#, c-format
 msgid "Error checking for existence of directory %s: %s\n"
 msgstr ""
 
-#: oggenc/platform.c:158
+#: oggenc/platform.c:167
 #, c-format
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:33
-#, c-format
-msgid "Usage: %s [filename1.ogg] ... [filenameN.ogg]\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:38
-#, c-format
-msgid "filename=%s\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:68
-#, c-format
-msgid "vendor=%s\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:70
+#: ogginfo/ogginfo2.c:158
 #, c-format
 msgid ""
-"version=%d\n"
-"channels=%d\n"
-"rate=%ld\n"
+"Warning: Could not decode vorbis header packet - invalid vorbis stream (%d)\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:75
-msgid "bitrate_upper="
-msgstr ""
-
-#: ogginfo/ogginfo.c:77 ogginfo/ogginfo.c:83 ogginfo/ogginfo.c:89
-msgid "none\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:81
-msgid "bitrate_nominal="
-msgstr ""
-
-#: ogginfo/ogginfo.c:87
-msgid "bitrate_lower="
-msgstr ""
-
-#: ogginfo/ogginfo.c:91
-#, c-format
-msgid "%ld\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:100
-#, c-format
-msgid "bitrate_average=%ld\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:101
-#, c-format
-msgid "length=%f\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:102
-#, c-format
-msgid "playtime=%ld:%02ld\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:300
-#, c-format
-msgid "Unable to open \"%s\": %s\n"
-msgstr ""
-
-#: ogginfo/ogginfo.c:319
+#: ogginfo/ogginfo2.c:165
 #, c-format
 msgid ""
+"Warning: Vorbis stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:169
+#, c-format
+msgid "Vorbis headers parsed for stream %d, information follows...\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:172
+#, c-format
+msgid "Version: %d\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:176
+#, c-format
+msgid "Vendor: %s (%s)\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:183
+#, c-format
+msgid "Vendor: %s\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:184
+#, c-format
+msgid "Channels: %d\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:185
+#, c-format
+msgid ""
+"Rate: %ld\n"
 "\n"
-"serial=%ld\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:320
-msgid "header_integrity=pass\n"
+#: ogginfo/ogginfo2.c:188
+#, c-format
+msgid "Nominal bitrate: %f kb/s\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:323
-msgid "header_integrity=fail\n"
+#: ogginfo/ogginfo2.c:191
+msgid "Nominal bitrate not set\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:328
-msgid "stream_integrity=pass\n"
+#: ogginfo/ogginfo2.c:194
+#, c-format
+msgid "Upper bitrate: %f kb/s\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:331
-msgid "stream_integrity=fail\n"
+#: ogginfo/ogginfo2.c:197
+msgid "Upper bitrate not set\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:334
-msgid "stream_truncated=false\n"
+#: ogginfo/ogginfo2.c:200
+#, c-format
+msgid "Lower bitrate: %f kb/s\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:336
-msgid "stream_truncated=true\n"
+#: ogginfo/ogginfo2.c:203
+msgid "Lower bitrate not set\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:344
+#: ogginfo/ogginfo2.c:206
+msgid "User comments section follows...\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:218
 #, c-format
 msgid ""
-"\n"
-"total_length=%f\n"
+"Warning: Comment %d in stream %d is invalidly formatted, does not contain "
+"'=': \"%s\"\n"
 msgstr ""
 
-#: ogginfo/ogginfo.c:345
+#: ogginfo/ogginfo2.c:227
 #, c-format
-msgid "total_playtime=%ld:%02ld\n"
+msgid "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:258 ogginfo/ogginfo2.c:267
+#, c-format
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
+"wrong\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:275
+#, c-format
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:336
+#, c-format
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:348
+msgid "Warning: Failure in utf8 decoder. This should be impossible\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:366
+msgid "Warning: granulepos in stream %d decreases from %I64d to %I64d"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:369
+#, c-format
+msgid "Warning: granulepos in stream %d decreases from %Ld to %Ld"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:375
+msgid ""
+"Negative granulepos on vorbis stream outside of headers. This file was "
+"created by a buggy encoder\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:395
+#, c-format
+msgid ""
+"Vorbis stream %d:\n"
+"\tTotal data length: %ld bytes\n"
+"\tPlayback length: %ldm:%02lds\n"
+"\tAverage bitrate: %f kbps\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:429
+#, c-format
+msgid "Warning: EOS not set on stream %d\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:553
+msgid "Warning: Invalid header page, no packet found\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:565
+#, c-format
+msgid "Warning: Invalid header page in stream %d, contains multiple packets\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:579
+#, c-format
+msgid ""
+"Note: Stream %d has serial number %d, which is legal but may cause problems "
+"with some tools."
+msgstr ""
+
+#: ogginfo/ogginfo2.c:596
+msgid ""
+"Warning: Hole in data found at approximate offset %I64d bytes. Corrupted "
+"ogg.\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:598
+#, c-format
+msgid ""
+"Warning: Hole in data found at approximate offset %Ld bytes. Corrupted ogg.\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:623
+#, c-format
+msgid "Error opening input file \"%s\": %s\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:628
+#, c-format
+msgid ""
+"Processing file \"%s\"...\n"
+"\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:637
+msgid "Could not find a processor for stream, bailing\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:645
+msgid "Page found for stream after EOS flag"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:648
+msgid ""
+"Ogg muxing constraints violated, new stream before EOS of all previous "
+"streams"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:652
+msgid "Error unknown."
+msgstr ""
+
+#: ogginfo/ogginfo2.c:655
+#, c-format
+msgid ""
+"Warning: illegally placed page(s) for logical stream %d\n"
+"This indicates a corrupt ogg file: %s.\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:667
+#, c-format
+msgid "New logical stream (#%d, serial: %08x): type %s\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:670
+#, c-format
+msgid "Warning: stream start flag not set on stream %d\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:674
+#, c-format
+msgid "Warning: stream start flag found in mid-stream on stream %d\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:679
+#, c-format
+msgid ""
+"Warning: sequence number gap in stream %d. Got page %ld when expecting page %"
+"ld. Indicates missing data.\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:694
+#, c-format
+msgid "Logical stream %d ended\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:702
+#, c-format
+msgid ""
+"Error: No ogg data found in file \"%s\".\n"
+"Input probably not ogg.\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:713
+msgid ""
+"ogginfo 1.0\n"
+"(c) 2002 Michael Smith <msmith@labyrinth.net.au>\n"
+"\n"
+"Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+"Flags supported:\n"
+"\t-h Show this help message\n"
+"\t-q Make less verbose. Once will remove detailed informative\n"
+"\t   messages, two will remove warnings\n"
+"\t-v Make more verbose. This may enable more detailed checks\n"
+"\t   for some stream types.\n"
+"\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:734
+msgid ""
+"Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+"\n"
+"Ogginfo is a tool for printing information about ogg files\n"
+"and for diagnosing problems with them.\n"
+"Full help shown with \"ogginfo -h\".\n"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:763
+msgid "No input files specified. \"ogginfo -h\" for help\n"
 msgstr ""
 
 #: share/getopt.c:673
@@ -1116,27 +1353,27 @@ msgstr ""
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr ""
 
-#: vcut/vcut.c:131
+#: vcut/vcut.c:133
 msgid "Page error. Corrupt input.\n"
 msgstr ""
 
-#: vcut/vcut.c:148
+#: vcut/vcut.c:150
 msgid "Bitstream error, continuing\n"
 msgstr ""
 
-#: vcut/vcut.c:173
+#: vcut/vcut.c:175
 msgid "Found EOS before cut point.\n"
 msgstr ""
 
-#: vcut/vcut.c:182
+#: vcut/vcut.c:184
 msgid "Setting eos: update sync returned 0\n"
 msgstr ""
 
-#: vcut/vcut.c:192
+#: vcut/vcut.c:194
 msgid "Cutpoint not within stream. Second file will be empty\n"
 msgstr ""
 
-#: vcut/vcut.c:225
+#: vcut/vcut.c:227
 msgid "Unhandled special case: first file too short?\n"
 msgstr ""
 
@@ -1144,162 +1381,168 @@ msgstr ""
 #. * spectacularly unlucky? Doubt it, but let's check for it just
 #. * in case.
 #.
-#: vcut/vcut.c:284
+#: vcut/vcut.c:286
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
 "       ogg page. File may not decode correctly.\n"
 msgstr ""
 
-#: vcut/vcut.c:297
+#: vcut/vcut.c:299
 msgid "Recoverable bitstream error\n"
 msgstr ""
 
-#: vcut/vcut.c:307
+#: vcut/vcut.c:309
 msgid "Bitstream error\n"
 msgstr ""
 
-#: vcut/vcut.c:330
+#: vcut/vcut.c:332
 msgid "Update sync returned 0, setting eos\n"
 msgstr ""
 
-#: vcut/vcut.c:376
+#: vcut/vcut.c:381
 msgid "Input not ogg.\n"
 msgstr ""
 
-#: vcut/vcut.c:386
+#: vcut/vcut.c:391
 msgid "Error in first page\n"
 msgstr ""
 
-#: vcut/vcut.c:391
+#: vcut/vcut.c:396
 msgid "error in first packet\n"
 msgstr ""
 
-#: vcut/vcut.c:397
+#: vcut/vcut.c:402
 msgid "Error in primary header: not vorbis?\n"
 msgstr ""
 
-#: vcut/vcut.c:417
+#: vcut/vcut.c:422
 msgid "Secondary header corrupt\n"
 msgstr ""
 
-#: vcut/vcut.c:430
+#: vcut/vcut.c:435
 msgid "EOF in headers\n"
 msgstr ""
 
-#: vcut/vcut.c:456
-msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"
+#: vcut/vcut.c:468
+msgid ""
+"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
 msgstr ""
 
-#: vcut/vcut.c:460
+#: vcut/vcut.c:472
 msgid ""
 "WARNING: vcut is still experimental code.\n"
 "Check that the output files are correct before deleting sources.\n"
 "\n"
 msgstr ""
 
-#: vcut/vcut.c:465
+#: vcut/vcut.c:477
 #, c-format
 msgid "Couldn't open %s for reading\n"
 msgstr ""
 
-#: vcut/vcut.c:470 vcut/vcut.c:475
+#: vcut/vcut.c:482 vcut/vcut.c:487
 #, c-format
 msgid "Couldn't open %s for writing\n"
 msgstr ""
 
-#: vcut/vcut.c:480
+#: vcut/vcut.c:493 vcut/vcut.c:498
 #, c-format
 msgid "Couldn't parse cutpoint \"%s\"\n"
 msgstr ""
 
-#: vcut/vcut.c:484
+#: vcut/vcut.c:503
 #, c-format
-msgid "Processing: Cutting at %lld\n"
+msgid "Processing: Cutting at %lld seconds\n"
 msgstr ""
 
-#: vcut/vcut.c:493
+#: vcut/vcut.c:505
+#, c-format
+msgid "Processing: Cutting at %lld samples\n"
+msgstr ""
+
+#: vcut/vcut.c:515
 msgid "Processing failed\n"
 msgstr ""
 
-#: vcut/vcut.c:514
+#: vcut/vcut.c:537
 msgid "Error reading headers\n"
 msgstr ""
 
-#: vcut/vcut.c:537
+#: vcut/vcut.c:560
 msgid "Error writing first output file\n"
 msgstr ""
 
-#: vcut/vcut.c:545
+#: vcut/vcut.c:568
 msgid "Error writing second output file\n"
 msgstr ""
 
-#: vorbiscomment/vcedit.c:215
+#: vorbiscomment/vcedit.c:229
 msgid "Input truncated or empty."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:217
+#: vorbiscomment/vcedit.c:231
 msgid "Input is not an Ogg bitstream."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:233
+#: vorbiscomment/vcedit.c:249
 msgid "Error reading first page of Ogg bitstream."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:239
+#: vorbiscomment/vcedit.c:255
 msgid "Error reading initial header packet."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:245
+#: vorbiscomment/vcedit.c:261
 msgid "Ogg bitstream does not contain vorbis data."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:268
+#: vorbiscomment/vcedit.c:284
 msgid "Corrupt secondary header."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:289
+#: vorbiscomment/vcedit.c:305
 msgid "EOF before end of vorbis headers."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:445
+#: vorbiscomment/vcedit.c:458
 msgid "Corrupt or missing data, continuing..."
 msgstr ""
 
-#: vorbiscomment/vcedit.c:480
+#: vorbiscomment/vcedit.c:495
 msgid ""
 "Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr ""
 
-#: vorbiscomment/vcomment.c:103 vorbiscomment/vcomment.c:127
+#: vorbiscomment/vcomment.c:103 vorbiscomment/vcomment.c:129
 #, c-format
 msgid "Failed to open file as vorbis: %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:144
+#: vorbiscomment/vcomment.c:148
 #, c-format
 msgid "Bad comment: \"%s\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:156
+#: vorbiscomment/vcomment.c:160
 #, c-format
 msgid "bad comment: \"%s\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:166
+#: vorbiscomment/vcomment.c:170
 #, c-format
 msgid "Failed to write comments to output file: %s\n"
 msgstr ""
 
 #. should never reach this point
-#: vorbiscomment/vcomment.c:181
+#: vorbiscomment/vcomment.c:187
 msgid "no action specified\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:263
+#: vorbiscomment/vcomment.c:269
 msgid "Couldn't convert comment to UTF8, cannot add\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:281
+#: vorbiscomment/vcomment.c:287
 msgid ""
 "Usage: \n"
 "  vorbiscomment [-l] file.ogg (to list the comments)\n"
@@ -1326,40 +1569,40 @@ msgid ""
 "   cases.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:365
+#: vorbiscomment/vcomment.c:371
 msgid "Internal error parsing command options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:450
+#: vorbiscomment/vcomment.c:457
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:459
+#: vorbiscomment/vcomment.c:466
 msgid "Input filename may not be the same as output filename\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:470
+#: vorbiscomment/vcomment.c:477
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:485
+#: vorbiscomment/vcomment.c:492
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:502
+#: vorbiscomment/vcomment.c:509
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:530
+#: vorbiscomment/vcomment.c:537
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:532
+#: vorbiscomment/vcomment.c:539
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr ""
