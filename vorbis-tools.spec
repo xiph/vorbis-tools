@@ -1,5 +1,5 @@
 %define name	vorbis-tools
-%define version	1.0prebeta4
+%define version	1.0beta4
 %define release 1
 
 Summary:	Several Ogg Vorbis Tools
@@ -12,8 +12,8 @@ URL:		http://www.xiph.org/
 Vendor:		Xiphophorus <team@xiph.org>
 Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-root
-Requires:       libogg >= 1.0prebeta4
-Requires:       libvorbis >= 1.0prebeta4
+Requires:       libogg >= 1.0beta4
+Requires:       libvorbis >= 1.0beta4
 Requires:       libao >= 0.6.0
 
 %description
