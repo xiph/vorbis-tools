@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = foreign
 
 INCLUDES = -I$(top_srcdir)/include
 
-lib_LIBRARIES = libutf8.a libgetopt.a
+noinst_LIBRARIES = libutf8.a libgetopt.a
 
 libutf8_a_SOURCES = utf8.c
 MAP_FILES = 8859-1.map 8859-2.map
