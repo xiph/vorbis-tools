@@ -57,23 +57,22 @@ input_format *open_audio_file(FILE *in, oe_enc_opt *opt)
 			buf_size = size;
 		}
 
-		if(buf_size > buf_filled)
+		if(size > buf_filled)
 		{
 			ret = fread(buf+buf_filled, 1, buf_size-buf_filled, in);
 			buf_filled += ret;
 
-			if(buf_filled != buf_size)
+			if(buf_filled < size)
 			{ /* File truncated */
-				buf_size = buf_filled;
 				j++;
 				continue;
 			}
 		}
 
-		if(formats[j].id_func(buf, size))
+		if(formats[j].id_func(buf, buf_filled))
 		{
 			/* ok, we now have something that can handle the file */
-			if(formats[j].open_func(in, opt, buf, size)) {
+			if(formats[j].open_func(in, opt, buf, buf_filled)) {
                 free(buf);
 				return &formats[j];
             }
@@ -720,7 +719,7 @@ static long read_downmix(void *data, float **buffer, int samples)
     int i;
 
     for(i=0; i < in_samples; i++) {
-        buffer[0][i] = (d->bufs[0][i] + d->bufs[1][i])*0.5;
+        buffer[0][i] = (d->bufs[0][i] + d->bufs[1][i])*0.5f;
     }
 
     return in_samples;
