@@ -646,7 +646,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 			case 'm':
                 if(!opt->managed) {
                     print_deprecated_message();
-                    opt->managed = 1;
+                    exit(1);
                 }
 
 				if(sscanf(optarg, "%d", &opt->min_bitrate)
@@ -658,7 +658,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 			case 'M':
                 if(!opt->managed) {
                     print_deprecated_message();
-                    opt->managed = 1;
+                    exit(1);
                 }
 
 				if(sscanf(optarg, "%d", &opt->max_bitrate)
