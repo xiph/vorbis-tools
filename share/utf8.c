@@ -64,6 +64,11 @@ int utf8_encode(char *from, char **to, const char *encoding)
 	return 0;
 }
 
+int utf8_decode(char *from, char **to, const char *encoding)
+{
+	return 1;  /* Dummy stub */
+}
+
 #else /* End win32. Rest is for real operating systems */
 
 #ifdef HAVE_ICONV
@@ -121,7 +126,7 @@ int utf8_encode(char *from, char **to, const char *encoding)
 	from_p = from;
 	to_p = buffer;
 	
-	if(iconv(cd, (const char **)(&from_p), &from_left, &to_p, 
+	if(iconv(cd, (ICONV_CONST char **)(&from_p), &from_left, &to_p, 
 				&to_left) == (size_t)-1)
 	{
 		iconv_close(cd);
@@ -186,7 +191,12 @@ int simple_utf8_encode(const char *from, char **to, const char *encoding)
 	free(unicode);
 	return 0;
 }
-	
+
+int utf8_decode(char *from, char **to, const char *encoding)
+{
+	return 1;  /* Dummy stub */
+}
+
 charset_map *get_map(const char *encoding)
 {
 	charset_map *map_p = maps;

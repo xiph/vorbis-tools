@@ -6,15 +6,16 @@ SUBDIRS = man
 
 bin_PROGRAMS = oggenc
 
-INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
+INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ -I$(top_srcdir)/include
 
-oggenc_LDADD = @VORBISENC_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@
-oggenc_SOURCES = oggenc.c audio.c encode.c getopt.c getopt1.c\
-		platform.c utf8.c utf8.h\
-		audio.h encode.h platform.h getopt.h
+oggenc_LDADD = @VORBISENC_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ \
+               @SHARE_LIBS@
+oggenc_DEPENDENCIES = @SHARE_LIBS@
 
-MAP_FILES = 8859-1.map 8859-2.map
-EXTRA_DIST = oggenc.dsp build_oggenc.bat $(MAP_FILES) make_code_map.pl charsetmap.h
+oggenc_SOURCES = oggenc.c audio.c encode.c platform.c \
+                 audio.h encode.h platform.h
+
+EXTRA_DIST = oggenc.dsp build_oggenc.bat
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

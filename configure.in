@@ -62,6 +62,7 @@ AM_PATH_AO(,AC_MSG_ERROR(libao needed!))
 SOCKET_LIBS=
 AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
 AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
+SHARE_LIBS='$(top_srcdir)/share/libutf8.a $(top_srcdir)/share/libgetopt.a'
 
 dnl --------------------------------------------------
 dnl Check for library functions
@@ -88,5 +89,6 @@ dnl --------------------------------------------------
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 AC_SUBST(SOCKET_LIBS)
+AC_SUBST(SHARE_LIBS)
 
-AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
+AC_OUTPUT(Makefile include/Makefile share/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
