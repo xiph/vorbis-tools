@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: file_transport.c,v 1.2 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: file_transport.c,v 1.3 2001/12/19 06:29:44 volsung Exp $
 
  ********************************************************************/
 
@@ -59,7 +59,10 @@ data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
   }
 
   /* Open file */
-  private->fp = fopen(source_string, "r");
+  if (strcmp(source_string, "-") == 0)
+    private->fp = stdin;
+  else
+    private->fp = fopen(source_string, "r");
 
   if (private->fp == NULL) {
     free(source->source_string);
