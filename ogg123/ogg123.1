@@ -36,6 +36,9 @@ ogg123 \- plays Ogg Vorbis files
 .I file
 .B ...
 |
+.I directory
+.B ...
+|
 .I URL
 .B ...
 
@@ -46,9 +49,16 @@ on the command line.  By default,
 .B ogg123
 writes to the standard sound device, but output can be sent to any
 number of devices.  Files can be read from the file system, or URLs
-can be streamed via HTTP.
+can be streamed via HTTP.  If a directory is given, all of the files in
+it or its subdirectories will be played.
 
 .SH OPTIONS
+.IP "--audio-buffer n"
+Use an output audio buffer of approximately 'n' kilobytes.
+.IP "-@ playlist, --list playlist"
+Play all of the files named in the file 'playlist'.  The playlist should have
+one filename, directory name, or URL per line.  Blank lines are permitted.
+Directories will be treated in the same way as on the command line.
 .IP "-b n, --buffer n"
 Use an input buffer of approximately 'n' kilobytes.
 .IP "-p n, --prebuffer n"
@@ -143,9 +153,7 @@ Override the default buffer size (in bytes).
 .RE
 
 .IP irix
-IRIX audio driver.  Note that this driver has
-.B not 
-been tested!
+IRIX audio driver.
 
 .IP arts
 aRts Sound Daemon.
@@ -198,7 +206,13 @@ Play on the default soundcard:
 .RE
 .PP
 
-Play using the OSS driver:
+Play all of the files in the directory ~/music and its subdirectories.
+.RS
+.B ogg123 ~/music
+.RE
+.PP
+
+Play a file using the OSS driver:
 .RS
 .B ogg123 -d oss test.ogg
 .RE
