@@ -5,7 +5,7 @@
 #include "ogg123.h"
 
 devices_t *append_device(devices_t * devices_list, int driver_id,
-			 ao_option_t * options)
+			 ao_option * options, char *filename)
 {
     devices_t *head = devices_list;
 
@@ -19,6 +19,7 @@ devices_t *append_device(devices_t * devices_list, int driver_id,
     }
     devices_list->driver_id = driver_id;
     devices_list->options = options;
+    devices_list->filename = filename;
     devices_list->device = NULL;
     devices_list->next_device = NULL;
 
@@ -33,7 +34,7 @@ void devices_write(void *ptr, size_t size, devices_t * d)
     }
 }
 
-int add_option(ao_option_t ** op_h, const char *optstring)
+int add_option(ao_option ** op_h, const char *optstring)
 {
     char *key, *value;
     int result;
@@ -93,7 +94,7 @@ int get_default_device(void)
     }
     
     if (device)
-      return ao_get_driver_id(device);
+      return ao_driver_id(device);
     
     return -1;
 }

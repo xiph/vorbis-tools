@@ -16,8 +16,9 @@
 /* For facilitating output to multiple devices */
 typedef struct devices_s {
   int driver_id;
-  ao_device_t *device;
-  ao_option_t *options;
+  ao_device *device;
+  ao_option *options;
+  char *filename;
   struct devices_s *next_device;
 } devices_t;
 
@@ -38,10 +39,10 @@ typedef struct ogg123_options_s {
 #include "buffer.h"
 
 devices_t *append_device(devices_t * devices_list, int driver_id,
-                         ao_option_t * options);
+                         ao_option * options, char *filename);
 void devices_write(void *ptr, size_t size, devices_t * d);
 void usage(void);
-int add_option(ao_option_t ** op_h, const char *optstring);
+int add_option(ao_option ** op_h, const char *optstring);
 int get_default_device(void);
 void play_file(ogg123_options_t opt);
 int get_tcp_socket(void); /* Will be going soon. */

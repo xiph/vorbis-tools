@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii ogg123.1
 .\"
-.TH ogg123 1 "June 19, 2001" "" "Vorbis Tools"
+.TH ogg123 1 "July 22, 2001" "" "Vorbis Tools"
 
 .SH NAME
 ogg123 \- plays Ogg Vorbis files
@@ -18,6 +18,10 @@ ogg123 \- plays Ogg Vorbis files
 [
 .B -o
 .I option:value
+] 
+[
+.B -f
+.I filename
 ] ]
 .I file
 .B ...
@@ -41,6 +45,11 @@ Use a buffer of 'n' chunks (4096 bytes)
 Specify output device.  See
 .B DEVICES
 section for a list of devices.  Any number of devices may be specified.
+.IP "-f filename, --file filename"
+Specify output file for file devices.  The filename "-" writes to standard
+out.  If the file already exists,
+.B ogg123
+will abort.
 .IP "-h, --help"
 Show command help.
 .IP "-k n, --skip n"
@@ -52,7 +61,7 @@ to
 .I value
 for the preceding device.  See
 .B DEVICES
-for a list of valid options for each device.  
+for a list of valid options for each device.
 .IP "-q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-V, --version"
@@ -66,7 +75,9 @@ Play files in pseudo-random order.
 
 .B ogg123
 supports a variety of audio output devices through libao.  Only those
-devices supported by the target platform will be compiled in.
+devices supported by the target platform will be available.  The
+.B -f
+option may only be used with devices that write to files.
 
 .IP null
 Null driver.  All audio data is discarded.  (Note: Audio data is not
@@ -130,14 +141,16 @@ after a colon, as in "whizbang.com:555".  (Default = localhost)
 .RE
 .RE
 
+.IP au
+Sun audio file output.  Writes the audio samples in AU format.  The AU
+format supports writing to unseekable files, like standard out.  In
+such circumstances, the AU header will specify the sample format, but
+not the length of the recording.
+
 .IP raw
 Raw sample output.  Writes raw audio samples to a file.
 .RS
 Options:
-.RS
-.IP file
-Sets the output file.  (Default = "output.raw")
-.RE
 .RS
 .IP byteorder
 Choose big endian, little endian, or native byte order.  (Default = "native")
@@ -147,14 +160,9 @@ Choose big endian, little endian, or native byte order.  (Default = "native")
 .IP wav
 WAV file output.  Writes the sound data to disk in uncompressed form.
 If multiple files are played, all of them will be concatenated into
-the same WAV file.
-.RS
-Options:
-.RS
-.IP file
-Sets the output WAV file.  (Default = "output.wav")
-.RE
-.RE
+the same WAV file.  WAV files cannot be written to unseekable files,
+such as standard out.  Use the AU format instead.
+
 
 .SH EXAMPLES
 
@@ -196,19 +204,19 @@ Use the WAV driver with the default output file, "output.wav":
 
 Listen to a file while you write it to a WAV file:
 .RS
-.B ogg123 -d oss -d wav -o file:test.wav test.ogg
+.B ogg123 -d oss -d wav -f test.wav test.ogg
 .RE
 .PP
 
 Note that options apply to the device declared to the left:
 .RS
-.B ogg123 -d oss -o dsp:/dev/mydsp -d wav -o file:test2.wav test.ogg
+.B ogg123 -d oss -o dsp:/dev/mydsp -d raw -f test2.raw -o byteorder:big test.ogg
 .RE
 .PP
 
 Stress test your harddrive:
 .RS
-.B ogg123 -d oss -d wav -o file:1.wav -d wav -o file:2.wav -d wav -o file:3.wav -d wav -o file:4.wav -d wav -o file:5.wav  test.ogg
+.B ogg123 -d oss -d wav -f 1.wav -d wav -f 2.wav -d wav -f 3.wav -d wav -f 4.wav -d wav -f 5.wav  test.ogg
 .RE
 .PP
 
@@ -232,28 +240,34 @@ immediately, due to audio data buffering in the audio device.
 This delay is system dependent, but it is usually not more
 than one or two seconds.
 
+.SH NOTES
+
+The use of
+.B /etc/ogg123rc
+and
+.B ~/.ogg123rc
+has been deprecated in favor of the configuration system provided by
+libao.
 
 .SH FILES
 
 .TP
-/etc/ogg123rc
-Can be used to set the default output device for 
-.B ogg123.
-See the included file
-.B ogg123rc-example
-for an example.
+/etc/libao.conf
+Can be used to set the default output device for all libao programs.
 
 .TP
-~/.ogg123rc
+~/.libao
 Per-user config file to override the system wide output device settings.
 .PP
 
 .SH BUGS
 
-The WAV driver does not interpret the file "-" as stdout. Note that
-there are issues with streaming WAV-format audio, so there is no way
-to fix this properly. Use the raw output driver if you need to use
-ogg123 in a pipe.
+Note that there are issues with streaming WAV-format audio, so there
+is no way to fix this properly. Use the raw or au output driver if you
+need to use ogg123 in a pipe.
+
+.SH SEE ALSO
+.BR libao.conf(5)
 
 .SH AUTHORS
 
