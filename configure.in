@@ -268,6 +268,6 @@ will NOT be built with FLAC read support.])
     fi
     if test "x$have_libspeex" != xyes; then
         AC_MSG_WARN([Speex libraries or headers missing, ogg123 will NOT be 
-built with FLAC read support.])
+built with Speex read support.])
     fi         
 fi
