@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.18 2000/12/30 05:44:31 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.19 2001/01/15 04:50:23 kcarnold Exp $
 
  ********************************************************************/
 
@@ -253,7 +253,8 @@ int main(int argc, char **argv)
 	}
     }
 
-    buffer_shutdown (buffer);
+    if (buffer != NULL)
+      buffer_shutdown (buffer);
 
     while (opt.outdevices != NULL) {
       ao_close(opt.outdevices->device);

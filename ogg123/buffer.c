@@ -25,7 +25,7 @@ void buffer_init (buf_t *buf, long size)
 }
 
 /* Main write loop. No semaphores. No deadlock. No problem. I hope. */
-void writer_main (buf_t *buf, devices_t *d)
+void writer_main (volatile buf_t *buf, devices_t *d)
 {
   devices_t *d1;
   while (! (buf->status & STAT_SHUTDOWN && buf->reader == buf->writer))
