@@ -73,10 +73,12 @@ int get_default_device(void)
     strncpy(filename, homedir, FILENAME_MAX);
     strcat(filename, "/.ogg123rc");
 
+    fp = fopen(filename, "r");
+    /* if no ~/.ogg123rc can be found, try /etc/ogg123rc instead */
+    if (!fp) fp = fopen("/etc/ogg123.rc", "r");
 
     /* This is a very simplistic parser. If more options are ever added,
        it will need a serious overhaul. */
-    fp = fopen(filename, "r");
     if (fp) {
       if (fgets(line, 100, fp)) {
 	if (strncmp(line, "default_device=", 15) == 0) {
