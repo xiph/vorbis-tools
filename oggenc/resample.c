@@ -1,7 +1,7 @@
 /* resample.c: see resample.h for interesting stuff */
 
 #include <math.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 #include <assert.h>
