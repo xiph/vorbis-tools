@@ -2,7 +2,7 @@
  * version 2, a copy of which is included with this program.
  *
  * (c) 2000-2002 Michael Smith <msmith@xiph.org>
- * (c) 2001 Ralph Giles <giles@ashlu.bc.ca>
+ * (c) 2001 Ralph Giles <giles@xiph.org>
  *
  * Front end to show how to use vcedit;
  * Of limited usability on its own, but could be useful.
