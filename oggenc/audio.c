@@ -357,13 +357,13 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 		return 0; /* Weird format chunk */
 	}
 
-	/* A common error is to have an 18-byte format chunk with the last two
-	 * bytes 0. This is incorrect, but sufficiently common that we only warn
-	 * about it instead of refusing it. 
-	 * Please, if you have a program that's creating these 18 byte chunks, send
-	 * a bug report to whoever makes it 
+	/* A common error is to have a format chunk that is not 16 or 18 bytes
+	 * in size.  This is incorrect, but not fatal, so we only warn about 
+	 * it instead of refusing to work with the file.  Please, if you
+	 * have a program that's creating format chunks of sizes other than
+	 * 16 or 18 bytes in size, report a bug to the author.
 	 */
-	if(len!=16)
+	if(len!=16 && len!=18)
 		fprintf(stderr, 
 				"Warning: INVALID format chunk in wav header.\n"
 				" Trying to read anyway (may not work)...\n");
