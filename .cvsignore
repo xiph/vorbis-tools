@@ -1,3 +1,4 @@
+*.tar.gz
 Makefile
 config.status
 libtool
