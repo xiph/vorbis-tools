@@ -1,0 +1,57 @@
+.\" Process this file with
+.\" groff -man -Tascii vorbiscomment.1
+.\"
+.TH VORBISCOMMENT 1 "December 21, 2001" Xiphophorus "Vorbis Tools"
+
+.SH NAME
+vorbiscomment \- edits Ogg Vorbis comments
+
+.SH SYNOPSIS
+.B vorbiscomment
+.RB [ -l ]
+.I file.ogg
+.br
+.B vorbiscomment
+.B -a
+.B [ -t \*(lqtag=value\*(rq ]
+.I in.ogg
+.I out.ogg
+.br
+.B vorbiscomment
+.B -w
+.I in.ogg
+.I out.ogg
+
+.SH DESCRIPTION
+.B vorbiscomment
+reads Ogg Vorbis audio files and decodes them to the devices specified
+on the command line.  By default,
+
+.SH OPTIONS
+.IP "-a"
+append comment.
+.IP "-c"
+.IP "-h"
+Show command help.
+.IP "-l"
+.IP "-q"
+.IP "-t"
+.IP "-w"
+
+.SH EXAMPLES
+.\" Examples go here
+
+.SH AUTHORS
+
+.TP
+Program Authors:
+.br
+Michael Smith <msmith@labyrinth.net.au>
+.br
+Ralph Giles <giles@ashlu.bc.ca>
+.br
+
+.TP
+Manpage Author:
+.br
+Christopher L Cheney <ccheney@debian.org>
