@@ -3,6 +3,7 @@
 AUTOMAKE_OPTIONS = foreign
 
 mans = ogginfo.1
+ogginfosources = ogginfo2.c
 
 if BUILD_OGGINFO
 
@@ -19,11 +20,11 @@ INCLUDES = @SHARE_CFLAGS@ @OGG_CFLAGS@ @VORBIS_CFLAGS@ @I18N_CFLAGS@
 ogginfo_LDADD = @SHARE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @I18N_LIBS@
 ogginfo_DEPENDENCIES = @SHARE_LIBS@
 
-ogginfo_SOURCES = ogginfo2.c
+ogginfo_SOURCES = $(ogginfosources)
 
 endif
 
-EXTRA_DIST = $(mans)
+EXTRA_DIST = $(ogginfosources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -3,6 +3,7 @@
 AUTOMAKE_OPTIONS = foreign
 
 mans = vorbiscomment.1
+vorbiscommentsources = vcedit.c vcedit.h vcomment.c
 
 if BUILD_VORBISCOMMENT
 
@@ -19,11 +20,11 @@ INCLUDES = @SHARE_CFLAGS@ @I18N_CFLAGS@ @OGG_CFLAGS@ @VORBIS_CFLAGS@
 vorbiscomment_LDADD = @SHARE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @I18N_LIBS@
 vorbiscomment_DEPENDENCIES = @SHARE_LIBS@
 
-vorbiscomment_SOURCES = vcedit.c vcedit.h vcomment.c
+vorbiscomment_SOURCES = $(vorbiscommentsources)
 
 endif
 
-EXTRA_DIST = $(mans)
+EXTRA_DIST = $(vorbiscommentsources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

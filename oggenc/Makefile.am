@@ -4,6 +4,9 @@ AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = man
 
+oggencsources = oggenc.c audio.c encode.c platform.c \
+                 audio.h encode.h platform.h resample.c resample.h
+
 if BUILD_OGGENC
 
 datadir = @datadir@
@@ -19,10 +22,11 @@ oggenc_LDADD = @SHARE_LIBS@ \
 	       @LIBICONV@ @I18N_LIBS@
 oggenc_DEPENDENCIES = @SHARE_LIBS@
 
-oggenc_SOURCES = oggenc.c audio.c encode.c platform.c \
-                 audio.h encode.h platform.h resample.c resample.h
+oggenc_SOURCES = $(oggencsources)
 
 endif
+
+EXTRA_DIST = $(oggencsources)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

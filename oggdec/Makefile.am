@@ -3,6 +3,7 @@
 AUTOMAKE_OPTIONS = foreign
 
 mans = oggdec.1
+oggdecsources = oggdec.c
 
 if BUILD_OGGDEC
 
@@ -17,7 +18,7 @@ INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@
 oggdec_LDADD = @LIBICONV@ @SHARE_LIBS@ @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@
 oggdec_DEPENDENCIES = @SHARE_LIBS@
 
-oggdec_SOURCES = oggdec.c
+oggdec_SOURCES = $(oggdecsources)
 
 man_MANS = $(mans)
 mandir = @MANDIR@
@@ -25,7 +26,7 @@ mandir = @MANDIR@
 endif
 
 
-EXTRA_DIST = $(mans)
+EXTRA_DIST = $(oggdecsources) $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
