@@ -241,16 +241,26 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                         remaining = inf->vc.comment_lengths[i] - j;
                         if((val[j] & 0x80) == 0)
                             bytes = 1;
-                        else if((val[j] & 0x40) == 0)
-                            bytes = 2;
-                        else if((val[j] & 0x20) == 0)
-                            bytes = 3;
-                        else if((val[j] & 0x10) == 0)
-                            bytes = 4;
-                        else if((val[j] & 0x08) == 0)
-                            bytes = 5;
-                        else if((val[j] & 0x04) == 0)
-                            bytes = 6;
+                        else if((val[j] & 0x40) == 0x40) {
+                            if((val[j] & 0x20) == 0)
+                                bytes = 2;
+                            else if((val[j] & 0x10) == 0)
+                                bytes = 3;
+                            else if((val[j] & 0x08) == 0)
+                                bytes = 4;
+                            else if((val[j] & 0x04) == 0)
+                                bytes = 5;
+                            else if((val[j] & 0x02) == 0)
+                                bytes = 6;
+                            else {
+                                warn(_("Warning: Illegal UTF-8 sequence in "
+                                       "comment %d (stream %d): length "
+                                       "marker wrong\n"),
+                                        i, stream->num);
+                                broken = 1;
+                                break;
+                            }
+                        }
                         else {
                             warn(_("Warning: Illegal UTF-8 sequence in comment "
                                    "%d (stream %d): length marker wrong\n"),
