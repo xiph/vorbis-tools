@@ -25,6 +25,54 @@
 #define READ_U16(buf) \
 	(((buf)[1]<<8)|((buf)[0]&0xff));
 
+/* Define the supported formats here */
+input_format formats[] = {
+	{wav_id, 12, wav_open, wav_close, "wav", "WAV file reader"},
+	{NULL, 0, NULL, NULL, NULL, NULL}
+};
+
+input_format *open_audio_file(FILE *in, oe_enc_opt *opt)
+{
+	int j=0;
+	unsigned char *buf=NULL;
+	int buf_size=0, buf_filled=0;
+	int size,ret;
+
+	while(formats[j].id_func)
+	{
+		size = formats[j].id_data_len;
+		if(size >= buf_size)
+		{
+			buf = realloc(buf, size);
+			buf_size = size;
+		}
+
+		if(buf_size > buf_filled)
+		{
+			ret = fread(buf+buf_filled, 1, buf_size-buf_filled, in);
+			buf_filled += ret;
+
+			if(buf_filled != buf_size)
+			{ /* File truncated */
+				buf_size = buf_filled;
+				j++;
+				continue;
+			}
+		}
+
+		if(formats[j].id_func(buf, size))
+		{
+			/* ok, we now have something that can handle the file */
+			if(formats[j].open_func(in, opt))
+				return &formats[j];
+		}
+		j++;
+	}
+
+	return NULL;
+}
+
+
 static int find_chunk(FILE *in, char *type, unsigned int *len)
 {
 	unsigned char buf[8];
@@ -65,23 +113,29 @@ static int find_chunk(FILE *in, char *type, unsigned int *len)
 	}
 }
 
+int wav_id(unsigned char *buf, int len)
+{
+	unsigned int flen;
+	
+	if(len<12) return 0; /* Something screwed up */
+
+	if(memcmp(buf, "RIFF", 4))
+		return 0; /* Not wave */
+
+	flen = READ_U32(buf+4); /* We don't use this */
+
+	if(memcmp(buf+8, "WAVE",4))
+		return 0; /* RIFF, but not wave */
+
+	return 1;
+}
+
 int wav_open(FILE *in, oe_enc_opt *opt)
 {
 	unsigned char buf[16];
 	unsigned int len;
 	wav_fmt format;
 	wavfile *wav = malloc(sizeof(wavfile));
-
-	int ret = fread(buf, 1, 12, in);
-	if(ret < 12)
-		return 0;
-
-	if(memcmp(buf, "RIFF", 4))
-		return 0;
-
-	len = READ_U32(buf+4); /* We don't actually use this */
-	if(memcmp(buf+8, "WAVE",4))
-		return 0; /* Not wave file */
 
 	/* Ok. At this point, we know we have a WAV file. Now we have to detect
 	 * whether we support the subtype, and we have to find the actual data

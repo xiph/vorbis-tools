@@ -74,12 +74,4 @@ typedef struct
 
 int oe_encode(oe_enc_opt *opt);
 
-typedef struct
-{
-	int (*open_func)(FILE *in, oe_enc_opt *opt);
-	void (*close_func)(void *);
-	char *format;
-	char *description;
-} input_format;
-
 #endif /* __ENCODE_H */

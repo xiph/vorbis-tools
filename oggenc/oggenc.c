@@ -24,12 +24,6 @@
 #define COPYRIGHT "(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
-/* Define supported formats here */
-input_format formats[] = {
-	{wav_open, wav_close, "wav", "WAV file reader"},
-	{NULL, NULL, NULL, NULL}
-};
-
 struct option long_options[] = {
 	{"quiet",0,0,'q'},
 	{"help",0,0,'h'},
@@ -107,8 +101,8 @@ int main(int argc, char **argv)
 		FILE *in, *out = NULL;
 		int foundformat = 0;
 		int closeout = 0, closein = 0;
-		int j=0;
 		char *artist=NULL, *album=NULL, *title=NULL, *track=NULL, *date=NULL;
+		input_format *format;
 
 
 
@@ -157,15 +151,14 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			while(formats[j].open_func)
+			format = open_audio_file(in, &enc_opts);
+			if(format)
 			{
-				if(formats[j].open_func(in, &enc_opts))
-				{
-					foundformat = 1;
-					break;
-				}
-				j++;
+				fprintf(stderr, "Opening with %s module: %s\n", 
+						format->format, format->description);
+				foundformat=1;
 			}
+
 		}
 
 		if(!foundformat)
@@ -244,8 +237,8 @@ int main(int argc, char **argv)
 
 		if(out_fn) free(out_fn);
 		vorbis_comment_clear(&vc);
-		if(!opt.rawmode)
-			formats[j].close_func(enc_opts.readdata);
+		if(!opt.rawmode) 
+			format->close_func(enc_opts.readdata);
 
 		if(closein)
 			fclose(in);
