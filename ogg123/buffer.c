@@ -173,5 +173,6 @@ void buffer_shutdown (buf_t *buf)
       tv.tv_usec = 0;
       select (0, NULL, NULL, NULL, &tv);
     } 
+  /* Deallocate the shared memory segment. */
+  shmdt(buf);
 }
-     
