@@ -3,7 +3,7 @@ vorbis-tools (1.0rc3-1) unstable; urgency=low
   * New upstream. (Closes: #90852, #103707, #104366, #107898, #108803, #113855, #114730, #115859, #117091)
   * added autotools target (config.* updater) to rules
 
- -- Christopher L Cheney <ccheney@debian.org>  Tue, 18 Dec 2001 23:00:00 -0600
+ -- Christopher L Cheney <ccheney@debian.org>  Mon, 24 Dec 2001 11:00:00 -0600
 
 vorbis-tools (1.0rc2-1) unstable; urgency=low
 

@@ -24,21 +24,24 @@ vorbiscomment \- edits Ogg Vorbis comments
 
 .SH DESCRIPTION
 .B vorbiscomment
-reads Ogg Vorbis audio files and decodes them to the devices specified
-on the command line.  By default,
+reads, modifies, and appends Ogg Vorbis audio files tags.
 
 .SH OPTIONS
 .IP "-a"
-append comment.
+Append comments.
 .IP "-c"
+Take comments from a file.
 .IP "-h"
 Show command help.
 .IP "-l"
+List the comments.
 .IP "-q"
-.IP "-t"
+Quiet mode.  No messages are displayed.
+.IP "-t tag=value"
 .IP "-w"
+Modify comments.
 
-.SH EXAMPLES
+.\" .SH EXAMPLES
 .\" Examples go here
 
 .SH AUTHORS
