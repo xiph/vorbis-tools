@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
 .\"
-.TH oggenc 1 "August 13, 2000" "" "Vorbis Tools"
+.TH oggenc 1 "February 26, 2001" "" "Vorbis Tools beta 4"
 
 .SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
@@ -43,7 +43,7 @@ oggenc \- encode audio into the Ogg Vorbis format
 
 .SH DESCRIPTION
 .B oggenc
-reads audio data in either raw or WAV format and encodes it into an
+reads audio data in either raw, WAV, or AIFF format and encodes it into an
 Ogg Vorbis stream.  If the input file "-" is specified, audio data is
 read from
 .I stdin
@@ -69,6 +69,8 @@ header information.
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
 Sets encoding to the bitrate closest to n (in kb/s). Defaults to 160 kb/s for stereo.
+.IP "-s, --serial"
+Forces a specific serial number in the output stream. This is primarily useful for testing.
 .IP "-o output_file, --output=output_file"
 Write the Ogg Vorbis stream to
 .I output_file (only valid if a single input file is specified)
@@ -87,6 +89,12 @@ instances will be added to each of the input files specified.
 .IP "-a artist, --artist artist"
 Set the artist comment field in the comments to
 .I artist.
+
+.IP "-d date, --date date"
+Sets the date comment field to the given value. This should be the date of recording.
+
+.IP "-N n, --tracknum n"
+Sets the track number comment field to the given value.
 
 .IP "-t title, --title title"
 Set the track title comment field to
