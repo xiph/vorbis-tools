@@ -385,6 +385,8 @@ static void usage(void)
 		"                      instead of specifying a particular bitrate.\n"
 		"                      This is the normal mode of operation.\n"
         "                      Fractional qualities (e.g. 2.75) are permitted\n"
+        "                      Quality -1 is also possible, but may not be of\n"
+        "                      acceptable quality.\n"
         " --resample n         Resample input data to sampling rate n (Hz)\n"
         " --downmix            Downmix stereo to mono. Only allowed on stereo\n"
         "                      input.\n"

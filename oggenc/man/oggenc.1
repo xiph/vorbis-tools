@@ -131,7 +131,7 @@ hard or soft bitrate constraints to be enforced by the encoder. This mode is
 much slower, and may also be lower quality. It is primarily useful for creating
 files for streaming.
 .IP "-q n, --quality=n"
-Sets encoding quality to n, between 0 (low) and 10 (high). This is the default mode of operation, with a default quality level of 3. Fractional quality levels such as 2.5 are permitted. 
+Sets encoding quality to n, between -1 (low) and 10 (high). This is the default mode of operation, with a default quality level of 3. Fractional quality levels such as 2.5 are permitted. Normal quality range is 0 - 10.
 .IP "--resample n"
 Resample input to the given sample rate (in Hz) before encoding. Primarily
 useful for downsampling for lower-bitrate encoding.
