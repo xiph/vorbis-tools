@@ -356,6 +356,11 @@ static void vorbis_end(stream_processor *stream)
     free(stream->data);
 }
 
+static void process_null(stream_processor *stream, ogg_page *page)
+{
+    /* This is for invalid streams. */
+}
+
 static void process_other(stream_processor *stream, ogg_page *page )
 {
     ogg_packet packet;
@@ -375,7 +380,8 @@ static void free_stream_set(stream_set *set)
         if(!set->streams[i].end) {
             warn(_("Warning: EOS not set on stream %d\n"), 
                     set->streams[i].num);
-            set->streams[i].process_end(&set->streams[i]);
+            if(set->streams[i].process_end)
+                set->streams[i].process_end(&set->streams[i]);
         }
         ogg_stream_clear(&set->streams[i].os);
     }
@@ -394,6 +400,13 @@ static int streams_open(stream_set *set)
     }
 
     return res;
+}
+
+static void null_start(stream_processor *stream)
+{
+    stream->process_end = NULL;
+    stream->type = "invalid";
+    stream->process_page = process_null;
 }
 
 static void other_start(stream_processor *stream, char *type)
@@ -485,7 +498,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res <= 0) {
             warn(_("Warning: Invalid header page, no packet found\n"));
-            other_start(stream, NULL);
+            null_start(stream);
         }
         else if(packet.bytes >= 7 && memcmp(packet.packet, "\001vorbis", 7)==0)
             vorbis_start(stream);
