@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: buffer.c,v 1.20 2003/05/03 14:24:33 volsung Exp $
+ last mod: $Id: buffer.c,v 1.21 2003/06/24 11:39:37 giles Exp $
 
  ********************************************************************/
 
@@ -34,20 +34,23 @@
 #define MIN3(x,y,z)    MIN(x,MIN(y,z))
 #define MIN4(w,x,y,z)  MIN( MIN(w,x), MIN(y,z) )
 
-/* Special debugging code.  THIS IS NOT PORTABLE! */
 #ifdef DEBUG_BUFFER
 FILE *debugfile;
-#define DEBUG(x, y...) { fprintf (debugfile, "%d: " x "\n", getpid(),  ## y); }
+#define DEBUG(x) { fprintf (debugfile, "%d: " x "\n", getpid()); }
+#define DEBUG1(x, y) { fprintf (debugfile, "%d: " x "\n", getpid(), y); }
+#define DEBUG2(x, y, z) { fprintf (debugfile, "%d: " x "\n", getpid(), y, z); }
 #else
-#define DEBUG(x, y...)
+#define DEBUG(x)
+#define DEBUG1(x, y)
+#define DEBUG2(x, y, z)
 #endif
 
 /* Macros that support debugging of threading structures */
 
-#define LOCK_MUTEX(mutex) { DEBUG("Locking mutex %s.", #mutex); pthread_mutex_lock (&(mutex)); }
-#define UNLOCK_MUTEX(mutex) { DEBUG("Unlocking mutex %s", #mutex); pthread_mutex_unlock(&(mutex)); }
-#define COND_WAIT(cond, mutex) { DEBUG("Unlocking %s and waiting on %s", #mutex, #cond); pthread_cond_wait(&(cond), &(mutex)); }
-#define COND_SIGNAL(cond) { DEBUG("Signalling %s", #cond); pthread_cond_signal(&(cond)); }
+#define LOCK_MUTEX(mutex) { DEBUG1("Locking mutex %s.", #mutex); pthread_mutex_lock (&(mutex)); }
+#define UNLOCK_MUTEX(mutex) { DEBUG1("Unlocking mutex %s", #mutex); pthread_mutex_unlock(&(mutex)); }
+#define COND_WAIT(cond, mutex) { DEBUG2("Unlocking %s and waiting on %s", #mutex, #cond); pthread_cond_wait(&(cond), &(mutex)); }
+#define COND_SIGNAL(cond) { DEBUG1("Signalling %s", #cond); pthread_cond_signal(&(cond)); }
 
 extern signal_request_t sig_request;  /* Need access to global cancel flag */
 
@@ -238,7 +241,7 @@ void *buffer_thread_func (void *arg)
  
     /* No need to lock mutex here because the other thread will
        NEVER reduce the number of bytes stored in the buffer */
-    DEBUG("Sending %d bytes to the audio device", write_amount);
+    DEBUG1("Sending %d bytes to the audio device", write_amount);
     write_amount = buf->write_func(buf->buffer + buf->start, write_amount,
 		    /* Only set EOS if this is the last chunk */
 		    write_amount == buf->curfill ? buf->eos : 0,
@@ -249,7 +252,7 @@ void *buffer_thread_func (void *arg)
     buf->curfill -= write_amount;
     buf->position += write_amount;
     buf->start = (buf->start + write_amount) % buf->size;
-    DEBUG("Updated buffer fill, curfill = %ld", buf->curfill);
+    DEBUG1("Updated buffer fill, curfill = %ld", buf->curfill);
 
     /* If we've essentially emptied the buffer and prebuffering is enabled,
        we need to do another prebuffering session */
@@ -276,7 +279,7 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
   long   buf_write_pos; /* offset of first available write location */
   size_t write_size;
 
-  DEBUG("Enter submit_data_chunk, size %d", size);
+  DEBUG1("Enter submit_data_chunk, size %d", size);
 
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
@@ -301,7 +304,7 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
       data += write_size;
       size -= write_size;
       buf->position_end += write_size;
-      DEBUG("writing chunk into buffer, curfill = %ld", buf->curfill);
+      DEBUG1("writing chunk into buffer, curfill = %ld", buf->curfill);
     }
     else {
 
@@ -370,7 +373,7 @@ buf_t *buffer_create (long size, long prebuffer,
 #endif
 
   /* Initialize the buffer structure. */
-  DEBUG("buffer_create, size = %ld", size);
+  DEBUG1("buffer_create, size = %ld", size);
 
   memset (buf, 0, sizeof(*buf));
 
@@ -555,7 +558,7 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
 
     /* No need to lock mutex here because the other thread will
        NEVER reduce the number of bytes stored in the buffer */
-    DEBUG("Copying %d bytes from the buffer", write_amount);
+    DEBUG1("Copying %d bytes from the buffer", write_amount);
     memcpy(data, buf->buffer + buf->start, write_amount);
     LOCK_MUTEX(buf->mutex);
 
@@ -563,7 +566,7 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
     data += write_amount;
     nbytes -= write_amount;
     buf->start = (buf->start + write_amount) % buf->size;
-    DEBUG("Updated buffer fill, curfill = %ld", buf->curfill);
+    DEBUG1("Updated buffer fill, curfill = %ld", buf->curfill);
     
     /* Signal a waiting decoder thread that they can put more
        audio into the buffer */
@@ -738,7 +741,7 @@ void buffer_wait_for_empty (buf_t *buf)
   while (!empty) {
 
     if (buf->curfill > 0) {
-      DEBUG("Buffer curfill = %ld, going back to sleep.", buf->curfill);
+      DEBUG1("Buffer curfill = %ld, going back to sleep.", buf->curfill);
       COND_WAIT(buf->write_cond, buf->mutex);
     } else 
       empty = 1;
