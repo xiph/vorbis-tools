@@ -1,45 +1,44 @@
-%define name	vorbis-tools
-%define version	1.0
-%define release 2
-
+Name:		vorbis-tools
+Version:	1.0
+Release:	1
 Summary:	Several Ogg Vorbis Tools
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Group:		Libraries/Multimedia
-Copyright:	GPL
+
+Group:		Applications/Multimedia
+License:	GPL
 URL:		http://www.xiph.org/
 Vendor:		Xiph.org Foundation <team@xiph.org>
-Source:		ftp://ftp.xiph.org/pub/vorbis-tools/%{name}-%{version}.tar.gz
+Source:         http://www.xiph.org/pub/ogg/vorbis/download/%{name}-%{version}.tar.gz
+Prefix:		%{_prefix}
 BuildRoot:	%{_tmppath}/%{name}-root
-Requires:       libogg >= 1.0
-BuildRequires:	libogg-devel >= 1.0
+
 Requires:       libvorbis >= 1.0
 BuildRequires:	libvorbis-devel >= 1.0
-Requires:       libao >= 0.8.2
-BuildRequires:	libao-devel >= 0.8.2
+Requires:       libao >= 0.8.3
+BuildRequires:	libao-devel >= 0.8.3
 Requires:       curl >= 7.8
 BuildRequires:	curl-devel >= 7.8
 
-Prefix:		%{_prefix}
-
 %description
-vorbis-tools contains oggenc (and encoder) and ogg123 (a playback tool)
+vorbis-tools contains oggenc (an encoder) and ogg123 (a playback tool).
+It also has vorbiscomment (to add comments to vorbis files), ogginfo (to
+give all useful information about an ogg file, including streams in it),
+oggdec (a simple command line decoder), and vcut (which allows you to 
+cut up vorbis files).
 
 %prep
 %setup -q -n %{name}-%{version}
 
 %build
-if [ ! -f configure ]; then
-  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --prefix=%{_prefix}
-else
-  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix}
-fi
+CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} --mandir=%{_mandir}
 make
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
 make DESTDIR=$RPM_BUILD_ROOT install
+
+%clean 
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
@@ -47,23 +46,29 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %doc README
 %doc ogg123/ogg123rc-example
 %{_bindir}/oggenc
+%{_bindir}/oggdec
 %{_bindir}/ogg123
 %{_bindir}/ogginfo
 %{_bindir}/vorbiscomment
-%{_datadir}/man/man1/ogg123.1*
-%{_datadir}/man/man1/oggenc.1*
-%{_datadir}/man/man1/ogginfo.1*
-
-%clean 
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
-
-%post
-
-%postun
+%{_bindir}/vcut
+%{_datadir}/locale/*/LC_MESSAGES/*
+%{_mandir}/man1/ogg123.1*
+%{_mandir}/man1/oggenc.1*
+%{_mandir}/man1/oggdec.1*
+%{_mandir}/man1/ogginfo.1*
+%{_mandir}/man1/vorbiscomment.1*
+%{_mandir}/man1/vcut.1*
 
 %changelog
+* Fri Jul 19 2002 Michael Smith <msmith@labyrinth.net.au>
+- Added oggdec and oggdec manpage.
+* Sun Jul 14 2002 Thomas Vander Stichele <thomas@apestaart.org>
+- updated for 1.0 release
+- added vcut, vcut man and vorbiscomment man
+- added LC_MESSAGES
+- removed libogg and libogg-devel from requires since libvorbis pulls that in
 * Fri Jul 12 2002 Michael Smith <msmith@labyrinth.net.au>
-Version number updates for 1.0 release.
+- Version number updates for 1.0 release.
 * Fri May 23 2002 Thomas Vander Stichele <thomas@apestaart.org>
 - Added more BuildRequires: for obvious packages
 * Fri Mar 22 2002 Jack Moffitt <jack@xiph.org>
