@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii ogginfo.1
 .\"
-.TH ogg123 1 "June 17, 2001" "" "Vorbis Tools"
+.TH ogginfo 1 "July 8, 2001" "" "Vorbis Tools"
 
 .SH NAME
 ogginfo \- gives information about Ogg files.
@@ -22,12 +22,21 @@ of the stream.
 .B ogginfo
 cannot accept URLs. 
 .B ogginfo
-will also print the 
-.B length
-of the file in seconds, and the
-.B playtime
-in a humanly-readable MM:SS format.
-
+will also print the following file attributes:
+.RS
+.IP header_integrity
+"pass" if the header is intact, and "fail" if it is corrupted.
+.IP stream_integrity
+"pass" if the stream contains no bad packets or holes (not counting the last 
+packet), and "fail" otherwise.
+.IP file_truncated
+"true" if the last good packet in the stream is not marked as the last packet
+and "false" if the stream is complete.
+.IP length
+Length of of the file in seconds.
+.IP playtime
+Playing time in a humanly-readable MM:SS format.
+.RE
 
 .SH OPTIONS
 None.
@@ -52,6 +61,15 @@ Will print:
 .br
 .B
 filename=track14.ogg
+.br
+.B
+header_integrity=pass
+.br
+.B
+stream_integrity=pass
+.br
+.B
+file_truncated=false
 .br
 .B
 title=If I Had $1000000
@@ -87,6 +105,15 @@ Will print:
 filename=track1.ogg
 .br
 .B
+header_integrity=pass
+.br
+.B
+stream_integrity=pass
+.br
+.B
+file_truncated=false
+.br
+.B
 title=The Vorbis Theme
 .br
 .B
@@ -106,6 +133,15 @@ playtime=1:07
 .br
 .B
 filename=track2.ogg
+.br
+.B
+header_integrity=pass
+.br
+.B
+stream_integrity=pass
+.br
+.B
+file_truncated=false
 .br
 .B
 title=Being for the Benefit of Mr. Fish
@@ -128,10 +164,12 @@ playtime=7:29
 
 .SH BUGS
 
-The man page is longer than the source.
+.B ogginfo
+only checks the first bitstream in a file.
 
-.SH AUTHOR
+.SH AUTHORS
 
-.TP
 .br
 JAmes Atwill <ogg@linuxstuff.org>
+.br
+Stan Seibert <indigo@aztec.asu.edu>
