@@ -247,14 +247,14 @@ thus biasing slightly toward transient reproduction.
 
 .IP "bitrate_average=N"
 Set the average bitrate for the file to N bits per second.  When used
-without hard minimum or maximum limits, this option select
-reservoirless Average Bit Rate encoding, where the encoder atempts to
-perfectly track a desired bitrate, but imposes no stict momentary
+without hard minimum or maximum limits, this option selects
+reservoirless Average Bit Rate encoding, where the encoder attempts to
+perfectly track a desired bitrate, but imposes no strict momentary
 fluctuation limits.  When used along with a minimum or maximum limit,
 the average bitrate still sets the average overall bitrate of the
 file, but will work within the bounds set by the bit reservoir.  When
 the min, max and average bitrates are identical, oggenc produces
-Constant Bit Rate vorbis data.
+Constant Bit Rate Vorbis data.
 
 .IP "bitrate_average_damping=N"
 Set the reaction time for the average bitrate tracker to N seconds.
