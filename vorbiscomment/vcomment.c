@@ -227,7 +227,7 @@ int  add_comment(char *line, vorbis_comment *vc, char *encoding)
 	if (utf8_encode(value, &utf8_value, encoding) == 0) {
 		
 		/* append the comment and return */
-		vorbis_comment_add_tag(vc, line, value);
+		vorbis_comment_add_tag(vc, line, utf8_value);
 		return 0;
 	} else {
 		fprintf(stderr, "Couldn't convert comment to UTF8, "
