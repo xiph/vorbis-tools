@@ -189,9 +189,12 @@ static int streams_open(stream_set *set)
     return res;
 }
 
-static void other_start(stream_processor *stream)
+static void other_start(stream_processor *stream, char *type)
 {
-    stream->type = "unknown";
+    if(type)
+        stream->type = type;
+    else
+        stream->type = "unknown";
     stream->process_page = process_other;
     stream->process_end = NULL;
 }
@@ -280,15 +283,11 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         }
 
         if(packet.bytes >= 7 && memcmp(packet.packet, "\001vorbis", 7)==0)
-        {
-            fprintf(stderr, _("Stream %d is vorbis\n"), stream->num);
             vorbis_start(stream);
-        }
-        else {
-            fprintf(stderr, _("Stream %d is unidentified other type\n"), 
-                    stream->num);
-            other_start(stream);
-        }
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) 
+            other_start(stream, "MIDI");
+        else
+            other_start(stream, NULL);
 
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res > 0) {
