@@ -11,10 +11,11 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: speex_format.c,v 1.2 2003/01/14 00:19:05 volsung Exp $
+ last mod: $Id: speex_format.c,v 1.3 2003/06/24 02:22:33 giles Exp $
 
  ********************************************************************/
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
