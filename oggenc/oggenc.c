@@ -298,7 +298,8 @@ void usage(void)
 		"                      once, for example, and have it used for all the files)\n"
 		"\n"
 		"INPUT FILES:\n"
-		" OggEnc input files must currently be 44.1kHz, 16 bit stereo WAV files.\n"
+		" OggEnc input files must currently be 16 bit PCM WAV files.\n"
+		" Files may be mono or stereo and sampling rates from 8kHz-56kHz.\n"
 		" You can specify taking the file from stdin by using - as the input filename.\n"
 		" Alternatively, the --raw option may be used to use a raw PCM data file, with\n"
 		" the same restrictions as above.\n"
@@ -306,12 +307,14 @@ void usage(void)
 		" with -o\n"
 		"\n"
 		"MODES:\n"
-		" OggEnc currently supports 5 different modes. Each of these is a fully VBR\n"
+		" OggEnc currently supports 6 different modes. Each of these is a fully VBR\n"
 		" (variable bitrate) mode, but they vary in intended average bitrate. The \n"
 		" bitrate option (--bitrate, -b) will choose the mode closest to the chosen\n"
-		" bitrate. The 5 modes are approximately 128,160,192,256, and 350 kbps (for\n"
-		" stereo input. Halve these numbers for mono input).\n"
-		" The default is the 160 kbps mode.\n");
+		" bitrate. The 6 modes are approximately 112,128,160,192,256, and 350 kbps\n"
+		" (for stereo 44.1kHz input. Halve these numbers for mono input).\n"
+		" The default is the 160 kbps mode.  Lower sampling rates work properly,\n"
+		" but don't scale the bitrate; -b 112 on a stereo 22kHz file will produce a\n"
+		" ~70kbps file, not 112kbps.)\n");
 }
 
 char *generate_name_string(char *format, 
