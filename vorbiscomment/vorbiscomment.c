@@ -8,15 +8,15 @@
  * Vorbis comment field editor - designed to be wrapped by scripts, etc.
  * and as a proof of concept/example code/
  * 
- * last mod: $Id: vorbiscomment.c,v 1.2 2000/09/27 06:12:32 jack Exp $
+ * last mod: $Id: vorbiscomment.c,v 1.3 2000/10/03 02:21:23 jack Exp $
  */
 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "vorbis/codec.h"
-#include "../lib/bitwise.h"
+#include <ogg/ogg.h>
+#include <vorbis/codec.h>
 
 #define CHUNK 4096
 
