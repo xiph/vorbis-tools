@@ -61,7 +61,7 @@ void writer_main (volatile buf_t *buf, devices_t *d)
       }
 
       if (buf->writer == buf->end)
-	buf->writer = buf->buffer;
+	buf->writer = (chunk_t *)buf->buffer;
       else
 	buf->writer++;
    }

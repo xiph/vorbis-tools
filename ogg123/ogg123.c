@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.47 2001/08/13 04:40:01 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.48 2001/10/02 03:10:42 msmith Exp $
 
  ********************************************************************/
 
@@ -30,6 +30,7 @@
 #include <errno.h>
 #include <time.h>
 #include <getopt.h>
+#include <unistd.h>
 
 #include <signal.h>
 
