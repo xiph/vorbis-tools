@@ -423,6 +423,8 @@ AC_ARG_WITH(curl-libraries,[  --with-curl-libraries=DIR   Directory where libcur
 AC_ARG_WITH(curl-includes,[  --with-curl-includes=DIR   Directory where libcurl header files are installed (optional)], curl_includes="$withval", curl_includes="")
 AC_ARG_ENABLE(curltest, [  --disable-curltest       Do not try to compile and run a test libcurl program],, enable_curltest=yes)
 
+if test "x$curl_prefix" != "xno" ; then
+
   if test "x$curl_libraries" != "x" ; then
     CURL_LIBS="-L$curl_libraries"
   elif test "x$curl_prefix" != "x" ; then
@@ -505,6 +507,11 @@ int main ()
      CURL_LIBS=""
      ifelse([$2], , :, [$2])
   fi
+  AC_DEFINE(HAVE_CURL, 1, [Define if you have libcurl.])
+else
+  CURL_CFLAGS=""
+  CURL_LIBS=""
+fi
   AC_SUBST(CURL_CFLAGS)
   AC_SUBST(CURL_LIBS)
   rm -f conf.curltest
