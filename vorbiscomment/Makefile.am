@@ -4,6 +4,9 @@ AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = vorbiscomment
 
+INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@
+
+vorbiscomment_LDFLAGS = @OGG_LIBS@ @VORBIS_LIBS@
 vorbiscomment_SOURCES = vorbiscomment.c
 
 debug:

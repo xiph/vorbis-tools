@@ -48,18 +48,8 @@ dnl --------------------------------------------------
 dnl Check for libraries
 dnl --------------------------------------------------
 
-dnl Check for libogg
-if test -n $with_ogg; then
-	CFLAGS="$CFLAGS -I$with_ogg/include -L$with_ogg/lib"
-fi 
-AC_CHECK_LIB(ogg, oggpack_read, LIBS="$LIBS -logg", AC_MSG_ERROR([You must have libogg to compile vorbis!!!]))
-
-dnl Check for libvorbis
-if test -n $with_vorbis; then
-	CFLAGS="$CFLAGS -I$with_vorbis/include -L$with_vorbis/lib"
-fi
-AC_CHECK_LIB(vorbis, vorbis_info_init, LIBS="$LIBS -lvorbis", AC_MSG_ERROR([You must have libvorbis to compile vorbis-tools!!!]))
-
+AM_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
+AM_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
 AM_PATH_AO(0.5.0,,AC_MSG_ERROR(libao needed!))
 
 dnl --------------------------------------------------
