@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 {
 	/* Default values */
 	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL, 1,1,1, 0.5f,0}; 
+		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL, 64,128,192, 0.5f,0}; 
 	int i;
 
 	char **infiles;
