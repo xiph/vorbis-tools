@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.32 2001/04/08 02:33:30 jack Exp $
+ last mod: $Id: ogg123.c,v 1.33 2001/06/17 23:52:51 calc Exp $
 
  ********************************************************************/
 
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
 	}
 	if (temp_driver_id < 0) {
 	    fprintf(stderr,
-		    "Could not load default driver and no ~/.ogg123_rc found. Exiting.\n");
+		    "Could not load default driver and no ~/.ogg123rc found. Exiting.\n");
 	    exit(1);
 	}
 	opt.outdevices = append_device(opt.outdevices, temp_driver_id, temp_options);
@@ -186,30 +186,22 @@ int main(int argc, char **argv)
     }
 
     if (opt.shuffle) {
-	/* Messy code that I didn't write -ken */
 	int i;
-	int nb = argc - optind;
-	int *p = alloca(sizeof(int) * nb);
-	for (i = 0; i < nb; i++)
-	    p[i] = i;
-
+	
 	srand(time(NULL));
-	for (i = 1; i < nb; i++) {
-	    int j = i * ((float) rand() / RAND_MAX);
-	    int temp = p[j];
-	    p[j] = p[i];
-	    p[i] = temp;
+
+	for (i = optind; i < argc; i++) {
+		int j = optind + rand() % (argc - i);
+		char *temp = argv[i];
+		argv[i] = argv[j];
+		argv[j] = temp;
 	}
-	for (i = 0; i < nb; i++) {
-	    opt.read_file = argv[p[i] + optind];
-	    play_file(opt);
-	}
-    } else {
-	while (optind < argc) {
-	    opt.read_file = argv[optind];
-	    play_file(opt);
-	    optind++;
-	}
+    }
+
+    while (optind < argc) {
+	opt.read_file = argv[optind];
+	play_file(opt);
+	optind++;
     }
 
     while (opt.outdevices != NULL) {

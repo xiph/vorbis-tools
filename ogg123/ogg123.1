@@ -35,12 +35,16 @@ number of devices.  Files can be read from the file system, or URLs
 can be streamed via HTTP.
 
 .SH OPTIONS
+.IP "-b n, --buffer n"
+Use a buffer of 'n' chunks (4096 bytes)
 .IP "-d device, --device device"
 Specify output device.  See
 .B DEVICES
 section for a list of devices.  Any number of devices may be specified.
 .IP "-h, --help"
 Show command help.
+.IP "-k n, --skip n"
+Skip the first 'n' seconds
 .IP "-o option:value, --device-option option:value"
 Assigns the option
 .I option
