@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.56 2001/12/24 15:58:03 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.57 2002/01/01 15:43:29 volsung Exp $
 
  ********************************************************************/
 
@@ -357,7 +357,7 @@ void play (char *source_string)
   int eof = 0, eos = 0, ret;
   int nthc = 0, ntimesc = 0;
   int next_status = 0;
-  int status_interval = 0;
+  static int status_interval = 0;
 
 
   /* Set preferred audio format (used by decoder) */
