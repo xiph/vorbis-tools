@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.28 2001/02/22 02:49:12 kcarnold Exp $
+ last mod: $Id: ogg123.c,v 1.29 2001/02/22 05:53:09 kcarnold Exp $
 
  ********************************************************************/
 
@@ -34,6 +34,7 @@
 
 char convbuffer[4096];		/* take 8k out of the data segment, not the stack */
 int convsize = 4096;
+buf_t * buffer = NULL;
 
 struct {
     char *key;			/* includes the '=' for programming convenience */
@@ -218,6 +219,9 @@ int main(int argc, char **argv)
       opt.outdevices = current;
     }
 
+    if (buffer != NULL)
+	    buffer_shutdown(buffer);
+    
     ao_shutdown();
 
     return (0);
@@ -236,7 +240,6 @@ void play_file(ogg123_options_t opt)
     long t_min = 0, c_min = 0, r_min = 0;
     double t_sec = 0, c_sec = 0, r_sec = 0;
     int is_big_endian = ao_is_big_endian();
-    buf_t *buffer = NULL;
     double realseekpos = opt.seekpos;
 
     /* Junk left over from the failed info struct */
@@ -467,7 +470,7 @@ int open_audio_devices(ogg123_options_t *opt, int rate, int channels, buf_t **bu
   
   if(prevrate !=0 && prevchan!=0)
 	{
-	  if (buffer != NULL) {
+	  if (buffer != NULL && *buffer != NULL) {
 	    buffer_shutdown (*buffer);
 	    *buffer = NULL;
 	  }
