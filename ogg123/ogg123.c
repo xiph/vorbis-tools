@@ -14,12 +14,13 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.42 2001/08/04 23:54:37 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.43 2001/08/05 23:29:36 volsung Exp $
 
  ********************************************************************/
 
 /* FIXME : That was a messy message. Fix it. */
 
+#include <sys/types.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
