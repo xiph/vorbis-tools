@@ -258,9 +258,18 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 			fprintf(stderr, _("Warning: AIFF-C header truncated.\n"));
 			return 0;
 		}
-		else if(memcmp(buffer+18, "NONE", 4)) 
+
+		if(!memcmp(buffer+18, "NONE", 4)) 
 		{
-			fprintf(stderr, _("Warning: Can't handle compressed AIFF-C\n"));
+			aiff->bigendian = 1;
+		}
+		else if(!memcmp(buffer+18, "sowt", 4)) 
+		{
+			aiff->bigendian = 0;
+		}
+		else
+		{
+			fprintf(stderr, _("Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"), *(buffer+18), *(buffer+19), *(buffer+20), *(buffer+21));
 			return 0; /* Compressed. Can't handle */
 		}
 	}
@@ -301,7 +310,6 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 		aiff->channels = format.channels;
 		aiff->samplesize = format.samplesize;
 		aiff->totalsamples = format.totalframes;
-		aiff->bigendian = 1;
 
 		opt->readdata = (void *)aiff;
 
@@ -468,8 +476,9 @@ long wav_read(void *in, float **buffer, int samples)
 	long realsamples;
 
 	if(f->totalsamples && f->samplesread + 
-			bytes_read/(sampbyte*f->channels) > f->totalsamples) 
+			bytes_read/(sampbyte*f->channels) > f->totalsamples) {
 		bytes_read = sampbyte*f->channels*(f->totalsamples - f->samplesread);
+    }
 
 	realsamples = bytes_read/(sampbyte*f->channels);
 	f->samplesread += realsamples;

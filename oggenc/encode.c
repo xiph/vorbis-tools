@@ -155,46 +155,46 @@ int oe_encode(oe_enc_opt *opt)
     vorbis_info_init(&vi);
     
     if(opt->quality_set > 0){
-      if(vorbis_encode_setup_vbr(&vi, opt->channels, opt->rate, opt->quality)){
-	fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
-	vorbis_info_clear(&vi);
-	return 1;
-      }
+        if(vorbis_encode_setup_vbr(&vi, opt->channels, opt->rate, opt->quality)){
+	        fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
+	        vorbis_info_clear(&vi);
+	        return 1;
+        }
 
-      /* do we have optional hard quality restrictions? */
-      if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
-	struct ovectl_ratemanage_arg ai;
-	vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_GET, &ai);
+        /* do we have optional hard quality restrictions? */
+        if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
+            struct ovectl_ratemanage_arg ai;
+	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_GET, &ai);
 	
-	ai.bitrate_hard_min=opt->min_bitrate;
-	ai.bitrate_hard_max=opt->max_bitrate;
-	ai.management_active=1;
+	        ai.bitrate_hard_min=opt->min_bitrate;
+	        ai.bitrate_hard_max=opt->max_bitrate;
+	        ai.management_active=1;
 
-	vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, &ai);
+	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, &ai);
 
-      }
+        }
 
 
     }else {
-      if(vorbis_encode_setup_managed(&vi, opt->channels, opt->rate, 
+        if(vorbis_encode_setup_managed(&vi, opt->channels, opt->rate, 
 				     opt->max_bitrate>0?opt->max_bitrate*1000:-1,
 				     opt->bitrate*1000, 
 				     opt->min_bitrate>0?opt->min_bitrate*1000:-1)){
-	fprintf(stderr, _("Mode initialisation failed: invalid parameters for bitrate\n"));
-	vorbis_info_clear(&vi);
-	return 1;
-      }
+	        fprintf(stderr, _("Mode initialisation failed: invalid parameters for bitrate\n"));
+	        vorbis_info_clear(&vi);
+	        return 1;
+        }
     }
     
     if(opt->managed && opt->bitrate < 0)
-      {
+    {
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_AVG, NULL);
-      }
+    }
     else if(!opt->managed)
-      {
+    {
         /* Turn off management entirely (if it was turned on). */
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, NULL);
-      }
+    }
     
     set_advanced_encoder_options(opt->advopt, opt->advopt_count, &vi);
     
