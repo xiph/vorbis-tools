@@ -160,10 +160,8 @@ int rewrite_header(FILE *out, unsigned int written)
 
     WRITE_U32(headbuf+4, length-8);
     WRITE_U32(headbuf+40, length-44);
-    if(fseek(out, 0, SEEK_SET) != 0) {
-        fprintf(stderr, "ERROR: Failed to seek on seekable file: %s\n", strerror(errno));
+    if(fseek(out, 0, SEEK_SET) != 0)
         return 1;
-    }
 
     if(fwrite(headbuf, 1, 44, out) != 44) {
         fprintf(stderr, "ERROR: Failed to write wav header: %s\n", strerror(errno));
@@ -275,7 +273,7 @@ static int decode_file(char *infile, char *outfile)
     if(seekable && !quiet)
         fprintf(stderr, "\n");
 
-    if(!raw && seekable)
+    if(!raw)
         rewrite_header(out, written); /* We don't care if it fails, too late */
 
     ov_clear(&vf);
