@@ -11,10 +11,11 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: vorbis_comments.c,v 1.1 2003/01/11 22:51:44 volsung Exp $
+ last mod: $Id: vorbis_comments.c,v 1.2 2003/06/24 12:34:40 giles Exp $
 
  ********************************************************************/
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>

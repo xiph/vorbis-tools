@@ -5,16 +5,17 @@
  * THE GNU PUBLIC LICENSE 2, WHICH IS INCLUDED WITH THIS SOURCE.    *
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
- * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001                *
+ * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2003                *
  * by Stan Seibert <volsung@xiph.org> AND OTHER CONTRIBUTORS        *
  * http://www.xiph.org/                                             *
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.12 2003/01/14 00:19:05 volsung Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.13 2003/06/24 12:34:40 giles Exp $
 
  ********************************************************************/
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
