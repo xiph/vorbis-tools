@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
 .\"
-.TH oggenc 1 "May 27, 2001" "" "Vorbis Tools release candidate 2"
+.TH oggenc 1 "2001 August 13" "" "Vorbis Tools release candidate 2"
 
 .SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
@@ -79,20 +79,20 @@ Assume input data is raw little-endian audio data with no
 header information. If other options are not specified, defaults to 44.1kHz
 stereo 16 bit. See next three options for how to change this.
 .IP "-B n, --raw-bits=n"
-Sets raw input bits/sample rate. Default is 16
+Sets raw input sample size in bits. Default is 16.
 .IP "-C n, --raw-chan=n"
-Sets raw input number of channels. Default is 2
+Sets raw input number of channels. Default is 2.
 .IP "-R n, --raw-rate=n"
-Sets raw input samplerate. Default is 44100
+Sets raw input samplerate. Default is 44100.
 .IP "-Q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
 Sets encoding to the bitrate closest to n (in kb/s).
-.IP "-m n, --min-bitrate=n"
+.IP "-m n, --min-bitrate=n [unsupported]"
 Sets minimum bitrate to n (in kb/s).
-.IP "-M n, --max-bitrate=n"
+.IP "-M n, --max-bitrate=n [unsupported]"
 Sets maximum bitrate to n (in kb/s).
-.IP "-q n, --quality=n"
+.IP "-q n, --quality=n     [unsupported]"
 Sets encoding quality to n, between 0 (low) and 10 (high). This is the default mode of operation.
 .IP "-s, --serial"
 Forces a specific serial number in the output stream. This is primarily useful for testing.
@@ -207,6 +207,10 @@ Michael Smith <msmith@labyrinth.net.au>
 Manpage Author:
 .br
 Stan Seibert <indigo@aztec.asu.edu>
+
+.SH BUGS
+The min and max bitrate options are not yet implemented
+in the vorbis encoder, nor is the -q option.
 
 .SH SEE ALSO
 
