@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.23 2001/01/30 10:42:48 msmith Exp $
+ last mod: $Id: ogg123.c,v 1.24 2001/02/19 05:18:09 jsquyres Exp $
 
  ********************************************************************/
 
@@ -503,7 +503,7 @@ int open_audio_devices(ogg123_options_t *opt, int rate, int channels)
 	    return -1;
 	}
 	if (opt->quiet < 1)
-	    fprintf(stderr, "\n");	// Gotta keep 'em separated ...
+	    fprintf(stderr, "\n");	/* Gotta keep 'em separated ...  */
 
 	current = current->next_device;
     }
