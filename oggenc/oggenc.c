@@ -21,12 +21,13 @@
 #include "audio.h"
 #include "utf8.h"
 
-#define VERSION_STRING "OggEnc v0.7 (libvorbis rc2)\n"
-#define COPYRIGHT "(c) 2000 Michael Smith <msmith@labyrinth.net.au)\n"
+#define VERSION_STRING "OggEnc v0.8 (libvorbis rc2)\n"
+#define COPYRIGHT "(c) 2001 Michael Smith <msmith@labyrinth.net.au)\n"
+
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
 struct option long_options[] = {
-	{"quiet",0,0,'q'},
+	{"quiet",0,0,'Q'},
 	{"help",0,0,'h'},
 	{"comment",1,0,'c'},
 	{"artist",1,0,'a'},
@@ -40,6 +41,9 @@ struct option long_options[] = {
 	{"raw-chan",1,0,'C'},
 	{"raw-rate",1,0,'R'},
 	{"bitrate",1,0,'b'},
+	{"min-bitrate",1,0,'m'},
+	{"max-bitrate",1,0,'M'},
+	{"quality",1,0,'q'},
 	{"date",1,0,'d'},
 	{"tracknum",1,0,'N'},
 	{"serial",1,0,'s'},
@@ -55,12 +59,14 @@ void usage(void);
 
 int main(int argc, char **argv)
 {
+	/* Default values */
 	oe_options opt = {"ISO-8859-1", NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL,128,0}; /* Default values */
+		0, NULL, 0, 0, 0,16,44100,2, NULL,NULL, 1,1,1, 0.5f,0}; 
 	int i;
 
 	char **infiles;
 	int numfiles;
+	int errors=0;
 
 	parse_options(argc, argv, &opt);
 
@@ -112,8 +118,6 @@ int main(int argc, char **argv)
 		char *artist=NULL, *album=NULL, *title=NULL, *track=NULL, *date=NULL;
 		input_format *format;
 
-
-
 		/* Set various encoding defaults */
 
 		enc_opts.serialno = opt.serial++;
@@ -142,6 +146,7 @@ int main(int argc, char **argv)
 			{
 				fprintf(stderr, "ERROR: Cannot open input file \"%s\"\n", infiles[i]);
 				free(out_fn);
+				errors++;
 				continue;
 			}
 
@@ -175,6 +180,7 @@ int main(int argc, char **argv)
 		if(!foundformat)
 		{
 			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]);
+			errors++;
 			continue;
 		}
 
@@ -223,6 +229,7 @@ int main(int argc, char **argv)
 				if(closein)
 					fclose(in);
 				fprintf(stderr, "ERROR: Cannot open output file \"%s\"\n", out_fn);
+				errors++;
 				free(out_fn);
 				continue;
 			}	
@@ -233,7 +240,9 @@ int main(int argc, char **argv)
 		enc_opts.out = out;
 		enc_opts.comments = &vc;
 		enc_opts.filename = out_fn;
-		enc_opts.bitrate = opt.kbps; /* defaulted at the start, so this is ok */
+		enc_opts.bitrate = opt.nominal_bitrate; 
+		enc_opts.min_bitrate = opt.min_bitrate;
+		enc_opts.max_bitrate = opt.max_bitrate;
 
 		if(!enc_opts.total_samples_per_channel)
 			enc_opts.progress_update = update_statistics_notime;
@@ -244,7 +253,8 @@ int main(int argc, char **argv)
 			enc_opts.end_encode = final_statistics_null;
 		}
 
-		oe_encode(&enc_opts); /* Should we care about return val? */
+		if(oe_encode(&enc_opts))
+			errors++;
 
 		if(out_fn) free(out_fn);
 		vorbis_comment_clear(&vc);
@@ -257,7 +267,7 @@ int main(int argc, char **argv)
 			fclose(out);
 	}/* Finished this file, loop around to next... */
 
-	return 0;
+	return errors?1:0;
 
 }
 
@@ -271,15 +281,22 @@ void usage(void)
 		"\n"
 		"OPTIONS:\n"
 		" General:\n"
-		" -q, --quiet          Produce no output to stderr\n"
+		" -Q, --quiet          Produce no output to stderr\n"
 		" -h, --help           Print this help text\n"
 		" -r, --raw            Raw mode. Input files are read directly as PCM data\n"
 		" -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
 		" -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
 		" -R, --raw-rate=n     Set samples/sec for raw input. Default is 44100\n"
-		" -b, --bitrate        Choose a bitrate to encode at. Internally,\n"
-		"                      a mode approximating this value is chosen.\n"
-		"                      Takes an argument in kbps. Default is 128kbps\n"
+		" -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
+		"                      to encode at a bitrate averaging this. Takes an\n"
+		"                      argument in kbps.\n"
+		" -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
+		"                      encoding for a fixed-size channel.\n"
+		" -M, --max-bitrate    Specify a maximum bitrate in kbps. Usedful for\n"
+		"                      streaming purposes.\n"
+		" -q, --quality        Specify quality between 0 (low) and 10 (high),\n"
+		"                      instead of specifying a particular bitrate.\n"
+		"                      This is the normal mode of operation.\n"
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
@@ -312,38 +329,31 @@ void usage(void)
 		"INPUT FILES:\n"
 		" OggEnc input files must currently be 16 or 8 bit PCM WAV, AIFF, or AIFF/C\n"
 		" files. Files may be mono or stereo (or more channels) and sampling rates \n"
-		" between 8kHz and 56kHz.\n"
+		" from 8 kHz up, but currently the encoder is only tuned for 44.1 and 48 kHz\n"
+		" rates. Others will be accepted but quality will not be as good.\n"
 		" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
 		" must be 16bit stereo little-endian PCM ('headerless wav'), unless additional\n"
 		" parameters for raw mode are specified.\n"
 		" You can specify taking the file from stdin by using - as the input filename.\n"
 		" In this mode, output is to stdout unless an outfile filename is specified\n"
 		" with -o\n"
-		"\n"
-		"MODES:\n"
-		" OggEnc currently supports 6 different modes. Each of these is a fully VBR\n"
-		" (variable bitrate) mode, but they vary in intended average bitrate. The \n"
-		" bitrate option (--bitrate, -b) will choose the mode closest to the chosen\n"
-		" bitrate. The 6 modes are approximately 112,128,160,192,256, and 350 kbps\n"
-		" (for stereo 44.1kHz input. Halve these numbers for mono input).\n"
-		" The default is the 128 kbps mode.  Lower sampling rates work properly,\n"
-		" but don't scale the bitrate; -b 112 on a stereo 22kHz file will produce a\n"
-		" ~70kbps file, not 112kbps.)\n");
+		"\n");
 }
 
 char *generate_name_string(char *format, 
 		char *artist, char *title, char *album, char *track, char *date)
 {
 	char *buffer;
-	char *cur;
 	char next;
+	int len;
+	char *string;
+	int used=0;
+	int buflen;
 
-	buffer = calloc(CHUNK,1);
+	buffer = calloc(CHUNK+1,1);
+	buflen = CHUNK;
 
-	cur = buffer;
-
-
-	while(*format)
+	while(*format && used < buflen)
 	{
 		next = *format++;
 
@@ -352,27 +362,37 @@ char *generate_name_string(char *format,
 			switch(*format++)
 			{
 				case '%':
-					*cur++ = '%';
+					*(buffer+(used++)) = '%';
 					break;
 				case 'a':
-					strcat(buffer, artist?artist:"(none)");
-					cur += strlen(artist?artist:"(none)");
+					string = artist?artist:"(none)";
+					len = strlen(string);
+					strncpy(buffer+used, string, buflen-used);
+					used += len;
 					break;
 				case 'd':
-					strcat(buffer, date?date:"(none)");
-					cur += strlen(date?date:"(none)");
+					string = date?date:"(none)";
+					len = strlen(string);
+					strncpy(buffer+used, string, buflen-used);
+					used += len;
 					break;
 				case 't':
-					strcat(buffer, title?title:"(none)");
-					cur += strlen(title?title:"(none)");
+					string = title?title:"(none)";
+					len = strlen(string);
+					strncpy(buffer+used, string, buflen-used);
+					used += len;
 					break;
 				case 'l':
-					strcat(buffer, album?album:"(none)");
-					cur += strlen(album?album:"(none)");
+					string = album?album:"(none)";
+					len = strlen(string);
+					strncpy(buffer+used, string, buflen-used);
+					used += len;
 					break;
 				case 'n':
-					strcat(buffer, track?track:"(none)");
-					cur += strlen(track?track:"(none)");
+					string = track?track:"(none)";
+					len = strlen(string);
+					strncpy(buffer+used, string, buflen-used);
+					used += len;
 					break;
 				default:
 					fprintf(stderr, "WARNING: Ignoring illegal escape character '%c' in name format\n", *(format - 1));
@@ -380,7 +400,7 @@ char *generate_name_string(char *format,
 			}
 		}
 		else
-			*cur++ = next;
+			*(buffer + (used++)) = next;
 	}
 
 	return buffer;
@@ -391,7 +411,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 	int ret;
 	int option_index = 1;
 
-	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:n:N:o:qrR:s:t:v", 
+	while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:e:hl:m:M:n:N:o:qQ:rR:s:t:v", 
 					long_options, &option_index)) != -1)
 	{
 		switch(ret)
@@ -430,7 +450,26 @@ void parse_options(int argc, char **argv, oe_options *opt)
 				opt->title[opt->title_count - 1] = strdup(optarg);
 				break;
 			case 'b':
-				opt->kbps = atoi(optarg);
+				opt->nominal_bitrate = atoi(optarg);
+				break;
+			case 'm':
+				opt->min_bitrate = atoi(optarg);
+				break;
+			case 'M':
+				opt->max_bitrate = atoi(optarg);
+				break;
+			case 'q':
+				opt->quality = (float)(atof(optarg) * 0.1);
+				if(opt->quality > 1.0f)
+				{
+					opt->quality = 1.0f;
+					fprintf(stderr, "WARNING: quality setting too high, setting to maximum quality.\n");
+				}
+				else if(opt->quality < 0.f)
+				{
+					opt->quality = 0.f;
+					fprintf(stderr, "WARNING: negative quality specified, setting to minimum.\n");
+				}
 				break;
 			case 'n':
 				if(opt->namefmt)
@@ -452,7 +491,7 @@ void parse_options(int argc, char **argv, oe_options *opt)
 				usage();
 				exit(0);
 				break;
-			case 'q':
+			case 'Q':
 				opt->quiet = 1;
 				break;
 			case 'r':

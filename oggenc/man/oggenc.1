@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
 .\"
-.TH oggenc 1 "May 27, 2001" "" "Vorbis Tools beta 4"
+.TH oggenc 1 "May 27, 2001" "" "Vorbis Tools release candidate 2"
 
 .SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
@@ -9,11 +9,23 @@ oggenc \- encode audio into the Ogg Vorbis format
 .SH SYNOPSIS
 .B oggenc
 [
-.B -hrq
+.B -hrQ
 ]
 [
 .B -b
-.I bitrate 
+.I nominal bitrate
+]
+[
+.B -m
+.I minimum bitrate
+]
+[
+.B -M
+.I maximum bitrate
+]
+[
+.B -q
+.I quality
 ]
 [
 .B -o
@@ -49,7 +61,7 @@ read from
 .I stdin
 and the Vorbis stream is written to
 .I stdout
-unless the 
+unless the
 .B -o
 option is used to redirect the output.  By default, disk files are
 output to Ogg Vorbis files of the same name, with the extension
@@ -72,10 +84,16 @@ Sets raw input bits/sample rate. Default is 16
 Sets raw input number of channels. Default is 2
 .IP "-R n, --raw-rate=n"
 Sets raw input samplerate. Default is 44100
-.IP "-q, --quiet"
+.IP "-Q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
-Sets encoding to the bitrate closest to n (in kb/s). Defaults to 128 kb/s for stereo.
+Sets encoding to the bitrate closest to n (in kb/s).
+.IP "-m n, --min-bitrate=n"
+Sets minimum bitrate to n (in kb/s).
+.IP "-M n, --max-bitrate=n"
+Sets maximum bitrate to n (in kb/s).
+.IP "-q n, --quality=n"
+Sets encoding quality to n, between 0 (low) and 10 (high). This is the default mode of operation.
 .IP "-s, --serial"
 Forces a specific serial number in the output stream. This is primarily useful for testing.
 .IP "-o output_file, --output=output_file"
@@ -88,9 +106,9 @@ title, album respectively (see below for specifying these). Also, %%
 gives a literal %.
 
 .IP "-c comment, --comment comment"
-Add the string 
+Add the string
 .I comment
-as an extra comment.  This may be used multiple times, and all 
+as an extra comment.  This may be used multiple times, and all
 instances will be added to each of the input files specified.
 
 .IP "-a artist, --artist artist"
@@ -134,16 +152,28 @@ oggenc somefile.wav -o out.ogg
 .RE
 .PP
 
-Specifying a high-quality mode (approx 256 kbps):
+Specifying a high-quality encoding averaging 256 kbps.
 .RS
 oggenc infile.wav -b 256 out.ogg
+.RE
+.PP
+
+Specifying a maximum and average bitrate.
+.RS
+oggenc infile.wav -b 128 -M 160 out.ogg
+.RE
+.PP
+
+Specifying quality rather than bitrate (to a very high quality mode)
+.RS
+oggenc infile.wav -q 9 out.ogg
 .RE
 .PP
 
 Adding some info about the track:
 .RS
 oggenc somefile.wav -t "The track title" -a "artist who performed this" -l
-"name of album" -c 
+"name of album" -c
 "OTHERFIELD=contents of some other field not explictly supported"
 .RE
 .PP
@@ -151,7 +181,7 @@ oggenc somefile.wav -t "The track title" -a "artist who performed this" -l
 This encodes the three files, each with the
 same artist/album tag, but with different title tags on each one. The
 string given as an argument to -n is used to generate filenames, as shown
-in the section above. This example gives filenames 
+in the section above. This example gives filenames
 like "The Tea Party - Touch.ogg":
 .RS
 oggenc -b 192 -a "The Tea Party" -l "Triptych" -t "Touch" track01.wav -t

@@ -30,7 +30,7 @@ int utf8_encode(char *from, char **to, const char *encoding)
 	unsigned short *unicode;
 	int wchars, err;
 
-	wchars = MultiByteToWideChar(GetConsoleCP(), MB_PRECOMPOSED, from,
+	wchars = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, from,
 			strlen(from), NULL, 0);
 
 	if(wchars == 0)
@@ -91,7 +91,7 @@ int utf8_encode(char *from, char **to, const char *encoding)
 #ifdef HAVE_ICONV
 	static unsigned char buffer[BUFSIZE];
     char *from_p, *to_p;
-	size_t from_left, to_left, ret;
+	size_t from_left, to_left;
 	iconv_t cd;
 #endif
 
@@ -121,7 +121,8 @@ int utf8_encode(char *from, char **to, const char *encoding)
 	from_p = from;
 	to_p = buffer;
 	
-	if(iconv(cd, &from_p, &from_left, &to_p, &to_left) == (size_t)-1)
+	if(iconv(cd, (const char **)(&from_p), &from_left, &to_p, 
+				&to_left) == (size_t)-1)
 	{
 		iconv_close(cd);
 		switch(errno)

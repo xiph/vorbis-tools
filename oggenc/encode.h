@@ -53,7 +53,12 @@ typedef struct
 
 	char *namefmt;
 	char *outfile;
-	int kbps;
+	/* All 3 in kbps */
+	int min_bitrate;
+	int nominal_bitrate;
+	int max_bitrate;
+	/* Float from 0 to 1 (low->high) */
+	float quality;
 	unsigned int serial;
 } oe_options;
 
@@ -74,6 +79,9 @@ typedef struct
 	long rate;
 	int samplesize;
 	int bitrate;
+	int min_bitrate;
+	int max_bitrate;
+	float quality;
 
 	FILE *out;
 	char *filename;
