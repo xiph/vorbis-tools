@@ -25,7 +25,7 @@
 #include "i18n.h"
 
 
-#define VERSION_STRING "OggEnc v0.95 (libvorbis rc4)\n"
+#define VERSION_STRING "OggEnc v1.0 (libvorbis 1.0)\n"
 #define COPYRIGHT "(c) 2000-2002 Michael Smith <msmith@labyrinth.net.au>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
@@ -676,11 +676,6 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				{
 					opt->quality = 1.0f;
 					fprintf(stderr, _("WARNING: quality setting too high, setting to maximum quality.\n"));
-				}
-				else if(opt->quality < 0.0f)
-				{
-					opt->quality = 0.0f;
-					fprintf(stderr, _("WARNING: negative quality specified, setting to minimum.\n"));
 				}
 				break;
 			case 'n':
