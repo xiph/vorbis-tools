@@ -77,4 +77,4 @@ AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 AC_SUBST(CC)
 
-AC_OUTPUT(Makefile oggenc/Makefile ogg123/Makefile vorbiscomment/Makefile)
+AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile)
