@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.43 2001/08/05 23:29:36 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.44 2001/08/07 21:37:50 volsung Exp $
 
  ********************************************************************/
 
@@ -146,6 +146,9 @@ int main(int argc, char **argv)
 	    exit(1);
 	case 'b':
 	  opt.buffer_size = atoi(optarg) / (BUFFER_CHUNK_SIZE / 1024);
+	  if (opt.buffer_size == 1)
+	    opt.buffer_size = 0; /* Hack to work around boundary case in
+				    buffering code.  FIXME! */
 	  break;
 	case 'd':
 	    temp_driver_id = ao_driver_id(optarg);
