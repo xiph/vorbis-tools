@@ -11,7 +11,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: callbacks.c,v 1.2 2001/12/19 02:52:53 volsung Exp $
+ last mod: $Id: callbacks.c,v 1.3 2001/12/26 14:22:26 segher Exp $
 
  ********************************************************************/
 
@@ -244,7 +244,7 @@ void status_error_action (buf_t *buf, void *arg)
 {
   status_message_arg_t *myarg = (status_message_arg_t *) arg;
 
-  status_error(myarg->message);
+  status_error("%s", myarg->message);
 
   free(myarg->message);
   free(myarg);
@@ -255,7 +255,7 @@ void status_message_action (buf_t *buf, void *arg)
 {
   status_message_arg_t *myarg = (status_message_arg_t *) arg;
 
-  status_message(myarg->verbosity, myarg->message);
+  status_message(myarg->verbosity, "%s", myarg->message);
 
   free(myarg->message);
   free(myarg);
