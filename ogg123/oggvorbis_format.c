@@ -11,12 +11,13 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: oggvorbis_format.c,v 1.7 2002/04/10 02:40:42 volsung Exp $
+ last mod: $Id: oggvorbis_format.c,v 1.8 2002/05/03 01:20:53 segher Exp $
 
  ********************************************************************/
 
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
@@ -47,18 +48,18 @@ struct {
   char *key;         /* includes the '=' for programming convenience */
   char *formatstr;   /* formatted output */
 } vorbis_comment_keys[] = {
-  {"TRACKNUMBER=", N_("Track number: %s")},
-  {"RG_RADIO=", N_("ReplayGain (Track): %s")},
-  {"RG_AUDIOPHILE=", N_("ReplayGain (Album): %s")},
-  {"RG_PEAK=", N_("ReplayGain Peak: %s")},
-  {"TRACKNUMBER=", N_("Track number: %s")},  
-  {"COPYRIGHT=", N_("Copyright %s")},
-  {NULL, N_("Comment: %s")}
+  {"TRACKNUMBER=", N_("Track number:")},
+  {"RG_RADIO=", N_("ReplayGain (Track):")},
+  {"RG_AUDIOPHILE=", N_("ReplayGain (Album):")},
+  {"RG_PEAK=", N_("ReplayGain Peak:")},
+  {"COPYRIGHT=", N_("Copyright")},
+  {"=", N_("Comment:")},
+  {NULL, N_("Comment:")}
 };
 
 
 /* Private functions declarations */
-char *lookup_comment_formatstr (char *comment, int *offset);
+char *lookup_comment_prettyprint (char *comment, int *offset);
 void print_stream_comments (decoder_t *decoder);
 void print_stream_info (decoder_t *decoder);
 
@@ -302,7 +303,7 @@ ov_callbacks vorbisfile_callbacks = {
 /* ------------------- Private functions -------------------- */
 
 
-char *lookup_comment_formatstr (char *comment, int *offset)
+char *lookup_comment_prettyprint (char *comment, int *offset)
 {
   int i, j;
   char *s;
@@ -326,26 +327,27 @@ char *lookup_comment_formatstr (char *comment, int *offset)
   }
 
   /* Use default formatting */
-  *offset = 0;
-  if (i = strcspn(comment, "=")) {
-    s = malloc(strlen(comment) + 2);
+  j = strcspn(comment, "=");
+  if (j) {
+    *offset = j + 1;
+    s = malloc(j + 2);
     if (s == NULL) {
       fprintf(stderr, _("Error: Out of memory.\n"));
       exit(1);
     };
-    strncpy(s, comment, i);
-    strncpy(s + i, ": ", 2);
-    strcpy(s+i+2, comment+i+1);
+    strncpy(s, comment, j);
+    strcpy(s + j, ":");
 
     /* Capitalize */
     s[0] = toupper(s[0]);
-    for (j = 1; j < i; j++) {
-      s[j] = tolower(s[j]);
+    for (i = 1; i < j; i++) {
+      s[i] = tolower(s[i]);
     };
     return s;
   }
 
   /* Unrecognized comment, use last format string */
+  *offset = 0;
   s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
   if (s == NULL) {
     fprintf(stderr, _("Error: Out of memory.\n"));
@@ -360,7 +362,7 @@ void print_stream_comments (decoder_t *decoder)
 {
   ovf_private_t *priv = decoder->private;
   decoder_callbacks_t *cb = decoder->callbacks;
-  char *comment, *comment_formatstr;
+  char *comment, *comment_prettyprint;
   int offset;
   int i;
 
@@ -372,16 +374,16 @@ void print_stream_comments (decoder_t *decoder)
     char *decoded_value;
 
     comment = priv->vc->user_comments[i];
-    comment_formatstr = lookup_comment_formatstr(comment, &offset);
+    comment_prettyprint = lookup_comment_prettyprint(comment, &offset);
 
     if (utf8_decode(comment + offset, &decoded_value) >= 0) {
       cb->printf_metadata(decoder->callback_arg, 1,
-			       comment_formatstr, decoded_value);
+			       "%s %s", comment_prettyprint, decoded_value);
       free(decoded_value);
     } else
       cb->printf_metadata(decoder->callback_arg, 1,
-			       comment_formatstr, comment + offset);
-    free(comment_formatstr);
+			       "%s %s", comment_prettyprint, comment + offset);
+    free(comment_prettyprint);
   }
 }
 
