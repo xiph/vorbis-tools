@@ -40,6 +40,13 @@ oggenc \- encode audio into the Ogg Vorbis format
 .I quality
 ]
 [
+.B --resample 
+.I frequency
+]
+[
+.B --downmix 
+]
+[
 .B -s
 .I serial
 ]
@@ -102,11 +109,14 @@ Assume input data is raw little-endian audio data with no
 header information. If other options are not specified, defaults to 44.1kHz
 stereo 16 bit. See next three options for how to change this.
 .IP "-B n, --raw-bits=n"
-Sets raw input sample size in bits. Default is 16.
+Sets raw mode input sample size in bits. Default is 16.
 .IP "-C n, --raw-chan=n"
-Sets raw input number of channels. Default is 2.
+Sets raw mode input number of channels. Default is 2.
 .IP "-R n, --raw-rate=n"
-Sets raw input samplerate. Default is 44100.
+Sets raw mode input samplerate. Default is 44100.
+.IP "--raw-endianness n
+Sets raw mode endianness to big endian (1) or little endian (0). Default is
+little endian.
 .IP "-Q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
@@ -115,8 +125,21 @@ Sets encoding to the bitrate closest to n (in kb/s).
 Sets minimum bitrate to n (in kb/s).
 .IP "-M n, --max-bitrate=n"
 Sets maximum bitrate to n (in kb/s).
+.IP "--managed"
+Set bitrate management mode. This turns off the normal VBR encoding, but allows
+hard or soft bitrate constraints to be enforced by the encoder. This mode is
+much slower, and may also be lower quality. It is primarily useful for creating
+files for streaming.
 .IP "-q n, --quality=n"
 Sets encoding quality to n, between 0 (low) and 10 (high). This is the default mode of operation, with a default quality level of 3. Fractional quality levels such as 2.5 are permitted. 
+.IP "--resample n"
+Resample input to the given sample rate (in Hz) before encoding. Primarily
+useful for downsampling for lower-bitrate encoding.
+.IP "--downmix"
+Downmix input from stereo to mono (has no effect on non-stereo streams). Useful
+for lower-bitrate encoding.
+.IP "--advanced-encode-option optionname=value"
+Sets an advanced option. See the Advanced Options section for details.
 .IP "-s, --serial"
 Forces a specific serial number in the output stream. This is primarily useful for testing.
 .IP "-o output_file, --output=output_file"
@@ -165,6 +188,22 @@ there are input files,
 will reuse the final one for the remaining files, and issue a warning
 in the case of repeated titles.
 
+.SH ADVANCED ENCODER OPTIONS
+
+Oggenc allows you to set a number of advanced encoder options using the
+.B --advanced-encoder-option
+option. These are intended for very advanced users only, and should be
+approached with caution. They may significantly degrade audio quality
+if misused. Not all these options are currently documented.
+
+.IP "bitrate_average_window=NN"
+Set the managed bitrate window to NN seconds. The bitrate will be forced
+to the specified average over a floating window of this length. May be
+fractional (e.g. 3.5)
+.IP "lowpass_frequency=NN"
+Set the lowpass frequency to NN kHz. 
+
+
 .SH EXAMPLES
 
 Simplest version. Produces output as somefile.ogg:
@@ -179,21 +218,27 @@ oggenc somefile.wav -o out.ogg
 .RE
 .PP
 
-Specifying a high-quality encoding averaging 256 kbps.
+Specifying a high-quality encoding averaging 256 kbps (but still VBR).
 .RS
 oggenc infile.wav -b 256 out.ogg
 .RE
 .PP
 
-Specifying a maximum and average bitrate.
+Specifying a maximum and average bitrate, and enforcing these.
 .RS
-oggenc infile.wav -b 128 -M 160 out.ogg
+oggenc infile.wav --managed -b 128 -M 160 out.ogg
 .RE
 .PP
 
 Specifying quality rather than bitrate (to a very high quality mode)
 .RS
-oggenc infile.wav -q 9 out.ogg
+oggenc infile.wav -q 6 out.ogg
+.RE
+.PP
+
+Downsampling and downmixing to 11 kHz mono before encoding.
+.RS
+oggenc --resample 11025 --downmix infile.wav -q 1 out.ogg
 .RE
 .PP
 
