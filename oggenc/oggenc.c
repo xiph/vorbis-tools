@@ -97,6 +97,8 @@ int main(int argc, char **argv)
 		if(!strcmp(infiles[i], "-") && numfiles > 1)
 		{
 			fprintf(stderr, "ERROR: Multiple files specified when using stdin\n");
+            for(i=0; i < numfiles; i++)
+                fprintf(stderr, "%d: %s\n", i, infiles[i]);
 			exit(1);
 		}
 	}
@@ -193,7 +195,7 @@ int main(int argc, char **argv)
 
 		if(!foundformat)
 		{
-			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]);
+			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]?infiles[i]:"(stdin)");
     		if(closein)
 				fclose(in);
 			errors++;
@@ -225,7 +227,7 @@ int main(int argc, char **argv)
 				strcpy(out_fn, title);
 				strcat(out_fn, ".ogg");
 			}
-			else
+			else if(infiles[i])
 			{
 				/* Create a filename from existing filename, replacing extension with .ogg */
 				char *start, *end;
@@ -239,6 +241,10 @@ int main(int argc, char **argv)
 				out_fn[end-start] = 0;
 				strcat(out_fn, ".ogg");
 			}
+            else {
+                fprintf(stderr, "WARNING: No filename, defaulting to \"default.ogg\"\n");
+                out_fn = strdup("default.ogg");
+            }
 
 
 			out = fopen(out_fn, "wb");
