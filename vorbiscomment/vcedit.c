@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.6 2001/02/10 06:26:22 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.7 2001/02/10 07:20:02 msmith Exp $
  */
 
 #include <stdio.h>
@@ -312,8 +312,11 @@ int vcedit_write(vcedit_state *state, void *out)
 		buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
 		bytes = state->read(buffer,1, CHUNKSIZE, state->in);
 		ogg_sync_wrote(state->oy, bytes);
-		if(bytes == 0) eosin = 1;
-		break;
+		if(bytes == 0) 
+		{
+			eosin = 1;
+			break;
+		}
 	}
 							
 
