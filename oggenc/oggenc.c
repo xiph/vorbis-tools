@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 			  0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0,16,44100,2, 0, NULL,
 			  DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
-			  NULL, 0, -1,-1,-1,-.3,-1,0, 0,0.f, 0}; 
+			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0}; 
 
 	int i;
 
@@ -272,6 +272,13 @@ int main(int argc, char **argv)
 				errors++;
 				free(out_fn);
 				continue;
+            }
+
+            if(infiles[i] && !strcmp(infiles[i], out_fn)) {
+                fprintf(stderr, _("ERROR: Input filename is the same as output filename \"%s\"\n"), out_fn);
+                errors++;
+                free(out_fn);
+                continue;
             }
 
 			out = fopen(out_fn, "wb");
