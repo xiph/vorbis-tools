@@ -59,33 +59,45 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
         fprintf(stderr, _("Setting advanced encoder option \"%s\" to %s\n"),
                 opts[i].arg, opts[i].val);
 
-        if(!strcmp(opts[i].arg, "average_bitrate_window")) {
+        if(!strcmp(opts[i].arg, "bitrate_average_window")) {
             SETD(ai.bitrate_av_window);
             avg = 1;
         }
-        else if(!strcmp(opts[i].arg, "average_bitrate_window_center")) {
+        else if(!strcmp(opts[i].arg, "bitrate_average_window_center")) {
             SETD(ai.bitrate_av_window_center);
             avg = 1;
         }
-        else if(!strcmp(opts[i].arg, "average_bitrate_low")) {
+        else if(!strcmp(opts[i].arg, "bitrate_average_low")) {
             SETL(ai.bitrate_av_lo);
             avg = 1;
         }
-        else if(!strcmp(opts[i].arg, "average_bitrate_high")) {
+        else if(!strcmp(opts[i].arg, "bitrate_average_high")) {
             SETL(ai.bitrate_av_hi);
             avg = 1;
         }
-        else if(!strcmp(opts[i].arg, "hard_bitrate_min")) {
+        else if(!strcmp(opts[i].arg, "bitrate_hard_min")) {
             SETL(ai.bitrate_hard_min);
             hard = 1;
         }
-        else if(!strcmp(opts[i].arg, "hard_bitrate_max")) {
+        else if(!strcmp(opts[i].arg, "bitrate_hard_max")) {
             SETL(ai.bitrate_hard_max);
             hard = 1;
         }
-        else if(!strcmp(opts[i].arg, "hard_bitrate_window")) {
+        else if(!strcmp(opts[i].arg, "bitrate_hard_window")) {
             SETD(ai.bitrate_hard_window);
             hard = 1;
+        }
+        else if(!strcmp(opts[i].arg, "impulse_noisetune")) {
+            double val;
+            SETD(val);
+            vorbis_encode_ctl(vi, OV_ECTL_IBLOCK_SET, &val);
+        }
+        else if(!strcmp(opts[i].arg, "lowpass_frequency")) {
+            double prev, new;
+            SETD(new);
+            vorbis_encode_ctl(vi, OV_ECTL_LOWPASS_GET, &prev);
+            vorbis_encode_ctl(vi, OV_ECTL_LOWPASS_SET, &new);
+            fprintf(stderr, _("Changed lowpass frequency from %f kHz to %f kHz\n"), prev, new);
         }
         else {
             fprintf(stderr, _("Unrecognised advanced option \"%s\"\n"), 
