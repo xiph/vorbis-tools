@@ -146,6 +146,36 @@ int main(int argc, char **argv)
 			closein = 1;
 		}
 
+		/* Now, we need to select an input audio format - we do this before opening
+		   the output file so that we don't end up with a 0-byte file if the input
+		   file can't be read */
+
+		if(opt.rawmode)
+		{
+			raw_open(in, &enc_opts);
+			foundformat=1;
+		}
+		else
+		{
+			while(formats[j].open_func)
+			{
+				if(formats[j].open_func(in, &enc_opts))
+				{
+					foundformat = 1;
+					break;
+				}
+				j++;
+			}
+		}
+
+		if(!foundformat)
+		{
+			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]);
+			continue;
+		}
+
+		/* Ok. We can read the file - so now open the output file */
+
 		if(opt.outfile && !strcmp(opt.outfile, "-"))
 		{
 			setbinmode(stdout);
@@ -200,33 +230,6 @@ int main(int argc, char **argv)
 		enc_opts.comments = &vc;
 		enc_opts.filename = out_fn;
 		enc_opts.bitrate = opt.kbps; /* defaulted at the start, so this is ok */
-
-		/* Now, we need to select an input audio format */
-
-		if(opt.rawmode)
-		{
-			raw_open(in, &enc_opts);
-			foundformat=1;
-		}
-		else
-		{
-			while(formats[j].open_func)
-			{
-				if(formats[j].open_func(in, &enc_opts))
-				{
-					foundformat = 1;
-					break;
-				}
-				j++;
-			}
-		}
-
-		if(!foundformat)
-		{
-			fprintf(stderr, "ERROR: Input file \"%s\" is not a supported format\n", infiles[i]);
-			free(out_fn);
-			continue;
-		}
 
 		if(!enc_opts.total_samples_per_channel)
 			enc_opts.progress_update = update_statistics_notime;
