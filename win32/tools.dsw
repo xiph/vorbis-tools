@@ -27,6 +27,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "ogginfo"=".\ogginfo.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "tools"=".\tools.dsp" - Package Owner=<4>
 
 Package=<5>
@@ -41,6 +53,39 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name oggenc_dynamic
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ogginfo
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name vcut
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name vorbiscomment
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "vcut"=".\vcut.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "vorbiscomment"=".\vorbiscomment.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
 }}}
 
 ###############################################################################
