@@ -13,7 +13,7 @@ dnl
 AC_ARG_WITH(ogg-prefix,[  --with-ogg-prefix=PFX   Prefix where libogg is installed (optional)], ogg_prefix="$withval", ogg_prefix="")
 AC_ARG_ENABLE(oggtest, [  --disable-oggtest       Do not try to compile and run a test Ogg program],, enable_oggtest=yes)
 
-  if test x$ogg_prefix != x ; then
+  if test "x$ogg_prefix" != "xNONE" ; then
     ogg_args="$ogg_args --prefix=$ogg_prefix"
     OGG_CFLAGS="-I$ogg_prefix/include"
     OGG_LIBS="-L$ogg_prefix/lib"
@@ -55,7 +55,7 @@ int main ()
        LIBS="$ac_save_LIBS"
   fi
 
-  if test "x$no_ogg" = x ; then
+  if test "x$no_ogg" = "x" ; then
      AC_MSG_RESULT(yes)
      ifelse([$1], , :, [$1])     
   else
@@ -110,7 +110,7 @@ dnl
 AC_ARG_WITH(vorbis-prefix,[  --with-vorbis-prefix=PFX   Prefix where libvorbis is installed (optional)], vorbis_prefix="$withval", vorbis_prefix="")
 AC_ARG_ENABLE(vorbistest, [  --disable-vorbistest       Do not try to compile and run a test Vorbis program],, enable_vorbistest=yes)
 
-  if test x$vorbis_prefix != x ; then
+  if test "x$vorbis_prefix" != "xNONE" ; then
     vorbis_args="$vorbis_args --prefix=$vorbis_prefix"
     VORBIS_CFLAGS="-I$vorbis_prefix/include"
     VORBIS_LIBDIR="-L$vorbis_prefix/lib"
@@ -154,7 +154,7 @@ int main ()
        LIBS="$ac_save_LIBS"
   fi
 
-  if test "x$no_vorbis" = x ; then
+  if test "x$no_vorbis" = "x" ; then
      AC_MSG_RESULT(yes)
      ifelse([$1], , :, [$1])     
   else
@@ -212,7 +212,7 @@ dnl
 AC_ARG_WITH(ao-prefix,[  --with-ao-prefix=PFX   Prefix where libao is installed (optional)], ao_prefix="$withval", ao_prefix="")
 AC_ARG_ENABLE(aotest, [  --disable-aotest       Do not try to compile and run a test ao program],, enable_aotest=yes)
 
-  if test x$ao_prefix != x ; then
+  if test "x$ao_prefix" != "xNONE" ; then
     ao_args="$ao_args --prefix=$ao_prefix"
     AO_CFLAGS="-I$ao_prefix/include"
     AO_LIBS="-L$ao_prefix/lib"
@@ -262,7 +262,7 @@ int main ()
        LIBS="$ac_save_LIBS"
   fi
 
-  if test "x$no_ao" = x ; then
+  if test "x$no_ao" = "x" ; then
      AC_MSG_RESULT(yes)
      ifelse([$1], , :, [$1])     
   else
