@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.3 2000/10/11 04:19:51 jack Exp $
+ last mod: $Id: ogg123.c,v 1.4 2000/10/30 04:39:21 jack Exp $
 
  ********************************************************************/
 
@@ -177,6 +177,8 @@ main (int argc, char **argv)
   devices *current;
   int bits, rate, channels;
 
+  ao_initialize();
+
   while (-1 != (ret = getopt_long (argc, argv, "d:hqo:vV:z",
 				   long_options, &option_index)))
     {
@@ -307,6 +309,8 @@ main (int argc, char **argv)
 	  ao_close(current->device);
 	  current = current->next_device;
   }
+
+  ao_shutdown();
 
   return (0);
 }
