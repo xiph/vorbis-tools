@@ -50,7 +50,7 @@ dnl --------------------------------------------------
 
 AM_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
 AM_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
-AM_PATH_AO(0.5.0,,AC_MSG_ERROR(libao needed!))
+AM_PATH_AO(,AC_MSG_ERROR(libao needed!))
 
 dnl --------------------------------------------------
 dnl Check for library functions
