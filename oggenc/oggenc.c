@@ -51,7 +51,7 @@ void usage(void);
 int main(int argc, char **argv)
 {
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, 
-		0,0, NULL,NULL,160,0}; /* Default values */
+		0,0, NULL,NULL,128,0}; /* Default values */
 	int i;
 
 	char **infiles;
@@ -268,7 +268,7 @@ void usage(void)
 		" -r, --raw            Raw mode. Input files are read directly as PCM data\n"
 		" -b, --bitrate        Choose a bitrate to encode at. Internally,\n"
 		"                      a mode approximating this value is chosen.\n"
-		"                      Takes an argument in kbps. Default is 160kbps\n"
+		"                      Takes an argument in kbps. Default is 128kbps\n"
 		" -s, --serial         Specify a serial number for the stream. If encoding\n"
 		"                      multiple files, this will be incremented for each\n"
 		"                      stream after the first.\n"
@@ -297,11 +297,12 @@ void usage(void)
 		"                      once, for example, and have it used for all the files)\n"
 		"\n"
 		"INPUT FILES:\n"
-		" OggEnc input files must currently be 16 bit PCM WAV files.\n"
-		" Files may be mono or stereo and sampling rates from 8kHz-56kHz.\n"
+		" OggEnc input files must currently be 16 bit PCM WAV, AIFF, or AIFF/C files.\n"
+		" Files may be mono or stereo (or more channels) and sampling rates \n"
+		" between 8kHz and 56kHz.\n"
 		" You can specify taking the file from stdin by using - as the input filename.\n"
-		" Alternatively, the --raw option may be used to use a raw PCM data file, with\n"
-		" the same restrictions as above.\n"
+		" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
+		" must be 16bit stereo little-endian PCM ('headerless wav').\n"
 		" In this mode, output is to stdout unless an outfile filename is specified\n"
 		" with -o\n"
 		"\n"
@@ -311,7 +312,7 @@ void usage(void)
 		" bitrate option (--bitrate, -b) will choose the mode closest to the chosen\n"
 		" bitrate. The 6 modes are approximately 112,128,160,192,256, and 350 kbps\n"
 		" (for stereo 44.1kHz input. Halve these numbers for mono input).\n"
-		" The default is the 160 kbps mode.  Lower sampling rates work properly,\n"
+		" The default is the 128 kbps mode.  Lower sampling rates work properly,\n"
 		" but don't scale the bitrate; -b 112 on a stereo 22kHz file will produce a\n"
 		" ~70kbps file, not 112kbps.)\n");
 }
