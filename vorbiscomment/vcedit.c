@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.7 2001/02/10 07:20:02 msmith Exp $
+ * last modified: $Id: vcedit.c,v 1.8 2001/02/16 13:37:48 msmith Exp $
  */
 
 #include <stdio.h>
@@ -287,13 +287,14 @@ int vcedit_write(vcedit_state *state, void *out)
 		}
 	}
 
+	eosin=0; /* clear it, because not all paths to here do */
 	while(!eosin) /* We reached eos, not eof */
 	{
 		/* We copy the rest of the stream (other logical streams)
 		 * through, a page at a time. */
 		while(1)
 		{
-			result = ogg_sync_pageout(state->oy, &ogin);
+			result = ogg_sync_pageout(state->oy, &ogout);
 			if(result==0) break;
 			if(result<0)
 				state->lasterror = "Corrupt or missing data, continuing...";
