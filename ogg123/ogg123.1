@@ -14,6 +14,12 @@ ogg123 \- plays Ogg Vorbis files
 .B -k
 .I seconds 
 ] [
+.B -x
+.I nth
+] [
+.B -y
+.I ntimes
+] [
 .B -b
 .I buffer_size 
 ] [
@@ -72,6 +78,13 @@ Quiet mode.  No messages are displayed.
 Display version information.
 .IP "-v, --verbose"
 Increase verbosity.
+.IP "-x n, --nth"
+Play every 'n'th decoded block.  Has the effect of playing audio at 'n' times
+faster than normal speed.
+.IP "-y n, --ntimes"
+Repeat every played block 'n' times.  Has the effect of playing audio 'n'
+times slower than normal speed.  May be with -x for interesting fractional
+speeds.
 .IP "-z, --shuffle"
 Play files in pseudo-random order.
 
@@ -243,15 +256,6 @@ Note that the result of pressing Ctrl-C might not be audible
 immediately, due to audio data buffering in the audio device.
 This delay is system dependent, but it is usually not more
 than one or two seconds.
-
-.SH NOTES
-
-The use of
-.B /etc/ogg123rc
-and
-.B ~/.ogg123rc
-has been removed in favor of the configuration system provided by
-libao.  The ability to override libao will be added in a future version.
 
 .SH FILES
 

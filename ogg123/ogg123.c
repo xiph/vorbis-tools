@@ -1,5 +1,5 @@
-/* ogg123.c by Kenneth Arnold <kcarnold@arnoldnet.net> */
-/* Modified to use libao by Stan Seibert <volsung@asu.edu> */
+/* ogg123.c by Kenneth Arnold <ogg123@arnoldnet.net> */
+/* Maintained by Stan Seibert <volsung@xiph.org> */
 
 /********************************************************************
  *                                                                  *
@@ -8,657 +8,554 @@
  * THE GNU PUBLIC LICENSE 2, WHICH IS INCLUDED WITH THIS SOURCE.    *
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
- * THE OggVorbis SOURCE CODE IS (C) COPYRIGHT 1994-2000             *
- * by Monty <monty@xiph.org> and the XIPHOPHORUS Company            *
+ * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001                *
+ * by Kenneth C. Arnold <ogg@arnoldnet.net> AND OTHER CONTRIBUTORS  *
  * http://www.xiph.org/                                             *
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.49 2001/11/28 05:47:16 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.50 2001/12/19 02:52:54 volsung Exp $
 
  ********************************************************************/
-
-/* FIXME : That was a messy message. Fix it. */
 
 #include <sys/types.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
 #include <errno.h>
 #include <time.h>
 #include <getopt.h>
+#include <signal.h>
 #include <unistd.h>
 
-#include <signal.h>
+#include "audio.h"
+#include "buffer.h"
+#include "callbacks.h"
+#include "cfgfile_options.h"
+#include "cmdline_options.h"
+#include "format.h"
+#include "transport.h"
+#include "status.h"
+#include "compat.h"
 
 #include "ogg123.h"
 
+void exit_cleanup ();
+void play (char *source_string);
+
 /* take buffer out of the data segment, not the stack */
-char convbuffer[BUFFER_CHUNK_SIZE];
-int convsize = BUFFER_CHUNK_SIZE;
-buf_t * buffer = NULL;
+#define AUDIO_CHUNK_SIZE 4096
+unsigned char convbuffer[AUDIO_CHUNK_SIZE];
+int convsize = AUDIO_CHUNK_SIZE;
 
-static char skipfile_requested;
-static void (*old_sig)(int);
+ogg123_options_t options;
+stat_format_t *stat_format;
+buf_t *audio_buffer;
 
-struct {
-    char *key;			/* includes the '=' for programming convenience */
-    char *formatstr;		/* formatted output */
-} ogg_comment_keys[] = {
-  {"ARTIST=", "Artist: %s\n"},
-  {"ALBUM=", "Album: %s\n"},
-  {"TITLE=", "Title: %s\n"},
-  {"VERSION=", "Version: %s\n"},
-  {"TRACKNUMBER=", "Track number: %s\n"},
-  {"ORGANIZATION=", "Organization: %s\n"},
-  {"GENRE=", "Genre: %s\n"},
-  {"DESCRIPTION=", "Description: %s\n"},
-  {"DATE=", "Date: %s\n"},
-  {"LOCATION=", "Location: %s\n"},
-  {"COPYRIGHT=", "Copyright %s\n"},
-  {NULL, NULL}
+audio_play_arg_t audio_play_arg;
+
+
+/* ------------------------- config file options -------------------------- */
+
+/* This macro is used to create some dummy variables to hold default values
+   for the options. */
+#define INIT(type, value) type type##_##value = value
+char char_n = 'n';
+float float_50f = 50.0f;
+float float_0f = 0.0f;
+INIT(int, 10000);
+INIT(int, 1);
+INIT(int, 0);
+
+file_option_t file_opts[] = {
+  /* found, name, description, type, ptr, default */
+  {0, "default_device", "default output device", opt_type_string,
+   &options.default_device, NULL},
+  {0, "shuffle",        "shuffle playlist",      opt_type_bool,
+   &options.shuffle,        &int_0},
+  {0, "verbose",        "verbosity level",       opt_type_int,
+   &options.verbosity,        &int_1},
+  {0, "outbuffer",      "out buffer size (kB)",  opt_type_int,
+   &options.buffer_size, &int_0},
+  {0, "outprebuffer",   "out prebuffer (%)",     opt_type_float,
+   &options.prebuffer,   &float_0f},
+  {0, NULL,             NULL,                    0,               NULL,                NULL}
 };
 
-struct option long_options[] = {
-    {"help", no_argument, 0, 'h'},
-    {"version", no_argument, 0, 'V'},
-    {"device", required_argument, 0, 'd'},
-    {"file", required_argument, 0, 'f'},
-    {"skip", required_argument, 0, 'k'},
-    {"device-option", required_argument, 0, 'o'},
-    {"verbose", no_argument, 0, 'v'},
-    {"quiet", no_argument, 0, 'q'},
-    {"shuffle", no_argument, 0, 'z'},
-    {"buffer", required_argument, 0, 'b'},
-    {"delay", required_argument, 0, 'l'},
-    {0, 0, 0, 0}
-};
 
-void usage(void)
+/* Flags set by the signal handler to control the threads */
+signal_request_t sig_request = {0, 0, 0, 0};
+
+
+/* ------------------------------- signal handler ------------------------- */
+
+
+void signal_handler (int signo)
 {
-    FILE *o = stderr;
-    int i, driver_count;
-    ao_info **devices = ao_driver_info_list(&driver_count);
+  switch (signo) {
+  case SIGALRM:
+    sig_request.ticks++;
+    if (sig_request.ticks < options.delay) {
+      signal (SIGALRM, signal_handler);
+      alarm(1);
+    }
+    break;
 
-    fprintf(o,
-	    "Ogg123 from " PACKAGE " " VERSION "\n"
-	    " by Kenneth Arnold <kcarnold@arnoldnet.net> and others\n\n"
-	    "Usage: ogg123 [<options>] <input file> ...\n\n"
-	    "  -h, --help     this help\n"
-	    "  -V, --version  display Ogg123 version\n"
-	    "  -d, --device=d uses 'd' as an output device\n"
-	    "      Possible devices are:\n"
-	    "        ");
+  case SIGINT:
+    if (sig_request.ticks < options.delay)
+      sig_request.exit = 1;
+    else
+      sig_request.skipfile = 1;
+    break;
 
-    for(i = 0; i < driver_count; i++)
-      fprintf(o,"%s ",devices[i]->short_name);
+  case SIGTSTP:
+    sig_request.pause = 1;
+    /* buffer_Pause (Options.outputOpts.buffer);
+       buffer_WaitForPaused (Options.outputOpts.buffer);
+       }
+       if (Options.outputOpts.devicesOpen == 0) {
+       close_audio_devices (Options.outputOpts.devices);
+       Options.outputOpts.devicesOpen = 0;
+       }
+    */
+    /* open_audio_devices();
+       if (Options.outputOpts.buffer) {
+       buffer_Unpause (Options.outputOpts.buffer);
+       }
+    */
+    break;
 
-    fprintf(o,"\n");
-
-    fprintf(o,
-	    "  -f, --file=filename  Set the output filename for a previously\n"
-	    "      specified file device (with -d).\n"
-	    "  -k n, --skip n  Skip the first 'n' seconds\n"
-	    "  -o, --device-option=k:v passes special option k with value\n"
-	    "      v to previously specified device (with -d).  See\n"
-	    "      man page for more info.\n"
-	    "  -b n, --buffer n  use a buffer of approximately 'n' kilobytes\n"
-	    "  -v, --verbose  display progress and other useful stuff\n"
-	    "  -q, --quiet    don't display anything (no title)\n"
-	    "  -z, --shuffle  shuffle play\n"
-	    "\n"
-	    "ogg123 will skip to the next song on SIGINT (Ctrl-C) after s seconds after\n"
-	    "song start."
-	    "  -l, --delay=s  set s (default 1). If s=-1, disable song skip.\n");
+  case SIGCONT:
+    break;  /* Don't need to do anything special to resume */
+  }
 }
+
+/* -------------------------- util functions ---------------------------- */
+
+void options_init (ogg123_options_t *opts)
+{
+  opts->verbosity = 1;
+  opts->shuffle = 0;
+  opts->delay = 2;
+  opts->nth = 1;
+  opts->ntimes = 1;
+  opts->seekpos = 0.0;
+  opts->buffer_size = 0;
+  opts->prebuffer = 0.0f;
+  opts->default_device = NULL;
+
+  opts->status_freq = 10.0;
+}
+
+
+/* This function selects which statistics to display for our
+   particular configuration.  This does not have anything to do with
+   verbosity, but rather with which stats make sense to display. */
+void select_stats (stat_format_t *stats, ogg123_options_t *opts, 
+		   data_source_t *source, decoder_t *decoder, 
+		   buf_t *audio_buffer)
+{
+  data_source_stats_t *data_source_stats;
+
+  if (audio_buffer != NULL) {
+    /* Turn on output buffer stats */
+    stats[8].enabled = 1; /* Fill */
+    stats[9].enabled = 1; /* State */
+  } else {
+    stats[8].enabled = 0;
+    stats[9].enabled = 0;
+  }
+
+  data_source_stats = source->transport->statistics(source);
+  if (data_source_stats->input_buffer_used) {
+    /* Turn on input buffer stats */
+    stats[6].enabled = 1; /* Fill */
+    stats[7].enabled = 1; /* State */
+  } else {
+    stats[6].enabled = 0;
+    stats[7].enabled = 0;
+  }
+    
+  /* Put logic here to decide if this stream needs a total time display */
+}
+
+
+/* Handles printing statistics depending upon whether or not we have 
+   buffering going on */
+void display_statistics (stat_format_t *stat_format,
+			 buf_t *audio_buffer, 
+			 data_source_t *source,
+			 decoder_t *decoder)
+{
+  print_statistics_arg_t *pstats_arg;
+  buffer_stats_t *buffer_stats;
+
+  pstats_arg = new_print_statistics_arg(stat_format,
+					source->transport->statistics(source),
+					decoder->format->statistics(decoder));
+
+  /* Disable/Enable statistics as needed */
+
+  if (pstats_arg->decoder_statistics->total_time <
+      pstats_arg->decoder_statistics->current_time) {
+    stat_format[2].enabled = 0;  /* Remaining playback time */
+    stat_format[3].enabled = 0;  /* Total playback time */
+  }
+
+  if (pstats_arg->data_source_statistics->input_buffer_used) {
+    stat_format[6].enabled = 1;  /* Input buffer fill % */
+    stat_format[7].enabled = 1;  /* Input buffer state  */
+  }
+
+  if (audio_buffer) {
+    /* Place a status update into the buffer */
+    buffer_append_action_at_end(audio_buffer,
+				&print_statistics_action,
+				pstats_arg);
+    
+    /* And if we are not playing right now, do an immediate
+       update just the output buffer */
+    buffer_stats = buffer_statistics(audio_buffer);
+    if (buffer_stats->paused || buffer_stats->prebuffering) {
+      pstats_arg = new_print_statistics_arg(stat_format,
+					    NULL,
+					    NULL);
+      print_statistics_action(audio_buffer, pstats_arg);
+    }
+    free(buffer_stats);
+    
+  } else
+    print_statistics_action(NULL, pstats_arg);
+}
+
+
+void display_statistics_quick (stat_format_t *stat_format,
+			       buf_t *audio_buffer, 
+			       data_source_t *source,
+			       decoder_t *decoder)
+{
+  print_statistics_arg_t *pstats_arg;
+
+  pstats_arg = new_print_statistics_arg(stat_format,
+					source->transport->statistics(source),
+					decoder->format->statistics(decoder));
+
+  if (audio_buffer) {
+    print_statistics_action(audio_buffer, pstats_arg);
+  } else
+    print_statistics_action(NULL, pstats_arg);
+}
+
+
+void print_audio_devices_info(audio_device_t *d)
+{
+  ao_info *info;
+
+  while (d != NULL) {
+    info = ao_driver_info(d->driver_id);
+    
+    status_message(2, "\nDevice:   %s", info->name);
+    status_message(2, "Author:   %s", info->author);
+    status_message(2, "Comments: %s\n", info->comment);
+
+    d = d->next_device;
+  }
+
+}
+
+
+/* --------------------------- main code -------------------------------- */
+
+
 
 int main(int argc, char **argv)
 {
-    ogg123_options_t opt;
-    int ret;
-    int option_index = 1;
-    ao_option *temp_options = NULL;
-    ao_option ** current_options = &temp_options;
-    ao_info *info;
-    int temp_driver_id = -1;
-    devices_t *current;
+  int optind;
+
+  ao_initialize();
+  stat_format = stat_format_create();
+  options_init(&options);
+  file_options_init(file_opts);
+
+  parse_std_configs(file_opts);
+  optind = parse_cmdline_options(argc, argv, &options, file_opts);
+
+  audio_play_arg.devices = options.devices;
+  audio_play_arg.stat_format = stat_format;
+
+  /* Don't use status_message until after this point! */
+  status_set_verbosity(options.verbosity);
+
+  print_audio_devices_info(options.devices);
+
+  /* Setup signal handlers and callbacks */
+
+  ATEXIT (exit_cleanup);
+  signal (SIGINT, signal_handler);
+  signal (SIGTSTP, signal_handler);
+  signal (SIGCONT, signal_handler);
+  signal (SIGALRM, signal_handler);
+
+  /* Do we have anything left to play? */
+  if (optind == argc) {
+    cmdline_usage();
+    exit(1);
+  }
+  
+  /* Setup buffer */ 
+  if (options.buffer_size > 0) {
+    audio_buffer = buffer_create(options.buffer_size,
+				 options.buffer_size * options.prebuffer / 100,
+				 audio_play_callback, &audio_play_arg,
+				 AUDIO_CHUNK_SIZE);
+    if (audio_buffer == NULL) {
+      status_error("Error: Could not create audio buffer.\n");
+      exit(1);
+    }
+  } else
+    audio_buffer = NULL;
+
+
+  /* Shuffle playlist */
+  if (options.shuffle) {
+    int i;
     
-    opt.read_file = NULL;
-    opt.shuffle = 0;
-    opt.verbose = 0;
-    opt.quiet = 0;
-    opt.seekpos = 0;
-    opt.instream = NULL;
-    opt.outdevices = NULL;
-    opt.buffer_size = 0;
-    opt.delay = 1;
-
-    ao_initialize();
-
-    while (-1 != (ret = getopt_long(argc, argv, "b:d:f:hl:k:o:qvVz",
-				    long_options, &option_index))) {
-	switch (ret) {
-	case 0:
-	    fprintf(stderr,
-		    "Internal error: long option given when none expected.\n");
-	    exit(1);
-	case 'b':
-	  opt.buffer_size = atoi(optarg) / (BUFFER_CHUNK_SIZE / 1024);
-	  if (opt.buffer_size == 1)
-	    opt.buffer_size = 0; /* Hack to work around boundary case in
-				    buffering code.  FIXME! */
-	  break;
-	case 'd':
-	    temp_driver_id = ao_driver_id(optarg);
-	    if (temp_driver_id < 0) {
-		fprintf(stderr, "No such device %s.\n", optarg);
-		exit(1);
-	    }
-	    current = append_device(opt.outdevices, temp_driver_id, 
-				    NULL, NULL);
-	    if(opt.outdevices == NULL)
-		    opt.outdevices = current;
-	    current_options = &current->options;
-	    break;
-	case 'f':
-	    if (temp_driver_id >= 0) {
-	      info = ao_driver_info(temp_driver_id);
-	      if (info->type == AO_TYPE_FILE) {
-		free(current->filename);
-		current->filename = strdup(optarg);
-	      } else {
-	        fprintf(stderr, "Driver %s is not a file output driver.\n",
-			info->short_name);
-	        exit(1);
-	      }
-	    } else {
-	      fprintf(stderr, "Cannot specify output file without specifying a driver.\n");
-	      exit (1);
-	    }
-	    break;
-	case 'k':
-	    opt.seekpos = atof(optarg);
-	    break;
-	case 'l':
-	    opt.delay = atoi(optarg);
-	    break;
-	case 'o':
-	    if (optarg && !add_option(current_options, optarg)) {
-		fprintf(stderr, "Incorrect option format: %s.\n", optarg);
-		exit(1);
-	    }
-	    break;
-	case 'h':
-	    usage();
-	    exit(0);
-	case 'q':
-	    opt.quiet++;
-	    break;
-	case 'v':
-	    opt.verbose++;
-	    break;
-	case 'V':
-	    fprintf(stderr, "Ogg123 from " PACKAGE " " VERSION "\n");
-	    exit(0);
-	case 'z':
-	    opt.shuffle = 1;
-	    break;
-	case '?':
-	    break;
-	default:
-	    usage();
-	    exit(1);
-	}
-    }
-
-    /* Use the default device if needed */
-    if (temp_driver_id < 0) {
-        temp_driver_id = ao_default_driver_id();
-	
-	if (temp_driver_id < 0) {
-	  fprintf(stderr,
-		  "Could not load default driver.  Audio devices may be already in use.\nExiting.\n");
-	  exit(1);
-	}
-
-	opt.outdevices = append_device(opt.outdevices, temp_driver_id, 
-				       temp_options, NULL);
-    }
-
-    if (optind == argc) {
-	usage();
-	exit(1);
-    }
-
-    if (opt.shuffle) {
-	int i;
-	
-	srand(time(NULL));
-
-	for (i = optind; i < argc; i++) {
-		int j = i + rand() % (argc - i);
-		char *temp = argv[i];
-		argv[i] = argv[j];
-		argv[j] = temp;
-	}
-    }
-
-    while (optind < argc) {
-	opt.read_file = argv[optind];
-	play_file(opt);
-	optind++;
-    }
-
-    while (opt.outdevices != NULL) {
-      if (opt.outdevices->device)
-        ao_close(opt.outdevices->device);
-      current = opt.outdevices->next_device;
-      free(opt.outdevices);
-      opt.outdevices = current;
-    }
-
-    if (buffer != NULL)
-	    buffer_shutdown(buffer);
+    srandom(time(NULL));
     
-    ao_shutdown();
+    for (i = optind; i < argc; i++) {
+      int j = optind + random() % (argc - i);
+      char *temp = argv[i];
+      argv[i] = argv[j];
+      argv[j] = temp;
+    }
+  }
+  
 
-    return (0);
-}
+  /* Play the files/streams */
 
-/* Two signal handlers, one for SIGINT, and the second for
- * SIGALRM.  They are de/activated on an as-needed basis by the
- * player to allow the user to stop ogg123 or skip songs.
- */
-
-void signal_skipfile(int which_signal)
-{
-  skipfile_requested = 1;
-
-  /* libao, when writing wav's, traps SIGINT so it correctly
-   * closes things down in the event of an interrupt.  We
-   * honour this.   libao will re-raise SIGINT once it cleans
-   * up properly, causing the application to exit.  This is 
-   * desired since we would otherwise re-open output.wav 
-   * and blow away existing "output.wav" file.
-   */
-
-  if (old_sig != NULL) {
-    signal(which_signal,old_sig);
-    raise(which_signal);
+  while (optind < argc) {
+    play(argv[optind]);
+    optind++;
   }
 
-}
 
-void signal_activate_skipfile(int ignored)
-{
-  old_sig = signal(SIGINT,signal_skipfile);
+  exit (0);
 }
 
 
-void play_file(ogg123_options_t opt)
+void play (char *source_string)
 {
-    /* Oh my gosh this is disgusting. Big cleanups here will include an
-       almost complete rewrite of the hacked-out HTTP streaming and a shift
-       to using callbacks for the vorbisfile input.
-    */
+  transport_t *transport;
+  format_t *format;
+  data_source_t *source;
+  decoder_t *decoder;
 
-    OggVorbis_File vf;
-    int current_section = -1, eof = 0, eos = 0, ret;
-    int old_section = -1;
-    long t_min = 0, c_min = 0, r_min = 0;
-    double t_sec = 0, c_sec = 0, r_sec = 0;
-    int is_big_endian = ao_is_big_endian();
-    double realseekpos = opt.seekpos;
+  decoder_callbacks_t decoder_callbacks;
+  void *decoder_callbacks_arg;
 
-    /* Junk left over from the failed info struct */
-    double u_time, u_pos;
+  /* Preserve between calls so we only open the audio device when we 
+     have to */
+  static audio_format_t old_audio_fmt = { 0, 0, 0, 0, 0 };
+  audio_format_t new_audio_fmt;
+  audio_reopen_arg_t *reopen_arg;
 
-    if (strcmp(opt.read_file, "-")) {	/* input file not stdin */
-	if (!strncmp(opt.read_file, "http://", 7)) {
-	    /* Stream down over http */
-	    char *temp = NULL, *server = NULL, *port = NULL, *path = NULL;
-	    int index;
-	    long iport;
+  /* Flags and counters galore */
+  int eof = 0, eos = 0, ret;
+  int nthc = 0, ntimesc = 0;
+  int next_status = 0;
+  int status_interval = 0;
 
-	    temp = opt.read_file + 7;
-	    for (index = 0; temp[index] != '/' && temp[index] != ':';
-		 index++);
-	    server = (char *) malloc(index + 1);
-	    strncpy(server, temp, index);
-	    server[index] = '\0';
 
-	    /* Was a port specified? */
-	    if (temp[index] == ':') {
-		/* Grab the port. */
-		temp += index + 1;
-		for (index = 0; temp[index] != '/'; index++);
-		port = (char *) malloc(index + 1);
-		strncpy(port, temp, index);
-		port[index] = '\0';
-		if ((iport = atoi(port)) <= 0 || iport > 65535) {
-		    fprintf(stderr, "%s is not a valid port.\n", port);
-		    exit(1);
-		}
-	    } else
-		iport = 80;
+  /* Set preferred audio format (used by decoder) */
+  new_audio_fmt.big_endian = ao_is_big_endian();
+  new_audio_fmt.signed_sample = 1;
+  new_audio_fmt.word_size = 2;
 
-	    path = strdup(temp + index);
+  /* Select appropriate callbacks */
+  if (audio_buffer != NULL) {
+    decoder_callbacks.printf_error = &decoder_buffered_error_callback;
+    decoder_callbacks.printf_metadata = &decoder_buffered_error_callback;
+    decoder_callbacks_arg = audio_buffer;
+  } else {
+    decoder_callbacks.printf_error = &decoder_error_callback;
+    decoder_callbacks.printf_metadata = &decoder_error_callback;
+    decoder_callbacks_arg = NULL;
+  }
 
-	    if ((opt.instream = http_open(server, iport, path)) == NULL) {
-		fprintf(stderr, "Error while connecting to server!\n");
-		exit(1);
-	    }
-	    /* Send HTTP header */
-	    fprintf(opt.instream,
-		    "GET %s HTTP/1.0\r\n"
-		    "Accept: */*\r\n"
-		    "User-Agent: ogg123\r\n"
-		    "Host: %s\r\n\r\n\r\n", path, server);
-
-		fflush(opt.instream); /* Make sure these are all actually sent */
-
-	    /* Dump headers */
-	    {
-		char last = 0, in = 0;
-		int eol = 0;
-
-		if (opt.verbose > 0)
-		  fprintf(stderr, "HTTP Headers:\n");
-		for (;;) {
-		    last = in;
-		    in = getc(opt.instream);
-		    if (opt.verbose > 0)
-		      putc(in, stderr);
-		    if (last == 13 && in == 10) {
-			if (eol)
-			    break;
-			eol = 1;
-		    } else if (in != 10 && in != 13)
-			eol = 0;
-		}
-	    }
-	    free(server);
-	    free(path);
-	} else {
-	    if (opt.quiet < 1)
-		fprintf(stderr, "Playing from file %s.\n", opt.read_file);
-	    /* Open the file. */
-	    if ((opt.instream = fopen(opt.read_file, "rb")) == NULL) {
-		fprintf(stderr, "Error opening input file.\n");
-		exit(1);
-	    }
-	}
-    } else {
-	if (opt.quiet < 1)
-	    fprintf(stderr, "Playing from standard input.\n");
-	opt.instream = stdin;
-    }
-
-    if ((ov_open(opt.instream, &vf, NULL, 0)) < 0) {
-	fprintf(stderr, "E: input not an Ogg Vorbis audio stream.\n");
-	return;
-    }
-
-    /* Setup so that pressing ^C in the first second of playback
-     * interrupts the program, but after the first second, skips
-     * the song.  This functionality is similar to mpg123's abilities. */
-
-    if (opt.delay > 0) {
-        skipfile_requested = 0;
-	signal(SIGALRM,signal_activate_skipfile);
-	alarm(opt.delay);
-    }
-
-    while (!eof) {
-	int i;
-	vorbis_comment *vc = ov_comment(&vf, -1);
-	vorbis_info *vi = ov_info(&vf, -1);
-
-	if(open_audio_devices(&opt, vi->rate, vi->channels, &buffer) < 0)
-		exit(1);
-
-	if (opt.quiet < 1) {
-	    if (eos && opt.verbose) fprintf (stderr, "\r                                                      \r\n");
-	    for (i = 0; i < vc->comments; i++) {
-		char *cc = vc->user_comments[i];	/* current comment */
-		int i;
-
-		for (i = 0; ogg_comment_keys[i].key != NULL; i++)
-		    if (!strncasecmp
-			(ogg_comment_keys[i].key, cc,
-			 strlen(ogg_comment_keys[i].key))) {
-			fprintf(stderr, ogg_comment_keys[i].formatstr,
-				cc + strlen(ogg_comment_keys[i].key));
-			break;
-		    }
-		if (ogg_comment_keys[i].key == NULL)
-		    fprintf(stderr, "Unrecognized comment: '%s'\n", cc);
-	    }
-
-	    fprintf(stderr, "\nBitstream is %d channel, %ldHz\n",
-		    vi->channels, vi->rate);
-	    if (opt.verbose > 1)
-	      fprintf(stderr, "Encoded by: %s\n\n", vc->vendor);
-	}
-
-	if (opt.verbose > 0 && ov_seekable(&vf)) {
-	    /* Seconds with double precision */
-	    u_time = ov_time_total(&vf, -1);
-	    t_min = (long) u_time / (long) 60;
-	    t_sec = u_time - 60 * t_min;
-	}
-
-	if ((realseekpos > ov_time_total(&vf, -1)) || (realseekpos < 0))
-	    /* If we're out of range set it to right before the end. If we set it
-	     * right to the end when we seek it will go to the beginning of the song */
-	    realseekpos = ov_time_total(&vf, -1) - 0.01;
-
-	if (realseekpos > 0)
-	    ov_time_seek(&vf, realseekpos);
-
-	eos = 0;
-
-	while (!eos) {
-
-	    if (skipfile_requested) {
-	      eof = eos = 1;
-	      skipfile_requested = 0;
-	      signal(SIGALRM,signal_activate_skipfile);
-	      alarm(opt.delay);
-	      if (buffer) {
-		buffer_flush (buffer);
-	      }
-	      break;
-  	    }
-
-	    old_section = current_section;
-	    ret =
-		ov_read(&vf, convbuffer, sizeof(convbuffer), is_big_endian,
-			2, 1, &current_section);
-	    if (ret == 0) {
-		/* End of file */
-		eof = eos = 1;
-	    } else if (ret == OV_HOLE) {
-	      if (opt.verbose > 1) 
-		/* we should be able to resync silently; if not there are 
-		   bigger problems. */
-		fprintf (stderr, "Warning: hole in the stream; probably harmless\n");
-	    } else if (ret < 0) {
-	      /* Stream error */
-	      fprintf(stderr, "Error: libvorbis reported a stream error.\n");
-	    } else {
-		/* did we enter a new logical bitstream */
-		if (old_section != current_section && old_section != -1)
-		    eos = 1;
-
-		if (buffer)
-		  {
-		    chunk_t chunk;
-		    chunk.len = ret;
-		    memcpy (chunk.data, convbuffer, ret);
-		    
-		    submit_chunk (buffer, chunk);
-		  }
-		else
-		  devices_write(convbuffer, ret, opt.outdevices);
-		
-		if (opt.verbose > 0) {
-		    if (ov_seekable (&vf)) {
-		      u_pos = ov_time_tell(&vf);
-		      c_min = (long) u_pos / (long) 60;
-		      c_sec = u_pos - 60 * c_min;
-		      r_min = (long) (u_time - u_pos) / (long) 60;
-		      r_sec = (u_time - u_pos) - 60 * r_min;
-		      fprintf(stderr,
-			      "\rTime: %02li:%05.2f [%02li:%05.2f] of %02li:%05.2f, Bitrate: %.1f   \r",
-			      c_min, c_sec, r_min, r_sec, t_min, t_sec,
-			      (float) ov_bitrate_instant(&vf) / 1000.0F);
-		    } else {
-		      /* working around a bug in vorbisfile */
-		      u_pos = (double) ov_pcm_tell(&vf) / (double) vi->rate;
-		      c_min = (long) u_pos / (long) 60;
-		      c_sec = u_pos - 60 * c_min;
-		      fprintf(stderr,
-			      "\rTime: %02li:%05.2f, Bitrate: %.1f   \r",
-			      c_min, c_sec,
-			      (float) ov_bitrate_instant (&vf) / 1000.0F);
-		    }
-		}
-	    }
-	}
-    }
-
-    alarm(0);
-    signal(SIGALRM,SIG_DFL);
-    signal(SIGINT,old_sig);
-
-    ov_clear(&vf);
-
-    if (opt.quiet < 1)
-	fprintf(stderr, "\nDone.\n");
-}
-
-int get_tcp_socket(void)
-{
-    return socket(AF_INET, SOCK_STREAM, 0);
-}
-
-FILE *http_open(char *server, int port, char *path)
-{
-    int sockfd = get_tcp_socket();
-    struct hostent *host;
-    struct sockaddr_in sock_name;
-
-    if (sockfd == -1)
-	return NULL;
-
-    if (!(host = gethostbyname(server))) {
-	fprintf(stderr, "Unknown host: %s\n", server);
-	return NULL;
-    }
-
-    memcpy(&sock_name.sin_addr, host->h_addr, host->h_length);
-    sock_name.sin_family = AF_INET;
-    sock_name.sin_port = htons(port);
-
-    if (connect(sockfd, (struct sockaddr *) &sock_name, sizeof(sock_name))) {
-	if (errno == ECONNREFUSED)
-	    fprintf(stderr, "Connection refused\n");
-	return NULL;
-    }
-    return fdopen(sockfd, "r+b");
-}
-
-int open_audio_devices(ogg123_options_t *opt, int rate, int channels, buf_t **buffer)
-{
-  static int prevrate=0, prevchan=0;
-  devices_t *current;
-  ao_sample_format format;
-
-  if(prevrate == rate && prevchan == channels)
-    return 0;
+  /* Locate and use transport for this data source */  
+  if ( (transport = select_transport(source_string)) == NULL ) {
+    status_error("No module could be found to read from %s.\n", source_string);
+    return;
+  }
   
-  if(prevrate !=0 && prevchan!=0)
-	{
-	  if (buffer != NULL && *buffer != NULL) {
-	    buffer_shutdown (*buffer);
-	    *buffer = NULL;
-	  }
+  if ( (source = transport->open(source_string, &options)) == NULL ) {
+    status_error("Cannot open %s.\n", source_string);
+    return;
+  }
 
-	  current = opt->outdevices;
-	  while (current != NULL) {
-	    ao_close(current->device);
-	    current = current->next_device;
-	  }
-	}
+  /* Detect the file format and initialize a decoder */
+  if ( (format = select_format(source)) == NULL ) {
+    status_error("The file format of %s is not supported.\n", source_string);
+    return;
+  }
   
-  format.rate = prevrate = rate;
-  format.channels = prevchan = channels;
-  format.bits = 16;
-  format.byte_format = AO_FMT_NATIVE;
+  if ( (decoder = format->init(source, &options, &new_audio_fmt, 
+			       &decoder_callbacks, audio_buffer)) == NULL ) {
+    status_error("Error opening %s using the %s module."
+		 "  The file may be corrupted.\n", source_string,
+		 format->name);
+    return;
+  }
 
-  current = opt->outdevices;
-  while (current != NULL) {
-    ao_info *info = ao_driver_info(current->driver_id);
-    
-    if (opt->verbose > 0) {
-      fprintf(stderr, "Device:   %s\n", info->name);
-      fprintf(stderr, "Author:   %s\n", info->author);
-      fprintf(stderr, "Comments: %s\n", info->comment);
-      fprintf(stderr, "\n");	
-    }
-    
-    if (current->filename == NULL)
-      current->device = ao_open_live(current->driver_id, &format,
-				     current->options);
-    else
-      current->device = ao_open_file(current->driver_id, current->filename,
-				     1, &format, current->options);
+  /* Decide which statistics are valid */
+  select_stats(stat_format, &options, source, decoder, audio_buffer);
 
-    if (current->device == NULL) {
-      switch (errno) {
-      case AO_ENODRIVER:
-	fprintf(stderr, "Error: No device not available.\n");
-	break;
-      case AO_ENOTLIVE:
-	fprintf(stderr, "Error: %s requires an output filename to be specified with -f.\n", info->short_name);
-	break;
-      case AO_EBADOPTION:
-	fprintf(stderr, "Error: Unsupported option value to %s device.\n",
-		info->short_name);
-	break;
-      case AO_EOPENDEVICE:
-	fprintf(stderr, "Error: Cannot open device %s.\n",
-		info->short_name);
-	break;
-      case AO_EFAIL:
-	fprintf(stderr, "Error: Device failure.\n");
-	break;
-      case AO_ENOTFILE:
-	fprintf(stderr, "Error: An output file cannot be given for %s device.\n", info->short_name);
-	break;
-      case AO_EOPENFILE:
-	fprintf(stderr, "Error: Cannot open file %s for writing.\n",
-		current->filename);
-	break;
-      case AO_EFILEEXISTS:
-	fprintf(stderr, "Error: File %s already exists.\n", current->filename);
-	break;
-      default:
-	fprintf(stderr, "Error: This error should never happen.  Panic!\n");
+
+  /* Reset all of the signal flags and setup the timer */
+  sig_request.skipfile = 0;
+  sig_request.exit     = 0;
+  sig_request.pause    = 0;
+  sig_request.ticks    = 0;
+  alarm(1); /* Count seconds */
+
+
+  /* Start the audio playback thread before we begin sending data */    
+  if (audio_buffer != NULL) {
+    
+    /* First reset mutexes and other synchronization variables */
+    buffer_reset (audio_buffer);
+    buffer_thread_start (audio_buffer);
+  }
+
+  /* Skip over audio */
+  if (options.seekpos > 0.0) {
+    if (!format->seek(decoder, options.seekpos, DECODER_SEEK_START))
+      status_error("Could not skip %f seconds of audio.", options.seekpos);
+  }
+
+  /* Main loop:  Iterates over all of the logical bitstreams in the file */
+  while (!eof && !sig_request.exit) {
+    
+    /* Loop through data within a logical bitstream */
+    eos = 0;    
+    while (!eos && !sig_request.exit) {
+      
+      /* Check signals */
+      if (sig_request.skipfile) {
+	eof = eos = 1;
 	break;
       }
+
+      if (sig_request.pause) {
+	if (audio_buffer)
+	  buffer_thread_pause (audio_buffer);
+
+	kill (getpid(), SIGSTOP); /* We block here until we unpause */
 	
-      return -1;
+	/* Done pausing */
+	if (audio_buffer)
+	  buffer_thread_unpause (audio_buffer);
+
+	sig_request.pause = 0;
+      }
+
+
+      /* Read another block of audio data */
+      ret = format->read(decoder, convbuffer, convsize, &eos, &new_audio_fmt);
+
+      /* Bail if we need to */
+      if (ret == 0) {
+	eof = eos = 1;
+	break;
+      } else if (ret < 0) {
+	status_error("Error: Decoding failure.\n");
+	break;
+      }
+
+      
+      /* Check to see if the audio format has changed */
+      if (!audio_format_equal(&new_audio_fmt, &old_audio_fmt)) {
+	old_audio_fmt = new_audio_fmt;
+	
+	/* Update our status printing interval */
+	status_interval = new_audio_fmt.word_size * new_audio_fmt.channels * 
+	  new_audio_fmt.rate / options.status_freq;
+	next_status = 0;
+
+	reopen_arg = new_audio_reopen_arg(options.devices, &new_audio_fmt);
+
+	if (audio_buffer)	  
+	  buffer_insert_action_at_end(audio_buffer, &audio_reopen_action,
+				      reopen_arg);
+	else
+	  audio_reopen_action(NULL, reopen_arg);
+      }
+      
+
+      /* Update statistics display if needed */
+      if (next_status <= 0) {
+	display_statistics(stat_format, audio_buffer, source, decoder); 
+	next_status = status_interval;
+      } else
+	next_status -= ret;
+
+
+      /* Write audio data block to output, skipping or repeating chunks
+	 as needed */
+      do {
+	
+	if (nthc-- == 0) {
+	  if (audio_buffer)
+	    buffer_submit_data(audio_buffer, convbuffer, ret);
+	  else
+	    audio_play_callback(convbuffer, ret, eos, &audio_play_arg);
+	  
+	  nthc = options.nth - 1;
+	}
+	
+      } while (++ntimesc < options.ntimes);
+
+      ntimesc = 0;
+            
+    } /* End of data loop */
+    
+  } /* End of logical bitstream loop */
+  
+  /* Done playing this logical bitstream.  Clean up house. */
+
+  if (audio_buffer) {
+    
+    if (!sig_request.exit && !sig_request.skipfile) {
+      buffer_mark_eos(audio_buffer);
+      buffer_wait_for_empty(audio_buffer);
     }
-    current = current->next_device;
+
+    buffer_thread_kill(audio_buffer);
   }
+
+  /* Print final stats */
+  display_statistics_quick(stat_format, audio_buffer, source, decoder); 
+   
   
-  if (opt->buffer_size)
-    *buffer = fork_writer (opt->buffer_size, opt->outdevices);
+  alarm(0);  
+  format->cleanup(decoder);
+  transport->close(source);
+  status_reset_output_lock();  /* In case we were killed mid-output */
+
+  status_message(1, "Done.");
   
-    return 0;
+  if (sig_request.exit)
+    exit (0);
+}
+
+
+void exit_cleanup ()
+{
+      
+  if (audio_buffer != NULL) {
+    buffer_destroy (audio_buffer);
+    audio_buffer = NULL;
+  }
+
+  ao_onexit (options.devices);
 }

@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = vorbiscomment
 
-INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ -I$(top_srcdir)/include
+INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@
 
 vorbiscomment_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @LIBICONV@ @SHARE_LIBS@
 vorbiscomment_DEPENDENCIES = @SHARE_LIBS@

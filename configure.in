@@ -19,12 +19,6 @@ CFLAGS="$cflags_save"
 
 AM_PROG_LIBTOOL
 
-dnl --------------------------------------------------  
-dnl Additional arguments
-dnl --------------------------------------------------  
-
-AC_ARG_WITH(ogg, [  --with-ogg=DIR          Set where the Ogg library is located]) 
-AC_ARG_WITH(vorbis, [  --with-vorbis=DIR          Set where the Vorbis library is located]) 
 
 dnl --------------------------------------------------
 dnl Set build flags based on environment
@@ -82,35 +76,29 @@ PROFILE="$PROFILE $cflags_save"
 LDFLAGS="$LDFLAGS $ldflags_save"
 
 dnl --------------------------------------------------
-dnl Check for headers
-dnl --------------------------------------------------
-
-dnl none
-
-dnl --------------------------------------------------
-dnl Check for typedefs, structures, etc
-dnl --------------------------------------------------
-
-dnl none
-
-dnl --------------------------------------------------
 dnl Check for libraries
 dnl --------------------------------------------------
 
 AM_PATH_OGG(,AC_MSG_ERROR(Ogg needed!))
 AM_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
 AM_PATH_AO(,AC_MSG_ERROR(libao needed!))
+AM_PATH_CURL(,AC_MSG_ERROR(libcurl needed!))
+
+ACX_PTHREAD(,AC_MSG_ERROR(POSIX threads required!))
+
 SOCKET_LIBS=
 AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
 AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
+
 SHARE_LIBS='$(top_srcdir)/share/libutf8.a $(top_srcdir)/share/libgetopt.a'
+SHARE_CFLAGS='-I$(top_srcdir)/include'
 
 dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------
 
 AM_ICONV
-AC_FUNC_SMMAP
+AC_CHECK_FUNCS(atexit on_exit)
 AM_LANGINFO_CODESET
 
 dnl --------------------------------------------------
@@ -131,6 +119,9 @@ dnl --------------------------------------------------
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 AC_SUBST(SOCKET_LIBS)
+AC_SUBST(SHARE_CFLAGS)
 AC_SUBST(SHARE_LIBS)
+AC_SUBST(CURL_CFLAGS)
+AC_SUBST(CURL_LIBS)
 
 AC_OUTPUT(Makefile include/Makefile share/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)

@@ -1,51 +1,49 @@
-/* This file is part of ogg123, an Ogg Vorbis player. See ogg123.c
- * for copyright information. */
-#ifndef __OGG123_H
-#define __OGG123_H
+/********************************************************************
+ *                                                                  *
+ * THIS FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
+ * USE, DISTRIBUTION AND REPRODUCTION OF THIS SOURCE IS GOVERNED BY *
+ * THE GNU PUBLIC LICENSE 2, WHICH IS INCLUDED WITH THIS SOURCE.    *
+ * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
+ *                                                                  *
+ * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001                *
+ * by Kenneth C. Arnold <ogg@arnoldnet.net> AND OTHER CONTRIBUTORS  *
+ * http://www.xiph.org/                                             *
+ *                                                                  *
+ ********************************************************************
 
-/* Common includes */
-#include <ogg/ogg.h>
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h>
-#include <ao/ao.h>
+ last mod: $Id: ogg123.h,v 1.10 2001/12/19 02:52:54 volsung Exp $
 
-#ifdef __sun
-#include <alloca.h>
-#endif
+ ********************************************************************/
 
-/* For facilitating output to multiple devices */
-typedef struct devices_s {
-  int driver_id;
-  ao_device *device;
-  ao_option *options;
-  char *filename;
-  struct devices_s *next_device;
-} devices_t;
+#ifndef __OGG123_H__
+#define __OGG123_H__
 
-typedef struct ogg123_options_s {
-  char *read_file;            /* File to decode */
-  char shuffle;               /* Should we shuffle playing? */
-  signed short int verbose;   /* Verbose output if > 0, quiet if < 0 */
-  signed short int quiet;     /* Be quiet (no title) */
-  double seekpos;             /* Amount to seek by */
-  FILE *instream;             /* Stream to read from. */
-  devices_t *outdevices;      /* Streams to write to. */
-  int buffer_size;            /* Size of the buffer in chunks. */
-  int rate, channels;         /* playback params for opening audio devices */
+#include <ogg/os_types.h>
+#include "audio.h"
+
+typedef struct ogg123_options_t {
+  long int verbosity;         /* Verbose output if > 1, quiet if 0 */
+
+  int shuffle;               /* Should we shuffle playing? */
   int delay;                  /* delay for skip to next song */
-} ogg123_options_t;           /* Changed in 0.6 to be non-static */
+  int nth;                    /* Play every nth chunk */
+  int ntimes;                 /* Play every chunk n times */
+  double seekpos;             /* Position in file to seek to */
 
-/* This goes here because it relies on some of the above. */
-#include "buffer.h"
+  long buffer_size;           /* Size of audio buffer */
+  float prebuffer;            /* Percent of buffer to fill before playing */
+  char *default_device;       /* Name of default driver to use */
 
-devices_t *append_device(devices_t * devices_list, int driver_id,
-                         ao_option * options, char *filename);
-void devices_write(void *ptr, size_t size, devices_t * d);
-void usage(void);
-int add_option(ao_option ** op_h, const char *optstring);
-void play_file(ogg123_options_t opt);
-int get_tcp_socket(void); /* Will be going soon. */
-FILE *http_open(char *server, int port, char *path); /* ditto */
-int open_audio_devices(ogg123_options_t *opt, int rate, int channels, buf_t ** buffer);
+  audio_device_t *devices;    /* Audio devices to use */
 
-#endif /* !defined(__OGG123_H) */
+  double status_freq;         /* Number of status updates per second */
+} ogg123_options_t;
+
+typedef struct signal_request_t {
+  int skipfile;
+  int exit;
+  int pause;
+  ogg_int64_t ticks;
+} signal_request_t;
+
+#endif /* __OGG123_H__ */
