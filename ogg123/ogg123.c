@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.69 2003/09/01 23:54:02 volsung Exp $
+ last mod: $Id: ogg123.c,v 1.70 2003/09/02 19:37:05 volsung Exp $
 
  ********************************************************************/
 
@@ -579,7 +579,8 @@ void play (char *source_string)
 	  nthc = options.nth - 1;
 	}
 	
-      } while (++ntimesc < options.ntimes);
+      } while (!sig_request.exit && !sig_request.skipfile &&
+	       ++ntimesc < options.ntimes);
 
       ntimesc = 0;
             
