@@ -2,7 +2,13 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-mandir = @MANDIR@
-man_MANS = oggenc.1
+mans = oggenc.1
 
-EXTRA_DIST = $(man_MANS)
+if BUILD_OGGENC
+
+mandir = @MANDIR@
+man_MANS = $(mans)
+
+endif
+
+EXTRA_DIST = $(mans)

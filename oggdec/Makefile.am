@@ -2,6 +2,8 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+if BUILD_OGGDEC
+
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -14,6 +16,8 @@ oggdec_LDADD = @LIBICONV@ @SHARE_LIBS@ @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS
 oggdec_DEPENDENCIES = @SHARE_LIBS@
 
 oggdec_SOURCES = oggdec.c
+
+endif
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

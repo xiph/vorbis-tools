@@ -78,6 +78,17 @@ PROFILE="$PROFILE $cflags_save"
 LDFLAGS="$LDFLAGS $ldflags_save"
 
 dnl --------------------------------------------------
+dnl Allow tools to be selectively built
+dnl --------------------------------------------------
+AC_ARG_ENABLE(ogg123, [  --disable-ogg123   Skip building ogg123], build_ogg123="$enableval", build_ogg123="yes")
+AC_ARG_ENABLE(oggdec, [  --disable-oggdec   Skip building oggdec], build_oggdec="$enableval", build_oggdec="yes")
+AC_ARG_ENABLE(oggenc, [  --disable-oggenc   Skip building oggenc], build_oggenc="$enableval", build_oggenc="yes")
+AC_ARG_ENABLE(ogginfo,[  --disable-ogginfo  Skip building ogginfo], build_ogginfo="$enableval", build_ogginfo="yes")
+AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$enableval", build_vcut="yes")
+AC_ARG_ENABLE(vorbiscomment, [  --disable-vorbiscomment   Skip building vorbiscomment], build_vorbiscomment="$enableval", build_vorbiscomment="yes")
+
+
+dnl --------------------------------------------------
 dnl Check for generally needed libraries
 dnl --------------------------------------------------
 
@@ -98,8 +109,6 @@ dnl --------------------------------------------------
 dnl Check for ogg123 critical libraries
 dnl --------------------------------------------------
 
-AC_ARG_ENABLE(ogg123,[  --disable-ogg123   Skip building ogg123 (a playback utility)], build_ogg123="$enableval", build_ogg123="yes")
-
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
   AM_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
@@ -111,8 +120,6 @@ if test "x$build_ogg123" = xyes; then
     AC_MSG_WARN([Prerequisites for ogg123 not met, ogg123 will not be built])
   fi
 fi
-
-AM_CONDITIONAL(BUILD_OGG123, test "x$build_ogg123" = xyes)
  
 dnl --------------------------------------------------
 dnl Check for library functions
@@ -134,9 +141,17 @@ else
 fi
 AC_SUBST(MANDIR)
 
+
 dnl --------------------------------------------------
 dnl Do substitutions
 dnl --------------------------------------------------
+
+AM_CONDITIONAL(BUILD_OGG123, test "x$build_ogg123" = xyes)
+AM_CONDITIONAL(BUILD_OGGDEC, test "x$build_oggdec" = xyes)
+AM_CONDITIONAL(BUILD_OGGENC, test "x$build_oggenc" = xyes)
+AM_CONDITIONAL(BUILD_OGGINFO, test "x$build_ogginfo" = xyes)
+AM_CONDITIONAL(BUILD_VCUT, test "x$build_vcut" = xyes)
+AM_CONDITIONAL(BUILD_VORBISCOMMENT, test "x$build_vorbiscomment" = xyes)
 
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)

@@ -2,13 +2,17 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+mans = ogginfo.1
+
+if BUILD_OGGINFO
+
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 bin_PROGRAMS = ogginfo
 mandir = @MANDIR@
-man_MANS = ogginfo.1
+man_MANS = $(mans)
 
 INCLUDES = @SHARE_CFLAGS@ @OGG_CFLAGS@ @VORBIS_CFLAGS@ @I18N_CFLAGS@
 
@@ -17,7 +21,9 @@ ogginfo_DEPENDENCIES = @SHARE_LIBS@
 
 ogginfo_SOURCES = ogginfo2.c
 
-EXTRA_DIST = $(man_MANS)
+endif
+
+EXTRA_DIST = $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

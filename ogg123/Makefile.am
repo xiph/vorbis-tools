@@ -35,8 +35,6 @@ ogg123_SOURCES = audio.c buffer.c callbacks.c \
 man_MANS = $(mans) 
 doc_DATA = $(docs)
 
-else
-
 endif
 
 EXTRA_DIST = $(mans) $(docs)

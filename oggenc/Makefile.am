@@ -4,6 +4,8 @@ AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = man
 
+if BUILD_OGGENC
+
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
@@ -19,6 +21,8 @@ oggenc_DEPENDENCIES = @SHARE_LIBS@
 
 oggenc_SOURCES = oggenc.c audio.c encode.c platform.c \
                  audio.h encode.h platform.h resample.c resample.h
+
+endif
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

@@ -2,13 +2,17 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+mans = vcut.1
+
+if BUILD_VCUT
+
 datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 bin_PROGRAMS = vcut
 mandir = @MANDIR@
-man_MANS = vcut.1
+man_MANS = $(mans)
 
 INCLUDES = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
 
@@ -16,7 +20,9 @@ vcut_LDADD = @VORBIS_LIBS@ @OGG_LIBS@ @I18N_LIBS@
 
 vcut_SOURCES = vcut.c vcut.h
 
-EXTRA_DIST = $(man_MANS)
+endif
+
+EXTRA_DIST = $(mans)
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
