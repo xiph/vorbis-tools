@@ -15,18 +15,18 @@ oggenc \- encode audio into the Ogg Vorbis format
 .B -b
 .I nominal bitrate
 ]
-.\"[
-.\".B -m
-.\".I minimum bitrate
-.\"]
-.\"[
-.\".B -M
-.\".I maximum bitrate
-.\"]
-.\"[
-.\".B -q
-.\".I quality
-.\"]
+[
+.B -m
+.I minimum bitrate
+]
+[
+.B -M
+.I maximum bitrate
+]
+[
+.B -q
+.I quality
+]
 [
 .B -o
 .I output_file
@@ -92,12 +92,12 @@ Sets raw input samplerate. Default is 44100.
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
 Sets encoding to the bitrate closest to n (in kb/s).
-.\".IP "-m n, --min-bitrate=n [unsupported]"
-.\"Sets minimum bitrate to n (in kb/s).
-.\".IP "-M n, --max-bitrate=n [unsupported]"
-.\"Sets maximum bitrate to n (in kb/s).
-.\".IP "-q n, --quality=n     [unsupported]"
-.\"Sets encoding quality to n, between 0 (low) and 10 (high). This is the default mode of operation.
+.IP "-m n, --min-bitrate=n"
+Sets minimum bitrate to n (in kb/s).
+.IP "-M n, --max-bitrate=n"
+Sets maximum bitrate to n (in kb/s).
+.IP "-q n, --quality=n"
+Sets encoding quality to n, between 0 (low) and 10 (high). This is the default mode of operation.
 .IP "-s, --serial"
 Forces a specific serial number in the output stream. This is primarily useful for testing.
 .IP "-o output_file, --output=output_file"
@@ -172,12 +172,12 @@ oggenc infile.wav -b 128 -M 160 out.ogg
 .RE
 .PP
 
-.\"Specifying quality rather than bitrate (to a very high quality mode)
-.\".RS
-.\"oggenc infile.wav -q 9 out.ogg
-.\".RE
-.\".PP
-.\"
+Specifying quality rather than bitrate (to a very high quality mode)
+.RS
+oggenc infile.wav -q 9 out.ogg
+.RE
+.PP
+
 Adding some info about the track:
 .RS
 oggenc somefile.wav -t "The track title" -a "artist who performed this" -l
