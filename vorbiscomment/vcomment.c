@@ -1,7 +1,7 @@
 /* This program is licensed under the GNU General Public License, 
  * version 2, a copy of which is included with this program.
  *
- * (c) 2000-2001 Michael Smith <msmith@labyrinth.net.au>
+ * (c) 2000-2002 Michael Smith <msmith@labyrinth.net.au>
  * (c) 2001 Ralph Giles <giles@ashlu.bc.ca>
  *
  * Front end to show how to use vcedit;
@@ -493,11 +493,13 @@ void close_files(param_t *p)
         /* Some platforms fail to rename a file if the new name already exists,
          * so we need to remove, then rename. How stupid.
          */
-        if(remove(p->infilename)) 
-            fprintf(stderr, "Error removing old file %s\n", p->infilename);
-		if(rename(p->outfilename, p->infilename))
-            fprintf(stderr, "Error renaming %s to %s\n", p->outfilename, 
-                    p->infilename);
+		if(rename(p->outfilename, p->infilename)) {
+            if(remove(p->infilename))
+                fprintf(stderr, "Error removing old file %s\n", p->infilename);
+            else if(rename(p->outfilename, p->infilename)) 
+                fprintf(stderr, "Error renaming %s to %s\n", p->outfilename, 
+                        p->infilename);
+        }
     }
 }
 
