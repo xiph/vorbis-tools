@@ -248,8 +248,10 @@ static int decode_file(char *infile, char *outfile)
             break;
         }
 
-        if(ret < 0 && !quiet) {
-            fprintf(stderr, "Warning: hole in data\n");
+        if(ret < 0 ) {
+           if( !quiet ) {
+               fprintf(stderr, "Warning: hole in data\n");
+           }
             continue;
         }
 
