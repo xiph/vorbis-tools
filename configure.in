@@ -65,4 +65,4 @@ dnl --------------------------------------------------
 AC_SUBST(DEBUG)
 AC_SUBST(PROFILE)
 
-AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile)
+AC_OUTPUT(Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile debian/Makefile)

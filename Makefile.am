@@ -2,9 +2,9 @@
 
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = oggenc ogg123 vorbiscomment
+SUBDIRS = oggenc ogg123 vorbiscomment debian
 
-EXTRA_DIST = README vorbis-tools.spec
+EXTRA_DIST = README AUTHORS COPYING vorbis-tools.spec acinclude.m4
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
