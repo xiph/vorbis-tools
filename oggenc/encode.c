@@ -46,46 +46,41 @@ int oe_write_page(ogg_page *page, FILE *fp);
 static void set_advanced_encoder_options(adv_opt *opts, int count, 
         vorbis_info *vi)
 {
-    int hard = 0;
-    int avg = 0;
-    struct ovectl_ratemanage_arg ai;
+    int manage = 0;
+    struct ovectl_ratemanage2_arg ai;
     int i;
     double dval;
     long lval;
 
-    vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE_GET, &ai);
+    vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_GET, &ai);
 
     for(i=0; i < count; i++) {
         fprintf(stderr, _("Setting advanced encoder option \"%s\" to %s\n"),
                 opts[i].arg, opts[i].val);
 
-        if(!strcmp(opts[i].arg, "bitrate_average_window")) {
-            SETD(ai.bitrate_av_window);
-            avg = 1;
+        if(!strcmp(opts[i].arg, "bitrate_average_damping")) {
+            SETD(ai.bitrate_average_damping);
+            manage = 1;
         }
-        else if(!strcmp(opts[i].arg, "bitrate_average_window_center")) {
-            SETD(ai.bitrate_av_window_center);
-            avg = 1;
+        else if(!strcmp(opts[i].arg, "bitrate_average")) {
+            SETL(ai.bitrate_average_kbps);
+            manage = 1;
         }
-        else if(!strcmp(opts[i].arg, "bitrate_average_low")) {
-            SETL(ai.bitrate_av_lo);
-            avg = 1;
+        else if(!strcmp(opts[i].arg, "bit_reservoir_bias")) {
+            SETD(ai.bitrate_limit_reservoir_bias);
+            manage = 1;
         }
-        else if(!strcmp(opts[i].arg, "bitrate_average_high")) {
-            SETL(ai.bitrate_av_hi);
-            avg = 1;
+        else if(!strcmp(opts[i].arg, "bit_reservoir_bits")) {
+            SETL(ai.bitrate_limit_reservoir_bits);
+            manage = 1;
         }
         else if(!strcmp(opts[i].arg, "bitrate_hard_min")) {
-            SETL(ai.bitrate_hard_min);
-            hard = 1;
+            SETL(ai.bitrate_limit_min_kbps);
+            manage = 1;
         }
         else if(!strcmp(opts[i].arg, "bitrate_hard_max")) {
-            SETL(ai.bitrate_hard_max);
-            hard = 1;
-        }
-        else if(!strcmp(opts[i].arg, "bitrate_hard_window")) {
-            SETD(ai.bitrate_hard_window);
-            hard = 1;
+            SETL(ai.bitrate_limit_max_kbps);
+            manage = 1;
         }
         else if(!strcmp(opts[i].arg, "impulse_noisetune")) {
             double val;
@@ -105,10 +100,8 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
         }
     }
 
-    if(hard)
-        vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE_HARD, &ai);
-    if(avg)
-        vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE_AVG, &ai);
+    if(manage)
+        vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_SET, &ai);
 }
 
 int oe_encode(oe_enc_opt *opt)
@@ -163,14 +156,14 @@ int oe_encode(oe_enc_opt *opt)
 
         /* do we have optional hard quality restrictions? */
         if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
-            struct ovectl_ratemanage_arg ai;
-	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_GET, &ai);
+            struct ovectl_ratemanage2_arg ai;
+	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_GET, &ai);
 	
-	        ai.bitrate_hard_min=opt->min_bitrate;
-	        ai.bitrate_hard_max=opt->max_bitrate;
+	        ai.bitrate_limit_min_kbps=opt->min_bitrate;
+	        ai.bitrate_limit_max_kbps=opt->max_bitrate;
 	        ai.management_active=1;
 
-	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, &ai);
+	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, &ai);
 
         }
 
@@ -188,12 +181,15 @@ int oe_encode(oe_enc_opt *opt)
     
     if(opt->managed && opt->bitrate < 0)
     {
-        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_AVG, NULL);
+      struct ovectl_ratemanage2_arg ai;
+      vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_GET, &ai);
+      ai.bitrate_average_kbps=-1;
+      vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, &ai);
     }
     else if(!opt->managed)
     {
         /* Turn off management entirely (if it was turned on). */
-        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE_SET, NULL);
+        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, NULL);
     }
     
     set_advanced_encoder_options(opt->advopt, opt->advopt_count, &vi);
