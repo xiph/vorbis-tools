@@ -4,6 +4,7 @@
 
 package="vorbis-tools"
 
+olddir=`pwd`
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
@@ -75,4 +76,5 @@ automake --add-missing $AUTOMAKE_FLAGS
 echo "  autoconf"
 autoconf
 
+cd $olddir
 $srcdir/configure "$@" && echo
