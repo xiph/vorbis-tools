@@ -24,9 +24,9 @@ vorbis-tools contains oggenc (and encoder) and ogg123 (a playback tool)
 
 %build
 if [ ! -f configure ]; then
-  CFLAGS="$RPM_FLAGS" ./autogen.sh --prefix=/usr
+  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --prefix=/usr
 else
-  CFLAGS="$RPM_FLAGS" ./configure --prefix=/usr
+  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=/usr
 fi
 make
 
