@@ -1,4 +1,3 @@
-# ogg.m4
 # Configure paths for libogg
 # Jack Moffitt <jack@icecast.org> 10-21-2000
 # Shamelessly stolen from Owen Taylor and Manish Singh
@@ -13,11 +12,11 @@ dnl
 AC_ARG_WITH(ogg-prefix,[  --with-ogg-prefix=PFX   Prefix where libogg is installed (optional)], ogg_prefix="$withval", ogg_prefix="")
 AC_ARG_ENABLE(oggtest, [  --disable-oggtest       Do not try to compile and run a test Ogg program],, enable_oggtest=yes)
 
-  if test "x$ogg_prefix" != "xNONE" ; then
+  if test "x$ogg_prefix" != "x"; then
     ogg_args="$ogg_args --prefix=$ogg_prefix"
     OGG_CFLAGS="-I$ogg_prefix/include"
     OGG_LIBS="-L$ogg_prefix/lib"
-  elif test "$prefix" != ""; then
+  elif test "x$prefix" != "xNONE"; then
     ogg_args="$ogg_args --prefix=$prefix"
     OGG_CFLAGS="-I$prefix/include"
     OGG_LIBS="-L$prefix/lib"
@@ -95,7 +94,68 @@ int main ()
   rm -f conf.oggtest
 ])
 
-# vorbis.m4
+dnl Shamelessly stolen from Joerg Schilling's star.
+dnl Copyright 1998 J. Schilling
+
+dnl Checks if mmap() works to get shared memory
+dnl Defines HAVE_SMMAP on success.
+AC_DEFUN(AC_FUNC_SMMAP,
+[AC_CACHE_CHECK([if mmap works to get shared memory], ac_cv_func_smmap,
+                [AC_TRY_RUN([
+#include <sys/types.h>
+#include <sys/mman.h>
+
+char *
+mkshare()
+{
+        int     size = 8192;
+        int     f;
+        char    *addr;
+
+        if ((f = open("/dev/zero", 2)) < 0)
+                exit(1);
+        addr = mmap(0, size, PROT_READ|PROT_WRITE, MAP_SHARED, f, 0);
+        if (addr == (char *)-1)
+                exit(1);
+        close(f);
+
+        return (addr);
+}
+
+main()
+{
+        char    *addr;
+        
+        addr = mkshare(8192);
+        *addr = 'I';
+
+        switch (fork()) {
+
+        case -1:
+                printf("help\n"); exit(1);
+
+        case 0: /* child */
+                *addr = 'N';
+                _exit(0);
+                break;
+        default: /* parent */
+                wait(0);
+                sleep(1);
+                break;
+        }
+
+        if (*addr != 'N')
+                exit(1);
+        exit(0);
+}
+], 
+                [ac_cv_func_smmap=yes],
+                [ac_cv_func_smmap=no],
+                [ac_cv_func_smmap=no])])
+if test $ac_cv_func_smmap = yes; then
+  AC_DEFINE(HAVE_SMMAP)
+fi])
+
 # Configure paths for libvorbis
 # Jack Moffitt <jack@icecast.org> 10-21-2000
 # Shamelessly stolen from Owen Taylor and Manish Singh
@@ -110,11 +170,11 @@ dnl
 AC_ARG_WITH(vorbis-prefix,[  --with-vorbis-prefix=PFX   Prefix where libvorbis is installed (optional)], vorbis_prefix="$withval", vorbis_prefix="")
 AC_ARG_ENABLE(vorbistest, [  --disable-vorbistest       Do not try to compile and run a test Vorbis program],, enable_vorbistest=yes)
 
-  if test "x$vorbis_prefix" != "xNONE" ; then
+  if test "x$vorbis_prefix" != "x" ; then
     vorbis_args="$vorbis_args --prefix=$vorbis_prefix"
     VORBIS_CFLAGS="-I$vorbis_prefix/include"
     VORBIS_LIBDIR="-L$vorbis_prefix/lib"
-  elif test "$prefix" != ""; then
+  elif test "x$prefix" != "xNONE"; then
     vorbis_args="$vorbis_args --prefix=$prefix"
     VORBIS_CFLAGS="-I$prefix/include"
     VORBIS_LIBDIR="-L$prefix/lib"
@@ -212,11 +272,11 @@ dnl
 AC_ARG_WITH(ao-prefix,[  --with-ao-prefix=PFX   Prefix where libao is installed (optional)], ao_prefix="$withval", ao_prefix="")
 AC_ARG_ENABLE(aotest, [  --disable-aotest       Do not try to compile and run a test ao program],, enable_aotest=yes)
 
-  if test "x$ao_prefix" != "xNONE" ; then
+  if test "x$ao_prefix" != "x"; then
     ao_args="$ao_args --prefix=$ao_prefix"
     AO_CFLAGS="-I$ao_prefix/include"
     AO_LIBS="-L$ao_prefix/lib"
-  elif test "$prefix" != ""; then
+  elif test "x$prefix" != "xNONE"; then
     ao_args="$ao_args --prefix=$prefix"
     AO_CFLAGS="-I$prefix/include"
     AO_LIBS="-L$prefix/lib"
@@ -300,69 +360,6 @@ int main ()
   AC_SUBST(AO_LIBS)
   rm -f conf.aotest
 ])
-
-dnl Shamelessly stolen from Joerg Schilling's star.
-dnl Copyright 1998 J. Schilling
-
-dnl Checks if mmap() works to get shared memory
-dnl Defines HAVE_SMMAP on success.
-AC_DEFUN(AC_FUNC_SMMAP,
-[AC_CACHE_CHECK([if mmap works to get shared memory], ac_cv_func_smmap,
-                [AC_TRY_RUN([
-#include <sys/types.h>
-#include <sys/mman.h>
-
-char *
-mkshare()
-{
-        int     size = 8192;
-        int     f;
-        char    *addr;
-
-        if ((f = open("/dev/zero", 2)) < 0)
-                exit(1);
-        addr = mmap(0, size, PROT_READ|PROT_WRITE, MAP_SHARED, f, 0);
-        if (addr == (char *)-1)
-                exit(1);
-        close(f);
-
-        return (addr);
-}
-
-main()
-{
-        char    *addr;
-        
-        addr = mkshare(8192);
-        *addr = 'I';
-
-        switch (fork()) {
-
-        case -1:
-                printf("help\n"); exit(1);
-
-        case 0: /* child */
-                *addr = 'N';
-                _exit(0);
-                break;
-        default: /* parent */
-                wait(0);
-                sleep(1);
-                break;
-        }
-
-        if (*addr != 'N')
-                exit(1);
-        exit(0);
-}
-], 
-                [ac_cv_func_smmap=yes],
-                [ac_cv_func_smmap=no],
-                [ac_cv_func_smmap=no])])
-if test $ac_cv_func_smmap = yes; then
-  AC_DEFINE(HAVE_SMMAP)
-fi])
-
 
 dnl This macros shamelessly stolen from
 dnl http://gcc.gnu.org/ml/gcc-bugs/2001-06/msg01398.html.
