@@ -4,12 +4,32 @@
 #include <stdio.h>
 #include <vorbis/codec.h>
 
-typedef  long (*audio_read_func)(void *src, float **buffer, int samples);
+
+typedef void TIMER;
+typedef long (*audio_read_func)(void *src, float **buffer, int samples);
+typedef void (*progress_func)(char *fn, long totalsamples, 
+		long samples, double time);
+typedef void (*enc_end_func)(char *fn, double time, int rate, 
+		long samples, long bytes);
+
+
 void *timer_start(void);
 double timer_time(void *);
 void timer_clear(void *);
 
+void update_statistics_full(char *fn, long total, long done, double time);
+void update_statistics_notime(char *fn, long total, long done, double time);
+void final_statistics(char *fn, double time, int rate, long total_samples,
+		long bytes);
 
+typedef struct _taglist
+{
+	char *tag;
+	char *contents;
+
+	struct _taglist *next;
+} taglist;
+	
 typedef struct
 {
 	char **title;
@@ -20,6 +40,10 @@ typedef struct
 	int album_count;
 	char **comments;
 	int comment_count;
+	char **tracknum;
+	int track_count;
+	char **dates;
+	int date_count;
 
 	int quiet;
 	int rawmode;
@@ -33,21 +57,21 @@ typedef struct
 {
 	vorbis_comment *comments;
 	vorbis_info    *mode;
+	long serialno;
 
 	audio_read_func read_samples;
+	progress_func progress_update;
+	enc_end_func end_encode;
+	
 	void *readdata;
+
 	long total_samples_per_channel;
 	int channels;
 	long rate;
 
 	FILE *out;
 	int quiet;
-	long serialno;
 	char *filename;
-
-	char *artist;
-	char *album;
-	char *title;
 } oe_enc_opt;
 
 
