@@ -62,8 +62,10 @@ int oe_encode(oe_enc_opt *opt)
 	}
 	else
 	{
-		if(vorbis_encode_init(&vi, opt->channels, opt->rate, opt->min_bitrate*1000,
-				opt->bitrate*1000, opt->max_bitrate*1000))
+		if(vorbis_encode_init(&vi, opt->channels, opt->rate, 
+                    opt->min_bitrate>0?opt->min_bitrate*1000:-1,
+				    opt->bitrate*1000, 
+                    opt->max_bitrate>0?opt->max_bitrate*1000:-1))
 		{
 			fprintf(stderr, "Mode initialisation failed: invalid parameters for bitrate\n");
 			vorbis_info_clear(&vi);
