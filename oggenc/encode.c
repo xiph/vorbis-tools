@@ -9,6 +9,7 @@
  ** and libvorbis examples, (c) Monty <monty@xiph.org>
  **/
 
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -18,7 +19,6 @@
 #include <vorbis/vorbisenc.h>
 #include "encode.h"
 #include "i18n.h"
-
 
 #define READSIZE 1024
 
@@ -100,8 +100,11 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
         }
     }
 
-    if(manage)
-        vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_SET, &ai);
+    if(manage) {
+        if(vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_SET, &ai)) {
+            fprintf(stderr, "Failed to set advanced rate management parameters\n");
+        }
+    }
 }
 
 int oe_encode(oe_enc_opt *opt)
@@ -154,17 +157,50 @@ int oe_encode(oe_enc_opt *opt)
 	        return 1;
         }
 
-        /* do we have optional hard quality restrictions? */
+        /* do we have optional hard bitrate restrictions? */
         if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
             struct ovectl_ratemanage2_arg ai;
 	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_GET, &ai);
+
+            /* libvorbis 1.1 (and current svn) doesn't actually fill this in,
+               which looks like a bug. It'll then reject it when we call the
+               SET version below. So, fill it in with the values that libvorbis
+               would have used to fill in this structure if we were using the
+               bitrate-oriented setup functions. Unfortunately, some of those
+               values are dependent on the bitrate, and libvorbis has no way to
+               get a nominal bitrate from a quality value. Well, except by doing
+               a full setup... So, we do that. 
+               Also, note that this won't work correctly unless you have a very
+               recent (2005/03/04 or later) version of libvorbis from svn).
+             */
+            long bitrate;
+
+            {
+                vorbis_info vi2;
+                vorbis_info_init(&vi2);
+                vorbis_encode_setup_vbr(&vi2, opt->channels, opt->rate, opt->quality);
+                vorbis_encode_setup_init(&vi2);
+                bitrate = vi2.bitrate_nominal;
+                vorbis_info_clear(&vi2);
+            }
+
+            ai.bitrate_average_kbps = bitrate/1000;
+            ai.bitrate_average_damping = 1.5;
+            ai.bitrate_limit_reservoir_bits = bitrate * 2;
+            ai.bitrate_limit_reservoir_bias = .1;
 	
+            /* And now the ones we actually wanted to set */
 	        ai.bitrate_limit_min_kbps=opt->min_bitrate;
 	        ai.bitrate_limit_max_kbps=opt->max_bitrate;
 	        ai.management_active=1;
 
-	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, &ai);
-
+	        if(vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, &ai) == 0)
+                fprintf(stderr, _("Set optional hard quality restrictions\n"));
+            else {
+                fprintf(stderr, _("Failed to set bitrate min/max in quality mode\n"));
+                vorbis_info_clear(&vi);
+                return 1;
+            }
         }
 
 
