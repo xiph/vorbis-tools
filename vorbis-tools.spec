@@ -41,8 +41,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %doc ogg123/ogg123rc-example
 /usr/bin/oggenc
 /usr/bin/ogg123
-/usr/man/man1/ogg123.1.gz
-/usr/man/man1/oggenc.1.gz
+/usr/share/man/man1/ogg123.1.gz
+/usr/share/man/man1/oggenc.1.gz
 
 %clean 
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
