@@ -321,7 +321,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	{
 		fprintf(stderr, 
 				_("Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-				" Must be 8 or 16 bit PCM.\n"));
+				" Must be 8, 16, or 24 bit PCM.\n"));
 		return 0;
 	}
 }
@@ -420,7 +420,9 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
 
 	if( format.align == format.channels*samplesize &&
-			format.samplesize == samplesize*8)
+			format.samplesize == samplesize*8 && 
+    		(format.samplesize == 24 || format.samplesize == 16 || 
+             format.samplesize == 8))
 	{
 		/* OK, good - we have the one supported format,
 		   now we want to find the size of the file */
@@ -461,7 +463,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	else
 	{
 		fprintf(stderr, 
-				_("ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+				_("ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 				"or floating point PCM\n"));
 		return 0;
 	}
@@ -495,7 +497,7 @@ long wav_read(void *in, float **buffer, int samples)
 			}
 		}
 	}
-	else
+	else if(f->samplesize==16)
 	{
 		if(!f->bigendian)
 		{
@@ -520,6 +522,32 @@ long wav_read(void *in, float **buffer, int samples)
 			}
 		}
 	}
+    else if(f->samplesize==24) 
+    {
+        if(!f->bigendian) {
+            for(i = 0; i < realsamples; i++)
+            {
+                for(j=0; j < f->channels; j++) 
+                {
+                    buffer[j][i] = ((buf[i*3*f->channels + 3*j + 2] << 16) |
+                      (((unsigned char *)buf)[i*3*f->channels + 3*j + 1] << 8) |
+                      (((unsigned char *)buf)[i*3*f->channels + 3*j] & 0xff)) 
+                        / 8388608.0f;
+
+                }
+            }
+        }
+        else {
+            fprintf(stderr, _("Big endian 24 bit PCM data is not currently "
+                              "supported, aborting.\n"));
+            return 0;
+        }
+    }
+    else {
+        fprintf(stderr, _("Internal error: attempt to read unsupported "
+                          "bitdepth %d\n"), f->samplesize);
+        return 0;
+    }
 
 	return realsamples;
 }
@@ -594,7 +622,6 @@ static long read_resampled(void *d, float **buffer, int samples)
     resampler *rs = d;
     long in_samples;
     int out_samples;
-    int i;
 
     in_samples = res_push_max_input(&rs->resampler, samples);
     if(in_samples > rs->bufsize)
