@@ -32,11 +32,13 @@ typedef struct {
 	char	*infilename, *outfilename;
 	char	*commentfilename;
 	FILE	*in, *out, *com;
+	int tempoutfile;
 } param_t;
 
 #define MODE_NONE  0
 #define MODE_LIST  1
 #define MODE_WRITE 2
+#define MODE_APPEND 3
 
 /* prototypes */
 void usage(void);
@@ -99,7 +101,7 @@ int main(int argc, char **argv)
 		return 0;		
 	}
 
-	if (param->mode == MODE_WRITE) {
+	if (param->mode == MODE_WRITE || param->mode == MODE_APPEND) {
 
 		state = vcedit_new_state();
 
@@ -112,8 +114,11 @@ int main(int argc, char **argv)
 
 		/* grab and clear the exisiting comments */
 		vc = vcedit_comments(state);
-		vorbis_comment_clear(vc);
-		vorbis_comment_init(vc);
+		if(param->mode != MODE_APPEND) 
+		{
+			vorbis_comment_clear(vc);
+			vorbis_comment_init(vc);
+		}
 
 		/* build the replacement structure */
 		{
@@ -226,10 +231,17 @@ void usage(void)
 	fprintf(stderr, 
 		"Usage: \n"
 		"  vorbiscomment [-l] file.ogg (to list the comments)\n"
+		"  vorbiscomment -a in.ogg out.ogg (to append comments)\n"
 		"  vorbiscomment -w in.ogg out.ogg (to modify comments)\n"
 		"	in the write case, a new set of comments in the form\n"
 		"	'TAG=value' is expected on stdin. This set will\n"
 		"	completely replace the existing set.\n"
+		"   Either of -a and -w can take only a single filename,\n"
+		"   in which case a temporary file will be used.\n"
+		"   -c can be used to take comments from a specified file\n"
+		"   instead of stdin.\n"
+		"   Example: vorbiscomment -a in.ogg -c comments.txt\n"
+		"   will append the comments in comments.txt to in.ogg\n"
 	); 
 }
 
@@ -273,7 +285,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 	int ret;
 	int option_index = 1;
 
-	while ((ret = getopt_long(argc, argv, "lwhqc:",
+	while ((ret = getopt_long(argc, argv, "alwhqc:",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -285,6 +297,9 @@ void parse_options(int argc, char *argv[], param_t *param)
 				break;
 			case 'w':
 				param->mode = MODE_WRITE;
+				break;
+			case 'a':
+				param->mode = MODE_APPEND;
 				break;
 			case 'h':
 				usage();
@@ -303,14 +318,26 @@ void parse_options(int argc, char *argv[], param_t *param)
 	}
 
 	/* remaining bits must be the filenames */
-	if ((param->mode == MODE_LIST && (argc - optind) != 1) ||
-		(param->mode == MODE_WRITE && (argc - optind) != 2)) {
+	if((param->mode == MODE_LIST && (argc-optind) != 1) ||
+	   ((param->mode == MODE_WRITE || param->mode == MODE_APPEND) &&
+	   ((argc-optind) < 1 || (argc-optind) > 2))) {
 			usage();
 			exit(1);
 	}
+
 	param->infilename = strdup(argv[optind]);
-	if (param->mode == MODE_WRITE)
-		param->outfilename = strdup(argv[optind+1]);
+	if (param->mode == MODE_WRITE || param->mode == MODE_APPEND)
+	{
+		if(argc-optind == 1)
+		{
+			param->tempoutfile = 1;
+			param->outfilename = malloc(strlen(param->infilename)+8);
+			strcpy(param->outfilename, param->infilename);
+			strcat(param->outfilename, ".vctemp");
+		}
+		else
+			param->outfilename = strdup(argv[optind+1]);
+	}
 }
 
 /**********
@@ -341,7 +368,7 @@ void open_files(param_t *p)
 		exit(1);
 	}
 
-	if (p->mode == MODE_WRITE) { 
+	if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) { 
 
 		/* open output for write mode */
 
@@ -407,4 +434,7 @@ void close_files(param_t *p)
 	if (p->in != NULL) fclose(p->in);
 	if (p->out != NULL) fclose(p->out);
 	if (p->com != NULL) fclose(p->com);
+
+	if(p->tempoutfile)
+		rename(p->outfilename, p->infilename);
 }
