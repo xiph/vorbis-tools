@@ -9,7 +9,7 @@ AC_INIT(oggenc/encode.c)
 dnl Apparently we need a newer version than we used to. 
 AC_PREREQ(2.53)
 
-AM_INIT_AUTOMAKE(vorbis-tools,1.0.1)
+AM_INIT_AUTOMAKE([vorbis-tools],[1.1.0])
 AM_MAINTAINER_MODE
 
 dnl --------------------------------------------------  
@@ -22,7 +22,7 @@ cflags_save="$CFLAGS"
 AC_PROG_CC
 CFLAGS="$cflags_save"
 
-AM_PROG_LIBTOOL
+AC_PROG_LIBTOOL
 
 ALL_LINGUAS="be cs da es fr hr hu nl ro ru sv uk"
 AM_GNU_GETTEXT
