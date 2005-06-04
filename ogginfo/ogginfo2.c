@@ -2,7 +2,7 @@
  *
  * A tool to describe ogg file contents and metadata.
  *
- * Copyright 2002 Michael Smith <msmith@xiph.org>
+ * Copyright 2002-2005 Michael Smith <msmith@xiph.org>
  * Licensed under the GNU GPL, distributed with this program.
  */
 
@@ -20,6 +20,8 @@
 #include <locale.h>
 #include "utf8.h"
 #include "i18n.h"
+
+#include "theora.h"
 
 #define CHUNK 4500
 
@@ -88,6 +90,17 @@ typedef struct {
     int doneheaders;
 } misc_vorbis_info;
 
+typedef struct {
+    theora_info ti;
+    theora_comment tc;
+
+    ogg_int64_t bytes;
+    ogg_int64_t lastgranulepos;
+    ogg_int64_t firstgranulepos;
+
+    int doneheaders;
+} misc_theora_info;
+
 static int printinfo = 1;
 static int printwarn = 1;
 static int verbose = 1;
@@ -142,6 +155,296 @@ static void error(char *format, ...)
     vfprintf(stdout, format, ap);
     va_end(ap);
 }
+
+static void check_xiph_comment(stream_processor *stream, int i, char *comment)
+{
+    char *sep = strchr(comment, '=');
+    char *decoded;
+    int j;
+    int broken = 0;
+    unsigned char *val;
+    int bytes;
+    int remaining;
+
+    if(sep == NULL) {
+        warn(_("Warning: Comment %d in stream %d has invalid "
+              "format, does not contain '=': \"%s\"\n"), 
+              i, stream->num, comment);
+             return;
+    }
+
+    for(j=0; j < sep-comment; j++) {
+        if(comment[j] < 0x20 || comment[j] > 0x7D) {
+            warn(_("Warning: Invalid comment fieldname in "
+                   "comment %d (stream %d): \"%s\"\n"),
+                   i, stream->num, comment);
+            broken = 1;
+            break;
+        }
+    }
+
+    if(broken)
+	return;
+
+    val = comment;
+
+    j = sep-comment+1;
+    while(j < comment)
+    {
+        remaining = comment - j;
+        if((val[j] & 0x80) == 0)
+            bytes = 1;
+        else if((val[j] & 0x40) == 0x40) {
+            if((val[j] & 0x20) == 0)
+                bytes = 2;
+            else if((val[j] & 0x10) == 0)
+                bytes = 3;
+            else if((val[j] & 0x08) == 0)
+                bytes = 4;
+            else if((val[j] & 0x04) == 0)
+                bytes = 5;
+            else if((val[j] & 0x02) == 0)
+                bytes = 6;
+            else {
+                warn(_("Warning: Illegal UTF-8 sequence in "
+                    "comment %d (stream %d): length marker wrong\n"),
+                    i, stream->num);
+                broken = 1;
+                break;
+            }
+        }
+        else {
+            warn(_("Warning: Illegal UTF-8 sequence in comment "
+                "%d (stream %d): length marker wrong\n"), i, stream->num);
+            broken = 1;
+            break;
+        }
+
+        if(bytes > remaining) {
+            warn(_("Warning: Illegal UTF-8 sequence in comment "
+                "%d (stream %d): too few bytes\n"), i, stream->num);
+            broken = 1;
+            break;
+        }
+
+        switch(bytes) {
+            case 1:
+                /* No more checks needed */
+                break;
+            case 2:
+                if((val[j+1] & 0xC0) != 0x80)
+                    broken = 1;
+                if((val[j] & 0xFE) == 0xC0)
+                    broken = 1;
+                break;
+            case 3:
+                if(!((val[j] == 0xE0 && val[j+1] >= 0xA0 && val[j+1] <= 0xBF && 
+                         (val[j+2] & 0xC0) == 0x80) ||
+                     (val[j] >= 0xE1 && val[j] <= 0xEC && 
+                         (val[j+1] & 0xC0) == 0x80 &&
+                         (val[j+2] & 0xC0) == 0x80) ||
+                     (val[j] == 0xED && val[j+1] >= 0x80 &&
+                         val[j+1] <= 0x9F &&
+                         (val[j+2] & 0xC0) == 0x80) ||
+                     (val[j] >= 0xEE && val[j] <= 0xEF &&
+                         (val[j+1] & 0xC0) == 0x80 &&
+                         (val[j+2] & 0xC0) == 0x80)))
+                     broken = 1;
+                 if(val[j] == 0xE0 && (val[j+1] & 0xE0) == 0x80)
+                     broken = 1;
+                 break;
+            case 4:
+                 if(!((val[j] == 0xF0 && val[j+1] >= 0x90 &&
+                         val[j+1] <= 0xBF &&
+                         (val[j+2] & 0xC0) == 0x80 &&
+                         (val[j+3] & 0xC0) == 0x80) ||
+                     (val[j] >= 0xF1 && val[j] <= 0xF3 &&
+                         (val[j+1] & 0xC0) == 0x80 &&
+                         (val[j+2] & 0xC0) == 0x80 &&
+                         (val[j+3] & 0xC0) == 0x80) ||
+                     (val[j] == 0xF4 && val[j+1] >= 0x80 &&
+                         val[j+1] <= 0x8F &&
+                         (val[j+2] & 0xC0) == 0x80 &&
+                         (val[j+3] & 0xC0) == 0x80)))
+                     broken = 1;
+                 if(val[j] == 0xF0 && (val[j+1] & 0xF0) == 0x80)
+                     broken = 1;
+                 break;
+             /* 5 and 6 aren't actually allowed at this point */
+             case 5:
+                 broken = 1;
+                 break;
+             case 6:
+                 broken = 1;
+                 break;
+         }
+
+         if(broken) {
+             warn(_("Warning: Illegal UTF-8 sequence in comment "
+                   "%d (stream %d): invalid sequence\n"), i, stream->num);
+             broken = 1;
+             break;
+         }
+
+         j += bytes;
+     }
+
+     if(!broken) {
+         if(utf8_decode(sep+1, &decoded) < 0) {
+             warn(_("Warning: Failure in utf8 decoder. This should be impossible\n"));
+             return;
+	 }
+     }
+     
+     *sep = 0;
+     info("\t%s=%s\n", comment, decoded);
+     free(decoded);
+}
+
+static void theora_process(stream_processor *stream, ogg_page *page)
+{
+    ogg_packet packet;
+    misc_theora_info *inf = stream->data;
+    int i, header=0;
+    int k;
+
+    ogg_stream_pagein(&stream->os, page);
+    if(inf->doneheaders < 3)
+        header = 1;
+
+    while(ogg_stream_packetout(&stream->os, &packet) > 0) {
+        if(inf->doneheaders < 3) {
+            if(theora_decode_header(&inf->ti, &inf->tc, &packet) < 0) {
+                warn(_("Warning: Could not decode theora header "
+                       "packet - invalid theora stream (%d)\n"), stream->num);
+                continue;
+            }
+            inf->doneheaders++;
+            if(inf->doneheaders == 3) {
+                if(ogg_page_granulepos(page) != 0 || ogg_stream_packetpeek(&stream->os, NULL) == 1)
+                    warn(_("Warning: Theora stream %d does not have headers "
+                           "correctly framed. Terminal header page contains "
+                           "additional packets or has non-zero granulepos\n"),
+                            stream->num);
+                info(_("Theora headers parsed for stream %d, "
+                       "information follows...\n"), stream->num);
+
+                info(_("Version: %d.%d.%d\n"), inf->ti.version_major, inf->ti.version_minor, inf->ti.version_subminor);
+   
+                info(_("Vendor: %s\n"), inf->tc.vendor);
+                info(_("Width: %d\n"), inf->ti.frame_width);
+                info(_("Height: %d\n"), inf->ti.frame_height);
+		info(_("Total image: %d by %d, offset x %d, offset y %d\n\n"),
+		    inf->ti.width, inf->ti.height, inf->ti.offset_x, inf->ti.offset_y);
+		if(inf->ti.offset_x + inf->ti.frame_width > inf->ti.width)
+		    warn(_("Frame offset/size invalid: width incorrect\n"));
+		if(inf->ti.offset_y + inf->ti.frame_height > inf->ti.height)
+		    warn(_("Frame offset/size invalid: height incorrect\n"));
+
+		if(inf->ti.fps_numerator == 0 || inf->ti.fps_denominator == 0) 
+		   warn(_("Invalid zero framerate\n"));
+		else
+		   info(_("Framerate %d/%d (%f fps)\n"), inf->ti.fps_numerator, inf->ti.fps_denominator, (float)inf->ti.fps_numerator/(float)inf->ti.fps_denominator);
+		
+		if(inf->ti.aspect_numerator == 0 || inf->ti.aspect_denominator == 0) 
+		{
+		    info(_("Aspect ratio undefined\n"));
+		}	
+		else
+		{
+		    float frameaspect = (float)inf->ti.frame_width/(float)inf->ti.frame_height * (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator; 
+		    info(_("Pixel aspect ratio %d:%d (1:%f)\n"), inf->ti.aspect_numerator, inf->ti.aspect_denominator, (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator);
+                    if(abs(frameaspect - 4.0/3.0) < 0.02)
+			info("Frame aspect 4:3\n");
+                    else if(abs(frameaspect - 16.0/9.0) < 0.02)
+			info("Frame aspect 16:9\n");
+		    else
+			info("Frame aspect 1:%d\n", frameaspect);
+		}
+
+		if(inf->ti.colorspace == OC_CS_ITU_REC_470M)
+		    info("Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"); 
+		else if(inf->ti.colorspace == OC_CS_ITU_REC_470BG)
+		    info("Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"); 
+		else
+		    info("Colourspace unspecified\n");
+
+		if(inf->ti.pixelformat == OC_PF_420)
+		    info("Pixel format 4:2:0\n");
+		else if(inf->ti.pixelformat == OC_PF_422)
+		    info("Pixel format 4:2:2\n");
+		else if(inf->ti.pixelformat == OC_PF_444)
+		    info("Pixel format 4:4:4\n");
+		else
+		    warn("Pixel format invalid\n");
+
+		info("Target bitrate: %d kbps\n", inf->ti.target_bitrate/1000);
+		info("Nominal quality setting (0-63): %d\n", inf->ti.quality);
+
+                if(inf->tc.comments > 0)
+                    info(_("User comments section follows...\n"));
+
+                for(i=0; i < inf->tc.comments; i++) {
+                    char *comment = inf->tc.user_comments[i];
+		    check_xiph_comment(stream, i, comment);
+		}
+	    }
+	}
+    }
+
+    if(!header) {
+        ogg_int64_t gp = ogg_page_granulepos(page);
+        if(gp > 0) {
+            if(gp < inf->lastgranulepos)
+#ifdef _WIN32
+                warn(_("Warning: granulepos in stream %d decreases from %I64d to %I64d" ),
+                        stream->num, inf->lastgranulepos, gp);
+#else
+                warn(_("Warning: granulepos in stream %d decreases from %lld to %lld" ),
+                        stream->num, inf->lastgranulepos, gp);
+#endif
+            inf->lastgranulepos = gp;
+        }
+        if(inf->firstgranulepos < 0) { /* Not set yet */
+        }
+        inf->bytes += page->header_len + page->body_len;
+    }
+}
+
+static void theora_end(stream_processor *stream) 
+{
+    misc_theora_info *inf = stream->data;
+    long minutes, seconds, milliseconds;
+    double bitrate, time;
+
+    /* This should be lastgranulepos - startgranulepos, or something like that*/
+    time = (double)inf->lastgranulepos / 
+	((float)inf->ti.fps_numerator/(float)inf->ti.fps_denominator);
+    minutes = (long)time / 60;
+    seconds = (long)time - minutes*60;
+    milliseconds = (long)((time - minutes*60 - seconds)*1000);
+    bitrate = inf->bytes*8 / time / 1000.0;
+
+#ifdef _WIN32
+    info(_("Theora stream %d:\n"
+           "\tTotal data length: %I64d bytes\n"
+           "\tPlayback length: %ldm:%02ld.%03lds\n"
+           "\tAverage bitrate: %f kb/s\n"), 
+            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
+#else
+    info(_("Theora stream %d:\n"
+           "\tTotal data length: %lld bytes\n"
+           "\tPlayback length: %ldm:%02ld.%03lds\n"
+           "\tAverage bitrate: %f kb/s\n"), 
+            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
+#endif
+
+    theora_comment_clear(&inf->tc);
+    theora_info_clear(&inf->ti);
+
+    free(stream->data);
+}
+
 
 static void vorbis_process(stream_processor *stream, ogg_page *page )
 {
@@ -208,154 +511,9 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
                     info(_("User comments section follows...\n"));
 
                 for(i=0; i < inf->vc.comments; i++) {
-                    char *sep = strchr(inf->vc.user_comments[i], '=');
-                    char *decoded;
-                    int j;
-                    int broken = 0;
-                    unsigned char *val;
-                    int bytes;
-                    int remaining;
-
-                    if(sep == NULL) {
-                        warn(_("Warning: Comment %d in stream %d is invalidly "
-                               "formatted, does not contain '=': \"%s\"\n"), 
-                               i, stream->num, inf->vc.user_comments[i]);
-                        continue;
-                    }
-
-                    for(j=0; j < sep-inf->vc.user_comments[i]; j++) {
-                        if(inf->vc.user_comments[i][j] < 0x20 ||
-                           inf->vc.user_comments[i][j] > 0x7D) {
-                            warn(_("Warning: Invalid comment fieldname in "
-                                   "comment %d (stream %d): \"%s\"\n"),
-                                    i, stream->num, inf->vc.user_comments[i]);
-                            broken = 1;
-                            break;
-                        }
-                    }
-
-                    if(broken)
-                        continue;
-
-                    val = inf->vc.user_comments[i];
-
-                    j = sep-inf->vc.user_comments[i]+1;
-                    while(j < inf->vc.comment_lengths[i])
-                    {
-                        remaining = inf->vc.comment_lengths[i] - j;
-                        if((val[j] & 0x80) == 0)
-                            bytes = 1;
-                        else if((val[j] & 0x40) == 0x40) {
-                            if((val[j] & 0x20) == 0)
-                                bytes = 2;
-                            else if((val[j] & 0x10) == 0)
-                                bytes = 3;
-                            else if((val[j] & 0x08) == 0)
-                                bytes = 4;
-                            else if((val[j] & 0x04) == 0)
-                                bytes = 5;
-                            else if((val[j] & 0x02) == 0)
-                                bytes = 6;
-                            else {
-                                warn(_("Warning: Illegal UTF-8 sequence in "
-                                       "comment %d (stream %d): length "
-                                       "marker wrong\n"),
-                                        i, stream->num);
-                                broken = 1;
-                                break;
-                            }
-                        }
-                        else {
-                            warn(_("Warning: Illegal UTF-8 sequence in comment "
-                                   "%d (stream %d): length marker wrong\n"),
-                                    i, stream->num);
-                            broken = 1;
-                            break;
-                        }
-
-                        if(bytes > remaining) {
-                            warn(_("Warning: Illegal UTF-8 sequence in comment "
-                                   "%d (stream %d): too few bytes\n"),
-                                    i, stream->num);
-                            broken = 1;
-                            break;
-                        }
-
-                        switch(bytes) {
-                            case 1:
-                                /* No more checks needed */
-                                break;
-                            case 2:
-                                if((val[j+1] & 0xC0) != 0x80)
-                                    broken = 1;
-                                if((val[j] & 0xFE) == 0xC0)
-                                    broken = 1;
-                                break;
-                            case 3:
-                                if(!((val[j] == 0xE0 && val[j+1] >= 0xA0 && 
-                                        val[j+1] <= 0xBF && 
-                                        (val[j+2] & 0xC0) == 0x80) ||
-                                   (val[j] >= 0xE1 && val[j] <= 0xEC &&
-                                        (val[j+1] & 0xC0) == 0x80 &&
-                                        (val[j+2] & 0xC0) == 0x80) ||
-                                   (val[j] == 0xED && val[j+1] >= 0x80 &&
-                                        val[j+1] <= 0x9F &&
-                                        (val[j+2] & 0xC0) == 0x80) ||
-                                   (val[j] >= 0xEE && val[j] <= 0xEF &&
-                                        (val[j+1] & 0xC0) == 0x80 &&
-                                        (val[j+2] & 0xC0) == 0x80)))
-                                    broken = 1;
-                                if(val[j] == 0xE0 && (val[j+1] & 0xE0) == 0x80)
-                                    broken = 1;
-                                break;
-                            case 4:
-                                if(!((val[j] == 0xF0 && val[j+1] >= 0x90 &&
-                                        val[j+1] <= 0xBF &&
-                                        (val[j+2] & 0xC0) == 0x80 &&
-                                        (val[j+3] & 0xC0) == 0x80) ||
-                                     (val[j] >= 0xF1 && val[j] <= 0xF3 &&
-                                        (val[j+1] & 0xC0) == 0x80 &&
-                                        (val[j+2] & 0xC0) == 0x80 &&
-                                        (val[j+3] & 0xC0) == 0x80) ||
-                                     (val[j] == 0xF4 && val[j+1] >= 0x80 &&
-                                        val[j+1] <= 0x8F &&
-                                        (val[j+2] & 0xC0) == 0x80 &&
-                                        (val[j+3] & 0xC0) == 0x80)))
-                                    broken = 1;
-                                if(val[j] == 0xF0 && (val[j+1] & 0xF0) == 0x80)
-                                    broken = 1;
-                                break;
-                            /* 5 and 6 aren't actually allowed at this point*/  
-                            case 5:
-                                broken = 1;
-                                break;
-                            case 6:
-                                broken = 1;
-                                break;
-                        }
-
-                        if(broken) {
-                            warn(_("Warning: Illegal UTF-8 sequence in comment "
-                                   "%d (stream %d): invalid sequence\n"),
-                                    i, stream->num);
-                            broken = 1;
-                            break;
-                        }
-
-                        j += bytes;
-                    }
-
-                    if(!broken) {
-                        if(utf8_decode(sep+1, &decoded) < 0) {
-                            warn(_("Warning: Failure in utf8 decoder. This "
-                                   "should be impossible\n"));
-                            continue;
-                        }
-                        *sep = 0;
-                        info("\t%s=%s\n", inf->vc.user_comments[i], decoded);
-                        free(decoded);
-                    }
-                }
+                    char *comment = inf->vc.user_comments[i];
+		    check_xiph_comment(stream, i, comment);
+		}
             }
         }
     }
@@ -478,6 +636,18 @@ static void other_start(stream_processor *stream, char *type)
     stream->process_end = NULL;
 }
 
+static void theora_start(stream_processor *stream)
+{
+    misc_theora_info *info;
+
+    stream->type = "theora";
+    stream->process_page = theora_process;
+    stream->process_end = theora_end;
+
+    stream->data = calloc(1, sizeof(misc_theora_info));
+    info = stream->data;
+}
+
 static void vorbis_start(stream_processor *stream)
 {
     misc_vorbis_info *info;
@@ -566,14 +736,14 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         }
         else if(packet.bytes >= 7 && memcmp(packet.packet, "\001vorbis", 7)==0)
             vorbis_start(stream);
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\200theora", 7)==0) 
+            theora_start(stream);
         else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) 
             other_start(stream, "MIDI");
         else if(packet.bytes >= 4 && memcmp(packet.packet, "fLaC", 4)==0) 
             other_start(stream, "FLAC");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0) 
             other_start(stream, "speex");
-        else if(packet.bytes >= 7 && memcmp(packet.packet, "\200theora", 7)==0) 
-            other_start(stream, "Theora");
         else
             other_start(stream, NULL);
 
@@ -728,8 +898,8 @@ static void process_file(char *filename) {
 }
 
 static void usage(void) {
-    printf(_("ogginfo 1.0.1\n"
-             "(c) 2003 Michael Smith <msmith@xiph.org>\n"
+    printf(_("ogginfo 1.1.0\n"
+             "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
              "Flags supported:\n"
@@ -793,4 +963,3 @@ int main(int argc, char **argv) {
 
     return ret;
 }
-
