@@ -188,10 +188,10 @@ static void check_xiph_comment(stream_processor *stream, int i, char *comment)
 
     val = comment;
 
-    j = sep-comment+1;
-    while(j < comment)
+    j = sep-comment[i]+1;
+    while(j < comment[i])
     {
-        remaining = comment - j;
+        remaining = comment[i] - j;
         if((val[j] & 0x80) == 0)
             bytes = 1;
         else if((val[j] & 0x40) == 0x40) {
@@ -334,7 +334,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
                 info(_("Vendor: %s\n"), inf->tc.vendor);
                 info(_("Width: %d\n"), inf->ti.frame_width);
                 info(_("Height: %d\n"), inf->ti.frame_height);
-		info(_("Total image: %d by %d, offset x %d, offset y %d\n\n"),
+		info(_("Total image: %d by %d, offset x %d, offset y %d\n"),
 		    inf->ti.width, inf->ti.height, inf->ti.offset_x, inf->ti.offset_y);
 		if(inf->ti.offset_x + inf->ti.frame_width > inf->ti.width)
 		    warn(_("Frame offset/size invalid: width incorrect\n"));
@@ -734,9 +734,9 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             warn(_("Warning: Invalid header page, no packet found\n"));
             null_start(stream);
         }
-        else if(packet.bytes >= 7 && memcmp(packet.packet, "\001vorbis", 7)==0)
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\x01vorbis", 7)==0)
             vorbis_start(stream);
-        else if(packet.bytes >= 7 && memcmp(packet.packet, "\200theora", 7)==0) 
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80theora", 7)==0) 
             theora_start(stream);
         else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) 
             other_start(stream, "MIDI");
