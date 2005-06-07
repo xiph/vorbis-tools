@@ -14,6 +14,11 @@
 #include <string.h>
 #include <sys/types.h>
 #include <math.h>
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "audio.h"
 #include "platform.h"
 #include "i18n.h"

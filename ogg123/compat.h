@@ -18,6 +18,10 @@
 #ifndef __COMPAT_H__
 #define __COMPAT_H__
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #ifdef __sun
 #include <alloca.h>
 #endif

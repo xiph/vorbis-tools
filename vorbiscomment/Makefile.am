@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-AUTOMAKE_OPTIONS = foreign
-
 mans = vorbiscomment.1
 vorbiscommentsources = vcedit.c vcedit.h vcomment.c
 

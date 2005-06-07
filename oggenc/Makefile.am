@@ -1,6 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-
-AUTOMAKE_OPTIONS = foreign
+if HAVE_LIBFLAC
+flac_sources = flac.c flac.h easyflac.c easyflac.h
+else
+flac_sources =
+endif
 
 SUBDIRS = man
 
@@ -18,10 +21,10 @@ oggenc_LDADD = @OGGENC_FLAC_OBJS@ @SHARE_LIBS@ \
 
 oggenc_DEPENDENCIES = @OGGENC_FLAC_OBJS@ @SHARE_LIBS@
 
-oggenc_SOURCES = oggenc.c audio.c encode.c platform.c \
+oggenc_SOURCES = $(flac_sources) \
+                 oggenc.c audio.c encode.c platform.c \
                  audio.h encode.h platform.h resample.c resample.h
 
-EXTRA_oggenc_SOURCES = flac.c flac.h easyflac.c easyflac.h
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

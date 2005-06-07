@@ -1,8 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-AUTOMAKE_OPTIONS = foreign
-
-
 mans = ogginfo.1
 ogginfosources = ogginfo2.c theora.c
 
