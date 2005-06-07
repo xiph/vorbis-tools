@@ -2,8 +2,12 @@
 
 AUTOMAKE_OPTIONS = foreign
 
+
 mans = ogginfo.1
 ogginfosources = ogginfo2.c theora.c
+
+noinst_HEADERS = \
+	theora.h
 
 datadir = @datadir@
 localedir = $(datadir)/locale
