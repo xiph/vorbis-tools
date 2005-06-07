@@ -15,11 +15,11 @@ bin_PROGRAMS = oggenc
 
 INCLUDES = @SHARE_CFLAGS@ @OGG_CFLAGS@ @VORBIS_CFLAGS@ @I18N_CFLAGS@
 
-oggenc_LDADD = @OGGENC_FLAC_OBJS@ @SHARE_LIBS@ \
+oggenc_LDADD = @SHARE_LIBS@ \
 	       @VORBISENC_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ \
 	       @LIBICONV@ @I18N_LIBS@ @FLAC_LIBS@
 
-oggenc_DEPENDENCIES = @OGGENC_FLAC_OBJS@ @SHARE_LIBS@
+oggenc_DEPENDENCIES = @SHARE_LIBS@
 
 oggenc_SOURCES = $(flac_sources) \
                  oggenc.c audio.c encode.c platform.c \

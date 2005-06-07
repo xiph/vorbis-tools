@@ -94,8 +94,8 @@ AC_ARG_ENABLE(oggenc, [  --disable-oggenc   Skip building oggenc], build_oggenc=
 AC_ARG_ENABLE(ogginfo,[  --disable-ogginfo  Skip building ogginfo], build_ogginfo="$enableval", build_ogginfo="yes")
 AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$enableval", build_vcut="no")
 AC_ARG_ENABLE(vorbiscomment, [  --disable-vorbiscomment   Skip building vorbiscomment], build_vorbiscomment="$enableval", build_vorbiscomment="yes")
-AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_flac="$enableval", build_flac="yes")
-AC_ARG_WITH(speex,    [  --without-speex    Do not compile Speex support], build_speex="$enableval", build_speex="yes")
+AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_flac=no, build_flac="yes")
+AC_ARG_WITH(speex,    [  --without-speex    Do not compile Speex support], build_speex=no, build_speex="yes")
 
 dnl --------------------------------------------------
 dnl Check for generally needed libraries
@@ -130,28 +130,28 @@ fi
 dnl -------------------- FLAC ----------------------
 
 FLAC_LIBS=""
-AC_CHECK_LIB(m,log,FLAC_LIBS="-lm")
-AC_CHECK_LIB(FLAC, [FLAC__stream_decoder_process_single],
-  [have_libFLAC=yes; FLAC_LIBS="-lFLAC $FLAC_LIBS"],
-  AC_MSG_WARN([libFLAC missing])
-  have_libFLAC=no, [$FLAC_LIBS]
-)
-AC_CHECK_LIB(OggFLAC, [OggFLAC__stream_decoder_new],
-  [FLAC_LIBS="-lOggFLAC $FLAC_LIBS $OGG_LIBS"],
-  AC_MSG_WARN([libOggFLAC missing])
-  have_libFLAC=no, [$FLAC_LIBS $OGG_LIBS]
-)
-AC_CHECK_HEADER(FLAC/stream_decoder.h,,
-  AC_MSG_WARN(libFLAC headers missing)
-  have_libFLAC=no,[ ])
+if test "x$build_flac" = xyes; then
+  AC_CHECK_LIB(m,log,FLAC_LIBS="-lm")
+  AC_CHECK_LIB(FLAC, [FLAC__stream_decoder_process_single],
+    [have_libFLAC=yes; FLAC_LIBS="-lFLAC $FLAC_LIBS"],
+    AC_MSG_WARN([libFLAC missing])
+    have_libFLAC=no, [$FLAC_LIBS]
+  )
+  AC_CHECK_LIB(OggFLAC, [OggFLAC__stream_decoder_new],
+    [FLAC_LIBS="-lOggFLAC $FLAC_LIBS $OGG_LIBS"],
+    AC_MSG_WARN([libOggFLAC missing])
+    have_libFLAC=no, [$FLAC_LIBS $OGG_LIBS]
+  )
+  AC_CHECK_HEADER(FLAC/stream_decoder.h,,
+    AC_MSG_WARN(libFLAC headers missing)
+    have_libFLAC=no,[ ])
 
-if test "x$have_libFLAC" = xyes; then
-   if test "x$build_flac" = xyes; then
-      AC_DEFINE(HAVE_LIBFLAC, 1, [Defined if we have libFLAC])
-   fi
-else
-   build_flac="no"
-   FLAC_LIBS=""
+  if test "x$have_libFLAC" = xyes; then
+     AC_DEFINE(HAVE_LIBFLAC, 1, [Defined if we have libFLAC])
+  else
+     build_flac="no"
+     FLAC_LIBS=""
+  fi
 fi
 AM_CONDITIONAL(HAVE_LIBFLAC, test "x$have_libFLAC" = "xyes")
 AC_SUBST(FLAC_LIBS)
@@ -159,24 +159,25 @@ AC_SUBST(FLAC_LIBS)
 dnl ------------------- Speex ------------------------
 
 SPEEX_LIBS=""
-AC_CHECK_LIB(m,log,SPEEX_LIBS="-lm")
-AC_CHECK_LIB(speex, [speex_decoder_init],
-  [have_libspeex=yes; SPEEX_LIBS="-lspeex $SPEEX_LIBS"],
-  AC_MSG_WARN(libspeex missing)
-  have_libspeex=no, [$SPEEX_LIBS]
-)
-AC_CHECK_HEADER(speex.h,,
-  AC_MSG_WARN(libspeex headers missing)
-  have_libspeex=no,[ ])
+if test "x$build_speex" = xyes; then
+  AC_CHECK_LIB(m,log,SPEEX_LIBS="-lm")
+  AC_CHECK_LIB(speex, [speex_decoder_init],
+    [have_libspeex=yes; SPEEX_LIBS="-lspeex $SPEEX_LIBS"],
+    AC_MSG_WARN(libspeex missing)
+    have_libspeex=no, [$SPEEX_LIBS]
+  )
+  AC_CHECK_HEADER(speex.h,,
+    AC_MSG_WARN(libspeex headers missing)
+    have_libspeex=no,[ ])
 
-if test "x$have_libspeex" = xyes; then
-   if test "x$build_speex" = xyes; then
-      AC_DEFINE(HAVE_LIBSPEEX, 1, [Defined if we have libspeex])
-   fi
-else
-   build_speex="no"
-   SPEEX_LIBS=""
+  if test "x$have_libspeex" = xyes; then
+    AC_DEFINE(HAVE_LIBSPEEX, 1, [Defined if we have libspeex])
+  else
+    build_speex="no"
+    SPEEX_LIBS=""
+  fi
 fi
+AM_CONDITIONAL(HAVE_LIBSPEEX, test "x$have_libspeex" = "xyes")
 AC_SUBST(SPEEX_LIBS)
 
 dnl --------------------------------------------------
@@ -212,21 +213,6 @@ dnl --------------------------------------------------
 OPT_SUBDIRS=""
 if test "x$build_ogg123" = xyes; then
   OPT_SUBDIRS="$OPT_SUBDIRS ogg123"
-  if test "x$have_libFLAC" = xyes; then
-    OGG123_FLAC_OBJS='flac_format.$(OBJEXT) easyflac.$(OBJEXT)'
-    OGGENC_FLAC_OBJS='flac.$(OBJEXT) easyflac.$(OBJEXT)'
-  else
-    OGG123_FLAC_OBJS=''
-    OGGENC_FLAC_OBJS=''
-  fi
-  AC_SUBST(OGG123_FLAC_OBJS)
-  AC_SUBST(OGGENC_FLAC_OBJS)
-  if test "x$have_libspeex" = xyes; then
-    OGG123_SPEEX_OBJS='speex_format.$(OBJEXT)'
-  else
-    OGG123_SPEEX_OBJS=''
-  fi
-  AC_SUBST(OGG123_SPEEX_OBJS)
 fi
 if test "x$build_oggenc" = xyes; then
   OPT_SUBDIRS="$OPT_SUBDIRS oggenc"
@@ -272,7 +258,7 @@ else
 will NOT be built with FLAC read support.])
     fi
     if test "x$have_libspeex" != xyes; then
-        AC_MSG_WARN([Speex libraries or headers missing, ogg123 will NOT be 
-built with Speex read support.])
+        AC_MSG_WARN([Speex libraries or headers missing, ogg123 
+will NOT be built with Speex read support.])
     fi         
 fi
