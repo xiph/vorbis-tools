@@ -82,14 +82,14 @@ typedef struct {
   unsigned char version_minor;
   unsigned char version_subminor;
 
+  int granule_shift;
+
   void *codec_setup;
 
   /* encode only */
   int           dropframes_p;
   int           keyframe_auto_p;
   ogg_uint32_t  keyframe_frequency;
-  ogg_uint32_t  keyframe_frequency_force;  /* also used for decode init to
-                                              get granpos shift correct */
   ogg_uint32_t  keyframe_data_target_bitrate;
   ogg_int32_t   keyframe_auto_threshold;
   ogg_uint32_t  keyframe_mindistance;
@@ -181,3 +181,5 @@ typedef struct theora_comment{
 extern int theora_decode_header(theora_info *ci, theora_comment *cc,
                                 ogg_packet *op);
 
+void theora_info_clear(theora_info *c);
+void theora_comment_clear(theora_comment *tc);

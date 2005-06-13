@@ -156,7 +156,8 @@ static void error(char *format, ...)
     va_end(ap);
 }
 
-static void check_xiph_comment(stream_processor *stream, int i, char *comment)
+static void check_xiph_comment(stream_processor *stream, int i, char *comment,
+    int comment_length)
 {
     char *sep = strchr(comment, '=');
     char *decoded;
@@ -188,10 +189,10 @@ static void check_xiph_comment(stream_processor *stream, int i, char *comment)
 
     val = comment;
 
-    j = sep-comment[i]+1;
-    while(j < comment[i])
+    j = sep-comment+1;
+    while(j < comment_length)
     {
-        remaining = comment[i] - j;
+        remaining = comment_length - j;
         if((val[j] & 0x80) == 0)
             bytes = 1;
         else if((val[j] & 0x40) == 0x40) {
@@ -306,7 +307,6 @@ static void theora_process(stream_processor *stream, ogg_page *page)
     ogg_packet packet;
     misc_theora_info *inf = stream->data;
     int i, header=0;
-    int k;
 
     ogg_stream_pagein(&stream->os, page);
     if(inf->doneheaders < 3)
@@ -386,7 +386,8 @@ static void theora_process(stream_processor *stream, ogg_page *page)
 
                 for(i=0; i < inf->tc.comments; i++) {
                     char *comment = inf->tc.user_comments[i];
-		    check_xiph_comment(stream, i, comment);
+		    check_xiph_comment(stream, i, comment, 
+		            inf->tc.comment_lengths[i]);
 		}
 	    }
 	}
@@ -418,7 +419,9 @@ static void theora_end(stream_processor *stream)
     double bitrate, time;
 
     /* This should be lastgranulepos - startgranulepos, or something like that*/
-    time = (double)inf->lastgranulepos / 
+    ogg_int64_t iframe=inf->lastgranulepos>>inf->ti.granule_shift;
+    ogg_int64_t pframe=inf->lastgranulepos-(iframe<<inf->ti.granule_shift);
+    time = (double)(iframe+pframe) /
 	((float)inf->ti.fps_numerator/(float)inf->ti.fps_denominator);
     minutes = (long)time / 60;
     seconds = (long)time - minutes*60;
@@ -512,7 +515,8 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
 
                 for(i=0; i < inf->vc.comments; i++) {
                     char *comment = inf->vc.user_comments[i];
-		    check_xiph_comment(stream, i, comment);
+		    check_xiph_comment(stream, i, comment, 
+		            inf->vc.comment_lengths[i]);
 		}
             }
         }

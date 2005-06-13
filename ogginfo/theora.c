@@ -96,7 +96,7 @@ static int _theora_unpack_info(theora_info *ci, oggpack_buffer *opb){
   ci->quality=ret;
 
   theora_read(opb,5,&ret);
-  ci->keyframe_frequency_force=1<<ret;
+  ci->granule_shift = ret;
 
   theora_read(opb,2,&ret);
   ci->pixelformat=ret;
