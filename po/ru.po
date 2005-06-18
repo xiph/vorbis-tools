@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.0\n"
-"POT-Creation-Date: 2002-07-19 22:30+1000\n"
+"POT-Creation-Date: 2003-06-24 13:27+0100\n"
 "PO-Revision-Date: 2003-02-08 23:16+0300\n"
 "Last-Translator: Dmitry D. Stasjuck <stdms@land.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -13,17 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ogg123/buffer.c:111
+#: ogg123/buffer.c:114
 msgid "Error: Out of memory in malloc_action().\n"
 msgstr "Ошибка: Не достаточно памяти при выполнении malloc_action().\n"
 
-#: ogg123/buffer.c:344
+#: ogg123/buffer.c:347
 msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
-msgstr "Ошибка: Не возможно выделить память при выполнении malloc_buffer_stats()\n"
-
-#: ogg123/buffer.c:363
-msgid "malloc"
 msgstr ""
+"Ошибка: Не возможно выделить память при выполнении malloc_buffer_stats()\n"
 
 #: ogg123/callbacks.c:70
 msgid "Error: Device not available.\n"
@@ -32,7 +29,8 @@ msgstr "Ошибка: Устройство не доступно.\n"
 #: ogg123/callbacks.c:73
 #, c-format
 msgid "Error: %s requires an output filename to be specified with -f.\n"
-msgstr "Ошибка: для %s необходимо указание имени выходного файла в параметре -f.\n"
+msgstr ""
+"Ошибка: для %s необходимо указание имени выходного файла в параметре -f.\n"
 
 #: ogg123/callbacks.c:76
 #, c-format
@@ -75,16 +73,20 @@ msgstr "Ошибка: Не достаточно памяти при выполнении new_audio_reopen_arg().\n"
 
 #: ogg123/callbacks.c:169
 msgid "Error: Out of memory in new_print_statistics_arg().\n"
-msgstr "Ошибка: Не достаточно памяти при выполнении new_print_statistics_arg().\n"
+msgstr ""
+"Ошибка: Не достаточно памяти при выполнении new_print_statistics_arg().\n"
 
 #: ogg123/callbacks.c:228
 msgid "Error: Out of memory in new_status_message_arg().\n"
-msgstr "Ошибка: Не достаточно памяти при выполнении new_status_message_arg().\n"
+msgstr ""
+"Ошибка: Не достаточно памяти при выполнении new_status_message_arg().\n"
 
 #: ogg123/callbacks.c:274 ogg123/callbacks.c:293 ogg123/callbacks.c:330
 #: ogg123/callbacks.c:349
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
-msgstr "Ошибка: Не достаточно памяти при выполнении decoder_buffered_metadata_callback().\n"
+msgstr ""
+"Ошибка: Не достаточно памяти при выполнении "
+"decoder_buffered_metadata_callback().\n"
 
 #: ogg123/cfgfile_options.c:51
 msgid "System error"
@@ -152,9 +154,9 @@ msgstr "другой"
 msgid "(NULL)"
 msgstr ""
 
-#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:506 oggenc/oggenc.c:511
-#: oggenc/oggenc.c:516 oggenc/oggenc.c:521 oggenc/oggenc.c:526
-#: oggenc/oggenc.c:531
+#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:516 oggenc/oggenc.c:521
+#: oggenc/oggenc.c:526 oggenc/oggenc.c:531 oggenc/oggenc.c:536
+#: oggenc/oggenc.c:541
 msgid "(none)"
 msgstr ""
 
@@ -197,7 +199,8 @@ msgid ""
 "=== Error \"%s\" while parsing config option from command line.\n"
 "=== Option was: %s\n"
 msgstr ""
-"=== Ошибка \"%s\" во время разбора параметров конфигурации из командной строки.\n"
+"=== Ошибка \"%s\" во время разбора параметров конфигурации из командной "
+"строки.\n"
 "=== Ошибку вызвал параметр: %s\n"
 
 #. not using the status interface here
@@ -243,7 +246,8 @@ msgid ""
 "--- To do a test decode, use the null output driver.\n"
 msgstr ""
 "--- Невозможно воспроизвести фрагмент 0 раз.\n"
-"--- Для проведения тестового декодирования используйте выходной драйвер null.\n"
+"--- Для проведения тестового декодирования используйте выходной драйвер "
+"null.\n"
 
 #: ogg123/cmdline_options.c:206
 #, c-format
@@ -256,8 +260,12 @@ msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "--- Указанный в файле конфигурации драйвер %s неправилен.\n"
 
 #: ogg123/cmdline_options.c:237
-msgid "=== Could not load default driver and no driver specified in config file. Exiting.\n"
-msgstr "=== Невозможно загрузить драйвер по умолчанию, а в файле конфигурации никакой драйвер не указан. Завершение работы.\n"
+msgid ""
+"=== Could not load default driver and no driver specified in config file. "
+"Exiting.\n"
+msgstr ""
+"=== Невозможно загрузить драйвер по умолчанию, а в файле конфигурации "
+"никакой драйвер не указан. Завершение работы.\n"
 
 #: ogg123/cmdline_options.c:258
 #, c-format
@@ -312,25 +320,28 @@ msgstr ""
 "      v ранее указанному устройству (с опцией -d).  Смотри\n"
 "      man для дополнительной информации.\n"
 "  -b n, --buffer n  использовать входной буфер размером 'n' Кб\n"
-"  -p n, --prebuffer n  загрузить n%% из входного буфера перед воспроизведением\n"
+"  -p n, --prebuffer n  загрузить n%% из входного буфера перед "
+"воспроизведением\n"
 "  -v, --verbose  показать прогресс и другую статусную информацию\n"
 "  -q, --quiet    не показывать ничего (без заголовка)\n"
 "  -x n, --nth    воспроизводить каждый 'n'-й блок\n"
 "  -y n, --ntimes повторить каждый воспроизводимый блок 'n' раз\n"
 "  -z, --shuffle  случайное воспроизведение\n"
 "\n"
-"При получении SIGINT (Ctrl-C) ogg123 пропустит следующую песню; два сигнала SIGINT в течение s миллисекунд завершают работу ogg123.\n"
-"  -l, --delay=s  устанавливает значение s [в миллисекундах] (по умолчанию 500).\n"
+"При получении SIGINT (Ctrl-C) ogg123 пропустит следующую песню; два сигнала "
+"SIGINT в течение s миллисекунд завершают работу ogg123.\n"
+"  -l, --delay=s  устанавливает значение s [в миллисекундах] (по умолчанию "
+"500).\n"
 
 #: ogg123/file_transport.c:58 ogg123/http_transport.c:203
-#: ogg123/oggvorbis_format.c:106 ogg123/oggvorbis_format.c:321
-#: ogg123/oggvorbis_format.c:336 ogg123/oggvorbis_format.c:354
+#: ogg123/oggvorbis_format.c:90
 msgid "Error: Out of memory.\n"
 msgstr "Ошибка: Не достаточно памяти.\n"
 
-#: ogg123/format.c:59
+#: ogg123/format.c:78
 msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
-msgstr "Ошибка: Невозможно выделить память при выполнении malloc_decoder_stats()\n"
+msgstr ""
+"Ошибка: Невозможно выделить память при выполнении malloc_decoder_stats()\n"
 
 #: ogg123/http_transport.c:137
 msgid "Error: Could not set signal mask."
@@ -416,70 +427,45 @@ msgstr "Ошибка: Декодирование не удалось.\n"
 msgid "Done."
 msgstr "Завершено."
 
-#: ogg123/oggvorbis_format.c:51
-msgid "Track number:"
-msgstr "Номер дорожки:"
-
-#: ogg123/oggvorbis_format.c:52
-msgid "ReplayGain (Track):"
-msgstr "УровеньВоспроизведения (Дорожка):"
-
-#: ogg123/oggvorbis_format.c:53
-msgid "ReplayGain (Album):"
-msgstr "УровеньВоспроизведения (Альбом):"
-
-#: ogg123/oggvorbis_format.c:54
-msgid "ReplayGain (Track) Peak:"
-msgstr "Пиковый УровеньВоспроизведения (Дорожка):"
-
-#: ogg123/oggvorbis_format.c:55
-msgid "ReplayGain (Album) Peak:"
-msgstr "Пиковый УровеньВоспроизведения (Альбом):"
-
-#: ogg123/oggvorbis_format.c:56
-msgid "Copyright"
-msgstr "Авторские права"
-
-#: ogg123/oggvorbis_format.c:57 ogg123/oggvorbis_format.c:58
-msgid "Comment:"
-msgstr "Комментарий:"
-
-#: ogg123/oggvorbis_format.c:167
+#: ogg123/oggvorbis_format.c:152
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- В потоке пусто; возможно, ничего страшного\n"
 
-#: ogg123/oggvorbis_format.c:173
+#: ogg123/oggvorbis_format.c:158
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== Библиотека Vorbis сообщила об ошибке потока.\n"
 
-#: ogg123/oggvorbis_format.c:402
-#, c-format
-msgid "Version is %d"
-msgstr "Версия %d"
+#: ogg123/oggvorbis_format.c:302
+#, fuzzy, c-format
+msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgstr "Битовый поток - это %d канал, %ldГц"
 
-#: ogg123/oggvorbis_format.c:406
+#: ogg123/oggvorbis_format.c:307
+#, c-format
+msgid "Vorbis format: Version %d"
+msgstr ""
+
+#: ogg123/oggvorbis_format.c:311
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Значения битрейта: верхнее=%ld номинальное=%ld нижнее=%ld окно=%ld"
 
-#: ogg123/oggvorbis_format.c:414
-#, c-format
-msgid "Bitstream is %d channel, %ldHz"
-msgstr "Битовый поток - это %d канал, %ldГц"
-
-#: ogg123/oggvorbis_format.c:419
+#: ogg123/oggvorbis_format.c:319
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Кодирование: %s"
 
 #: ogg123/playlist.c:41 ogg123/playlist.c:52
 msgid "Error: Out of memory in create_playlist_member().\n"
-msgstr "Ошибка: Не достаточно памяти при выполнении create_playlist_member().\n"
+msgstr ""
+"Ошибка: Не достаточно памяти при выполнении create_playlist_member().\n"
 
 #: ogg123/playlist.c:214
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
-msgstr "Предупреждение из списка воспроизведения %s: Невозможно прочитать каталог %s.\n"
+msgstr ""
+"Предупреждение из списка воспроизведения %s: Невозможно прочитать каталог %"
+"s.\n"
 
 #: ogg123/playlist.c:259 ogg123/playlist.c:271
 msgid "Error: Out of memory in playlist_to_array().\n"
@@ -537,7 +523,9 @@ msgstr " Выходной Буфер %5.1f%%"
 
 #: ogg123/transport.c:67
 msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
-msgstr "Ошибка: Невозможно выделить память при выполнении malloc_data_source_stats()\n"
+msgstr ""
+"Ошибка: Невозможно выделить память при выполнении malloc_data_source_stats"
+"()\n"
 
 #: oggenc/audio.c:39
 msgid "WAV file reader"
@@ -547,64 +535,66 @@ msgstr "Чтение файлов WAV"
 msgid "AIFF/AIFC file reader"
 msgstr "Чтение файлов AIFF/AIFC"
 
-#: oggenc/audio.c:117 oggenc/audio.c:374
+#: oggenc/audio.c:116 oggenc/audio.c:383
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Внимание: Неожиданный конец файла при чтении заголовка WAV\n"
 
-#: oggenc/audio.c:128
+#: oggenc/audio.c:127
 #, c-format
 msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Пропускаем фрагмент типа \"%s\", длина %d\n"
 
-#: oggenc/audio.c:146
+#: oggenc/audio.c:145
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Внимание: Неожиданный конец файла во фрагменте AIFF\n"
 
-#: oggenc/audio.c:231
+#: oggenc/audio.c:230
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Внимание: В файле AIFF не найден общий фрагмент\n"
 
-#: oggenc/audio.c:237
+#: oggenc/audio.c:236
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Внимание: Обрезанный общий фрагмент в заголовке AIFF\n"
 
-#: oggenc/audio.c:245
+#: oggenc/audio.c:244
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Внимание: Неожиданный конец файла при чтении заголовка AIFF\n"
 
-#: oggenc/audio.c:258
+#: oggenc/audio.c:259
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Внимание: Заголовок AIFF-C обрезан.\n"
 
-#: oggenc/audio.c:263
-msgid "Warning: Can't handle compressed AIFF-C\n"
+#: oggenc/audio.c:273
+#, fuzzy, c-format
+msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Внимание: Невозможно обработать сжатый AIFF-C\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:280
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Внимание: В файле AIFF не найден SSND-фрагмент\n"
 
-#: oggenc/audio.c:276
+#: oggenc/audio.c:286
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Внимание: В заголовке AIFF поврежден SSND-фрагмент\n"
 
-#: oggenc/audio.c:282
+#: oggenc/audio.c:292
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Внимание: Неожиданный конец файла при чтении заголовка AIFF\n"
 
-#: oggenc/audio.c:314
+#: oggenc/audio.c:323
+#, fuzzy
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-" Must be 8 or 16 bit PCM.\n"
+" Must be 8, 16, or 24 bit PCM.\n"
 msgstr ""
 "Внимание: OggEnc не поддерживает этот тип AIFF/AIFC файла\n"
 " Должен быть 8- или 16- битный PCM.\n"
 
-#: oggenc/audio.c:357
+#: oggenc/audio.c:366
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Внимание: Формат фрагмента в заголовке WAV не распознан\n"
 
-#: oggenc/audio.c:369
+#: oggenc/audio.c:378
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
@@ -612,7 +602,7 @@ msgstr ""
 "Внимание: НЕКОРРЕКТНЫЙ формат фрагмента в заголовке wav.\n"
 "Тем не менее, пытаемся прочитать (может не сработать)...\n"
 
-#: oggenc/audio.c:406
+#: oggenc/audio.c:415
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
@@ -620,19 +610,33 @@ msgstr ""
 "ОШИБКА: Файл wav неподдерживаемого типа (должен быть стандартный PCM\n"
 " или тип 3 PCM с плавающей точкой)\n"
 
-#: oggenc/audio.c:455
+#: oggenc/audio.c:466
+#, fuzzy
 msgid ""
-"ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+"ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
 "ОШИБКА: Файл wav неподдерживаемого подформата (должен быть 16-битный PCM\n"
 "или PCM с плавающей точкой)\n"
 
-#: oggenc/audio.c:607
-msgid "BUG: Got zero samples from resampler: your file will be truncated. Please report this.\n"
-msgstr "ГЛЮК: От ресэмплера получено нулевое число кадров: ваш файл будетобрезан. Пожалуйста, сообщите об этом автору.\n"
+#: oggenc/audio.c:541
+msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
+msgstr ""
 
-#: oggenc/audio.c:625
+#: oggenc/audio.c:547
+#, c-format
+msgid "Internal error: attempt to read unsupported bitdepth %d\n"
+msgstr ""
+
+#: oggenc/audio.c:644
+msgid ""
+"BUG: Got zero samples from resampler: your file will be truncated. Please "
+"report this.\n"
+msgstr ""
+"ГЛЮК: От ресэмплера получено нулевое число кадров: ваш файл будетобрезан. "
+"Пожалуйста, сообщите об этом автору.\n"
+
+#: oggenc/audio.c:662
 msgid "Couldn't initialise resampler\n"
 msgstr "Не возможно инициализировать ресэмплер\n"
 
@@ -652,12 +656,17 @@ msgid "Unrecognised advanced option \"%s\"\n"
 msgstr "Нераспознаваемый дополнительный параметр \"%s\"\n"
 
 #: oggenc/encode.c:133
-msgid "255 channels should be enough for anyone. (Sorry, vorbis doesn't support more)\n"
-msgstr "255 каналов должно быть достаточно для всех. (Извините, но vorbis не поддерживает больше)\n"
+msgid ""
+"255 channels should be enough for anyone. (Sorry, vorbis doesn't support "
+"more)\n"
+msgstr ""
+"255 каналов должно быть достаточно для всех. (Извините, но vorbis не "
+"поддерживает больше)\n"
 
 #: oggenc/encode.c:141
 msgid "Requesting a minimum or maximum bitrate requires --managed\n"
-msgstr "Для запроса минимального или максимального битрейта требуется --managed\n"
+msgstr ""
+"Для запроса минимального или максимального битрейта требуется --managed\n"
 
 #: oggenc/encode.c:159
 msgid "Mode initialisation failed: invalid parameters for quality\n"
@@ -799,7 +808,7 @@ msgstr ""
 "         %s%s%s \n"
 "с использованием управления битрейтом "
 
-#: oggenc/oggenc.c:96
+#: oggenc/oggenc.c:97
 #, c-format
 msgid ""
 "%s%s\n"
@@ -808,58 +817,70 @@ msgstr ""
 "%s%s\n"
 "ОШИБКА: Не указаны входные файлы. Для получения справки -h.\n"
 
-#: oggenc/oggenc.c:111
+#: oggenc/oggenc.c:112
 msgid "ERROR: Multiple files specified when using stdin\n"
 msgstr "ОШИБКА: Указано несколько файлов, в то время как используется stdin\n"
 
-#: oggenc/oggenc.c:118
-msgid "ERROR: Multiple input files with specified output filename: suggest using -n\n"
-msgstr "ОШИБКА: Несколько входных файлов при указанном имени выходного файла: предполагается использование - n\n"
+#: oggenc/oggenc.c:119
+msgid ""
+"ERROR: Multiple input files with specified output filename: suggest using -"
+"n\n"
+msgstr ""
+"ОШИБКА: Несколько входных файлов при указанном имени выходного файла: "
+"предполагается использование - n\n"
 
-#: oggenc/oggenc.c:172
+#: oggenc/oggenc.c:173
 #, c-format
 msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgstr "ОШИБКА: Невозможно открыть входной файл \"%s\": %s\n"
 
-#: oggenc/oggenc.c:200
+#: oggenc/oggenc.c:201
 #, c-format
 msgid "Opening with %s module: %s\n"
 msgstr "Открытие с модулем %s: %s\n"
 
-#: oggenc/oggenc.c:209
+#: oggenc/oggenc.c:210
 #, c-format
 msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr "ОШИБКА: Входной файл \"%s\" в неподдерживаемом формате\n"
 
-#: oggenc/oggenc.c:259
+#: oggenc/oggenc.c:260
 msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
 msgstr "ВНИМАНИЕ: Не указано имя файла, используется \"default.ogg\"\n"
 
-#: oggenc/oggenc.c:267
+#: oggenc/oggenc.c:268
 #, c-format
-msgid "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
-msgstr "ОШИБКА: Невозможно создать необходимые подкаталоги для выходного файла \"%s\"\n"
+msgid ""
+"ERROR: Could not create required subdirectories for output filename \"%s\"\n"
+msgstr ""
+"ОШИБКА: Невозможно создать необходимые подкаталоги для выходного файла \"%s"
+"\"\n"
 
-#: oggenc/oggenc.c:278
+#: oggenc/oggenc.c:279
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr "ОШИБКА: Невозможно открыть выходной файл \"%s\": %s\n"
 
-#: oggenc/oggenc.c:308
+#: oggenc/oggenc.c:309
 #, c-format
 msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr "Изменение частоты выборки входных файлов с %d до %d Гц\n"
 
-#: oggenc/oggenc.c:315
+#: oggenc/oggenc.c:316
 msgid "Downmixing stereo to mono\n"
 msgstr "Смешение стерео в моно\n"
 
-#: oggenc/oggenc.c:318
+#: oggenc/oggenc.c:319
 msgid "ERROR: Can't downmix except from stereo to mono\n"
 msgstr "ОШИБКА: Смешение сигналов возможно только из стерео в моно\n"
 
-#: oggenc/oggenc.c:365
+#: oggenc/oggenc.c:330
 #, c-format
+msgid "Scaling input to %f\n"
+msgstr ""
+
+#: oggenc/oggenc.c:374
+#, fuzzy, c-format
 msgid ""
 "%s%s\n"
 "Usage: oggenc [options] input.wav [...]\n"
@@ -898,19 +919,25 @@ msgid ""
 " Naming:\n"
 " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
 " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%l,\n"
-"                      %%n, %%d replaced by artist, title, album, track number,\n"
-"                      and date, respectively (see below for specifying these).\n"
+"                      %%n, %%d replaced by artist, title, album, track "
+"number,\n"
+"                      and date, respectively (see below for specifying "
+"these).\n"
 "                      %%%% gives a literal %%.\n"
-" -X, --name-remove=s  Remove the specified characters from parameters to the\n"
+" -X, --name-remove=s  Remove the specified characters from parameters to "
+"the\n"
 "                      -n format string. Useful to ensure legal filenames.\n"
 " -P, --name-replace=s Replace characters removed by --name-remove with the\n"
-"                      characters specified. If this string is shorter than the\n"
+"                      characters specified. If this string is shorter than "
+"the\n"
 "                      --name-remove list or is not specified, the extra\n"
 "                      characters are just removed.\n"
-"                      Default settings for the above two arguments are platform\n"
+"                      Default settings for the above two arguments are "
+"platform\n"
 "                      specific.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
-"                      used multiple times.\n"
+"                      used multiple times. The argument should be in the\n"
+"                      format \"tag=value\".\n"
 " -d, --date           Date for track (usually date of performance)\n"
 " -N, --tracknum       Track number for this track\n"
 " -t, --title          Title for this track\n"
@@ -918,24 +945,33 @@ msgid ""
 " -a, --artist         Name of artist\n"
 " -G, --genre          Genre of track\n"
 "                      If multiple input files are given, then multiple\n"
-"                      instances of the previous five arguments will be used,\n"
+"                      instances of the previous five arguments will be "
+"used,\n"
 "                      in the order they are given. If fewer titles are\n"
-"                      specified than files, OggEnc will print a warning, and\n"
+"                      specified than files, OggEnc will print a warning, "
+"and\n"
 "                      reuse the final one for the remaining files. If fewer\n"
 "                      track numbers are given, the remaining files will be\n"
-"                      unnumbered. For the others, the final tag will be reused\n"
-"                      for all others without warning (so you can specify a date\n"
-"                      once, for example, and have it used for all the files)\n"
+"                      unnumbered. For the others, the final tag will be "
+"reused\n"
+"                      for all others without warning (so you can specify a "
+"date\n"
+"                      once, for example, and have it used for all the "
+"files)\n"
 "\n"
 "INPUT FILES:\n"
-" OggEnc input files must currently be 16 or 8 bit PCM WAV, AIFF, or AIFF/C\n"
+" OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or "
+"AIFF/C\n"
 " files, or 32 bit IEEE floating point WAV. Files may be mono or stereo\n"
 " (or more channels) and any sample rate.\n"
-" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-" must be 16bit stereo little-endian PCM ('headerless wav'), unless additional\n"
+" Alternatively, the --raw option may be used to use a raw PCM data file, "
+"which\n"
+" must be 16 bit stereo little-endian PCM ('headerless wav'), unless "
+"additional\n"
 " parameters for raw mode are specified.\n"
-" You can specify taking the file from stdin by using - as the input filename.\n"
-" In this mode, output is to stdout unless an outfile filename is specified\n"
+" You can specify taking the file from stdin by using - as the input "
+"filename.\n"
+" In this mode, output is to stdout unless an output filename is specified\n"
 " with -o\n"
 "\n"
 msgstr ""
@@ -946,45 +982,65 @@ msgstr ""
 " Основные:\n"
 " -Q, --quiet          Не выводить в поток ошибок\n"
 " -h, --help           Вывести этот справочный текст\n"
-" -r, --raw            Сырой режим. Входные файлы читаются непосредственно как данные PCM\n"
-" -B, --raw-bits=n     Установить число бит/сэмпл для сырого ввода. По умолчанию 16\n"
-" -C, --raw-chan=n     Установить число каналов для сырого ввода. По умолчанию 2\n"
-" -R, --raw-rate=n     Установить число сэмплов/сек для сырого ввода. По умолчанию 44100\n"
+" -r, --raw            Сырой режим. Входные файлы читаются непосредственно "
+"как данные PCM\n"
+" -B, --raw-bits=n     Установить число бит/сэмпл для сырого ввода. По "
+"умолчанию 16\n"
+" -C, --raw-chan=n     Установить число каналов для сырого ввода. По "
+"умолчанию 2\n"
+" -R, --raw-rate=n     Установить число сэмплов/сек для сырого ввода. По "
+"умолчанию 44100\n"
 " --raw-endianness     1 для bigendian, 0 для little (по умолчанию 0)\n"
 " -b, --bitrate        Выбрать номинальный битрейт для кодирования. Попытка\n"
-"                      кодировать со средним битрейтом равным указанному. Используется\n"
-"                      1 аргумент в kbps. Используется процедура управления битрейтом, не\n"
+"                      кодировать со средним битрейтом равным указанному. "
+"Используется\n"
+"                      1 аргумент в kbps. Используется процедура управления "
+"битрейтом, не\n"
 "                      рекомендуемая для большинства пользователей.\n"
 "                      Параметр -q, --quality является лучшей альтернативой.\n"
-" -m, --min-bitrate    Указать минимальный битрейт (в kbps). Полезно при кодировании\n"
+" -m, --min-bitrate    Указать минимальный битрейт (в kbps). Полезно при "
+"кодировании\n"
 "                      для канала постоянного размера.\n"
-" -M, --max-bitrate    Указать максимальный битрейт в kbps. Полезно для потоковых\n"
+" -M, --max-bitrate    Указать максимальный битрейт в kbps. Полезно для "
+"потоковых\n"
 "                      приложений.\n"
 " -q, --quality        Указать качество от 0 (низкое) до 10 (высокое),\n"
 "                      вместо указания отдельного битрейта.\n"
 "                      Это нормальный режим операций.\n"
 "                      Допустимо дробное значение качества (например, 2.75).\n"
-"                      Значение -1 также возможно, но оно может не обеспечить приемлемого\n"
+"                      Значение -1 также возможно, но оно может не обеспечить "
+"приемлемого\n"
 "                      качества.\n"
-" --resample n         Изменить частоту выборки входных данных до значения n (Гц)\n"
-" --downmix            Перемикшировать стерео сигнал в моно. Доступно только для стерео\n"
+" --resample n         Изменить частоту выборки входных данных до значения n "
+"(Гц)\n"
+" --downmix            Перемикшировать стерео сигнал в моно. Доступно только "
+"для стерео\n"
 "                      входного сигнала.\n"
-" -s, --serial         Указать серийный номер для потока. Если кодируется несколько\n"
-"                      файлов, это значение будет автоматически увеличиваться на 1\n"
+" -s, --serial         Указать серийный номер для потока. Если кодируется "
+"несколько\n"
+"                      файлов, это значение будет автоматически увеличиваться "
+"на 1\n"
 "                      для каждого следующего потока.\n"
 "\n"
 " Присвоение имен:\n"
-" -o, --output=fn      Записать файл в fn (корректно только для работы с одним файлом)\n"
-" -n, --names=string   Создать имена файлов по образцу в строке string, заменяя %%a, %%t, %%l,\n"
-"                      %%n, %%d на имя артиста, название, альбом, номер дорожки,\n"
+" -o, --output=fn      Записать файл в fn (корректно только для работы с "
+"одним файлом)\n"
+" -n, --names=string   Создать имена файлов по образцу в строке string, "
+"заменяя %%a, %%t, %%l,\n"
+"                      %%n, %%d на имя артиста, название, альбом, номер "
+"дорожки,\n"
 "                      и дату, соотвественно (ниже смотри как это указать).\n"
 "                      %%%% Литералы %%.\n"
-" -X, --name-remove=s  Удалить указанные символы из параметров строки формата -n.\n"
+" -X, --name-remove=s  Удалить указанные символы из параметров строки формата "
+"-n.\n"
 "                      Полезно для создания корректных имен фалов.\n"
-" -P, --name-replace=s Заменить символы, удаленные --name-remove, на указанные\n"
+" -P, --name-replace=s Заменить символы, удаленные --name-remove, на "
+"указанные\n"
 "                      символы. Если эта строка короче, чем список\n"
-"                      --name-remove или не указана, символы просто удаляются.\n"
-"                      Значения по умолчанию для указанных выше двух аргументов                       зависят от платформы.\n"
+"                      --name-remove или не указана, символы просто "
+"удаляются.\n"
+"                      Значения по умолчанию для указанных выше двух "
+"аргументов                       зависят от платформы.\n"
 " -c, --comment=c      Добавить указанную строку в качестве дополнительного\n"
 "                      комментария. Может быть использовано несколько раз.\n"
 " -d, --date           Дата дорожки (обычно дата создания)\n"
@@ -1007,135 +1063,174 @@ msgstr ""
 "                      использовать ее для всех файлов)\n"
 "\n"
 "ВХОДНЫЕ ФАЙЛЫ:\n"
-" Входными файлами для OggEnc в настоящее время должны быть 16- или 8-битные файлы PCM WAV, AIFF, или AIFF/C,\n"
+" Входными файлами для OggEnc в настоящее время должны быть 16- или 8-битные "
+"файлы PCM WAV, AIFF, или AIFF/C,\n"
 "или 32-битный с плавающей точкой IEEE WAV. Фалы могут быть моно или стерео\n"
 " (или с большим числом каналов) и любым значением частоты выборки.\n"
-" В качестве альтернативы может использоваться опция --raw для чтения сырых файлов с данными PCM, которые\n"
-" должны быть 16 битными стерео little-endian PCM ('wav без заголовков'), в противном случае указываются\n"
+" В качестве альтернативы может использоваться опция --raw для чтения сырых "
+"файлов с данными PCM, которые\n"
+" должны быть 16 битными стерео little-endian PCM ('wav без заголовков'), в "
+"противном случае указываются\n"
 " дополнительные параметры для сырого режима.\n"
-" Вы можете указать считывать файл из stdin используя - как имя входного файла.\n"
-" В этом случае вывод направляется в stdout если не указано имя выходного файла опцией -o\n"
+" Вы можете указать считывать файл из stdin используя - как имя входного "
+"файла.\n"
+" В этом случае вывод направляется в stdout если не указано имя выходного "
+"файла опцией -o\n"
 "\n"
 
-#: oggenc/oggenc.c:536
+#: oggenc/oggenc.c:546
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
-msgstr "ВНИМАНИЕ: Некорректный управляющий символ '%c' в формате имени, игнорируется\n"
+msgstr ""
+"ВНИМАНИЕ: Некорректный управляющий символ '%c' в формате имени, "
+"игнорируется\n"
 
-#: oggenc/oggenc.c:562 oggenc/oggenc.c:670 oggenc/oggenc.c:683
+#: oggenc/oggenc.c:572 oggenc/oggenc.c:688 oggenc/oggenc.c:701
 msgid "Enabling bitrate management engine\n"
 msgstr "Включение механизма управления битрейтом\n"
 
-#: oggenc/oggenc.c:571
-msgid "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
-msgstr "ВНИМАНИЕ: Указан порядок байт сырых данных для не-сырых данных. Подразумеваем сырые данные.\n"
+#: oggenc/oggenc.c:581
+msgid ""
+"WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"ВНИМАНИЕ: Указан порядок байт сырых данных для не-сырых данных. "
+"Подразумеваем сырые данные.\n"
 
-#: oggenc/oggenc.c:574
+#: oggenc/oggenc.c:584
 #, c-format
 msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
-msgstr "ВНИМАНИЕ: Невозможно прочитать аргумент \"%s\" в порядке следования байт\n"
+msgstr ""
+"ВНИМАНИЕ: Невозможно прочитать аргумент \"%s\" в порядке следования байт\n"
 
-#: oggenc/oggenc.c:581
+#: oggenc/oggenc.c:591
 #, c-format
 msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
 msgstr "ВНИМАНИЕ: Невозможно прочитать изменение частоты \"%s\"\n"
 
-#: oggenc/oggenc.c:587
+#: oggenc/oggenc.c:597
 #, c-format
 msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
-msgstr "Внимание: Указано изменение частоты выборки %d Гц. Вы имели в виду %d Гц?\n"
+msgstr ""
+"Внимание: Указано изменение частоты выборки %d Гц. Вы имели в виду %d Гц?\n"
 
-#: oggenc/oggenc.c:599
+#: oggenc/oggenc.c:607
+#, fuzzy, c-format
+msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
+msgstr "Внимание: Невозможно прочитать каталог %s.\n"
+
+#: oggenc/oggenc.c:617
 msgid "No value for advanced encoder option found\n"
 msgstr "Не найдено значение дополнительного параметра кодировщика\n"
 
-#: oggenc/oggenc.c:610
+#: oggenc/oggenc.c:628
 msgid "Internal error parsing command line options\n"
 msgstr "Внутренняя ошибка разбора параметров командной строки\n"
 
-#: oggenc/oggenc.c:621
+#: oggenc/oggenc.c:639
 #, c-format
 msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
-msgstr "Внимание: Использован некорректный комментарий (\"%s\"), игнорируется.\n"
+msgstr ""
+"Внимание: Использован некорректный комментарий (\"%s\"), игнорируется.\n"
 
-#: oggenc/oggenc.c:656
+#: oggenc/oggenc.c:674
 #, c-format
 msgid "Warning: nominal bitrate \"%s\" not recognised\n"
 msgstr "Внимание: номинальный битрейт \"%s\" не опознан\n"
 
-#: oggenc/oggenc.c:664
+#: oggenc/oggenc.c:682
 #, c-format
 msgid "Warning: minimum bitrate \"%s\" not recognised\n"
 msgstr "Внимание: минимальный битрейт \"%s\" не опознан\n"
 
-#: oggenc/oggenc.c:677
+#: oggenc/oggenc.c:695
 #, c-format
 msgid "Warning: maximum bitrate \"%s\" not recognised\n"
 msgstr "Внимание: максимальный битрейт \"%s\" не опознан\n"
 
-#: oggenc/oggenc.c:689
+#: oggenc/oggenc.c:707
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr "Опция качества \"%s\" не опознана, игнорируется\n"
 
-#: oggenc/oggenc.c:697
+#: oggenc/oggenc.c:715
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
-msgstr "ВНИМАНИЕ: установлено слишком высокое качество, ограничено до максимального\n"
+msgstr ""
+"ВНИМАНИЕ: установлено слишком высокое качество, ограничено до максимального\n"
 
-#: oggenc/oggenc.c:703
+#: oggenc/oggenc.c:721
 msgid "WARNING: Multiple name formats specified, using final\n"
 msgstr "ВНИМАНИЕ: Указано несколько форматов имени, используется последний\n"
 
-#: oggenc/oggenc.c:712
+#: oggenc/oggenc.c:730
 msgid "WARNING: Multiple name format filters specified, using final\n"
-msgstr "ВНИМАНИЕ: Указано несколько фильтров форматов имени, используется последний\n"
+msgstr ""
+"ВНИМАНИЕ: Указано несколько фильтров форматов имени, используется последний\n"
 
-#: oggenc/oggenc.c:721
-msgid "WARNING: Multiple name format filter replacements specified, using final\n"
-msgstr "ВНИМАНИЕ: Указано несколько замен фильтров форматов имени, используется последняя\n"
+#: oggenc/oggenc.c:739
+msgid ""
+"WARNING: Multiple name format filter replacements specified, using final\n"
+msgstr ""
+"ВНИМАНИЕ: Указано несколько замен фильтров форматов имени, используется "
+"последняя\n"
 
-#: oggenc/oggenc.c:729
+#: oggenc/oggenc.c:747
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
-msgstr "ВНИМАНИЕ: Указано несколько выходных файлов, предполагается использование параметра -n\n"
+msgstr ""
+"ВНИМАНИЕ: Указано несколько выходных файлов, предполагается использование "
+"параметра -n\n"
 
-#: oggenc/oggenc.c:748
-msgid "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
-msgstr "ВНИМАНИЕ: Указано значение сырых бит/кадр для не-сырых данных. Предполагается сырой ввод.\n"
+#: oggenc/oggenc.c:766
+msgid ""
+"WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"ВНИМАНИЕ: Указано значение сырых бит/кадр для не-сырых данных. "
+"Предполагается сырой ввод.\n"
 
 #. Failed, so just set to 16
-#: oggenc/oggenc.c:753 oggenc/oggenc.c:757
+#: oggenc/oggenc.c:771 oggenc/oggenc.c:775
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr "ВНИМАНИЕ: Указано некорректное значение бит/кадр, предполагается 16.\n"
 
-#: oggenc/oggenc.c:764
-msgid "WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n"
-msgstr "ВНИМАНИЕ: Указано число сырых каналов для не-сырых данных. Предполагается сырой ввод.\n"
+#: oggenc/oggenc.c:782
+msgid ""
+"WARNING: Raw channel count specified for non-raw data. Assuming input is "
+"raw.\n"
+msgstr ""
+"ВНИМАНИЕ: Указано число сырых каналов для не-сырых данных. Предполагается "
+"сырой ввод.\n"
 
 #. Failed, so just set to 2
-#: oggenc/oggenc.c:769
+#: oggenc/oggenc.c:787
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr "ВНИМАНИЕ: Указано неверное число каналов, предполагается 2.\n"
 
-#: oggenc/oggenc.c:780
-msgid "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
-msgstr "ВНИМАНИЕ: Указана сырая частота выборки для не-сырых данных. Предполагается сырой ввод.\n"
+#: oggenc/oggenc.c:798
+msgid ""
+"WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"ВНИМАНИЕ: Указана сырая частота выборки для не-сырых данных. Предполагается "
+"сырой ввод.\n"
 
 #. Failed, so just set to 44100
-#: oggenc/oggenc.c:785
+#: oggenc/oggenc.c:803
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
-msgstr "ВНИМАНИЕ: Указано некорректное значение частоты выборки, предполагается 44100.\n"
+msgstr ""
+"ВНИМАНИЕ: Указано некорректное значение частоты выборки, предполагается "
+"44100.\n"
 
-#: oggenc/oggenc.c:789
+#: oggenc/oggenc.c:807
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "ВНИМАНИЕ: Указан неизвестный параметр, игнорируется->\n"
 
-#: oggenc/oggenc.c:811
+#: oggenc/oggenc.c:829
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Невозможно преобразовать комментарий в UTF-8, добавлять нельзя\n"
 
-#: oggenc/oggenc.c:830
+#: oggenc/oggenc.c:848
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
-msgstr "ВНИМАНИЕ: Указано недостаточное количество заголовков, установлены последние значения.\n"
+msgstr ""
+"ВНИМАНИЕ: Указано недостаточное количество заголовков, установлены последние "
+"значения.\n"
 
 #: oggenc/platform.c:147
 #, c-format
@@ -1152,42 +1247,50 @@ msgstr "Ошибка проверки существования каталога %s: %s\n"
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr "Ошибка: сегмент пути \"%s\" не является каталогом\n"
 
-#: ogginfo/ogginfo2.c:156
+#: ogginfo/ogginfo2.c:158
 #, c-format
-msgid "Warning: Could not decode vorbis header packet - invalid vorbis stream (%d)\n"
-msgstr "Внимание: Невозможно декодировать пакет заголовка vorbis - некорректный поток vorbis (%d)\n"
+msgid ""
+"Warning: Could not decode vorbis header packet - invalid vorbis stream (%d)\n"
+msgstr ""
+"Внимание: Невозможно декодировать пакет заголовка vorbis - некорректный "
+"поток vorbis (%d)\n"
 
-#: ogginfo/ogginfo2.c:164
+#: ogginfo/ogginfo2.c:165
 #, c-format
-msgid "Warning: Vorbis stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Внимание: Заголовки в потоке Vorbis %d разделены некорректно. Последняя страница заголовка содержит дополнительные пакеты или имеет не-нулевой granulepos\n"
+msgid ""
+"Warning: Vorbis stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Внимание: Заголовки в потоке Vorbis %d разделены некорректно. Последняя "
+"страница заголовка содержит дополнительные пакеты или имеет не-нулевой "
+"granulepos\n"
 
-#: ogginfo/ogginfo2.c:168
+#: ogginfo/ogginfo2.c:169
 #, c-format
 msgid "Vorbis headers parsed for stream %d, information follows...\n"
 msgstr "Заголовки vorbis обработаны для потока %d, далее информация...\n"
 
-#: ogginfo/ogginfo2.c:171
+#: ogginfo/ogginfo2.c:172
 #, c-format
 msgid "Version: %d\n"
 msgstr "Версия: %d\n"
 
-#: ogginfo/ogginfo2.c:175
+#: ogginfo/ogginfo2.c:176
 #, c-format
 msgid "Vendor: %s (%s)\n"
 msgstr "Поставщик: %s (%s)\n"
 
-#: ogginfo/ogginfo2.c:182
+#: ogginfo/ogginfo2.c:183
 #, c-format
 msgid "Vendor: %s\n"
 msgstr "Поставщик: %s\n"
 
-#: ogginfo/ogginfo2.c:183
+#: ogginfo/ogginfo2.c:184
 #, c-format
 msgid "Channels: %d\n"
 msgstr "Каналы: %d\n"
 
-#: ogginfo/ogginfo2.c:184
+#: ogginfo/ogginfo2.c:185
 #, c-format
 msgid ""
 "Rate: %ld\n"
@@ -1196,80 +1299,99 @@ msgstr ""
 "Битрейт: %ld\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:187
+#: ogginfo/ogginfo2.c:188
 #, c-format
 msgid "Nominal bitrate: %f kb/s\n"
 msgstr "Номинальный битрейт: %f Кб/с\n"
 
-#: ogginfo/ogginfo2.c:190
+#: ogginfo/ogginfo2.c:191
 msgid "Nominal bitrate not set\n"
 msgstr "Номинальный битрейт не установлен\n"
 
-#: ogginfo/ogginfo2.c:193
+#: ogginfo/ogginfo2.c:194
 #, c-format
 msgid "Upper bitrate: %f kb/s\n"
 msgstr "Максимальный битрейт: %f Кб/с\n"
 
-#: ogginfo/ogginfo2.c:196
+#: ogginfo/ogginfo2.c:197
 msgid "Upper bitrate not set\n"
 msgstr "Максимальный битрейт не установлен\n"
 
-#: ogginfo/ogginfo2.c:199
+#: ogginfo/ogginfo2.c:200
 #, c-format
 msgid "Lower bitrate: %f kb/s\n"
 msgstr "Минимальный битрейт: %f Кб/с\n"
 
-#: ogginfo/ogginfo2.c:202
+#: ogginfo/ogginfo2.c:203
 msgid "Lower bitrate not set\n"
 msgstr "Минимальный битрейт не установлен\n"
 
-#: ogginfo/ogginfo2.c:205
+#: ogginfo/ogginfo2.c:206
 msgid "User comments section follows...\n"
 msgstr "Секция пользовательских комментариев следует за...\n"
 
-#: ogginfo/ogginfo2.c:217
+#: ogginfo/ogginfo2.c:218
 #, c-format
-msgid "Warning: Comment %d in stream %d is invalidly formatted, does not contain '=': \"%s\"\n"
-msgstr "Внимание: Комментарий %d в потоке %d некорректно отформатирован. Он не содержит '=': \"%s\"\n"
+msgid ""
+"Warning: Comment %d in stream %d is invalidly formatted, does not contain "
+"'=': \"%s\"\n"
+msgstr ""
+"Внимание: Комментарий %d в потоке %d некорректно отформатирован. Он не "
+"содержит '=': \"%s\"\n"
 
-#: ogginfo/ogginfo2.c:226
+#: ogginfo/ogginfo2.c:227
 #, c-format
 msgid "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
-msgstr "Внимание: Некорректное имя поля комментария в комментарии %d (поток %d): \"%s\"\n"
+msgstr ""
+"Внимание: Некорректное имя поля комментария в комментарии %d (поток %d): \"%s"
+"\"\n"
 
-#: ogginfo/ogginfo2.c:257 ogginfo/ogginfo2.c:266
+#: ogginfo/ogginfo2.c:258 ogginfo/ogginfo2.c:267
 #, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker wrong\n"
-msgstr "Внимание: Некорректная последовательность UTF-8 в комментарии %d (поток %d): неправильный маркер длины\n"
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
+"wrong\n"
+msgstr ""
+"Внимание: Некорректная последовательность UTF-8 в комментарии %d (поток %d): "
+"неправильный маркер длины\n"
 
-#: ogginfo/ogginfo2.c:274
+#: ogginfo/ogginfo2.c:275
 #, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
-msgstr "Внимание: Некорректная последовательность UTF-8 в комментарии %d (поток %d): слишком мало байт\n"
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
+msgstr ""
+"Внимание: Некорректная последовательность UTF-8 в комментарии %d (поток %d): "
+"слишком мало байт\n"
 
-#: ogginfo/ogginfo2.c:335
+#: ogginfo/ogginfo2.c:336
 #, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence\n"
-msgstr "Внимание: Некорректная последовательность UTF-8 в комментарии %d (поток %d): неправильная последовательность\n"
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence\n"
+msgstr ""
+"Внимание: Некорректная последовательность UTF-8 в комментарии %d (поток %d): "
+"неправильная последовательность\n"
 
-#: ogginfo/ogginfo2.c:347
+#: ogginfo/ogginfo2.c:348
 msgid "Warning: Failure in utf8 decoder. This should be impossible\n"
 msgstr "Внимание: Сбой в декодере utf8. Вообще-то это должно быть невозможно\n"
 
-#: ogginfo/ogginfo2.c:364
-#, c-format
-msgid "Warning: granulepos in stream %d decreases from "
+#: ogginfo/ogginfo2.c:366
+#, fuzzy
+msgid "Warning: granulepos in stream %d decreases from %I64d to %I64d"
 msgstr "Внимание: granulepos в потоке %d уменьшилось с "
 
-#: ogginfo/ogginfo2.c:365
-msgid " to "
-msgstr " до "
+#: ogginfo/ogginfo2.c:369
+#, fuzzy, c-format
+msgid "Warning: granulepos in stream %d decreases from %Ld to %Ld"
+msgstr "Внимание: granulepos в потоке %d уменьшилось с "
 
-#: ogginfo/ogginfo2.c:365
-msgid "\n"
-msgstr "\n"
+#: ogginfo/ogginfo2.c:375
+msgid ""
+"Negative granulepos on vorbis stream outside of headers. This file was "
+"created by a buggy encoder\n"
+msgstr ""
 
-#: ogginfo/ogginfo2.c:384
+#: ogginfo/ogginfo2.c:395
 #, c-format
 msgid ""
 "Vorbis stream %d:\n"
@@ -1282,34 +1404,48 @@ msgstr ""
 "\tВремя воспроизведения: %ldм:%02ldс\n"
 "\tСредний битрейт: %f Кбит/с\n"
 
-#: ogginfo/ogginfo2.c:418
+#: ogginfo/ogginfo2.c:429
 #, c-format
 msgid "Warning: EOS not set on stream %d\n"
 msgstr "Внимание: для потока %d не установлен маркер его конца\n"
 
-#: ogginfo/ogginfo2.c:537
+#: ogginfo/ogginfo2.c:553
 msgid "Warning: Invalid header page, no packet found\n"
 msgstr "Внимание: Неправильная страница заголовка, не найден пакет\n"
 
-#: ogginfo/ogginfo2.c:549
+#: ogginfo/ogginfo2.c:565
 #, c-format
 msgid "Warning: Invalid header page in stream %d, contains multiple packets\n"
-msgstr "Внимание: Неправильная страница заголовка в потоке %d, содержит множество пакетов\n"
+msgstr ""
+"Внимание: Неправильная страница заголовка в потоке %d, содержит множество "
+"пакетов\n"
 
-#: ogginfo/ogginfo2.c:574
-msgid "Warning: Hole in data found at approximate offset "
+#: ogginfo/ogginfo2.c:579
+#, c-format
+msgid ""
+"Note: Stream %d has serial number %d, which is legal but may cause problems "
+"with some tools."
+msgstr ""
+
+#: ogginfo/ogginfo2.c:596
+#, fuzzy
+msgid ""
+"Warning: Hole in data found at approximate offset %I64d bytes. Corrupted "
+"ogg.\n"
 msgstr "Внимание: Обнаружена дыра в данных со смещением приблизительно "
 
-#: ogginfo/ogginfo2.c:575
-msgid " bytes. Corrupted ogg.\n"
-msgstr " байт. Поврежденный ogg-файл.\n"
+#: ogginfo/ogginfo2.c:598
+#, fuzzy, c-format
+msgid ""
+"Warning: Hole in data found at approximate offset %Ld bytes. Corrupted ogg.\n"
+msgstr "Внимание: Обнаружена дыра в данных со смещением приблизительно "
 
-#: ogginfo/ogginfo2.c:599
+#: ogginfo/ogginfo2.c:623
 #, c-format
 msgid "Error opening input file \"%s\": %s\n"
 msgstr "Ошибка открытия входного файла \"%s\": %s\n"
 
-#: ogginfo/ogginfo2.c:604
+#: ogginfo/ogginfo2.c:628
 #, c-format
 msgid ""
 "Processing file \"%s\"...\n"
@@ -1318,45 +1454,63 @@ msgstr ""
 "Обработка файла \"%s\"...\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:613
+#: ogginfo/ogginfo2.c:637
 msgid "Could not find a processor for stream, bailing\n"
 msgstr "Невозможно найти обработчик для потока. Задание отложено\n"
 
-#: ogginfo/ogginfo2.c:618
-#, c-format
+#: ogginfo/ogginfo2.c:645
+msgid "Page found for stream after EOS flag"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:648
+msgid ""
+"Ogg muxing constraints violated, new stream before EOS of all previous "
+"streams"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:652
+msgid "Error unknown."
+msgstr ""
+
+#: ogginfo/ogginfo2.c:655
+#, fuzzy, c-format
 msgid ""
 "Warning: illegally placed page(s) for logical stream %d\n"
-"This indicates a corrupt ogg file.\n"
+"This indicates a corrupt ogg file: %s.\n"
 msgstr ""
 "Внимание: неправильно расположены страницы для логического потока %d\n"
 "Это сигнализирует о повреждении файла ogg.\n"
 
-#: ogginfo/ogginfo2.c:625
+#: ogginfo/ogginfo2.c:667
 #, c-format
 msgid "New logical stream (#%d, serial: %08x): type %s\n"
 msgstr "Новый логический поток (#%d, серийный номер: %08x): тип %s\n"
 
-#: ogginfo/ogginfo2.c:628
+#: ogginfo/ogginfo2.c:670
 #, c-format
 msgid "Warning: stream start flag not set on stream %d\n"
 msgstr "Внимание: для потока %d не установлен флаг его начала\n"
 
-#: ogginfo/ogginfo2.c:632
+#: ogginfo/ogginfo2.c:674
 #, c-format
 msgid "Warning: stream start flag found in mid-stream on stream %d\n"
 msgstr "Внимание: в середине потока %d найден флаг начала потока\n"
 
-#: ogginfo/ogginfo2.c:637
+#: ogginfo/ogginfo2.c:679
 #, c-format
-msgid "Warning: sequence number gap in stream %d. Got page %ld when expecting page %ld. Indicates missing data.\n"
-msgstr "Внимание: пропущен порядковый номер в потоке %d. Получена страница %ld когда ожидалась %ld. Свидетельствует о пропуске данных.\n"
+msgid ""
+"Warning: sequence number gap in stream %d. Got page %ld when expecting page %"
+"ld. Indicates missing data.\n"
+msgstr ""
+"Внимание: пропущен порядковый номер в потоке %d. Получена страница %ld когда "
+"ожидалась %ld. Свидетельствует о пропуске данных.\n"
 
-#: ogginfo/ogginfo2.c:652
+#: ogginfo/ogginfo2.c:694
 #, c-format
 msgid "Logical stream %d ended\n"
 msgstr "Логический поток %d завершен\n"
 
-#: ogginfo/ogginfo2.c:659
+#: ogginfo/ogginfo2.c:702
 #, c-format
 msgid ""
 "Error: No ogg data found in file \"%s\".\n"
@@ -1365,12 +1519,13 @@ msgstr ""
 "Ошибка: Данные ogg не найдены в файле \"%s\".\n"
 "Входные данные, вероятно, не в формате ogg.\n"
 
-#: ogginfo/ogginfo2.c:670
+#: ogginfo/ogginfo2.c:713
+#, fuzzy
 msgid ""
 "ogginfo 1.0\n"
 "(c) 2002 Michael Smith <msmith@labyrinth.net.au>\n"
 "\n"
-"Usage: ogginfo [flags] files1.ogg [file2.ogg ... fileN.ogg]\n"
+"Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
 "Flags supported:\n"
 "\t-h Show this help message\n"
 "\t-q Make less verbose. Once will remove detailed informative\n"
@@ -1391,7 +1546,7 @@ msgstr ""
 "\t   доступными более детальные проверки для некоторых типов потоков.\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:691
+#: ogginfo/ogginfo2.c:734
 msgid ""
 "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
 "\n"
@@ -1405,9 +1560,10 @@ msgstr ""
 "и для диагностики проблем с ними.\n"
 "Полная справка отображается по команде \"ogginfo -h\".\n"
 
-#: ogginfo/ogginfo2.c:720
+#: ogginfo/ogginfo2.c:763
 msgid "No input files specified. \"ogginfo -h\" for help\n"
-msgstr "Не указаны входные файлы. Для получения справки используйте \"ogginfo -h\"\n"
+msgstr ""
+"Не указаны входные файлы. Для получения справки используйте \"ogginfo -h\"\n"
 
 #: share/getopt.c:673
 #, c-format
@@ -1468,27 +1624,27 @@ msgstr "%s: параметр `-W %s' не однозначен\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: для параметра `-W %s' не допустимы аргументы\n"
 
-#: vcut/vcut.c:131
+#: vcut/vcut.c:133
 msgid "Page error. Corrupt input.\n"
 msgstr "Ошибка страницы. Входные данные повреждены.\n"
 
-#: vcut/vcut.c:148
+#: vcut/vcut.c:150
 msgid "Bitstream error, continuing\n"
 msgstr "Ошибка битового потока, продолжение работы\n"
 
-#: vcut/vcut.c:173
+#: vcut/vcut.c:175
 msgid "Found EOS before cut point.\n"
 msgstr "Конец потока найден до точки отреза.\n"
 
-#: vcut/vcut.c:182
+#: vcut/vcut.c:184
 msgid "Setting eos: update sync returned 0\n"
 msgstr "Установка флага конца потока: 0 код возврата попытки обновления\n"
 
-#: vcut/vcut.c:192
+#: vcut/vcut.c:194
 msgid "Cutpoint not within stream. Second file will be empty\n"
 msgstr "Точка отреза не внутри потока. Второй файл будет пустой\n"
 
-#: vcut/vcut.c:225
+#: vcut/vcut.c:227
 msgid "Unhandled special case: first file too short?\n"
 msgstr "Необработанный особый случай: первый файл слишком короткий?\n"
 
@@ -1496,7 +1652,7 @@ msgstr "Необработанный особый случай: первый файл слишком короткий?\n"
 #. * spectacularly unlucky? Doubt it, but let's check for it just
 #. * in case.
 #.
-#: vcut/vcut.c:284
+#: vcut/vcut.c:286
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
 "       ogg page. File may not decode correctly.\n"
@@ -1504,47 +1660,49 @@ msgstr ""
 "ОШИБКА: Первые два звуковых пакета не укладываются в одну\n"
 "        страницу ogg. Файл не может быть корректно декодирован.\n"
 
-#: vcut/vcut.c:297
+#: vcut/vcut.c:299
 msgid "Recoverable bitstream error\n"
 msgstr "Исправимая ошибка битового потока\n"
 
-#: vcut/vcut.c:307
+#: vcut/vcut.c:309
 msgid "Bitstream error\n"
 msgstr "Ошибка битового потока\n"
 
-#: vcut/vcut.c:330
+#: vcut/vcut.c:332
 msgid "Update sync returned 0, setting eos\n"
 msgstr "Попытка обновления вернула 0, установка eos\n"
 
-#: vcut/vcut.c:376
+#: vcut/vcut.c:381
 msgid "Input not ogg.\n"
 msgstr "Входные данные не в формате ogg.\n"
 
-#: vcut/vcut.c:386
+#: vcut/vcut.c:391
 msgid "Error in first page\n"
 msgstr "Ошибка на первой странице\n"
 
-#: vcut/vcut.c:391
+#: vcut/vcut.c:396
 msgid "error in first packet\n"
 msgstr "ошибка в первом пакете\n"
 
-#: vcut/vcut.c:397
+#: vcut/vcut.c:402
 msgid "Error in primary header: not vorbis?\n"
 msgstr "Ошибка в основном заголовке: не vorbis?\n"
 
-#: vcut/vcut.c:417
+#: vcut/vcut.c:422
 msgid "Secondary header corrupt\n"
 msgstr "Вторичный заголовок поврежден\n"
 
-#: vcut/vcut.c:430
+#: vcut/vcut.c:435
 msgid "EOF in headers\n"
 msgstr "В заголовках обнаружен конец файла\n"
 
-#: vcut/vcut.c:456
-msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"
+#: vcut/vcut.c:468
+#, fuzzy
+msgid ""
+"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
 msgstr "Вызов: vcut вх_файл.ogg вых_файл1.ogg вых_файл2.ogg точка_отреза\n"
 
-#: vcut/vcut.c:460
+#: vcut/vcut.c:472
 msgid ""
 "WARNING: vcut is still experimental code.\n"
 "Check that the output files are correct before deleting sources.\n"
@@ -1554,77 +1712,85 @@ msgstr ""
 "Проверьте корректность выходных файлов перед удалением исходных.\n"
 "\n"
 
-#: vcut/vcut.c:465
+#: vcut/vcut.c:477
 #, c-format
 msgid "Couldn't open %s for reading\n"
 msgstr "Невозможно открыть %s для чтения\n"
 
-#: vcut/vcut.c:470 vcut/vcut.c:475
+#: vcut/vcut.c:482 vcut/vcut.c:487
 #, c-format
 msgid "Couldn't open %s for writing\n"
 msgstr "Невозможно открыть %s для записи\n"
 
-#: vcut/vcut.c:480
+#: vcut/vcut.c:493 vcut/vcut.c:498
 #, c-format
 msgid "Couldn't parse cutpoint \"%s\"\n"
 msgstr "Невозможно обработать точку отреза \"%s\"\n"
 
-#: vcut/vcut.c:484
-#, c-format
-msgid "Processing: Cutting at %lld\n"
+#: vcut/vcut.c:503
+#, fuzzy, c-format
+msgid "Processing: Cutting at %lld seconds\n"
 msgstr "Обработка: Вырезание в позиции %lld\n"
 
-#: vcut/vcut.c:493
+#: vcut/vcut.c:505
+#, fuzzy, c-format
+msgid "Processing: Cutting at %lld samples\n"
+msgstr "Обработка: Вырезание в позиции %lld\n"
+
+#: vcut/vcut.c:515
 msgid "Processing failed\n"
 msgstr "Обработка не удалась\n"
 
-#: vcut/vcut.c:514
+#: vcut/vcut.c:537
 msgid "Error reading headers\n"
 msgstr "Ошибка чтения заголовков\n"
 
-#: vcut/vcut.c:537
+#: vcut/vcut.c:560
 msgid "Error writing first output file\n"
 msgstr "Ошибка записи первого выходного файла\n"
 
-#: vcut/vcut.c:545
+#: vcut/vcut.c:568
 msgid "Error writing second output file\n"
 msgstr "Ошибка записи второго выходного файла\n"
 
-#: vorbiscomment/vcedit.c:220
+#: vorbiscomment/vcedit.c:229
 msgid "Input truncated or empty."
 msgstr "Входные данные обрезаны или пусты."
 
-#: vorbiscomment/vcedit.c:222
+#: vorbiscomment/vcedit.c:231
 msgid "Input is not an Ogg bitstream."
 msgstr "Входные данные не являются битовым потоком Ogg."
 
-#: vorbiscomment/vcedit.c:239
+#: vorbiscomment/vcedit.c:249
 msgid "Error reading first page of Ogg bitstream."
 msgstr "Ошибка чтения первой страницы битового потока Ogg."
 
-#: vorbiscomment/vcedit.c:245
+#: vorbiscomment/vcedit.c:255
 msgid "Error reading initial header packet."
 msgstr "Ошибка чтения начального заголовка пакета."
 
-#: vorbiscomment/vcedit.c:251
+#: vorbiscomment/vcedit.c:261
 msgid "Ogg bitstream does not contain vorbis data."
 msgstr "Битовый поток Ogg не содержит данных vorbis."
 
-#: vorbiscomment/vcedit.c:274
+#: vorbiscomment/vcedit.c:284
 msgid "Corrupt secondary header."
 msgstr "Поврежден вторичный заголовок."
 
-#: vorbiscomment/vcedit.c:295
+#: vorbiscomment/vcedit.c:305
 msgid "EOF before end of vorbis headers."
 msgstr "Конец файла обнаружен до окончания заголовков vorbis."
 
-#: vorbiscomment/vcedit.c:448
+#: vorbiscomment/vcedit.c:458
 msgid "Corrupt or missing data, continuing..."
 msgstr "Повреждены или отсутствуют данные, продолжение работы..."
 
-#: vorbiscomment/vcedit.c:487
-msgid "Error writing stream to output. Output stream may be corrupted or truncated."
-msgstr "Ошибка записи выходного потока. Выходной поток может быть поврежден или обрезан."
+#: vorbiscomment/vcedit.c:495
+msgid ""
+"Error writing stream to output. Output stream may be corrupted or truncated."
+msgstr ""
+"Ошибка записи выходного потока. Выходной поток может быть поврежден или "
+"обрезан."
 
 #: vorbiscomment/vcomment.c:103 vorbiscomment/vcomment.c:129
 #, c-format
@@ -1696,11 +1862,14 @@ msgstr ""
 "   добавит комментарии из файла comments.txt в in.ogg\n"
 "   Наконец, Вы можете указать любое количество тэгов для добавления в\n"
 "   командной строке используя опцию -t.\n"
-"   Пример: vorbiscomment -a in.ogg -t \"ARTIST=Некий артист\" -t \"TITLE=Название\"\n"
-"   (заметьте, что когда используется такой способ, чтение комментариев из файла с\n"
+"   Пример: vorbiscomment -a in.ogg -t \"ARTIST=Некий артист\" -t "
+"\"TITLE=Название\"\n"
+"   (заметьте, что когда используется такой способ, чтение комментариев из "
+"файла с\n"
 "   комментариями или из stdin отключено)\n"
 "   Сырой режим (--raw, -R) будет читать и записывать комментарии в utf8,\n"
-"   вместо того, чтобы конвертировать в пользовательский набор символов. Это полезно\n"
+"   вместо того, чтобы конвертировать в пользовательский набор символов. Это "
+"полезно\n"
 "   при использовании vorbiscomment в сценариях. Однако, этого не достаточно\n"
 "   для основной обработки комментариев во всех случаях.\n"
 
@@ -1708,36 +1877,69 @@ msgstr ""
 msgid "Internal error parsing command options\n"
 msgstr "Внутренняя ошибка разбора параметров командной строки\n"
 
-#: vorbiscomment/vcomment.c:456
+#: vorbiscomment/vcomment.c:457
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Ошибка открытия входного файла '%s'.\n"
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Имя входного файла не может совпадать с именем выходного файла\n"
 
-#: vorbiscomment/vcomment.c:476
+#: vorbiscomment/vcomment.c:477
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Ошибка открытия выходного файла '%s'.\n"
 
-#: vorbiscomment/vcomment.c:491
+#: vorbiscomment/vcomment.c:492
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Ошибка открытия файла комментариев '%s'.\n"
 
-#: vorbiscomment/vcomment.c:508
+#: vorbiscomment/vcomment.c:509
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Ошибка открытия файла комментариев '%s'\n"
 
-#: vorbiscomment/vcomment.c:536
+#: vorbiscomment/vcomment.c:537
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Ошибка удаления старого файла %s\n"
 
-#: vorbiscomment/vcomment.c:538
+#: vorbiscomment/vcomment.c:539
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Ошибка переименования %s в %s\n"
+
+#~ msgid "Track number:"
+#~ msgstr "Номер дорожки:"
+
+#~ msgid "ReplayGain (Track):"
+#~ msgstr "УровеньВоспроизведения (Дорожка):"
+
+#~ msgid "ReplayGain (Album):"
+#~ msgstr "УровеньВоспроизведения (Альбом):"
+
+#~ msgid "ReplayGain (Track) Peak:"
+#~ msgstr "Пиковый УровеньВоспроизведения (Дорожка):"
+
+#~ msgid "ReplayGain (Album) Peak:"
+#~ msgstr "Пиковый УровеньВоспроизведения (Альбом):"
+
+#~ msgid "Copyright"
+#~ msgstr "Авторские права"
+
+#~ msgid "Comment:"
+#~ msgstr "Комментарий:"
+
+#~ msgid "Version is %d"
+#~ msgstr "Версия %d"
+
+#~ msgid " to "
+#~ msgstr " до "
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid " bytes. Corrupted ogg.\n"
+#~ msgstr " байт. Поврежденный ogg-файл.\n"

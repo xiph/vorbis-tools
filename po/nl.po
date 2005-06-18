@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.0\n"
-"POT-Creation-Date: 2002-07-19 22:30+1000\n"
+"POT-Creation-Date: 2003-06-24 13:27+0100\n"
 "PO-Revision-Date: 2003-08-04 22:23+0100\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -16,17 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ogg123/buffer.c:111
+#: ogg123/buffer.c:114
 msgid "Error: Out of memory in malloc_action().\n"
 msgstr "Fout: geheugentekort in malloc_action().\n"
 
-#: ogg123/buffer.c:344
+#: ogg123/buffer.c:347
 msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr "Fout: kon geen geheugen reserveren in malloc_buffer_stats()\n"
-
-#: ogg123/buffer.c:363
-msgid "malloc"
-msgstr "malloc"
 
 #: ogg123/callbacks.c:70
 msgid "Error: Device not available.\n"
@@ -155,9 +151,9 @@ msgstr "anders"
 msgid "(NULL)"
 msgstr "(NULL)"
 
-#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:506 oggenc/oggenc.c:511
-#: oggenc/oggenc.c:516 oggenc/oggenc.c:521 oggenc/oggenc.c:526
-#: oggenc/oggenc.c:531
+#: ogg123/cfgfile_options.c:196 oggenc/oggenc.c:516 oggenc/oggenc.c:521
+#: oggenc/oggenc.c:526 oggenc/oggenc.c:531 oggenc/oggenc.c:536
+#: oggenc/oggenc.c:541
 msgid "(none)"
 msgstr "(geen)"
 
@@ -220,7 +216,9 @@ msgstr "=== Stuurprogramma %s is geen bestandsuitvoer stuurprogramma.\n"
 
 #: ogg123/cmdline_options.c:134
 msgid "=== Cannot specify output file without specifying a driver.\n"
-msgstr "=== Kan uitvoerbestand niet aangeven zonder een uitvoer stuurprogramma aan te geven.\n"
+msgstr ""
+"=== Kan uitvoerbestand niet aangeven zonder een uitvoer stuurprogramma aan "
+"te geven.\n"
 
 #: ogg123/cmdline_options.c:149
 #, c-format
@@ -246,7 +244,8 @@ msgid ""
 "--- To do a test decode, use the null output driver.\n"
 msgstr ""
 "--- Kan niet elk stuk 0 keer afspelen.\n"
-"--- Om het decoderen te testen, kan je het null uitvoer stuurprogramma gebruiken.\n"
+"--- Om het decoderen te testen, kan je het null uitvoer stuurprogramma "
+"gebruiken.\n"
 
 #: ogg123/cmdline_options.c:206
 #, c-format
@@ -259,8 +258,12 @@ msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "--- Aangegeven stuurprogramma %s in configuratiebestand is onjuist.\n"
 
 #: ogg123/cmdline_options.c:237
-msgid "=== Could not load default driver and no driver specified in config file. Exiting.\n"
-msgstr "=== Kon standaard stuurprogramma niet laden, en geen stuurprogramma aangegeven in configuratiebestand. Afsluiten.\n"
+msgid ""
+"=== Could not load default driver and no driver specified in config file. "
+"Exiting.\n"
+msgstr ""
+"=== Kon standaard stuurprogramma niet laden, en geen stuurprogramma "
+"aangegeven in configuratiebestand. Afsluiten.\n"
 
 #: ogg123/cmdline_options.c:258
 #, c-format
@@ -315,23 +318,24 @@ msgstr ""
 "      eerder aangegeven apparaat (met -d). Zie man pagina voor meer info.\n"
 "  -b n, --buffer n           een invoerbuffer van 'n' kilobytes gebruiken\n"
 "  -p n, --prebuffer n        n%% van invoerbuffer laden voor afspelen\n"
-"  -v, --verbose              voortgang en andere status informatie weergeven\n"
+"  -v, --verbose              voortgang en andere status informatie "
+"weergeven\n"
 "  -q, --quiet                niets weergeven (geen titel)\n"
 "  -x n, --nth                elk 'n'de blok afspelen\n"
 "  -y n, --ntimes             elk afgespeeld blok 'n' keer herhalen\n"
 "  -z, --shuffle              afspelen in willekeurige volgorde\n"
 "\n"
-"ogg123 zal het volgende liedje overslaan bij SIGINT (Ctrl-C); twee keer SIGINTs\n"
+"ogg123 zal het volgende liedje overslaan bij SIGINT (Ctrl-C); twee keer "
+"SIGINTs\n"
 "binnen s milliseconden breekt ogg123 af.\n"
 "  -l, --delay=s              s instellen [milliseconden] (standaard 500).\n"
 
 #: ogg123/file_transport.c:58 ogg123/http_transport.c:203
-#: ogg123/oggvorbis_format.c:106 ogg123/oggvorbis_format.c:321
-#: ogg123/oggvorbis_format.c:336 ogg123/oggvorbis_format.c:354
+#: ogg123/oggvorbis_format.c:90
 msgid "Error: Out of memory.\n"
 msgstr "Fout: geheugentekort.\n"
 
-#: ogg123/format.c:59
+#: ogg123/format.c:78
 msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr "Fout: kon geen geheugen reserveren in malloc_decoder_stats()\n"
 
@@ -398,7 +402,8 @@ msgstr "Het bestandsformaat van %s wordt niet ondersteund.\n"
 #: ogg123/ogg123.c:450
 #, c-format
 msgid "Error opening %s using the %s module.  The file may be corrupted.\n"
-msgstr "Fout bij openen %s met module %s.  Mogelijk is het bestand beschadigd.\n"
+msgstr ""
+"Fout bij openen %s met module %s.  Mogelijk is het bestand beschadigd.\n"
 
 #: ogg123/ogg123.c:469
 #, c-format
@@ -419,59 +424,30 @@ msgstr "Fout: decoderen mislukt.\n"
 msgid "Done."
 msgstr "Klaar."
 
-#: ogg123/oggvorbis_format.c:51
-msgid "Track number:"
-msgstr "Spoornummer:"
-
-#: ogg123/oggvorbis_format.c:52
-#, fuzzy
-msgid "ReplayGain (Track):"
-msgstr "HerspeelFactor (Spoor):"
-
-#: ogg123/oggvorbis_format.c:53
-msgid "ReplayGain (Album):"
-msgstr "HerspeelFactor (Album):"
-
-#: ogg123/oggvorbis_format.c:54
-msgid "ReplayGain (Track) Peak:"
-msgstr "HerspeelFactor (Spoor) piek:"
-
-#: ogg123/oggvorbis_format.c:55
-msgid "ReplayGain (Album) Peak:"
-msgstr "HerspeelFactor (Album) piek:"
-
-#: ogg123/oggvorbis_format.c:56
-msgid "Copyright"
-msgstr "Auteursrecht"
-
-#: ogg123/oggvorbis_format.c:57 ogg123/oggvorbis_format.c:58
-msgid "Comment:"
-msgstr "Opmerking:"
-
-#: ogg123/oggvorbis_format.c:167
+#: ogg123/oggvorbis_format.c:152
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Gat in stroom; waarschijnlijk niet erg\n"
 
-#: ogg123/oggvorbis_format.c:173
+#: ogg123/oggvorbis_format.c:158
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== Vorbis bibliotheek heeft stroomfout gerapporteerd.\n"
 
-#: ogg123/oggvorbis_format.c:402
-#, c-format
-msgid "Version is %d"
-msgstr "Versie is %d"
+#: ogg123/oggvorbis_format.c:302
+#, fuzzy, c-format
+msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgstr "Bitstroom is %d kanaals, %ldHz"
 
-#: ogg123/oggvorbis_format.c:406
+#: ogg123/oggvorbis_format.c:307
+#, c-format
+msgid "Vorbis format: Version %d"
+msgstr ""
+
+#: ogg123/oggvorbis_format.c:311
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Bitrate aanwijzingen: boven=%ld nominaal=%ld onder=%ld venster=%ld"
 
-#: ogg123/oggvorbis_format.c:414
-#, c-format
-msgid "Bitstream is %d channel, %ldHz"
-msgstr "Bitstroom is %d kanaals, %ldHz"
-
-#: ogg123/oggvorbis_format.c:419
+#: ogg123/oggvorbis_format.c:319
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Gecodeerd door: %s"
@@ -551,64 +527,66 @@ msgstr "WAV bestandslezer"
 msgid "AIFF/AIFC file reader"
 msgstr "AIFF/AIFC bestandslezer"
 
-#: oggenc/audio.c:117 oggenc/audio.c:374
+#: oggenc/audio.c:116 oggenc/audio.c:383
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Waarschuwing: onverwachte EOF bij lezen WAV kop\n"
 
-#: oggenc/audio.c:128
+#: oggenc/audio.c:127
 #, c-format
 msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Overslaan stuk van soort \"%s\", lengte %d\n"
 
-#: oggenc/audio.c:146
+#: oggenc/audio.c:145
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Waarschuwing: onverwacht EOF in AIFF stuk\n"
 
-#: oggenc/audio.c:231
+#: oggenc/audio.c:230
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Waarschuwing: geen algemeen stuk gevonden in AIFF bestand\n"
 
-#: oggenc/audio.c:237
+#: oggenc/audio.c:236
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Waarschuwing: afgekapt algemeen stuk in AIFF kop\n"
 
-#: oggenc/audio.c:245
+#: oggenc/audio.c:244
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Waarschuwing: onverwacht EOF bij lezen AIFF kop\n"
 
-#: oggenc/audio.c:258
+#: oggenc/audio.c:259
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Waarschuwing: AIFF-C kop afgekapt.\n"
 
-#: oggenc/audio.c:263
-msgid "Warning: Can't handle compressed AIFF-C\n"
+#: oggenc/audio.c:273
+#, fuzzy, c-format
+msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Waarschuwing: kan ingepakt AIFF-C niet verwerken\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:280
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Waarschuwing: geen SSND stuk gevonden in AIFF bestand\n"
 
-#: oggenc/audio.c:276
+#: oggenc/audio.c:286
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Waarschuwing: beschadigd SSND stuk in AIFF kop\n"
 
-#: oggenc/audio.c:282
+#: oggenc/audio.c:292
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Waarschuwing: onverwacht EOF bij lezen AIFF kop\n"
 
-#: oggenc/audio.c:314
+#: oggenc/audio.c:323
+#, fuzzy
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
-" Must be 8 or 16 bit PCM.\n"
+" Must be 8, 16, or 24 bit PCM.\n"
 msgstr ""
 "Waarschuwing: OggEnc ondersteunt deze soort AIFF/AIFC bestanden niet\n"
 " Het moet 8 of 16 bit PCM zijn.\n"
 
-#: oggenc/audio.c:357
+#: oggenc/audio.c:366
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Waarschuwing: stuk in WAV kop met niet herkend formaat\n"
 
-#: oggenc/audio.c:369
+#: oggenc/audio.c:378
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
@@ -616,7 +594,7 @@ msgstr ""
 "Waarschuwing: stuk in WAV kop met ONJUIST formaat.\n"
 " Toch proberen te lezen (werkt mogelijk niet)...\n"
 
-#: oggenc/audio.c:406
+#: oggenc/audio.c:415
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
@@ -624,19 +602,33 @@ msgstr ""
 "FOUT: soort WAV bestand is niet ondersteund (moet standaard PCM\n"
 " of soort 3 floating point PCM zijn\n"
 
-#: oggenc/audio.c:455
+#: oggenc/audio.c:466
+#, fuzzy
 msgid ""
-"ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+"ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
 "FOUT: WAV bestand heeft niet ondersteund subformaat (moet 16 bit PCM\n"
 "of floating point PCM zijn\n"
 
-#: oggenc/audio.c:607
-msgid "BUG: Got zero samples from resampler: your file will be truncated. Please report this.\n"
-msgstr "Programmeerfout: Nul monsters ontvangen van herbemonsteraar: uw bestand zal worden afgekapt. Rapporteer dit alstublieft.\n"
+#: oggenc/audio.c:541
+msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
+msgstr ""
 
-#: oggenc/audio.c:625
+#: oggenc/audio.c:547
+#, c-format
+msgid "Internal error: attempt to read unsupported bitdepth %d\n"
+msgstr ""
+
+#: oggenc/audio.c:644
+msgid ""
+"BUG: Got zero samples from resampler: your file will be truncated. Please "
+"report this.\n"
+msgstr ""
+"Programmeerfout: Nul monsters ontvangen van herbemonsteraar: uw bestand zal "
+"worden afgekapt. Rapporteer dit alstublieft.\n"
+
+#: oggenc/audio.c:662
 msgid "Couldn't initialise resampler\n"
 msgstr "Kon herbemonsteraar niet initialiseren\n"
 
@@ -656,8 +648,12 @@ msgid "Unrecognised advanced option \"%s\"\n"
 msgstr "Niet herkende geavanceerde optie \"%s\"\n"
 
 #: oggenc/encode.c:133
-msgid "255 channels should be enough for anyone. (Sorry, vorbis doesn't support more)\n"
-msgstr "255 kanalen zouden voor iedereen genoeg moeten zijn. (Sorry, vorbis ondersteunt niet meer)\n"
+msgid ""
+"255 channels should be enough for anyone. (Sorry, vorbis doesn't support "
+"more)\n"
+msgstr ""
+"255 kanalen zouden voor iedereen genoeg moeten zijn. (Sorry, vorbis "
+"ondersteunt niet meer)\n"
 
 #: oggenc/encode.c:141
 msgid "Requesting a minimum or maximum bitrate requires --managed\n"
@@ -803,7 +799,7 @@ msgstr ""
 "        %s%s%s \n"
 "met bitrate beheer "
 
-#: oggenc/oggenc.c:96
+#: oggenc/oggenc.c:97
 #, c-format
 msgid ""
 "%s%s\n"
@@ -812,58 +808,70 @@ msgstr ""
 "%s%s\n"
 "FOUT: Geen invoerbestanden aangegeven. Gebruik -h voor hulp.\n"
 
-#: oggenc/oggenc.c:111
+#: oggenc/oggenc.c:112
 msgid "ERROR: Multiple files specified when using stdin\n"
 msgstr "FOUT: Meerdere bestanden aangegeven bij gebruik stdin\n"
 
-#: oggenc/oggenc.c:118
-msgid "ERROR: Multiple input files with specified output filename: suggest using -n\n"
-msgstr "FOUT: Meerdere invoerbestanden met aangegeven uitvoer bestandsnaam: misschien -n gebruiken\n"
+#: oggenc/oggenc.c:119
+msgid ""
+"ERROR: Multiple input files with specified output filename: suggest using -"
+"n\n"
+msgstr ""
+"FOUT: Meerdere invoerbestanden met aangegeven uitvoer bestandsnaam: "
+"misschien -n gebruiken\n"
 
-#: oggenc/oggenc.c:172
+#: oggenc/oggenc.c:173
 #, c-format
 msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgstr "FOUT: Kan invoerbestand \"%s\" niet openen: %s\n"
 
-#: oggenc/oggenc.c:200
+#: oggenc/oggenc.c:201
 #, c-format
 msgid "Opening with %s module: %s\n"
 msgstr "Openen met %s module: %s\n"
 
-#: oggenc/oggenc.c:209
+#: oggenc/oggenc.c:210
 #, c-format
 msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr "FOUT: Invoerbestand \"%s\" is niet van een ondersteund formaat\n"
 
-#: oggenc/oggenc.c:259
+#: oggenc/oggenc.c:260
 msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
-msgstr "WAARSCHUWING: Geen bestandsnaam, gebruik nu standaard \"default.ogg\"\n"
+msgstr ""
+"WAARSCHUWING: Geen bestandsnaam, gebruik nu standaard \"default.ogg\"\n"
 
-#: oggenc/oggenc.c:267
+#: oggenc/oggenc.c:268
 #, c-format
-msgid "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
-msgstr "FOUT: Kon niet benodigde submappen maken voor uitvoer bestandsnaam \"%s\"\n"
+msgid ""
+"ERROR: Could not create required subdirectories for output filename \"%s\"\n"
+msgstr ""
+"FOUT: Kon niet benodigde submappen maken voor uitvoer bestandsnaam \"%s\"\n"
 
-#: oggenc/oggenc.c:278
+#: oggenc/oggenc.c:279
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr "FOUT: Kan niet uitvoerbestand \"%s\" openen: %s\n"
 
-#: oggenc/oggenc.c:308
+#: oggenc/oggenc.c:309
 #, c-format
 msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr "Herbemonsteren invoer van %d Hz naar %d Hz\n"
 
-#: oggenc/oggenc.c:315
+#: oggenc/oggenc.c:316
 msgid "Downmixing stereo to mono\n"
 msgstr "Terugbrengen stereo naar mono\n"
 
-#: oggenc/oggenc.c:318
+#: oggenc/oggenc.c:319
 msgid "ERROR: Can't downmix except from stereo to mono\n"
 msgstr "FOUT: Kan alleen terugbrengen van stereo naar mono\n"
 
-#: oggenc/oggenc.c:365
+#: oggenc/oggenc.c:330
 #, c-format
+msgid "Scaling input to %f\n"
+msgstr ""
+
+#: oggenc/oggenc.c:374
+#, fuzzy, c-format
 msgid ""
 "%s%s\n"
 "Usage: oggenc [options] input.wav [...]\n"
@@ -902,19 +910,25 @@ msgid ""
 " Naming:\n"
 " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
 " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%l,\n"
-"                      %%n, %%d replaced by artist, title, album, track number,\n"
-"                      and date, respectively (see below for specifying these).\n"
+"                      %%n, %%d replaced by artist, title, album, track "
+"number,\n"
+"                      and date, respectively (see below for specifying "
+"these).\n"
 "                      %%%% gives a literal %%.\n"
-" -X, --name-remove=s  Remove the specified characters from parameters to the\n"
+" -X, --name-remove=s  Remove the specified characters from parameters to "
+"the\n"
 "                      -n format string. Useful to ensure legal filenames.\n"
 " -P, --name-replace=s Replace characters removed by --name-remove with the\n"
-"                      characters specified. If this string is shorter than the\n"
+"                      characters specified. If this string is shorter than "
+"the\n"
 "                      --name-remove list or is not specified, the extra\n"
 "                      characters are just removed.\n"
-"                      Default settings for the above two arguments are platform\n"
+"                      Default settings for the above two arguments are "
+"platform\n"
 "                      specific.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
-"                      used multiple times.\n"
+"                      used multiple times. The argument should be in the\n"
+"                      format \"tag=value\".\n"
 " -d, --date           Date for track (usually date of performance)\n"
 " -N, --tracknum       Track number for this track\n"
 " -t, --title          Title for this track\n"
@@ -922,24 +936,33 @@ msgid ""
 " -a, --artist         Name of artist\n"
 " -G, --genre          Genre of track\n"
 "                      If multiple input files are given, then multiple\n"
-"                      instances of the previous five arguments will be used,\n"
+"                      instances of the previous five arguments will be "
+"used,\n"
 "                      in the order they are given. If fewer titles are\n"
-"                      specified than files, OggEnc will print a warning, and\n"
+"                      specified than files, OggEnc will print a warning, "
+"and\n"
 "                      reuse the final one for the remaining files. If fewer\n"
 "                      track numbers are given, the remaining files will be\n"
-"                      unnumbered. For the others, the final tag will be reused\n"
-"                      for all others without warning (so you can specify a date\n"
-"                      once, for example, and have it used for all the files)\n"
+"                      unnumbered. For the others, the final tag will be "
+"reused\n"
+"                      for all others without warning (so you can specify a "
+"date\n"
+"                      once, for example, and have it used for all the "
+"files)\n"
 "\n"
 "INPUT FILES:\n"
-" OggEnc input files must currently be 16 or 8 bit PCM WAV, AIFF, or AIFF/C\n"
+" OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or "
+"AIFF/C\n"
 " files, or 32 bit IEEE floating point WAV. Files may be mono or stereo\n"
 " (or more channels) and any sample rate.\n"
-" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-" must be 16bit stereo little-endian PCM ('headerless wav'), unless additional\n"
+" Alternatively, the --raw option may be used to use a raw PCM data file, "
+"which\n"
+" must be 16 bit stereo little-endian PCM ('headerless wav'), unless "
+"additional\n"
 " parameters for raw mode are specified.\n"
-" You can specify taking the file from stdin by using - as the input filename.\n"
-" In this mode, output is to stdout unless an outfile filename is specified\n"
+" You can specify taking the file from stdin by using - as the input "
+"filename.\n"
+" In this mode, output is to stdout unless an output filename is specified\n"
 " with -o\n"
 "\n"
 msgstr ""
@@ -950,18 +973,27 @@ msgstr ""
 " Algemeen:\n"
 " -Q, --quiet          Geen uitvoer naar stderr sturen\n"
 " -h, --help           Deze help tekst weergeven\n"
-" -r, --raw            Ruwe modus. Invoer worden direct als PCM gegevens gelezen\n"
-" -B, --raw-bits=n     Voor ruwe invoer bits/monster instellen. Standaard is 16\n"
-" -C, --raw-chan=n     Aantal kanalen voor ruwe invoer instellen. Standaard is 2\n"
-" -R, --raw-rate=n     Voor ruwe invoer monsters/sec instellen. Standaard is 44100\n"
+" -r, --raw            Ruwe modus. Invoer worden direct als PCM gegevens "
+"gelezen\n"
+" -B, --raw-bits=n     Voor ruwe invoer bits/monster instellen. Standaard is "
+"16\n"
+" -C, --raw-chan=n     Aantal kanalen voor ruwe invoer instellen. Standaard "
+"is 2\n"
+" -R, --raw-rate=n     Voor ruwe invoer monsters/sec instellen. Standaard is "
+"44100\n"
 " --raw-endianness     1 voor bigendian, 0 voor little (standaard is 0)\n"
-" -b, --bitrate        Een nominale bitrate aangeven om mee te coderen. Er wordt\n"
-"                      geprobeerd om met een bitrate te coderen waarvan het gemiddelde\n"
-"                      op de waarde ligt. Het argument is het aantal kbps. Dit gebruikt\n"
-"                      de bitrate-beheer engine, en wordt niet aangeraden voor de\n"
+" -b, --bitrate        Een nominale bitrate aangeven om mee te coderen. Er "
+"wordt\n"
+"                      geprobeerd om met een bitrate te coderen waarvan het "
+"gemiddelde\n"
+"                      op de waarde ligt. Het argument is het aantal kbps. "
+"Dit gebruikt\n"
+"                      de bitrate-beheer engine, en wordt niet aangeraden "
+"voor de\n"
 "                      meeste gebruikers.\n"
 "                      Zie -q, --quality voor een beter alternatief.\n"
-" -m, --min-bitrate    Een minimale bitrate aangeven (in kbps). Nuttig voor coderen\n"
+" -m, --min-bitrate    Een minimale bitrate aangeven (in kbps). Nuttig voor "
+"coderen\n"
 "                      voor een kanaal met een vaste grootte.\n"
 " -M, --max-bitrate    Een maximale bitrate aangeven in kbps. Nuttig voor\n"
 "                      stroomtoepassingen.\n"
@@ -969,30 +1001,46 @@ msgstr ""
 "                      in plaats van een bepaalde bitrate aangeven.\n"
 "                      Dit is de normale modus waarmee wordt gewerkt.\n"
 "                      Fracties zijn toegestaan (zoals 2.75)\n"
-"                      Kwaliteit -1 is ook mogelijk, maar geeft mogelijk geen\n"
+"                      Kwaliteit -1 is ook mogelijk, maar geeft mogelijk "
+"geen\n"
 "                      acceptabele kwaliteit.\n"
-" --resample n         Opnieuw bemonsteren invoergegevens naar bemonster frequentie n (Hz)\n"
-" --downmix            Stereo terugbrengen tot mono. Alleen toegestaan bij stereo invoer.\n"
-" -s, --serial         Een serienummer aangeven voor de stroom. Bij het coderen van\n"
-"                      meerdere bestanden, zal dit bij elke stroom na de eerste verhoogd\n"
+" --resample n         Opnieuw bemonsteren invoergegevens naar bemonster "
+"frequentie n (Hz)\n"
+" --downmix            Stereo terugbrengen tot mono. Alleen toegestaan bij "
+"stereo invoer.\n"
+" -s, --serial         Een serienummer aangeven voor de stroom. Bij het "
+"coderen van\n"
+"                      meerdere bestanden, zal dit bij elke stroom na de "
+"eerste verhoogd\n"
 "                      worden.\n"
 "\n"
 " Naamgeving:\n"
-" -o, --output=fn      Bestand schrijven naar fn (alleen geldig in enkel-bestandsmodus)\n"
-" -n, --names=string   Bestandsnamen maken zoals deze tekst, waarbij %%a, %%t, %%l,\n"
-"                      %%n, %%d wordt vervangen door artiest, titel, album, spoornummer,\n"
-"                      en datum, respectievelijk (hieronder staat hoe dit aangegeven wordt).\n"
+" -o, --output=fn      Bestand schrijven naar fn (alleen geldig in enkel-"
+"bestandsmodus)\n"
+" -n, --names=string   Bestandsnamen maken zoals deze tekst, waarbij %%a, %%"
+"t, %%l,\n"
+"                      %%n, %%d wordt vervangen door artiest, titel, album, "
+"spoornummer,\n"
+"                      en datum, respectievelijk (hieronder staat hoe dit "
+"aangegeven wordt).\n"
 "                      %%%% geeft %%.\n"
-" -X, --name-remove=s  De aangegeven tekens verwijderen uit parameters die voorkomen in\n"
+" -X, --name-remove=s  De aangegeven tekens verwijderen uit parameters die "
+"voorkomen in\n"
 "                      de tekst die meegegeven is aan de -n optie.\n"
-"                      Te gebruiken om toegestane bestandsnamen te garanderen.\n"
-" -P, --name-replace=s Tekens die verwijderd zijn door --name-remove vervangen met de\n"
-"                      aangegeven tekens. Als deze tekst korter is dan de lijst bij\n"
-"                      --name-remove, of deze tekst is niet aangegeven, worden extra\n"
+"                      Te gebruiken om toegestane bestandsnamen te "
+"garanderen.\n"
+" -P, --name-replace=s Tekens die verwijderd zijn door --name-remove "
+"vervangen met de\n"
+"                      aangegeven tekens. Als deze tekst korter is dan de "
+"lijst bij\n"
+"                      --name-remove, of deze tekst is niet aangegeven, "
+"worden extra\n"
 "                      tekens gewoon verwijderd.\n"
-"                      Standaardwaarden voor de twee hierboven genoemde argumenten zijn\n"
+"                      Standaardwaarden voor de twee hierboven genoemde "
+"argumenten zijn\n"
 "                      platform specifiek.\n"
-" -c, --comment=c      De gegeven string toevoegen als extra opmerking. Dit mag meerdere\n"
+" -c, --comment=c      De gegeven string toevoegen als extra opmerking. Dit "
+"mag meerdere\n"
 "                      keren worden gebruikt.\n"
 " -d, --date           Datum voor spoor (normaal gesproken datum van opname)\n"
 " -N, --tracknum       Spoornummer voor dit spoor\n"
@@ -1000,147 +1048,196 @@ msgstr ""
 " -l, --album          Naam van album\n"
 " -a, --artist         Naam van artiest\n"
 " -G, --genre          Genre van spoor\n"
-"                      Als er meerdere invoerbestanden zijn gegeven, zullen er meerdere\n"
-"                      instanties van de vorige vijf argumenten worden gebruikt,\n"
-"                      in de volgorde waarin ze zijn gegeven. Als er minder titels zijn\n"
-"                      aangegeven dan bestanden, geeft OggEnc een waarschuwing weer, en\n"
-"                      de laatste voor alle overblijvende bestanden gebruiken. Als er\n"
-"                      minder spoornummers zijn gegeven, zullen de overige bestanden niet\n"
-"                      worden genummerd. Voor de andere zal de laatste tag worden gebruikt\n"
-"                      voor alle andere, zonder waarschuwing (u kunt de datum dus één keer\n"
-"                      aangeven, bijvoorbeeld, en voor alle bestanden laten gebruiken)\n"
+"                      Als er meerdere invoerbestanden zijn gegeven, zullen "
+"er meerdere\n"
+"                      instanties van de vorige vijf argumenten worden "
+"gebruikt,\n"
+"                      in de volgorde waarin ze zijn gegeven. Als er minder "
+"titels zijn\n"
+"                      aangegeven dan bestanden, geeft OggEnc een "
+"waarschuwing weer, en\n"
+"                      de laatste voor alle overblijvende bestanden "
+"gebruiken. Als er\n"
+"                      minder spoornummers zijn gegeven, zullen de overige "
+"bestanden niet\n"
+"                      worden genummerd. Voor de andere zal de laatste tag "
+"worden gebruikt\n"
+"                      voor alle andere, zonder waarschuwing (u kunt de datum "
+"dus één keer\n"
+"                      aangeven, bijvoorbeeld, en voor alle bestanden laten "
+"gebruiken)\n"
 "\n"
 "INVOERBESTANDEN:\n"
-" OggEnc invoerbestanden moeten op dit moment 16 of 8 bit PCM WAV, AIFF, AIFF/C\n"
-" of 32 bit IEEE floating point WAV bestanden zijn. Bestanden kunnen mono of stereo\n"
+" OggEnc invoerbestanden moeten op dit moment 16 of 8 bit PCM WAV, AIFF, AIFF/"
+"C\n"
+" of 32 bit IEEE floating point WAV bestanden zijn. Bestanden kunnen mono of "
+"stereo\n"
 " (of meer kanalen) zijn en mogen elke bemosteringsfrequentie hebben.\n"
-" Ook kan de --raw optie worden gebruikt om een ruw PCM gegevensbestand te gebruiken.\n"
-" Dat moet dan 16bit stereo little-endian PCM ('wav zonder kop', 'headerless wav') zijn,\n"
+" Ook kan de --raw optie worden gebruikt om een ruw PCM gegevensbestand te "
+"gebruiken.\n"
+" Dat moet dan 16bit stereo little-endian PCM ('wav zonder kop', 'headerless "
+"wav') zijn,\n"
 " tenzij er meer parameters zijn aangegeven voor ruwe modus.\n"
-" U kunt aangeven dat het bestand van stdin moet worden genomen door - te gebruiken als\n"
-" invoer bestandsnaam. In deze modus wordt uitvoer naar stdout gestuurd, tenzij er een\n"
+" U kunt aangeven dat het bestand van stdin moet worden genomen door - te "
+"gebruiken als\n"
+" invoer bestandsnaam. In deze modus wordt uitvoer naar stdout gestuurd, "
+"tenzij er een\n"
 " uitvoer bestandsnaam is aangegeven met -o\n"
 "\n"
 
-#: oggenc/oggenc.c:536
+#: oggenc/oggenc.c:546
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
-msgstr "WAARSCHUWING: Onjuist escape teken '%c' wordt genegeerd in naam formaat\n"
+msgstr ""
+"WAARSCHUWING: Onjuist escape teken '%c' wordt genegeerd in naam formaat\n"
 
-#: oggenc/oggenc.c:562 oggenc/oggenc.c:670 oggenc/oggenc.c:683
+#: oggenc/oggenc.c:572 oggenc/oggenc.c:688 oggenc/oggenc.c:701
 msgid "Enabling bitrate management engine\n"
 msgstr "De bitrate beheer-engine wordt aan gezet\n"
 
-#: oggenc/oggenc.c:571
-msgid "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
-msgstr "WAARSCHUWING: Ruwe endianness aangegeven voor niet-ruwe gegevens. Er wordt aangenomen dat invoer ruw is.\n"
+#: oggenc/oggenc.c:581
+msgid ""
+"WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"WAARSCHUWING: Ruwe endianness aangegeven voor niet-ruwe gegevens. Er wordt "
+"aangenomen dat invoer ruw is.\n"
 
-#: oggenc/oggenc.c:574
+#: oggenc/oggenc.c:584
 #, c-format
 msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
 msgstr "WAARSCHUWING: Kon endianness argument \"%s\" niet lezen\n"
 
-#: oggenc/oggenc.c:581
+#: oggenc/oggenc.c:591
 #, c-format
 msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
 msgstr "WAARSCHUWING: Kon herbemonster frequentie \"%s\" niet lezen\n"
 
-#: oggenc/oggenc.c:587
+#: oggenc/oggenc.c:597
 #, c-format
 msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
-msgstr "Waarschuwing: Herbemonsterfrequentie aangegeven als %d Hz. Bedoelde u %d Hz?\n"
+msgstr ""
+"Waarschuwing: Herbemonsterfrequentie aangegeven als %d Hz. Bedoelde u %d "
+"Hz?\n"
 
-#: oggenc/oggenc.c:599
+#: oggenc/oggenc.c:607
+#, fuzzy, c-format
+msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
+msgstr "Waarschuwing: Kon map %s niet lezen.\n"
+
+#: oggenc/oggenc.c:617
 msgid "No value for advanced encoder option found\n"
 msgstr "Geen waarde gevonden voor geavanceerde codeeroptie\n"
 
-#: oggenc/oggenc.c:610
+#: oggenc/oggenc.c:628
 msgid "Internal error parsing command line options\n"
 msgstr "Interne fout bij inlezen opdrachtregel opties\n"
 
-#: oggenc/oggenc.c:621
+#: oggenc/oggenc.c:639
 #, c-format
 msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr "Waarschuwing: Onjuiste opmerking gebruikt (\"%s\"), genegeerd.\n"
 
-#: oggenc/oggenc.c:656
+#: oggenc/oggenc.c:674
 #, c-format
 msgid "Warning: nominal bitrate \"%s\" not recognised\n"
 msgstr "Waarschuwing: nominale bitrate \"%s\" wordt niet herkend\n"
 
-#: oggenc/oggenc.c:664
+#: oggenc/oggenc.c:682
 #, c-format
 msgid "Warning: minimum bitrate \"%s\" not recognised\n"
 msgstr "Waarschuwing: minimale bitrate \"%s\" wordt niet herkend\n"
 
-#: oggenc/oggenc.c:677
+#: oggenc/oggenc.c:695
 #, c-format
 msgid "Warning: maximum bitrate \"%s\" not recognised\n"
 msgstr "Waarschuwing: maximale bitrate \"%s\" wordt niet herkend\n"
 
-#: oggenc/oggenc.c:689
+#: oggenc/oggenc.c:707
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr "Kwaliteitsoptie \"%s\" wordt niet herkend en genegeerd\n"
 
-#: oggenc/oggenc.c:697
+#: oggenc/oggenc.c:715
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
-msgstr "WAARSCHUWING: kwaliteitsinstelling te hoog, maximale kwaliteit wordt gebruikt.\n"
-
-#: oggenc/oggenc.c:703
-msgid "WARNING: Multiple name formats specified, using final\n"
-msgstr "WAARSCHUWING: Meerdere naam formaten aangegeven, de laatste wordt gebruikt\n"
-
-#: oggenc/oggenc.c:712
-msgid "WARNING: Multiple name format filters specified, using final\n"
-msgstr "WAARSCHUWING: Meerdere naam formaat filters aangegeven, de laatste wordt gebruikt\n"
+msgstr ""
+"WAARSCHUWING: kwaliteitsinstelling te hoog, maximale kwaliteit wordt "
+"gebruikt.\n"
 
 #: oggenc/oggenc.c:721
-msgid "WARNING: Multiple name format filter replacements specified, using final\n"
-msgstr "WAARSCHUWING: Meerdere naam formaat filter vervangingen aangegeven, de laatste wordt gebruikt\n"
+msgid "WARNING: Multiple name formats specified, using final\n"
+msgstr ""
+"WAARSCHUWING: Meerdere naam formaten aangegeven, de laatste wordt gebruikt\n"
 
-#: oggenc/oggenc.c:729
+#: oggenc/oggenc.c:730
+msgid "WARNING: Multiple name format filters specified, using final\n"
+msgstr ""
+"WAARSCHUWING: Meerdere naam formaat filters aangegeven, de laatste wordt "
+"gebruikt\n"
+
+#: oggenc/oggenc.c:739
+msgid ""
+"WARNING: Multiple name format filter replacements specified, using final\n"
+msgstr ""
+"WAARSCHUWING: Meerdere naam formaat filter vervangingen aangegeven, de "
+"laatste wordt gebruikt\n"
+
+#: oggenc/oggenc.c:747
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
-msgstr "WAARSCHUWING: Meerdere uitvoerbestanden aangegeven, misschien is -n nodig?\n"
+msgstr ""
+"WAARSCHUWING: Meerdere uitvoerbestanden aangegeven, misschien is -n nodig?\n"
 
-#: oggenc/oggenc.c:748
-msgid "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
-msgstr "WAARSCHUWING: Ruw bits/monster aangegeven voor niet-ruwe gegevens. Er wordt aangenomen dat invoer ruw is.\n"
+#: oggenc/oggenc.c:766
+msgid ""
+"WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"WAARSCHUWING: Ruw bits/monster aangegeven voor niet-ruwe gegevens. Er wordt "
+"aangenomen dat invoer ruw is.\n"
 
 #. Failed, so just set to 16
-#: oggenc/oggenc.c:753 oggenc/oggenc.c:757
+#: oggenc/oggenc.c:771 oggenc/oggenc.c:775
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr "WAARSCHUWING: Onjuiste bits/monster aangeven, 16 wordt gekozen.\n"
 
-#: oggenc/oggenc.c:764
-msgid "WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n"
-msgstr "WAARSCHUWING: Ruw kanaal aantal aangegeven voor niet-ruwe gegevens. Er wordt aangenomen dat invoer ruw is.\n"
+#: oggenc/oggenc.c:782
+msgid ""
+"WARNING: Raw channel count specified for non-raw data. Assuming input is "
+"raw.\n"
+msgstr ""
+"WAARSCHUWING: Ruw kanaal aantal aangegeven voor niet-ruwe gegevens. Er wordt "
+"aangenomen dat invoer ruw is.\n"
 
 #. Failed, so just set to 2
-#: oggenc/oggenc.c:769
+#: oggenc/oggenc.c:787
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr "WAARSCHUWING: Onjuist kanaal aantal aangegeven, 2 wordt gekozen.\n"
 
-#: oggenc/oggenc.c:780
-msgid "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
-msgstr "WAARSCHUWING: Ruwe bemonsteringsfrequentie aangegeven voor niet-ruwe gegevens. Er wordt aangenomen dat invoer ruw is.\n"
+#: oggenc/oggenc.c:798
+msgid ""
+"WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"WAARSCHUWING: Ruwe bemonsteringsfrequentie aangegeven voor niet-ruwe "
+"gegevens. Er wordt aangenomen dat invoer ruw is.\n"
 
 #. Failed, so just set to 44100
-#: oggenc/oggenc.c:785
+#: oggenc/oggenc.c:803
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
-msgstr "WAARSCHUWING: Onjuiste bemonsteringsfrequentie aangegeven, 44100 wordt gekozen.\n"
+msgstr ""
+"WAARSCHUWING: Onjuiste bemonsteringsfrequentie aangegeven, 44100 wordt "
+"gekozen.\n"
 
-#: oggenc/oggenc.c:789
+#: oggenc/oggenc.c:807
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "WAARSCHUWING: Onbekende optie aangegeven, wordt genegeerd->\n"
 
-#: oggenc/oggenc.c:811
+#: oggenc/oggenc.c:829
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Kon opmerking niet converteren naar UTF-8, toevoegen onmogelijk\n"
 
-#: oggenc/oggenc.c:830
+#: oggenc/oggenc.c:848
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
-msgstr "WAARSCHUWING: Te weinig titels aangegeven, laatste titel wordt de standaard.\n"
+msgstr ""
+"WAARSCHUWING: Te weinig titels aangegeven, laatste titel wordt de "
+"standaard.\n"
 
 #: oggenc/platform.c:147
 #, c-format
@@ -1157,42 +1254,50 @@ msgstr "Fout bij controleren op aanwezigheid van map %s: %s\n"
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr "Fout: pad deel \"%s\" is geen map\n"
 
-#: ogginfo/ogginfo2.c:156
+#: ogginfo/ogginfo2.c:158
 #, c-format
-msgid "Warning: Could not decode vorbis header packet - invalid vorbis stream (%d)\n"
-msgstr "Waarschuwing: Kon vorbis koppakket niet decoderen - onjuiste vorbis stroom (%d)\n"
+msgid ""
+"Warning: Could not decode vorbis header packet - invalid vorbis stream (%d)\n"
+msgstr ""
+"Waarschuwing: Kon vorbis koppakket niet decoderen - onjuiste vorbis stroom (%"
+"d)\n"
 
-#: ogginfo/ogginfo2.c:164
+#: ogginfo/ogginfo2.c:165
 #, c-format
-msgid "Warning: Vorbis stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Waarschuwing: Vorbis stroom %d heeft de koppen niet op de goede manier in frames staan. Afsluitende koppagina bevat meer pakketten of heeft niet-nul granulepos\n"
+msgid ""
+"Warning: Vorbis stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Waarschuwing: Vorbis stroom %d heeft de koppen niet op de goede manier in "
+"frames staan. Afsluitende koppagina bevat meer pakketten of heeft niet-nul "
+"granulepos\n"
 
-#: ogginfo/ogginfo2.c:168
+#: ogginfo/ogginfo2.c:169
 #, c-format
 msgid "Vorbis headers parsed for stream %d, information follows...\n"
 msgstr "Vorbis koppen ingelezen voor stroom %d, informatie volgt...\n"
 
-#: ogginfo/ogginfo2.c:171
+#: ogginfo/ogginfo2.c:172
 #, c-format
 msgid "Version: %d\n"
 msgstr "Versie: %d\n"
 
-#: ogginfo/ogginfo2.c:175
+#: ogginfo/ogginfo2.c:176
 #, c-format
 msgid "Vendor: %s (%s)\n"
 msgstr "Maker: %s (%s)\n"
 
-#: ogginfo/ogginfo2.c:182
+#: ogginfo/ogginfo2.c:183
 #, c-format
 msgid "Vendor: %s\n"
 msgstr "Maker: %s\n"
 
-#: ogginfo/ogginfo2.c:183
+#: ogginfo/ogginfo2.c:184
 #, c-format
 msgid "Channels: %d\n"
 msgstr "Kanalen: %d\n"
 
-#: ogginfo/ogginfo2.c:184
+#: ogginfo/ogginfo2.c:185
 #, c-format
 msgid ""
 "Rate: %ld\n"
@@ -1201,80 +1306,97 @@ msgstr ""
 "Frequentie: %ld\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:187
+#: ogginfo/ogginfo2.c:188
 #, c-format
 msgid "Nominal bitrate: %f kb/s\n"
 msgstr "Nominale bitrate: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:190
+#: ogginfo/ogginfo2.c:191
 msgid "Nominal bitrate not set\n"
 msgstr "Nominale bitrate niet ingesteld\n"
 
-#: ogginfo/ogginfo2.c:193
+#: ogginfo/ogginfo2.c:194
 #, c-format
 msgid "Upper bitrate: %f kb/s\n"
 msgstr "Bovengrens bitrate: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:196
+#: ogginfo/ogginfo2.c:197
 msgid "Upper bitrate not set\n"
 msgstr "Bovengrens bitrate niet ingesteld\n"
 
-#: ogginfo/ogginfo2.c:199
+#: ogginfo/ogginfo2.c:200
 #, c-format
 msgid "Lower bitrate: %f kb/s\n"
 msgstr "Ondergrens bitrate: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:202
+#: ogginfo/ogginfo2.c:203
 msgid "Lower bitrate not set\n"
 msgstr "Ondergrens bitrate niet ingesteld\n"
 
-#: ogginfo/ogginfo2.c:205
+#: ogginfo/ogginfo2.c:206
 msgid "User comments section follows...\n"
 msgstr "Gebruikersopmerkingen deel volgt...\n"
 
-#: ogginfo/ogginfo2.c:217
+#: ogginfo/ogginfo2.c:218
 #, c-format
-msgid "Warning: Comment %d in stream %d is invalidly formatted, does not contain '=': \"%s\"\n"
-msgstr "Waarschuwing: Opmerking %d in stroom %d is niet juist opgemaakt, bevat geen '='; \"%s\"\n"
+msgid ""
+"Warning: Comment %d in stream %d is invalidly formatted, does not contain "
+"'=': \"%s\"\n"
+msgstr ""
+"Waarschuwing: Opmerking %d in stroom %d is niet juist opgemaakt, bevat geen "
+"'='; \"%s\"\n"
 
-#: ogginfo/ogginfo2.c:226
+#: ogginfo/ogginfo2.c:227
 #, c-format
 msgid "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 msgstr "Waarschuwing: Onjuiste veldnaam in opmerking %d (stroom %d): \"%s\"\n"
 
-#: ogginfo/ogginfo2.c:257 ogginfo/ogginfo2.c:266
+#: ogginfo/ogginfo2.c:258 ogginfo/ogginfo2.c:267
 #, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker wrong\n"
-msgstr "Waarschuwing: Onjuiste UTF-8 codes in opmerking %d (stroom %d): lengte-markering onjuist\n"
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
+"wrong\n"
+msgstr ""
+"Waarschuwing: Onjuiste UTF-8 codes in opmerking %d (stroom %d): lengte-"
+"markering onjuist\n"
 
-#: ogginfo/ogginfo2.c:274
+#: ogginfo/ogginfo2.c:275
 #, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
-msgstr "Waarschuwing: Onjuiste UTF-8 codes in opmerking %d (stroom %d): te weinig bytes\n"
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
+msgstr ""
+"Waarschuwing: Onjuiste UTF-8 codes in opmerking %d (stroom %d): te weinig "
+"bytes\n"
 
-#: ogginfo/ogginfo2.c:335
+#: ogginfo/ogginfo2.c:336
 #, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence\n"
-msgstr "Waarschuwing: Onjuiste UTF-8 codes in opmerking %d (stroom %d): onjuiste opvolging van codes\n"
+msgid ""
+"Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence\n"
+msgstr ""
+"Waarschuwing: Onjuiste UTF-8 codes in opmerking %d (stroom %d): onjuiste "
+"opvolging van codes\n"
 
-#: ogginfo/ogginfo2.c:347
+#: ogginfo/ogginfo2.c:348
 msgid "Warning: Failure in utf8 decoder. This should be impossible\n"
 msgstr "Waarschuwing: Fout in utf8 decoder. Dit zou onmogelijk moeten zijn\n"
 
-#: ogginfo/ogginfo2.c:364
-#, c-format
-msgid "Warning: granulepos in stream %d decreases from "
+#: ogginfo/ogginfo2.c:366
+#, fuzzy
+msgid "Warning: granulepos in stream %d decreases from %I64d to %I64d"
 msgstr "Waarschuwing: granulepos in stroom %d neemt af van "
 
-#: ogginfo/ogginfo2.c:365
-msgid " to "
-msgstr " tot "
+#: ogginfo/ogginfo2.c:369
+#, fuzzy, c-format
+msgid "Warning: granulepos in stream %d decreases from %Ld to %Ld"
+msgstr "Waarschuwing: granulepos in stroom %d neemt af van "
 
-#: ogginfo/ogginfo2.c:365
-msgid "\n"
-msgstr "\n"
+#: ogginfo/ogginfo2.c:375
+msgid ""
+"Negative granulepos on vorbis stream outside of headers. This file was "
+"created by a buggy encoder\n"
+msgstr ""
 
-#: ogginfo/ogginfo2.c:384
+#: ogginfo/ogginfo2.c:395
 #, c-format
 msgid ""
 "Vorbis stream %d:\n"
@@ -1287,34 +1409,47 @@ msgstr ""
 "\tAfspeellengte: %ldm:%02lds\n"
 "\tGemiddelde bitrate: %f kbps\n"
 
-#: ogginfo/ogginfo2.c:418
+#: ogginfo/ogginfo2.c:429
 #, c-format
 msgid "Warning: EOS not set on stream %d\n"
 msgstr "Waarschuwing: EOS niet ingesteld voor stroom %d\n"
 
-#: ogginfo/ogginfo2.c:537
+#: ogginfo/ogginfo2.c:553
 msgid "Warning: Invalid header page, no packet found\n"
 msgstr "Waarschuwing: Onjuiste koppagina, geen pakket gevonden\n"
 
-#: ogginfo/ogginfo2.c:549
+#: ogginfo/ogginfo2.c:565
 #, c-format
 msgid "Warning: Invalid header page in stream %d, contains multiple packets\n"
-msgstr "Waarschuwing: Onjuiste koppagina in stroom %d, bevat meerdere pakketten\n"
+msgstr ""
+"Waarschuwing: Onjuiste koppagina in stroom %d, bevat meerdere pakketten\n"
 
-#: ogginfo/ogginfo2.c:574
-msgid "Warning: Hole in data found at approximate offset "
+#: ogginfo/ogginfo2.c:579
+#, c-format
+msgid ""
+"Note: Stream %d has serial number %d, which is legal but may cause problems "
+"with some tools."
+msgstr ""
+
+#: ogginfo/ogginfo2.c:596
+#, fuzzy
+msgid ""
+"Warning: Hole in data found at approximate offset %I64d bytes. Corrupted "
+"ogg.\n"
 msgstr "Waarschuwing: Gat in gegevens gevonden op plaats (ongeveer) "
 
-#: ogginfo/ogginfo2.c:575
-msgid " bytes. Corrupted ogg.\n"
-msgstr " bytes. Slechte ogg.\n"
+#: ogginfo/ogginfo2.c:598
+#, fuzzy, c-format
+msgid ""
+"Warning: Hole in data found at approximate offset %Ld bytes. Corrupted ogg.\n"
+msgstr "Waarschuwing: Gat in gegevens gevonden op plaats (ongeveer) "
 
-#: ogginfo/ogginfo2.c:599
+#: ogginfo/ogginfo2.c:623
 #, c-format
 msgid "Error opening input file \"%s\": %s\n"
 msgstr "Fout bij openen invoerbestand \"%s\": %s\n"
 
-#: ogginfo/ogginfo2.c:604
+#: ogginfo/ogginfo2.c:628
 #, c-format
 msgid ""
 "Processing file \"%s\"...\n"
@@ -1323,45 +1458,63 @@ msgstr ""
 "Verwerken bestand \"%s\"...\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:613
+#: ogginfo/ogginfo2.c:637
 msgid "Could not find a processor for stream, bailing\n"
 msgstr "Kon geen verwerker vinden voor stroom, afsluiten\n"
 
-#: ogginfo/ogginfo2.c:618
-#, c-format
+#: ogginfo/ogginfo2.c:645
+msgid "Page found for stream after EOS flag"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:648
+msgid ""
+"Ogg muxing constraints violated, new stream before EOS of all previous "
+"streams"
+msgstr ""
+
+#: ogginfo/ogginfo2.c:652
+msgid "Error unknown."
+msgstr ""
+
+#: ogginfo/ogginfo2.c:655
+#, fuzzy, c-format
 msgid ""
 "Warning: illegally placed page(s) for logical stream %d\n"
-"This indicates a corrupt ogg file.\n"
+"This indicates a corrupt ogg file: %s.\n"
 msgstr ""
 "Waarschuwing: onjuist geplaatste pagina(s) voor logische stroom %d\n"
 "Dit geeft een slecht ogg bestand aan.\n"
 
-#: ogginfo/ogginfo2.c:625
+#: ogginfo/ogginfo2.c:667
 #, c-format
 msgid "New logical stream (#%d, serial: %08x): type %s\n"
 msgstr "Nieuwe logische stroom (#%d, serienr: %08x): soort %s\n"
 
-#: ogginfo/ogginfo2.c:628
+#: ogginfo/ogginfo2.c:670
 #, c-format
 msgid "Warning: stream start flag not set on stream %d\n"
 msgstr "Waarschuwing: startaanduiding stroom niet ingesteld voor stroom %d\n"
 
-#: ogginfo/ogginfo2.c:632
+#: ogginfo/ogginfo2.c:674
 #, c-format
 msgid "Warning: stream start flag found in mid-stream on stream %d\n"
 msgstr "Waarschuwing: start-aanduiding stroom gevonden midden in stroom %d\n"
 
-#: ogginfo/ogginfo2.c:637
+#: ogginfo/ogginfo2.c:679
 #, c-format
-msgid "Warning: sequence number gap in stream %d. Got page %ld when expecting page %ld. Indicates missing data.\n"
-msgstr "Waarschuwing: gat gevonden in nummering fragmenten in stroom %d. Pagina %ld ontvangen, %ld verwacht. Geeft ontbrekende gegevens aan.\n"
+msgid ""
+"Warning: sequence number gap in stream %d. Got page %ld when expecting page %"
+"ld. Indicates missing data.\n"
+msgstr ""
+"Waarschuwing: gat gevonden in nummering fragmenten in stroom %d. Pagina %ld "
+"ontvangen, %ld verwacht. Geeft ontbrekende gegevens aan.\n"
 
-#: ogginfo/ogginfo2.c:652
+#: ogginfo/ogginfo2.c:694
 #, c-format
 msgid "Logical stream %d ended\n"
 msgstr "Logische stroom %d geëindigd\n"
 
-#: ogginfo/ogginfo2.c:659
+#: ogginfo/ogginfo2.c:702
 #, c-format
 msgid ""
 "Error: No ogg data found in file \"%s\".\n"
@@ -1370,12 +1523,13 @@ msgstr ""
 "Fout: Geen ogg gegevens gevonden in bestand \"%s\".\n"
 "Invoer is waarschijnlijk geen ogg.\n"
 
-#: ogginfo/ogginfo2.c:670
+#: ogginfo/ogginfo2.c:713
+#, fuzzy
 msgid ""
 "ogginfo 1.0\n"
 "(c) 2002 Michael Smith <msmith@labyrinth.net.au>\n"
 "\n"
-"Usage: ogginfo [flags] files1.ogg [file2.ogg ... fileN.ogg]\n"
+"Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
 "Flags supported:\n"
 "\t-h Show this help message\n"
 "\t-q Make less verbose. Once will remove detailed informative\n"
@@ -1390,13 +1544,16 @@ msgstr ""
 "Gebruik: ogginfo [opties] bestanden1.ogg [bestand2.ogg ... bestandN.ogg]\n"
 "Ondersteunde opties:\n"
 "\t-h Deze hulp weergeven.\n"
-"\t-q Minder informatie weergeven. Als dit een keer wordt gebruikt, verdwijnt\n"
-"\t   de gedetailleerde, informatieve informatie. Bij twee keer, ook waarschuwingen.\n"
-"\t-v Meer informatie weergeven. Dit zet mogelijk gedetailleerdere controles aan\n"
+"\t-q Minder informatie weergeven. Als dit een keer wordt gebruikt, "
+"verdwijnt\n"
+"\t   de gedetailleerde, informatieve informatie. Bij twee keer, ook "
+"waarschuwingen.\n"
+"\t-v Meer informatie weergeven. Dit zet mogelijk gedetailleerdere controles "
+"aan\n"
 "\t   voor sommige soorten stromen.\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:691
+#: ogginfo/ogginfo2.c:734
 msgid ""
 "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
 "\n"
@@ -1410,7 +1567,7 @@ msgstr ""
 "en helpt bij het vinden van problemen met die bestanden.\n"
 "Volledige hulp wordt weergegeven met \"ogginfo -h\".\n"
 
-#: ogginfo/ogginfo2.c:720
+#: ogginfo/ogginfo2.c:763
 msgid "No input files specified. \"ogginfo -h\" for help\n"
 msgstr "Geen invoerbestanden aangegeven. \"ogginfo -h\" voor hulp.\n"
 
@@ -1473,27 +1630,27 @@ msgstr "%s: optie `-W %s' is dubbelzinnig\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: optie `-W %s' heeft geen argumenten\n"
 
-#: vcut/vcut.c:131
+#: vcut/vcut.c:133
 msgid "Page error. Corrupt input.\n"
 msgstr "Pagina fout. Beschadigde invoer.\n"
 
-#: vcut/vcut.c:148
+#: vcut/vcut.c:150
 msgid "Bitstream error, continuing\n"
 msgstr "Bitstroom fout, doorgaan\n"
 
-#: vcut/vcut.c:173
+#: vcut/vcut.c:175
 msgid "Found EOS before cut point.\n"
 msgstr "EOS gevonden voor knippunt.\n"
 
-#: vcut/vcut.c:182
+#: vcut/vcut.c:184
 msgid "Setting eos: update sync returned 0\n"
 msgstr "EOS instellen: bijwerkingssynchronisatie gaf 0\n"
 
-#: vcut/vcut.c:192
+#: vcut/vcut.c:194
 msgid "Cutpoint not within stream. Second file will be empty\n"
 msgstr "Knippunt niet binnen stroom. Tweede bestand zal leeg zijn\n"
 
-#: vcut/vcut.c:225
+#: vcut/vcut.c:227
 msgid "Unhandled special case: first file too short?\n"
 msgstr "Niet behandelde speciale situatie: eerste bestand te kort?\n"
 
@@ -1501,7 +1658,7 @@ msgstr "Niet behandelde speciale situatie: eerste bestand te kort?\n"
 #. * spectacularly unlucky? Doubt it, but let's check for it just
 #. * in case.
 #.
-#: vcut/vcut.c:284
+#: vcut/vcut.c:286
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
 "       ogg page. File may not decode correctly.\n"
@@ -1509,47 +1666,49 @@ msgstr ""
 "FOUT: Eerste twee audio pakketjes pasten niet in één ogg\n"
 "      pagina. Mogelijk decodeert het bestand niet juist.\n"
 
-#: vcut/vcut.c:297
+#: vcut/vcut.c:299
 msgid "Recoverable bitstream error\n"
 msgstr "Herstelbare bitstroom fout\n"
 
-#: vcut/vcut.c:307
+#: vcut/vcut.c:309
 msgid "Bitstream error\n"
 msgstr "Bitstroom fout\n"
 
-#: vcut/vcut.c:330
+#: vcut/vcut.c:332
 msgid "Update sync returned 0, setting eos\n"
 msgstr "Bijwerkingssynchronisatie gaf 0, EOS instellen\n"
 
-#: vcut/vcut.c:376
+#: vcut/vcut.c:381
 msgid "Input not ogg.\n"
 msgstr "Invoer niet ogg.\n"
 
-#: vcut/vcut.c:386
+#: vcut/vcut.c:391
 msgid "Error in first page\n"
 msgstr "Fout in eerste pagina\n"
 
-#: vcut/vcut.c:391
+#: vcut/vcut.c:396
 msgid "error in first packet\n"
 msgstr "fout in eerste pakket\n"
 
-#: vcut/vcut.c:397
+#: vcut/vcut.c:402
 msgid "Error in primary header: not vorbis?\n"
 msgstr "Fout in eerste kop: niet vorbis?\n"
 
-#: vcut/vcut.c:417
+#: vcut/vcut.c:422
 msgid "Secondary header corrupt\n"
 msgstr "Tweede kop beschadigd\n"
 
-#: vcut/vcut.c:430
+#: vcut/vcut.c:435
 msgid "EOF in headers\n"
 msgstr "EOF in koppen\n"
 
-#: vcut/vcut.c:456
-msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"
+#: vcut/vcut.c:468
+#, fuzzy
+msgid ""
+"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
 msgstr "Gebruik: vcut inbestand.ogg uitbestand1.ogg uitbestand2.ogg knippunt\n"
 
-#: vcut/vcut.c:460
+#: vcut/vcut.c:472
 msgid ""
 "WARNING: vcut is still experimental code.\n"
 "Check that the output files are correct before deleting sources.\n"
@@ -1559,77 +1718,85 @@ msgstr ""
 "Controleer uitvoerbestanden voordat u de bronbestanden verwijdert.\n"
 "\n"
 
-#: vcut/vcut.c:465
+#: vcut/vcut.c:477
 #, c-format
 msgid "Couldn't open %s for reading\n"
 msgstr "Kon %s niet openen om te lezen\n"
 
-#: vcut/vcut.c:470 vcut/vcut.c:475
+#: vcut/vcut.c:482 vcut/vcut.c:487
 #, c-format
 msgid "Couldn't open %s for writing\n"
 msgstr "Kon %s niet openen om te schrijven\n"
 
-#: vcut/vcut.c:480
+#: vcut/vcut.c:493 vcut/vcut.c:498
 #, c-format
 msgid "Couldn't parse cutpoint \"%s\"\n"
 msgstr "Kon knippunt \"%s\" niet lezen\n"
 
-#: vcut/vcut.c:484
-#, c-format
-msgid "Processing: Cutting at %lld\n"
+#: vcut/vcut.c:503
+#, fuzzy, c-format
+msgid "Processing: Cutting at %lld seconds\n"
 msgstr "Verwerken: knippen bij %lld\n"
 
-#: vcut/vcut.c:493
+#: vcut/vcut.c:505
+#, fuzzy, c-format
+msgid "Processing: Cutting at %lld samples\n"
+msgstr "Verwerken: knippen bij %lld\n"
+
+#: vcut/vcut.c:515
 msgid "Processing failed\n"
 msgstr "Verwerken mislukt\n"
 
-#: vcut/vcut.c:514
+#: vcut/vcut.c:537
 msgid "Error reading headers\n"
 msgstr "Fout bij lezen koppen\n"
 
-#: vcut/vcut.c:537
+#: vcut/vcut.c:560
 msgid "Error writing first output file\n"
 msgstr "Fout bij schrijven eerste uitvoerbestand\n"
 
-#: vcut/vcut.c:545
+#: vcut/vcut.c:568
 msgid "Error writing second output file\n"
 msgstr "Fout bij schrijven tweede uitvoerbestand\n"
 
-#: vorbiscomment/vcedit.c:220
+#: vorbiscomment/vcedit.c:229
 msgid "Input truncated or empty."
 msgstr "Invoer afgekapt of leeg."
 
-#: vorbiscomment/vcedit.c:222
+#: vorbiscomment/vcedit.c:231
 msgid "Input is not an Ogg bitstream."
 msgstr "Invoer is niet een Ogg bitstroom."
 
-#: vorbiscomment/vcedit.c:239
+#: vorbiscomment/vcedit.c:249
 msgid "Error reading first page of Ogg bitstream."
 msgstr "Fout bij lezen eerste pagina van Ogg bitstroom."
 
-#: vorbiscomment/vcedit.c:245
+#: vorbiscomment/vcedit.c:255
 msgid "Error reading initial header packet."
 msgstr "Fout bij lezen eerste koppakket."
 
-#: vorbiscomment/vcedit.c:251
+#: vorbiscomment/vcedit.c:261
 msgid "Ogg bitstream does not contain vorbis data."
 msgstr "Ogg bitstroom bevat geen vorbis gegevens."
 
-#: vorbiscomment/vcedit.c:274
+#: vorbiscomment/vcedit.c:284
 msgid "Corrupt secondary header."
 msgstr "Beschadigde tweede kop."
 
-#: vorbiscomment/vcedit.c:295
+#: vorbiscomment/vcedit.c:305
 msgid "EOF before end of vorbis headers."
 msgstr "EOF voor einde van vorbis koppen."
 
-#: vorbiscomment/vcedit.c:448
+#: vorbiscomment/vcedit.c:458
 msgid "Corrupt or missing data, continuing..."
 msgstr "Beschadigde of missende gegevens, doorgaan..."
 
-#: vorbiscomment/vcedit.c:487
-msgid "Error writing stream to output. Output stream may be corrupted or truncated."
-msgstr "Fout bij schrijven stroom naar uitvoer. Uitvoerstroom is mogelijk beschadigd of afgekapt."
+#: vorbiscomment/vcedit.c:495
+msgid ""
+"Error writing stream to output. Output stream may be corrupted or truncated."
+msgstr ""
+"Fout bij schrijven stroom naar uitvoer. Uitvoerstroom is mogelijk beschadigd "
+"of afgekapt."
 
 #: vorbiscomment/vcomment.c:103 vorbiscomment/vcomment.c:129
 #, c-format
@@ -1695,7 +1862,8 @@ msgstr ""
 "\tvolledig vervangen.\n"
 "   Zowel -a als -w kan slechts één bestandsnaam aannemen,\n"
 "   waarbij een tijdelijk bestand wordt gebruikt.\n"
-"   -c kan worden gebruikt om opmerkingen uit een aangegeven bestand te halen\n"
+"   -c kan worden gebruikt om opmerkingen uit een aangegeven bestand te "
+"halen\n"
 "   in plaats van stdin.\n"
 "   Voorbeeld: vorbiscomment -a in.ogg -c opmerkingen.txt\n"
 "   zal de opmerkingen uit opmerkingen.txt toevoegen aan in.ogg\n"
@@ -1705,7 +1873,8 @@ msgstr ""
 "   (merk op dat als u dit gebruikt, het lezen van opmerkingen uit een\n"
 "   opmerkingen bestand of van stdin uit wordt gezet)\n"
 "   Ruwe modus (--raw, -R) zal opmerkingen lezen en schrijven in utf8,\n"
-"   in plaats van converteren van/naar tekenset van de gebruiker. Dit is nuttig\n"
+"   in plaats van converteren van/naar tekenset van de gebruiker. Dit is "
+"nuttig\n"
 "   als vorbiscomment in scripts wordt gebruikt. Het is alleen niet genoeg\n"
 "   voor het rondsturen van opmerkingen in alle gevallen.\n"
 
@@ -1713,36 +1882,73 @@ msgstr ""
 msgid "Internal error parsing command options\n"
 msgstr "Interne fout bij lezen opdracht opties\n"
 
-#: vorbiscomment/vcomment.c:456
+#: vorbiscomment/vcomment.c:457
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Fout bij openen invoerbestand '%s'.\n"
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Invoerbestandsnaam mag niet hetzelfde zijn als uitvoerbestandsnaam\n"
 
-#: vorbiscomment/vcomment.c:476
+#: vorbiscomment/vcomment.c:477
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Fout bij openen uitvoerbestand '%s'.\n"
 
-#: vorbiscomment/vcomment.c:491
+#: vorbiscomment/vcomment.c:492
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Fout bij openen opmerkingen bestand '%s'.\n"
 
-#: vorbiscomment/vcomment.c:508
+#: vorbiscomment/vcomment.c:509
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Fout bij openen opmerkingen bestand '%s'\n"
 
-#: vorbiscomment/vcomment.c:536
+#: vorbiscomment/vcomment.c:537
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Fout bij verwijderen oude bestand %s\n"
 
-#: vorbiscomment/vcomment.c:538
+#: vorbiscomment/vcomment.c:539
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Fout bij hernoemen %s naar %s\n"
+
+#~ msgid "malloc"
+#~ msgstr "malloc"
+
+#~ msgid "Track number:"
+#~ msgstr "Spoornummer:"
+
+#, fuzzy
+#~ msgid "ReplayGain (Track):"
+#~ msgstr "HerspeelFactor (Spoor):"
+
+#~ msgid "ReplayGain (Album):"
+#~ msgstr "HerspeelFactor (Album):"
+
+#~ msgid "ReplayGain (Track) Peak:"
+#~ msgstr "HerspeelFactor (Spoor) piek:"
+
+#~ msgid "ReplayGain (Album) Peak:"
+#~ msgstr "HerspeelFactor (Album) piek:"
+
+#~ msgid "Copyright"
+#~ msgstr "Auteursrecht"
+
+#~ msgid "Comment:"
+#~ msgstr "Opmerking:"
+
+#~ msgid "Version is %d"
+#~ msgstr "Versie is %d"
+
+#~ msgid " to "
+#~ msgstr " tot "
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid " bytes. Corrupted ogg.\n"
+#~ msgstr " bytes. Slechte ogg.\n"
