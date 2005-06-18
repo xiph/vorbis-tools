@@ -6,7 +6,7 @@ SUBDIRS = po intl include share debian win32 @OPT_SUBDIRS@
 DIST_SUBDIRS = po intl include share debian win32 ogg123 oggenc oggdec ogginfo \
 	vcut vorbiscomment m4
 
-EXTRA_DIST = README AUTHORS COPYING vorbis-tools.spec config.h
+EXTRA_DIST = README AUTHORS COPYING vorbis-tools.spec config.h mkinstalldirs
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"
