@@ -282,6 +282,7 @@ AC_SUBST(I18N_LIBS)
 
 AC_OUTPUT([
 Makefile
+m4/Makefile
 po/Makefile.in
 include/Makefile
 share/Makefile
