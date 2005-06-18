@@ -1,5 +1,5 @@
-/* Description of GNU message catalog format: general file layout.
-   Copyright (C) 1995, 1997, 2000, 2001 Free Software Foundation, Inc.
+/* Convenience header for conditional use of GNU <libintl.h>.
+   Copyright (C) 1995-1998, 2000-2002, 2004 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -16,87 +16,64 @@
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
    USA.  */
 
-#ifndef _GETTEXT_H
-#define _GETTEXT_H 1
+#ifndef _LIBGETTEXT_H
+#define _LIBGETTEXT_H 1
 
-#if HAVE_LIMITS_H || _LIBC
-# include <limits.h>
-#endif
+/* NLS can be disabled through the configure --disable-nls option.  */
+#if ENABLE_NLS
 
-/* @@ end of prolog @@ */
+/* Get declarations of GNU message catalog functions.  */
+# include <libintl.h>
 
-/* The magic number of the GNU message catalog format.  */
-#define _MAGIC 0x950412de
-#define _MAGIC_SWAPPED 0xde120495
-
-/* Revision number of the currently used .mo (binary) file format.  */
-#define MO_REVISION_NUMBER 0
-
-/* The following contortions are an attempt to use the C preprocessor
-   to determine an unsigned integral type that is 32 bits wide.  An
-   alternative approach is to use autoconf's AC_CHECK_SIZEOF macro, but
-   as of version autoconf-2.13, the AC_CHECK_SIZEOF macro doesn't work
-   when cross-compiling.  */
-
-#if __STDC__
-# define UINT_MAX_32_BITS 4294967295U
 #else
-# define UINT_MAX_32_BITS 0xFFFFFFFF
+
+/* Solaris /usr/include/locale.h includes /usr/include/libintl.h, which
+   chokes if dcgettext is defined as a macro.  So include it now, to make
+   later inclusions of <locale.h> a NOP.  We don't include <libintl.h>
+   as well because people using "gettext.h" will not include <libintl.h>,
+   and also including <libintl.h> would fail on SunOS 4, whereas <locale.h>
+   is OK.  */
+#if defined(__sun)
+# include <locale.h>
 #endif
 
-/* If UINT_MAX isn't defined, assume it's a 32-bit type.
-   This should be valid for all systems GNU cares about because
-   that doesn't include 16-bit systems, and only modern systems
-   (that certainly have <limits.h>) have 64+-bit integral types.  */
-
-#ifndef UINT_MAX
-# define UINT_MAX UINT_MAX_32_BITS
-#endif
-
-#if UINT_MAX == UINT_MAX_32_BITS
-typedef unsigned nls_uint32;
-#else
-# if USHRT_MAX == UINT_MAX_32_BITS
-typedef unsigned short nls_uint32;
-# else
-#  if ULONG_MAX == UINT_MAX_32_BITS
-typedef unsigned long nls_uint32;
-#  else
-  /* The following line is intended to throw an error.  Using #error is
-     not portable enough.  */
-  "Cannot determine unsigned 32-bit data type."
-#  endif
+/* Many header files from the libstdc++ coming with g++ 3.3 or newer include
+   <libintl.h>, which chokes if dcgettext is defined as a macro.  So include
+   it now, to make later inclusions of <libintl.h> a NOP.  */
+#if defined(__cplusplus) && defined(__GNUG__) && (__GNUC__ >= 3)
+# include <cstdlib>
+# if (__GLIBC__ >= 2) || _GLIBCXX_HAVE_LIBINTL_H
+#  include <libintl.h>
 # endif
 #endif
 
+/* Disabled NLS.
+   The casts to 'const char *' serve the purpose of producing warnings
+   for invalid uses of the value returned from these functions.
+   On pre-ANSI systems without 'const', the config.h file is supposed to
+   contain "#define const".  */
+# define gettext(Msgid) ((const char *) (Msgid))
+# define dgettext(Domainname, Msgid) ((const char *) (Msgid))
+# define dcgettext(Domainname, Msgid, Category) ((const char *) (Msgid))
+# define ngettext(Msgid1, Msgid2, N) \
+    ((N) == 1 ? (const char *) (Msgid1) : (const char *) (Msgid2))
+# define dngettext(Domainname, Msgid1, Msgid2, N) \
+    ((N) == 1 ? (const char *) (Msgid1) : (const char *) (Msgid2))
+# define dcngettext(Domainname, Msgid1, Msgid2, N, Category) \
+    ((N) == 1 ? (const char *) (Msgid1) : (const char *) (Msgid2))
+# define textdomain(Domainname) ((const char *) (Domainname))
+# define bindtextdomain(Domainname, Dirname) ((const char *) (Dirname))
+# define bind_textdomain_codeset(Domainname, Codeset) ((const char *) (Codeset))
 
-/* Header for binary .mo file format.  */
-struct mo_file_header
-{
-  /* The magic number.  */
-  nls_uint32 magic;
-  /* The revision number of the file format.  */
-  nls_uint32 revision;
-  /* The number of strings pairs.  */
-  nls_uint32 nstrings;
-  /* Offset of table with start offsets of original strings.  */
-  nls_uint32 orig_tab_offset;
-  /* Offset of table with start offsets of translation strings.  */
-  nls_uint32 trans_tab_offset;
-  /* Size of hashing table.  */
-  nls_uint32 hash_tab_size;
-  /* Offset of first hashing entry.  */
-  nls_uint32 hash_tab_offset;
-};
+#endif
 
-struct string_desc
-{
-  /* Length of addressed string.  */
-  nls_uint32 length;
-  /* Offset of string in file.  */
-  nls_uint32 offset;
-};
+/* A pseudo function call that serves as a marker for the automated
+   extraction of messages, but does not call gettext().  The run-time
+   translation is done at a different place in the code.
+   The argument, String, should be a literal string.  Concatenated strings
+   and other string expressions won't work.
+   The macro's expansion is not parenthesized, so that it is suitable as
+   initializer for static 'char[]' or 'const char[]' variables.  */
+#define gettext_noop(String) String
 
-/* @@ begin of epilog @@ */
-
-#endif	/* gettext.h  */
+#endif /* _LIBGETTEXT_H */

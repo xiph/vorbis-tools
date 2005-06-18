@@ -2,8 +2,8 @@
 
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = po intl include share debian win32 @OPT_SUBDIRS@
-DIST_SUBDIRS = po intl include share debian win32 ogg123 oggenc oggdec ogginfo \
+SUBDIRS = po include share debian win32 @OPT_SUBDIRS@
+DIST_SUBDIRS = po include share debian win32 ogg123 oggenc oggdec ogginfo \
 	vcut vorbiscomment
 
 EXTRA_DIST = README AUTHORS COPYING vorbis-tools.spec config.h
@@ -13,3 +13,5 @@ debug:
 
 profile:
 	$(MAKE) all CFLAGS="@PROFILE@"
+
+ACLOCAL_AMFLAGS = -I m4

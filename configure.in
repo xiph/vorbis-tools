@@ -30,7 +30,7 @@ CFLAGS="$cflags_save"
 AC_PROG_LIBTOOL
 
 ALL_LINGUAS="be cs da es fr hr hu nl ro ru sv uk"
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 
 dnl --------------------------------------------------
 dnl Set build flags based on environment
@@ -280,7 +280,21 @@ AC_SUBST(CURL_LIBS)
 AC_SUBST(I18N_CFLAGS)
 AC_SUBST(I18N_LIBS)
 
-AC_OUTPUT(Makefile intl/Makefile po/Makefile.in include/Makefile share/Makefile win32/Makefile oggdec/Makefile oggenc/Makefile oggenc/man/Makefile ogg123/Makefile vorbiscomment/Makefile vcut/Makefile ogginfo/Makefile debian/Makefile)
+AC_OUTPUT([
+Makefile
+po/Makefile.in
+include/Makefile
+share/Makefile
+win32/Makefile
+oggdec/Makefile
+oggenc/Makefile
+oggenc/man/Makefile
+ogg123/Makefile
+vorbiscomment/Makefile
+vcut/Makefile
+ogginfo/Makefile
+debian/Makefile
+])
 
 if test "x$build_oggenc" = xyes -a "x$have_libFLAC" != xyes; then
     AC_MSG_WARN([FLAC and OggFLAC libraries or headers missing, oggenc 
