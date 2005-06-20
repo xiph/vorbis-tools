@@ -298,7 +298,7 @@ debian/Makefile
 ])
 
 if test "x$build_oggenc" = xyes -a "x$have_libFLAC" != xyes; then
-    AC_MSG_WARN([FLAC and OggFLAC libraries or headers missing, oggenc 
+    AC_MSG_WARN([FLAC and/on OggFLAC libraries or headers missing, oggenc 
 will NOT be built with FLAC read support.])
 fi
 
@@ -308,11 +308,11 @@ Please ensure that you have POSIX threads, libcurl and libao libraries and
 headers present if you would like to build ogg123.])
 else
     if test "x$have_libFLAC" != xyes; then
-        AC_MSG_WARN([FLAC and OggFLAC libraries or headers missing, ogg123 
+        AC_MSG_WARN([FLAC and/or OggFLAC libraries or headers missing, ogg123 
 will NOT be built with FLAC read support.])
     fi
     if test "x$have_libspeex" != xyes; then
-        AC_MSG_WARN([Speex libraries or headers missing, ogg123 
+        AC_MSG_WARN([Speex libraries and/or headers missing, ogg123 
 will NOT be built with Speex read support.])
     fi         
 fi
