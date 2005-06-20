@@ -205,7 +205,7 @@ if test "x$build_speex" = xyes; then
     AC_MSG_WARN(libspeex missing)
     have_libspeex=no, [$SPEEX_LIBS]
   )
-  AC_CHECK_HEADER(speex.h,,
+  AC_CHECK_HEADER(speex/speex.h,,
     AC_MSG_WARN(libspeex headers missing)
     have_libspeex=no,[ ])
 
