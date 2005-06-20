@@ -9,7 +9,6 @@ AC_INIT(oggenc/encode.c)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
-dnl Apparently we need a newer version than we used to. 
 AC_PREREQ(2.53)
 
 AM_INIT_AUTOMAKE([vorbis-tools],[1.1.0])
