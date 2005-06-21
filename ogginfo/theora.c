@@ -21,15 +21,6 @@
 
 #define theora_read(x,y,z) ( *z = oggpackB_read(x,y) )
 
-static int _ilog(unsigned int v){
-  int ret=0;
-  while(v){
-    ret++;
-    v>>=1;
-  }
-  return(ret);
-}
-
 static void _tp_readbuffer(oggpack_buffer *opb, char *buf, const long len)
 {
   long i;
@@ -151,6 +142,7 @@ parse_err:
 
 static int _theora_unpack_tables(theora_info *c, oggpack_buffer *opb){
   /* NOP: ogginfo doesn't use this information */
+  return 0;
 }
 
 int theora_decode_header(theora_info *ci, theora_comment *cc, ogg_packet *op){
