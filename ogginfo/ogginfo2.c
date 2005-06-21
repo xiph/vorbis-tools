@@ -355,31 +355,31 @@ static void theora_process(stream_processor *stream, ogg_page *page)
 		    float frameaspect = (float)inf->ti.frame_width/(float)inf->ti.frame_height * (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator; 
 		    info(_("Pixel aspect ratio %d:%d (1:%f)\n"), inf->ti.aspect_numerator, inf->ti.aspect_denominator, (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator);
                     if(abs(frameaspect - 4.0/3.0) < 0.02)
-			info("Frame aspect 4:3\n");
+			info(_("Frame aspect 4:3\n"));
                     else if(abs(frameaspect - 16.0/9.0) < 0.02)
-			info("Frame aspect 16:9\n");
+			info(_("Frame aspect 16:9\n"));
 		    else
-			info("Frame aspect 1:%d\n", frameaspect);
+			info(_("Frame aspect 1:%d\n"), frameaspect);
 		}
 
 		if(inf->ti.colorspace == OC_CS_ITU_REC_470M)
-		    info("Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"); 
+		    info(_("Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n")); 
 		else if(inf->ti.colorspace == OC_CS_ITU_REC_470BG)
-		    info("Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"); 
+		    info(_("Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n")); 
 		else
-		    info("Colourspace unspecified\n");
+		    info(_("Colourspace unspecified\n"));
 
 		if(inf->ti.pixelformat == OC_PF_420)
-		    info("Pixel format 4:2:0\n");
+		    info(_("Pixel format 4:2:0\n"));
 		else if(inf->ti.pixelformat == OC_PF_422)
-		    info("Pixel format 4:2:2\n");
+		    info(_("Pixel format 4:2:2\n"));
 		else if(inf->ti.pixelformat == OC_PF_444)
-		    info("Pixel format 4:4:4\n");
+		    info(_("Pixel format 4:4:4\n"));
 		else
-		    warn("Pixel format invalid\n");
+		    warn(_("Pixel format invalid\n"));
 
-		info("Target bitrate: %d kbps\n", inf->ti.target_bitrate/1000);
-		info("Nominal quality setting (0-63): %d\n", inf->ti.quality);
+		info(_("Target bitrate: %d kbps\n"), inf->ti.target_bitrate/1000);
+		info(_("Nominal quality setting (0-63): %d\n"), inf->ti.quality);
 
                 if(inf->tc.comments > 0)
                     info(_("User comments section follows...\n"));
@@ -592,7 +592,7 @@ static void process_other(stream_processor *stream, ogg_page *page )
         /* Should we do anything here? Currently, we don't */
     }
 }
-        
+
 
 static void free_stream_set(stream_set *set)
 {
