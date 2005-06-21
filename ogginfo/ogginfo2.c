@@ -334,7 +334,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
                 info(_("Vendor: %s\n"), inf->tc.vendor);
                 info(_("Width: %d\n"), inf->ti.frame_width);
                 info(_("Height: %d\n"), inf->ti.frame_height);
-		info(_("Total image: %d by %d, offset x %d, offset y %d\n"),
+		info(_("Total image: %d by %d, crop offset (%d, %d)\n"),
 		    inf->ti.width, inf->ti.height, inf->ti.offset_x, inf->ti.offset_y);
 		if(inf->ti.offset_x + inf->ti.frame_width > inf->ti.width)
 		    warn(_("Frame offset/size invalid: width incorrect\n"));
@@ -344,7 +344,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
 		if(inf->ti.fps_numerator == 0 || inf->ti.fps_denominator == 0) 
 		   warn(_("Invalid zero framerate\n"));
 		else
-		   info(_("Framerate %d/%d (%f fps)\n"), inf->ti.fps_numerator, inf->ti.fps_denominator, (float)inf->ti.fps_numerator/(float)inf->ti.fps_denominator);
+		   info(_("Framerate %d/%d (%.02f fps)\n"), inf->ti.fps_numerator, inf->ti.fps_denominator, (float)inf->ti.fps_numerator/(float)inf->ti.fps_denominator);
 		
 		if(inf->ti.aspect_numerator == 0 || inf->ti.aspect_denominator == 0) 
 		{
