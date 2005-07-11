@@ -157,10 +157,14 @@ dnl --------------------------------------------------
 dnl Check for ogg123 critical libraries and other optional libraries
 dnl --------------------------------------------------
 
+dnl curl is an optional dependancy of ogg123
+dnl FIXME: upstream curl has switched to having a curl-config;
+dnl maybe that's better than using AM_PATH_CURL from an acinclude.m4 in svn
+AM_PATH_CURL(have_curl=yes, have_curl=no; AC_MSG_WARN(libcurl missing))
+
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
   XIPH_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
-  AM_PATH_CURL(,build_ogg123=no; AC_MSG_WARN(libcurl missing))
 
   ACX_PTHREAD(,build_ogg123=no; AC_MSG_WARN(POSIX threads missing))
 fi
@@ -304,8 +308,8 @@ fi
 
 if test "x$build_ogg123" != xyes; then
     AC_MSG_WARN([Prerequisites for ogg123 not met, ogg123 will be skipped.
-Please ensure that you have POSIX threads, libcurl and libao libraries and
-headers present if you would like to build ogg123.])
+Please ensure that you have POSIX threads, libao, and (optionally) libcurl
+libraries and headers present if you would like to build ogg123.])
 else
     if test "x$have_libFLAC" != xyes; then
         AC_MSG_WARN([FLAC and/or OggFLAC libraries or headers missing, ogg123 
@@ -314,5 +318,9 @@ will NOT be built with FLAC read support.])
     if test "x$have_libspeex" != xyes; then
         AC_MSG_WARN([Speex libraries and/or headers missing, ogg123 
 will NOT be built with Speex read support.])
+    fi         
+    if test "x$have_curl" != xyes; then
+        AC_MSG_WARN([curl libraries and/or headers missing, ogg123 
+will NOT be built with http support.])
     fi         
 fi

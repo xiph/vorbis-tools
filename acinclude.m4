@@ -483,6 +483,7 @@ int main ()
 
   if test "x$no_curl" = "x" ; then
      AC_MSG_RESULT(yes)
+     AC_DEFINE(HAVE_CURL, 1, [Define if you have libcurl.])
      ifelse([$1], , :, [$1])     
   else
      AC_MSG_RESULT(no)
@@ -515,7 +516,6 @@ int main ()
      CURL_LIBS=""
      ifelse([$2], , :, [$2])
   fi
-  AC_DEFINE(HAVE_CURL, 1, [Define if you have libcurl.])
 else
   CURL_CFLAGS=""
   CURL_LIBS=""
