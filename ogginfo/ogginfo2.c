@@ -38,7 +38,8 @@ struct vorbis_release {
         {"Xiphophorus libVorbis I 20011231", "1.0 rc3"},
         {"Xiph.Org libVorbis I 20020717", "1.0"},
         {"Xiph.Org libVorbis I 20030909", "1.0.1"},
-        {"Xiph.Org libVorbis I 20040629", "1.1.0 rc1"},
+        {"Xiph.Org libVorbis I 20040629", "1.1.0"},
+	{"Xiph.Org libVorbis I 20050304", "1.1.1"},
         {NULL, NULL},
     };
 
