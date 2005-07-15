@@ -159,8 +159,10 @@ int oe_encode(oe_enc_opt *opt)
 
         /* do we have optional hard bitrate restrictions? */
         if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
+            long bitrate;
             struct ovectl_ratemanage2_arg ai;
-	        vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_GET, &ai);
+
+	    vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_GET, &ai);
 
             /* libvorbis 1.1 (and current svn) doesn't actually fill this in,
                which looks like a bug. It'll then reject it when we call the
@@ -170,10 +172,9 @@ int oe_encode(oe_enc_opt *opt)
                values are dependent on the bitrate, and libvorbis has no way to
                get a nominal bitrate from a quality value. Well, except by doing
                a full setup... So, we do that. 
-               Also, note that this won't work correctly unless you have a very
-               recent (2005/03/04 or later) version of libvorbis from svn).
+               Also, note that this won't work correctly unless you have 
+	       version 1.1.1 or later of libvorbis.
              */
-            long bitrate;
 
             {
                 vorbis_info vi2;
