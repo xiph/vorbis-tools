@@ -8,7 +8,7 @@
  * THE GNU PUBLIC LICENSE 2, WHICH IS INCLUDED WITH THIS SOURCE.    *
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
- * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001                *
+ * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2005                *
  * by Stan Seibert <volsung@xiph.org> AND OTHER CONTRIBUTORS        *
  * http://www.xiph.org/                                             *
  *                                                                  *
@@ -184,6 +184,7 @@ void select_stats (stat_format_t *stats, ogg123_options_t *opts,
     stats[6].enabled = 0;
     stats[7].enabled = 0;
   }
+  free(data_source_stats);
     
   /* Assume we need total time display, and let display_statistics()
      determine at what point it should be turned off during playback */
