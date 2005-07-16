@@ -5,7 +5,7 @@
  * THE GNU PUBLIC LICENSE 2, WHICH IS INCLUDED WITH THIS SOURCE.    *
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
- * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2003                *
+ * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2005                *
  * by Stan Seibert <volsung@xiph.org> AND OTHER CONTRIBUTORS        *
  * http://www.xiph.org/                                             *
  *                                                                  *
@@ -96,16 +96,27 @@ int flac_can_decode (data_source_t *source)
 
 int oggflac_can_decode (data_source_t *source)
 {
-  char buf[32];
+  char buf[36];
   int len;
 
-  len = source->transport->peek(source, buf, sizeof(char), 32);
+  len = source->transport->peek(source, buf, sizeof(char), 36);
   
-  if (len >= 32 && memcmp(buf, "OggS", 4) == 0
-                && memcmp(buf+28, "fLaC", 4) == 0)
-    return 1; /* Ogg FLAC */
-  else
-    return 0;
+  if (len >= 36 && memcmp(buf, "OggS", 4) == 0
+                && memcmp(buf+28, "fLaC", 4) == 0) {
+     /* old Ogg FLAC , pre flac 1.1.1 */
+     return 1;
+  }
+
+  if (len >= 36 && memcmp(buf, "OggS", 4) == 0
+		&& buf[28] == 0x7F
+		&& memcmp(buf+29, "FLAC", 4) == 0
+		&& buf[33] == 1
+		&& buf[34] == 0) {
+      /* Ogg FLAC >= 1.1.1, according to OggFlac mapping 1.0 */
+      return 1;
+  }
+
+  return 0;
 }
 
 
