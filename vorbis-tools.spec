@@ -1,5 +1,5 @@
 Name:		vorbis-tools
-Version:	1.0.1
+Version:	1.1.1
 Release:	1
 Summary:	Several Ogg Vorbis Tools
 
@@ -11,10 +11,10 @@ Source:         http://www.xiph.org/pub/ogg/vorbis/download/%{name}-%{version}.t
 Prefix:		%{_prefix}
 BuildRoot:	%{_tmppath}/%{name}-root
 
-Requires:       libvorbis >= 1.0.1
-BuildRequires:	libvorbis-devel >= 1.0.1
-Requires:       flac >= 1.1.0
-BuildRequires:	flac-devel >= 1.1.0
+Requires:       libvorbis >= 1.1.1
+BuildRequires:	libvorbis-devel >= 1.1.1
+Requires:       flac >= 1.1.2
+BuildRequires:	flac-devel >= 1.1.2
 Requires:       speex >= 1.0.2
 BuildRequires:	speex-devel >= 1.0.2
 Requires:       libao >= 0.8.4
