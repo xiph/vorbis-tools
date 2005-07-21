@@ -32,7 +32,7 @@ struct option long_options[] = {
     {NULL,0,0,0}
 };
 
-#define VERSIONSTRING "OggDec 1.0.1\n"
+#define VERSIONSTRING "OggDec 1.1.1\n"
 
 static int quiet = 0;
 static int bits = 16;
@@ -56,7 +56,8 @@ static void usage(void) {
                     "                  signed (default 1)\n"
                     " --raw, -R        Raw (headerless) output.\n"
                     " --output, -o     Output to given filename. May only be used\n"
-                    "                  if there is only one input file\n"
+                    "                  if there is only one input file, except in\n"
+                    "                  raw mode.\n"
 
             );
 
@@ -170,20 +171,9 @@ int rewrite_header(FILE *out, unsigned int written)
     return 0;
 }
 
-static int decode_file(char *infile, char *outfile)
+static FILE *open_input(char *infile) 
 {
-    FILE *in, *out=NULL;
-    OggVorbis_File vf;
-    int bs = 0;
-    char buf[8192];
-    int buflen = 8192;
-    unsigned int written = 0;
-    int ret;
-    ogg_int64_t length = 0;
-    ogg_int64_t done = 0;
-    int size;
-    int seekable = 0;
-    int percent = 0;
+    FILE *in;
 
     if(!infile) {
 #ifdef __BORLANDC__
@@ -197,17 +187,16 @@ static int decode_file(char *infile, char *outfile)
         in = fopen(infile, "rb");
         if(!in) {
             fprintf(stderr, "ERROR: Failed to open input file: %s\n", strerror(errno));
-            return 1;
+            return NULL;
         }
     }
 
+    return in;
+}
 
-    if(ov_open(in, &vf, NULL, 0) < 0) {
-        fprintf(stderr, "ERROR: Failed to open input as vorbis\n");
-        fclose(in);
-        return 1;
-    }
-
+static FILE *open_output(char *outfile) 
+{
+    FILE *out;
     if(!outfile) {
 #ifdef __BORLANDC__
         setmode(fileno(stdout), O_BINARY);
@@ -220,8 +209,31 @@ static int decode_file(char *infile, char *outfile)
         out = fopen(outfile, "wb");
         if(!out) {
             fprintf(stderr, "ERROR: Failed to open output file: %s\n", strerror(errno));
-            return 1;
+            return NULL;
         }
+    }
+
+    return out;
+}
+
+static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
+{
+    OggVorbis_File vf;
+    int bs = 0;
+    char buf[8192];
+    int buflen = 8192;
+    unsigned int written = 0;
+    int ret;
+    ogg_int64_t length = 0;
+    ogg_int64_t done = 0;
+    int size;
+    int seekable = 0;
+    int percent = 0;
+
+    if(ov_open(in, &vf, NULL, 0) < 0) {
+        fprintf(stderr, "ERROR: Failed to open input as vorbis\n");
+        fclose(in);
+        return 1;
     }
 
     if(ov_seekable(&vf)) {
@@ -237,7 +249,6 @@ static int decode_file(char *infile, char *outfile)
     if(!raw) {
         if(write_prelim_header(&vf, out, length)) {
             ov_clear(&vf);
-            fclose(out);
             return 1;
         }
     }
@@ -258,7 +269,6 @@ static int decode_file(char *infile, char *outfile)
         if(fwrite(buf, 1, ret, out) != ret) {
             fprintf(stderr, "Error writing to file: %s\n", strerror(errno));
             ov_clear(&vf);
-            fclose(out);
             return 1;
         }
 
@@ -280,7 +290,6 @@ static int decode_file(char *infile, char *outfile)
 
     ov_clear(&vf);
 
-    fclose(out);
     return 0;
 }
 
@@ -304,39 +313,93 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    if(argc - optind > 1 && outfilename) {
+    if(argc - optind > 1 && outfilename && !raw) {
         fprintf(stderr, "ERROR: Can only specify one input file if output filename is specified\n");
         return 1;
     }
-    
-    for(i=optind; i < argc; i++) {
-        char *in, *out;
-        if(!strcmp(argv[i], "-"))
-            in = NULL;
+
+    if(outfilename && raw) {
+        FILE *infile, *outfile;
+        char *infilename;
+
+        if(!strcmp(outfilename, "-")) {
+            outfilename = NULL;
+            outfile = open_output(NULL);
+        }
         else
-            in = argv[i];
+            outfile = open_output(outfilename);
 
-        if(outfilename) {
-            if(!strcmp(outfilename, "-"))
-                out = NULL;
-            else
-                out = outfilename;
-        }
-        else {
-            char *end = strrchr(argv[i], '.');
-            end = end?end:(argv[i] + strlen(argv[i]) + 1);
-
-            out = malloc(strlen(argv[i]) + 10);
-            strncpy(out, argv[i], end-argv[i]);
-            out[end-argv[i]] = 0;
-            if(raw)
-                strcat(out, ".raw");
-            else
-                strcat(out, ".wav");
-        }
-
-        if(decode_file(in,out))
+        if(!outfile)
             return 1;
+        
+        for(i=optind; i < argc; i++) {
+            if(!strcmp(argv[i], "-")) {
+                infilename = NULL;
+                infile = open_input(NULL);
+            }
+            else {
+                infilename = argv[i];
+                infile = open_input(argv[i]);
+            }
+
+            if(!infile) {
+                fclose(outfile);
+                return 1;
+            }
+            if(decode_file(infile, outfile, infilename, outfilename)) {
+                fclose(outfile);
+                return 1;
+            }
+
+        }
+
+        fclose(outfile);
+    }
+    else {
+        for(i=optind; i < argc; i++) {
+            char *in, *out;
+            FILE *infile, *outfile;
+
+            if(!strcmp(argv[i], "-"))
+                in = NULL;
+            else
+                in = argv[i];
+
+            if(outfilename) {
+                if(!strcmp(outfilename, "-"))
+                    out = NULL;
+                else
+                    out = outfilename;
+            }
+            else {
+                char *end = strrchr(argv[i], '.');
+                end = end?end:(argv[i] + strlen(argv[i]) + 1);
+
+                out = malloc(strlen(argv[i]) + 10);
+                strncpy(out, argv[i], end-argv[i]);
+                out[end-argv[i]] = 0;
+                if(raw)
+                    strcat(out, ".raw");
+                else
+                    strcat(out, ".wav");
+            }
+
+            infile = open_input(in);
+            if(!infile)
+                return 1;
+            outfile = open_output(out);
+            if(!outfile) {
+                fclose(infile);
+                return 1;
+            }
+        
+            if(decode_file(infile, outfile, in, out)) {
+                fclose(outfile);
+                return 1;
+            }
+
+            fclose(outfile);
+        }
     }
 
     if(outfilename)
