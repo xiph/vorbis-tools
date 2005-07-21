@@ -229,6 +229,8 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
     int size;
     int seekable = 0;
     int percent = 0;
+    int channels;
+    int samplerate;
 
     if(ov_open(in, &vf, NULL, 0) < 0) {
         fprintf(stderr, "ERROR: Failed to open input as vorbis\n");
@@ -236,10 +238,26 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
         return 1;
     }
 
+    channels = ov_info(&vf,0)->channels;
+    samplerate = ov_info(&vf,0)->rate;
+
     if(ov_seekable(&vf)) {
+        int link;
+        int chainsallowed;
+        for(link = 0; link < ov_streams(&vf); link++) {
+            if(ov_info(&vf, link)->channels = channels && 
+                    ov_info(&vf, link)->rate == samplerate)
+            {
+                chainsallowed = 1;
+            }
+        }
+
         seekable = 1;
-        length = ov_pcm_total(&vf, 0);
-        size = bits/8 * ov_info(&vf, 0)->channels;
+        if(chainsallowed)
+            length = ov_pcm_total(&vf, -1);
+        else
+            length = ov_pcm_total(&vf, 0);
+        size = bits/8 * channels;
         if(!quiet)
             fprintf(stderr, "Decoding \"%s\" to \"%s\"\n", 
                     infile?infile:"standard input", 
@@ -255,8 +273,11 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
 
     while((ret = ov_read(&vf, buf, buflen, endian, bits/8, sign, &bs)) != 0) {
         if(bs != 0) {
-            fprintf(stderr, "Only one logical bitstream currently supported\n");
-            break;
+            vorbis_info *vi = ov_info(&vf, -1);
+            if(channels != vi->channels || samplerate != vi->rate) {
+                fprintf(stderr, "Logical bitstreams with changing parameters are not supported\n");
+                break;
+            }
         }
 
         if(ret < 0 ) {
