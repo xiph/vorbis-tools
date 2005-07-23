@@ -215,7 +215,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
 
   /* ogg123 only accepts Ogg files, and optionally FLAC as well */
 #ifdef HAVE_LIBFLAC
-  private->header_list = curl_slist_append(NULL, "Accept: application/ogg audio/x-flac;q=0.9");
+  private->header_list = curl_slist_append(NULL, "Accept: application/ogg, audio/x-flac;q=0.9");
 #else
   private->header_list = curl_slist_append(NULL, "Accept: application/ogg");
 #endif
