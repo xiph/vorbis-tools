@@ -46,6 +46,9 @@ The Ogg Vorbis homepage is located at 'http://www.vorbis.com'. Up to
 date technical documents, contact information, source code and
 pre-built utilities may be found there.
 
+Developer information is available from http://www.xiph.org/. Check
+there for bug reporting information, mailing lists and other resources.
+
 BUILDING FROM CVS:
 
 ./autogen.sh
