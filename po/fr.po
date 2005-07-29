@@ -1492,7 +1492,7 @@ msgid ""
 "\tAverage bitrate: %f kbps\n"
 msgstr ""
 "Flux Vorbis %d :\n"
-"\tLongueur totale des données : %ld octets\n"
+"\tLongueur totale des données : %lld octets\n"
 "\tDurée totale : %ldm:%02lds\n"
 "\tDébit moyen : %f kbps\n"
 
