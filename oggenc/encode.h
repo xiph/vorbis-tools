@@ -86,6 +86,7 @@ typedef struct
     float scale;
 
 	unsigned int serial;
+        int fixedserial;
 } oe_options;
 
 typedef struct

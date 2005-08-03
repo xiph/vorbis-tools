@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
 			  0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0,16,44100,2, 0, NULL,
 			  DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
-			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0}; 
+			  NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0}; 
 
 	int i;
 
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	if(opt.serial == 0)
+	if(!opt.fixedserial)
 	{
 		/* We randomly pick a serial number. This is then incremented for each file */
 		srand(time(NULL));
@@ -691,6 +691,8 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 				 * ints. Damn */
 				if(sscanf(optarg, "%u", &opt->serial) != 1)
 					opt->serial = 0; /* Failed, so just set to zero */
+                                else
+                                    opt->fixedserial = 1;
 				break;
 			case 't':
 				opt->title = realloc(opt->title, (++opt->title_count)*sizeof(char *));
