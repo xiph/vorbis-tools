@@ -26,6 +26,7 @@
 typedef struct file_private_t {
   FILE *fp;
   data_source_stats_t stats;
+  int seekable;
 } file_private_t;
 
 
@@ -51,6 +52,7 @@ data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
     source->transport = &file_transport;
     source->private = private;
     
+    private->seekable = 1;
     private->stats.transfer_rate = 0;
     private->stats.bytes_read = 0;
     private->stats.input_buffer_used = 0;
@@ -60,9 +62,10 @@ data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
   }
 
   /* Open file */
-  if (strcmp(source_string, "-") == 0)
+  if (strcmp(source_string, "-") == 0) {
     private->fp = stdin;
-  else
+    private->seekable = 0;
+  } else
     private->fp = fopen(source_string, "r");
 
   if (private->fp == NULL) {
@@ -83,6 +86,8 @@ int file_peek (data_source_t *source, void *ptr, size_t size, size_t nmemb)
   FILE *fp = private->fp;
   int items;
   long start;
+
+  if (!private->seekable) return 0;
 
   /* Record where we are */
   start = ftell(fp);
@@ -118,6 +123,8 @@ int file_seek (data_source_t *source, long offset, int whence)
   file_private_t *private = source->private;
   FILE *fp = private->fp;
 
+  if (!private->seekable) return -1;
+
   return fseek(fp, offset, whence);  
 }
 
@@ -134,6 +141,8 @@ long file_tell (data_source_t *source)
 {
   file_private_t *private = source->private;
   FILE *fp = private->fp;
+
+  if (!private->seekable) return -1;
 
   return ftell(fp);
 }
