@@ -14,7 +14,7 @@ AC_PREREQ(2.53)
 AM_INIT_AUTOMAKE([vorbis-tools],[1.1.1])
 AM_MAINTAINER_MODE
 
-AC_CONFIG_HEADER(config.h)
+AM_CONFIG_HEADER([config.h])
 
 dnl --------------------------------------------------  
 dnl Check for programs
