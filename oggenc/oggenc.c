@@ -18,6 +18,10 @@
 #include <locale.h>
 #include <errno.h>
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "platform.h"
 #include "encode.h"
 #include "audio.h"
@@ -25,7 +29,7 @@
 #include "i18n.h"
 
 
-#define VERSION_STRING "OggEnc v1.0.2\n"
+#define VERSION_STRING "OggEnc v" VERSION " \n"
 #define COPYRIGHT "(c) 2000-2005 Michael Smith <msmith@xiph.org>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
