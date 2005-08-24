@@ -51,6 +51,7 @@ struct option long_options[] = {
     {"shuffle", no_argument, 0, 'z'},
     {"list", required_argument, 0, '@'},
     {"audio-buffer", required_argument, 0, 0},
+    {"repeat", no_argument, 0, 0},
     {0, 0, 0, 0}
 };
 
@@ -85,6 +86,8 @@ int parse_cmdline_options (int argc, char **argv,
       case 0:
 	if(!strcmp(long_options[option_index].name, "audio-buffer")) {
 	  ogg123_opts->buffer_size = 1024 * atoi(optarg);
+        } else if(!strcmp(long_options[option_index].name, "repeat")) {
+	  ogg123_opts->repeat = 1;
 	} else {
 	  status_error(_("Internal error parsing command line options.\n"));
 	  exit(1);

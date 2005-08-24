@@ -153,6 +153,7 @@ void options_init (ogg123_options_t *opts)
 
   opts->status_freq = 10.0;
   opts->playlist = NULL;
+  opts->repeat = 0;
 
 }
 
@@ -393,6 +394,8 @@ int main(int argc, char **argv)
   while (i < items && !sig_request.exit) {
     play(playlist_array[i]);
     i++;
+    if(i == items && options.repeat)
+      i = 0;
   }
 
   playlist_array_destroy(playlist_array, items);
