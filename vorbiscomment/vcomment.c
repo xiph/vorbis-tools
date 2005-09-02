@@ -63,7 +63,7 @@ param_t	*new_param(void);
 void free_param(param_t *param);
 void parse_options(int argc, char *argv[], param_t *param);
 void open_files(param_t *p);
-void close_files(param_t *p);
+void close_files(param_t *p, int output_written);
 
 
 /**********
@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
-            close_files(param);
+            close_files(param, 0);
             free_param(param);
             vcedit_clear(state);
 			return 1;
@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 		/* done */
 		vcedit_clear(state);
 
-		close_files(param);
+		close_files(param, 0);
         free_param(param);
 		return 0;		
 	}
@@ -133,7 +133,7 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
-            close_files(param);
+            close_files(param, 0);
             free_param(param);
             vcedit_clear(state);
 			return 1;
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to write comments to output file: %s\n"), 
 					vcedit_error(state));
-            close_files(param);
+            close_files(param, 0);
             free_param(param);
             vcedit_clear(state);
 			return 1;
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
 		/* done */
 		vcedit_clear(state);
 		
-		close_files(param);
+		close_files(param, 1);
         free_param(param);
 		return 0;
 	}
@@ -527,23 +527,31 @@ void open_files(param_t *p)
 
 ***********/
 
-void close_files(param_t *p)
+void close_files(param_t *p, int output_written)
 {
-	if (p->in != NULL && p->in != stdin) fclose(p->in);
-	if (p->out != NULL && p->out != stdout) fclose(p->out);
-	if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
+  if (p->in != NULL && p->in != stdin) fclose(p->in);
+  if (p->out != NULL && p->out != stdout) fclose(p->out);
+  if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
 
-	if(p->tempoutfile) {
-        /* Some platforms fail to rename a file if the new name already exists,
-         * so we need to remove, then rename. How stupid.
-         */
-		if(rename(p->outfilename, p->infilename)) {
-            if(remove(p->infilename))
-                fprintf(stderr, _("Error removing old file %s\n"), p->infilename);
-            else if(rename(p->outfilename, p->infilename)) 
-                fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename, 
-                        p->infilename);
-        }
+  if(p->tempoutfile) {
+    if(output_written) {
+      /* Some platforms fail to rename a file if the new name already 
+       * exists, so we need to remove, then rename. How stupid.
+       */
+      if(rename(p->outfilename, p->infilename)) {
+        if(remove(p->infilename))
+          fprintf(stderr, _("Error removing old file %s\n"), p->infilename);
+        else if(rename(p->outfilename, p->infilename)) 
+          fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename, 
+                  p->infilename);
+      }
     }
+    else {
+      if(remove(p->outfilename)) {
+        fprintf(stderr, _("Error removing erroneous temporary file %s\n"), 
+                    p->outfilename);
+      }
+    }
+  }
 }
 
