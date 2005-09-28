@@ -51,7 +51,7 @@ struct option long_options[] = {
     {"shuffle", no_argument, 0, 'z'},
     {"list", required_argument, 0, '@'},
     {"audio-buffer", required_argument, 0, 0},
-    {"repeat", no_argument, 0, 0},
+    {"repeat", no_argument, 0, 'r'},
     {0, 0, 0, 0}
 };
 
@@ -79,15 +79,13 @@ int parse_cmdline_options (int argc, char **argv,
   audio_device_t *current;
   int ret;
 
-  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qvVx:y:z@:",
+  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qrvVx:y:z@:",
 				  long_options, &option_index))) {
 
       switch (ret) {
       case 0:
 	if(!strcmp(long_options[option_index].name, "audio-buffer")) {
 	  ogg123_opts->buffer_size = 1024 * atoi(optarg);
-        } else if(!strcmp(long_options[option_index].name, "repeat")) {
-	  ogg123_opts->repeat = 1;
 	} else {
 	  status_error(_("Internal error parsing command line options.\n"));
 	  exit(1);
@@ -193,6 +191,10 @@ int parse_cmdline_options (int argc, char **argv,
 	ogg123_opts->verbosity = 0;
 	break;
 	
+      case 'r':
+        ogg123_opts->repeat = 1;
+	break;
+
       case 'v':
 	ogg123_opts->verbosity++;
 	break;
@@ -278,51 +280,97 @@ int parse_cmdline_options (int argc, char **argv,
   return optind;
 }
 
+#define LIST_SEP(x) ((x)==0?' ':',')
 
 void cmdline_usage (void)
 {
-  int i, driver_count;
+  int i, j, driver_count;
   ao_info **devices = ao_driver_info_list(&driver_count);
 
-  printf ( 
-         _("ogg123 from %s %s\n"
-	 " by the Xiph.org Foundation (http://www.xiph.org/)\n\n"
-	 "Usage: ogg123 [<options>] <input file> ...\n\n"
-	 "  -h, --help     this help\n"
-	 "  -V, --version  display Ogg123 version\n"
-	 "  -d, --device=d uses 'd' as an output device\n"
-	 "      Possible devices are ('*'=live, '@'=file):\n"
-	 "        "), PACKAGE, VERSION);
-  
-  for(i = 0; i < driver_count; i++) {
-    printf ("%s", devices[i]->short_name);
-    if (devices[i]->type == AO_TYPE_LIVE)
-      printf ("*");
-    else if (devices[i]->type == AO_TYPE_FILE)
-      printf ("@");
-    printf (" ");
-  }
+  printf (_("ogg123 from %s %s\n"
+         " by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"), PACKAGE, VERSION);
 
-  printf ("\n");
+  printf ( 
+	 _(
+	 "Usage: ogg123 [options] file ...\n"
+	 "Play Ogg audio files and network streams.\n\n"));
+ 
+  printf (_("Available codecs: "));
+
+#ifdef HAVE_LIBFLAC
+  printf (_("FLAC, "));
+#endif
+
+#ifdef HAVE_LIBSPEEX
+  printf (_("Speex, "));
+#endif
+
+  printf (_("Ogg Vorbis.\n\n"));
+
+  printf (
+	 _("Output options\n"
+	 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
+	 "                          Live:"));
+  
+  for(i = 0, j = 0; i < driver_count; i++) {
+    if (devices[i]->type == AO_TYPE_LIVE) {
+      printf ("%c %s", LIST_SEP(j), devices[i]->short_name);
+      j++;
+    }
+  }
+  printf ("\n                          File:");
+  for(i = 0, j = 0; i < driver_count; i++) {
+    if (devices[i]->type == AO_TYPE_FILE) {
+      printf ("%c %s", LIST_SEP(j), devices[i]->short_name);
+      j++;
+    }
+  }
+  printf ("\n\n");
+
+  printf (
+	 _(
+	 "  -f file, --file file    Set the output filename for a file device\n"
+	 "                          previously specified with --device.\n"
+	 "\n"
+	 "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
+	 "  -o k:v, --device-option k:v\n"
+	 "                          Pass special option 'k' with value 'v' to the\n"
+	 "                          device previously specified with --device. See\n"
+	 "                          the ogg123 man page for available device options.\n"
+	 "\n"));
   
   printf (
-	 _("  -f, --file=filename  Set the output filename for a previously\n"
-	 "      specified file device (with -d).\n"
-	 "  -k n, --skip n  Skip the first 'n' seconds (or hh:mm:ss format)\n"
-	 "  -K n, --end n   End at 'n' seconds (or hh:mm:ss format)\n"
-	 "  -o, --device-option=k:v passes special option k with value\n"
-	 "      v to previously specified device (with -d).  See\n"
-	 "      man page for more info.\n"
-	 "  -@, --list=filename   Read playlist of files and URLs from \"filename\"\n"
-	 "  -b n, --buffer n  Use an input buffer of 'n' kilobytes\n"
-	 "  -p n, --prebuffer n  Load n%% of the input buffer before playing\n"
-	 "  -v, --verbose  Display progress and other status information\n"
-	 "  -q, --quiet    Don't display anything (no title)\n"
-	 "  -x n, --nth    Play every 'n'th block\n"
-	 "  -y n, --ntimes Repeat every played block 'n' times\n"
-	 "  -z, --shuffle  Shuffle play\n"
+	 _("Playlist options\n"
+	 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
+	 "  -r, --repeat            Repeat playlist indefinitely\n"
+	 "  -z, --shuffle           Shuffle play\n"
+	 "\n"));
+
+  printf (
+	 _("Input options\n"
+	 "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
+	 "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
+	 "\n"));
+
+  printf (
+	 _("Decode options\n"
+	 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
+	 "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
+	 "  -x n, --nth n           Play every 'n'th block\n"
+	 "  -y n, --ntimes n        Repeat every played block 'n' times\n"
+	 "\n"));
+
+  printf (
+	 _("Miscellaneous options\n"
+	 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
+	 "                          will skip to the next song on SIGINT (Ctrl-C),\n"
+	 "                          and will terminate if two SIGINTs are received\n"
+	 "                          within the specified timeout 's'. (default 500)\n"
 	 "\n"
-	 "ogg123 will skip to the next song on SIGINT (Ctrl-C); two SIGINTs within\n"
-	 "s milliseconds make ogg123 terminate.\n"
-	 "  -l, --delay=s  Set s [milliseconds] (default 500).\n"));
+	 "  -h, --help              Display this help\n"
+	 "  -q, --quiet             Don't display anything (no title)\n"
+	 "  -v, --verbose           Display progress and other status information\n"
+	 "  -V, --version           Display ogg123 version\n"
+	 "\n"));
+
 }
