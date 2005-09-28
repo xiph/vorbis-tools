@@ -46,6 +46,7 @@
 #include "ogg123.h"
 #include "i18n.h"
 
+extern int exit_status; /* from status.c */
 
 void exit_cleanup ();
 void play (char *source_string);
@@ -402,9 +403,8 @@ int main(int argc, char **argv)
 
   playlist_array_destroy(playlist_array, items);
 
-  exit (0);
+  exit (exit_status);
 }
-
 
 void play (char *source_string)
 {
@@ -621,7 +621,7 @@ void play (char *source_string)
   status_message(1, _("Done."));
   
   if (sig_request.exit)
-    exit (0);
+    exit (exit_status);
 }
 
 

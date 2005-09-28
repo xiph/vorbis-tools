@@ -25,6 +25,7 @@
 char temp_buffer[200];
 int last_line_len = 0;
 int max_verbosity = 0;
+int exit_status = EXIT_SUCCESS;
 
 pthread_mutex_t output_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -449,6 +450,8 @@ void status_error (const char *fmt, ...)
   pthread_mutex_unlock(&output_lock);
 
   pthread_cleanup_pop(0);
+
+  exit_status = EXIT_FAILURE;
 }
 
 
@@ -462,4 +465,6 @@ void vstatus_error (const char *fmt, va_list ap)
   pthread_mutex_unlock(&output_lock);
 
   pthread_cleanup_pop(0);
+
+  exit_status = EXIT_FAILURE;
 }
