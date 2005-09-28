@@ -26,7 +26,7 @@ typedef struct ogg123_options_t {
   long int verbosity;         /* Verbose output if > 1, quiet if 0 */
 
   int shuffle;                /* Should we shuffle playing? */
-  int repeat;                 /* Repeat playlist indefinately? */
+  int repeat;                 /* Repeat playlist indefinitely? */
   ogg_int64_t delay;          /* delay (in millisecs) for skip to next song */
   int nth;                    /* Play every nth chunk */
   int ntimes;                 /* Play every chunk n times */

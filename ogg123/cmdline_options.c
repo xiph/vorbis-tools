@@ -49,6 +49,7 @@ struct option long_options[] = {
     {"nth", required_argument, 0, 'x'},
     {"ntimes", required_argument, 0, 'y'},
     {"shuffle", no_argument, 0, 'z'},
+    {"random", no_argument, 0, 'Z'},
     {"list", required_argument, 0, '@'},
     {"audio-buffer", required_argument, 0, 0},
     {"repeat", no_argument, 0, 'r'},
@@ -79,7 +80,7 @@ int parse_cmdline_options (int argc, char **argv,
   audio_device_t *current;
   int ret;
 
-  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qrvVx:y:z@:",
+  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qrvVx:y:zZ@:",
 				  long_options, &option_index))) {
 
       switch (ret) {
@@ -225,6 +226,10 @@ int parse_cmdline_options (int argc, char **argv,
 	ogg123_opts->shuffle = 1;
 	break;
 
+      case 'Z':
+        ogg123_opts->repeat = ogg123_opts->shuffle = 1;
+	break;
+
       case '@':
 	if (playlist_append_from_file(ogg123_opts->playlist, optarg) == 0)
 	  status_error(_("--- Cannot open playlist file %s.  Skipped.\n"),
@@ -343,7 +348,8 @@ void cmdline_usage (void)
 	 _("Playlist options\n"
 	 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
 	 "  -r, --repeat            Repeat playlist indefinitely\n"
-	 "  -z, --shuffle           Shuffle play\n"
+	 "  -z, --shuffle           Shuffle list of files before playing\n"
+	 "  -Z, --random            Play files randomly until interrupted\n"
 	 "\n"));
 
   printf (

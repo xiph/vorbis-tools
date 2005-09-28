@@ -76,6 +76,8 @@ file_option_t file_opts[] = {
    &options.default_device, NULL},
   {0, "shuffle",        N_("shuffle playlist"),      opt_type_bool,
    &options.shuffle,        &int_0},
+  {0, "repeat",         N_("repeat playlist forever"),   opt_type_bool,
+   &options.repeat,         &int_0}, 
   {0, NULL,             NULL,                    0,               NULL,                NULL}
 };
 
@@ -367,20 +369,6 @@ int main(int argc, char **argv)
     audio_buffer = NULL;
 
 
-  /* Shuffle playlist */
-  if (options.shuffle) {
-    int i;
-    
-    srandom(time(NULL));
-    
-    for (i = 0; i < items; i++) {
-      int j = i + random() % (items - i);
-      char *temp = playlist_array[i];
-      playlist_array[i] = playlist_array[j];
-      playlist_array[j] = temp;
-    }
-  }
-
   /* Setup signal handlers and callbacks */
 
   ATEXIT (exit_cleanup);
@@ -389,14 +377,28 @@ int main(int argc, char **argv)
   signal (SIGCONT, signal_handler);
   signal (SIGTERM, signal_handler);
 
-  /* Play the files/streams */
-  i = 0;
-  while (i < items && !sig_request.exit) {
-    play(playlist_array[i]);
-    i++;
-    if(i == items && options.repeat)
-      i = 0;
-  }
+  do {
+    /* Shuffle playlist */
+    if (options.shuffle) {
+      int i;
+    
+      srandom(time(NULL));
+    
+      for (i = 0; i < items; i++) {
+        int j = i + random() % (items - i);
+        char *temp = playlist_array[i];
+        playlist_array[i] = playlist_array[j];
+        playlist_array[j] = temp;
+      }
+    }
+
+    /* Play the files/streams */
+    i = 0;
+    while (i < items && !sig_request.exit) {
+      play(playlist_array[i]);
+      i++;
+    }
+  } while (options.repeat);
 
   playlist_array_destroy(playlist_array, items);
 
