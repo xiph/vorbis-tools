@@ -295,10 +295,8 @@ void cmdline_usage (void)
   printf (_("ogg123 from %s %s\n"
          " by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"), PACKAGE, VERSION);
 
-  printf ( 
-	 _(
-	 "Usage: ogg123 [options] file ...\n"
-	 "Play Ogg audio files and network streams.\n\n"));
+  printf (_("Usage: ogg123 [options] file ...\n"
+	    "Play Ogg audio files and network streams.\n\n"));
  
   printf (_("Available codecs: "));
 
@@ -312,10 +310,10 @@ void cmdline_usage (void)
 
   printf (_("Ogg Vorbis.\n\n"));
 
-  printf (
-	 _("Output options\n"
-	 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
-	 "                          Live:"));
+  printf (_("Output options\n"));
+  printf (_("  -d dev, --device dev    Use output device \"dev\". Available devices:\n"));
+  printf ("                          ");
+  printf (_("Live:"));
   
   for(i = 0, j = 0; i < driver_count; i++) {
     if (devices[i]->type == AO_TYPE_LIVE) {
@@ -323,7 +321,8 @@ void cmdline_usage (void)
       j++;
     }
   }
-  printf ("\n                          File:");
+  printf ("\n                          ");
+  printf (_("File:"));
   for(i = 0, j = 0; i < driver_count; i++) {
     if (devices[i]->type == AO_TYPE_FILE) {
       printf ("%c %s", LIST_SEP(j), devices[i]->short_name);
@@ -332,51 +331,45 @@ void cmdline_usage (void)
   }
   printf ("\n\n");
 
-  printf (
-	 _(
-	 "  -f file, --file file    Set the output filename for a file device\n"
-	 "                          previously specified with --device.\n"
-	 "\n"
-	 "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
-	 "  -o k:v, --device-option k:v\n"
-	 "                          Pass special option 'k' with value 'v' to the\n"
-	 "                          device previously specified with --device. See\n"
-	 "                          the ogg123 man page for available device options.\n"
-	 "\n"));
+  printf (_("  -f file, --file file    Set the output filename for a file device\n"
+	    "                          previously specified with --device.\n"));
+  printf ("\n");
+  printf (_("  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"));
+  printf (_("  -o k:v, --device-option k:v\n"
+	    "                          Pass special option 'k' with value 'v' to the\n"
+	    "                          device previously specified with --device. See\n"
+	    "                          the ogg123 man page for available device options.\n"));
+  printf ("\n");
   
-  printf (
-	 _("Playlist options\n"
-	 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
-	 "  -r, --repeat            Repeat playlist indefinitely\n"
-	 "  -z, --shuffle           Shuffle list of files before playing\n"
-	 "  -Z, --random            Play files randomly until interrupted\n"
-	 "\n"));
+  printf (_("Playlist options\n"));
+  printf (_("  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"));
+  printf (_("  -r, --repeat            Repeat playlist indefinitely\n"));
+  printf (_("  -z, --shuffle           Shuffle list of files before playing\n"));
+  printf (_("  -Z, --random            Play files randomly until interrupted\n"));
+  printf ("\n");
 
-  printf (
-	 _("Input options\n"
-	 "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
-	 "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
-	 "\n"));
+  printf (_("Input options\n"));
+  printf (_("  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"));
+  printf (_("  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"));
+  printf ("\n");
 
-  printf (
-	 _("Decode options\n"
-	 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
-	 "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
-	 "  -x n, --nth n           Play every 'n'th block\n"
-	 "  -y n, --ntimes n        Repeat every played block 'n' times\n"
-	 "\n"));
+  printf (_("Decode options\n"));
+  printf (_("  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"));
+  printf (_("  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"));
+  printf (_("  -x n, --nth n           Play every 'n'th block\n"));
+  printf (_("  -y n, --ntimes n        Repeat every played block 'n' times\n"));
+  printf ("\n");
 
-  printf (
-	 _("Miscellaneous options\n"
-	 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
-	 "                          will skip to the next song on SIGINT (Ctrl-C),\n"
-	 "                          and will terminate if two SIGINTs are received\n"
-	 "                          within the specified timeout 's'. (default 500)\n"
-	 "\n"
-	 "  -h, --help              Display this help\n"
-	 "  -q, --quiet             Don't display anything (no title)\n"
-	 "  -v, --verbose           Display progress and other status information\n"
-	 "  -V, --version           Display ogg123 version\n"
-	 "\n"));
+  printf (_("Miscellaneous options\n"));
+  printf (_("  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
+	    "                          will skip to the next song on SIGINT (Ctrl-C),\n"
+	    "                          and will terminate if two SIGINTs are received\n"
+	    "                          within the specified timeout 's'. (default 500)\n"));
+  printf ("\n");
+  printf (_("  -h, --help              Display this help\n"));
+  printf (_("  -q, --quiet             Don't display anything (no title)\n"));
+  printf (_("  -v, --verbose           Display progress and other status information\n"));
+  printf (_("  -V, --version           Display ogg123 version\n"));
+  printf ("\n");
 
 }
