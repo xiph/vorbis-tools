@@ -596,7 +596,7 @@ void wav_close(void *info)
 	free(f);
 }
 
-int raw_open(FILE *in, oe_enc_opt *opt)
+int raw_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 {
 	wav_fmt format; /* fake wave header ;) */
 	wavfile *wav = malloc(sizeof(wavfile));
@@ -763,6 +763,7 @@ static long read_downmix(void *data, float **buffer, int samples)
 
     for(i=0; i < in_samples; i++) {
         buffer[0][i] = (d->bufs[0][i] + d->bufs[1][i])*0.5f;
+        fprintf(stderr, "%f %f -> %f\n", d->bufs[0][i] , d->bufs[1][i], buffer[0][i]);
     }
 
     return in_samples;

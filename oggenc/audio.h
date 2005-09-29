@@ -54,7 +54,7 @@ typedef wavfile aifffile; /* They're the same */
 
 input_format *open_audio_file(FILE *in, oe_enc_opt *opt);
 
-int raw_open(FILE *in, oe_enc_opt *opt);
+int raw_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen);
 int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen);
 int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen);
 int wav_id(unsigned char *buf, int len);

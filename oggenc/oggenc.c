@@ -192,11 +192,16 @@ int main(int argc, char **argv)
 
 		if(opt.rawmode)
 		{
+            input_format raw_format = {NULL, 0, raw_open, wav_close, "raw", 
+                N_("RAW file reader")};
+
 			enc_opts.rate=opt.raw_samplerate;
 			enc_opts.channels=opt.raw_channels;
 			enc_opts.samplesize=opt.raw_samplesize;
             enc_opts.endianness=opt.raw_endianness;
-			raw_open(in, &enc_opts);
+            
+            format = &raw_format;
+            format->open_func(in, &enc_opts, NULL, 0);
 			foundformat=1;
 		}
 		else
@@ -366,8 +371,7 @@ clear_all:
 		if(out_fn) free(out_fn);
         if(opt.outfile) free(opt.outfile);
 		vorbis_comment_clear(&vc);
-		if(!opt.rawmode) 
-			format->close_func(enc_opts.readdata);
+		format->close_func(enc_opts.readdata);
 
 		if(closein)
 			fclose(in);
