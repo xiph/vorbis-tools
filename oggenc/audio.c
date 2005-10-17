@@ -430,10 +430,16 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 		return 0;
 	}
 
+    if(format.align != format.channels * samplesize) {
+        /* This is incorrect according to the spec. Warn loudly, then ignore
+         * this value.
+         */
+        fprintf(stderr, _("Warning: WAV 'block alignment' value is incorrect, "
+                    "ignoring.\n" 
+                    "The software that created this file is incorrect.\n"));
+    }
 
-
-	if( format.align == format.channels*samplesize &&
-			format.samplesize == samplesize*8 && 
+	if(format.samplesize == samplesize*8 && 
     		(format.samplesize == 24 || format.samplesize == 16 || 
              format.samplesize == 8 ||
 	     (format.samplesize == 32 && format.format == 3)))
