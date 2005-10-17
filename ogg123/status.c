@@ -15,9 +15,21 @@
 
  ********************************************************************/
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
+#ifdef HAVE_FCNTL_H
+#include <fcntl.h>
+#endif
 
 #include "status.h"
 #include "i18n.h"
@@ -309,8 +321,12 @@ void stat_format_cleanup (stat_format_t *stats)
 }
 
 
-void status_set_verbosity (int verbosity)
+void status_init (int verbosity)
 {
+#if defined(HAVE_FCNTL) && defined(HAVE_UNISTD_H)
+  fcntl (STDERR_FILENO, F_SETFL, O_NONBLOCK);
+#endif
+
   max_verbosity = verbosity;
 }
 

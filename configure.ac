@@ -223,12 +223,18 @@ AM_CONDITIONAL(HAVE_LIBSPEEX, test "x$have_libspeex" = "xyes")
 AC_SUBST(SPEEX_LIBS)
 
 dnl --------------------------------------------------
+dnl Check for headers
+dnl --------------------------------------------------
+
+AC_CHECK_HEADERS([fcntl.h unistd.h])
+
+dnl --------------------------------------------------
 dnl Check for library functions
 dnl --------------------------------------------------
 
 AC_FUNC_ALLOCA
 AM_ICONV
-AC_CHECK_FUNCS(atexit on_exit)
+AC_CHECK_FUNCS(atexit on_exit fcntl)
 AM_LANGINFO_CODESET
 
 dnl --------------------------------------------------

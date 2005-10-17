@@ -59,7 +59,7 @@ typedef struct {
 stat_format_t *stat_format_create ();
 void stat_format_cleanup (stat_format_t *stats);
 
-void status_set_verbosity (int verbosity);
+void status_init (int verbosity);
 void status_reset_output_lock ();
 void status_clear_line ();
 void status_print_statistics (stat_format_t *stats,

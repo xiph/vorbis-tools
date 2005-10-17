@@ -351,7 +351,7 @@ int main(int argc, char **argv)
   }
 
   /* Don't use status_message until after this point! */
-  status_set_verbosity(options.verbosity);
+  status_init(options.verbosity);
 
   print_audio_devices_info(options.devices);
 
