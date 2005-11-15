@@ -36,7 +36,6 @@ dnl Set build flags based on environment
 dnl --------------------------------------------------
 
 cflags_save="$CFLAGS"
-ldflags_save="$LDFLAGS"
 if test -z "$GCC"; then
         case $host in
         *-*-irix*)
@@ -82,7 +81,6 @@ fi
 CFLAGS="$CFLAGS $cflags_save"
 DEBUG="$DEBUG $cflags_save"
 PROFILE="$PROFILE $cflags_save"
-LDFLAGS="$LDFLAGS $ldflags_save"
 
 dnl --------------------------------------------------
 dnl Allow tools to be selectively built
