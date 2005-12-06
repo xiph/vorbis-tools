@@ -58,8 +58,8 @@ else
         case $host in
         *-*-linux*)
                 DEBUG="-g -Wall -fsigned-char"
-                CFLAGS="-O20 -ffast-math -fsigned-char"
-                PROFILE="-Wall -W -pg -g -O20 -ffast-math -fsigned-char"
+                CFLAGS="-O2 -Wall -ffast-math -fsigned-char"
+                PROFILE="-Wall -W -pg -g -O2 -ffast-math -fsigned-char"
                 ;;
         sparc-sun-*)
                 DEBUG="-g -Wall -fsigned-char -mv8"
@@ -73,8 +73,8 @@ else
                 ;;
         *)
                 DEBUG="-g -Wall -fsigned-char"
-                CFLAGS="-O20 -fsigned-char"
-                PROFILE="-O20 -g -pg -fsigned-char"
+                CFLAGS="-O2 -fsigned-char"
+                PROFILE="-O2 -g -pg -fsigned-char"
                 ;;
         esac
 fi
