@@ -354,7 +354,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
 		else
 		{
 		    float frameaspect = (float)inf->ti.frame_width/(float)inf->ti.frame_height * (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator; 
-		    info(_("Pixel aspect ratio %d:%d (1:%f)\n"), inf->ti.aspect_numerator, inf->ti.aspect_denominator, (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator);
+		    info(_("Pixel aspect ratio %d:%d (%f:1)\n"), inf->ti.aspect_numerator, inf->ti.aspect_denominator, (float)inf->ti.aspect_numerator/(float)inf->ti.aspect_denominator);
                     if(fabs(frameaspect - 4.0/3.0) < 0.02)
 			info(_("Frame aspect 4:3\n"));
                     else if(fabs(frameaspect - 16.0/9.0) < 0.02)
