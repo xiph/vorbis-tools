@@ -360,7 +360,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
                     else if(fabs(frameaspect - 16.0/9.0) < 0.02)
 			info(_("Frame aspect 16:9\n"));
 		    else
-			info(_("Frame aspect 1:%f\n"), frameaspect);
+			info(_("Frame aspect %f:1\n"), frameaspect);
 		}
 
 		if(inf->ti.colorspace == OC_CS_ITU_REC_470M)
