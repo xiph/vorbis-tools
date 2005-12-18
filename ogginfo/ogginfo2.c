@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <getopt.h>
+#include <math.h>
 
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
@@ -188,7 +189,7 @@ static void check_xiph_comment(stream_processor *stream, int i, char *comment,
     if(broken)
 	return;
 
-    val = comment;
+    val = (unsigned char *)comment;
 
     j = sep-comment+1;
     while(j < comment_length)
