@@ -109,7 +109,7 @@ int iconvert(const char *fromcode, const char *tocode,
   obl = utflen;
   for (;;) {
     k = iconv(cd1, &ib, &ibl, &ob, &obl);
-    assert((!k && !ibl) ||
+    assert((k != (size_t)(-1) && !ibl) ||
 	   (k == (size_t)(-1) && errno == E2BIG && ibl && obl < 6) ||
 	   (k == (size_t)(-1) &&
 	    (errno == EILSEQ || errno == EINVAL) && ibl));
@@ -180,7 +180,7 @@ int iconvert(const char *fromcode, const char *tocode,
       ob = tbuf;
       obl = sizeof(tbuf);
       k = iconv(cd2, &tb, &tbl, &ob, &obl);
-      assert((!k && !tbl) ||
+      assert((k != (size_t)(-1) && !tbl) ||
 	     (k == (size_t)(-1) && errno == EILSEQ && tbl));
       for (++ib, --ibl; ibl && (*ib & 0x80); ib++, ibl--)
 	;
@@ -190,7 +190,7 @@ int iconvert(const char *fromcode, const char *tocode,
   ob = tbuf;
   obl = sizeof(tbuf);
   k = iconv(cd2, 0, 0, &ob, &obl);
-  assert(!k);
+  assert(k != (size_t)(-1));
   outlen += ob - tbuf;
 
   /* Convert from UTF-8 for real */
@@ -213,14 +213,14 @@ int iconvert(const char *fromcode, const char *tocode,
       size_t tbl = 1;
 
       k = iconv(cd2, &tb, &tbl, &ob, &obl);
-      assert((!k && !tbl) ||
+      assert((k != (size_t)(-1) && !tbl) ||
 	     (k == (size_t)(-1) && errno == EILSEQ && tbl));
       for (++ib, --ibl; ibl && (*ib & 0x80); ib++, ibl--)
 	;
     }
   }
   k = iconv(cd2, 0, 0, &ob, &obl);
-  assert(!k);
+  assert(k != (size_t)(-1));
   assert(!obl);
   *ob = '\0';
 
