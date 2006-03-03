@@ -283,9 +283,29 @@ static void check_xiph_comment(stream_processor *stream, int i, char *comment,
          }
 
          if(broken) {
+             char *simple = malloc (comment_length + 1);
+             char *seq = malloc (comment_length * 3 + 1);
+             static char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7', 
+                                  '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+             int i, c1 = 0, c2 = 0;
+             for (i = 0; i < comment_length; i++) {
+               seq[c1++] = hex[((unsigned char)comment[i]) >> 4];
+               seq[c1++] = hex[((unsigned char)comment[i]) & 0xf];
+               seq[c1++] = ' ';
+
+               if(comment[i] < 0x20 || comment[i] > 0x7D)
+                 simple[c2++] = '?';
+               else
+                 simple[c2++] = comment[i];
+             }
+             seq[c1] = 0;
+             simple[c2] = 0;
              warn(_("Warning: Illegal UTF-8 sequence in comment "
-                   "%d (stream %d): invalid sequence\n"), i, stream->num);
+                   "%d (stream %d): invalid sequence \"%s\": %s\n"), i, 
+                   stream->num, simple, seq);
              broken = 1;
+             free (simple);
+             free (seq);
              break;
          }
 
@@ -297,11 +317,10 @@ static void check_xiph_comment(stream_processor *stream, int i, char *comment,
              warn(_("Warning: Failure in utf8 decoder. This should be impossible\n"));
              return;
 	 }
+         *sep = 0;
+         info("\t%s=%s\n", comment, decoded);
+         free(decoded);
      }
-     
-     *sep = 0;
-     info("\t%s=%s\n", comment, decoded);
-     free(decoded);
 }
 
 static void theora_process(stream_processor *stream, ogg_page *page)
@@ -455,7 +474,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
 {
     ogg_packet packet;
     misc_vorbis_info *inf = stream->data;
-    int i, header=0;
+    int i, header=0, packets=0;
     int k;
 
     ogg_stream_pagein(&stream->os, page);
@@ -463,6 +482,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         header = 1;
 
     while(ogg_stream_packetout(&stream->os, &packet) > 0) {
+        packets++;
         if(inf->doneheaders < 3) {
             if(vorbis_synthesis_headerin(&inf->vi, &inf->vc, &packet) < 0) {
                 warn(_("Warning: Could not decode vorbis header "
@@ -537,8 +557,11 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
 #endif
             inf->lastgranulepos = gp;
         }
-        else {
-            warn(_("Negative granulepos on vorbis stream outside of headers. This file was created by a buggy encoder\n"));
+        else if(packets) {
+            /* Only do this if we saw at least one packet ending on this page.
+             * It's legal (though very unusual) to have no packets in a page at
+             * all - this is occasionally used to have an empty EOS page */
+            warn(_("Negative or zero granulepos (%lld) on vorbis stream outside of headers. This file was created by a buggy encoder\n"), gp);
         }
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
@@ -784,12 +807,12 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
     char *buffer;
     int bytes;
 
-    while((ret = ogg_sync_pageout(sync, page)) <= 0) {
+    while((ret = ogg_sync_pageseek(sync, page)) <= 0) {
         if(ret < 0)
 #ifdef _WIN32
-            warn(_("Warning: Hole in data found at approximate offset %I64d bytes. Corrupted ogg.\n"), *written);
+            warn(_("Warning: Hole in data (%d bytes) found at approximate offset %I64d bytes. Corrupted ogg.\n"), *written);
 #else
-            warn(_("Warning: Hole in data found at approximate offset %lld bytes. Corrupted ogg.\n"), *written);
+            warn(_("Warning: Hole in data (%d bytes) found at offset %lld bytes, skipped %d bytes. Corrupted ogg.\n"), *written, -ret);
 #endif
 
         buffer = ogg_sync_buffer(sync, CHUNK);
