@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="oggenc"
 	ProjectGUID="{10DA267E-7738-4E7E-9C31-9D0DF49A0B96}"
+	RootNamespace="oggenc"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -16,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -95,7 +96,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -224,10 +225,6 @@
 			>
 			<File
 				RelativePath="..\..\..\oggenc\audio.h"
-				>
-			</File>
-			<File
-				RelativePath=".\config.h"
 				>
 			</File>
 			<File
