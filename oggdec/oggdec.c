@@ -245,7 +245,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
         int link;
         int chainsallowed;
         for(link = 0; link < ov_streams(&vf); link++) {
-            if(ov_info(&vf, link)->channels = channels && 
+            if(ov_info(&vf, link)->channels == channels && 
                     ov_info(&vf, link)->rate == samplerate)
             {
                 chainsallowed = 1;
@@ -257,6 +257,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
             length = ov_pcm_total(&vf, -1);
         else
             length = ov_pcm_total(&vf, 0);
+        fprintf(stderr, "Samples: %lld\n", length);
         size = bits/8 * channels;
         if(!quiet)
             fprintf(stderr, "Decoding \"%s\" to \"%s\"\n", 
