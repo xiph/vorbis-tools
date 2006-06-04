@@ -257,7 +257,6 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
             length = ov_pcm_total(&vf, -1);
         else
             length = ov_pcm_total(&vf, 0);
-        fprintf(stderr, "Samples: %lld\n", length);
         size = bits/8 * channels;
         if(!quiet)
             fprintf(stderr, "Decoding \"%s\" to \"%s\"\n", 
