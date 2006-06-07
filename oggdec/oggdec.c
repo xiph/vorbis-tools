@@ -226,7 +226,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
     int ret;
     ogg_int64_t length = 0;
     ogg_int64_t done = 0;
-    int size;
+    int size = 0;
     int seekable = 0;
     int percent = 0;
     int channels;
@@ -243,7 +243,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
 
     if(ov_seekable(&vf)) {
         int link;
-        int chainsallowed;
+        int chainsallowed = 0;
         for(link = 0; link < ov_streams(&vf); link++) {
             if(ov_info(&vf, link)->channels == channels && 
                     ov_info(&vf, link)->rate == samplerate)
@@ -418,6 +418,9 @@ int main(int argc, char **argv)
                 fclose(outfile);
                 return 1;
             }
+
+            if(!outfilename)
+                free(out);
 
             fclose(outfile);
         }
