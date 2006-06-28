@@ -232,6 +232,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	unsigned char buf2[8];
 	aiff_fmt format;
 	aifffile *aiff = malloc(sizeof(aifffile));
+    int i;
 
 	if(buf[11]=='C')
 		aifc=1;
@@ -327,6 +328,12 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 
 		opt->readdata = (void *)aiff;
 
+        aiff->channel_permute = malloc(aiff->channels * sizeof(int));
+        /* Use a default 1-1 mapping, not sure what the spec says */
+        for (i=0; i < aiff->channels; i++)
+            aiff->channel_permute[i] = i;
+
+
 		seek_forward(in, format.offset); /* Swallow some data */
 		return 1;
 	}
@@ -357,6 +364,16 @@ int wav_id(unsigned char *buf, int len)
 	return 1;
 }
 
+static int wav_permute_matrix[6][6] = 
+{
+    {0},
+    {0,1},
+    {0,2,1},
+    {0,1,2,3},
+    {0,1,2,3,4}, /* No equivalent in wav? */
+    {0,2,1,5,3,4}
+};
+
 int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 {
 	unsigned char buf[16];
@@ -364,6 +381,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 	int samplesize;
 	wav_fmt format;
 	wavfile *wav = malloc(sizeof(wavfile));
+    int i;
 
 	/* Ok. At this point, we know we have a WAV file. Now we have to detect
 	 * whether we support the subtype, and we have to find the actual data
@@ -478,6 +496,22 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 		wav->totalsamples = opt->total_samples_per_channel;
 
 		opt->readdata = (void *)wav;
+        
+        /* TODO: Read the extended wav header to get this right in weird cases,
+         * and/or error out if neccesary. Suck. */
+        wav->channel_permute = malloc(wav->channels * sizeof(int));
+        if (wav->channels <= 6)
+            /* Where we know the mappings, use them. */
+            memcpy(wav->channel_permute, wav_permute_matrix[wav->channels-1], 
+                    sizeof(int) * wav->channels);
+        else
+            /* Use a default 1-1 mapping */
+            for (i=0; i < wav->channels; i++)
+                wav->channel_permute[i] = i;
+        for (i=0;i<wav->channels; i++) {
+          fprintf(stderr, "%d -> %d\n", i, wav->channel_permute[i]);
+        }
+
 		return 1;
 	}
 	else
@@ -497,6 +531,7 @@ long wav_read(void *in, float **buffer, int samples)
 	long bytes_read = fread(buf, 1, samples*sampbyte*f->channels, f->f);
 	int i,j;
 	long realsamples;
+    int *ch_permute = f->channel_permute;
 
 	if(f->totalsamples && f->samplesread + 
 			bytes_read/(sampbyte*f->channels) > f->totalsamples) {
@@ -513,7 +548,7 @@ long wav_read(void *in, float **buffer, int samples)
 		{
 			for(j=0; j < f->channels; j++)
 			{
-				buffer[j][i]=((int)(bufu[i*f->channels + j])-128)/128.0f;
+				buffer[j][i]=((int)(bufu[i*f->channels + ch_permute[j]])-128)/128.0f;
 			}
 		}
 	}
@@ -525,8 +560,8 @@ long wav_read(void *in, float **buffer, int samples)
 			{
 				for(j=0; j < f->channels; j++)
 				{
-					buffer[j][i] = ((buf[i*2*f->channels + 2*j + 1]<<8) |
-							        (buf[i*2*f->channels + 2*j] & 0xff))/32768.0f;
+					buffer[j][i] = ((buf[i*2*f->channels + 2*ch_permute[j] + 1]<<8) |
+							        (buf[i*2*f->channels + 2*ch_permute[j]] & 0xff))/32768.0f;
 				}
 			}
 		}
@@ -536,8 +571,8 @@ long wav_read(void *in, float **buffer, int samples)
 			{
 				for(j=0; j < f->channels; j++)
 				{
-					buffer[j][i]=((buf[i*2*f->channels + 2*j]<<8) |
-							      (buf[i*2*f->channels + 2*j + 1] & 0xff))/32768.0f;
+					buffer[j][i]=((buf[i*2*f->channels + 2*ch_permute[j]]<<8) |
+							      (buf[i*2*f->channels + 2*ch_permute[j] + 1] & 0xff))/32768.0f;
 				}
 			}
 		}
@@ -549,9 +584,9 @@ long wav_read(void *in, float **buffer, int samples)
             {
                 for(j=0; j < f->channels; j++) 
                 {
-                    buffer[j][i] = ((buf[i*3*f->channels + 3*j + 2] << 16) |
-                      (((unsigned char *)buf)[i*3*f->channels + 3*j + 1] << 8) |
-                      (((unsigned char *)buf)[i*3*f->channels + 3*j] & 0xff)) 
+                    buffer[j][i] = ((buf[i*3*f->channels + 3*ch_permute[j] + 2] << 16) |
+                      (((unsigned char *)buf)[i*3*f->channels + 3*ch_permute[j] + 1] << 8) |
+                      (((unsigned char *)buf)[i*3*f->channels + 3*ch_permute[j]] & 0xff)) 
                         / 8388608.0f;
 
                 }
@@ -589,7 +624,7 @@ long wav_ieee_read(void *in, float **buffer, int samples)
 
 	for(i=0; i < realsamples; i++)
 		for(j=0; j < f->channels; j++)
-			buffer[j][i] = buf[i*f->channels + j];
+			buffer[j][i] = buf[i*f->channels + f->channel_permute[j]];
 
 	return realsamples;
 }
@@ -598,6 +633,7 @@ long wav_ieee_read(void *in, float **buffer, int samples)
 void wav_close(void *info)
 {
 	wavfile *f = (wavfile *)info;
+    free(f->channel_permute);
 
 	free(f);
 }
@@ -606,6 +642,7 @@ int raw_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 {
 	wav_fmt format; /* fake wave header ;) */
 	wavfile *wav = malloc(sizeof(wavfile));
+    int i;
 
 	/* construct fake wav header ;) */
 	format.format =      2; 
@@ -620,6 +657,9 @@ int raw_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 	wav->channels =      format.channels;
 	wav->samplesize =    opt->samplesize;
     wav->totalsamples =  0;
+    wav->channel_permute = malloc(wav->channels * sizeof(int));
+    for (i=0; i < wav->channels; i++)
+      wav->channel_permute[i] = i;
 
 	opt->read_samples = wav_read;
 	opt->readdata = (void *)wav;

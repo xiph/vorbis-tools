@@ -39,6 +39,7 @@ typedef struct {
 	long samplesread;
 	FILE *f;
 	short bigendian;
+        int *channel_permute;
 } wavfile;
 
 typedef struct {
