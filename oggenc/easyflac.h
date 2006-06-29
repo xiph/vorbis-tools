@@ -91,16 +91,16 @@ typedef void (*EasyFLAC__StreamDecoderMetadataCallback)(const EasyFLAC__StreamDe
 typedef void (*EasyFLAC__StreamDecoderErrorCallback)(const EasyFLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data);
 
 struct EasyFLAC__StreamDecoder {
-	FLAC__bool is_oggflac;
-	FLAC__StreamDecoder *flac;
-	OggFLAC__StreamDecoder *oggflac;
-	struct {
-		EasyFLAC__StreamDecoderReadCallback     read;
-		EasyFLAC__StreamDecoderWriteCallback    write;
-		EasyFLAC__StreamDecoderMetadataCallback metadata;
-		EasyFLAC__StreamDecoderErrorCallback    error;
-		void *client_data;
-	} callbacks;
+    FLAC__bool is_oggflac;
+    FLAC__StreamDecoder *flac;
+    OggFLAC__StreamDecoder *oggflac;
+    struct {
+        EasyFLAC__StreamDecoderReadCallback     read;
+        EasyFLAC__StreamDecoderWriteCallback    write;
+        EasyFLAC__StreamDecoderMetadataCallback metadata;
+        EasyFLAC__StreamDecoderErrorCallback    error;
+        void *client_data;
+    } callbacks;
 };
 
 

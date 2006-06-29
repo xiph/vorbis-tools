@@ -27,21 +27,21 @@
 
 void setbinmode(FILE *f)
 {
-	_setmode( _fileno(f), _O_BINARY );
+    _setmode( _fileno(f), _O_BINARY );
 }
 #endif /* win32 */
 
 #ifdef __EMX__
 void setbinmode(FILE *f) 
 {
-	        _fsetmode( f, "b");
+            _fsetmode( f, "b");
 }
 #endif
 
 #if defined(__WATCOMC__) || defined(__BORLANDC__) || defined(__MINGW32__)
 void setbinmode(FILE *f)
 {
-	setmode(fileno(f), O_BINARY);
+    setmode(fileno(f), O_BINARY);
 }
 #endif
 
@@ -49,18 +49,18 @@ void setbinmode(FILE *f)
 #if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
 void *timer_start(void)
 {
-	time_t *start = malloc(sizeof(time_t));
-	time(start);
-	return (void *)start;
+    time_t *start = malloc(sizeof(time_t));
+    time(start);
+    return (void *)start;
 }
 
 double timer_time(void *timer)
 {
-	time_t now = time(NULL);
-	time_t start = *((time_t *)timer);
+    time_t now = time(NULL);
+    time_t start = *((time_t *)timer);
 
     if(now-start)
-    	return (double)(now-start);
+        return (double)(now-start);
     else
         return 1; /* To avoid division by zero later, for very short inputs */
 }
@@ -68,7 +68,7 @@ double timer_time(void *timer)
 
 void timer_clear(void *timer)
 {
-	free((time_t *)timer);
+    free((time_t *)timer);
 }
 
 #else /* unix. Or at least win32 */
@@ -78,25 +78,25 @@ void timer_clear(void *timer)
 
 void *timer_start(void)
 {
-	struct timeval *start = malloc(sizeof(struct timeval));
-	gettimeofday(start, NULL);
-	return (void *)start;
+    struct timeval *start = malloc(sizeof(struct timeval));
+    gettimeofday(start, NULL);
+    return (void *)start;
 }
 
 double timer_time(void *timer)
 {
-	struct timeval now;
-	struct timeval start = *((struct timeval *)timer);
+    struct timeval now;
+    struct timeval start = *((struct timeval *)timer);
 
-	gettimeofday(&now, NULL);
+    gettimeofday(&now, NULL);
 
-	return (double)now.tv_sec - (double)start.tv_sec + 
-		((double)now.tv_usec - (double)start.tv_usec)/1000000.0;
+    return (double)now.tv_sec - (double)start.tv_sec + 
+        ((double)now.tv_usec - (double)start.tv_usec)/1000000.0;
 }
 
 void timer_clear(void *timer)
 {
-	free((time_t *)timer);
+    free((time_t *)timer);
 }
 
 #endif

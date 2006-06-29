@@ -7,14 +7,14 @@
  * A resampler
  *
  * reference:
- * 	'Digital Filters', third edition, by R. W. Hamming  ISBN 0-486-65088-X
+ *     'Digital Filters', third edition, by R. W. Hamming  ISBN 0-486-65088-X
  *
  * history:
- *	2002-05-31	ready for the world (or some small section thereof)
+ *    2002-05-31    ready for the world (or some small section thereof)
  *
  *
  * TOOD:
- * 	zero-crossing clipping in coefficient table
+ *     zero-crossing clipping in coefficient table
  */
 
 #ifndef _RESAMPLE_H_INCLUDED
@@ -24,22 +24,22 @@ typedef float SAMPLE;
 
 typedef struct
 {
-	unsigned int channels, infreq, outfreq, taps;
-	float *table;
-	SAMPLE *pool;
+    unsigned int channels, infreq, outfreq, taps;
+    float *table;
+    SAMPLE *pool;
 
-	/* dynamic bits */
-	int poolfill;
-	int offset;
+    /* dynamic bits */
+    int poolfill;
+    int offset;
 } res_state;
 
 typedef enum
 {
-	RES_END,
-	RES_GAIN,	/* (double)1.0 */
-	RES_CUTOFF,	/* (double)0.80 */ 
-	RES_TAPS,	/* (int)45 */
-	RES_BETA	/* (double)16.0 */
+    RES_END,
+    RES_GAIN,    /* (double)1.0 */
+    RES_CUTOFF,    /* (double)0.80 */ 
+    RES_TAPS,    /* (int)45 */
+    RES_BETA    /* (double)16.0 */
 } res_parameter;
 
 int res_init(res_state *state, int channels, int outfreq, int infreq, res_parameter op1, ...);

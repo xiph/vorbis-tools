@@ -14,41 +14,41 @@ void clear_scaler(oe_enc_opt *opt);
 
 typedef struct
 {
-	int (*id_func)(unsigned char *buf, int len); /* Returns true if can load file */
-	int id_data_len; /* Amount of data needed to id whether this can load the file */
-	int (*open_func)(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen);
-	void (*close_func)(void *);
-	char *format;
-	char *description;
+    int (*id_func)(unsigned char *buf, int len); /* Returns true if can load file */
+    int id_data_len; /* Amount of data needed to id whether this can load the file */
+    int (*open_func)(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen);
+    void (*close_func)(void *);
+    char *format;
+    char *description;
 } input_format;
 
 
 typedef struct {
-	short format;
-	short channels;
-	int samplerate;
-	int bytespersec;
-	short align;
-	short samplesize;
+    short format;
+    short channels;
+    int samplerate;
+    int bytespersec;
+    short align;
+    short samplesize;
 } wav_fmt;
 
 typedef struct {
-	short channels;
-	short samplesize;
-	long totalsamples;
-	long samplesread;
-	FILE *f;
-	short bigendian;
+    short channels;
+    short samplesize;
+    long totalsamples;
+    long samplesread;
+    FILE *f;
+    short bigendian;
         int *channel_permute;
 } wavfile;
 
 typedef struct {
-	short channels;
-	int totalframes;
-	short samplesize;
-	int rate;
-	int offset;
-	int blocksize;
+    short channels;
+    int totalframes;
+    short samplesize;
+    int rate;
+    int offset;
+    int blocksize;
 } aiff_fmt;
 
 typedef wavfile aifffile; /* They're the same */

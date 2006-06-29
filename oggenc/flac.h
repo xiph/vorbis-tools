@@ -8,27 +8,27 @@
 #include "easyflac.h"
 
 typedef struct {
-	EasyFLAC__StreamDecoder *decoder;
-	short channels;
-	int rate;
-	long totalsamples; /* per channel, of course */
+    EasyFLAC__StreamDecoder *decoder;
+    short channels;
+    int rate;
+    long totalsamples; /* per channel, of course */
 
-	FLAC__StreamMetadata *comments;
+    FLAC__StreamMetadata *comments;
 
-	FILE *in;  /* Cache the FILE pointer so the FLAC read callback can use it */
-	int eos;  /* End of stream read */
+    FILE *in;  /* Cache the FILE pointer so the FLAC read callback can use it */
+    int eos;  /* End of stream read */
 
 
-	/* Buffer for decoded audio */
-	float **buf;  /* channels by buf_len array */
-	int buf_len;
-	int buf_start; /* Offset to start of audio data */
-	int buf_fill; /* Number of bytes of audio data in buffer */
+    /* Buffer for decoded audio */
+    float **buf;  /* channels by buf_len array */
+    int buf_len;
+    int buf_start; /* Offset to start of audio data */
+    int buf_fill; /* Number of bytes of audio data in buffer */
 
-	/* Buffer for input data we already read in the id phase */
-	unsigned char *oldbuf;
-	int oldbuf_len;
-	int oldbuf_start;
+    /* Buffer for input data we already read in the id phase */
+    unsigned char *oldbuf;
+    int oldbuf_len;
+    int oldbuf_start;
 } flacfile;
 
 

@@ -39,43 +39,43 @@
 
 FLAC__bool EasyFLAC__is_oggflac(EasyFLAC__StreamDecoder *decoder)
 {
-	return decoder->is_oggflac;
+    return decoder->is_oggflac;
 }
 
 
 EasyFLAC__StreamDecoder *EasyFLAC__stream_decoder_new(FLAC__bool is_oggflac)
 {
-	EasyFLAC__StreamDecoder *decoder = malloc(sizeof(EasyFLAC__StreamDecoder));
+    EasyFLAC__StreamDecoder *decoder = malloc(sizeof(EasyFLAC__StreamDecoder));
 
-	if (decoder != NULL)
-	{
-		decoder->is_oggflac = is_oggflac;
-		
-		if (decoder->is_oggflac)
-			decoder->oggflac = OggFLAC__stream_decoder_new();
-		else
-			decoder->flac = FLAC__stream_decoder_new();
+    if (decoder != NULL)
+    {
+        decoder->is_oggflac = is_oggflac;
+        
+        if (decoder->is_oggflac)
+            decoder->oggflac = OggFLAC__stream_decoder_new();
+        else
+            decoder->flac = FLAC__stream_decoder_new();
 
-		if (  (decoder->is_oggflac && decoder->oggflac == NULL)
-		    ||(!decoder->is_oggflac && decoder->flac == NULL)  )
-		{
-			free(decoder);
-			decoder = NULL;
-		}
-	}
+        if (  (decoder->is_oggflac && decoder->oggflac == NULL)
+            ||(!decoder->is_oggflac && decoder->flac == NULL)  )
+        {
+            free(decoder);
+            decoder = NULL;
+        }
+    }
 
-	return decoder;
+    return decoder;
 }
 
 
 void EasyFLAC__stream_decoder_delete(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		OggFLAC__stream_decoder_delete(decoder->oggflac);
-	else
-		FLAC__stream_decoder_delete(decoder->flac);
+    if (decoder->is_oggflac)
+        OggFLAC__stream_decoder_delete(decoder->oggflac);
+    else
+        FLAC__stream_decoder_delete(decoder->flac);
 
-	free(decoder);
+    free(decoder);
 }
 
 
@@ -83,33 +83,33 @@ void EasyFLAC__stream_decoder_delete(EasyFLAC__StreamDecoder *decoder)
 
 FLAC__StreamDecoderReadStatus oggflac_read_callback(const OggFLAC__StreamDecoder *decoder, FLAC__byte buffer[], unsigned *bytes, void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	return (*e_decoder->callbacks.read)(e_decoder, buffer, bytes, e_decoder->callbacks.client_data);
+    return (*e_decoder->callbacks.read)(e_decoder, buffer, bytes, e_decoder->callbacks.client_data);
 }
 
 
 FLAC__StreamDecoderWriteStatus oggflac_write_callback(const OggFLAC__StreamDecoder *decoder, const FLAC__Frame *frame, const FLAC__int32 * const buffer[], void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	return (*(e_decoder->callbacks.write))(e_decoder, frame, buffer, e_decoder->callbacks.client_data);
+    return (*(e_decoder->callbacks.write))(e_decoder, frame, buffer, e_decoder->callbacks.client_data);
 }
 
 
 void oggflac_metadata_callback(const OggFLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	(*e_decoder->callbacks.metadata)(e_decoder, metadata, e_decoder->callbacks.client_data);
+    (*e_decoder->callbacks.metadata)(e_decoder, metadata, e_decoder->callbacks.client_data);
 }
 
 
 void oggflac_error_callback(const OggFLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	(*e_decoder->callbacks.error)(e_decoder, status, e_decoder->callbacks.client_data);
+    (*e_decoder->callbacks.error)(e_decoder, status, e_decoder->callbacks.client_data);
 }
 
 
@@ -117,259 +117,259 @@ void oggflac_error_callback(const OggFLAC__StreamDecoder *decoder, FLAC__StreamD
 
 FLAC__StreamDecoderReadStatus flac_read_callback(const FLAC__StreamDecoder *decoder, FLAC__byte buffer[], unsigned *bytes, void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	return (*e_decoder->callbacks.read)(e_decoder, buffer, bytes, e_decoder->callbacks.client_data);
+    return (*e_decoder->callbacks.read)(e_decoder, buffer, bytes, e_decoder->callbacks.client_data);
 }
 
 
 FLAC__StreamDecoderWriteStatus flac_write_callback(const FLAC__StreamDecoder *decoder, const FLAC__Frame *frame, const FLAC__int32 * const buffer[], void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	return (*e_decoder->callbacks.write)(e_decoder, frame, buffer, e_decoder->callbacks.client_data);
+    return (*e_decoder->callbacks.write)(e_decoder, frame, buffer, e_decoder->callbacks.client_data);
 }
 
 
 void flac_metadata_callback(const FLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	(*e_decoder->callbacks.metadata)(e_decoder, metadata, e_decoder->callbacks.client_data);
+    (*e_decoder->callbacks.metadata)(e_decoder, metadata, e_decoder->callbacks.client_data);
 }
 
 
 void flac_error_callback(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data)
 {
-	EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
+    EasyFLAC__StreamDecoder *e_decoder = (EasyFLAC__StreamDecoder *) client_data;
 
-	(*e_decoder->callbacks.error)(e_decoder, status, e_decoder->callbacks.client_data);
+    (*e_decoder->callbacks.error)(e_decoder, status, e_decoder->callbacks.client_data);
 }
 
 
 FLAC__bool EasyFLAC__set_read_callback(EasyFLAC__StreamDecoder *decoder, EasyFLAC__StreamDecoderReadCallback value)
 {
-	decoder->callbacks.read = value;
+    decoder->callbacks.read = value;
 
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_read_callback(decoder->oggflac, &oggflac_read_callback);
-	else
-		return FLAC__stream_decoder_set_read_callback(decoder->flac, &flac_read_callback);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_read_callback(decoder->oggflac, &oggflac_read_callback);
+    else
+        return FLAC__stream_decoder_set_read_callback(decoder->flac, &flac_read_callback);
 }
 
 
 FLAC__bool EasyFLAC__set_write_callback(EasyFLAC__StreamDecoder *decoder, EasyFLAC__StreamDecoderWriteCallback value)
 {
-	decoder->callbacks.write = value;
+    decoder->callbacks.write = value;
 
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_write_callback(decoder->oggflac, &oggflac_write_callback);
-	else
-		return FLAC__stream_decoder_set_write_callback(decoder->flac, &flac_write_callback);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_write_callback(decoder->oggflac, &oggflac_write_callback);
+    else
+        return FLAC__stream_decoder_set_write_callback(decoder->flac, &flac_write_callback);
 }
 
 
 FLAC__bool EasyFLAC__set_metadata_callback(EasyFLAC__StreamDecoder *decoder, EasyFLAC__StreamDecoderMetadataCallback value)
 {
-	decoder->callbacks.metadata = value;
+    decoder->callbacks.metadata = value;
 
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_callback(decoder->oggflac, &oggflac_metadata_callback);
-	else
-		return FLAC__stream_decoder_set_metadata_callback(decoder->flac, &flac_metadata_callback);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_callback(decoder->oggflac, &oggflac_metadata_callback);
+    else
+        return FLAC__stream_decoder_set_metadata_callback(decoder->flac, &flac_metadata_callback);
 }
 
 
 FLAC__bool EasyFLAC__set_error_callback(EasyFLAC__StreamDecoder *decoder, EasyFLAC__StreamDecoderErrorCallback value)
 {
-	decoder->callbacks.error = value;
+    decoder->callbacks.error = value;
 
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_error_callback(decoder->oggflac, &oggflac_error_callback);
-	else
-		return FLAC__stream_decoder_set_error_callback(decoder->flac, &flac_error_callback);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_error_callback(decoder->oggflac, &oggflac_error_callback);
+    else
+        return FLAC__stream_decoder_set_error_callback(decoder->flac, &flac_error_callback);
 }
 
 
 FLAC__bool EasyFLAC__set_client_data(EasyFLAC__StreamDecoder *decoder, void *value)
 {
-	decoder->callbacks.client_data = value;
-	
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_client_data(decoder->oggflac, decoder);
-	else
-		return FLAC__stream_decoder_set_client_data(decoder->flac, decoder);
+    decoder->callbacks.client_data = value;
+    
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_client_data(decoder->oggflac, decoder);
+    else
+        return FLAC__stream_decoder_set_client_data(decoder->flac, decoder);
 }
 
 
 FLAC__bool EasyFLAC__set_metadata_respond(EasyFLAC__StreamDecoder *decoder, FLAC__MetadataType type)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_respond(decoder->oggflac, type);
-	else
-		return FLAC__stream_decoder_set_metadata_respond(decoder->flac, type);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_respond(decoder->oggflac, type);
+    else
+        return FLAC__stream_decoder_set_metadata_respond(decoder->flac, type);
 }
 
 
 FLAC__bool EasyFLAC__set_metadata_respond_application(EasyFLAC__StreamDecoder *decoder, const FLAC__byte id[4])
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_respond_application(decoder->oggflac, id);
-	else
-		return FLAC__stream_decoder_set_metadata_respond_application(decoder->flac, id);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_respond_application(decoder->oggflac, id);
+    else
+        return FLAC__stream_decoder_set_metadata_respond_application(decoder->flac, id);
 }
 
 
 FLAC__bool EasyFLAC__set_metadata_respond_all(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_respond_all(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_set_metadata_respond_all(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_respond_all(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_set_metadata_respond_all(decoder->flac);
 }
 
 
 FLAC__bool EasyFLAC__set_metadata_ignore(EasyFLAC__StreamDecoder *decoder, FLAC__MetadataType type)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_ignore(decoder->oggflac, type);
-	else
-		return FLAC__stream_decoder_set_metadata_ignore(decoder->flac, type);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_ignore(decoder->oggflac, type);
+    else
+        return FLAC__stream_decoder_set_metadata_ignore(decoder->flac, type);
 }
 
 
 FLAC__bool EasyFLAC__set_metadata_ignore_application(EasyFLAC__StreamDecoder *decoder, const FLAC__byte id[4])
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_ignore_application(decoder->oggflac, id);
-	else
-		return FLAC__stream_decoder_set_metadata_ignore_application(decoder->flac, id);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_ignore_application(decoder->oggflac, id);
+    else
+        return FLAC__stream_decoder_set_metadata_ignore_application(decoder->flac, id);
 }
 
 FLAC__bool EasyFLAC__set_metadata_ignore_all(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_set_metadata_ignore_all(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_set_metadata_ignore_all(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_set_metadata_ignore_all(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_set_metadata_ignore_all(decoder->flac);
 }
 
 
 FLAC__StreamDecoderState EasyFLAC__get_state(const EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_get_FLAC_stream_decoder_state(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_get_state(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_get_FLAC_stream_decoder_state(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_get_state(decoder->flac);
 }
 
 
 unsigned EasyFLAC__get_channels(const EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_get_channels(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_get_channels(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_get_channels(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_get_channels(decoder->flac);
 }
 
 
 FLAC__ChannelAssignment EasyFLAC__get_channel_assignment(const EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_get_channel_assignment(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_get_channel_assignment(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_get_channel_assignment(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_get_channel_assignment(decoder->flac);
 }
 
 
 unsigned EasyFLAC__get_bits_per_sample(const EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_get_bits_per_sample(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_get_bits_per_sample(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_get_bits_per_sample(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_get_bits_per_sample(decoder->flac);
 }
 
 
 unsigned EasyFLAC__get_sample_rate(const EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_get_sample_rate(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_get_sample_rate(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_get_sample_rate(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_get_sample_rate(decoder->flac);
 }
 
 
 unsigned EasyFLAC__get_blocksize(const EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_get_blocksize(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_get_blocksize(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_get_blocksize(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_get_blocksize(decoder->flac);
 }
 
 
 FLAC__StreamDecoderState EasyFLAC__init(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-	{
-		OggFLAC__stream_decoder_init(decoder->oggflac);
-		return OggFLAC__stream_decoder_get_FLAC_stream_decoder_state(decoder->oggflac);
-	}
-	else
-		return FLAC__stream_decoder_init(decoder->flac);
+    if (decoder->is_oggflac)
+    {
+        OggFLAC__stream_decoder_init(decoder->oggflac);
+        return OggFLAC__stream_decoder_get_FLAC_stream_decoder_state(decoder->oggflac);
+    }
+    else
+        return FLAC__stream_decoder_init(decoder->flac);
 }
 
 
 void EasyFLAC__finish(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		OggFLAC__stream_decoder_finish(decoder->oggflac);
-	else
-		FLAC__stream_decoder_finish(decoder->flac);
+    if (decoder->is_oggflac)
+        OggFLAC__stream_decoder_finish(decoder->oggflac);
+    else
+        FLAC__stream_decoder_finish(decoder->flac);
 }
 
 
 FLAC__bool EasyFLAC__flush(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_flush(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_flush(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_flush(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_flush(decoder->flac);
 }
 
 
 FLAC__bool EasyFLAC__reset(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_reset(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_reset(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_reset(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_reset(decoder->flac);
 }
 
 
 FLAC__bool EasyFLAC__process_single(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_process_single(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_process_single(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_process_single(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_process_single(decoder->flac);
 }
 
 
 FLAC__bool EasyFLAC__process_until_end_of_metadata(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_process_until_end_of_metadata(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_process_until_end_of_metadata(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_process_until_end_of_metadata(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_process_until_end_of_metadata(decoder->flac);
 }
 
 
 FLAC__bool EasyFLAC__process_until_end_of_stream(EasyFLAC__StreamDecoder *decoder)
 {
-	if (decoder->is_oggflac)
-		return OggFLAC__stream_decoder_process_until_end_of_stream(decoder->oggflac);
-	else
-		return FLAC__stream_decoder_process_until_end_of_stream(decoder->flac);
+    if (decoder->is_oggflac)
+        return OggFLAC__stream_decoder_process_until_end_of_stream(decoder->oggflac);
+    else
+        return FLAC__stream_decoder_process_until_end_of_stream(decoder->flac);
 }
