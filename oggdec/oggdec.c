@@ -216,11 +216,34 @@ static FILE *open_output(char *outfile)
     return out;
 }
 
+static void
+permute_channels(char *in, char *out, int len, int channels, int bytespersample)
+{
+    int permute[6][6] = {{0}, {0,1}, {0,2,1}, {0,1,2,3}, {0,1,2,3,4}, 
+        {0,2,1,5,3,4}};
+    int i,j,k;
+    int samples = len/channels/bytespersample;
+
+    /* Can't handle, don't try */
+    if (channels > 6)
+        return;
+
+    for (i=0; i < samples; i++) {
+        for (j=0; j < channels; j++) {
+            for (k=0; k < bytespersample; k++) {
+                out[i*bytespersample*channels + 
+                    bytespersample*permute[channels-1][j] + k] = 
+                    in[i*bytespersample*channels + bytespersample*j + k];
+            }
+        }
+    }
+}
+
 static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
 {
     OggVorbis_File vf;
     int bs = 0;
-    char buf[8192];
+    char buf[8192], outbuf[8192];
     int buflen = 8192;
     unsigned int written = 0;
     int ret;
@@ -282,12 +305,17 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
 
         if(ret < 0 ) {
            if( !quiet ) {
-               fprintf(stderr, "Warning: hole in data\n");
+               fprintf(stderr, "Warning: hole in data (%d)\n", ret);
            }
             continue;
         }
 
-        if(fwrite(buf, 1, ret, out) != ret) {
+        if(channels > 2 && !raw) {
+          /* Then permute! */
+          permute_channels(buf, outbuf, ret, channels, bits/8);
+        }
+
+        if(fwrite(outbuf, 1, ret, out) != ret) {
             fprintf(stderr, "Error writing to file: %s\n", strerror(errno));
             ov_clear(&vf);
             return 1;
