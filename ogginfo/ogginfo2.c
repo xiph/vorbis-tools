@@ -26,6 +26,12 @@
 
 #define CHUNK 4500
 
+#ifdef _WIN32
+#define I64FORMAT "I64d"
+#else
+#define I64FORMAT "lld"
+#endif
+
 struct vorbis_release {
     char *vendor_string;
     char *desc;
@@ -101,6 +107,8 @@ typedef struct {
     ogg_int64_t firstgranulepos;
 
     int doneheaders;
+
+    ogg_int64_t framenum_expected;
 } misc_theora_info;
 
 static int printinfo = 1;
@@ -328,12 +336,21 @@ static void theora_process(stream_processor *stream, ogg_page *page)
     ogg_packet packet;
     misc_theora_info *inf = stream->data;
     int i, header=0;
+    int res;
 
     ogg_stream_pagein(&stream->os, page);
     if(inf->doneheaders < 3)
         header = 1;
 
-    while(ogg_stream_packetout(&stream->os, &packet) > 0) {
+    while(1) {
+        res = ogg_stream_packetout(&stream->os, &packet);
+        if(res < 0) {
+           warn(_("Warning: discontinuity in stream (%d)\n"), stream->num);
+           continue;
+        }
+        else if (res == 0)
+            break;
+
         if(inf->doneheaders < 3) {
             if(theora_decode_header(&inf->ti, &inf->tc, &packet) < 0) {
                 warn(_("Warning: Could not decode theora header "
@@ -415,21 +432,33 @@ static void theora_process(stream_processor *stream, ogg_page *page)
     }
 
     if(!header) {
+        ogg_int64_t framenum;
+        ogg_int64_t iframe,pframe;
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
-#ifdef _WIN32
-                warn(_("Warning: granulepos in stream %d decreases from %I64d to %I64d" ),
+                warn(_("Warning: granulepos in stream %d decreases from %" 
+                        I64FORMAT " to %" I64FORMAT "\n"),
                         stream->num, inf->lastgranulepos, gp);
-#else
-                warn(_("Warning: granulepos in stream %d decreases from %lld to %lld" ),
-                        stream->num, inf->lastgranulepos, gp);
-#endif
             inf->lastgranulepos = gp;
         }
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
         inf->bytes += page->header_len + page->body_len;
+
+        if(gp > 0) {
+            iframe=gp>>inf->ti.granule_shift;
+            pframe=gp-(iframe<<inf->ti.granule_shift);
+            framenum = iframe+pframe;
+            if(inf->framenum_expected >= 0 && 
+                inf->framenum_expected != framenum)
+            {
+                warn(_("Warning: Expected frame %" I64FORMAT 
+                       ", got %" I64FORMAT "\n"), 
+                       inf->framenum_expected, framenum);
+            }
+            inf->framenum_expected = framenum + 1;
+        }
     }
 }
 
@@ -449,19 +478,11 @@ static void theora_end(stream_processor *stream)
     milliseconds = (long)((time - minutes*60 - seconds)*1000);
     bitrate = inf->bytes*8 / time / 1000.0;
 
-#ifdef _WIN32
     info(_("Theora stream %d:\n"
-           "\tTotal data length: %I64d bytes\n"
+           "\tTotal data length: %" I64FORMAT " bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
-#else
-    info(_("Theora stream %d:\n"
-           "\tTotal data length: %lld bytes\n"
-           "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kb/s\n"), 
-            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
-#endif
 
     theora_comment_clear(&inf->tc);
     theora_info_clear(&inf->ti);
@@ -476,17 +497,27 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
     misc_vorbis_info *inf = stream->data;
     int i, header=0, packets=0;
     int k;
+    int res;
 
     ogg_stream_pagein(&stream->os, page);
     if(inf->doneheaders < 3)
         header = 1;
 
-    while(ogg_stream_packetout(&stream->os, &packet) > 0) {
+    while(1) {
+        res = ogg_stream_packetout(&stream->os, &packet);
+        if(res < 0) {
+           warn(_("Warning: discontinuity in stream (%d)\n"), stream->num);
+           continue;
+        }
+        else if (res == 0)
+            break;
+
         packets++;
         if(inf->doneheaders < 3) {
             if(vorbis_synthesis_headerin(&inf->vi, &inf->vc, &packet) < 0) {
                 warn(_("Warning: Could not decode vorbis header "
-                       "packet - invalid vorbis stream (%d)\n"), stream->num);
+                       "packet %d - invalid vorbis stream (%d)\n"), 
+                        inf->doneheaders, stream->num);
                 continue;
             }
             inf->doneheaders++;
@@ -548,13 +579,9 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
-#ifdef _WIN32
-                warn(_("Warning: granulepos in stream %d decreases from %I64d to %I64d" ),
+                warn(_("Warning: granulepos in stream %d decreases from %" 
+                        I64FORMAT " to %" I64FORMAT "\n" ),
                         stream->num, inf->lastgranulepos, gp);
-#else
-                warn(_("Warning: granulepos in stream %d decreases from %lld to %lld" ),
-                        stream->num, inf->lastgranulepos, gp);
-#endif
             inf->lastgranulepos = gp;
         }
         else if(packets) {
@@ -582,19 +609,11 @@ static void vorbis_end(stream_processor *stream)
     milliseconds = (long)((time - minutes*60 - seconds)*1000);
     bitrate = inf->bytes*8 / time / 1000.0;
 
-#ifdef _WIN32
     info(_("Vorbis stream %d:\n"
-           "\tTotal data length: %I64d bytes\n"
+           "\tTotal data length: %" I64FORMAT " bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
-#else
-    info(_("Vorbis stream %d:\n"
-           "\tTotal data length: %lld bytes\n"
-           "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kb/s\n"), 
-            stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
-#endif
 
     vorbis_comment_clear(&inf->vc);
     vorbis_info_clear(&inf->vi);
@@ -675,6 +694,7 @@ static void theora_start(stream_processor *stream)
 
     stream->data = calloc(1, sizeof(misc_theora_info));
     info = stream->data;
+    info->framenum_expected = -1;
 }
 
 static void vorbis_start(stream_processor *stream)
@@ -809,11 +829,7 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
 
     while((ret = ogg_sync_pageseek(sync, page)) <= 0) {
         if(ret < 0)
-#ifdef _WIN32
-            warn(_("Warning: Hole in data (%d bytes) found at approximate offset %I64d bytes. Corrupted ogg.\n"), *written);
-#else
-            warn(_("Warning: Hole in data (%d bytes) found at offset %lld bytes, skipped %d bytes. Corrupted ogg.\n"), *written, -ret);
-#endif
+            warn(_("Warning: Hole in data (%d bytes) found at approximate offset %" I64FORMAT " bytes. Corrupted ogg.\n"), *written);
 
         buffer = ogg_sync_buffer(sync, CHUNK);
         bytes = fread(buffer, 1, CHUNK, f);
