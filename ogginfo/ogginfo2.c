@@ -429,11 +429,31 @@ static void theora_process(stream_processor *stream, ogg_page *page)
 		}
 	    }
 	}
+        else {
+            ogg_int64_t framenum;
+            ogg_int64_t iframe,pframe;
+            ogg_int64_t gp = packet.granulepos;
+
+            if(gp > 0) {
+                iframe=gp>>inf->ti.granule_shift;
+                pframe=gp-(iframe<<inf->ti.granule_shift);
+                framenum = iframe+pframe;
+                if(inf->framenum_expected >= 0 && 
+                    inf->framenum_expected != framenum)
+                {
+                    warn(_("Warning: Expected frame %" I64FORMAT 
+                           ", got %" I64FORMAT "\n"), 
+                           inf->framenum_expected, framenum);
+                }
+                inf->framenum_expected = framenum + 1;
+            }
+            else if (inf->framenum_expected >= 0) {
+                inf->framenum_expected++;
+            }
+        }
     }
 
     if(!header) {
-        ogg_int64_t framenum;
-        ogg_int64_t iframe,pframe;
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
@@ -445,20 +465,6 @@ static void theora_process(stream_processor *stream, ogg_page *page)
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
         inf->bytes += page->header_len + page->body_len;
-
-        if(gp > 0) {
-            iframe=gp>>inf->ti.granule_shift;
-            pframe=gp-(iframe<<inf->ti.granule_shift);
-            framenum = iframe+pframe;
-            if(inf->framenum_expected >= 0 && 
-                inf->framenum_expected != framenum)
-            {
-                warn(_("Warning: Expected frame %" I64FORMAT 
-                       ", got %" I64FORMAT "\n"), 
-                       inf->framenum_expected, framenum);
-            }
-            inf->framenum_expected = framenum + 1;
-        }
     }
 }
 
