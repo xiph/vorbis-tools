@@ -31,7 +31,7 @@ struct option long_options[] = {
 	{"tag",0,0,'t'},
 	{"write",0,0,'w'},
 	{"help",0,0,'h'},
-	{"quiet",0,0,'q'},
+	{"quiet",0,0,'q'}, /* unused */
 	{"version", 0, 0, 'V'},
 	{"commentfile",1,0,'c'},
 	{"raw", 0,0,'R'},
@@ -40,14 +40,19 @@ struct option long_options[] = {
 
 /* local parameter storage from parsed options */
 typedef struct {
+	/* mode and flags */
 	int	mode;
+	int	raw;
+
+	/* file names and handles */
 	char	*infilename, *outfilename;
 	char	*commentfilename;
 	FILE	*in, *out, *com;
-	int commentcount;
-	char **comments;
-	int tempoutfile;
-    int raw;
+	int	tempoutfile;
+
+	/* comments */
+	int	commentcount;
+	char	**comments;
 } param_t;
 
 #define MODE_NONE  0
@@ -134,9 +139,9 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
 					vcedit_error(state));
-            close_files(param, 0);
-            free_param(param);
-            vcedit_clear(state);
+			close_files(param, 0);
+			free_param(param);
+			vcedit_clear(state);
 			return 1;
 		}
 
@@ -175,9 +180,9 @@ int main(int argc, char **argv)
 		{
 			fprintf(stderr, _("Failed to write comments to output file: %s\n"), 
 					vcedit_error(state));
-            close_files(param, 0);
-            free_param(param);
-            vcedit_clear(state);
+			close_files(param, 0);
+			free_param(param);
+			vcedit_clear(state);
 			return 1;
 		}
 
@@ -185,7 +190,7 @@ int main(int argc, char **argv)
 		vcedit_clear(state);
 		
 		close_files(param, 1);
-        free_param(param);
+		free_param(param);
 		return 0;
 	}
 
@@ -207,18 +212,16 @@ int main(int argc, char **argv)
 void print_comments(FILE *out, vorbis_comment *vc, int raw)
 {
 	int i;
-    char *decoded_value;
+	char *decoded_value;
 
-	for (i = 0; i < vc->comments; i++)
-    {
-	    if (!raw && utf8_decode(vc->user_comments[i], &decoded_value) >= 0)
-        {
-    		fprintf(out, "%s\n", decoded_value);
-            free(decoded_value);
-        }
-        else
-            fprintf(out, "%s\n", vc->user_comments[i]);
-    }
+	for (i = 0; i < vc->comments; i++) {
+		if (!raw && utf8_decode(vc->user_comments[i], &decoded_value) >= 0) {
+    			fprintf(out, "%s\n", decoded_value);
+			free(decoded_value);
+		} else {
+			fprintf(out, "%s\n", vc->user_comments[i]);
+		}
+	}
 }
 
 /**********
@@ -287,7 +290,7 @@ int  add_comment(char *line, vorbis_comment *vc, int raw)
 
 ***********/
 
-/* XXX: -q is not yet implemented ...
+/* XXX: -q is unused
   printf (_("  -q, --quiet             Don't display comments while editing\n"));
 */
 
@@ -303,7 +306,7 @@ void usage(void)
   printf (_("Usage: \n"
             "  vorbiscomment [-Vh]\n" 
             "  vorbiscomment [-lR] file\n"
-            "  vorbiscomment [-qR] [-c file] [-t tag] <-a|-w> inputfile [outputfile]\n"));
+            "  vorbiscomment [-R] [-c file] [-t tag] <-a|-w> inputfile [outputfile]\n"));
   printf ("\n");
 
   printf (_("Listing options\n"));
@@ -366,8 +369,9 @@ param_t *new_param(void)
 {
 	param_t *param = (param_t *)malloc(sizeof(param_t));
 
-	/* mode */
+	/* mode and flags */
 	param->mode = MODE_LIST;
+	param->raw = 0;
 
 	/* filenames */
 	param->infilename  = NULL;
@@ -377,12 +381,11 @@ param_t *new_param(void)
 	/* file pointers */
 	param->in = param->out = NULL;
 	param->com = NULL;
-
-	param->commentcount=0;
-	param->comments=NULL;
 	param->tempoutfile=0;
 
-    param->raw = 0;
+	/* comments */
+	param->commentcount=0;
+	param->comments=NULL;
 
 	return param;
 }
@@ -413,25 +416,25 @@ void parse_options(int argc, char *argv[], param_t *param)
 			case 'l':
 				param->mode = MODE_LIST;
 				break;
-            case 'R':
-                param->raw = 1;
-                break;
+			case 'R':
+				param->raw = 1;
+				break;
 			case 'w':
 				param->mode = MODE_WRITE;
 				break;
 			case 'a':
 				param->mode = MODE_APPEND;
 				break;
-            case 'V':
-                fprintf(stderr, "Vorbiscomment " VERSION "\n");
-                exit(0);
-                break;
+			case 'V':
+				fprintf(stderr, "Vorbiscomment " VERSION "\n");
+				exit(0);
+				break;
 			case 'h':
 				usage();
 				exit(0);
 				break;
 			case 'q':
-				/* set quiet flag */
+				/* set quiet flag: unused */
 				break;
 			case 'c':
 				param->commentfilename = strdup(optarg);
