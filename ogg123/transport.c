@@ -15,12 +15,13 @@
 
  ********************************************************************/
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <stdio.h>
 #include <string.h>
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 #include "transport.h"
 #include "i18n.h"
 

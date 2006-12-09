@@ -10,6 +10,10 @@
  * last modified: $Id: vcut.c,v 1.9 2003/09/03 07:58:05 calc Exp $
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ogg/ogg.h>

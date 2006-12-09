@@ -9,6 +9,10 @@
  * and libvorbis examples, (c) Monty <monty@xiph.org>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -17,10 +21,6 @@
 #include <time.h>
 #include <locale.h>
 #include <errno.h>
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 #include "platform.h"
 #include "encode.h"

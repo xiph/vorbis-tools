@@ -11,6 +11,9 @@
 
 /* Platform support routines  - win32, OS/2, unix */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include "platform.h"
 #include "encode.h"
