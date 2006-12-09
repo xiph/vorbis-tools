@@ -126,6 +126,38 @@ written to
 !)  You could use this driver to test raw decoding speed without
 output overhead. 
 
+.IP alsa
+Advanced Linux Sound Architecture.
+.RS
+Options:
+.RS
+.IP dev
+ALSA device label to use. The system default is used by default.
+Examples include "plughw:0,0" for the first soundcard, and "plughw:1,0" for
+the second. For more information, see
+http://alsa.opensrc.org/ALSA+device+labels
+.IP buf_size
+Override the default buffer size (in bytes).
+.RE
+.RE
+
+.IP arts
+aRts Sound Daemon.
+
+.IP esd
+Enlightened Sound Daemon.
+.RS
+Options:
+.RS
+.IP host
+The hostname where esd is running.  This can include a port number
+after a colon, as in "whizbang.com:555".  (Default = localhost)
+.RE
+.RE
+
+.IP irix
+IRIX audio driver.
+
 .IP oss
 Open Sound System driver for Linux and FreeBSD.
 .RS
@@ -145,38 +177,6 @@ Options:
 .IP dev
 Audio device for soundcard.  Defaults to  
 .B /dev/audio.
-.RE
-.RE
-
-.IP alsa
-Advanced Linux Sound Architecture.
-.RS
-Options:
-.RS
-.IP dev
-ALSA device label to use. The system default is used by default.
-Examples include "plughw:0,0" for the first soundcard, and "plughw:1,0" for
-the second. For more information, see
-http://alsa.opensrc.org/ALSA+device+labels
-.IP buf_size
-Override the default buffer size (in bytes).
-.RE
-.RE
-
-.IP irix
-IRIX audio driver.
-
-.IP arts
-aRts Sound Daemon.
-
-.IP esd
-Enlightened Sound Daemon.
-.RS
-Options:
-.RS
-.IP host
-The hostname where esd is running.  This can include a port number
-after a colon, as in "whizbang.com:555".  (Default = localhost)
 .RE
 .RE
 
