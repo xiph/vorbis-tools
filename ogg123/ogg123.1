@@ -153,10 +153,11 @@ Advanced Linux Sound Architecture.
 .RS
 Options:
 .RS
-.IP card
-Sound card number.  (Default = 0)
 .IP dev
-Device number on the sound card.  (Default = 0)
+ALSA device label to use. The system default is used by default.
+Examples include "plughw:0,0" for the first soundcard, and "plughw:1,0" for
+the second. For more information, see
+http://alsa.opensrc.org/ALSA+device+labels
 .IP buf_size
 Override the default buffer size (in bytes).
 .RE
