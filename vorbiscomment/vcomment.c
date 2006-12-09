@@ -27,12 +27,14 @@
 /* getopt format struct */
 struct option long_options[] = {
 	{"list",0,0,'l'},
+	{"append",0,0,'a'},
+	{"tag",0,0,'t'},
 	{"write",0,0,'w'},
 	{"help",0,0,'h'},
 	{"quiet",0,0,'q'},
-    {"version", 0, 0, 'V'},
+	{"version", 0, 0, 'V'},
 	{"commentfile",1,0,'c'},
-    {"raw", 0,0,'R'},
+	{"raw", 0,0,'R'},
 	{NULL,0,0,0}
 };
 
@@ -285,40 +287,67 @@ int  add_comment(char *line, vorbis_comment *vc, int raw)
 
 ***********/
 
+/* XXX: -q is not yet implemented ...
+  printf (_("  -q, --quiet             Don't display comments while editing\n"));
+*/
+
 void usage(void)
 {
-  	fprintf(stderr, 
-  		_("Usage: \n"
- 		"  vorbiscomment [-Vh]\n" 
- 		"  vorbiscomment [-lR] file\n"
- 		"  vorbiscomment [-qR] [-c file] [-t tag] <-a|-w> inputfile [outputfile]\n"
- 		"\n"
- 		"    -l           list the comments\n"
- 		"    -a           append comments\n"
- 		"    -w           write comments, replacing the existing ones\n"
- 		"    -c <file>    read the comments from the specified file\n"
- 		"    -q           quiet mode\n"
- 		"    -V           version\n"
- 		"    -h           help\n"
- 		"    -R, --raw    read and write comments in utf8\n"
- 		"\n"
- 		"  If no OUTPUTFILE is specified, vorbiscomment will use a temporary file\n"
- 		"\n"
- 		"  vorbiscomment reads comments from:\n"
- 		"   - stdin in the form of 'TAG=value'\n"
- 		"   - a specified file instead of stdin, using '-c <FILE>'\n"
- 		"   - the command line, using '-t <TAG>' (disables reading from stdin)\n"
- 		"\n"
- 		"  Examples:\n"
- 		"   vorbiscomment -a in.ogg -c comments.txt\n"
-  		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
- 		"\n"
- 		"  NOTE: Raw mode (--raw, -R) will read and write comments in utf8,\n"
- 		"  rather than converting to the user's character set. This is\n"
- 		"  useful for using vorbiscomment in scripts. However, this is\n"
- 		"  not sufficient for general round-tripping of comments in all\n"
- 		"  cases.\n")
-	); 
+
+  printf (_("vorbiscomment from %s %s\n"
+            " by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"), PACKAGE, VERSION);
+
+  printf (_("List or edit comments in Ogg Vorbis files.\n"));
+  printf ("\n");
+
+  printf (_("Usage: \n"
+            "  vorbiscomment [-Vh]\n" 
+            "  vorbiscomment [-lR] file\n"
+            "  vorbiscomment [-qR] [-c file] [-t tag] <-a|-w> inputfile [outputfile]\n"));
+  printf ("\n");
+
+  printf (_("Listing options\n"));
+  printf (_("  -l, --list              List the comments (default if no options are given)\n"));
+  printf ("\n");
+
+  printf (_("Editing options\n"));
+  printf (_("  -a, --append            Append comments\n"));
+  printf (_("  -t \"name=value\", --tag \"name=value\"\n"
+            "                          Specify a comment tag on the commandline\n"));
+  printf (_("  -w, --write             Write comments, replacing the existing ones\n"));
+  printf ("\n");
+
+  printf (_("Miscellaneous options\n"));
+  printf (_("  -c file, --commentfile file\n"
+            "                          When listing, write comments to the specified file.\n"
+            "                          When editing, read comments from the specified file.\n"));
+  printf (_("  -R, --raw               Read and write comments in UTF-8\n"));
+  printf ("\n");
+
+  printf (_("  -h, --help              Display this help\n"));
+  printf (_("  -V, --version           Display ogg123 version\n"));
+  printf ("\n");
+
+  printf (_("If no output file is specified, vorbiscomment will modify the input file. This\n"
+            "is handled via temporary file, such that the input file is not modified if any\n"
+            "errors are encountered during processing.\n"));
+  printf ("\n");
+
+  printf (_("vorbiscomment handles comments in the format \"name=value\", one per line. By\n"
+            "default, comments are written to stdout when listing, and read from stdin when\n"
+            "editing. Alternatively, a file can be specified with the -c option, or tags\n"
+            "can be given on the commandline with -t \"name=value\". Use of either -c or -t\n"
+            "disables reading from stdin.\n"));
+  printf ("\n");
+
+  printf (_("Examples:\n"
+            "  vorbiscomment -a in.ogg -c comments.txt\n"
+            "  vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"));
+  printf ("\n");
+
+  printf (_("NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather than\n"
+            "converting to the user's character set, which is useful in scripts. However,\n"
+            "this is not sufficient for general round-tripping of comments in all cases.\n"));
 }
 
 void free_param(param_t *param) {
