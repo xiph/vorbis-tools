@@ -55,8 +55,9 @@ extern int exit_status; /* from status.c */
 void exit_cleanup ();
 void play (char *source_string);
 
+#define PRIMAGIC (2*2*2*2*3*3*3*5*7)
 /* take buffer out of the data segment, not the stack */
-#define AUDIO_CHUNK_SIZE 4096
+#define AUDIO_CHUNK_SIZE ((32768 + PRIMAGIC - 1)/ PRIMAGIC * PRIMAGIC)
 unsigned char convbuffer[AUDIO_CHUNK_SIZE];
 int convsize = AUDIO_CHUNK_SIZE;
 
@@ -362,6 +363,8 @@ int main(int argc, char **argv)
   
   /* Setup buffer */ 
   if (options.buffer_size > 0) {
+    /* Keep sample size alignment for surround sound with up to 10 channels */
+    options.buffer_size = (options.buffer_size + PRIMAGIC - 1) / PRIMAGIC * PRIMAGIC;
     audio_buffer = buffer_create(options.buffer_size,
 				 options.buffer_size * options.prebuffer / 100,
 				 audio_play_callback, &audio_play_arg,

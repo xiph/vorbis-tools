@@ -137,7 +137,7 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
   *audio_fmt = decoder->actual_fmt;
 
   /* Attempt to read as much audio as is requested */
-  while (nbytes > 0) {
+  while (nbytes >= audio_fmt->word_size * audio_fmt->channels) {
 
     old_section = priv->current_section;
     ret = ov_read(&priv->vf, ptr, nbytes, audio_fmt->big_endian,
@@ -162,6 +162,9 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 	cb->printf_error(decoder->callback_arg, ERROR,
 			 _("=== Vorbis library reported a stream error.\n"));
       
+      /* EOF */
+      *eos = 1;
+      break;
     } else {
       
       bytes_read += ret;
