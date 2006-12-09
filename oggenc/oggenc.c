@@ -387,7 +387,7 @@ static void usage(void)
 {
     fprintf(stdout, 
         _("%s%s\n"
-        "Usage: oggenc [options] input.wav [...]\n"
+        "Usage: oggenc [options] inputfile [...]\n"
         "\n"
         "OPTIONS:\n"
         " General:\n"
