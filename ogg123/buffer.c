@@ -168,7 +168,7 @@ void free_action (action_t *action)
 
 int compute_dequeue_size (buf_t *buf, int request_size)
 {
-  int next_action_pos;
+  ogg_int64_t next_action_pos;
 
   /* 
      For simplicity, the number of bytes played must satisfy the following
@@ -183,10 +183,11 @@ int compute_dequeue_size (buf_t *buf, int request_size)
 
     next_action_pos = buf->actions->position;
     
-    return MIN4(buf->curfill, request_size,
-		buf->size - buf->start, next_action_pos - buf->position);
+    return MIN4((ogg_int64_t)buf->curfill, (ogg_int64_t)request_size,
+               (ogg_int64_t)(buf->size - buf->start),
+               next_action_pos - buf->position);
   } else
-    return MIN3(buf->curfill, request_size, buf->size - buf->start);
+    return MIN3(buf->curfill, (long)request_size, buf->size - buf->start);
 
 }
 
