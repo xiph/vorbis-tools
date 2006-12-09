@@ -44,6 +44,8 @@ Quiet mode.  No messages are displayed.
 Specify a new tag on the command line. Each tag is given as a single string. The part before the '=' is treated as the tag name and the part after as the value.
 .IP "-w"
 Replace comments with the new set given either on the command line with -t or from a file with -c.
+.IP "-R"
+Read and write comments in utf8, rather than converting to the user's character set.
 
 .\" Examples go here
 .SH EXAMPLES
@@ -55,7 +57,7 @@ To just see what comment tags are in a file:
 To edit those comments:
 
     vorbiscomment -l file.ogg > file.txt
-    [edit the comments in file.txt to your statisfaction]
+    [edit the comments in file.txt to your satisfaction]
     vorbiscomment -w -c file.txt file.ogg newfile.ogg
 
 To simply add a comment:
