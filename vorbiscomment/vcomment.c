@@ -287,31 +287,37 @@ int  add_comment(char *line, vorbis_comment *vc, int raw)
 
 void usage(void)
 {
-	fprintf(stderr, 
-		_("Usage: \n"
-		"  vorbiscomment [-l] file.ogg (to list the comments)\n"
-		"  vorbiscomment -a in.ogg out.ogg (to append comments)\n"
-		"  vorbiscomment -w in.ogg out.ogg (to modify comments)\n"
-		"	in the write case, a new set of comments in the form\n"
-		"	'TAG=value' is expected on stdin. This set will\n"
-		"	completely replace the existing set.\n"
-		"   Either of -a and -w can take only a single filename,\n"
-		"   in which case a temporary file will be used.\n"
-		"   -c can be used to take comments from a specified file\n"
-		"   instead of stdin.\n"
-		"   Example: vorbiscomment -a in.ogg -c comments.txt\n"
-		"   will append the comments in comments.txt to in.ogg\n"
-		"   Finally, you may specify any number of tags to add on\n"
-		"   the command line using the -t option. e.g.\n"
-		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
-		"   (note that when using this, reading comments from the comment\n"
-		"   file or stdin is disabled)\n"
-        "   Raw mode (--raw, -R) will read and write comments in UTF-8,\n"
-        "   rather than converting to the user's character set. This is\n"
-        "   useful for using vorbiscomment in scripts. However, this is\n"
-        "   not sufficient for general round-tripping of comments in all\n"
-        "   cases.\n")
-        
+  	fprintf(stderr, 
+  		_("Usage: \n"
+ 		"  vorbiscomment [-Vh]\n" 
+ 		"  vorbiscomment [-lR] file\n"
+ 		"  vorbiscomment [-qR] [-c file] [-t tag] <-a|-w> inputfile [outputfile]\n"
+ 		"\n"
+ 		"    -l           list the comments\n"
+ 		"    -a           append comments\n"
+ 		"    -w           write comments, replacing the existing ones\n"
+ 		"    -c <file>    read the comments from the specified file\n"
+ 		"    -q           quiet mode\n"
+ 		"    -V           version\n"
+ 		"    -h           help\n"
+ 		"    -R, --raw    read and write comments in utf8\n"
+ 		"\n"
+ 		"  If no OUTPUTFILE is specified, vorbiscomment will use a temporary file\n"
+ 		"\n"
+ 		"  vorbiscomment reads comments from:\n"
+ 		"   - stdin in the form of 'TAG=value'\n"
+ 		"   - a specified file instead of stdin, using '-c <FILE>'\n"
+ 		"   - the command line, using '-t <TAG>' (disables reading from stdin)\n"
+ 		"\n"
+ 		"  Examples:\n"
+ 		"   vorbiscomment -a in.ogg -c comments.txt\n"
+  		"   vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
+ 		"\n"
+ 		"  NOTE: Raw mode (--raw, -R) will read and write comments in utf8,\n"
+ 		"  rather than converting to the user's character set. This is\n"
+ 		"  useful for using vorbiscomment in scripts. However, this is\n"
+ 		"  not sufficient for general round-tripping of comments in all\n"
+ 		"  cases.\n")
 	); 
 }
 
