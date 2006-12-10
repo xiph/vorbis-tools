@@ -173,17 +173,33 @@ dnl -------------------- FLAC ----------------------
 
 FLAC_LIBS=""
 if test "x$build_flac" = xyes; then
+
   AC_CHECK_LIB(m,log,FLAC_LIBS="-lm")
-  AC_CHECK_LIB(FLAC, [FLAC__stream_decoder_process_single],
-    [have_libFLAC=yes; FLAC_LIBS="-lFLAC $FLAC_LIBS"],
-    AC_MSG_WARN([libFLAC missing])
-    have_libFLAC=no, [$FLAC_LIBS]
-  )
-  AC_CHECK_LIB(OggFLAC, [OggFLAC__stream_decoder_new],
-    [FLAC_LIBS="-lOggFLAC $FLAC_LIBS $OGG_LIBS"],
-    AC_MSG_WARN([libOggFLAC missing])
-    have_libFLAC=no, [$FLAC_LIBS $OGG_LIBS]
-  )
+
+  dnl First check for libFLAC-1.1.3 or later. As of libFLAC 1.1.3,
+  dnl OggFLAC functionality has been rolled into libFLAC rather
+  dnl than being in a separate libOggFLAC library.
+
+  AC_CHECK_LIB(FLAC, [FLAC__stream_decoder_init_ogg_stream],
+    have_libFLAC=yes, have_libFLAC=no, [$FLAC_LIBS $OGG_LIBS])
+
+  if test "x$have_libFLAC" = xyes; then
+    FLAC_LIBS="-lFLAC $FLAC_LIBS $OGG_LIBS"
+  else
+    dnl Check for libFLAC prior to 1.1.3
+    AC_CHECK_LIB(FLAC, [FLAC__stream_decoder_process_single],
+      [have_libFLAC=yes; FLAC_LIBS="-lFLAC $FLAC_LIBS"],
+      AC_MSG_WARN([libFLAC missing])
+      have_libFLAC=no, [$FLAC_LIBS]
+    )
+
+    AC_CHECK_LIB(OggFLAC, [OggFLAC__stream_decoder_new],
+      [FLAC_LIBS="-lOggFLAC $FLAC_LIBS $OGG_LIBS"],
+      AC_MSG_WARN([libOggFLAC missing])
+      have_libFLAC=no, [$FLAC_LIBS $OGG_LIBS]
+    )
+  fi
+
   AC_CHECK_HEADER(FLAC/stream_decoder.h,,
     AC_MSG_WARN(libFLAC headers missing)
     have_libFLAC=no,[ ])

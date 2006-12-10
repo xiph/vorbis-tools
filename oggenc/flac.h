@@ -5,10 +5,21 @@
 #include "encode.h"
 #include "audio.h"
 #include <stdio.h>
+#include <FLAC/stream_decoder.h>
+#if !defined(FLAC_API_VERSION_CURRENT) || (FLAC_API_VERSION_CURRENT < 8)
+#define NEED_EASYFLAC 1
+#endif
+#if NEED_EASYFLAC
+#include <OggFLAC/stream_decoder.h>
 #include "easyflac.h"
+#endif
 
 typedef struct {
+#if NEED_EASYFLAC
     EasyFLAC__StreamDecoder *decoder;
+#else
+    FLAC__StreamDecoder *decoder;
+#endif
     short channels;
     int rate;
     long totalsamples; /* per channel, of course */

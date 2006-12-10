@@ -37,9 +37,11 @@
 #include <config.h>
 #endif
 
+#include <FLAC/export.h>
+#if !defined(FLAC_API_VERSION_CURRENT) || (FLAC_API_VERSION_CURRENT < 8)
+
 #include <stdlib.h>
 #include "easyflac.h"
-
 
 FLAC__bool EasyFLAC__is_oggflac(EasyFLAC__StreamDecoder *decoder)
 {
@@ -377,3 +379,5 @@ FLAC__bool EasyFLAC__process_until_end_of_stream(EasyFLAC__StreamDecoder *decode
 	else
 		return FLAC__stream_decoder_process_until_end_of_stream(decoder->flac);
 }
+
+#endif
