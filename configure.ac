@@ -308,7 +308,7 @@ debian/Makefile
 ])
 
 if test "x$build_oggenc" = xyes -a "x$have_libFLAC" != xyes; then
-    AC_MSG_WARN([FLAC and/on OggFLAC libraries or headers missing, oggenc 
+    AC_MSG_WARN([FLAC and/or OggFLAC libraries or headers missing, oggenc 
 will NOT be built with FLAC read support.])
 fi
 
