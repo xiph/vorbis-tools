@@ -158,9 +158,11 @@ dnl Check for ogg123 critical libraries and other optional libraries
 dnl --------------------------------------------------
 
 dnl curl is an optional dependancy of ogg123
-dnl FIXME: upstream curl has switched to having a curl-config;
-dnl maybe that's better than using AM_PATH_CURL from an acinclude.m4 in svn
-AM_PATH_CURL(have_curl=yes, have_curl=no; AC_MSG_WARN(libcurl missing))
+if test "x$HAVE_PKG_CONFIG" = "xyes"; then
+  PKG_CHECK_MODULES(CURL, libcurl, HAVE_CURL=yes, HAVE_CURL=no)
+else
+  AM_PATH_CURL(HAVE_CURL=yes, HAVE_CURL=no; AC_MSG_WARN(libcurl missing))
+fi
 
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
@@ -341,7 +343,7 @@ will NOT be built with FLAC read support.])
         AC_MSG_WARN([Speex libraries and/or headers missing, ogg123 
 will NOT be built with Speex read support.])
     fi         
-    if test "x$have_curl" != xyes; then
+    if test "x$HAVE_CURL" != xyes; then
         AC_MSG_WARN([curl libraries and/or headers missing, ogg123 
 will NOT be built with http support.])
     fi         
