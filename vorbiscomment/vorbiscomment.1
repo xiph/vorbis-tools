@@ -13,14 +13,14 @@ vorbiscomment \- List or edit comments in Ogg Vorbis files
 .br
 .B vorbiscomment
 .B -a
-.B [ -c commentfile | -t \*(lqtag=value\*(rq ]
+.B [ -c commentfile | -t \*(lqname=value\*(rq ]
 .RB [ -q ]
 .I in.ogg
 .I [out.ogg]
 .br
 .B vorbiscomment
 .B -w
-.B [ -c commentfile | -t \*(lqtag=value\*(rq ]
+.B [ -c commentfile | -t \*(lqname=value\*(rq ]
 .RB [ -q ]
 .I in.ogg
 .I [out.ogg]
@@ -30,19 +30,19 @@ vorbiscomment \- List or edit comments in Ogg Vorbis files
 Reads, modifies, and appends Ogg Vorbis audio file metadata tags.
 
 .SH OPTIONS
-.IP "-a"
+.IP "-a, --append"
 Append comments.
-.IP "-c commentfile"
-Take comments from a file. The file is the same format as is output by the the -l option: one element per line in 'tag=value' format.
+.IP "-c file, --commentfile file"
+Take comments from a file. The file is the same format as is output by the the -l option: one element per line in 'name=value' format.
 .IP "-h, --help"
 Show command help.
-.IP "-l"
+.IP "-l, --list"
 List the comments in the ogg vorbis file.
-.IP "-q"
+.IP "-q, --quiet"
 Quiet mode.  No messages are displayed.
-.IP "-t 'tag=value'"
+.IP "-t 'name=value', --tag 'name=value'"
 Specify a new tag on the command line. Each tag is given as a single string. The part before the '=' is treated as the tag name and the part after as the value.
-.IP "-w"
+.IP "-w, --write"
 Replace comments with the new set given either on the command line with -t or from a file with -c.
 .IP "-R, --raw"
 Read and write comments in UTF-8, rather than converting to the user's character set.
