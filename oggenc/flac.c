@@ -46,7 +46,9 @@ int oggflac_id(unsigned char *buf, int len)
 {
     if (len < 32) return 0;
 
-    return memcmp(buf, "OggS", 4) == 0 && flac_id(buf+28, len - 28);
+    return memcmp(buf, "OggS", 4) == 0 &&
+           (memcmp (buf+28, "\177FLAC", 5) || flac_id(buf+28, len - 28));
+
 }
 
 
