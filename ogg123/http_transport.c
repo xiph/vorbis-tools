@@ -116,7 +116,9 @@ void set_curl_opts (http_private_t *private)
   if (inputOpts.ProxyTunnel)
     curl_easy_setopt (handle, CURLOPT_HTTPPROXYTUNNEL, inputOpts.ProxyTunnel);
   */
+#ifdef CURLOPT_MUTE
   curl_easy_setopt(handle, CURLOPT_MUTE, 1);
+#endif
   curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, private->error);
   curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
   curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, private);
