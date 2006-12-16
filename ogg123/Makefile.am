@@ -32,11 +32,11 @@ ogg123_SOURCES = audio.c buffer.c callbacks.c \
                 cfgfile_options.c cmdline_options.c \
                 file_transport.c format.c http_transport.c \
                 ogg123.c oggvorbis_format.c playlist.c \
-                status.c transport.c  vorbis_comments.c \
+                status.c remote.c transport.c vorbis_comments.c \
                 audio.h buffer.h callbacks.h compat.h \
                 cfgfile_options.h cmdline_options.h \
                 format.h ogg123.h playlist.h status.h \
-                transport.h vorbis_comments.h \
+                transport.h remote.h vorbis_comments.h \
                 $(flac_sources) $(speex_sources)
 
 man_MANS = ogg123.1

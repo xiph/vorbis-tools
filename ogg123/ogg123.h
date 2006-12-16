@@ -30,8 +30,9 @@ typedef struct ogg123_options_t {
   ogg_int64_t delay;          /* delay (in millisecs) for skip to next song */
   int nth;                    /* Play every nth chunk */
   int ntimes;                 /* Play every chunk n times */
-  double seekpos;             /* Position in file to seek to */
+  double seekoff;             /* Offset to seek to */
   double endpos;              /* Position in file to play to (greater than seekpos) */
+  int seekmode;               /* DECODER_SEEK_[NONE | START | CUR */
 
   long buffer_size;           /* Size of audio buffer */
   float prebuffer;            /* Percent of buffer to fill before playing */
@@ -43,6 +44,8 @@ typedef struct ogg123_options_t {
   audio_device_t *devices;    /* Audio devices to use */
 
   double status_freq;         /* Number of status updates per second */
+
+  int remote;                 /* Remotely controlled */
 
   playlist_t *playlist;       /* List of files to play */
 

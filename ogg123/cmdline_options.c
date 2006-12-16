@@ -30,6 +30,9 @@
 
 #define MIN_INPUT_BUFFER_SIZE 8
 
+extern double strtotime(char *s);
+extern void set_seek_opt(ogg123_options_t *ogg123_opts, char *buf);
+
 struct option long_options[] = {
   /* GNU standard options */
     {"help", no_argument, 0, 'h'},
@@ -45,6 +48,7 @@ struct option long_options[] = {
     {"device-option", required_argument, 0, 'o'},
     {"prebuffer", required_argument, 0, 'p'},
     {"quiet", no_argument, 0, 'q'},
+    {"remote", no_argument, 0, 'R'},
     {"verbose", no_argument, 0, 'v'},
     {"nth", required_argument, 0, 'x'},
     {"ntimes", required_argument, 0, 'y'},
@@ -55,18 +59,6 @@ struct option long_options[] = {
     {"repeat", no_argument, 0, 'r'},
     {0, 0, 0, 0}
 };
-
-double strtotime(char *s)
-{
-	double time;
-
-	time = strtod(s, &s);
-
-	while (*s == ':')
-		time = 60 * time + strtod(s + 1, &s);
-
-	return time;
-}
 
 int parse_cmdline_options (int argc, char **argv,
 			   ogg123_options_t *ogg123_opts,
@@ -80,7 +72,7 @@ int parse_cmdline_options (int argc, char **argv,
   audio_device_t *current;
   int ret;
 
-  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qrvVx:y:zZ@:",
+  while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qrRvVx:y:zZ@:",
 				  long_options, &option_index))) {
 
       switch (ret) {
@@ -154,7 +146,7 @@ int parse_cmdline_options (int argc, char **argv,
 	break;
 
 	case 'k':
-	  ogg123_opts->seekpos = strtotime(optarg);
+ 	  set_seek_opt(ogg123_opts, optarg);
 	  break;
 	  
 	case 'K':
@@ -194,6 +186,11 @@ int parse_cmdline_options (int argc, char **argv,
 	
       case 'r':
         ogg123_opts->repeat = 1;
+	break;
+
+      case 'R':
+	ogg123_opts->remote = 1;
+	ogg123_opts->verbosity = 0;
 	break;
 
       case 'v':
@@ -247,7 +244,7 @@ int parse_cmdline_options (int argc, char **argv,
 
   /* Sanity check bad option combinations */
   if (ogg123_opts->endpos > 0.0 &&
-      ogg123_opts->seekpos > ogg123_opts->endpos) {
+      ogg123_opts->seekoff > ogg123_opts->endpos) {
     status_error(_("=== Option conflict: End time is before start time.\n"));
     exit(1);
   }
@@ -344,6 +341,7 @@ void cmdline_usage (void)
   printf (_("Playlist options\n"));
   printf (_("  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"));
   printf (_("  -r, --repeat            Repeat playlist indefinitely\n"));
+  printf (_("  -R, --remote            Use remote control interface\n"));
   printf (_("  -z, --shuffle           Shuffle list of files before playing\n"));
   printf (_("  -Z, --random            Play files randomly until interrupted\n"));
   printf ("\n");

@@ -53,6 +53,7 @@ typedef struct decoder_t {
 } decoder_t;
 
 /* whence constants */
+#define DECODER_SEEK_NONE  0
 #define DECODER_SEEK_START 1
 #define DECODER_SEEK_CUR   2
 

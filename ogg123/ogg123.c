@@ -46,6 +46,7 @@
 #include "status.h"
 #include "playlist.h"
 #include "compat.h"
+#include "remote.h"
 
 #include "ogg123.h"
 #include "i18n.h"
@@ -151,8 +152,9 @@ void options_init (ogg123_options_t *opts)
   opts->delay = 500;
   opts->nth = 1;
   opts->ntimes = 1;
-  opts->seekpos = 0.0;
+  opts->seekoff = 0.0;
   opts->endpos = -1.0; /* Mark as unset */
+  opts->seekmode = DECODER_SEEK_NONE;
   opts->buffer_size = 128 * 1024;
   opts->prebuffer = 0.0f;
   opts->input_buffer_size = 64 * 1024;
@@ -161,11 +163,86 @@ void options_init (ogg123_options_t *opts)
 
   opts->status_freq = 10.0;
   opts->playlist = NULL;
+  opts->remote = 0;
   opts->repeat = 0;
 
 }
 
+double strtotime(char *s)
+{
+	double time;
 
+	time = strtod(s, &s);
+
+	while (*s == ':')
+		time = 60 * time + strtod(s + 1, &s);
+
+	return time;
+}
+
+void set_seek_opt(ogg123_options_t *ogg123_opts, char *buf) {
+
+  char *b = buf;
+
+  /* skip spaces */
+  while (*b && (*b == ' ')) b++;
+  
+  if (*b == '-') {
+  /* relative seek back */
+    ogg123_opts->seekoff = -1 * strtotime(b+1);
+    ogg123_opts->seekmode = DECODER_SEEK_CUR;
+  } else
+  if (*b == '+') {
+  /* relative seek forward */
+    ogg123_opts->seekoff = strtotime(b+1);
+    ogg123_opts->seekmode = DECODER_SEEK_CUR;
+  } else {
+  /* absolute seek */
+    ogg123_opts->seekoff = strtotime(b);
+    ogg123_opts->seekmode = DECODER_SEEK_START;
+  }
+}
+
+int handle_seek_opt(ogg123_options_t *options, decoder_t *decoder, format_t *format) {
+
+  float pos=decoder->format->statistics(decoder)->current_time;
+
+  /* this functions handles a seek request. It prevents seeking out
+     of band, i.e. before the beginning or after the end. Instead,
+	 it seeks to the start or near-end resp. */
+
+  if (options->seekmode != DECODER_SEEK_NONE) {
+
+    if (options->seekmode == DECODER_SEEK_START) {
+      pos = options->seekoff;
+    } else {
+      pos += options->seekoff;
+    }
+
+    if (pos < 0) {
+      pos = 0;
+    }
+
+    if (pos > decoder->format->statistics(decoder)->total_time) {
+      /* seek to almost the end of the stream */
+      pos = decoder->format->statistics(decoder)->total_time - 0.01;
+    }
+
+    if (!format->seek(decoder, pos, DECODER_SEEK_START)) {
+      status_error(_("Could not skip to %f in audio stream."), options->seekoff);
+#if 0
+      /* Handle this fatally -- kill the audio thread */
+      if (audio_buffer != NULL)
+	buffer_thread_kill(audio_buffer);
+#endif
+    }
+  }
+
+  options->seekmode = DECODER_SEEK_NONE;
+  
+  return 1;
+}
+  
 /* This function selects which statistics to display for our
    particular configuration.  This does not have anything to do with
    verbosity, but rather with which stats make sense to display. */
@@ -216,38 +293,48 @@ void display_statistics (stat_format_t *stat_format,
 					source->transport->statistics(source),
 					decoder->format->statistics(decoder));
 
-  /* Disable/Enable statistics as needed */
+  if (options.remote) {
+  
+    /* Display statistics via the remote interface */
+    remote_time(pstats_arg->decoder_statistics->current_time, 
+                pstats_arg->decoder_statistics->total_time,
+				pstats_arg->decoder_statistics->instant_bitrate);
+				
+  } else {
+  
+	/* Disable/Enable statistics as needed */
 
-  if (pstats_arg->decoder_statistics->total_time <
-      pstats_arg->decoder_statistics->current_time) {
-    stat_format[2].enabled = 0;  /* Remaining playback time */
-    stat_format[3].enabled = 0;  /* Total playback time */
+	if (pstats_arg->decoder_statistics->total_time <
+    	pstats_arg->decoder_statistics->current_time) {
+      stat_format[2].enabled = 0;  /* Remaining playback time */
+      stat_format[3].enabled = 0;  /* Total playback time */
+	}
+
+	if (pstats_arg->data_source_statistics->input_buffer_used) {
+      stat_format[6].enabled = 1;  /* Input buffer fill % */
+      stat_format[7].enabled = 1;  /* Input buffer state  */
+	}
+
+	if (audio_buffer) {
+      /* Place a status update into the buffer */
+      buffer_append_action_at_end(audio_buffer,
+				  &print_statistics_action,
+				  pstats_arg);
+
+      /* And if we are not playing right now, do an immediate
+    	 update just the output buffer */
+      buffer_stats = buffer_statistics(audio_buffer);
+      if (buffer_stats->paused || buffer_stats->prebuffering) {
+    	pstats_arg = new_print_statistics_arg(stat_format,
+					      NULL,
+					      NULL);
+    	print_statistics_action(audio_buffer, pstats_arg);
+      }
+      free(buffer_stats);
+
+	} else
+      print_statistics_action(NULL, pstats_arg);
   }
-
-  if (pstats_arg->data_source_statistics->input_buffer_used) {
-    stat_format[6].enabled = 1;  /* Input buffer fill % */
-    stat_format[7].enabled = 1;  /* Input buffer state  */
-  }
-
-  if (audio_buffer) {
-    /* Place a status update into the buffer */
-    buffer_append_action_at_end(audio_buffer,
-				&print_statistics_action,
-				pstats_arg);
-    
-    /* And if we are not playing right now, do an immediate
-       update just the output buffer */
-    buffer_stats = buffer_statistics(audio_buffer);
-    if (buffer_stats->paused || buffer_stats->prebuffering) {
-      pstats_arg = new_print_statistics_arg(stat_format,
-					    NULL,
-					    NULL);
-      print_statistics_action(audio_buffer, pstats_arg);
-    }
-    free(buffer_stats);
-    
-  } else
-    print_statistics_action(NULL, pstats_arg);
 }
 
 
@@ -385,29 +472,37 @@ int main(int argc, char **argv)
   signal (SIGCONT, signal_handler);
   signal (SIGTERM, signal_handler);
 
-  do {
-    /* Shuffle playlist */
-    if (options.shuffle) {
-      int i;
+  if (options.remote) {
+  
+    /* run the mainloop for the remote interface */
+    remote_mainloop();
+
+  } else {
+
+    do {
+      /* Shuffle playlist */
+      if (options.shuffle) {
+        int i;
     
-      srandom(time(NULL));
+        srandom(time(NULL));
     
-      for (i = 0; i < items; i++) {
-        int j = i + random() % (items - i);
-        char *temp = playlist_array[i];
-        playlist_array[i] = playlist_array[j];
-        playlist_array[j] = temp;
+        for (i = 0; i < items; i++) {
+          int j = i + random() % (items - i);
+          char *temp = playlist_array[i];
+          playlist_array[i] = playlist_array[j];
+          playlist_array[j] = temp;
+        }
       }
-    }
 
-    /* Play the files/streams */
-    i = 0;
-    while (i < items && !sig_request.exit) {
-      play(playlist_array[i]);
-      i++;
-    }
-  } while (options.repeat);
+      /* Play the files/streams */
+      i = 0;
+      while (i < items && !sig_request.exit) {
+        play(playlist_array[i]);
+        i++;
+      }
+    } while (options.repeat);
 
+  }
   playlist_array_destroy(playlist_array, items);
 
   exit (exit_status);
@@ -502,9 +597,15 @@ void play (char *source_string)
 				    _("Playing: %s"), source_string);
 
   /* Skip over audio */
-  if (options.seekpos > 0.0) {
-    if (!format->seek(decoder, options.seekpos, DECODER_SEEK_START)) {
-      status_error(_("Could not skip %f seconds of audio."), options.seekpos);
+  if (options.seekoff > 0.0) {
+    /* Note: it may be simpler to handle this condition by just calling:
+     *   handle_seek_opt(&options, decoder, format);
+     * which was introduced with the remote control interface. However, that
+     * function does not call buffer_thread_kill() on error, which is
+     * necessary in this situation.
+     */
+    if (!format->seek(decoder, options.seekoff, DECODER_SEEK_START)) {
+      status_error(_("Could not skip %f seconds of audio."), options.seekoff);
       if (audio_buffer != NULL)
 	buffer_thread_kill(audio_buffer);
       return;
@@ -524,7 +625,20 @@ void play (char *source_string)
 	break;
       }
 
-      if (sig_request.pause) {
+	if (options.remote) {
+	
+		/* run the playloop for the remote interface */
+		if (remote_playloop()) {
+			/* end song requested */
+			eof = eos = 1;
+			break;
+		}
+
+		/* Skip over audio */
+		handle_seek_opt(&options, decoder, format);
+	}
+
+	if (sig_request.pause) {
 	if (audio_buffer)
 	  buffer_thread_pause (audio_buffer);
 
