@@ -426,7 +426,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 				param->mode = MODE_APPEND;
 				break;
 			case 'V':
-				fprintf(stderr, "Vorbiscomment " VERSION "\n");
+				fprintf(stderr, "vorbiscomment from vorbis-tools " VERSION "\n");
 				exit(0);
 				break;
 			case 'h':

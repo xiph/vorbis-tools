@@ -24,6 +24,8 @@
 
 #include <vorbis/vorbisfile.h>
 
+#include "i18n.h"
+
 struct option long_options[] = {
     {"quiet", 0,0,'Q'},
     {"help",0,0,'h'},
@@ -36,8 +38,6 @@ struct option long_options[] = {
     {NULL,0,0,0}
 };
 
-#define VERSIONSTRING "OggDec 1.1.1\n"
-
 static int quiet = 0;
 static int bits = 16;
 static int endian = 0;
@@ -46,7 +46,14 @@ static int sign = 1;
 unsigned char headbuf[44]; /* The whole buffer */
 char *outfilename = NULL;
 
-static void usage(void) {
+static void version (void) {
+    fprintf (stderr, _("oggdec from %s %s\n"), PACKAGE, VERSION);
+}
+
+static void usage(void)
+{
+    version ();
+    fprintf (stderr, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
     fprintf(stderr, "Usage: oggdec [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
                     "\n"
                     "Supported flags:\n"
@@ -86,7 +93,7 @@ static void parse_options(int argc, char **argv)
                 exit(0);
                 break;
             case 'v':
-                fprintf(stderr, VERSIONSTRING);
+                version();
                 exit(0);
                 break;
             case 's':
@@ -351,7 +358,6 @@ int main(int argc, char **argv)
     int i;
 
     if(argc == 1) {
-        fprintf(stderr, VERSIONSTRING);
         usage();
         return 1;
     }
@@ -359,7 +365,7 @@ int main(int argc, char **argv)
     parse_options(argc,argv);
 
     if(!quiet)
-        fprintf(stderr, VERSIONSTRING);
+        version();
 
     if(optind >= argc) {
         fprintf(stderr, "ERROR: No input files specified. Use -h for help\n");

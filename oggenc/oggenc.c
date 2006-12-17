@@ -29,7 +29,7 @@
 #include "i18n.h"
 
 
-#define VERSION_STRING "OggEnc v" VERSION " \n"
+#define VERSION_STRING "oggenc from vorbis-tools " VERSION " \n"
 #define COPYRIGHT "(c) 2000-2005 Michael Smith <msmith@xiph.org>\n"
 
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */

@@ -198,7 +198,7 @@ int parse_cmdline_options (int argc, char **argv,
 	break;
 	
       case 'V':
-	status_error(_("ogg123 from %s %s\n"), PACKAGE, VERSION);
+	status_error(_("ogg123 from %s %s"), PACKAGE, VERSION);
 	exit(0);
 	break;
 

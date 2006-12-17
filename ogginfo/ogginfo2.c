@@ -951,9 +951,14 @@ static void process_file(char *filename) {
     fclose(file);
 }
 
+static void version (void) {
+    printf (_("ogginfo from %s %s\n"), PACKAGE, VERSION);
+}
+
 static void usage(void) {
-    printf(_("ogginfo 1.1.0\n"
-             "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
+    version ();
+    printf (_(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    printf(_("(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
              "Flags supported:\n"
@@ -961,7 +966,9 @@ static void usage(void) {
              "\t-q Make less verbose. Once will remove detailed informative\n"
              "\t   messages, two will remove warnings\n"
              "\t-v Make more verbose. This may enable more detailed checks\n"
-             "\t   for some stream types.\n\n"));
+             "\t   for some stream types.\n"));
+    printf (_("\t-V Output version information and exit\n"));
+    /*printf (_("  -V, --version           Output version information and exit\n"));*/
 }
 
 int main(int argc, char **argv) {
@@ -981,10 +988,13 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    while((ret = getopt(argc, argv, "hvq")) >= 0) {
+    while((ret = getopt(argc, argv, "hqvV")) >= 0) {
         switch(ret) {
             case 'h':
                 usage();
+                return 0;
+            case 'V':
+                version();
                 return 0;
             case 'v':
                 verbose++;
