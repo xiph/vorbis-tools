@@ -288,11 +288,11 @@ int flac_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       if (audio_fmt->word_size == 1) {
 	for (i = 0; i < priv->channels; i++)
 	  for (j = 0; j < copy; j++)
-	    buf8[(j+realsamples)*2+i] = (FLAC__int8) (0xFF & priv->buf[i][j+priv->buf_start]);
+           buf8[(j+realsamples)*audio_fmt->channels+i] = (FLAC__int8) (0xFF & priv->buf[i][j+priv->buf_start]);
       } else if (audio_fmt->word_size == 2) {
 	for (i = 0; i < priv->channels; i++)
 	  for (j = 0; j < copy; j++)
-	    buf16[(j+realsamples)*2+i] = (FLAC__int16) (0xFFFF & priv->buf[i][j+priv->buf_start]);
+           buf16[(j+realsamples)*audio_fmt->channels+i] = (FLAC__int16) (0xFFFF & priv->buf[i][j+priv->buf_start]);
       }	
 
       priv->buf_start += copy;
