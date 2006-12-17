@@ -17,6 +17,12 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#if HAVE_STAT && HAVE_CHMOD
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
+
 #include "getopt.h"
 #include "utf8.h"
 #include "i18n.h"
@@ -571,6 +577,11 @@ void close_files(param_t *p, int output_written)
   if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
 
   if(p->tempoutfile) {
+#if HAVE_STAT && HAVE_CHMOD
+    struct stat st;
+    stat (p->infilename, &st);
+#endif
+    
     if(output_written) {
       /* Some platforms fail to rename a file if the new name already 
        * exists, so we need to remove, then rename. How stupid.
@@ -581,6 +592,10 @@ void close_files(param_t *p, int output_written)
         else if(rename(p->outfilename, p->infilename)) 
           fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename, 
                   p->infilename);
+      } else {
+#if HAVE_STAT && HAVE_CHMOD
+        chmod (p->infilename, st.st_mode);
+#endif
       }
     }
     else {
