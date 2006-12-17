@@ -28,6 +28,10 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+#if HAVE_SELECT
+#include <sys/select.h>
+#endif
+
 #include "ogg123.h"
 #include "format.h"
 
@@ -127,6 +131,10 @@ static void * remotethread(void * arg) {
   int ignore = 0;
   char buf[MAXBUF+1];
   char *b;
+
+#if HAVE_SELECT
+  fd_set fd;
+#endif
   
   buf[MAXBUF]=0;
 
@@ -135,7 +143,13 @@ static void * remotethread(void * arg) {
     buf[0] = 0;
     send_log("Waiting for input: ...");
 
-    while (fgets(buf, MAXBUF, stdin) == NULL);
+#if HAVE_SELECT
+    FD_ZERO(&fd);
+    FD_SET(0,&fd);
+    select (1, &fd, NULL, NULL, NULL);
+#endif
+
+    fgets(buf, MAXBUF, stdin);
     buf[strlen(buf)-1] = 0;
 
     /* Lock on */

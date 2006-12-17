@@ -252,7 +252,7 @@ dnl --------------------------------------------------
 
 AC_FUNC_ALLOCA
 AM_ICONV
-AC_CHECK_FUNCS(atexit on_exit fcntl)
+AC_CHECK_FUNCS(atexit on_exit fcntl select)
 AM_LANGINFO_CODESET
 
 dnl --------------------------------------------------
