@@ -1,5 +1,5 @@
 /* Determine the current selected locale.
-   Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Library General Public
    License along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
    USA.  */
 
 /* Written by Ulrich Drepper <drepper@gnu.org>, 1995.  */
@@ -29,20 +29,19 @@
 
 #if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
 # include <string.h>
-# include <CFString.h>
+# include <CoreFoundation/CFString.h>
 # if HAVE_CFLOCALECOPYCURRENT
-#  include <CFLocale.h>
+#  include <CoreFoundation/CFLocale.h>
 # elif HAVE_CFPREFERENCESCOPYAPPVALUE
-#  include <CFPreferences.h>
+#  include <CoreFoundation/CFPreferences.h>
 # endif
 #endif
 
 #if defined _WIN32 || defined __WIN32__
-# undef WIN32   /* avoid warning on mingw32 */
-# define WIN32
+# define WIN32_NATIVE
 #endif
 
-#ifdef WIN32
+#ifdef WIN32_NATIVE
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 /* List of language codes, sorted by value:
@@ -694,6 +693,280 @@
 # endif
 #endif
 
+# if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
+/* MacOS X 10.2 or newer */
+
+/* Canonicalize a MacOS X locale name to a Unix locale name.
+   NAME is a sufficiently large buffer.
+   On input, it contains the MacOS X locale name.
+   On output, it contains the Unix locale name.  */
+void
+_nl_locale_name_canonicalize (char *name)
+{
+  /* This conversion is based on a posting by
+     Deborah GoldSmith <goldsmit@apple.com> on 2005-03-08,
+     http://lists.apple.com/archives/carbon-dev/2005/Mar/msg00293.html */
+
+  /* Convert legacy (NeXTstep inherited) English names to Unix (ISO 639 and
+     ISO 3166) names.  Prior to MacOS X 10.3, there is no API for doing this.
+     Therefore we do it ourselves, using a table based on the results of the
+     MacOS X 10.3.8 function
+     CFLocaleCreateCanonicalLocaleIdentifierFromString().  */
+  typedef struct { const char legacy[21+1]; const char unixy[5+1]; }
+	  legacy_entry;
+  static const legacy_entry legacy_table[] = {
+    { "Afrikaans",             "af" },
+    { "Albanian",              "sq" },
+    { "Amharic",               "am" },
+    { "Arabic",                "ar" },
+    { "Armenian",              "hy" },
+    { "Assamese",              "as" },
+    { "Aymara",                "ay" },
+    { "Azerbaijani",           "az" },
+    { "Basque",                "eu" },
+    { "Belarusian",            "be" },
+    { "Belorussian",           "be" },
+    { "Bengali",               "bn" },
+    { "Brazilian Portugese",   "pt_BR" },
+    { "Brazilian Portuguese",  "pt_BR" },
+    { "Breton",                "br" },
+    { "Bulgarian",             "bg" },
+    { "Burmese",               "my" },
+    { "Byelorussian",          "be" },
+    { "Catalan",               "ca" },
+    { "Chewa",                 "ny" },
+    { "Chichewa",              "ny" },
+    { "Chinese",               "zh" },
+    { "Chinese, Simplified",   "zh_CN" },
+    { "Chinese, Traditional",  "zh_TW" },
+    { "Chinese, Tradtional",   "zh_TW" },
+    { "Croatian",              "hr" },
+    { "Czech",                 "cs" },
+    { "Danish",                "da" },
+    { "Dutch",                 "nl" },
+    { "Dzongkha",              "dz" },
+    { "English",               "en" },
+    { "Esperanto",             "eo" },
+    { "Estonian",              "et" },
+    { "Faroese",               "fo" },
+    { "Farsi",                 "fa" },
+    { "Finnish",               "fi" },
+    { "Flemish",               "nl_BE" },
+    { "French",                "fr" },
+    { "Galician",              "gl" },
+    { "Gallegan",              "gl" },
+    { "Georgian",              "ka" },
+    { "German",                "de" },
+    { "Greek",                 "el" },
+    { "Greenlandic",           "kl" },
+    { "Guarani",               "gn" },
+    { "Gujarati",              "gu" },
+    { "Hawaiian",              "haw" }, /* Yes, "haw", not "cpe".  */
+    { "Hebrew",                "he" },
+    { "Hindi",                 "hi" },
+    { "Hungarian",             "hu" },
+    { "Icelandic",             "is" },
+    { "Indonesian",            "id" },
+    { "Inuktitut",             "iu" },
+    { "Irish",                 "ga" },
+    { "Italian",               "it" },
+    { "Japanese",              "ja" },
+    { "Javanese",              "jv" },
+    { "Kalaallisut",           "kl" },
+    { "Kannada",               "kn" },
+    { "Kashmiri",              "ks" },
+    { "Kazakh",                "kk" },
+    { "Khmer",                 "km" },
+    { "Kinyarwanda",           "rw" },
+    { "Kirghiz",               "ky" },
+    { "Korean",                "ko" },
+    { "Kurdish",               "ku" },
+    { "Latin",                 "la" },
+    { "Latvian",               "lv" },
+    { "Lithuanian",            "lt" },
+    { "Macedonian",            "mk" },
+    { "Malagasy",              "mg" },
+    { "Malay",                 "ms" },
+    { "Malayalam",             "ml" },
+    { "Maltese",               "mt" },
+    { "Manx",                  "gv" },
+    { "Marathi",               "mr" },
+    { "Moldavian",             "mo" },
+    { "Mongolian",             "mn" },
+    { "Nepali",                "ne" },
+    { "Norwegian",             "nb" }, /* Yes, "nb", not the obsolete "no".  */
+    { "Nyanja",                "ny" },
+    { "Nynorsk",               "nn" },
+    { "Oriya",                 "or" },
+    { "Oromo",                 "om" },
+    { "Panjabi",               "pa" },
+    { "Pashto",                "ps" },
+    { "Persian",               "fa" },
+    { "Polish",                "pl" },
+    { "Portuguese",            "pt" },
+    { "Portuguese, Brazilian", "pt_BR" },
+    { "Punjabi",               "pa" },
+    { "Pushto",                "ps" },
+    { "Quechua",               "qu" },
+    { "Romanian",              "ro" },
+    { "Ruanda",                "rw" },
+    { "Rundi",                 "rn" },
+    { "Russian",               "ru" },
+    { "Sami",                  "se_NO" }, /* Not just "se".  */
+    { "Sanskrit",              "sa" },
+    { "Scottish",              "gd" },
+    { "Serbian",               "sr" },
+    { "Simplified Chinese",    "zh_CN" },
+    { "Sindhi",                "sd" },
+    { "Sinhalese",             "si" },
+    { "Slovak",                "sk" },
+    { "Slovenian",             "sl" },
+    { "Somali",                "so" },
+    { "Spanish",               "es" },
+    { "Sundanese",             "su" },
+    { "Swahili",               "sw" },
+    { "Swedish",               "sv" },
+    { "Tagalog",               "tl" },
+    { "Tajik",                 "tg" },
+    { "Tajiki",                "tg" },
+    { "Tamil",                 "ta" },
+    { "Tatar",                 "tt" },
+    { "Telugu",                "te" },
+    { "Thai",                  "th" },
+    { "Tibetan",               "bo" },
+    { "Tigrinya",              "ti" },
+    { "Tongan",                "to" },
+    { "Traditional Chinese",   "zh_TW" },
+    { "Turkish",               "tr" },
+    { "Turkmen",               "tk" },
+    { "Uighur",                "ug" },
+    { "Ukrainian",             "uk" },
+    { "Urdu",                  "ur" },
+    { "Uzbek",                 "uz" },
+    { "Vietnamese",            "vi" },
+    { "Welsh",                 "cy" },
+    { "Yiddish",               "yi" }
+  };
+
+  /* Convert new-style locale names with language tags (ISO 639 and ISO 15924)
+     to Unix (ISO 639 and ISO 3166) names.  */
+  typedef struct { const char langtag[7+1]; const char unixy[12+1]; }
+	  langtag_entry;
+  static const langtag_entry langtag_table[] = {
+    /* MacOS X has "az-Arab", "az-Cyrl", "az-Latn".
+       The default script for az on Unix is Latin.  */
+    { "az-Latn", "az" },
+    /* MacOS X has "ga-dots".  Does not yet exist on Unix.  */
+    { "ga-dots", "ga" },
+    /* MacOS X has "kk-Cyrl".  Does not yet exist on Unix.  */
+    /* MacOS X has "mn-Cyrl", "mn-Mong".
+       The default script for mn on Unix is Cyrillic.  */
+    { "mn-Cyrl", "mn" },
+    /* MacOS X has "ms-Arab", "ms-Latn".
+       The default script for ms on Unix is Latin.  */
+    { "ms-Latn", "ms" },
+    /* MacOS X has "tg-Cyrl".
+       The default script for tg on Unix is Cyrillic.  */
+    { "tg-Cyrl", "tg" },
+    /* MacOS X has "tk-Cyrl".  Does not yet exist on Unix.  */
+    /* MacOS X has "tt-Cyrl".
+       The default script for tt on Unix is Cyrillic.  */
+    { "tt-Cyrl", "tt" },
+    /* MacOS X has "zh-Hans", "zh-Hant".
+       Country codes are used to distinguish these on Unix.  */
+    { "zh-Hans", "zh_CN" },
+    { "zh-Hant", "zh_TW" }
+  };
+
+  /* Convert script names (ISO 15924) to Unix conventions.
+     See http://www.unicode.org/iso15924/iso15924-codes.html  */
+  typedef struct { const char script[4+1]; const char unixy[9+1]; }
+	  script_entry;
+  static const script_entry script_table[] = {
+    { "Arab", "arabic" },
+    { "Cyrl", "cyrillic" },
+    { "Mong", "mongolian" }
+  };
+
+  /* Step 1: Convert using legacy_table.  */
+  if (name[0] >= 'A' && name[0] <= 'Z')
+    {
+      unsigned int i1, i2;
+      i1 = 0;
+      i2 = sizeof (legacy_table) / sizeof (legacy_entry);
+      while (i2 - i1 > 1)
+	{
+	  /* At this point we know that if name occurs in legacy_table,
+	     its index must be >= i1 and < i2.  */
+	  unsigned int i = (i1 + i2) >> 1;
+	  const legacy_entry *p = &legacy_table[i];
+	  if (strcmp (name, p->legacy) < 0)
+	    i2 = i;
+	  else
+	    i1 = i;
+	}
+      if (strcmp (name, legacy_table[i1].legacy) == 0)
+	{
+	  strcpy (name, legacy_table[i1].unixy);
+	  return;
+	}
+    }
+
+  /* Step 2: Convert using langtag_table and script_table.  */
+  if (strlen (name) == 7 && name[2] == '-')
+    {
+      unsigned int i1, i2;
+      i1 = 0;
+      i2 = sizeof (langtag_table) / sizeof (langtag_entry);
+      while (i2 - i1 > 1)
+	{
+	  /* At this point we know that if name occurs in langtag_table,
+	     its index must be >= i1 and < i2.  */
+	  unsigned int i = (i1 + i2) >> 1;
+	  const langtag_entry *p = &langtag_table[i];
+	  if (strcmp (name, p->langtag) < 0)
+	    i2 = i;
+	  else
+	    i1 = i;
+	}
+      if (strcmp (name, langtag_table[i1].langtag) == 0)
+	{
+	  strcpy (name, langtag_table[i1].unixy);
+	  return;
+	}
+
+      i1 = 0;
+      i2 = sizeof (script_table) / sizeof (script_entry);
+      while (i2 - i1 > 1)
+	{
+	  /* At this point we know that if (name + 3) occurs in script_table,
+	     its index must be >= i1 and < i2.  */
+	  unsigned int i = (i1 + i2) >> 1;
+	  const script_entry *p = &script_table[i];
+	  if (strcmp (name + 3, p->script) < 0)
+	    i2 = i;
+	  else
+	    i1 = i;
+	}
+      if (strcmp (name + 3, script_table[i1].script) == 0)
+	{
+	  name[2] = '@';
+	  strcpy (name + 3, script_table[i1].unixy);
+	  return;
+	}
+    }
+
+  /* Step 3: Convert new-style dash to Unix underscore. */
+  {
+    char *p;
+    for (p = name; *p != '\0'; p++)
+      if (*p == '-')
+	*p = '_';
+  }
+}
+
+#endif
+
 /* XPG3 defines the result of 'setlocale (category, NULL)' as:
    "Directs 'setlocale()' to query 'category' and return the current
     setting of 'local'."
@@ -749,7 +1022,7 @@ _nl_locale_name_default (void)
       locale, customizing it for each location.  POSIX:2001 does not require
       such a facility.  */
 
-#if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32))
+#if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32_NATIVE))
 
   /* The system does not have a way of setting the locale, other than the
      POSIX specified environment variables.  We use C as default locale.  */
@@ -777,7 +1050,10 @@ _nl_locale_name_default (void)
 
 	if (CFStringGetCString (name, namebuf, sizeof(namebuf),
 				kCFStringEncodingASCII))
-	  cached_localename = strdup (namebuf);
+	  {
+	    _nl_locale_name_canonicalize (namebuf);
+	    cached_localename = strdup (namebuf);
+	  }
 	CFRelease (locale);
 #  elif HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.2 or newer */
 	CFTypeRef value =
@@ -787,7 +1063,10 @@ _nl_locale_name_default (void)
 	    && CFGetTypeID (value) == CFStringGetTypeID ()
 	    && CFStringGetCString ((CFStringRef)value, namebuf, sizeof(namebuf),
 				   kCFStringEncodingASCII))
-	  cached_localename = strdup (namebuf);
+	  {
+	    _nl_locale_name_canonicalize (namebuf);
+	    cached_localename = strdup (namebuf);
+	  }
 #  endif
 	if (cached_localename == NULL)
 	  cached_localename = "C";
@@ -797,7 +1076,7 @@ _nl_locale_name_default (void)
 
 # endif
 
-# if defined(WIN32) /* WIN32 */
+# if defined(WIN32_NATIVE) /* WIN32, not Cygwin */
   {
     LCID lcid;
     LANGID langid;

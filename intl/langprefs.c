@@ -13,7 +13,7 @@
 
    You should have received a copy of the GNU Library General Public
    License along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
    USA.  */
 
 /* Written by Bruno Haible <bruno@clisp.org>.  */
@@ -26,10 +26,11 @@
 
 #if HAVE_CFPREFERENCESCOPYAPPVALUE
 # include <string.h>
-# include <CFPreferences.h>
-# include <CFPropertyList.h>
-# include <CFArray.h>
-# include <CFString.h>
+# include <CoreFoundation/CFPreferences.h>
+# include <CoreFoundation/CFPropertyList.h>
+# include <CoreFoundation/CFArray.h>
+# include <CoreFoundation/CFString.h>
+extern void _nl_locale_name_canonicalize (char *name);
 #endif
 
 /* Determine the user's language preferences, as a colon separated list of
@@ -71,6 +72,7 @@ _nl_language_preferences_default (void)
 					   buf, sizeof (buf),
 					   kCFStringEncodingASCII))
 		  {
+		    _nl_locale_name_canonicalize (buf);
 		    size += strlen (buf) + 1;
 		    /* Most GNU programs use msgids in English and don't ship
 		       an en.mo message catalog.  Therefore when we see "en"
@@ -101,6 +103,7 @@ _nl_language_preferences_default (void)
 						   buf, sizeof (buf),
 						   kCFStringEncodingASCII))
 			  {
+			    _nl_locale_name_canonicalize (buf);
 			    strcpy (p, buf);
 			    p += strlen (buf);
 			    *p++ = ':';

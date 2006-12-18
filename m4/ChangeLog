@@ -1,0 +1,15 @@
+2006-12-18  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* gettext.m4: Upgrade to gettext-0.15.
+	* inttypes-h.m4: New file, from gettext-0.15.
+	* inttypes-pri.m4: Upgrade to gettext-0.15.
+	* lib-link.m4: Upgrade to gettext-0.15.
+	* lib-prefix.m4: Upgrade to gettext-0.15.
+	* lock.m4: New file, from gettext-0.15.
+	* longdouble.m4: Upgrade to gettext-0.15.
+	* nls.m4: Upgrade to gettext-0.15.
+	* po.m4: Upgrade to gettext-0.15.
+	* size_max.m4: Upgrade to gettext-0.15.
+	* visibility.m4: New file, from gettext-0.15.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
