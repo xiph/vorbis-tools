@@ -309,6 +309,7 @@ void remote_mainloop(void) {
        
       send_msg("I %s", fname);
       send_msg("S 0.0 0 00000 xxxxxx 0 0 0 0 0 0 0 0");
+      send_msg("P 2");
       pthread_mutex_lock(&main_lock);
       setstatus(PLAY);
       s = getstatus();
@@ -334,17 +335,18 @@ void remote_mainloop(void) {
       s = getstatus();
       pthread_mutex_unlock(&main_lock);
 
-      if (s == NEXT) {
+/* don't know why this was here, sending "play stoped" on NEXT wasn't good idea... */
+//      if (s == NEXT) {
 	  
 	    /* Send "play stopped" */
-        send_msg("P 0");
-        send_log("P 0");
-      } else {
+//        send_msg("P 0");
+//        send_log("P 0");
+//      } else {
 	  
 	    /* Send "play stopped at eof" */
-        send_msg("P 0 EOF");
-        send_log("P 0 EOF");
-      }
+//        send_msg("P 0 EOF");
+//        send_log("P 0 EOF");
+//      }
       
     }
     else {
@@ -403,6 +405,10 @@ int remote_playloop(void) {
     /* Send "pause off" */
     send_msg("P 2");
   }
+
+    /* Send stop msg to the frontend */
+    /* this probably should be done after the audio buffer is flushed and no audio is actually playing, but don't know how */
+  if ((s == STOP) || (s == QUIT)) send_msg("P 0");
 
   send_log("playloop exit s=%d", s);
 
