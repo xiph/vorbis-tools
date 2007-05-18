@@ -163,6 +163,9 @@ if test "x$HAVE_PKG_CONFIG" = "xyes"; then
 else
   AM_PATH_CURL(HAVE_CURL=yes, HAVE_CURL=no; AC_MSG_WARN(libcurl missing))
 fi
+if test "x$HAVE_CURL" = "xyes"; then
+  AC_DEFINE(HAVE_CURL,1,[Defined if we have libcurl])
+fi
 
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
