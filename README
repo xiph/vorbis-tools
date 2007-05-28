@@ -49,7 +49,7 @@ pre-built utilities may be found there.
 Developer information is available from http://www.xiph.org/. Check
 there for bug reporting information, mailing lists and other resources.
 
-BUILDING FROM CVS:
+BUILDING FROM SUBVERSION (see the file HACKING for details):
 
 ./autogen.sh
 make 

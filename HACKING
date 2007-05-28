@@ -1,22 +1,22 @@
 Note that these instructions are *not* necessary for distribution
 tarballs; they have separate configure/build instructions.  
 
-Building this package from CVS is mainly intended for developers.
-General users should obtain official distribution packages; both
-source and binary distributions are available at
+Building this package from Subversion is mainly intended for developers.
+General users should obtain official distribution packages; both source
+and binary distributions are available at
 http://www.vorbis.com/.
 
 -----
 
-These are *brief* instructions on how to build this package from CVS.
+These are *brief* instructions on how to build this package from Subversion.
 Yes, there are details left out.
 
-There are generally four steps necessary when building from CVS (i.e.,
+There are generally four steps necessary when building from Subversion (i.e.,
 a developer's copy):
 
-1. cvs checkout of the sources, or cvs update.  RTFM from your
-   favorite flavor of CVS documentation; information on the xiph.org
-   CVS repository can be found at http://www.xiph.org/cvs.html.
+1. svn checkout of the sources, or svn update. General subversion usage
+   documentation is at http://svnbook.red-bean.com/. Information on the
+   Xiph.Org Subversion repository can be found at http://xiph.org/svn/
 
 2. [re-]generate files such as "configure" and "Makefile.in" with the
    GNU autoconf/automake tools.  Run the "autogen.sh" script to
