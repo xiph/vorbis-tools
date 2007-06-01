@@ -334,7 +334,7 @@ void usage(void)
   printf ("\n");
 
   printf (_("  -h, --help              Display this help\n"));
-  printf (_("  -V, --version           Display ogg123 version\n"));
+  printf (_("  -V, --version           Output version information and exit\n"));
   printf ("\n");
 
   printf (_("If no output file is specified, vorbiscomment will modify the input file. This\n"
