@@ -149,11 +149,19 @@ static int find_wav_chunk(FILE *in, char *type, unsigned int *len)
 static int find_aiff_chunk(FILE *in, char *type, unsigned int *len)
 {
     unsigned char buf[8];
+    int restarted = 0;
 
     while(1)
     {
         if(fread(buf,1,8,in) <8)
         {
+            if(!restarted) {
+                /* Handle out of order chunks by seeking back to the start
+                 * to retry */
+                restarted = 1;
+                fseek(in, 12, SEEK_SET);
+                continue;
+            }
             fprintf(stderr, _("Warning: Unexpected EOF in AIFF chunk\n"));
             return 0;
         }
