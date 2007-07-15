@@ -255,6 +255,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
     OggVorbis_File vf;
     int bs = 0;
     char buf[8192], outbuf[8192];
+    char *p_outbuf;
     int buflen = 8192;
     unsigned int written = 0;
     int ret;
@@ -324,9 +325,13 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
         if(channels > 2 && !raw) {
           /* Then permute! */
           permute_channels(buf, outbuf, ret, channels, bits/8);
+          p_outbuf = outbuf;
+        }
+        else {
+          p_outbuf = buf;
         }
 
-        if(fwrite(outbuf, 1, ret, out) != ret) {
+        if(fwrite(p_outbuf, 1, ret, out) != ret) {
             fprintf(stderr, "Error writing to file: %s\n", strerror(errno));
             ov_clear(&vf);
             return 1;
