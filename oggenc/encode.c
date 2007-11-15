@@ -17,11 +17,13 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 #include "platform.h"
 #include <vorbis/vorbisenc.h>
 #include "encode.h"
 #include "i18n.h"
+#include "skeleton.h"
 
 #define READSIZE 1024
 
@@ -110,12 +112,47 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
     }
 }
 
+void add_fishead_packet (ogg_stream_state *os) {
+ 
+   fishead_packet fp; 
+ 
+   memset(&fp, 0, sizeof(fp)); 
+   fp.ptime_n = 0; 
+   fp.ptime_d = 1000; 
+   fp.btime_n = 0; 
+   fp.btime_d = 1000; 
+ 
+   add_fishead_to_stream(os, &fp); 
+} 
+ 
+/* 
+ * Adds the fishead packets in the skeleton output stream along with the e_o_s packet 
+ */ 
+void add_fisbone_packet (ogg_stream_state *os, oe_enc_opt *opt) {
+ 
+   fisbone_packet fp;
+ 
+   memset(&fp, 0, sizeof(fp));
+   fp.serial_no = opt->serialno;
+   fp.nr_header_packet = 3;
+   fp.granule_rate_n = opt->rate;
+   fp.granule_rate_d = 1;
+   fp.start_granule = 0;
+   fp.preroll = 2;
+   fp.granule_shift = 0;
+ 
+   add_message_header_field(&fp, "Content-Type", "audio/vorbis");
+ 
+   add_fisbone_to_stream(os, &fp);
+}
+
 int oe_encode(oe_enc_opt *opt)
 {
 
     ogg_stream_state os;
-    ogg_page          og;
-    ogg_packet          op;
+    ogg_stream_state so; /* stream for skeleton bitstream */
+    ogg_page         og;
+    ogg_packet       op;
 
     vorbis_dsp_state vd;
     vorbis_block     vb;
@@ -127,9 +164,10 @@ int oe_encode(oe_enc_opt *opt)
     double time_elapsed;
     int ret=0;
     TIMER *timer;
+    int result;
 
     if(opt->channels > 255) {
-        fprintf(stderr, _("255 channels should be enough for anyone. (Sorry, vorbis doesn't support more)\n"));
+        fprintf(stderr, _("255 channels should be enough for anyone. (Sorry, but Vorbis doesn't support more)\n"));
         return 1;
     }
 
@@ -152,7 +190,7 @@ int oe_encode(oe_enc_opt *opt)
     
     /* Have vorbisenc choose a mode for us */
     vorbis_info_init(&vi);
-    
+ 
     if(opt->quality_set > 0){
         if(vorbis_encode_setup_vbr(&vi, opt->channels, opt->rate, opt->quality)){
             fprintf(stderr, _("Mode initialisation failed: invalid parameters for quality\n"));
@@ -192,7 +230,7 @@ int oe_encode(oe_enc_opt *opt)
             ai.bitrate_average_damping = 1.5;
             ai.bitrate_limit_reservoir_bits = bitrate * 2;
             ai.bitrate_limit_reservoir_bias = .1;
-    
+ 
             /* And now the ones we actually wanted to set */
             ai.bitrate_limit_min_kbps=opt->min_bitrate;
             ai.bitrate_limit_max_kbps=opt->max_bitrate;
@@ -218,7 +256,7 @@ int oe_encode(oe_enc_opt *opt)
             return 1;
         }
     }
-    
+ 
     if(opt->managed && opt->bitrate < 0)
     {
       struct ovectl_ratemanage2_arg ai;
@@ -231,9 +269,9 @@ int oe_encode(oe_enc_opt *opt)
         /* Turn off management entirely (if it was turned on). */
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, NULL);
     }
-    
+ 
     set_advanced_encoder_options(opt->advopt, opt->advopt_count, &vi);
-    
+ 
     vorbis_encode_setup_init(&vi);
 
 
@@ -245,6 +283,17 @@ int oe_encode(oe_enc_opt *opt)
     vorbis_block_init(&vd,&vb);
 
     ogg_stream_init(&os, opt->serialno);
+    if (opt->with_skeleton) 
+        ogg_stream_init(&so, opt->skeleton_serialno);
+ 
+    /* create the skeleton fishead packet and output it */ 
+    if (opt->with_skeleton) { 
+        add_fishead_packet(&so); 
+        if ((ret = flush_ogg_stream_to_file(&so, opt->out))) {
+            opt->error("Failed writing fishead packet to output stream\n");
+            goto cleanup; 
+        }
+    }
 
     /* Now, build the three header packets and send through to the stream 
        output stage (but defer actual file output until the main encode loop) */
@@ -253,14 +302,33 @@ int oe_encode(oe_enc_opt *opt)
         ogg_packet header_main;
         ogg_packet header_comments;
         ogg_packet header_codebooks;
-        int result;
 
         /* Build the packets */
         vorbis_analysis_headerout(&vd,opt->comments,
                 &header_main,&header_comments,&header_codebooks);
 
         /* And stream them out */
+        /* output the vorbis bos first, then the fisbone packets */
         ogg_stream_packetin(&os,&header_main);
+	while((result = ogg_stream_flush(&os, &og))) 
+        { 
+            if(!result) break; 
+            ret = oe_write_page(&og, opt->out); 
+            if(ret != og.header_len + og.body_len) 
+            { 
+                opt->error(_("Failed writing header to output stream\n")); 
+                ret = 1; 
+                goto cleanup; /* Bail and try to clean up stuff */ 
+            } 
+        } 
+ 
+        if (opt->with_skeleton) { 
+            add_fisbone_packet(&so, opt); 
+            if ((ret = flush_ogg_stream_to_file(&so, opt->out))) { 
+                opt->error("Failed writing fisbone header packet to output stream\n"); 
+                goto cleanup; 
+           } 
+        } 
         ogg_stream_packetin(&os,&header_comments);
         ogg_stream_packetin(&os,&header_codebooks);
 
@@ -274,6 +342,14 @@ int oe_encode(oe_enc_opt *opt)
                 ret = 1;
                 goto cleanup; /* Bail and try to clean up stuff */
             }
+        }
+    }
+
+    if (opt->with_skeleton) { 
+        add_eos_packet_to_stream(&so); 
+        if ((ret = flush_ogg_stream_to_file(&so, opt->out))) { 
+            opt->error("Failed writing skeleton eos packet to output stream\n"); 
+            goto cleanup;
         }
     }
 
@@ -342,7 +418,7 @@ int oe_encode(oe_enc_opt *opt)
                     }
                     else
                         bytes_written += ret; 
-    
+ 
                     if(ogg_page_eos(&og))
                         eos = 1;
                 }
@@ -376,7 +452,7 @@ void update_statistics_full(char *fn, long total, long done, double time)
     static int spinpoint = 0;
     double remain_time;
     int minutes=0,seconds=0;
-    
+ 
     remain_time = time/((double)done/(double)total) - time;
     minutes = ((int)remain_time)/60;
     seconds = (int)(remain_time - (double)((int)remain_time/60)*60);
@@ -390,7 +466,7 @@ void update_statistics_notime(char *fn, long total, long done, double time)
 {
     static char *spinner="|/-\\";
     static int spinpoint =0;
-    
+ 
     fprintf(stderr, "\r");
     fprintf(stderr, _("\tEncoding [%2dm%.2ds so far] %c "), 
             ((int)time)/60, (int)(time - (double)((int)time/60)*60),
@@ -415,7 +491,7 @@ void final_statistics(char *fn, double time, int rate, long samples, long bytes)
         fprintf(stderr, _("\n\nDone encoding.\n"));
 
     speed_ratio = (double)samples / (double)rate / time;
-    
+ 
     fprintf(stderr, _("\n\tFile length:  %dm %04.1fs\n"),
             (int)(samples/rate/60),
             samples/rate - 

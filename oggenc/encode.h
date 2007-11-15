@@ -57,6 +57,7 @@ typedef struct
     adv_opt *advopt;
     int advopt_count;
     int copy_comments;
+    int with_skeleton;
 
     int quiet;
 
@@ -86,6 +87,7 @@ typedef struct
     float scale;
 
     unsigned int serial;
+    unsigned int skeleton_serial;
         int fixedserial;
 } oe_options;
 
@@ -93,13 +95,14 @@ typedef struct
 {
     vorbis_comment *comments;
     unsigned int serialno;
+    unsigned int skeleton_serialno;
 
     audio_read_func read_samples;
     progress_func progress_update;
     enc_end_func end_encode;
     enc_start_func start_encode;
     error_func error;
-    
+
     void *readdata;
 
     long total_samples_per_channel;
@@ -109,6 +112,7 @@ typedef struct
     int endianness;
     int resamplefreq;
     int copy_comments;
+    int with_skeleton;
 
     /* Various bitrate/quality options */
     int managed;

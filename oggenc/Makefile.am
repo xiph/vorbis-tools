@@ -23,7 +23,7 @@ oggenc_DEPENDENCIES = @SHARE_LIBS@
 
 oggenc_SOURCES = $(flac_sources) \
                  oggenc.c audio.c encode.c platform.c \
-                 audio.h encode.h platform.h resample.c resample.h
+                 audio.h encode.h platform.h resample.c resample.h skeleton.c skeleton.h
 
 
 debug:

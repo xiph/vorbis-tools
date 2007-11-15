@@ -37,6 +37,7 @@
 struct option long_options[] = {
     {"quiet",0,0,'Q'},
     {"help",0,0,'h'},
+    {"skeleton",no_argument,NULL, 'k'},
     {"comment",1,0,'c'},
     {"artist",1,0,'a'},
     {"album",1,0,'l'},
@@ -67,7 +68,7 @@ struct option long_options[] = {
     {"discard-comments", 0, 0, 0},
     {NULL,0,0,0}
 };
-    
+
 static char *generate_name_string(char *format, char *remove_list, 
         char *replace_list, char *artist, char *title, char *album, 
         char *track, char *date, char *genre);
@@ -81,7 +82,7 @@ int main(int argc, char **argv)
 {
     /* Default values */
     oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
-              0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0,16,44100,2, 0, NULL,
+              0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0, 0,16,44100,2, 0, NULL,
               DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
               NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0}; 
 
@@ -130,6 +131,7 @@ int main(int argc, char **argv)
         /* We randomly pick a serial number. This is then incremented for each file */
         srand(time(NULL));
         opt.serial = rand();
+        opt.skeleton_serial = opt.serial + numfiles;
     }
 
     for(i = 0; i < numfiles; i++)
@@ -149,12 +151,14 @@ int main(int argc, char **argv)
         /* Set various encoding defaults */
 
         enc_opts.serialno = opt.serial++;
+        enc_opts.skeleton_serialno = opt.skeleton_serial++;
         enc_opts.progress_update = update_statistics_full;
         enc_opts.start_encode = start_encode_full;
         enc_opts.end_encode = final_statistics;
         enc_opts.error = encode_error;
         enc_opts.comments = &vc;
         enc_opts.copy_comments = opt.copy_comments;
+        enc_opts.with_skeleton = opt.with_skeleton;
 
         /* OK, let's build the vorbis_comments structure */
         build_comments(&vc, &opt, i, &artist, &album, &title, &track, 
@@ -262,11 +266,12 @@ int main(int argc, char **argv)
                 start = infiles[i];
                 end = strrchr(infiles[i], '.');
                 end = end?end:(start + strlen(infiles[i])+1);
-            
+
+                char *extension = (opt.with_skeleton) ? ".ogg" : ".oga";
                 out_fn = malloc(end - start + 5);
                 strncpy(out_fn, start, end-start);
                 out_fn[end-start] = 0;
-                strcat(out_fn, ".ogg");
+                strcat(out_fn, extension);
             }
             else {
                 fprintf(stderr, _("WARNING: No filename, defaulting to \"default.ogg\"\n"));
@@ -394,6 +399,7 @@ static void usage(void)
         " -Q, --quiet          Produce no output to stderr\n"
         " -h, --help           Print this help text\n"
         " -v, --version        Print the version number\n"
+        " -k, --skeleton       Outputs ogg skeleton metadata\n"
         " -r, --raw            Raw mode. Input files are read directly as PCM data\n"
         " -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
         " -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
@@ -591,13 +597,16 @@ static void parse_options(int argc, char **argv, oe_options *opt)
     int ret;
     int option_index = 1;
 
-    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
+    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:k", 
                     long_options, &option_index)) != -1)
     {
         switch(ret)
         {
             case 0:
-                if(!strcmp(long_options[option_index].name, "managed")) {
+                if(!strcmp(long_options[option_index].name, "skleton")) {
+                    opt->with_skeleton = 1;
+                }
+                else if(!strcmp(long_options[option_index].name, "managed")) {
                     if(!opt->managed){
                         if(!opt->quiet)
                             fprintf(stderr, 
@@ -841,6 +850,8 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     fprintf(stderr, _("WARNING: Invalid sample rate specified, assuming 44100.\n"));
                 }
                 break;
+            case 'k':
+                opt->with_skeleton = 1;
             case '?':
                 fprintf(stderr, _("WARNING: Unknown option specified, ignoring->\n"));
                 break;
