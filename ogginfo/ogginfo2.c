@@ -329,8 +329,10 @@ static void check_xiph_comment(stream_processor *stream, int i, char *comment,
              return;
 	 }
          *sep = 0;
-         info("\t%s=%s\n", comment, decoded);
-         free(decoded);
+         if(!broken) {
+           info("\t%s=%s\n", comment, decoded);
+           free(decoded);
+         }
      }
 }
 
