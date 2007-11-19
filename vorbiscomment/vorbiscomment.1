@@ -1,10 +1,10 @@
 .\" Process this file with
 .\" groff -man -Tascii vorbiscomment.1
 .\"
-.TH VORBISCOMMENT 1 "December 24, 2001" "Xiph.org Foundation" "Vorbis Tools"
+.TH VORBISCOMMENT 1 "December 24, 2001" "Xiph.Org Foundation" "Vorbis Tools"
 
 .SH NAME
-vorbiscomment \- List or edit comments in Ogg Vorbis files
+vorbiscomment \- List or edit comments in Vorbis files
 
 .SH SYNOPSIS
 .B vorbiscomment
@@ -27,23 +27,23 @@ vorbiscomment \- List or edit comments in Ogg Vorbis files
 
 .SH DESCRIPTION
 .B vorbiscomment
-Reads, modifies, and appends Ogg Vorbis audio file metadata tags.
+Reads, modifies, and appends Vorbis audio file metadata tags.
 
 .SH OPTIONS
 .IP "-a, --append"
 Append comments.
 .IP "-c file, --commentfile file"
-Take comments from a file. The file is the same format as is output by the the -l option: one element per line in 'name=value' format.
+Take comments from a file. The file is the same format as is output by the the -l option or given to the -t option: one element per line in 'tag=value' format. If the file is /dev/null and -w was passed, the existing comments will be removed.
 .IP "-h, --help"
 Show command help.
 .IP "-l, --list"
-List the comments in the ogg vorbis file.
+List the comments in the Vorbis file.
 .IP "-q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-t 'name=value', --tag 'name=value'"
 Specify a new tag on the command line. Each tag is given as a single string. The part before the '=' is treated as the tag name and the part after as the value.
 .IP "-w, --write"
-Replace comments with the new set given either on the command line with -t or from a file with -c.
+Replace comments with the new set given either on the command line with -t or from a file with -c. If neither -c nor -t is given, the new set will be read from the standard input.
 .IP "-R, --raw"
 Read and write comments in UTF-8, rather than converting to the user's character set.
 .IP "-V, --version"
@@ -66,9 +66,16 @@ To simply add a comment:
 
     vorbiscomment -a -t 'ARTIST=No One You Know' file.ogg newfile.ogg
 
+To add a set of comments from the standard input:
+
+    vorbiscomment -a file.ogg
+    ARTIST=No One You Know
+    ALBUM=The Famous Album
+    <ctrl-d>
+
 .SH TAG FORMAT
 
-See http://xiph.org/ogg/vorbis/doc/v-comment.html for documentation on the Ogg Vorbis tag format, including a suggested list of canonical tag names.
+See http://xiph.org/ogg/vorbis/doc/v-comment.html for documentation on the Vorbis tag format, including a suggested list of canonical tag names.
 
 .SH AUTHORS
 
