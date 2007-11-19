@@ -274,6 +274,11 @@ int flac_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 
   *audio_fmt = decoder->actual_fmt;
 
+  /* Validate channels and word_size to avoid div by zero */
+  if(!(audio_fmt->channels && audio_fmt->word_size)) {
+    fprintf(stderr, _("Error: Corrupt input.\n"));
+    exit(1);
+  }
 
   /* Only return whole samples (no channel splitting) */
   samples = nbytes / (audio_fmt->channels * audio_fmt->word_size);
@@ -282,7 +287,7 @@ int flac_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     if (priv->buf_fill > 0) {
       int copy = priv->buf_fill < (samples - realsamples) ?
 	priv->buf_fill : (samples - realsamples);
-      
+
       /* Need sample mangling code here! */
 
       if (audio_fmt->word_size == 1) {
