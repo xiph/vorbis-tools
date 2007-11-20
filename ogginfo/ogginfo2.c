@@ -50,6 +50,8 @@ struct vorbis_release {
         {"Xiph.Org libVorbis I 20030909", "1.0.1"},
         {"Xiph.Org libVorbis I 20040629", "1.1.0"},
 	{"Xiph.Org libVorbis I 20050304", "1.1.1"},
+	{"Xiph.Org libVorbis I 20050304", "1.1.2"},
+	{"Xiph.Org libVorbis I 20070622", "1.2.0"},
         {NULL, NULL},
     };
 
