@@ -610,7 +610,6 @@ void play (char *source_string)
 	buffer_thread_kill(audio_buffer);
       return;
     }
-    options.seekpos = 0.0;
   }
 
   /* Main loop:  Iterates over all of the logical bitstreams in the file */
