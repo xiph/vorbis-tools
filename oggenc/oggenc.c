@@ -267,7 +267,7 @@ int main(int argc, char **argv)
                 end = strrchr(infiles[i], '.');
                 end = end?end:(start + strlen(infiles[i])+1);
 
-                char *extension = (opt.with_skeleton) ? ".ogg" : ".oga";
+                char *extension = (opt.with_skeleton) ? ".oga" : ".ogg";
                 out_fn = malloc(end - start + 5);
                 strncpy(out_fn, start, end-start);
                 out_fn[end-start] = 0;
@@ -597,7 +597,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
     int ret;
     int option_index = 1;
 
-    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hl:m:M:n:N:o:P:q:QrR:s:t:vX:k", 
+    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
                     long_options, &option_index)) != -1)
     {
         switch(ret)
@@ -852,6 +852,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 break;
             case 'k':
                 opt->with_skeleton = 1;
+                break;
             case '?':
                 fprintf(stderr, _("WARNING: Unknown option specified, ignoring->\n"));
                 break;
