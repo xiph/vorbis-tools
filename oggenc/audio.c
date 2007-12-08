@@ -451,7 +451,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     {
         fprintf(stderr, 
                 _("ERROR: Wav file is unsupported type (must be standard PCM\n"
-                " or type 3 floating point PCM\n"));
+                " or type 3 floating point PCM)\n"));
         return 0;
     }
 
@@ -522,7 +522,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     {
         fprintf(stderr, 
                 _("ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
-                "or floating point PCM\n"));
+                "or floating point PCM)\n"));
         return 0;
     }
 }
