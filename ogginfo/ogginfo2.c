@@ -806,6 +806,8 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             other_start(stream, "FLAC");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0) 
             other_start(stream, "speex");
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0) 
+            other_start(stream, "skeleton");
         else
             other_start(stream, NULL);
 
