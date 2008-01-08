@@ -77,6 +77,76 @@ void parse_options(int argc, char *argv[], param_t *param);
 void open_files(param_t *p);
 void close_files(param_t *p, int output_written);
 
+char *
+read_line (FILE *input)
+{
+        /* Construct a list of buffers. Each buffer will hold 1024 bytes. If
+         * more is required, it is easier to extend the list than to extend
+         * a massive buffer. When all the bytes up to a newline have been
+         * retrieved, join the buffers together
+        **/
+        int buffer_count = 0, max_buffer_count = 10, buffer_size = 1024;
+        int ii;
+        char **buffers = 0, *buffer;
+
+        /* Start with room for 10 buffers */
+        buffers = malloc (sizeof (char *) * max_buffer_count);
+
+        while (1)
+        {
+                char *retval;
+
+                /* Increase the max buffer count in increments of 10 */
+                if (buffer_count == max_buffer_count)
+                {
+                        max_buffer_count = buffer_count + 10;
+                        buffers = realloc (buffers, sizeof (char *) * max_buffer_count);
+                }
+
+                buffer = malloc (sizeof (char) * (buffer_size + 1));
+                retval = fgets (buffer, (buffer_size + 1), input);
+
+                if (retval)
+                {
+                        buffers[buffer_count] = buffer;
+                        buffer_count++;
+
+                        if (retval[strlen (retval) - 1] == '\n')
+                        {
+                                /* End of the line */
+                                break;
+                        }
+                }
+
+                else
+                {
+                        /* End of the file */
+                        free (buffer);
+                        break;
+                }
+        }
+
+        if (buffer_count == 0)
+        {
+                /* No more data to read */
+                free (buffers);
+                return 0;
+        }
+
+        /* Create one giant buffer to contain all the retrieved text */
+        buffer = malloc (sizeof (char) * (buffer_count * (buffer_size + 1)));
+
+        /* Copy buffer data and free memory */
+        for (ii = 0; ii < buffer_count; ii++)
+        {
+                strncpy (buffer + (ii * buffer_size), buffers[ii], buffer_size);
+                free (buffers[ii]);
+        }
+
+        free (buffers);
+        buffer[buffer_count * (buffer_size + 1) - 1] = 0;
+        return buffer;
+}
 
 /**********
    main.c
@@ -168,17 +238,17 @@ int main(int argc, char **argv)
 		/* build the replacement structure */
 		if(param->commentcount==0)
 		{
-			/* FIXME should use a resizeable buffer! */
-			char *buf = (char *)malloc(sizeof(char)*1024);
+			char *comment;
 
-			while (fgets(buf, 1024, param->com))
-				if (add_comment(buf, vc, param->raw) < 0) {
-					fprintf(stderr,
-						_("bad comment: \"%s\"\n"),
-						buf);
-				}
-			
-			free(buf);
+			while ((comment = read_line (param->com)))
+                        {
+                                if (add_comment (comment, vc, param->raw) < 0)
+                                {
+                                        fprintf (stderr, _("bad comment: \"%s\"\n"),
+                                                 comment);
+                                }
+                                free (comment);
+                        }
 		}
 
 		/* write out the modified stream */
