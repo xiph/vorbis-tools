@@ -112,7 +112,7 @@ action_t *malloc_action (action_func_t action_func, void *action_arg)
   action_t *action;
 
   action = malloc(sizeof(action_t));
-  
+
   if (action == NULL) {
     fprintf(stderr, _("Error: Out of memory in malloc_action().\n"));
     exit(1);
@@ -152,7 +152,7 @@ void execute_actions (buf_t *buf, action_t **action_list, ogg_int64_t position)
   while (*action_list != NULL && (*action_list)->position <= position) {
     action = *action_list;
     action->action_func(buf, action->arg);
-    
+
     *action_list = (*action_list)->next;
     free(action);
   }
@@ -182,7 +182,7 @@ int compute_dequeue_size (buf_t *buf, int request_size)
   if (buf->actions != NULL) {
 
     next_action_pos = buf->actions->position;
-    
+
     return MIN4((ogg_int64_t)buf->curfill, (ogg_int64_t)request_size,
                (ogg_int64_t)(buf->size - buf->start),
                next_action_pos - buf->position);
@@ -196,22 +196,22 @@ void *buffer_thread_func (void *arg)
 {
   buf_t *buf = (buf_t*) arg;
   size_t write_amount;
-  
+
   DEBUG("Enter buffer_thread_func");
-  
+
   buffer_thread_init(buf);
 
   pthread_cleanup_push(buffer_thread_cleanup, buf);
-  
+
   DEBUG("Start main play loop");
-  
+
   /* This test is safe since curfill will never decrease and eos will
      never be unset. */
   while ( !(buf->eos && buf->curfill == 0)) {
 
     if (buf->cancel_flag || sig_request.cancel)
       break;
-    
+
     DEBUG("Check for something to play");
     /* Block until we can play something */
     LOCK_MUTEX (buf->mutex);
@@ -222,9 +222,9 @@ void *buffer_thread_func (void *arg)
       DEBUG("Waiting for more data to play.");
       COND_WAIT(buf->playback_cond, buf->mutex);
     }
-    
+
     DEBUG("Ready to play");
-    
+
     UNLOCK_MUTEX(buf->mutex);
 
     if (buf->cancel_flag || sig_request.cancel)
@@ -250,7 +250,7 @@ void *buffer_thread_func (void *arg)
 		    /* Only set EOS if this is the last chunk */
 		    write_amount == buf->curfill ? buf->eos : 0,
 		    buf->write_arg);
-      
+
     LOCK_MUTEX(buf->mutex);
 
     buf->curfill -= write_amount;
@@ -262,15 +262,15 @@ void *buffer_thread_func (void *arg)
        we need to do another prebuffering session */
     if (!buf->eos && (buf->curfill < buf->audio_chunk_size))
       buf->prebuffering = buf->prebuffer_size > 0;
-    
+
     /* Signal a waiting decoder thread that they can put more audio into the
        buffer */
     DEBUG("Signal decoder thread that buffer space is available");
     COND_SIGNAL(buf->write_cond);
-    
+
     UNLOCK_MUTEX(buf->mutex);
   }
-  
+
   pthread_cleanup_pop(1);
   DEBUG("exiting buffer_thread_func");
 
@@ -289,12 +289,12 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
 
   /* Put the data into the buffer as space is made available */
   while (size > 0 && !buf->abort_write) {
-    
+
     /* Section 1: Write a chunk of data */
     DEBUG("Obtaining lock on buffer");
     LOCK_MUTEX(buf->mutex);
     if (buf->size - buf->curfill > 0) {
-      
+
       /* Figure how much we can write into the buffer.  Requirements:
 	 1. Don't write more data than we have.
 	 2. Don't write more data than we have room for.
@@ -302,7 +302,7 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
       buf_write_pos = (buf->start + buf->curfill) % buf->size;
       write_size = MIN3(size, buf->size - buf->curfill,
 			buf->size - buf_write_pos);
-      
+
       memcpy(buf->buffer + buf_write_pos, data, write_size);
       buf->curfill += write_size;
       data += write_size;
@@ -312,11 +312,14 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
     }
     else {
 
+      if (buf->cancel_flag || sig_request.cancel) {
+        UNLOCK_MUTEX(buf->mutex);
+        break;
+      }
       /* No room for more data, wait until there is */
       DEBUG("No room for data in buffer.  Waiting.");
       COND_WAIT(buf->write_cond, buf->mutex);
     }
-      
     /* Section 2: signal if we are not prebuffering, done
        prebuffering, or paused */
     if (buf->prebuffering && (buf->prebuffer_size <= buf->curfill)) {
@@ -331,7 +334,7 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
       COND_SIGNAL(buf->playback_cond);      
     } else
       DEBUG("Not signalling playback thread since prebuffering or paused.");
-      
+
     UNLOCK_MUTEX(buf->mutex);
   }
 
@@ -388,11 +391,11 @@ buf_t *buffer_create (long size, long prebuffer,
   pthread_mutex_init(&buf->mutex, NULL);
   pthread_cond_init(&buf->write_cond, NULL);
   pthread_cond_init(&buf->playback_cond, NULL);
-  
+
   /* Correct for impossible prebuffer and chunk sizes */
   if (audio_chunk_size > size || audio_chunk_size == 0)
     audio_chunk_size = size / 2;
-  
+
   if (prebuffer > size)
     prebuffer = prebuffer / 2;
 
@@ -418,7 +421,7 @@ void buffer_reset (buf_t *buf)
   pthread_mutex_destroy(&buf->mutex);
   pthread_cond_destroy(&buf->write_cond);
   pthread_cond_destroy(&buf->playback_cond);
-  
+
   /* Reinit pthread variables */
   pthread_mutex_init(&buf->mutex, NULL);
   pthread_cond_init(&buf->write_cond, NULL);
@@ -445,7 +448,7 @@ void buffer_destroy (buf_t *buf)
   pthread_cond_destroy(&buf->write_cond);
   COND_SIGNAL(buf->playback_cond);
   pthread_cond_destroy(&buf->playback_cond);
-  
+
   free(buf);
 }
 
@@ -480,7 +483,7 @@ void buffer_thread_pause (buf_t *buf)
 void buffer_thread_unpause (buf_t *buf)
 {
   DEBUG("Unpausing playback thread");
-  
+
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   LOCK_MUTEX(buf->mutex);
@@ -498,7 +501,7 @@ void buffer_thread_kill (buf_t *buf)
 
   /* Flag the cancellation */
   buf->cancel_flag = 1;
-  
+
   /* Signal the playback condition to wake stuff up */
   COND_SIGNAL(buf->playback_cond);
 
@@ -512,8 +515,7 @@ void buffer_thread_kill (buf_t *buf)
 
 /* --- Data buffering functions --- */
 
-void buffer_submit_data (buf_t *buf, char *data, long nbytes)
-{
+void buffer_submit_data (buf_t *buf, char *data, long nbytes) {
   submit_data_chunk (buf, data, nbytes);
 }
 
@@ -540,7 +542,7 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
     /* Block until we can read something */
     if (buf->curfill == 0 && buf->eos)
       break; /* No more data to read */
-      
+
     if (buf->curfill == 0 || (buf->prebuffering && !buf->eos)) {
       DEBUG("Waiting for more data to copy.");
       COND_WAIT(buf->playback_cond, buf->mutex);
@@ -550,10 +552,10 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
       break;
 
     /* Note: Even if curfill is still 0, nothing bad will happen here */
-    
+
     /* For simplicity, the number of bytes played must satisfy
        the following three requirements:
-       
+
        1. Do not copy more bytes than are stored in the buffer.
        2. Do not copy more bytes than the reqested data size.
        3. Do not run off the end of the buffer. */
@@ -573,7 +575,7 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
     nbytes -= write_amount;
     buf->start = (buf->start + write_amount) % buf->size;
     DEBUG1("Updated buffer fill, curfill = %ld", buf->curfill);
-    
+
     /* Signal a waiting decoder thread that they can put more
        audio into the buffer */
     DEBUG("Signal decoder thread that buffer space is available");
@@ -583,11 +585,11 @@ size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
   UNLOCK_MUTEX(buf->mutex);
 
   pthread_cleanup_pop(0);
-  
+
   pthread_testcancel();
 
   DEBUG("Exit buffer_get_data");
-   
+
   return orig_size - nbytes;
 }
 
@@ -722,7 +724,7 @@ void buffer_append_action_at (buf_t *buf, action_func_t action_func,
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   LOCK_MUTEX(buf->mutex);
-  
+
   action->position = position;
 
   in_order_add_action(&buf->actions, action, APPEND);
@@ -742,7 +744,7 @@ void buffer_wait_for_empty (buf_t *buf)
   DEBUG("Enter buffer_wait_for_empty");
 
   pthread_cleanup_push(buffer_mutex_unlock, buf);
-  
+
   LOCK_MUTEX(buf->mutex);
   while (!empty) {
 
@@ -771,7 +773,7 @@ buffer_stats_t *buffer_statistics (buf_t *buf)
   buffer_stats_t *stats;
 
   pthread_cleanup_push(buffer_mutex_unlock, buf);
-  
+
   LOCK_MUTEX(buf->mutex);
 
   stats = malloc_buffer_stats();
