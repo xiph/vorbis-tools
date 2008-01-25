@@ -1,0 +1,10 @@
+vorbis-tools 1.2.0 -- 2008-01-25
+
+ * FLAC support now depends on libFLAC
+ * Support for large files
+ * vorbiscomment: Support for creation of long comments
+ * ogg123: remote control support added
+ * ogg123: Fixed bug in esd when pressing CTRL + C
+ * oggenc: switch to encode a Skeleton stream
+ * ogginfo: recognizes Skeleton and Dirac streams
+ * other minor bug fixes
