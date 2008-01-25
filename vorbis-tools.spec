@@ -1,13 +1,13 @@
 Name:		vorbis-tools
-Version:	1.1.1
+Version:	1.2.0
 Release:	1
 Summary:	Several Ogg Vorbis Tools
 
 Group:		Applications/Multimedia
 License:	GPL
-URL:		http://www.xiph.org/
-Vendor:		Xiph.org Foundation <team@xiph.org>
-Source:         http://www.xiph.org/pub/ogg/vorbis/download/%{name}-%{version}.tar.gz
+URL:		http://xiph.org/
+Vendor:		Xiph.Org Foundation <team@xiph.org>
+Source:         http://xiph.org/pub/ogg/vorbis/download/%{name}-%{version}.tar.gz
 Prefix:		%{_prefix}
 BuildRoot:	%{_tmppath}/%{name}-root
 
@@ -24,10 +24,10 @@ BuildRequires:	curl-devel >= 7.8
 
 %description
 vorbis-tools contains oggenc (an encoder) and ogg123 (a playback tool).
-It also has vorbiscomment (to add comments to vorbis files), ogginfo (to
-give all useful information about an ogg file, including streams in it),
+It also has vorbiscomment (to add comments to Vorbis files), ogginfo (to
+give all useful information about an Ogg file, including streams in it),
 oggdec (a simple command line decoder), and vcut (which allows you to 
-cut up vorbis files).
+cut up Vorbis files).
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -64,6 +64,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/vcut.1*
 
 %changelog
+* Tue Jan 25 2008 Ivo Emanuel Goncalves <justivo@gmail.com>
+- update for 1.2.0 release
 * Tue Oct 07 2003 Warren Dukes <shank@xiph.org>
 - update for 1.0.1 release
 * Fri Jul 19 2002 Michael Smith <msmith@xiph.org>
