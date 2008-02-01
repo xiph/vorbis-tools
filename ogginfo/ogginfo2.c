@@ -809,7 +809,9 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         else if(packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0) 
             other_start(stream, "skeleton");
         else if(packet.bytes >= 4 && memcmp(packet.packet, "KW-DIRAC", 8)==0) 
-            other_start(stream, "Dirac");
+            other_start(stream, "dirac");
+	else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80kate\0\0\0\0", 8)==0) 
+            other_start(stream, "kate");
         else
             other_start(stream, NULL);
 
