@@ -31,7 +31,12 @@ AC_PROG_LIBTOOL
 ALL_LINGUAS="be cs da es fr hr hu nl ro ru sv uk"
 AM_GNU_GETTEXT
 
+dnl --------------------------------------------------
+dnl System checks
+dnl --------------------------------------------------
+
 AC_SYS_LARGEFILE
+AC_C_BIGENDIAN
 
 dnl --------------------------------------------------
 dnl Set build flags based on environment
