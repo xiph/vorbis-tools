@@ -21,9 +21,9 @@
 
 #include "skeleton.h"
 
-#ifdef WIN32                                                                   
+#ifdef WIN32
 #define snprintf _snprintf
-#endif 
+#endif
 
 extern int oe_write_page(ogg_page *page, FILE *fp);
 
@@ -131,7 +131,7 @@ ogg_packet ogg_from_fishead(fishead_packet *fp) {
  * by calling add_message_header_field method.
  */
 ogg_packet ogg_from_fisbone(fisbone_packet *fp) {
-    
+
     ogg_packet op;
     int packet_size = FISBONE_SIZE + fp->current_header_size;
 

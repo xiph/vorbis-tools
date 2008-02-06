@@ -69,11 +69,11 @@ struct option long_options[] = {
     {NULL,0,0,0}
 };
 
-static char *generate_name_string(char *format, char *remove_list, 
-        char *replace_list, char *artist, char *title, char *album, 
+static char *generate_name_string(char *format, char *remove_list,
+        char *replace_list, char *artist, char *title, char *album,
         char *track, char *date, char *genre);
 static void parse_options(int argc, char **argv, oe_options *opt);
-static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
+static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
         char **artist,char **album, char **title, char **tracknum, char **date,
         char **genre);
 static void usage(void);
@@ -81,10 +81,10 @@ static void usage(void);
 int main(int argc, char **argv)
 {
     /* Default values */
-    oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 
+    oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL,
               0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0, 0,16,44100,2, 0, NULL,
-              DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE, 
-              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0}; 
+              DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE,
+              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0};
 
     int i;
 
@@ -161,7 +161,7 @@ int main(int argc, char **argv)
         enc_opts.with_skeleton = opt.with_skeleton;
 
         /* OK, let's build the vorbis_comments structure */
-        build_comments(&vc, &opt, i, &artist, &album, &title, &track, 
+        build_comments(&vc, &opt, i, &artist, &album, &title, &track,
                 &date, &genre);
 
         if(!strcmp(infiles[i], "-"))
@@ -203,7 +203,7 @@ int main(int argc, char **argv)
             enc_opts.channels=opt.raw_channels;
             enc_opts.samplesize=opt.raw_samplesize;
             enc_opts.endianness=opt.raw_endianness;
-            
+
             format = &raw_format;
             format->open_func(in, &enc_opts, NULL, 0);
             foundformat=1;
@@ -214,7 +214,7 @@ int main(int argc, char **argv)
             if(format)
             {
                 if(!opt.quiet)
-                    fprintf(stderr, _("Opening with %s module: %s\n"), 
+                    fprintf(stderr, _("Opening with %s module: %s\n"),
                             format->format, format->description);
                 foundformat=1;
             }
@@ -260,7 +260,7 @@ int main(int argc, char **argv)
             */
             else if(infiles[i])
             {
-                /* Create a filename from existing filename, replacing extension with .ogg */
+                /* Create a filename from existing filename, replacing extension with .ogg or .oga */
                 char *start, *end;
 
                 start = infiles[i];
@@ -304,7 +304,7 @@ int main(int argc, char **argv)
                 errors++;
                 free(out_fn);
                 continue;
-            }    
+            }
             closeout = 1;
         }
 
@@ -399,7 +399,7 @@ static void usage(void)
         " -Q, --quiet          Produce no output to stderr\n"
         " -h, --help           Print this help text\n"
         " -v, --version        Print the version number\n"
-        " -k, --skeleton       Outputs ogg skeleton metadata\n"
+        " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
         " -r, --raw            Raw mode. Input files are read directly as PCM data\n"
         " -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
         " -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
@@ -489,7 +489,7 @@ static void usage(void)
         "\n"), VERSION_STRING, COPYRIGHT);
 }
 
-static int strncpy_filtered(char *dst, char *src, int len, char *remove_list, 
+static int strncpy_filtered(char *dst, char *src, int len, char *remove_list,
         char *replace_list)
 {
     char *hit, *drop_margin;
@@ -597,7 +597,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
     int ret;
     int option_index = 1;
 
-    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:vX:", 
+    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:vX:",
                     long_options, &option_index)) != -1)
     {
         switch(ret)
@@ -911,7 +911,7 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
             i = opt->artist_count-1;
         else
             i = filenum;
-    
+
         *artist = opt->artist[i];
         add_tag(vc, opt, "artist", opt->artist[i]);
     }
@@ -933,11 +933,11 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
             i = opt->date_count-1;
         else
             i = filenum;
-    
+
         *date = opt->dates[i];
         add_tag(vc, opt, "date", opt->dates[i]);
     }
-    
+
     if(opt->album_count)
     {
         if(filenum >= opt->album_count)
@@ -958,4 +958,3 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
         add_tag(vc, opt, "tracknumber", opt->tracknum[i]);
     }
 }
-
