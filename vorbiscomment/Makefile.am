@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 mans = vorbiscomment.1
-vorbiscommentsources = vcedit.c vcedit.h vcomment.c
+vorbiscommentsources = vcedit.c vcedit.h vcomment.c vceditaux.h
 
 datadir = @datadir@
 localedir = $(datadir)/locale
