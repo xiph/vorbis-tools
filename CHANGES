@@ -1,13 +1,14 @@
-vorbis-tools 1.2.0 -- 2008-02-01
+vorbis-tools 1.2.0 -- 2008-02-06
 
  * FLAC support now relies on libFLAC
  * Support for large files
- * vorbiscomment: support for creation of long comments
  * ogg123: added remote control support
  * ogg123: fixed bug in esd when pressing CTRL + C
+ * oggdec: limited support for chained Ogg bitstreams
+ * oggdec: support decoding of multiple files into a single one
  * oggenc: -k, switch for Skeleton bitstream encoding
  * oggenc: proper 5.1 channel mapping support
  * ogginfo: recognizes Skeleton, Dirac and Kate bitstreams
- * oggdec: limited support for chained Ogg bitstreams
- * oggdec: support decoding of multiple files into a single one
+ * vorbiscomment: support for creation of long comments
+ * vorbiscomment: support for multiplexed Vorbis
  * Several minor bug fixes
