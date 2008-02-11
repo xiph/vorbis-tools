@@ -445,7 +445,7 @@ void parse_std_configs (file_option_t opts[])
   char filename[FILENAME_MAX];
   char *homedir = getenv("HOME");
 
-  parse_config_file(opts, "/etc/ogg123rc");
+  parse_config_file(opts, SYSCONFDIR "/ogg123rc");
   if (homedir && strlen(homedir) < FILENAME_MAX - 10) {
     /* Try ~/.ogg123 */
     strncpy(filename, homedir, FILENAME_MAX);

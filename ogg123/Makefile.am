@@ -12,7 +12,7 @@ endif
 
 datadir = @datadir@
 localedir = $(datadir)/locale
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+DEFS = -DSYSCONFDIR=\"$(sysconfdir)\" -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
 mandir = @MANDIR@
