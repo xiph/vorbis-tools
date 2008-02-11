@@ -798,19 +798,19 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         }
         else if(packet.bytes >= 7 && memcmp(packet.packet, "\x01vorbis", 7)==0)
             vorbis_start(stream);
-        else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80theora", 7)==0) 
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80theora", 7)==0)
             theora_start(stream);
-        else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) 
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0)
             other_start(stream, "MIDI");
-        else if(packet.bytes >= 4 && memcmp(packet.packet, "fLaC", 4)==0) 
+        else if(packet.bytes >= 4 && memcmp(packet.packet, "\177FLAC", 5)==0)
             other_start(stream, "FLAC");
-        else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0) 
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0)
             other_start(stream, "speex");
-        else if(packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0) 
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0)
             other_start(stream, "skeleton");
-        else if(packet.bytes >= 4 && memcmp(packet.packet, "KW-DIRAC", 8)==0) 
+        else if(packet.bytes >= 4 && memcmp(packet.packet, "KW-DIRAC", 8)==0)
             other_start(stream, "dirac");
-	else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80kate\0\0\0\0", 8)==0) 
+        else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80kate\0\0\0\0", 8)==0)
             other_start(stream, "kate");
         else
             other_start(stream, NULL);
