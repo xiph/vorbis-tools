@@ -25,7 +25,7 @@ typedef enum {
   opt_type_bool,
   opt_type_char,
   opt_type_string,
-  opt_type_int, /* long int */
+  opt_type_int,
   opt_type_float,
   opt_type_double
 } file_option_type_t;

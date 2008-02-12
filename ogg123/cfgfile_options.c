@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <limits.h> /* for LONG_MAX / LONG_MIN */
+#include <limits.h> /* for INT_MAX / INT_MIN */
 #include <errno.h>
 
 #include "cfgfile_options.h"
@@ -88,7 +88,7 @@ void file_options_init (file_option_t opts[])
 
       case opt_type_bool:
       case opt_type_int:
-	*(long int *) opts->ptr = *(int *) opts->dfl;
+	*(int *) opts->ptr = *(int *) opts->dfl;
 	break;
 	
       case opt_type_float:
@@ -207,7 +207,7 @@ void file_options_describe (file_option_t opts[], FILE *f)
 	  break;
 	case opt_type_bool:
 	case opt_type_int:
-	  fprintf (f, "%ld", *(long int *) opt->dfl);
+	  fprintf (f, "%d", *(int *) opt->dfl);
 	  break;
 	case opt_type_float:
 	  fprintf (f, "%f", (double) (*(float *) opt->dfl));
@@ -295,11 +295,11 @@ parse_code_t parse_line (file_option_t opts[], char *line)
 	if ( strncasecmp(value, "y", 1) == 0
 	     || strcasecmp(value, "true")
 	     || (*endptr == '\0' && tmpl) )
-	  *(long int *) opt->ptr = 1;
+	  *(int *) opt->ptr = 1;
 	else if ( strncasecmp(value, "n", 1) == 0
 		  || strcasecmp(value, "false")
 		  || (*endptr == '\0' && !tmpl) )
-	  *(long int *) opt->ptr = 0;
+	  *(int *) opt->ptr = 0;
 	else
 	  return parse_badvalue;
 	break;
@@ -321,11 +321,11 @@ parse_code_t parse_line (file_option_t opts[], char *line)
 	if (!value || *value == '\0')
 	  return parse_badvalue;
 	tmpl = strtol (value, &endptr, 0);
-	if (((tmpl == LONG_MIN || tmpl == LONG_MAX) && errno == ERANGE)
+	if (((tmpl == INT_MIN || tmpl == INT_MAX) && errno == ERANGE)
 	    || (*endptr != '\0'))
 	  return parse_badvalue;
 	opt->found++;
-	*(long int *) opt->ptr = tmpl;
+	*(int *) opt->ptr = tmpl;
 	break;
 	
       case opt_type_float:

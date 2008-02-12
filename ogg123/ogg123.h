@@ -23,7 +23,7 @@
 #include "playlist.h"
 
 typedef struct ogg123_options_t {
-  long int verbosity;         /* Verbose output if > 1, quiet if 0 */
+  int verbosity;              /* Verbose output if > 1, quiet if 0 */
 
   int shuffle;                /* Should we shuffle playing? */
   int repeat;                 /* Repeat playlist indefinitely? */
