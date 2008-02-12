@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <limits.h> /* for INT_MAX / INT_MIN */
+#include <limits.h> /* for INT/LONG_MIN/MAX */
 #include <errno.h>
 
 #include "cfgfile_options.h"
@@ -320,9 +320,12 @@ parse_code_t parse_line (file_option_t opts[], char *line)
       case opt_type_int:
 	if (!value || *value == '\0')
 	  return parse_badvalue;
+	errno = 0;
 	tmpl = strtol (value, &endptr, 0);
-	if (((tmpl == INT_MIN || tmpl == INT_MAX) && errno == ERANGE)
+	if (((tmpl == LONG_MIN || tmpl == LONG_MAX) && errno == ERANGE)
 	    || (*endptr != '\0'))
+	  return parse_badvalue;
+	if ((tmpl > INT_MAX) || (tmpl < INT_MIN))
 	  return parse_badvalue;
 	opt->found++;
 	*(int *) opt->ptr = tmpl;
