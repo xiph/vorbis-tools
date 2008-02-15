@@ -38,14 +38,14 @@
 
 #define INPUT_BUFFER_SIZE 32768
 
-extern stat_format_t *stat_format;  /* Bad hack!  Will fix after RC3! */
+extern stat_format_t *stat_format;  /* FIXME Bad hack!  Will fix after RC3! */
 extern signal_request_t sig_request;  /* Need access to global cancel flag */
 
 typedef struct http_private_t {
   int cancel_flag;
 
   buf_t *buf;
-  
+
   pthread_t curl_thread;
 
   CURL *curl_handle;
@@ -190,7 +190,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     source->source_string = strdup(source_string);
     source->transport = &http_transport;
     source->private = private;
-    
+
     private->buf = buffer_create (ogg123_opts->input_buffer_size,
 				  ogg123_opts->input_buffer_size *
 				  ogg123_opts->input_prebuffer / 100.0, 
@@ -253,7 +253,7 @@ fail:
   free(source->source_string);
   free(private);
   free(source);
- 
+
   return NULL;
 }
 
@@ -266,7 +266,7 @@ int http_peek (data_source_t *source, void *ptr, size_t size, size_t nmemb)
   long start;
 
   bytes_read = buffer_get_data(data->buf, ptr, size, nmemb);
-  
+
   private->stats.bytes_read += bytes_read;
   */
 
@@ -301,15 +301,15 @@ data_source_stats_t *http_statistics (data_source_t *source)
   http_private_t *private = source->private;
   data_source_stats_t *data_source_stats;
   buffer_stats_t *buffer_stats;
-  
+
   data_source_stats = malloc_data_source_stats(&private->stats);
   data_source_stats->input_buffer_used = 1;
   data_source_stats->transfer_rate = 0;
-  
+
   buffer_stats = buffer_statistics(private->buf);
   data_source_stats->input_buffer = *buffer_stats;
   free(buffer_stats);
-  
+
   return data_source_stats;
 }
 
