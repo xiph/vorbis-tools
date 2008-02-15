@@ -51,6 +51,7 @@ int oe_write_page(ogg_page *page, FILE *fp);
 static void set_advanced_encoder_options(adv_opt *opts, int count,
         vorbis_info *vi)
 {
+#ifdef OV_ECTL_RATEMANAGE2_GET
     int manage = 0;
     struct ovectl_ratemanage2_arg ai;
     int i;
@@ -107,9 +108,12 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
 
     if(manage) {
         if(vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_SET, &ai)) {
-            fprintf(stderr, "Failed to set advanced rate management parameters\n");
+            fprintf(stderr, _("Failed to set advanced rate management parameters\n"));
         }
     }
+#else
+    fprintf(stderr,_( "This version of libvorbisenc cannot set advanced rate management parameters\n"));
+#endif
 }
 
 void add_fishead_packet (ogg_stream_state *os) {
@@ -200,6 +204,7 @@ int oe_encode(oe_enc_opt *opt)
 
         /* do we have optional hard bitrate restrictions? */
         if(opt->max_bitrate > 0 || opt->min_bitrate > 0){
+#ifdef OV_ECTL_RATEMANAGE2_GET
             long bitrate;
             struct ovectl_ratemanage2_arg ai;
 
@@ -243,6 +248,10 @@ int oe_encode(oe_enc_opt *opt)
                 vorbis_info_clear(&vi);
                 return 1;
             }
+#else
+            fprintf(stderr, _("This version of libvorbisenc cannot set advanced rate management parameters\n"));
+            return 1;
+#endif
         }
 
 
@@ -257,6 +266,7 @@ int oe_encode(oe_enc_opt *opt)
         }
     }
 
+#ifdef OV_ECTL_RATEMANAGE2_SET
     if(opt->managed && opt->bitrate < 0)
     {
       struct ovectl_ratemanage2_arg ai;
@@ -269,6 +279,7 @@ int oe_encode(oe_enc_opt *opt)
         /* Turn off management entirely (if it was turned on). */
         vorbis_encode_ctl(&vi, OV_ECTL_RATEMANAGE2_SET, NULL);
     }
+#endif
 
     set_advanced_encoder_options(opt->advopt, opt->advopt_count, &vi);
 
