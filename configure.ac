@@ -165,6 +165,9 @@ dnl --------------------------------------------------
 dnl curl is an optional dependancy of ogg123
 if test "x$HAVE_PKG_CONFIG" = "xyes"; then
   PKG_CHECK_MODULES(CURL, libcurl, HAVE_CURL=yes, HAVE_CURL=no)
+  if test "x$HAVE_CURL" = "xno"; then
+    AM_PATH_CURL(HAVE_CURL=yes, HAVE_CURL=no; AC_MSG_WARN(libcurl missing))
+  fi
 else
   AM_PATH_CURL(HAVE_CURL=yes, HAVE_CURL=no; AC_MSG_WARN(libcurl missing))
 fi
@@ -350,9 +353,9 @@ will NOT be built with FLAC read support.])
     if test "x$have_libspeex" != xyes; then
         AC_MSG_WARN([Speex libraries and/or headers missing, ogg123 
 will NOT be built with Speex read support.])
-    fi         
+    fi
     if test "x$HAVE_CURL" != xyes; then
         AC_MSG_WARN([curl libraries and/or headers missing, ogg123 
 will NOT be built with http support.])
-    fi         
+    fi
 fi
