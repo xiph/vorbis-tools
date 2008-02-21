@@ -171,7 +171,7 @@ static void error(char *format, ...)
     va_end(ap);
 }
 
-static void check_xiph_comment(stream_processor *stream, int i, char *comment,
+static void check_xiph_comment(stream_processor *stream, int i, const char *comment,
     int comment_length)
 {
     char *sep = strchr(comment, '=');
@@ -802,15 +802,15 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             theora_start(stream);
         else if(packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0)
             other_start(stream, "MIDI");
-        else if(packet.bytes >= 4 && memcmp(packet.packet, "\177FLAC", 5)==0)
+        else if(packet.bytes >= 5 && memcmp(packet.packet, "\177FLAC", 5)==0)
             other_start(stream, "FLAC");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0)
             other_start(stream, "speex");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0)
             other_start(stream, "skeleton");
-        else if(packet.bytes >= 4 && memcmp(packet.packet, "KW-DIRAC", 8)==0)
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "KW-DIRAC", 8)==0)
             other_start(stream, "dirac");
-        else if(packet.bytes >= 7 && memcmp(packet.packet, "\x80kate\0\0\0\0", 8)==0)
+        else if(packet.bytes >= 9 && memcmp(packet.packet, "\x80kate\0\0\0\0", 9)==0)
             other_start(stream, "kate");
         else
             other_start(stream, NULL);
