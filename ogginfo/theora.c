@@ -117,9 +117,9 @@ void theora_comment_clear(theora_comment *tc){
 
 static int _theora_unpack_comment(theora_comment *tc, oggpack_buffer *opb){
   int i;
-  int len;
+  long len;
 
-   _tp_readlsbint(opb,(long *) &len);
+  _tp_readlsbint(opb,&len);
   if(len<0)return(OC_BADHEADER);
   tc->vendor=_ogg_calloc(1,len+1);
   _tp_readbuffer(opb,tc->vendor, len);
@@ -130,7 +130,7 @@ static int _theora_unpack_comment(theora_comment *tc, oggpack_buffer *opb){
   tc->user_comments=_ogg_calloc(tc->comments,sizeof(*tc->user_comments));
   tc->comment_lengths=_ogg_calloc(tc->comments,sizeof(*tc->comment_lengths));
   for(i=0;i<tc->comments;i++){
-    _tp_readlsbint(opb,(long *)&len);
+    _tp_readlsbint(opb,&len);
     if(len<0)goto parse_err;
     tc->user_comments[i]=_ogg_calloc(1,len+1);
     _tp_readbuffer(opb,tc->user_comments[i],len);
@@ -152,15 +152,15 @@ static int _theora_unpack_tables(theora_info *c, oggpack_buffer *opb){
 int theora_decode_header(theora_info *ci, theora_comment *cc, ogg_packet *op){
   long ret;
   oggpack_buffer *opb;
-  
+
   if(!op)return OC_BADHEADER;
-  
+
   opb = _ogg_malloc(sizeof(oggpack_buffer));
   oggpackB_readinit(opb,op->packet,op->bytes);
   {
     char id[6];
     int typeflag;
-    
+
     theora_read(opb,8,&ret);
     typeflag = ret;
     if(!(typeflag&0x80)) {
@@ -212,7 +212,7 @@ int theora_decode_header(theora_info *ci, theora_comment *cc, ogg_packet *op){
       ret = _theora_unpack_tables(ci,opb);
       free(opb);
       return(ret);
-    
+
     default:
       free(opb);
       /* ignore any trailing header packets for forward compatibility */
@@ -223,4 +223,3 @@ int theora_decode_header(theora_info *ci, theora_comment *cc, ogg_packet *op){
   free(opb);
   return(OC_BADHEADER);
 }
-
