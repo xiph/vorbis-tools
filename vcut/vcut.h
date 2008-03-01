@@ -18,6 +18,8 @@ typedef struct {
 	vorbis_info *vi;
 	int prevW;
 	ogg_int64_t initialgranpos;
+	ogg_int64_t pagegranpos;
+	int e_o_s;
 	int time;
 	ogg_int64_t cutpoint;
 	unsigned int serial;
