@@ -1,19 +1,22 @@
-vorbis-tools 1.2.0 -- 2008-02-12
+vorbis-tools 1.2.0 -- 2008-02-21
 
  * FLAC support now relies on libFLAC
  * Support for large files
  * Fixed acinclude.m4 to properly support --no switches
  * ogg123: added remote control support
  * ogg123: fixed a bug in esd when pressing CTRL + C
- * ogg123: fixed a type mismatch in option parsing for 64 bit systems 
+ * ogg123: fixed a type mismatch in option parsing for 64 bit systems
  * ogg123: configuration no longer hardcoded to /etc
  * oggdec: limited support for chained Ogg bitstreams
+ * ogg123: compiles with older versions of libcurl
  * oggdec: support decoding of multiple files into a single one
  * oggenc: -k, switch for Skeleton bitstream encoding
  * oggenc: fixed issues with Skeleton on big endian systems
  * oggenc: proper 5.1 channel mapping support
  * oggenc: FLAC module does not confuse every Ogg file as its own
+ * oggenc: compiles with older versions of libvorbis
  * ogginfo: recognizes Skeleton, Dirac, FLAC and Kate bitstreams
+ * vcut: solved issues described in ticket #1313
  * vorbiscomment: support for creation of long comments
  * vorbiscomment: support for multiplexed Vorbis
  * Several minor bug fixes
