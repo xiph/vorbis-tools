@@ -771,8 +771,8 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 opt->namefmt = strdup(optarg);
                 break;
             case 'X':
-                if(opt->namefmt_remove && opt->namefmt_remove != 
-                        DEFAULT_NAMEFMT_REMOVE)
+                if(opt->namefmt_remove && strcmp(opt->namefmt_remove,
+                       DEFAULT_NAMEFMT_REMOVE))
                 {
                     fprintf(stderr, _("WARNING: Multiple name format filters specified, using final\n"));
                     free(opt->namefmt_remove);
@@ -947,7 +947,7 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
         else
             i = filenum;
 
-        *album = opt->album[i];    
+        *album = opt->album[i];
         add_tag(vc, opt, "album", opt->album[i]);
     }
 
