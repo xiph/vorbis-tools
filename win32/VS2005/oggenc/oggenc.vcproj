@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="oggenc"
 	ProjectGUID="{10DA267E-7738-4E7E-9C31-9D0DF49A0B96}"
 	RootNamespace="oggenc"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;."
+				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;..\..\..\..\flac\include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_CONFIG_H"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,8 +62,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libogg.lib libvorbis.lib libFLAC_dynamic.lib"
 				OutputFile="$(OutDir)/oggenc.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="../../../../libogg/win32/VS2005/debug;../../../../libvorbis/win32/VS2005/debug;../../../../flac/obj/debug/lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/oggenc.pdb"
 				SubSystem="1"
@@ -123,7 +125,7 @@
 				Optimization="3"
 				InlineFunctionExpansion="2"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;."
+				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;..\..\..\..\flac\include;."
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HAVE_CONFIG_H"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -142,9 +144,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libogg.lib libvorbis.lib libFLAC_dynamic.lib"
 				OutputFile="$(OutDir)/oggenc.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="true"
+				AdditionalLibraryDirectories="../../../../libogg/win32/VS2005/release;../../../../libvorbis/win32/VS2005/release;../../../../flac/obj/release/lib"
+				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -190,7 +194,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\oggenc\easyflac.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\oggenc\encode.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\oggenc\flac.c"
 				>
 			</File>
 			<File
@@ -211,6 +223,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\oggenc\resample.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\oggenc\skeleton.c"
 				>
 			</File>
 			<File
@@ -245,6 +261,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\oggenc\resample.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\oggenc\skeleton.h"
 				>
 			</File>
 		</Filter>

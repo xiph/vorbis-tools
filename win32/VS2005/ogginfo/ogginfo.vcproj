@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="ogginfo"
 	ProjectGUID="{D60948A2-4781-435B-9609-786C0B564DBD}"
 	RootNamespace="ogginfo"
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_CONFIG_H"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -62,8 +62,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libogg.lib libvorbis.lib"
 				OutputFile="$(OutDir)/ogginfo.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="../../../../libogg/win32/VS2005/debug;../../../../libvorbis/win32/VS2005/debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/ogginfo.pdb"
 				SubSystem="1"
@@ -124,8 +126,8 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="false"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HAVE_CONFIG_H"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -143,9 +145,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libogg.lib libvorbis.lib"
 				OutputFile="$(OutDir)/ogginfo.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="true"
+				AdditionalLibraryDirectories="../../../../libogg/win32/VS2005/release;../../../../libvorbis/win32/VS2005/release"
+				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
