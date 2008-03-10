@@ -262,12 +262,13 @@ int main(int argc, char **argv)
             {
                 /* Create a filename from existing filename, replacing extension with .ogg or .oga */
                 char *start, *end;
+				char *extension;
 
                 start = infiles[i];
                 end = strrchr(infiles[i], '.');
                 end = end?end:(start + strlen(infiles[i])+1);
 
-                char *extension = (opt.with_skeleton) ? ".oga" : ".ogg";
+                extension = (opt.with_skeleton) ? ".oga" : ".ogg";
                 out_fn = malloc(end - start + 5);
                 strncpy(out_fn, start, end-start);
                 out_fn[end-start] = 0;
