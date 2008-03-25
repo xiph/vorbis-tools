@@ -1,3 +1,7 @@
+vorbis-tools 1.2.1 -- Unreleased
+
+* Fixed an error in configure.ac; --with-speex/flac work again
+
 vorbis-tools 1.2.0 -- 2008-02-21
 
  * FLAC support now relies on libFLAC
