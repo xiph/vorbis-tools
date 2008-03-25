@@ -147,6 +147,7 @@ int main(int argc, char **argv)
         char *artist=NULL, *album=NULL, *title=NULL, *track=NULL;
         char *date=NULL, *genre=NULL;
         input_format *format;
+        int resampled = 0;
 
         /* Set various encoding defaults */
 
@@ -325,6 +326,8 @@ int main(int argc, char **argv)
 
         if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate) {
             int fromrate = enc_opts.rate;
+
+            resampled = 1;
             enc_opts.resamplefreq = opt.resamplefreq;
             if(setup_resample(&enc_opts)) {
                 errors++;
@@ -370,7 +373,7 @@ int main(int argc, char **argv)
             clear_scaler(&enc_opts);
         if(opt.downmix)
             clear_downmix(&enc_opts);
-        if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate)
+        if(resampled)
             clear_resample(&enc_opts);
 clear_all:
 
@@ -948,7 +951,7 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
         else
             i = filenum;
 
-        *album = opt->album[i];    
+        *album = opt->album[i];
         add_tag(vc, opt, "album", opt->album[i]);
     }
 
