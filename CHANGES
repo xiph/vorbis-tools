@@ -2,6 +2,7 @@ vorbis-tools 1.2.1 -- Unreleased
 
 * Fixed an error in configure.ac; --with-speex/flac work again (#1319)
 * Corrected problems in the Visual Studio project files
+* ogg123: backported fix from libfishsound to patch the speex decoder (#1347)
 * oggenc: fixed a core dump while resampling from FLAC (#1316)
 
 vorbis-tools 1.2.0 -- 2008-02-21
@@ -9,12 +10,14 @@ vorbis-tools 1.2.0 -- 2008-02-21
  * FLAC support now relies on libFLAC
  * Support for large files
  * Fixed acinclude.m4 to properly support --no switches
- * ogg123: added remote control support
- * ogg123: fixed a bug in esd when pressing CTRL + C
+ * ogg123: added remote control support (#1109)
+ * ogg123: fixed a bug in esd when pressing CTRL + C (#715)
  * ogg123: fixed a type mismatch in option parsing for 64 bit systems
  * ogg123: configuration no longer hardcoded to /etc
- * oggdec: limited support for chained Ogg bitstreams
  * ogg123: compiles with older versions of libcurl
+ * ogg123: fix crash when playing 1-channel FLAC (#535)
+ * ogg123: fix floating-point exception when playing corrupt FLAC (#1119)
+ * oggdec: limited support for chained Ogg bitstreams
  * oggdec: support decoding of multiple files into a single one
  * oggenc: -k, switch for Skeleton bitstream encoding
  * oggenc: fixed issues with Skeleton on big endian systems
