@@ -103,7 +103,7 @@ int speex_can_decode (data_source_t *source)
   int len;
 
   len = source->transport->peek(source, buf, sizeof(char), 36);
-  
+
   if (len >= 32 && memcmp(buf, "OggS", 4) == 0
       && memcmp(buf+28, "Speex   ", 8) == 0) /* 3 trailing spaces */
     return 1;
@@ -181,7 +181,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
   if (priv->bos) {
 
     ret = read_speex_header(decoder);
-    
+
     if (!ret) {
       *eos = 1;
       return 0; /* Bail out! */
@@ -200,7 +200,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
   while (nbytes) {
     char *data;
     int i, j, nb_read;
-    
+
     /* First see if there is anything left in the output buffer and 
        empty it out */
     if (priv->output_left > 0) {
@@ -209,7 +209,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       to_copy *= audio_fmt->channels;
 
       to_copy = priv->output_left < to_copy ? priv->output_left : to_copy;
-      
+
       /* Integerify it! */
       for (i = 0; i < to_copy; i++)
 	out[i]=(ogg_int16_t)priv->output[i+priv->output_start];
@@ -217,18 +217,18 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       out += to_copy;
       priv->output_start += to_copy;
       priv->output_left -= to_copy;
-     
+
       priv->currentsample += to_copy / audio_fmt->channels;
 
       nbytes -= to_copy * 2;      
     } else if (ogg_stream_packetout(&priv->os, &priv->op) == 1) {
       float *temp_output = priv->output;
       /* Decode some more samples */
-            
+
       /*Copy Ogg packet to Speex bitstream*/
       speex_bits_read_from(&priv->bits, (char*)priv->op.packet, 
 			   priv->op.bytes);
-      
+
       for (j = 0;j < priv->frames_per_packet; j++) {
 	/*Decode frame*/
 	speex_decode(priv->st, &priv->bits, temp_output);
@@ -257,7 +257,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       ogg_stream_pagein(&priv->os, &priv->og);
     } else if (!priv->eof) {
       /* Finally, pull in some more data and try again on the next pass */
-      
+
       /*Get the ogg buffer for writing*/
       data = ogg_sync_buffer(&priv->oy, 200);
       /*Read bitstream from input file*/
@@ -274,7 +274,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       break;
     }
   }
-  
+
   return bytes_requested - nbytes;
 }
 
@@ -411,7 +411,7 @@ void print_speex_comments(char *comments, int length,
   temp[len] = '\0';
 		
   cb->printf_metadata(callback_arg, 3, _("Encoded by: %s"), temp);
-  
+
 
   /* Parse out user comments */
 
@@ -440,7 +440,7 @@ void print_speex_comments(char *comments, int length,
       free(temp);
       return;
     }
-    
+
     if (temp_len < len + 1) {
       temp_len = len + 1;
       temp = realloc(temp, sizeof(char) * temp_len);
@@ -449,7 +449,7 @@ void print_speex_comments(char *comments, int length,
 
     strncpy(temp, c, len);
     temp[len] = '\0';
-    
+
     print_vorbis_comment(temp, cb, callback_arg);
 
     c += len;
@@ -469,13 +469,13 @@ void *process_header(ogg_packet *op, int *frame_size,
    int modeID;
    SpeexCallback callback;
    int enhance = ENHANCE_AUDIO;
-   
+
    *header = speex_packet_to_header((char*)op->packet, op->bytes);
    if (!*header) {
            cb->printf_error(callback_arg, ERROR, _("Cannot read header"));
      return NULL;
    }
-   if ((*header)->mode >= SPEEX_NB_MODES) {
+   if ((*header)->mode >= SPEEX_NB_MODES || (*header)->mode < 0) {
      cb->printf_error(callback_arg, ERROR, 
 		      _("Mode number %d does not (any longer) exist in this version"),
 	      (*header)->mode);
@@ -484,7 +484,7 @@ void *process_header(ogg_packet *op, int *frame_size,
 
    modeID = (*header)->mode;
    mode = speex_mode_list[modeID];
-   
+
    if (mode->bitstream_version < (*header)->mode_bitstream_version) {
      cb->printf_error(callback_arg, ERROR, _("The file was encoded with a newer version of Speex.\n You need to upgrade in order to play it.\n"));
      return NULL;
@@ -493,11 +493,11 @@ void *process_header(ogg_packet *op, int *frame_size,
      cb->printf_error(callback_arg, ERROR, _("The file was encoded with an older version of Speex.\nYou would need to downgrade the version in order to play it."));
      return NULL;
    }
-   
+
    st = speex_decoder_init(mode);
    speex_decoder_ctl(st, SPEEX_SET_ENH, &enhance);
    speex_decoder_ctl(st, SPEEX_GET_FRAME_SIZE, frame_size);
-   
+
    callback.callback_id = SPEEX_INBAND_STEREO;
    callback.func = speex_std_stereo_request_handler;
    callback.data = stereo;
@@ -521,11 +521,11 @@ int read_speex_header (decoder_t *decoder)
   while (packet_count < 2) {
     /*Get the ogg buffer for writing*/
     data = ogg_sync_buffer(&priv->oy, 200);
-    
+
     /*Read bitstream from input file*/
     nb_read = trans->read(decoder->source, data, sizeof(char), 200);
     ogg_sync_wrote(&priv->oy, nb_read);
-    
+
     /*Loop for all complete pages we got (most likely only one)*/
     while (ogg_sync_pageout(&priv->oy, &priv->og)==1) {
 
@@ -533,7 +533,7 @@ int read_speex_header (decoder_t *decoder)
 	ogg_stream_init(&priv->os, ogg_page_serialno(&priv->og));
 	stream_init = 1;
       }
-    
+
       /*Add page to the bitstream*/
       ogg_stream_pagein(&priv->os, &priv->og);
 
