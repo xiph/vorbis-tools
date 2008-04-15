@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="vorbiscomment"
-	ProjectGUID="{851A5E6A-C2D8-44C4-A7AC-A5F7E2001FA9}"
+	Name="vcut"
+	ProjectGUID="{7691D0F6-A15F-4F9C-B529-9A9224CEFA48}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -19,11 +19,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\.."
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_CONFIG_H"
+				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="5"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -33,11 +33,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libogg.lib libvorbis.lib"
-				OutputFile="$(OutDir)/vorbiscomment.exe"
+				OutputFile="$(OutDir)/vcut.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\..\libogg\win32\VS2003\$(ConfigurationName);..\..\..\..\libvorbis\win32\VS2003\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/vorbiscomment.pdb"
+				ProgramDatabaseFile="$(OutDir)/vcut.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -66,17 +66,12 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="2"
-			WholeProgramOptimization="TRUE">
+			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				GlobalOptimizations="TRUE"
-				FavorSizeOrSpeed="1"
-				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\.."
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HAVE_CONFIG_H"
-				RuntimeLibrary="0"
+				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				RuntimeLibrary="4"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -86,14 +81,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libogg.lib libvorbis.lib"
-				OutputFile="$(OutDir)/vorbiscomment.exe"
+				OutputFile="$(OutDir)/vcut.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\libogg\win32\VS2003\$(ConfigurationName);..\..\..\..\libvorbis\win32\VS2003\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				OptimizeForWindows98="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -125,19 +119,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\..\..\share\getopt.c">
-			</File>
-			<File
-				RelativePath="..\..\..\share\getopt1.c">
-			</File>
-			<File
-				RelativePath="..\..\..\share\utf8.c">
-			</File>
-			<File
-				RelativePath="..\..\..\vorbiscomment\vcedit.c">
-			</File>
-			<File
-				RelativePath="..\..\..\vorbiscomment\vcomment.c">
+				RelativePath="..\..\..\vcut\vcut.c">
 			</File>
 		</Filter>
 		<Filter
@@ -145,10 +127,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\config.h">
-			</File>
-			<File
-				RelativePath="..\..\..\vorbiscomment\vcedit.h">
+				RelativePath="..\..\..\vcut\vcut.h">
 			</File>
 		</Filter>
 		<Filter

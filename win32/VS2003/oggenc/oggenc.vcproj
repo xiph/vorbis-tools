@@ -12,14 +12,14 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;."
+				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;..\..\..\..\flac\include;..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_CONFIG_H"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -32,8 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libogg.lib libvorbis.lib libFlac.lib"
 				OutputFile="$(OutDir)/oggenc.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\..\..\libogg\win32\VS2003\$(ConfigurationName);..\..\..\..\libvorbis\win32\VS2003\$(ConfigurationName);..\..\..\..\flac\obj\$(ConfigurationName)\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/oggenc.pdb"
 				SubSystem="1"
@@ -61,8 +63,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="TRUE">
@@ -73,7 +75,7 @@
 				InlineFunctionExpansion="2"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;."
+				AdditionalIncludeDirectories="..\..\..\include;..\..\..\..\libvorbis\include;..\..\..\..\libogg\include;..\..\..\..\flac\include;..\.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HAVE_CONFIG_H"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -84,8 +86,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libogg.lib libvorbis.lib libFlac.lib"
 				OutputFile="$(OutDir)/oggenc.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\..\libogg\win32\VS2003\$(ConfigurationName);..\..\..\..\libvorbis\win32\VS2003\$(ConfigurationName);..\..\..\..\flac\obj\$(ConfigurationName)\lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -125,7 +129,13 @@
 				RelativePath="..\..\..\oggenc\audio.c">
 			</File>
 			<File
+				RelativePath="..\..\..\oggenc\easyflac.c">
+			</File>
+			<File
 				RelativePath="..\..\..\oggenc\encode.c">
+			</File>
+			<File
+				RelativePath="..\..\..\oggenc\flac.c">
 			</File>
 			<File
 				RelativePath="..\..\..\share\getopt.c">
@@ -141,6 +151,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\oggenc\resample.c">
+			</File>
+			<File
+				RelativePath="..\..\..\oggenc\skeleton.c">
 			</File>
 			<File
 				RelativePath="..\..\..\share\utf8.c">
@@ -170,6 +183,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\oggenc\resample.h">
+			</File>
+			<File
+				RelativePath="..\..\..\oggenc\skeleton.h">
 			</File>
 		</Filter>
 		<Filter
