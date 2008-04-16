@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\"
+				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_CONFIG_H"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -126,7 +126,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="false"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\"
+				AdditionalIncludeDirectories="..\..\..\..\libogg\include;..\..\..\include;..\..\..\..\libvorbis\include;..\.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HAVE_CONFIG_H"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
