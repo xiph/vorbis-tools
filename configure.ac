@@ -100,6 +100,7 @@ AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$en
 AC_ARG_ENABLE(vorbiscomment, [  --disable-vorbiscomment   Skip building vorbiscomment], build_vorbiscomment="$enableval", build_vorbiscomment="yes")
 AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_flac="$withval", build_flac="yes")
 AC_ARG_WITH(speex,    [  --without-speex    Do not compile Speex support], build_speex="$withval", build_speex="yes")
+AC_ARG_WITH(kate,     [  --without-kate     Do not compile Kate support], build_kate="$withval", build_kate="yes")
 
 dnl --------------------------------------------------
 dnl Check for generally needed libraries
@@ -251,6 +252,50 @@ fi
 AM_CONDITIONAL(HAVE_LIBSPEEX, test "x$have_libspeex" = "xyes")
 AC_SUBST(SPEEX_LIBS)
 
+dnl ------------------- Kate -------------------------
+
+KATE_CFLAGS=""
+KATE_LIBS=""
+if test "x$build_kate" = xyes; then
+  AC_CHECK_PROG(HAVE_PKG_CONFIG, pkg-config, yes)
+  if test "x$HAVE_PKG_CONFIG" = "xyes"
+  then
+    PKG_CHECK_MODULES(KATE, oggkate, HAVE_KATE=yes, HAVE_KATE=no)
+  fi
+  if test "x$HAVE_KATE" = "xno"
+  then
+    dnl fall back to the old school test
+    AC_CHECK_LIB(m,log,KATE_LIBS="-lm")
+    AC_CHECK_LIB(kate, [kate_decode_init],
+      [HAVE_KATE=yes; KATE_LIBS="-lkate $KATE_LIBS $OGG_LIBS"],
+      AC_MSG_WARN(libkate missing)
+      HAVE_KATE=no, [$KATE_LIBS $OGG_LIBS]
+    )
+    AC_CHECK_LIB(oggkate, [kate_ogg_decode_headerin],
+      [HAVE_KATE=yes; KATE_LIBS="-loggkate $KATE_LIBS $OGG_LIBS"],
+      AC_MSG_WARN(libkate missing)
+      HAVE_KATE=no, [$KATE_LIBS $OGG_LIBS]
+    )
+    AC_CHECK_HEADER(kate/kate.h,,
+      AC_MSG_WARN(libkate headers missing)
+      HAVE_KATE=no,[ ])
+    AC_CHECK_HEADER(kate/oggkate.h,,
+      AC_MSG_WARN(liboggkate headers missing)
+      HAVE_KATE=no,[ ])
+
+  fi
+  if test "x$HAVE_KATE" = xyes; then
+    AC_DEFINE(HAVE_KATE, 1, [Defined if we have libkate])
+  else
+    build_kate="no"
+    KATE_CFLAGS=""
+    KATE_LIBS=""
+  fi
+fi
+AM_CONDITIONAL(HAVE_KATE, test "x$HAVE_KATE" = "xyes")
+AC_SUBST(KATE_CFLAGS)
+AC_SUBST(KATE_LIBS)
+
 dnl --------------------------------------------------
 dnl Check for headers
 dnl --------------------------------------------------
@@ -357,5 +402,9 @@ will NOT be built with Speex read support.])
     if test "x$HAVE_CURL" != xyes; then
         AC_MSG_WARN([curl libraries and/or headers missing, ogg123 
 will NOT be built with http support.])
+    fi
+    if test "x$HAVE_KATE" != xyes; then
+        AC_MSG_WARN([Kate libraries and/or headers missing, ogginfo 
+will be built with LIMITED Kate read support.])
     fi
 fi
