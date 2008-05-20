@@ -607,7 +607,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
         switch(ret)
         {
             case 0:
-                if(!strcmp(long_options[option_index].name, "skleton")) {
+                if(!strcmp(long_options[option_index].name, "skeleton")) {
                     opt->with_skeleton = 1;
                 }
                 else if(!strcmp(long_options[option_index].name, "managed")) {

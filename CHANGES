@@ -4,12 +4,13 @@ vorbis-tools 1.2.1 -- Unreleased
 * Corrected problems in the Visual Studio project files
 * ogg123: backported fix from libfishsound to patch the Speex decoder (#1347)
 * oggenc: fixed a core dump while resampling from FLAC (#1316)
+* oggenc: fixed a typo in the Skeleton handling routine
 * ogginfo: support for information in Kate streams (#1360)
 
 vorbis-tools 1.2.0 -- 2008-02-21
 
  * FLAC support now relies on libFLAC
- * Support for large files
+ * Support for large files (#879)
  * Fixed acinclude.m4 to properly support --no switches
  * ogg123: added remote control support (#1109)
  * ogg123: fixed a bug in esd when pressing CTRL + C (#715)
