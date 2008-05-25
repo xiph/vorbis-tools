@@ -27,12 +27,24 @@
 #include <locale.h>
 #include "i18n.h"
 
+#ifdef HAVE_INTTYPES_H
+#include <inttypes.h>
+#define FORMAT_INT64 "%" PRId64
+#define FORMAT_INT64_TIME "+%" PRId64
+#else
+
 #ifdef _WIN32
 #define FORMAT_INT64	  "%I64d"
 #define FORMAT_INT64_TIME "+%I64d"
 #else
+#if LONG_MAX!=2147483647L
+#define FORMAT_INT64      "%ld"
+#define FORMAT_INT64_TIME "+%ld"
+#else
 #define FORMAT_INT64	  "%lld"
 #define FORMAT_INT64_TIME "+%lld"
+#endif
+#endif
 #endif
 
 static vcut_packet *save_packet(ogg_packet *packet)
@@ -67,7 +79,7 @@ static long get_blocksize(vcut_state *s, vorbis_info *vi, ogg_packet *op)
 
 static int update_sync(vcut_state *s, FILE *f)
 {
-	unsigned char *buffer = ogg_sync_buffer(s->sync_in, 4096);
+	char *buffer = ogg_sync_buffer(s->sync_in, 4096);
 	int bytes = fread(buffer,1,4096,f);
 	ogg_sync_wrote(s->sync_in, bytes);
 	return bytes;
@@ -421,7 +433,7 @@ static int process_headers(vcut_state *s)
 	ogg_packet packet;
 	int bytes;
 	int i;
-	unsigned char *buffer;
+	char *buffer;
 	ogg_int64_t samples;
 
 	ogg_sync_init(s->sync_in);
@@ -508,7 +520,6 @@ static int process_headers(vcut_state *s)
 int main(int argc, char **argv)
 {
 	ogg_int64_t cutpoint;
-	ogg_int64_t cutpoint_secs = 0;
 	FILE *in,*out1,*out2;
 	int ret=0;
 	int time=0;
@@ -556,9 +567,9 @@ int main(int argc, char **argv)
 	}
 
 	if(time) {
-	  fprintf(stderr, _("Processing: Cutting at %lld seconds\n"), cutpoint);
+	  fprintf(stderr, _("Processing: Cutting at %lld seconds\n"), (long long)cutpoint);
 	} else {
-	  fprintf(stderr, _("Processing: Cutting at %lld samples\n"), cutpoint);
+	  fprintf(stderr, _("Processing: Cutting at %lld samples\n"), (long long)cutpoint);
 	}
 
 	state = vcut_new();
@@ -718,4 +729,3 @@ void vcut_time_to_samples(ogg_int64_t *time, ogg_int64_t *samples, FILE *in)
 {
 
 }
-
