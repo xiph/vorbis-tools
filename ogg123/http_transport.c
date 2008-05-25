@@ -68,7 +68,8 @@ size_t write_callback (void *ptr, size_t size, size_t nmemb, void *arg)
   if (myarg->cancel_flag || sig_request.cancel)
     return 0;
 
-  buffer_submit_data(myarg->buf, ptr, size*nmemb);
+  if (!buffer_submit_data(myarg->buf, ptr, size*nmemb))
+    return 0;
 
   if (myarg->cancel_flag || sig_request.cancel)
     return 0;

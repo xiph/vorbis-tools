@@ -110,7 +110,7 @@ void buffer_thread_unpause (buf_t *buf);
 void buffer_thread_kill    (buf_t *buf);
 
 /* --- Data buffering functions --- */
-void buffer_submit_data (buf_t *buf, char *data, long nbytes);
+int buffer_submit_data (buf_t *buf, char *data, long nbytes);
 size_t buffer_get_data (buf_t *buf, char *data, long nbytes);
 
 void buffer_mark_eos (buf_t *buf);

@@ -207,7 +207,7 @@ void *buffer_thread_func (void *arg)
 
   /* This test is safe since curfill will never decrease and eos will
      never be unset. */
-  while ( !(buf->eos && buf->curfill == 0)) {
+  while ( !(buf->eos && buf->curfill == 0) && !buf->abort_write) {
 
     if (buf->cancel_flag || sig_request.cancel)
       break;
@@ -251,6 +251,11 @@ void *buffer_thread_func (void *arg)
 		    write_amount == buf->curfill ? buf->eos : 0,
 		    buf->write_arg);
 
+    if (!write_amount) {
+      DEBUG("Error writing to the audio device. Aborting.");
+      buffer_abort_write(buf);
+    }
+
     LOCK_MUTEX(buf->mutex);
 
     buf->curfill -= write_amount;
@@ -278,7 +283,7 @@ void *buffer_thread_func (void *arg)
 }
 
 
-void submit_data_chunk (buf_t *buf, char *data, size_t size)
+int submit_data_chunk (buf_t *buf, char *data, size_t size)
 {
   long   buf_write_pos; /* offset of first available write location */
   size_t write_size;
@@ -341,6 +346,7 @@ void submit_data_chunk (buf_t *buf, char *data, size_t size)
   pthread_cleanup_pop(0);
 
   DEBUG("Exit submit_data_chunk");
+  return !buf->abort_write;
 }
 
 
@@ -515,8 +521,8 @@ void buffer_thread_kill (buf_t *buf)
 
 /* --- Data buffering functions --- */
 
-void buffer_submit_data (buf_t *buf, char *data, long nbytes) {
-  submit_data_chunk (buf, data, nbytes);
+int buffer_submit_data (buf_t *buf, char *data, long nbytes) {
+  return submit_data_chunk (buf, data, nbytes);
 }
 
 size_t buffer_get_data (buf_t *buf, char *data, long nbytes)
@@ -746,7 +752,7 @@ void buffer_wait_for_empty (buf_t *buf)
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   LOCK_MUTEX(buf->mutex);
-  while (!empty) {
+  while (!empty && !buf->abort_write) {
 
     if (buf->curfill > 0) {
       DEBUG1("Buffer curfill = %ld, going back to sleep.", buf->curfill);

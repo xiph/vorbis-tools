@@ -239,10 +239,10 @@ int handle_seek_opt(ogg123_options_t *options, decoder_t *decoder, format_t *for
   }
 
   options->seekmode = DECODER_SEEK_NONE;
-  
+
   return 1;
 }
-  
+
 /* This function selects which statistics to display for our
    particular configuration.  This does not have anything to do with
    verbosity, but rather with which stats make sense to display. */
@@ -271,7 +271,7 @@ void select_stats (stat_format_t *stats, ogg123_options_t *opts,
     stats[7].enabled = 0;
   }
   free(data_source_stats);
-    
+
   /* Assume we need total time display, and let display_statistics()
      determine at what point it should be turned off during playback */
   stats[2].enabled = 1;  /* Remaining playback time */
@@ -294,14 +294,14 @@ void display_statistics (stat_format_t *stat_format,
 					decoder->format->statistics(decoder));
 
   if (options.remote) {
-  
+
     /* Display statistics via the remote interface */
     remote_time(pstats_arg->decoder_statistics->current_time, 
                 pstats_arg->decoder_statistics->total_time,
 				pstats_arg->decoder_statistics->instant_bitrate);
 				
   } else {
-  
+
 	/* Disable/Enable statistics as needed */
 
 	if (pstats_arg->decoder_statistics->total_time <
@@ -447,8 +447,8 @@ int main(int argc, char **argv)
 
   print_audio_devices_info(options.devices);
 
-  
-  /* Setup buffer */ 
+
+  /* Setup buffer */
   if (options.buffer_size > 0) {
     /* Keep sample size alignment for surround sound with up to 10 channels */
     options.buffer_size = (options.buffer_size + PRIMAGIC - 1) / PRIMAGIC * PRIMAGIC;
@@ -473,7 +473,6 @@ int main(int argc, char **argv)
   signal (SIGTERM, signal_handler);
 
   if (options.remote) {
-  
     /* run the mainloop for the remote interface */
     remote_mainloop();
 
@@ -483,9 +482,9 @@ int main(int argc, char **argv)
       /* Shuffle playlist */
       if (options.shuffle) {
         int i;
-    
+
         srandom(time(NULL));
-    
+
         for (i = 0; i < items; i++) {
           int j = i + random() % (items - i);
           char *temp = playlist_array[i];
@@ -568,7 +567,7 @@ void play (char *source_string)
     status_error(_("The file format of %s is not supported.\n"), source_string);
     return;
   }
-  
+
   if ( (decoder = format->init(source, &options, &new_audio_fmt, 
 			       &decoder_callbacks,
 			       decoder_callbacks_arg)) == NULL ) {
@@ -586,7 +585,7 @@ void play (char *source_string)
 
   /* Start the audio playback thread before we begin sending data */    
   if (audio_buffer != NULL) {
-    
+
     /* First reset mutexes and other synchronization variables */
     buffer_reset (audio_buffer);
     buffer_thread_start (audio_buffer);
@@ -614,11 +613,11 @@ void play (char *source_string)
 
   /* Main loop:  Iterates over all of the logical bitstreams in the file */
   while (!eof && !sig_request.exit) {
-    
+
     /* Loop through data within a logical bitstream */
     eos = 0;    
     while (!eos && !sig_request.exit) {
-      
+
       /* Check signals */
       if (sig_request.skipfile) {
 	eof = eos = 1;
@@ -664,7 +663,6 @@ void play (char *source_string)
 	break;
       }
 
-      
       /* Check to see if the audio format has changed */
       if (!audio_format_equal(&new_audio_fmt, &old_audio_fmt)) {
 	old_audio_fmt = new_audio_fmt;
@@ -682,7 +680,7 @@ void play (char *source_string)
 	else
 	  audio_reopen_action(NULL, reopen_arg);
       }
-      
+
 
       /* Update statistics display if needed */
       if (next_status <= 0) {
@@ -702,11 +700,15 @@ void play (char *source_string)
       do {
 	
 	if (nthc-- == 0) {
-	  if (audio_buffer)
-	    buffer_submit_data(audio_buffer, convbuffer, ret);
-	  else
+          if (audio_buffer) {
+            if (!buffer_submit_data(audio_buffer, convbuffer, ret)) {
+              status_error(_("Error: buffer write failed.\n"));
+              eof = eos = 1;
+              break;
+            }
+          } else
 	    audio_play_callback(convbuffer, ret, eos, &audio_play_arg);
-	  
+
 	  nthc = options.nth - 1;
 	}
 	
@@ -714,15 +716,15 @@ void play (char *source_string)
 	       ++ntimesc < options.ntimes);
 
       ntimesc = 0;
-            
+
     } /* End of data loop */
-    
+
   } /* End of logical bitstream loop */
-  
+
   /* Done playing this logical bitstream.  Clean up house. */
 
   if (audio_buffer) {
-    
+
     if (!sig_request.exit && !sig_request.skipfile) {
       buffer_mark_eos(audio_buffer);
       buffer_wait_for_empty(audio_buffer);
@@ -733,14 +735,13 @@ void play (char *source_string)
 
   /* Print final stats */
   display_statistics_quick(stat_format, audio_buffer, source, decoder); 
-   
-  
+
   format->cleanup(decoder);
   transport->close(source);
   status_reset_output_lock();  /* In case we were killed mid-output */
 
   status_message(1, _("Done."));
-  
+
   if (sig_request.exit)
     exit (exit_status);
 }
@@ -748,7 +749,7 @@ void play (char *source_string)
 
 void exit_cleanup ()
 {
-      
+
   if (audio_buffer != NULL) {
     buffer_destroy (audio_buffer);
     audio_buffer = NULL;
