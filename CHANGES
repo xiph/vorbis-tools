@@ -8,6 +8,8 @@ vorbis-tools 1.2.1 -- Unreleased
 * oggenc: fixed a core dump while resampling from FLAC (#1316)
 * oggenc: fixed a typo in the Skeleton handling routine
 * ogginfo: support for information in Kate streams (#1360)
+* vcut: 64 bit fixes (#1366)
+* vorbiscomment: correct memory allocation (#472)
 
 vorbis-tools 1.2.0 -- 2008-02-21
 

@@ -376,7 +376,7 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 	}
 	oggpack_write(&opb,1,1);
 
-	op->packet = _ogg_malloc(oggpack_bytes(&opb));
+	op->packet = malloc(oggpack_bytes(&opb));
 	memcpy(op->packet, opb.buffer, oggpack_bytes(&opb));
 
 	op->bytes=oggpack_bytes(&opb);
