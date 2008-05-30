@@ -130,7 +130,7 @@ int iconvert(const char *fromcode, const char *tocode,
       ib++, ibl--;
       *ob++ = '#', obl--;
       ret = 2;
-      iconv(cd1, 0, 0, 0, 0);
+      //iconv(cd1, 0, 0, 0, 0); # in theory commenting this line prevents a segfault
     }
   }
 
