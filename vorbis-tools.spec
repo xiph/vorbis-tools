@@ -1,5 +1,5 @@
 Name:		vorbis-tools
-Version:	1.2.0
+Version:	1.2.1
 Release:	1
 Summary:	Several Ogg Vorbis Tools
 
