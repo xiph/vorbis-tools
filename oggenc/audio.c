@@ -28,6 +28,9 @@
 #endif
 
 #define WAV_HEADER_SIZE 44
+#define WAVE_FORMAT_PCM        0x0001
+#define WAVE_FORMAT_IEEE_FLOAT 0x0003
+#define WAVE_FORMAT_EXTENSIBLE 0xfffe
 
 /* Macros to read header data */
 #define READ_U32_LE(buf) \
@@ -377,8 +380,8 @@ static int wav_permute_matrix[6][6] =
     {0,1},
     {0,2,1},
     {0,1,2,3},
-    {0,1,2,3,4}, /* No equivalent in wav? */
-    {0,2,1,5,3,4}
+    {0,2,1,3,4},  //{0,1,2,3,4}, /* No equivalent in wav? */
+    {0,2,1,4,5,3} //{0,2,1,5,3,4}
 };
 
 int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
@@ -399,7 +402,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     if(!find_wav_chunk(in, "fmt ", &len))
         return 0; /* EOF */
 
-    if(len < 16) 
+    if(len < 16)
     {
         fprintf(stderr, _("Warning: Unrecognised format chunk in WAV header\n"));
         return 0; /* Weird format chunk */
@@ -410,13 +413,14 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
      * it instead of refusing to work with the file.  Please, if you
      * have a program that's creating format chunks of sizes other than
      * 16 or 18 bytes in size, report a bug to the author.
+     * (40 bytes accommodates WAVEFORMATEXTENSIBLE conforming files.)
      */
-    if(len!=16 && len!=18)
+    if(len!=16 && len!=18 && len!=40)
         fprintf(stderr, 
                 _("Warning: INVALID format chunk in wav header.\n"
                 " Trying to read anyway (may not work)...\n"));
 
-    if(fread(buf,1,16,in) < 16)
+    if(fread(buf,1,len,in) < len)
     {
         fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
         return 0;
@@ -424,8 +428,6 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
     /* Deal with stupid broken apps. Don't use these programs.
      */
-    if(len - 16 > 0 && !seek_forward(in, len-16))
-        return 0;
 
     format.format =      READ_U16_LE(buf); 
     format.channels =    READ_U16_LE(buf+2); 
@@ -434,15 +436,18 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     format.align =       READ_U16_LE(buf+12);
     format.samplesize =  READ_U16_LE(buf+14);
 
+    if (format.format == WAVE_FORMAT_EXTENSIBLE && len > 25)
+        format.format =  READ_U16_LE(buf+24);
+
     if(!find_wav_chunk(in, "data", &len))
         return 0; /* EOF */
 
-    if(format.format == 1)
+    if(format.format == WAVE_FORMAT_PCM)
     {
         samplesize = format.samplesize/8;
         opt->read_samples = wav_read;
     }
-    else if(format.format == 3)
+    else if(format.format == WAVE_FORMAT_IEEE_FLOAT)
     {
         samplesize = 4;
         opt->read_samples = wav_ieee_read;
@@ -466,8 +471,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
     if(format.samplesize == samplesize*8 && 
             (format.samplesize == 24 || format.samplesize == 16 || 
-             format.samplesize == 8 ||
-         (format.samplesize == 32 && format.format == 3)))
+             format.samplesize == 8 || format.samplesize == 32))
     {
         /* OK, good - we have the one supported format,
            now we want to find the size of the file */
@@ -481,29 +485,29 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
                                             of trying to abstract stuff. */
         wav->samplesize = format.samplesize;
 
-        if(len)
-        {
-            opt->total_samples_per_channel = len/(format.channels*samplesize);
-        }
-        else
-        {
-            long pos;
-            pos = ftell(in);
-            if(fseek(in, 0, SEEK_END) == -1)
+        opt->total_samples_per_channel = 0; /* Give up, like raw format */
+
+        if(!opt->ignorelength) {      // if a new parameter NeroAacEnc style is included
+            if(len)
             {
-                opt->total_samples_per_channel = 0; /* Give up */
+                opt->total_samples_per_channel = len/(format.channels*samplesize);
             }
             else
             {
-                opt->total_samples_per_channel = (ftell(in) - pos)/
-                    (format.channels*samplesize);
-                fseek(in,pos, SEEK_SET);
+                long pos;
+                pos = ftell(in);
+                if(fseek(in, 0, SEEK_END) != -1)
+                {
+                    opt->total_samples_per_channel = (ftell(in) - pos)/
+                        (format.channels*samplesize);
+                    fseek(in,pos, SEEK_SET);
+                }
             }
         }
         wav->totalsamples = opt->total_samples_per_channel;
 
         opt->readdata = (void *)wav;
-        
+
         /* TODO: Read the extended wav header to get this right in weird cases,
          * and/or error out if neccesary. Suck. */
         wav->channel_permute = malloc(wav->channels * sizeof(int));
@@ -521,7 +525,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     else
     {
         fprintf(stderr, 
-                _("ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
+                _("ERROR: Wav file is unsupported subformat (must be 8,16,24 or 32 bit PCM\n"
                 "or floating point PCM)\n"));
         return 0;
     }
@@ -543,8 +547,8 @@ long wav_read(void *in, float **buffer, int samples)
     }
 
     realsamples = bytes_read/(sampbyte*f->channels);
-    f->samplesread += realsamples;
-        
+    if (f->totalsamples) f->samplesread += realsamples;
+
     if(f->samplesize==8)
     {
         unsigned char *bufu = (unsigned char *)buf;
@@ -599,6 +603,26 @@ long wav_read(void *in, float **buffer, int samples)
         else {
             fprintf(stderr, _("Big endian 24 bit PCM data is not currently "
                               "supported, aborting.\n"));
+            return 0;
+        }
+    }
+    else if (f->samplesize==32)
+    {
+        if (!f->bigendian)
+        {
+            for (i = 0; i < realsamples; i++)
+            {
+                for (j=0; j < f->channels; j++)
+                    buffer[j][i] =            ((buf[i*4*f->channels + 4*ch_permute[j] + 3] << 24) |
+                        (((unsigned char *)buf)[i*4*f->channels + 4*ch_permute[j] + 2] << 16) |
+                        (((unsigned char *)buf)[i*4*f->channels + 4*ch_permute[j] + 1] << 8) |
+                        (((unsigned char *)buf)[i*4*f->channels + 4*ch_permute[j]] & 0xff))
+                        / 2147483648.0f;
+            }
+        }
+        else {
+            fprintf(stderr, _("Big endian 32 bit PCM data is not currently "
+                    "supported, aborting.\n"));
             return 0;
         }
     }

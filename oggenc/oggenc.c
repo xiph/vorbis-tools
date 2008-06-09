@@ -63,9 +63,10 @@ struct option long_options[] = {
     {"managed", 0, 0, 0},
     {"resample",1,0,0},
     {"downmix", 0,0,0},
-    {"scale", 1, 0, 0}, 
+    {"scale", 1, 0, 0},
     {"advanced-encode-option", 1, 0, 0},
     {"discard-comments", 0, 0, 0},
+    {"ignorelength", 0, 0, 0},
     {NULL,0,0,0}
 };
 
@@ -84,7 +85,7 @@ int main(int argc, char **argv)
     oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL,
               0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0, 0,16,44100,2, 0, NULL,
               DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE,
-              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0};
+              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0, 0};
 
     int i;
 
@@ -160,6 +161,7 @@ int main(int argc, char **argv)
         enc_opts.comments = &vc;
         enc_opts.copy_comments = opt.copy_comments;
         enc_opts.with_skeleton = opt.with_skeleton;
+        enc_opts.ignorelength = opt.ignorelength;
 
         /* OK, let's build the vorbis_comments structure */
         build_comments(&vc, &opt, i, &artist, &album, &title, &track,
@@ -446,6 +448,8 @@ static void usage(void)
         "                      stream after the first.\n"
         " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
         "                      being copied to the output Ogg Vorbis file.\n"
+        " --ignorelength       Ignore the datalength in wav headers. This will allow\n"
+        "                      support for files > 4GB and STDIN data streams. \n"
         "\n"
         " Naming:\n"
         " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
@@ -670,8 +674,11 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     opt->advopt[opt->advopt_count - 1].val = val;
                 }
                 else if(!strcmp(long_options[option_index].name, "discard-comments")) {
-          opt->copy_comments = 0;
-        }
+                    opt->copy_comments = 0;
+                }
+                else if(!strcmp(long_options[option_index].name, "ignorelength")) {
+                    opt->ignorelength = 1;
+                }
 
                 else {
                     fprintf(stderr, _("Internal error parsing command line options\n"));

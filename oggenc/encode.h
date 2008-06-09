@@ -89,6 +89,7 @@ typedef struct
     unsigned int serial;
     unsigned int skeleton_serial;
         int fixedserial;
+    int ignorelength;
 } oe_options;
 
 typedef struct
@@ -127,6 +128,7 @@ typedef struct
     FILE *out;
     char *filename;
     char *infilename;
+    int ignorelength;
 } oe_enc_opt;
 
 
