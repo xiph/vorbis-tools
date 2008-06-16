@@ -698,7 +698,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
             }
 #else
             /* if we're not building against libkate, do some limited checks */
-            if (packet.bytes<64 || memcmp(packet.packet+1, "kate\0\0\0\0", 8)) {
+            if (packet.bytes<64 || memcmp(packet.packet+1, "kate\0\0\0", 7)) {
                 warn(_("Warning: packet %d does not seem to be a kate header - "
                        "invalid kate stream (%d)\n"), 
                         packet.packetno, stream->num);
@@ -1063,7 +1063,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             other_start(stream, "dirac");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "KW-DIRAC", 8)==0)
             other_start(stream, "dirac (old style)");
-        else if(packet.bytes >= 9 && memcmp(packet.packet, "\x80kate\0\0\0\0", 9)==0)
+        else if(packet.bytes >= 8 && memcmp(packet.packet, "\x80kate\0\0\0", 8)==0)
             kate_start(stream);
         else
             other_start(stream, NULL);
