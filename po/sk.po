@@ -1,90 +1,95 @@
-# Czech translation of vorbis-tools
-# Copyright (C) 2003, 2007 Miloslav Trmac
+# Slovak translation of vorbis-tools
+# Copyright (C) 2003 Miloslav Trmac
 # This file may be distributed under the same license as the vorbis-tools package.
-# Miloslav Trmac <mitr@volny.cz>, 2003, 2007.
+# Based on Czech translation.
+# Miloslav Trmac <mitr@volny.cz>, 2003.
+# Peter Tuharsky <tuharsky@misbb.sk>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.1.1\n"
 "Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
 "POT-Creation-Date: 2005-06-27 11:34+0200\n"
-"PO-Revision-Date: 2007-09-06 22:34+0200\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
-"Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2008-03-20 20:15+0100\n"
+"Last-Translator: Peter Tuhársky <tuharsky@misbb.sk>\n"
+"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
 
 #: ogg123/buffer.c:114
 #, c-format
 msgid "Error: Out of memory in malloc_action().\n"
-msgstr "Chyba: Nedostatek paměti v malloc_action().\n"
+msgstr "Chyba: Nedostatok pamäte v malloc_action().\n"
 
 #: ogg123/buffer.c:347
 #, c-format
 msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
-msgstr "Chyba: Nemohu alokovat paměť v malloc_buffer_stats()\n"
+msgstr "Chyba: Nepodarilo sa alokovať pamäť v malloc_buffer_stats()\n"
 
 #: ogg123/callbacks.c:71
 msgid "Error: Device not available.\n"
-msgstr "Chyba: Zařízení není dostupné.\n"
+msgstr "Chyba: Zariadenie nie je dostupné.\n"
 
 #: ogg123/callbacks.c:74
 #, c-format
 msgid "Error: %s requires an output filename to be specified with -f.\n"
-msgstr "Chyba: %s vyžaduje určení názvu souboru výstupu pomocí -f.\n"
+msgstr "Chyba: %s vyžaduje zadanie názvu výstupného súboru pomocou -f.\n"
 
 #: ogg123/callbacks.c:77
 #, c-format
 msgid "Error: Unsupported option value to %s device.\n"
-msgstr "Chyba: Nepodporovaná hodnota přepínače zařízení %s.\n"
+msgstr "Chyba: Nepodporovaná hodnota prepínača zariadenia %s.\n"
 
 #: ogg123/callbacks.c:81
 #, c-format
 msgid "Error: Cannot open device %s.\n"
-msgstr "Chyba: Nemohu otevřít zařízení %s.\n"
+msgstr "Chyba: Nedá sa otvoriť zariadenie %s.\n"
 
 #: ogg123/callbacks.c:85
 #, c-format
 msgid "Error: Device %s failure.\n"
-msgstr "Chyba: Selhání zařízení %s.\n"
+msgstr "Chyba: Zariadenie %s zlyhalo.\n"
 
 #: ogg123/callbacks.c:88
 #, c-format
 msgid "Error: An output file cannot be given for %s device.\n"
-msgstr "Chyba: Výstupní soubor nemůže být pro zařízení %s zadán.\n"
+msgstr "Chyba: Výstupný súbor pre zariadenie %s sa nedá zadať.\n"
 
 #: ogg123/callbacks.c:91
 #, c-format
 msgid "Error: Cannot open file %s for writing.\n"
-msgstr "Chyba: Nemohu otevřít soubor %s pro zápis.\n"
+msgstr "Chyba: Nedá sa otvoriť súbor %s na zápis.\n"
 
 #: ogg123/callbacks.c:95
 #, c-format
 msgid "Error: File %s already exists.\n"
-msgstr "Chyba: Soubor %s již existuje.\n"
+msgstr "Chyba: Súbor %s už existuje.\n"
 
 #: ogg123/callbacks.c:98
 #, c-format
 msgid "Error: This error should never happen (%d).  Panic!\n"
-msgstr "Chyba: Tato chyba by se neměla nikdy stát (%d). Panikařím!\n"
+msgstr "Chyba: Táto chyba by sa vôbec nemala stať (%d). Panika!\n"
 
 #: ogg123/callbacks.c:121 ogg123/callbacks.c:126
 msgid "Error: Out of memory in new_audio_reopen_arg().\n"
-msgstr "Chyba: Nedostatek paměti v new_audio_reopen_arg().\n"
+msgstr "Chyba: Nedostatok pamäti v new_audio_reopen_arg().\n"
 
 #: ogg123/callbacks.c:170
 msgid "Error: Out of memory in new_print_statistics_arg().\n"
-msgstr "Chyba: Nedostatek paměti v new_print_statistics_arg().\n"
+msgstr "Chyba: Nedostatok pamäti v new_print_statistics_arg().\n"
 
 #: ogg123/callbacks.c:229
 msgid "Error: Out of memory in new_status_message_arg().\n"
-msgstr "Chyba: Nedostatek paměti v new_status_message_arg().\n"
+msgstr "Chyba: Nedostatok pamäti v new_status_message_arg().\n"
 
 #: ogg123/callbacks.c:275 ogg123/callbacks.c:294 ogg123/callbacks.c:331
 #: ogg123/callbacks.c:350
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
-msgstr "Chyba: Nedostatek paměti v decoder_buffered_metadata_callback().\n"
+msgstr "Chyba: Nedostatok pamäti v decoder_buffered_metadata_callback().\n"
 
 #: ogg123/cfgfile_options.c:51
 msgid "System error"
@@ -93,11 +98,11 @@ msgstr "Systémová chyba"
 #: ogg123/cfgfile_options.c:54
 #, c-format
 msgid "=== Parse error: %s on line %d of %s (%s)\n"
-msgstr "=== Chyba zpracování: %s na řádku %d souboru %s (%s)\n"
+msgstr "=== Chyba v spracovaní: %s na riadku %d súboru %s (%s)\n"
 
 #: ogg123/cfgfile_options.c:130
 msgid "Name"
-msgstr "Název"
+msgstr "Názov"
 
 #: ogg123/cfgfile_options.c:133
 msgid "Description"
@@ -109,12 +114,12 @@ msgstr "Typ"
 
 #: ogg123/cfgfile_options.c:139
 msgid "Default"
-msgstr "Implicitní"
+msgstr "Predvolené"
 
 #: ogg123/cfgfile_options.c:165
 #, c-format
 msgid "none"
-msgstr "žádný"
+msgstr "žiadny"
 
 #: ogg123/cfgfile_options.c:168
 #, c-format
@@ -149,7 +154,7 @@ msgstr "double"
 #: ogg123/cfgfile_options.c:186
 #, c-format
 msgid "other"
-msgstr "jiný"
+msgstr "iný"
 
 #: ogg123/cfgfile_options.c:192
 msgid "(NULL)"
@@ -159,40 +164,40 @@ msgstr "(NULL)"
 #: oggenc/oggenc.c:550 oggenc/oggenc.c:555 oggenc/oggenc.c:560
 #: oggenc/oggenc.c:565
 msgid "(none)"
-msgstr "(žádný)"
+msgstr "(žiadny)"
 
 #: ogg123/cfgfile_options.c:422
 msgid "Success"
-msgstr "Úspěch"
+msgstr "Úspech"
 
 #: ogg123/cfgfile_options.c:426
 msgid "Key not found"
-msgstr "Klíč nenalezen"
+msgstr "Kľúč sa nenašiel"
 
 #: ogg123/cfgfile_options.c:428
 msgid "No key"
-msgstr "Žádný klíč"
+msgstr "Žiadny kľúč"
 
 #: ogg123/cfgfile_options.c:430
 msgid "Bad value"
-msgstr "Špatná hodnota"
+msgstr "Chybná hodnota"
 
 #: ogg123/cfgfile_options.c:432
 msgid "Bad type in options list"
-msgstr "Špatný typ v seznamu přepínačů"
+msgstr "Chybný typ v zozname prepínačov"
 
 #: ogg123/cfgfile_options.c:434
 msgid "Unknown error"
-msgstr "Neznámá chyba"
+msgstr "Neznáma chyba"
 
 #: ogg123/cmdline_options.c:89
 msgid "Internal error parsing command line options.\n"
-msgstr "Interní chyba při zpracovávání přepínačů na příkazovém řádku.\n"
+msgstr "Interná chyba pri spracúvaní prepínačov na príkazovom riadku.\n"
 
 #: ogg123/cmdline_options.c:96
 #, c-format
 msgid "Input buffer size smaller than minimum size of %dkB."
-msgstr "Velikost vstupního bufferu menší než minimální velikost %d kB."
+msgstr "Veľkosť vstupnej vyrovnávacej pamäte je menšia než minimálna veľkosť %d kB."
 
 #: ogg123/cmdline_options.c:108
 #, c-format
@@ -200,32 +205,32 @@ msgid ""
 "=== Error \"%s\" while parsing config option from command line.\n"
 "=== Option was: %s\n"
 msgstr ""
-"=== Chyba \"%s\" při zpracovávání přepínače konfigurace z příkazového řádku.\n"
-"=== Přepínač byl: %s\n"
+"=== Chyba \"%s\" pri spracúvaní prepínača konfigurácie z príkazového riadku.\n"
+"=== Prepínač bol: %s\n"
 
 #: ogg123/cmdline_options.c:115
 #, c-format
 msgid "Available options:\n"
-msgstr "Dostupné přepínače:\n"
+msgstr "Dostupné prepínače:\n"
 
 #: ogg123/cmdline_options.c:124
 #, c-format
 msgid "=== No such device %s.\n"
-msgstr "=== Takové zařízení %s neexistuje.\n"
+msgstr "=== Také zariadenie %s neexistuje.\n"
 
 #: ogg123/cmdline_options.c:144
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
-msgstr "=== Ovladač %s není ovladač výstupu do souboru.\n"
+msgstr "=== Ovládač %s nie je ovládač výstupu do súboru.\n"
 
 #: ogg123/cmdline_options.c:149
 msgid "=== Cannot specify output file without specifying a driver.\n"
-msgstr "=== Nelze určit výstupní soubor bez určení ovladače.\n"
+msgstr "=== Nedá sa určiť výstupný súbor bez určenia ovládača.\n"
 
 #: ogg123/cmdline_options.c:168
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
-msgstr "=== Nesprávný formát přepínače: %s.\n"
+msgstr "=== Nesprávny formát prepínača: %s.\n"
 
 #: ogg123/cmdline_options.c:183
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
@@ -238,33 +243,33 @@ msgstr "ogg123 z %s %s\n"
 
 #: ogg123/cmdline_options.c:205
 msgid "--- Cannot play every 0th chunk!\n"
-msgstr "--- Nemohu přehrávat každý nultý úsek!\n"
+msgstr "--- Nedá sa prehrávať každý nultý úsek!\n"
 
 #: ogg123/cmdline_options.c:213
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
 msgstr ""
-"--- Nemohu každý úsek přehrávat nulakrát.\n"
-"--- Pro provedení testovacího dekódování použijte výstupní ovladač null.\n"
+"--- Nedá sa každý úsek prehrávať nulakrát.\n"
+"--- Na vykonanie testovacieho dekódovania prosím použite výstupný ovládač null.\n"
 
 #: ogg123/cmdline_options.c:225
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
-msgstr "--- Nemohu otevřít soubor seznamu skladeb %s. Přeskočeno.\n"
+msgstr "--- Nedá sa otvoriť súbor zoznamu skladieb %s. Preskakujem.\n"
 
 #: ogg123/cmdline_options.c:241
 msgid "=== Option conflict: End time is before start time.\n"
-msgstr "=== Konflikt přepínačů: Čas konce je před časem začátku.\n"
+msgstr "=== Konflikt predvolieb: Koncový čas je pred začiatočným.\n"
 
 #: ogg123/cmdline_options.c:254
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
-msgstr "--- Ovladač %s zadaný v konfiguračním souboru je neplatný.\n"
+msgstr "--- Ovládač %s zadaný v konfiguračnom súbore je neplatný.\n"
 
 #: ogg123/cmdline_options.c:264
 msgid "=== Could not load default driver and no driver specified in config file. Exiting.\n"
-msgstr "=== Nemohu načíst implicitní ovladač a v konfiguračním souboru není určen žádný ovladač. Končím.\n"
+msgstr "=== Nedá sa načítať implicitný ovládač a v konfiguračnom súbore nie je zadaný žiadny ovládač. Končím.\n"
 
 #: ogg123/cmdline_options.c:285
 #, c-format
@@ -283,12 +288,12 @@ msgstr ""
 "ogg123 z %s %s\n"
 " od Xiph.org Foundation (http://www.xiph.org/)\n"
 "\n"
-"Použití: ogg123 [<přepínače>] <vstupní soubor> ...\n"
+"Použitie: ogg123 [<prepínače>] <vstupný súbor> ...\n"
 "\n"
-"  -h, --help     tato nápověda\n"
-"  -V, --version  zobrazit verzi Ogg123\n"
-"  -d, --device=d používá 'd' jako výstupní zařízení\n"
-"      Možná zařízení jsou ('*'=živě, '@'=soubor):\n"
+"  -h, --help     tento pomocný text\n"
+"  -V, --version  zobraziť verziu Ogg123\n"
+"  -d, --device=d používa 'd' ako výstupné zariadenie\n"
+"      Možné zariadenia sú ('*'=živo, '@'=súbor):\n"
 "        "
 
 #: ogg123/cmdline_options.c:306
@@ -314,51 +319,50 @@ msgid ""
 "s milliseconds make ogg123 terminate.\n"
 "  -l, --delay=s  Set s [milliseconds] (default 500).\n"
 msgstr ""
-"  -f, --file=názevsouboru  Nastavit název souboru výstupu pro dříve určené\n"
-"      zařízení souboru (pomocí -d).\n"
-"  -k n, --skip n  Přeskočit prvních 'n' vteřin (nebo formát hh:mm:ss)\n"
-"  -K n, --end n   Skončit na 'n' sekundách (nebo formát hh:mm:ss)\n"
-"  -o, --device-option=k:v předává speciální přepínač k s hodnotou\n"
-"      v dříve určenému zařízení (pomocí -d). Pro více informací\n"
-"      viz manuálovou stránku.\n"
-"  -b n, --buffer n  Používat vstupní buffer 'n' kilobajtů\n"
-"  -p n, --prebuffer n  Načíst n%% vstupního bufferu před přehráváním\n"
-"  -v, --verbose  Zobrazovat průběh a jiné stavové informace\n"
-"  -q, --quiet    Nezobrazovat nic (žádný název)\n"
-"  -x n, --nth    Přehrávat každý 'n'tý blok\n"
-"  -y n, --ntimes Zopakovat každý přehrávaný blok 'n'-krát\n"
-"  -z, --shuffle  Promíchat přehrávání\n"
+"  -f, --file=názov súboru  Nastaviť názov súboru výstupu pre zariadenie\n"
+"      súboru určené predtým (pomocou -d).\n"
+"  -k n, --skip n  Preskočiť prvých 'n' sekúnd\n"
+"  -o, --device-option=k:v odovzdáva špeciálny prepínač k s hodnotou\n"
+"      v zariadeniu určenému predtým (pomocou -d). Ak chcete viac informácií\n"
+"      viz manuálovú stránku.\n"
+"  -b n, --buffer n  používať vstupnú vyrovnávaciu pamäť 'n' kilobajtov\n"
+"  -p n, --prebuffer n  načítať n%% vstupné vyrovnávacie pamäte pred prehrávaním\n"
+"  -v, --verbose  zobrazovať priebeh a iné stavové informácie\n"
+"  -q, --quiet    nezobrazovať nič (žiadny názov)\n"
+"  -x n, --nth    prehrávať každý 'n'tý blok\n"
+"  -y n, --ntimes zopakovať každý prehrávaný blok 'n'-krát\n"
+"  -z, --shuffle  pomiešať poradie prehrávania\n"
 "\n"
-"ogg123 přeskočí na další píseň při SIGINT (Ctrl-C); dva SIGINTy v rámci\n"
-"s milisekund způsobí ukončení ogg123.\n"
-"  -l, --delay=s  nastavit s [milisekund] (implicitně 500).\n"
+"ogg123 preskočí na ďalšiu pieseň pri SIGINT (Ctrl-C); dva SIGINTy v rámci\n"
+"s milisekúnd spôsobí ukončenie ogg123.\n"
+"  -l, --delay=s  nastaviť s [milisekúnd] (implicitne 500).\n"
 
 #: ogg123/file_transport.c:58 ogg123/http_transport.c:212
 #: ogg123/oggvorbis_format.c:91
 #, c-format
 msgid "Error: Out of memory.\n"
-msgstr "Chyba: Nedostatek paměti.\n"
+msgstr "Chyba: Nedostatok pamäte.\n"
 
 #: ogg123/format.c:81
 #, c-format
 msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
-msgstr "Chyba: Nemohu alokovat paměť v malloc_decoder_stats()\n"
+msgstr "Chyba: Nepodarilo sa alokovať pamäť v malloc_decoder_stats()\n"
 
 #: ogg123/http_transport.c:142
 msgid "Error: Could not set signal mask."
-msgstr "Chyba: Nemohu nastavit masku signálů."
+msgstr "Chyba: Nepodarilo sa nastaviť masku signálov."
 
 #: ogg123/http_transport.c:199
 msgid "Error: Unable to create input buffer.\n"
-msgstr "Chyba: Nemohu vytvořit vstupní buffer.\n"
+msgstr "Chyba: Nepodarilo sa vytvoriť vstupnú vyrovnávaciu pamäť.\n"
 
 #: ogg123/ogg123.c:75
 msgid "default output device"
-msgstr "implicitní výstupní zařízení"
+msgstr "implicitné výstupné zariadenie"
 
 #: ogg123/ogg123.c:77
 msgid "shuffle playlist"
-msgstr "promíchat seznam skladeb"
+msgstr "pomiešať zoznam skladieb"
 
 #: ogg123/ogg123.c:281
 #, c-format
@@ -367,7 +371,7 @@ msgid ""
 "Audio Device:   %s"
 msgstr ""
 "\n"
-"Zařízení zvuku: %s"
+"Zvukové zariadenie: %s"
 
 #: ogg123/ogg123.c:282
 #, c-format
@@ -382,11 +386,11 @@ msgstr "Poznámky: %s"
 #: ogg123/ogg123.c:327 ogg123/playlist.c:155
 #, c-format
 msgid "Warning: Could not read directory %s.\n"
-msgstr "Varování: Nemohu číst adresář %s.\n"
+msgstr "Varovanie: Nepodarilo sa prečítať adresár %s.\n"
 
 #: ogg123/ogg123.c:361
 msgid "Error: Could not create audio buffer.\n"
-msgstr "Chyba: Nemohu vytvořit buffer zvuku.\n"
+msgstr "Chyba: Nemohu vytvořit vyrovnávací paměť zvuku.\n"
 
 #: ogg123/ogg123.c:449
 #, c-format
@@ -437,12 +441,12 @@ msgstr "=== Knihovna vorbis ohlásila chybu proudu.\n"
 #: ogg123/oggvorbis_format.c:303
 #, c-format
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
-msgstr "Proud Ogg Vorbis: %d kanálů, %ld Hz"
+msgstr "Prúd údajov Ogg Vorbis: %d kanál, %ld Hz"
 
 #: ogg123/oggvorbis_format.c:308
 #, c-format
 msgid "Vorbis format: Version %d"
-msgstr "Formát Vorbis: Verze %d"
+msgstr "Vorbis formát: Verzia %d"
 
 #: ogg123/oggvorbis_format.c:312
 #, c-format
@@ -513,12 +517,12 @@ msgstr "Prům bitrate: %5.1f"
 #: ogg123/status.c:258
 #, c-format
 msgid " Input Buffer %5.1f%%"
-msgstr " Vstupní buffer %5.1f%%"
+msgstr " Vstupní vyrovnávací paměť %5.1f%%"
 
 #: ogg123/status.c:277
 #, c-format
 msgid " Output Buffer %5.1f%%"
-msgstr " Výstupní buffer %5.1f%%"
+msgstr " Výstupní vyrovnávací paměť %5.1f%%"
 
 #: ogg123/transport.c:70
 #, c-format
@@ -535,11 +539,11 @@ msgstr "Čteč souborů AIFF/AIFC"
 
 #: oggenc/audio.c:51
 msgid "FLAC file reader"
-msgstr "Čteč souborů FLAC"
+msgstr "Čítač súborov FLAC"
 
 #: oggenc/audio.c:52
 msgid "Ogg FLAC file reader"
-msgstr "Čteč souborů Ogg FLAC"
+msgstr "Ogg čítač súborov FLAC"
 
 #: oggenc/audio.c:129 oggenc/audio.c:396
 #, c-format
@@ -579,7 +583,7 @@ msgstr "Varování: Hlavička AIFF-C useknuta.\n"
 #: oggenc/audio.c:286
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
-msgstr "Varování: Neumím obsloužit komprimované AIFF-C (%c%c%c%c)\n"
+msgstr "Varovanie: Nedokážem spracovať komprimované AIFF-C (%c%c%c%c)\n"
 
 #: oggenc/audio.c:293
 #, c-format
@@ -602,8 +606,8 @@ msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
 msgstr ""
-"Varování: OggEnc nepodporuje tento typ souboru AIFF/AIFC\n"
-" Musí to být osmi nebo šestnáctibitový PCM.\n"
+"Varovanie: OggEnc nepodporuje tento typ súboru AIFF/AIFC\n"
+" Musí to byť 8- alebo 16-bit PCM.\n"
 
 #: oggenc/audio.c:379
 #, c-format
@@ -634,18 +638,18 @@ msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
-"CHYBA: Soubor wav má nepodporovaný subformát (musí být osmi, šestnácti nebo\n"
-"dvacetičtyřbitový PCM nebo PCM s plovoucí desetinnou čárkou\n"
+"CHYBA: Súbor wav je nepodporovaným podformátom (musí to byť 8-, 16-, alebo 24-bit PCM\n"
+"alebo PCM s pohyblivou desatinnou čiarkou\n"
 
 #: oggenc/audio.c:555
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
-msgstr "Dvacetičtyřbitová data PCM v big endian nejsou momentálně podporována, končím.\n"
+msgstr "Údaje big endian 24-bit PCM v súčasnosti nie sú podporované, končím.\n"
 
 #: oggenc/audio.c:561
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
-msgstr "Interní chyba: pokus čít nepodporovanou bitovou hloubku %d\n"
+msgstr "Vnútorná chyba: pokus o čítanie nepodporovanej bitovej hĺbky %d\n"
 
 #: oggenc/audio.c:658
 #, c-format
@@ -690,12 +694,12 @@ msgstr "Inicializace režimu selhala: neplatné parametry pro kvalitu\n"
 #: oggenc/encode.c:198
 #, c-format
 msgid "Set optional hard quality restrictions\n"
-msgstr "Nastavit nepovinná pevná omezení kvality\n"
+msgstr "Nastaviť voliteľné tvrdé obmedzenia kvality\n"
 
 #: oggenc/encode.c:200
 #, c-format
 msgid "Failed to set bitrate min/max in quality mode\n"
-msgstr "Nemohu nastavit min/max bitrate v režimu kvality\n"
+msgstr "Nepodarilo sa nastaviť min/max bitovú rýchlosť v režime kvality\n"
 
 #: oggenc/encode.c:212
 #, c-format
@@ -713,12 +717,12 @@ msgstr "Nemohu zapisovat data do výstupního proudu\n"
 #: oggenc/encode.c:381
 #, c-format
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c "
-msgstr "\t[%5.1f%%] [%2dm%.2ds zbývá] %c "
+msgstr "\t[%5.1f%%] [zostáva %2dm%.2ds] %c"
 
 #: oggenc/encode.c:391
 #, c-format
 msgid "\tEncoding [%2dm%.2ds so far] %c "
-msgstr "\tKóduji [zatím %2dm%.2ds] %c "
+msgstr "\tKódujem [zatiaľ %2dm%.2ds] %c"
 
 #: oggenc/encode.c:409
 #, c-format
@@ -882,7 +886,7 @@ msgstr "CHYBA: Nemohu vytvořit požadované podadresáře pro jméno souboru v�
 #: oggenc/oggenc.c:278
 #, c-format
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
-msgstr "CHYBA: Název vstupního souboru je stený jako název výstupního souboru \"%s\"\n"
+msgstr "CHYBA: Názov vstupného súboru je rovnaký ako výstupného \"%s\"\n"
 
 #: oggenc/oggenc.c:289
 #, c-format
@@ -902,12 +906,12 @@ msgstr "Mixuji stereo na mono\n"
 #: oggenc/oggenc.c:329
 #, c-format
 msgid "WARNING: Can't downmix except from stereo to mono\n"
-msgstr "VAROVÁNÍ: Neumím mixovat kromě stereo do mono\n"
+msgstr "VAROVANIE: Neviem mixovať, iba stereo do mono\n"
 
 #: oggenc/oggenc.c:337
 #, c-format
 msgid "Scaling input to %f\n"
-msgstr "Měním velikost vstupu na %f\n"
+msgstr "Prispôsobujem vstup na %f\n"
 
 #: oggenc/oggenc.c:381
 #, c-format
@@ -1009,91 +1013,99 @@ msgid ""
 "\n"
 msgstr ""
 "%s%s\n"
-"Použití: oggenc [přepínače] vstup.wav [...]\n"
+"Použitie: oggenc [možnosti] vstup.wav [...]\n"
 "\n"
-"PŘEPÍNAČE:\n"
-" Obecné:\n"
-" -Q, --quiet          Neposílat na stderr žádný výstup\n"
-" -h, --help           Vypsat tento text nápovědy\n"
-" -v, --version        Vypsat číslo verze\n"
-" -r, --raw            Přímý režim. Soubory vstupu jsou čteny přímo jako data PCM\n"
-" -B, --raw-bits=n     Natavit bity/vzorek pro přímý vstup. Implicitní je 16\n"
-" -C, --raw-chan=n     Nastavit počet kanálů pro přímý vstup. Implicitní je 2\n"
-" -R, --raw-rate=n     Nastavit vzorky/s pro přímý vstup. Implicitní je 44100\n"
-" --raw-endianness     1 pro big endian, 0 pro little (implicitní je 0)\n"
-" -b, --bitrate        Určení nominální bitrate, do které kódovat. Pokusit\n"
-"                      se kódovat s bitrate s tímto průměrem. Bere argument\n"
-"                      v kb/s. Implicitně tvoří kódování VBR, podobně jako\n"
-"                      použití -q nebo --quality.  Pro použití spravované\n"
-"                      bitrate cílící zvolenou bitrate viz přepínač --managed.\n"
-" -m, --min-bitrate    Určení minimální bitrate (v kb/s). Užitečné pro\n"
-"                      kódování pro kanál fixní propustnosti. Použití tohoto\n"
-"                      automaticky povolí režim spravované bitrate (viz\n"
-"                      --managed).\n"
-" -M, --max-bitrate    Určení maximální bitrate (v kb/s). Užitečné pro\n"
-"                      aplikace streaming.  Použití tohoto automaticky povolí\n"
-"                      režim spravované bitrate (viz --managed).\n"
-" --advanced-encode-option přepínač=hodnota\n"
-"                      Nastaví pokročilý přepínač enkodéru na danou hodnotu.\n"
-"                      Platné přepínače (a jejich hodnoty) jsou zdokumentovány\n"
-"                      ve stránce man dodávané s tímto programem. Jsou jen pro\n"
-"                      pokročilé uživatele a měly by se používat opatrně.\n"
-" -q, --quality        Určení kvality mezi -1 (velmi nízká) a 10 (velmi vysoká),\n"
-"                      místo určení konkrétní bitrate.\n"
-"                      Toto je normální režim práce.\n"
-"                      Desetinné kvality (např. 2.75) jsou povoleny\n"
-"                      Implicitní úroveň kvality je 3.\n"
-" --resample n         Převzorkovat vstup na vzorkovací frekvenci n (Hz)\n"
-" --downmix            Mixovat stereo na mono. Povoleno jen na stereo\n"
-"                      vstupu.\n"
-" -s, --serial         Určení sériového čísla proudu. Pokud se kóduje více\n"
-"                      souborů, bude inkrementováno pro každý proud po\n"
-"                      tom prvním.\n"
-" --discard-coimments  Brání kopírování poznámek v souborech FLAC a Ogg FLAC do\n"
-"                      výstupního souboru Ogg Vorbis.\n"
+"MOŽNOSTI:\n"
+" Všeobecné:\n"
+" -Q, --quiet          Neposielať žiadny výstup na stderr\n"
+" -h, --help           Vypísať tento pomocný text\n"
+" -r, --raw            Surový režim. Vstupné súbory sa čítajú priamo ako PCM údaje\n"
+" -B, --raw-bits=n     Nastaviť bity/vzorka pre surový vstup. Predvolene je 16\n"
+" -C, --raw-chan=n     Nastaviť počet kanálov pre surový vstup. Predvolene je 2\n"
+" -R, --raw-rate=n     Nastaviť vzorky/s pre surový vstup. Predvolene je 44100\n"
+" --raw-endianness     1 pre big endian, 0 pre little (predvolene je 0)\n"
+" -b, --bitrate        Výber cieľovej nominálnej bitovej rýchlosti.\n"
+"                      Pokúsi sa kódovať priemerne do tejto bitovej rýchlosti.\n"
+"                      Berie parameter v kb/s. Zvyčajne je výsledkom VBR.\n"
+"                      Inou možnosťou je použiť -q, --quality.\n"
+"                      Pozrite tiež možnosť --managed.\n"
+"--managed     Zapne systém správy bitovej rýchlosti. Umožňuje\n"
+"                      väčšiu presnosť dodržania želanej bitovej rýchlosti.\n"
+"                      Kódovanie však bude omnoho pomalšie.\n"
+"                      Ak nepotrebujete úplnú kontrolu nad bitovou rýchlosťou,\n"
+"                      napríklad pri streamingu, tak to nepoužívajte.\n"
+" -m, --min-bitrate    Zadanie minimálnej bitovej rýchlosti (v kb/s).\n"
+"                      Užitočné pre kódovanie pre kanál fixnej priepustnosti.\n"
+"                      Automaticky zapína voľbu --managed.\n"
+" -M, --max-bitrate    Zadanie maximálnej bitovej rýchlosti (v kb/s).\n"
+"                      Užitočné pre streaming.\n"
+"                      Automaticky zapína voľbu --managed.\n"
+" --advanced-encode-option option=hodnota\n"
+"                      Nastavuje pokročilú možnosť enkodéra na zadanú hodnotu.\n"
+"                      Platné možnosti (a ich hodnoty) sú zdokumentované\n"
+"                      v man stránkach tohto programu. Sú určené len pre\n"
+"                     skúsených používateľov a používajú sa opatrne.\n"
+" -q, --quality        Zadanie kvality medzi -1 (najnižšia) a 10 (najvyššia),\n"
+"                      namiesto zadávania konkrétnej bitovej rýchlosti.\n"
+"                      Toto je normálny režim práce.\n"
+"                      Možné sú aj hodnoty s desatinnou presnosťou\n"
+"                      (napr. 2.75). Predvolená hodnota je 3.\n"
+" --resample n         Prevzorkovať vstupné údaje na frekvenciu n (Hz)\n"
+" --downmix            Zmiešať stereo na mono. Povolené len pre\n"
+"                      stereo vstup.\n"
+" -s, --serial         Zadanie sériového čísla prúdu údajov.\n"
+"                   Keď se kóduje viacero súborov, zvýši sa pre každý\n"
+"                      prúd po tom prvom.\n"
+" --discard-comments    Zabráni preneseniu poznámok z FLAC\n"
+"                      a Ogg FLAC do výstupného súboru Ogg Vorbis.\n"
+" Pomenovanie:\n"
+" -o, --output=nz      Zapísať súbor do nz (platné len v režime jedného súboru)\n"
+" -n, --names=reťazec  Tvoriť názvy súborov ako tento reťazec,\n"
+"                      s %%a, %%t, %%l, kde %%n, %%d sa nahradí\n"
+"                      umelcom, resp. názvom, albumom, číslom stopy\n"
+"                      a dátumom (viz nižšie pre ich zadanie).\n"
+"                      %%%% dáva doslovné %%.\n"
+" -X, --name-remove=s  Odstrániť určené znaky z parametrov\n"
+"                     reťazca formátu -n. Vhodné pre zabezpečenie\n"
+"                    platných názvov súborov.\n"
+" -P, --name-replace=s Nahradiť znaky, ktoré odstránilo --name-remove\n"
+"                    pomocou zadaných znakov. Ak je tento reťazec kratší\n"
+"                    než zoznam --name-remove alebo nie je zadaný,\n"
+"                    prebytočné znaky sa jednoducho odstránia.\n"
+"                    Predvolené nastavenie pre obidva parametre závisia\n"
+"                    na jednotlivej platforme.\n"
+" -c, --comment=c      Pridať daný reťazec ako ďalšiu poznámku.\n"
+"                      Dá sa použiť viackrát. Parameter musí byť v tvare\n"
+"                      \"značka=hodnota\".\n"
+" -d, --date           Dátum pré túto stopu (zvyčajne dátum výkonu)\n"
+" -N, --tracknum       Číslo pre túto stopu\n"
+" -t, --title          Názov pre túto stopu\n"
+" -l, --album          Názov albumu\n"
+" -a, --artist         Meno umelca\n"
+" -G, --genre          Žáner stopy\n"
+"                      Ak sú zadané viaceré vstupné súbory, použije sa\n"
+"                      viacero inštancií predchádzajúcich 5 parametrov,\n"
+"                      v poradí ako boli zadané. Ak je zadaných menej\n"
+"                      názvov než súborov, OggEnc zobrazí varovanie\n"
+"                      a znovu použije posledný pre všetky zostávajúce\n"
+"                      súbory. Ak je zadaných menej čísel stopy, zvyšné\n"
+"                      súbory sa neočíslujú. Pre ostatné sa použije\n"
+"                      posledná zadaná značka, bez varovania (takže\n"
+"                      môžete napríklad zadať dátum, ktorý sa použije\n"
+"                      pre všetky súbory).\n"
 "\n"
-" Pojmenování:\n"
-" -o, --output=js      Zapsat soubor do js (platné jen v režimu jednoho souboru)\n"
-" -n, --names=řetězec  Tvořit názvy souborů jako tento řetězec, s %%a, %%t, %%l,\n"
-"                      %%n, %%d nahrazené umělcem, resp. názvem, albem, číslem\n"
-"                      stopy a datem (viz níže pro jejich určení).\n"
-"                      %%%% dává doslovné %%.\n"
-" -X, --name-remove=s  Odstranit určené znaky z parametrů řetězce formátu\n"
-"                      -n. Užitečné pro zajištění platných názvů souborů.\n"
-" -P, --name-replace=s Nahradit znaky odstraněné --name-remove s určenými znaky.\n"
-"                      Pokud je tento řetězec kratší než seznam\n"
-"                      --name-remove nebo není určen, přebytečné znaky jsou\n"
-"                      prostě odstraněny.\n"
-"                      Implicitní nastavení dvou argumentů výše závisí na\n"
-"                      platformě.\n"
-" -c, --comment=c      Přidat daný řetězec jako přídavnou poznámku. Toto může\n"
-"                      být použito vícekrát.\n"
-" -d, --date           Datum pro tuto stopu (obvykle datum provedení)\n"
-" -N, --tracknum       Číslo stopy pro tuto stopu\n"
-" -t, --title          Název pro tuto stopu\n"
-" -l, --album          Název alba\n"
-" -a, --artist         Jméno umělce\n"
-" -G, --genre          Žánr stopy\n"
-"                      Je-li zadáno více vstupních soubor, bude použito více\n"
-"                      instancí předchozích pěti argumentů, v pořadí, v jakém\n"
-"                      jsou zadány. Je-li zadáno méně názvů než souborů, OggEnc\n"
-"                      vypíše varování a použije poslední název pro zbývající\n"
-"                      soubory. Je-li zadáno méně čísel stop, zbývající soubory\n"
-"                      budou bez čísla. Pro ostatní atributy bude poslední\n"
-"                      hodnota použita bez varování (takže můžete např. zadat\n"
-"                      datum jednou a nechat je používat pro všechny soubory)\n"
-"\n"
-"VSTUPNÍ SOUBORY:\n"
-" Vstupní soubory OggEnc musí momentálně být soubory dvacetičtyř, šestnácti nebo\n"
-" osmibitového PCM WAV, AIFF, AIFF/C nebo třicetidvoubitové WAV s pohyblivou\n"
-" řádovou čárkou IEEE. Soubory mohou mono nebo stereo (nebo vícekanálové)\n"
-" s libovolnou vzorkovací frekvencí.\n"
-" Nebo může být použit přepínač --raw pro použití jednoho přímého datového\n"
-" souboru PCM, který musí být šestnáctibitový stereo little edian PCM\n"
-" ('wav bez hlavičky'), pokud nejsou zadány další parametry pro přímý režim.\n"
-" Můžete zadat čtení souboru ze stdin použitím - jako názvu souboru vstupu.\n"
-" V tomto režimu je výstup na stdout, pokud není určen název souboru výstupu\n"
-" pomocí -o\n"
+"VSTUPNÉ SÚBORY:\n"
+" Vstupné súbory OggEnc musia byť v súčasnosti 24-, 16- alebo\n"
+" 8-bitové PCM WAV, AIFF alebo AIFF/C, 32-bitové IEEE WAV\n"
+" s pohyblivou desatinnou čiarkou, alebo FLAC alebo Ogg FLAC.\n"
+" Súbory môžu byť mono alebo stereo (alebo viackanálové)\n"
+" s ľubovoľnou vzorkovacou frekvenciou. Dá sa tiež použiť prepínač\n"
+" --raw pre použitie surového súboru PCM údajov, ktorý musí byť\n"
+" 16-bitový stereo little edian PCM ('bezhlavičkový wav'),\n"
+" ak nie sú zadané ďalšie parametre pre surový režim.\n"
+" Ak zadáte - ako názov vstupného súboru, bude sa čítať zo stdin.\n"
+" V tomto režime ide výstup na stdout, ale môže ísť aj do súboru,\n"
+" ak zadáte normálny názov výstupného súboru pomocou -o\n"
 "\n"
 
 #: oggenc/oggenc.c:570
@@ -1129,7 +1141,7 @@ msgstr "Varování: Frekvence převzorkování zadána jako %d Hz. Mysleli jste 
 #: oggenc/oggenc.c:631
 #, c-format
 msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
-msgstr "Varování: Nemohu zpracovat faktor škálování \"%s\"\n"
+msgstr "Varovanie: Neviem spracovať škálovací faktor \"%s\"\n"
 
 #: oggenc/oggenc.c:641
 #, c-format
@@ -1254,7 +1266,7 @@ msgstr "Chyba: segment cesty \"%s\" není adresář\n"
 #: ogginfo/ogginfo2.c:171
 #, c-format
 msgid "Warning: Comment %d in stream %d has invalid format, does not contain '=': \"%s\"\n"
-msgstr "Varování: Poznámka %d v proudu %d má neplatný formát, neobsahuje '=': \"%s\"\n"
+msgstr "Varovanie: Poznámka %d v prúde údajov %d má neplatný formát, neobsahuje '=': \"%s\"\n"
 
 #: ogginfo/ogginfo2.c:179
 #, c-format
@@ -1283,22 +1295,22 @@ msgstr "Varování: Selhání v dekodéru utf8. To by nemělo být možné\n"
 #: ogginfo/ogginfo2.c:318
 #, c-format
 msgid "Warning: Could not decode theora header packet - invalid theora stream (%d)\n"
-msgstr "Varování: Nemohu dekódovat paket hlavičky theora - neplatný proud theora (%d)\n"
+msgstr "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný prúd údajov theora (%d)\n"
 
 #: ogginfo/ogginfo2.c:325
 #, c-format
 msgid "Warning: Theora stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Varování: Proud theora %d nemá hlavičky správně umístěné v rámech. Poslední strana hlavičky obsahuje další pakety nebo má nenulovou granulepos\n"
+msgstr "Varovanie: Prúd údajov theora %d nemá hlavičky správne rámcované. Posledná strana hlavičky obsahuje nadbytočné pakety alebo má nenulovú granulepos\n"
 
 #: ogginfo/ogginfo2.c:329
 #, c-format
 msgid "Theora headers parsed for stream %d, information follows...\n"
-msgstr "Hlavičky theora zpracovány pro proud %d, následují informace...\n"
+msgstr "Hlavičky theora spracované pre prúd údajov %d, nasledujú informácie...\n"
 
 #: ogginfo/ogginfo2.c:332
 #, c-format
 msgid "Version: %d.%d.%d\n"
-msgstr "Verze: %d.%d.%d\n"
+msgstr "Verzia:  %d.%d.%d\n"
 
 #: ogginfo/ogginfo2.c:334 ogginfo/ogginfo2.c:491
 #, c-format
@@ -1308,7 +1320,7 @@ msgstr "Dodavatel: %s\n"
 #: ogginfo/ogginfo2.c:335
 #, c-format
 msgid "Width: %d\n"
-msgstr "Šířka: %d\n"
+msgstr "Šírka: %d\n"
 
 #: ogginfo/ogginfo2.c:336
 #, c-format
@@ -1318,84 +1330,84 @@ msgstr "Výška: %d\n"
 #: ogginfo/ogginfo2.c:337
 #, c-format
 msgid "Total image: %d by %d, crop offset (%d, %d)\n"
-msgstr "Celkový obrázek: %d krát %d, posun ořezu (%d, %d)\n"
+msgstr "Celkový obraz: %d o %d, orezať posun (%d, %d)\n"
 
 #: ogginfo/ogginfo2.c:340
 msgid "Frame offset/size invalid: width incorrect\n"
-msgstr "Posun/velikost políčka neplatná: nesprávná šířka\n"
+msgstr "Neplatný posun/veľkosť rámca: nesprávna šírka\n"
 
 #: ogginfo/ogginfo2.c:342
 msgid "Frame offset/size invalid: height incorrect\n"
-msgstr "Posun políčka/velikost neplatná: nesprávná výška\n"
+msgstr "Neplatný posun/veľkosť rámca: nesprávna výška\n"
 
 #: ogginfo/ogginfo2.c:345
 msgid "Invalid zero framerate\n"
-msgstr "Neplatná nulová rychlost políček\n"
+msgstr "Neplatná nulová rýchlosť rámcov\n"
 
 #: ogginfo/ogginfo2.c:347
 #, c-format
 msgid "Framerate %d/%d (%.02f fps)\n"
-msgstr "Rychlost políček %d/%d (%.02f/s)\n"
+msgstr "Rýchlosť rámcov %d/%d (%.02f fps)\n"
 
 #: ogginfo/ogginfo2.c:351
 msgid "Aspect ratio undefined\n"
-msgstr "Poměr stran nedefinován\n"
+msgstr "Pomer strán nebol definovaný\n"
 
 #: ogginfo/ogginfo2.c:356
 #, c-format
 msgid "Pixel aspect ratio %d:%d (1:%f)\n"
-msgstr "Poměr stran pixelu %d:%d (1:%f)\n"
+msgstr ""
 
 #: ogginfo/ogginfo2.c:358
 msgid "Frame aspect 4:3\n"
-msgstr "Poměr stran políčka 4:3\n"
+msgstr "Pomer strán 4:3\n"
 
 #: ogginfo/ogginfo2.c:360
 msgid "Frame aspect 16:9\n"
-msgstr "Poměr stran políčka 16:9\n"
+msgstr "Pomer strán 16:9\n"
 
 #: ogginfo/ogginfo2.c:362
 #, c-format
 msgid "Frame aspect 1:%d\n"
-msgstr "Poměr stran políčka 1:%d\n"
+msgstr "Pomer strán 1:%d\n"
 
 #: ogginfo/ogginfo2.c:366
 msgid "Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"
-msgstr "Prostor barev: Dop. ITU-R BT.470-6 Systém M (NTSC)\n"
+msgstr "Farebný priestor: Rec. ITU-R BT.470-6 Systém M (NTSC)\n"
 
 #: ogginfo/ogginfo2.c:368
 msgid "Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"
-msgstr "Prostor barev: Dop. ITU-R BT.470-6 Systémy B a G (PAL)\n"
+msgstr "Farebný priestor: Rec. ITU-R BT.470-6 Systémy B a G (PAL)\n"
 
 #: ogginfo/ogginfo2.c:370
 msgid "Colourspace unspecified\n"
-msgstr "Prostor barev nedefinován\n"
+msgstr "Nebol zadaný farebný priestor\n"
 
 #: ogginfo/ogginfo2.c:373
 msgid "Pixel format 4:2:0\n"
-msgstr "Formát pixelů 4:2:0\n"
+msgstr "Formát pixelov 4:2:0\n"
 
 #: ogginfo/ogginfo2.c:375
 msgid "Pixel format 4:2:2\n"
-msgstr "Formát pixelů 4:2:2\n"
+msgstr "Formát pixelov 4:2:2\n"
 
 #: ogginfo/ogginfo2.c:377
 msgid "Pixel format 4:4:4\n"
-msgstr "Formát pixelů 4:4:4\n"
+msgstr "Formát pixelov 4:4:4\n"
 
 #: ogginfo/ogginfo2.c:379
 msgid "Pixel format invalid\n"
-msgstr "Neplatný formát pixelů\n"
+msgstr "Neplatný formát pixelov\n"
 
 #: ogginfo/ogginfo2.c:381
 #, c-format
 msgid "Target bitrate: %d kbps\n"
-msgstr "Cílová bitrate: %d kb/s\n"
+msgstr "Cieľová bitová rýchlosť: %d kb/s\n"
 
 #: ogginfo/ogginfo2.c:382
 #, c-format
 msgid "Nominal quality setting (0-63): %d\n"
-msgstr "Nominální nastavení kvality (0-63): %d\n"
+msgstr "Číselné nastavenie kvality (0-63): %d\n"
 
 #: ogginfo/ogginfo2.c:385 ogginfo/ogginfo2.c:514
 msgid "User comments section follows...\n"
@@ -1403,12 +1415,12 @@ msgstr "Následuje oblast poznámek uživatele...\n"
 
 #: ogginfo/ogginfo2.c:401 ogginfo/ogginfo2.c:530
 msgid "Warning: granulepos in stream %d decreases from %I64d to %I64d"
-msgstr "Varování: granulepos v proudu %d se snižuje z %I64d na %I64d"
+msgstr "Varovanie: granulepos v prúde údajov %d sa znižuje z %I64d na %I64d"
 
 #: ogginfo/ogginfo2.c:404 ogginfo/ogginfo2.c:533
 #, c-format
 msgid "Warning: granulepos in stream %d decreases from %lld to %lld"
-msgstr "Varování: granulepos v proudu %d se snižuje z %lld na %lld"
+msgstr "Varovanie: granulepos v prúde údajov %d sa znižuje z %lld na %lld"
 
 #: ogginfo/ogginfo2.c:432
 msgid ""
@@ -1417,10 +1429,10 @@ msgid ""
 "\tPlayback length: %ldm:%02ld.%03lds\n"
 "\tAverage bitrate: %f kb/s\n"
 msgstr ""
-"Proud theora %d:\n"
-"\tCelková délka dat: %I64d bajtů\n"
-"\tDélka přehrávání: %ldm:%02ld.%03lds\n"
-"\tPrůměrná bitrate: %f kb/s\n"
+"Prúd údajov theora %d:\n"
+"\tCelková dĺžka údajov: %I64d bajtov\n"
+"\tPrehrávací čas: %ldm:%02ld.%03lds\n"
+"\tPriemerná bitová rýchlosť: %f kb/s\n"
 
 #: ogginfo/ogginfo2.c:438
 #, c-format
@@ -1430,10 +1442,10 @@ msgid ""
 "\tPlayback length: %ldm:%02ld.%03lds\n"
 "\tAverage bitrate: %f kb/s\n"
 msgstr ""
-"Proud theora %d:\n"
-"\tCelková délka dat: %lld bajtů\n"
-"\tDélka přehrávání: %ldm:%02ld.%03lds\n"
-"\tPrůměrná bitrate: %f kb/s\n"
+"Prúd údajov theora %d:\n"
+"\tCelková dĺžka údajov: %lld bajtov\n"
+"\tPrehrávací čas: %ldm:%02ld.%03lds\n"
+"\tPriemerná bitová rýchlosť: %f kb/s\n"
 
 #: ogginfo/ogginfo2.c:466
 #, c-format
@@ -1503,7 +1515,7 @@ msgstr "Nižší bitrate nenastavena\n"
 
 #: ogginfo/ogginfo2.c:539
 msgid "Negative granulepos on vorbis stream outside of headers. This file was created by a buggy encoder\n"
-msgstr "Záporná granulepos v proudu vorbis mimo hlavičky. Tento soubor byl vytvořen chybným enkodérem\n"
+msgstr "Záporné granulepos na prúde údajov vorbis mimo hlavičiek. Tento súbor bol vytvorený chybným enkodérom\n"
 
 #: ogginfo/ogginfo2.c:561
 msgid ""
@@ -1512,10 +1524,10 @@ msgid ""
 "\tPlayback length: %ldm:%02ld.%03lds\n"
 "\tAverage bitrate: %f kb/s\n"
 msgstr ""
-"Proud vorbis %d:\n"
-"\tCelková délka dat: %I64d bajtů\n"
-"\tDélka přehrávání: %ldm:%02ld.%03lds\n"
-"\tPrůměrná bitrate: %f kb/s\n"
+"Prúd údajov vorbis %d:\n"
+"\tCelková dĺžka údajov: %I64d bajtov\n"
+"\tPrehrávací čas: %ldm:%02ld.%03lds\n"
+"\tPriemerná bitová rýchlosť: %f kb/s\n"
 
 #: ogginfo/ogginfo2.c:567
 #, c-format
@@ -1525,10 +1537,10 @@ msgid ""
 "\tPlayback length: %ldm:%02ld.%03lds\n"
 "\tAverage bitrate: %f kb/s\n"
 msgstr ""
-"Proud vorbis %d:\n"
-"\tCelková délka dat: %lld bajtů\n"
-"\tDélka přehrávání: %ldm:%02ld.%03lds\n"
-"\tPrůměrná bitrate: %f kb/s\n"
+"Prúd údajov vorbis %d:\n"
+"\tCelková dĺžka údajov: %lld bajtov\n"
+"\tPrehrávací čas: %ldm:%02ld.%03lds\n"
+"\tPriemerná bitová rýchlosť: %f kb/s\n"
 
 #: ogginfo/ogginfo2.c:602
 #, c-format
@@ -1547,21 +1559,21 @@ msgstr "Varování: Neplatná strana hlavičky v proudu %d, obsahuje více paket
 #: ogginfo/ogginfo2.c:770
 #, c-format
 msgid "Note: Stream %d has serial number %d, which is legal but may cause problems with some tools.\n"
-msgstr "Poznámka: Proud %d má sériové číslo %d, což je platné, ale může to způsobit problémy s některými nástroji.\n"
+msgstr "Upozornenie: Prúd údajov %d má sériové číslo %d, čo je síce prípustné, ale môže spôsobiť problémy niektorým nástrojom,\n"
 
 #: ogginfo/ogginfo2.c:788
 msgid "Warning: Hole in data found at approximate offset %I64d bytes. Corrupted ogg.\n"
-msgstr "Varování: V datech nalezena díra na přibližném posunutí %I64d bajtů. Ogg poškozen.\n"
+msgstr "Varovanie: V údajoch sa našla diera, približne na pozícii %l64d bajtov. Poškodený ogg.\n"
 
 #: ogginfo/ogginfo2.c:790
 #, c-format
 msgid "Warning: Hole in data found at approximate offset %lld bytes. Corrupted ogg.\n"
-msgstr "Varování: V datech nalezena díra na přibližném posunutí %lld bajtů. Ogg poškozen.\n"
+msgstr "Varovanie: V údajoch sa našla diera približne na pozícii %lld bajtov. Poškodený ogg.\n"
 
 #: ogginfo/ogginfo2.c:815
 #, c-format
 msgid "Error opening input file \"%s\": %s\n"
-msgstr "Chyba při otevírání vstupního souboru \"%s\": %s\n"
+msgstr "Chyba pri otváraní vstupného súboru \"%s\": %s\n"
 
 #: ogginfo/ogginfo2.c:820
 #, c-format
@@ -1569,24 +1581,24 @@ msgid ""
 "Processing file \"%s\"...\n"
 "\n"
 msgstr ""
-"Zpracovávám soubor \"%s\"...\n"
+"Spracúvam súbor \"%s\"...\n"
 "\n"
 
 #: ogginfo/ogginfo2.c:829
 msgid "Could not find a processor for stream, bailing\n"
-msgstr "Nemohu najít obsluhu pro proud, vzdávám to\n"
+msgstr "Nepodarilo sa nájsť obsluhu pre prúd údajov, vzdávam sa\n"
 
 #: ogginfo/ogginfo2.c:837
 msgid "Page found for stream after EOS flag"
-msgstr "Strana proudu nalezena po značce EOS"
+msgstr "Našla sa stránka pre prúd údajov po značke EOS"
 
 #: ogginfo/ogginfo2.c:840
 msgid "Ogg muxing constraints violated, new stream before EOS of all previous streams"
-msgstr "Omezení na muxing Oggu porušeno, nový proud před EOS všech předchozích proudů"
+msgstr "Obmedzenia pre Ogg muxing boli porušené, nový prúd údajov pred EOS všetkých predchádzajúcich prúdoch"
 
 #: ogginfo/ogginfo2.c:844
 msgid "Error unknown."
-msgstr "Neznámá chyba."
+msgstr "Neznáma chyba."
 
 #: ogginfo/ogginfo2.c:847
 #, c-format
@@ -1594,23 +1606,23 @@ msgid ""
 "Warning: illegally placed page(s) for logical stream %d\n"
 "This indicates a corrupt ogg file: %s.\n"
 msgstr ""
-"Varování: neplatně umístěná stránka (stránky) pro logický proud %d\n"
-"To indikuje poškozený soubor ogg: %s.\n"
+"Varovanie: neplatné umiestnenie stránky v logickom prúde %d\n"
+"Vyzerá to na poškodený súbor ogg: %s.\n"
 
 #: ogginfo/ogginfo2.c:859
 #, c-format
 msgid "New logical stream (#%d, serial: %08x): type %s\n"
-msgstr "Nový logický proud (#%d, sériové: %08x): type %s\n"
+msgstr "Nový logický prúd údajov (#%d, sériové: %08x): typ %s\n"
 
 #: ogginfo/ogginfo2.c:862
 #, c-format
 msgid "Warning: stream start flag not set on stream %d\n"
-msgstr "Varování: příznak začátku proudu nenastaven na proudu %d\n"
+msgstr "Varovanie: príznak začiatku prúdu údajov nebol nastavený na prúde údajov %d\n"
 
 #: ogginfo/ogginfo2.c:866
 #, c-format
 msgid "Warning: stream start flag found in mid-stream on stream %d\n"
-msgstr "Varování: příznak začátku proudu nalezen uvnitř proudu %d\n"
+msgstr "Varovanie: príznak začiatku prúdu údajov sa našiel vnútri prúdu údajov %d\n"
 
 #: ogginfo/ogginfo2.c:871
 #, c-format
@@ -1631,6 +1643,7 @@ msgstr ""
 "Chyba: V souboru \"%s\" nenalezena data ogg\n"
 "Vstup pravděpodobně není ogg.\n"
 
+# FIXME: s/files1/file1/
 #: ogginfo/ogginfo2.c:905
 #, c-format
 msgid ""
@@ -1647,15 +1660,15 @@ msgid ""
 "\n"
 msgstr ""
 "ogginfo 1.1.0\n"
-"© 2003-2005 Michael Smith <msmith@xiph.org>\n"
+"(c) 2002-2005 Michael Smith <msmith@xiph.org>\n"
 "\n"
-"Použití: ogginfo [přepínače] soubor1.ogg [soubor2.ogg ... souborN.ogg]\n"
-"Podporované přepínače:\n"
-"\t-h Zobrazit tuto zprávu nápovědy\n"
-"\t-q Být méně podrobný. Jeden odstraní detailní informativní\n"
-"\t   zprávy, dva odstraní varování\n"
-"\t-v Být více podrobný. Může povolit přesnější kontroly\n"
-"\t   pro některé typy proudů.\n"
+"Použitie: ogginfo [prepínače] súbor1.ogg [súbor2.ogg ... súborN.ogg]\n"
+"Podporované prepínače:\n"
+"\t-h Zobraziť túto pomocnú sránku\n"
+"\t-q Menej podrobností vo výpisoch. Použité raz - odstráni informatívne\n"
+"\t podrobné správy. Dvakrát - odstráni varovania.\n"
+"\t-v Viac podrobností. Môže to povoliť presnejšie kontroly\n"
+"\t   pre niektoré typy prúdov údajov.\n"
 "\n"
 
 #: ogginfo/ogginfo2.c:926
@@ -1820,7 +1833,7 @@ msgstr "EOF v hlavičkách\n"
 #: vcut/vcut.c:468
 #, c-format
 msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
-msgstr "Použití: vcut vstup.ogg výstupní1.ogg výstupní2.ogg [bodřezu | +bodřezu]\n"
+msgstr "Použitie: vcut vstup.ogg výstup1.ogg výstup2.ogg [ +bodrezu]\n"
 
 #: vcut/vcut.c:472
 #, c-format
@@ -1851,12 +1864,12 @@ msgstr "Nemohu zpracovat bod řezu \"%s\"\n"
 #: vcut/vcut.c:503
 #, c-format
 msgid "Processing: Cutting at %lld seconds\n"
-msgstr "Zpracovávám: Řežu na %lld sekundách\n"
+msgstr "Spracúvam: Strihám %lld sekunde\n"
 
 #: vcut/vcut.c:505
 #, c-format
 msgid "Processing: Cutting at %lld samples\n"
-msgstr "Zpracovávám: Řežu na %lld vzorcích\n"
+msgstr "Spracúvam: Strihám na %lld vzorkách\n"
 
 #: vcut/vcut.c:515
 #, c-format
@@ -1940,7 +1953,7 @@ msgid "no action specified\n"
 msgstr "neurčena žádná akce\n"
 
 #: vorbiscomment/vcomment.c:292
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Usage: \n"
 "  vorbiscomment [-l] file.ogg (to list the comments)\n"
@@ -1984,7 +1997,7 @@ msgstr ""
 "   vorbiscomment -a vstup.ogg -t \"ARTIST=Nějaký Chlapík\" -t \"TITLE=Název\"\n"
 "   (všimněte si, že při použití tohoto je čtení poznámek ze souboru\n"
 "   poznámek nebo stdin zakázáno)\n"
-"   Přímý režim (--raw, -R) bude číst a zapisovat poznámky v UTF-8\n"
+"   Přímý režim (--raw, -R) bude číst a zapisovat poznámky v utf8,\n"
 "   místo jejich konverze do znakové sady uživatele. To je\n"
 "   užitečné pro používání vorbiscomment ve skriptech. Není to ale\n"
 "   dostatečné pro obecný pohyb poznámek ve všech případech.\n"
@@ -2028,27 +2041,6 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Chyba při přejmenovávání %s na %s\n"
-
-#~ msgid "Track number:"
-#~ msgstr "Číslo stopy:"
-
-#~ msgid "ReplayGain (Track):"
-#~ msgstr "ReplayGain (Stopa):"
-
-#~ msgid "ReplayGain (Album):"
-#~ msgstr "ReplayGain (Album):"
-
-#~ msgid "ReplayGain (Track) Peak:"
-#~ msgstr "Vrchol ReplayGain (Stopa):"
-
-#~ msgid "ReplayGain (Album) Peak:"
-#~ msgstr "Vrchol ReplayGain (Album):"
-
-#~ msgid "Comment:"
-#~ msgstr "Poznámka:"
-
-#~ msgid "Version is %d"
-#~ msgstr "Verze je %d"
 
 #~ msgid "Couldn't convert comment to UTF8, cannot add\n"
 #~ msgstr "Nemohu převést poznámku do UTF8, nemohu ji přidat\n"
