@@ -496,8 +496,8 @@ static void usage(void)
         "                      track numbers are given, the remaining files will be\n"
         "                      unnumbered. For the others, the final tag will be reused\n"
         "                      for all others without warning (so you can specify a date\n"
-        "                      once, for example, and have it used for all the files)\n"));
-        "\n"
+        "                      once, for example, and have it used for all the files)\n"
+        "\n"));
     fprintf(stdout, _(
         "INPUT FILES:\n"
         " OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or AIFF/C\n"
