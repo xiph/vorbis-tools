@@ -28,7 +28,7 @@ CFLAGS="$cflags_save"
 
 AC_PROG_LIBTOOL
 
-ALL_LINGUAS="be cs da es fr hr hu nl ro ru sv uk"
+ALL_LINGUAS="be cs da en_GB es fr hr hu nl ro ru sk sv uk vi"
 AM_GNU_GETTEXT
 
 dnl --------------------------------------------------
