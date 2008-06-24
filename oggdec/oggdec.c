@@ -47,31 +47,27 @@ unsigned char headbuf[44]; /* The whole buffer */
 char *outfilename = NULL;
 
 static void version (void) {
-    fprintf (stderr, _("oggdec from %s %s\n"), PACKAGE, VERSION);
+    fprintf(stderr, _("oggdec from %s %s\n"), PACKAGE, VERSION);
 }
 
 static void usage(void)
 {
     version ();
-    fprintf (stderr, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
-    fprintf(stderr, "Usage: oggdec [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
-                    "\n"
-                    "Supported flags:\n"
-                    " --quiet, -Q      Quiet mode. No console output.\n"
-                    " --help,  -h      Produce this help message.\n"
-                    " --version, -v    Print out version number.\n"
-                    " --bits, -b       Bit depth for output (8 and 16 supported)\n"
-                    " --endianness, -e Output endianness for 16 bit output. 0 for\n"
-                    "                  little endian (default), 1 for big endian\n"
-                    " --sign, -s       Sign for output PCM, 0 for unsigned, 1 for\n"
-                    "                  signed (default 1)\n"
-                    " --raw, -R        Raw (headerless) output.\n"
-                    " --output, -o     Output to given filename. May only be used\n"
-                    "                  if there is only one input file, except in\n"
-                    "                  raw mode.\n"
-
-            );
-
+    fprintf(stderr, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    fprintf(stderr, _("Usage: oggdec [options] file1.ogg [file2.ogg ... fileN.ogg]\n\n"));
+    fprintf(stderr, _("Supported options:\n"));
+    fprintf(stderr, _(" --quiet, -Q      Quiet mode. No console output.\n"));
+    fprintf(stderr, _(" --help,  -h      Produce this help message.\n"));
+    fprintf(stderr, _(" --version, -v    Print out version number.\n"));
+    fprintf(stderr, _(" --bits, -b       Bit depth for output (8 and 16 supported)\n"));
+    fprintf(stderr, _(" --endianness, -e Output endianness for 16-bit output; 0 for\n"
+                      "                  little endian (default), 1 for big endian.\n"));
+    fprintf(stderr, _(" --sign, -s       Sign for output PCM; 0 for unsigned, 1 for\n"
+                      "                  signed (default 1).\n"));
+    fprintf(stderr, _(" --raw, -R        Raw (headerless) output.\n"));
+    fprintf(stderr, _(" --output, -o     Output to given filename. May only be used\n"
+                      "                  if there is only one input file, except in\n"
+                      "                  raw mode.\n"));
 }
 
 
@@ -395,7 +391,7 @@ int main(int argc, char **argv)
 
         if(!outfile)
             return 1;
-        
+
         for(i=optind; i < argc; i++) {
             if(!strcmp(argv[i], "-")) {
                 infilename = NULL;
@@ -456,7 +452,7 @@ int main(int argc, char **argv)
                 fclose(infile);
                 return 1;
             }
-        
+
             if(decode_file(infile, outfile, in, out)) {
                 fclose(outfile);
                 return 1;
@@ -474,5 +470,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-    
-
