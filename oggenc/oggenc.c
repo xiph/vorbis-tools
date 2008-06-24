@@ -396,67 +396,78 @@ clear_all:
 
 static void usage(void)
 {
-    fprintf(stdout, 
-        _("%s%s\n"
+    fprintf(stdout, _( 
+        "%s%s\n"
         "Usage: oggenc [options] inputfile [...]\n"
-        "\n"
+        "\n"), VERSION_STRING, COPYRIGHT);
+    fprintf(stdout, _(
         "OPTIONS:\n"
         " General:\n"
         " -Q, --quiet          Produce no output to stderr\n"
         " -h, --help           Print this help text\n"
-        " -v, --version        Print the version number\n"
+        " -v, --version        Print the version number\n"));
+    fprintf(stdout, _(
         " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
         " -r, --raw            Raw mode. Input files are read directly as PCM data\n"
-        " -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
-        " -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
-        " -R, --raw-rate=n     Set samples/sec for raw input. Default is 44100\n"
-        " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"
+        " -B, --raw-bits=n     Set bits/sample for raw input; default is 16\n"
+        " -C, --raw-chan=n     Set number of channels for raw input; default is 2\n"
+        " -R, --raw-rate=n     Set samples/sec for raw input; default is 44100\n"
+        " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"));
+    fprintf(stdout, _(
         " -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
         "                      to encode at a bitrate averaging this. Takes an\n"
         "                      argument in kbps. By default, this produces a VBR\n"
         "                      encoding, equivalent to using -q or --quality.\n"
         "                      See the --managed option to use a managed bitrate\n"
-        "                      targetting the selected bitrate.\n"
+        "                      targetting the selected bitrate.\n"));
+    fprintf(stdout, _(
         " --managed            Enable the bitrate management engine. This will allow\n"
         "                      much greater control over the precise bitrate(s) used,\n"
         "                      but encoding will be much slower. Don't use it unless\n"
         "                      you have a strong need for detailed control over\n"
-        "                      bitrate, such as for streaming.\n"
+        "                      bitrate, such as for streaming.\n"));
+    fprintf(stdout, _(
         " -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
         "                      encoding for a fixed-size channel. Using this will\n"
         "                      automatically enable managed bitrate mode (see\n"
         "                      --managed).\n"
         " -M, --max-bitrate    Specify a maximum bitrate in kbps. Useful for\n"
         "                      streaming applications. Using this will automatically\n"
-        "                      enable managed bitrate mode (see --managed).\n"
+        "                      enable managed bitrate mode (see --managed).\n"));
+    fprintf(stdout, _(
         " --advanced-encode-option option=value\n"
         "                      Sets an advanced encoder option to the given value.\n"
         "                      The valid options (and their values) are documented\n"
         "                      in the man page supplied with this program. They are\n"
         "                      for advanced users only, and should be used with\n"
-        "                      caution.\n"
+        "                      caution.\n"));
+    fprintf(stdout, _(
         " -q, --quality        Specify quality, between -1 (very low) and 10 (very\n"
         "                      high), instead of specifying a particular bitrate.\n"
         "                      This is the normal mode of operation.\n"
         "                      Fractional qualities (e.g. 2.75) are permitted\n"
-        "                      The default quality level is 3.\n"
+        "                      The default quality level is 3.\n"));
+    fprintf(stdout, _(
         " --resample n         Resample input data to sampling rate n (Hz)\n"
         " --downmix            Downmix stereo to mono. Only allowed on stereo\n"
         "                      input.\n"
         " -s, --serial         Specify a serial number for the stream. If encoding\n"
         "                      multiple files, this will be incremented for each\n"
-        "                      stream after the first.\n"
+        "                      stream after the first.\n"));
+    fprintf(stdout, _(
         " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
         "                      being copied to the output Ogg Vorbis file.\n"
         " --ignorelength       Ignore the datalength in wav headers. This will allow\n"
         "                      support for files > 4GB and STDIN data streams. \n"
-        "\n"
+        "\n"));
+    fprintf(stdout, _(
         " Naming:\n"
         " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
         " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%l,\n"
         "                      %%n, %%d replaced by artist, title, album, track number,\n"
         "                      and date, respectively (see below for specifying these).\n"
-        "                      %%%% gives a literal %%.\n"
+        "                      %%%% gives a literal %%.\n"));
+    fprintf(stdout, _(
         " -X, --name-remove=s  Remove the specified characters from parameters to the\n"
         "                      -n format string. Useful to ensure legal filenames.\n"
         " -P, --name-replace=s Replace characters removed by --name-remove with the\n"
@@ -464,16 +475,19 @@ static void usage(void)
         "                      --name-remove list or is not specified, the extra\n"
         "                      characters are just removed.\n"
         "                      Default settings for the above two arguments are platform\n"
-        "                      specific.\n"
+        "                      specific.\n"));
+    fprintf(stdout, _(
         " -c, --comment=c      Add the given string as an extra comment. This may be\n"
         "                      used multiple times. The argument should be in the\n"
         "                      format \"tag=value\".\n"
-        " -d, --date           Date for track (usually date of performance)\n"
+        " -d, --date           Date for track (usually date of performance)\n"));
+    fprintf(stdout, _(
         " -N, --tracknum       Track number for this track\n"
         " -t, --title          Title for this track\n"
         " -l, --album          Name of album\n"
         " -a, --artist         Name of artist\n"
-        " -G, --genre          Genre of track\n"
+        " -G, --genre          Genre of track\n"));
+    fprintf(stdout, _(
         "                      If multiple input files are given, then multiple\n"
         "                      instances of the previous five arguments will be used,\n"
         "                      in the order they are given. If fewer titles are\n"
@@ -482,8 +496,9 @@ static void usage(void)
         "                      track numbers are given, the remaining files will be\n"
         "                      unnumbered. For the others, the final tag will be reused\n"
         "                      for all others without warning (so you can specify a date\n"
-        "                      once, for example, and have it used for all the files)\n"
+        "                      once, for example, and have it used for all the files)\n"));
         "\n"
+    fprintf(stdout, _(
         "INPUT FILES:\n"
         " OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or AIFF/C\n"
         " files, 32 bit IEEE floating point WAV, and optionally FLAC or Ogg FLAC. Files\n"
@@ -494,7 +509,7 @@ static void usage(void)
         " You can specify taking the file from stdin by using - as the input filename.\n"
         " In this mode, output is to stdout unless an output filename is specified\n"
         " with -o\n"
-        "\n"), VERSION_STRING, COPYRIGHT);
+        "\n"));
 }
 
 static int strncpy_filtered(char *dst, char *src, int len, char *remove_list,
