@@ -47,29 +47,28 @@ unsigned char headbuf[44]; /* The whole buffer */
 char *outfilename = NULL;
 
 static void version (void) {
-    fprintf(stderr, _("oggdec from %s %s\n"), PACKAGE, VERSION);
+    fprintf(stdout, _("oggdec from %s %s\n"), PACKAGE, VERSION);
 }
 
 static void usage(void)
 {
     version ();
-    fprintf(stderr, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
-    fprintf(stderr, _("Usage: oggdec [options] file1.ogg [file2.ogg ... fileN.ogg]\n\n"));
-    fprintf(stderr, _("Supported options:\n"));
-    fprintf(stderr, _(" --quiet, -Q      Quiet mode. No console output.\n"));
-    fprintf(stderr, _(" --help,  -h      Produce this help message.\n"));
-    fprintf(stderr, _(" --version, -v    Print out version number.\n"));
-    fprintf(stderr, _(" --bits, -b       Bit depth for output (8 and 16 supported)\n"));
-    fprintf(stderr, _(" --endianness, -e Output endianness for 16-bit output; 0 for\n"
-                      "                  little endian (default), 1 for big endian.\n"));
-    fprintf(stderr, _(" --sign, -s       Sign for output PCM; 0 for unsigned, 1 for\n"
-                      "                  signed (default 1).\n"));
-    fprintf(stderr, _(" --raw, -R        Raw (headerless) output.\n"));
-    fprintf(stderr, _(" --output, -o     Output to given filename. May only be used\n"
+    fprintf(stdout, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    fprintf(stdout, _("Usage: oggdec [options] file1.ogg [file2.ogg ... fileN.ogg]\n\n"));
+    fprintf(stdout, _("Supported options:\n"));
+    fprintf(stdout, _(" --quiet, -Q      Quiet mode. No console output.\n"));
+    fprintf(stdout, _(" --help,  -h      Produce this help message.\n"));
+    fprintf(stdout, _(" --version, -v    Print out version number.\n"));
+    fprintf(stdout, _(" --bits, -b       Bit depth for output (8 and 16 supported)\n"));
+    fprintf(stdout, _(" --endianness, -e Output endianness for 16-bit output; 0 for\n"
+                       "                  little endian (default), 1 for big endian.\n"));
+    fprintf(stdout, _(" --sign, -s       Sign for output PCM; 0 for unsigned, 1 for\n"
+                       "                  signed (default 1).\n"));
+    fprintf(stdout, _(" --raw, -R        Raw (headerless) output.\n"));
+    fprintf(stdout, _(" --output, -o     Output to given filename. May only be used\n"
                       "                  if there is only one input file, except in\n"
                       "                  raw mode.\n"));
 }
-
 
 static void parse_options(int argc, char **argv)
 {

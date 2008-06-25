@@ -28,10 +28,6 @@
 #include "utf8.h"
 #include "i18n.h"
 
-
-#define VERSION_STRING "oggenc from vorbis-tools " VERSION " \n"
-#define COPYRIGHT "(c) 2000-2005 Michael Smith <msmith@xiph.org>\n"
-
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
 struct option long_options[] = {
@@ -101,7 +97,7 @@ int main(int argc, char **argv)
 
     if(optind >= argc)
     {
-        fprintf(stderr, _("%s%s\nERROR: No input files specified. Use -h for help.\n"), VERSION_STRING, COPYRIGHT);
+        fprintf(stderr, _("ERROR: No input files specified. Use -h for help.\n"));
         return 1;
     }
     else
@@ -396,12 +392,10 @@ clear_all:
 
 static void usage(void)
 {
-    fprintf(stdout, _( 
-        "%s%s\n"
-        "Usage: oggenc [options] inputfile [...]\n"
-        "\n"), VERSION_STRING, COPYRIGHT);
-    fprintf(stdout, _(
-        "OPTIONS:\n"
+    fprintf(stdout, _("oggenc from %s %s"), PACKAGE, VERSION);
+    fprintf(stdout, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    fprintf(stdout, _("Usage: oggenc [options] inputfile [...]\n\n"));
+    fprintf(stdout, _("OPTIONS:\n"
         " General:\n"
         " -Q, --quiet          Produce no output to stderr\n"
         " -h, --help           Print this help text\n"
@@ -829,7 +823,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 opt->rawmode = 1;
                 break;
             case 'v':
-                fprintf(stdout, VERSION_STRING);
+                fprintf(stdout, _("oggenc from %s %s\n"), PACKAGE, VERSION);
                 exit(0);
                 break;
             case 'B':
