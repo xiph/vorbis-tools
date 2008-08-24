@@ -16,6 +16,8 @@ AM_MAINTAINER_MODE
 
 AM_CONFIG_HEADER([config.h])
 
+AC_USE_SYSTEM_EXTENSIONS
+
 dnl --------------------------------------------------  
 dnl Check for programs
 dnl --------------------------------------------------  
