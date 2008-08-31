@@ -7,7 +7,7 @@ Group:		Applications/Multimedia
 License:	GPL
 URL:		http://xiph.org/
 Vendor:		Xiph.Org Foundation <team@xiph.org>
-Source:         http://xiph.org/pub/ogg/vorbis/download/%{name}-%{version}.tar.gz
+Source:         http://downloads.xiph.org/releases/vorbis/%{name}-%{version}.tar.gz
 Prefix:		%{_prefix}
 BuildRoot:	%{_tmppath}/%{name}-root
 
@@ -64,7 +64,10 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/vcut.1*
 
 %changelog
-* Tue Jan 25 2008 Ivo Emanuel Goncalves <justivo@gmail.com>
+* Tue Aug 31 2008 Ivo Emanuel Goncalves <justivo gmail.com>
+- update for 1.2.1 release
+- corrected source link
+* Tue Jan 25 2008 Ivo Emanuel Goncalves <justivo gmail.com>
 - update for 1.2.0 release
 * Tue Oct 07 2003 Warren Dukes <shank@xiph.org>
 - update for 1.0.1 release
