@@ -1,9 +1,14 @@
 This package was debianized by Christopher L Cheney <ccheney@debian.org> on
 Tue, 31 Oct 2000 16:38:42 -0600.
 
-It was downloaded from http://www.vorbis.com/download_unix.psp
+Adeodato Simó <dato@net.com.org.es> stepped as a co-maintainer on
+Sat, 19 Nov 2005 12:04:38 +0100.
 
-Upstream Authors: Kenneth Arnold <kcarnold-xiph@arnoldnet.net>
+It was downloaded from http://www.xiph.org/downloads/:
+
+    URL:<http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.1.1.tar.gz>
+
+Upstream Authors: Kenneth Arnold <ogg123@arnoldnet.net>
                   Segher Boessenkool <segher@xiph.org>
 		  Stan Seibert <volsung@xiph.org>
                   Michael Smith <msmith@xiph.org>
