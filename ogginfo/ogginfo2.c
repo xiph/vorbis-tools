@@ -400,7 +400,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
                        "information follows...\n"), stream->num);
 
                 info(_("Version: %d.%d.%d\n"), inf->ti.version_major, inf->ti.version_minor, inf->ti.version_subminor);
-   
+
                 info(_("Vendor: %s\n"), inf->tc.vendor);
                 info(_("Width: %d\n"), inf->ti.frame_width);
                 info(_("Height: %d\n"), inf->ti.frame_height);
@@ -1205,7 +1205,7 @@ static void process_file(char *filename) {
 
     if(!gotpage)
         error(_("Error: No ogg data found in file \"%s\".\n"
-                "Input probably not ogg.\n"), filename);
+                "Input probably not Ogg.\n"), filename);
 
     free_stream_set(processors);
 
@@ -1223,7 +1223,7 @@ static void usage(void) {
     printf (_(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
     printf(_("(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
              "\n"
-             "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+             "Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
              "Flags supported:\n"
              "\t-h Show this help message\n"
              "\t-q Make less verbose. Once will remove detailed informative\n"
@@ -1231,7 +1231,6 @@ static void usage(void) {
              "\t-v Make more verbose. This may enable more detailed checks\n"
              "\t   for some stream types.\n"));
     printf (_("\t-V Output version information and exit\n"));
-    /*printf (_("  -V, --version           Output version information and exit\n"));*/
 }
 
 int main(int argc, char **argv) {
@@ -1243,9 +1242,9 @@ int main(int argc, char **argv) {
 
     if(argc < 2) {
         fprintf(stderr, 
-                _("Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+                _("Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
                   "\n"
-                  "Ogginfo is a tool for printing information about ogg files\n"
+                  "ogginfo is a tool for printing information about Ogg files\n"
                   "and for diagnosing problems with them.\n"
                   "Full help shown with \"ogginfo -h\".\n"));
         exit(1);
