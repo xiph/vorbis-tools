@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
 .\"
-.TH oggenc 1 "2005 March 3" "Xiph.Org Foundation" "Vorbis Tools"
+.TH oggenc 1 "2008 September 9" "Xiph.Org Foundation" "Vorbis Tools"
 
 .SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
@@ -82,7 +82,7 @@ oggenc \- encode audio into the Ogg Vorbis format
 
 .SH DESCRIPTION
 .B oggenc
-reads audio data in either raw, WAV, or AIFF format and encodes it into an
+reads audio data in either raw, Wave, or AIFF format and encodes it into an
 Ogg Vorbis stream.
 .B oggenc
 may also read audio data from FLAC and Ogg FLAC files depending upon compile-time options.  If the input file "-" is specified, audio data is
@@ -106,7 +106,7 @@ will become file.ogg
 .SH OPTIONS
 .IP "-h, --help"
 Show command help.
-.IP "-v, --version"
+.IP "-V, --version"
 Show the version number.
 .IP "-r, --raw"
 Assume input data is raw little-endian audio data with no
@@ -121,6 +121,14 @@ Sets raw mode input samplerate. Default is 44100.
 .IP "--raw-endianness n
 Sets raw mode endianness to big endian (1) or little endian (0). Default is
 little endian.
+.IP "--utf8        "
+Informs oggenc that the Vorbis Comments are already encoded as UTF-8.
+Useful in situations where the shell is using some other encoding.
+.IP "-k, --skeleton"
+Add a Skeleton bitstream.  Important if the output Ogg is intended to carry
+multiplexed or chained streams.  Output file uses .oga as file extension.
+.IP "--ignorelength"
+Support for Wave files over 4 GB and stdin data streams.
 .IP "-Q, --quiet"
 Quiet mode.  No messages are displayed.
 .IP "-b n, --bitrate=n"
@@ -210,7 +218,7 @@ approached with caution. They may significantly degrade audio quality
 if misused. Not all these options are currently documented.
 
 .IP "lowpass_frequency=N"
-Set the lowpass frequency to N kHz. 
+Set the lowpass frequency to N kHz.
 
 .IP "impulse_noisetune=N"
 Set a noise floor bias N (range from -15. to 0.) for impulse blocks.
@@ -354,7 +362,7 @@ Manpage Author:
 Stan Seibert <indigo@aztec.asu.edu>
 
 .SH BUGS
-Reading type 3 wav files (floating point samples) probably doesn't work other than on intel (or other 32 bit, little endian machines). 
+Reading type 3 Wave files (floating point samples) probably doesn't work other than on Intel (or other 32 bit, little endian machines).
 
 .SH "SEE ALSO"
 

@@ -4,6 +4,9 @@ vorbis-tools 1.2.1 -- Unreleased
  * Corrected problems in the Visual Studio project files
  * Updated po files from the Translation Project
  * Added new en_GB.po, sk.po and vi.po translation files
+ * Added AC_USE_SYSTEM_EXTENSIONS to configure.ac; no more autogen.sh warnings
+ * Corrected SUBLANG values in intl/localename.c (#1415)
+ * Modify -v to -V on oggenc and oggdec for consistency (#1112)
  * ogg123: backported fix from libfishsound to patch the Speex decoder (#1347)
  * ogg123: fixed CPU issue when outputting to a closed pipe (#1357)
  * ogg123: return value to stop decoding after buffer is shut down (#1357)
@@ -12,8 +15,8 @@ vorbis-tools 1.2.1 -- Unreleased
  * oggenc: fixed a typo in the Skeleton handling routine
  * oggenc: fixed remapping channels bug (#1326)
  * oggenc: support for WAVE_FORMAT_EXTENSIBLE headers (#1326)
- * oggenc: support for 32 bit WAV files (#1326)
- * oggenc: --ignorelength; support for WAV files > 4 GB (#1326)
+ * oggenc: support for 32 bit Wave files (#1326)
+ * oggenc: --ignorelength; support for Wave files > 4 GB (#1326)
  * oggenc: split help text into manageable chunks to help translators (#1385)
  * ogginfo: support for information in Kate streams (#1360)
  * vcut: 64 bit fixes (#1366)
@@ -21,7 +24,7 @@ vorbis-tools 1.2.1 -- Unreleased
 
 vorbis-tools 1.2.0 -- 2008-02-21
 
- * FLAC support now relies on libFLAC
+ * FLAC support now relies solely on libFLAC
  * Support for large files (#879)
  * Fixed acinclude.m4 to properly support --no switches
  * ogg123: added remote control support (#1109)
@@ -29,8 +32,8 @@ vorbis-tools 1.2.0 -- 2008-02-21
  * ogg123: fixed a type mismatch in option parsing for 64 bit systems
  * ogg123: configuration no longer hardcoded to /etc
  * ogg123: compiles with older versions of libcurl
- * ogg123: fix crash when playing 1-channel FLAC (#535)
- * ogg123: fix floating-point exception when playing corrupt FLAC (#1119)
+ * ogg123: fixed crash when playing 1-channel FLAC (#535)
+ * ogg123: fixed floating-point exception when playing corrupt FLAC (#1119)
  * oggdec: limited support for chained Ogg bitstreams
  * oggdec: support decoding of multiple files into a single one
  * oggenc: -k, switch for Skeleton bitstream encoding

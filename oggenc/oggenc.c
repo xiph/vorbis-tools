@@ -43,7 +43,7 @@ struct option long_options[] = {
     {"name-remove",1,0,'X'},
     {"name-replace",1,0,'P'},
     {"output",1,0,'o'},
-    {"version",0,0,'v'},
+    {"version",0,0,'V'},
     {"raw",0,0,'r'},
     {"raw-bits",1,0,'B'},
     {"raw-chan",1,0,'C'},
@@ -399,7 +399,7 @@ static void usage(void)
         " General:\n"
         " -Q, --quiet          Produce no output to stderr\n"
         " -h, --help           Print this help text\n"
-        " -v, --version        Print the version number\n"));
+        " -V, --version        Print the version number\n"));
     fprintf(stdout, _(
         " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
         " -r, --raw            Raw mode. Input files are read directly as PCM data\n"
@@ -614,7 +614,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
     int ret;
     int option_index = 1;
 
-    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:vX:",
+    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:VX:",
                     long_options, &option_index)) != -1)
     {
         switch(ret)
@@ -822,7 +822,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
             case 'r':
                 opt->rawmode = 1;
                 break;
-            case 'v':
+            case 'V':
                 fprintf(stdout, _("oggenc from %s %s\n"), PACKAGE, VERSION);
                 exit(0);
                 break;

@@ -1,7 +1,7 @@
-.TH "oggdec" "1" "2002 July 03" "Xiph.Org Foundation" "Vorbis Tools"
+.TH "oggdec" "1" "2008 September 9" "Xiph.Org Foundation" "Vorbis Tools"
 
 .SH "NAME"
-oggdec - simple decoder, Ogg Vorbis file to PCM audio file (WAV or RAW).
+oggdec - simple decoder, Ogg Vorbis file to PCM audio file (Wave or RAW).
 
 .SH "SYNOPSIS"
 .B oggdec
@@ -23,7 +23,7 @@ oggdec - simple decoder, Ogg Vorbis file to PCM audio file (WAV or RAW).
 .SH "DESCRIPTION"
 
 .B oggdec
-decodes Ogg Vorbis files into PCM-encoded ("uncompressed") audio files, either WAV or RAW format.
+decodes Ogg Vorbis files into PCM-encoded ("uncompressed") audio files, either Wave or RAW format.
 
 For each input file, 
 .B oggdec
@@ -37,21 +37,21 @@ will read from stdin, and write to stdout unless an output filename is specified
 .B -
 will cause output to be to stdout.
 
-Writing WAV format to stdout is a bad idea.  WAV requires a seekable medium for the header to be rewritten after all the data is written out; stdout is not seekable.
+Writing Wave format to stdout is a bad idea.  Wave requires a seekable medium for the header to be rewritten after all the data is written out; stdout is not seekable.
 
 .SH "OPTIONS"
 .IP "-Q, --quiet"
 Suppresses program output.
 .IP "-h, --help"
 Print help message.
-.IP "-v, --version"
+.IP "-V, --version"
 Display version information.
 .IP "-b n, --bits=n"
 Bits per sample.  Valid values are 8 or 16.
 .IP "-e n, --endian=n"
 Set endianness for 16-bit output.  0 (default) is little-endian (Intel byte order).  1 is big-endian (sane byte order).
 .IP "-R, --raw"
-Output in raw format.  If not specified, writes WAV file (RIFF headers).
+Output in raw format.  If not specified, writes Wave file (RIFF headers).
 .IP "-s n, --sign=n"
 Set signedness for output.  0 for unsigned, 1 (default) for signed.
 .IP "-o filename, --output=filename"

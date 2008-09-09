@@ -29,7 +29,7 @@
 struct option long_options[] = {
     {"quiet", 0,0,'Q'},
     {"help",0,0,'h'},
-    {"version", 0, 0, 'v'},
+    {"version", 0, 0, 'V'},
     {"bits", 1, 0, 'b'},
     {"endianness", 1, 0, 'e'},
     {"raw", 0, 0, 'R'},
@@ -58,7 +58,7 @@ static void usage(void)
     fprintf(stdout, _("Supported options:\n"));
     fprintf(stdout, _(" --quiet, -Q      Quiet mode. No console output.\n"));
     fprintf(stdout, _(" --help,  -h      Produce this help message.\n"));
-    fprintf(stdout, _(" --version, -v    Print out version number.\n"));
+    fprintf(stdout, _(" --version, -V    Print out version number.\n"));
     fprintf(stdout, _(" --bits, -b       Bit depth for output (8 and 16 supported)\n"));
     fprintf(stdout, _(" --endianness, -e Output endianness for 16-bit output; 0 for\n"
                        "                  little endian (default), 1 for big endian.\n"));
@@ -75,7 +75,7 @@ static void parse_options(int argc, char **argv)
     int option_index = 1;
     int ret;
 
-    while((ret = getopt_long(argc, argv, "Qhvb:e:Rs:o:", 
+    while((ret = getopt_long(argc, argv, "QhVb:e:Rs:o:", 
                     long_options, &option_index)) != -1)
     {
         switch(ret)
@@ -87,7 +87,7 @@ static void parse_options(int argc, char **argv)
                 usage();
                 exit(0);
                 break;
-            case 'v':
+            case 'V':
                 version();
                 exit(0);
                 break;
