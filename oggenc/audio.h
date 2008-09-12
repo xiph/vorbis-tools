@@ -5,6 +5,8 @@
 #include "encode.h"
 #include <stdio.h>
 
+#include <arpa/inet.h>
+
 int setup_resample(oe_enc_opt *opt);
 void clear_resample(oe_enc_opt *opt);
 void setup_downmix(oe_enc_opt *opt);
@@ -67,5 +69,22 @@ long wav_read(void *, float **buffer, int samples);
 long wav_ieee_read(void *, float **buffer, int samples);
 long raw_read_stereo(void *, float **buffer, int samples);
 
-#endif /* __AUDIO_H */
+/* AU code */
+int au_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen);
+int au_id(unsigned char *buf, int len);
+void au_close(void *);
 
+typedef struct {
+  char     magic[4];
+  uint32_t dataOffset;
+  uint32_t dataBytes;
+  uint32_t formatCode;
+  uint32_t samplingRate;
+  uint32_t numberChannels;
+  char     optional[4];
+} auhdr;
+
+#define SND_FORMAT_LINEAR_16 3
+/* End AU code */
+
+#endif /* __AUDIO_H */
