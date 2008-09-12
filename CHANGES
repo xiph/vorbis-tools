@@ -18,7 +18,6 @@ vorbis-tools 1.2.1 -- Unreleased
  * oggenc: support for 32 bit Wave files (#1326)
  * oggenc: --ignorelength; support for Wave files > 4 GB (#1326)
  * oggenc: split help text into manageable chunks to help translators (#1385)
- * oggenc: support for linear 16 bit u-Law/.au (#1105)
  * ogginfo: support for information in Kate streams (#1360)
  * vcut: 64 bit fixes (#1366)
  * vorbiscomment: correct memory allocation (#472)

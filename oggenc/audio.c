@@ -17,7 +17,6 @@
 #include <string.h>
 #include <sys/types.h>
 #include <math.h>
-#include <arpa/inet.h>
 
 #include "audio.h"
 #include "platform.h"
@@ -54,7 +53,6 @@ input_format formats[] = {
     {flac_id,     4, flac_open, flac_close, "flac", N_("FLAC file reader")},
     {oggflac_id, 33, flac_open, flac_close, "ogg", N_("Ogg FLAC file reader")},
 #endif
-    {au_id, sizeof(auhdr),au_open,au_close, "au",N_("AU file reader") },
     {NULL, 0, NULL, NULL, NULL, NULL}
 };
 
@@ -326,7 +324,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
         (format.samplesize == 16 || format.samplesize == 8))
     {
         /* From here on, this is very similar to the wav code. Oh well. */
-
+        
         opt->rate = format.rate;
         opt->channels = format.channels;
         opt->read_samples = wav_read; /* Similar enough, so we use the same */
@@ -362,7 +360,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 int wav_id(unsigned char *buf, int len)
 {
     unsigned int flen;
-
+    
     if(len<12) return 0; /* Something screwed up */
 
     if(memcmp(buf, "RIFF", 4))
@@ -406,7 +404,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
     if(len < 16)
     {
-        fprintf(stderr, _("Warning: Unrecognised format chunk in Wave header\n"));
+        fprintf(stderr, _("Warning: Unrecognised format chunk in WAV header\n"));
         return 0; /* Weird format chunk */
     }
 
@@ -419,12 +417,12 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
      */
     if(len!=16 && len!=18 && len!=40)
         fprintf(stderr, 
-                _("Warning: INVALID format chunk in Wave header.\n"
+                _("Warning: INVALID format chunk in wav header.\n"
                 " Trying to read anyway (may not work)...\n"));
 
     if(fread(buf,1,len,in) < len)
     {
-        fprintf(stderr, _("Warning: Unexpected EOF in reading Wave header\n"));
+        fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
         return 0;
     }
 
@@ -457,7 +455,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     else
     {
         fprintf(stderr, 
-                _("ERROR: Wave file is unsupported type (must be standard PCM\n"
+                _("ERROR: Wav file is unsupported type (must be standard PCM\n"
                 " or type 3 floating point PCM)\n"));
         return 0;
     }
@@ -825,96 +823,6 @@ void clear_scaler(oe_enc_opt *opt) {
     free(d);
 }
 
-
-// ------------- Basic AU support --------------
-
-// 1=OK
-// 0=KO
-int au_id(unsigned char *buf, int len)
-{
-  if (len < sizeof(auhdr))
-    return 0;
-  if (memcmp(buf,".snd",4))
-    return 0;
-  return 1;
-}
-
-typedef union {
-  int16_t   signed16;
-  uint16_t  unsigned16;
-} sixteen_bit;
-
-long au_read(void *in, float **buffer, int samples)
-{
-  wavfile        *wav        = (wavfile *)in;
-  unsigned char  *buf        = alloca(samples*wav->channels*2);
-  long            bytes_read = fread(buf, 1, samples*2*wav->channels, wav->f);
-  int             i,j;
-  long            realsamples;
-  uint16_t       *sample;
-  sixteen_bit     converter;
-
-  realsamples = bytes_read / (2 * wav->channels);
-
-  sample = (uint16_t *)buf;
-
-  for(i = 0; i < realsamples; i++)
-    {
-      for(j=0; j < wav->channels; j++)
-      {
-        converter.unsigned16 = ntohs(*sample++);
-        buffer[j][i] = converter.signed16 / 32768.0f;
-      }
-    }
-
-  return realsamples;
-}
-
-int au_open(FILE *in,
-          oe_enc_opt *opt,
-          unsigned char *buf, int buflen)
-{
-  auhdr    auHdr;
-  wavfile *wav = malloc(sizeof(wavfile));
-  int      dataOffset;
-
-  if (NULL == wav) {
-    fprintf(stderr, _("Out of memory opening AU driver\n"));
-  }
-
-  rewind(in);
-  fread(&auHdr,1,sizeof(auHdr),in);
-
-  if (SND_FORMAT_LINEAR_16 != ntohl(auHdr.formatCode)) {
-    fprintf(stderr,_("At this moment, only linear 16 bit .au files are supported\n"));
-    return 0;
-  }
-  dataOffset                     = ntohl(auHdr.dataOffset);
-  opt->rate                      = ntohl(auHdr.samplingRate);
-  opt->channels                  = ntohl(auHdr.numberChannels);
-  opt->read_samples              = au_read;
-  opt->total_samples_per_channel = ntohl(auHdr.dataBytes) / (2 * opt->channels);
-  opt->readdata                  = wav;
-
-  wav->channels      = opt->channels;
-  wav->samplesize    = 4;
-  wav->totalsamples  = opt->total_samples_per_channel;
-  wav->samplesread   = 0;
-  wav->f             = in;
-
-  // ignore: short bigendian;
-
-  fseek(in,dataOffset,SEEK_SET);
-  return 1;
-}
-
-void au_close(void *info)
-{
-  free(info);
-}
-/* End Basic AU Support */
-
-
 typedef struct {
     audio_read_func real_reader;
     void *real_readdata;
@@ -938,10 +846,10 @@ void setup_downmix(oe_enc_opt *opt) {
     downmix *d = calloc(1, sizeof(downmix));
 
     if(opt->channels != 2) {
-        fprintf(stderr, _("Internal error! Please report this bug.\n"));
+        fprintf(stderr, "Internal error! Please report this bug.\n");
         return;
     }
-
+    
     d->bufs = malloc(2 * sizeof(float *));
     d->bufs[0] = malloc(4096 * sizeof(float));
     d->bufs[1] = malloc(4096 * sizeof(float));
@@ -966,3 +874,4 @@ void clear_downmix(oe_enc_opt *opt) {
     free(d->bufs);
     free(d);
 }
+

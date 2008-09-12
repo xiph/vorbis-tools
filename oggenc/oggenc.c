@@ -494,11 +494,11 @@ static void usage(void)
         "\n"));
     fprintf(stdout, _(
         "INPUT FILES:\n"
-        " OggEnc input files must currently be 24, 16, or 8 bit PCM Wave, 16 bit u-Law (.au), AIFF, or AIFF/C\n"
-        " files, 32 bit IEEE floating point Wave, and optionally FLAC or Ogg FLAC. Files\n"
+        " OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or AIFF/C\n"
+        " files, 32 bit IEEE floating point WAV, and optionally FLAC or Ogg FLAC. Files\n"
                 "  may be mono or stereo (or more channels) and any sample rate.\n"
         " Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-        " must be 16 bit stereo little-endian PCM ('headerless wave'), unless additional\n"
+        " must be 16 bit stereo little-endian PCM ('headerless wav'), unless additional\n"
         " parameters for raw mode are specified.\n"
         " You can specify taking the file from stdin by using - as the input filename.\n"
         " In this mode, output is to stdout unless an output filename is specified\n"
