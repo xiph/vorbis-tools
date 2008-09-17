@@ -11,7 +11,7 @@ AC_CANONICAL_TARGET
 
 AC_PREREQ(2.53)
 
-AM_INIT_AUTOMAKE([vorbis-tools],[1.2.1])
+AM_INIT_AUTOMAKE([vorbis-tools],[1.3.0])
 AM_MAINTAINER_MODE
 
 AM_CONFIG_HEADER([config.h])
@@ -30,7 +30,7 @@ CFLAGS="$cflags_save"
 
 AC_PROG_LIBTOOL
 
-ALL_LINGUAS="be cs da en_GB es fr hr hu nl ro ru sk sv uk vi"
+ALL_LINGUAS="be cs da en_GB eo es fr hr hu nl ro ru sk sv uk vi"
 AM_GNU_GETTEXT
 
 dnl --------------------------------------------------

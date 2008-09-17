@@ -18,7 +18,7 @@ typedef void (*error_func)(char *errormessage);
 void *timer_start(void);
 double timer_time(void *);
 void timer_clear(void *);
-int create_directories(char *);
+int create_directories(char *, int);
 
 void update_statistics_full(char *fn, long total, long done, double time);
 void update_statistics_notime(char *fn, long total, long done, double time);
@@ -90,6 +90,8 @@ typedef struct
     unsigned int skeleton_serial;
         int fixedserial;
     int ignorelength;
+
+    int isutf8;
 } oe_options;
 
 typedef struct

@@ -21,9 +21,14 @@
 #include <stdlib.h>
 #include <ctype.h>
 #if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
+#include <getopt.h>
 #include <fcntl.h>
 #include <io.h>
 #include <time.h>
+#endif
+
+#ifdef _WIN32
+#include <windows.h>
 #endif
 
 #if defined(_WIN32) && defined(_MSC_VER)
@@ -127,11 +132,14 @@ void timer_clear(void *timer)
 
 #endif
 
-int create_directories(char *fn)
+int create_directories(char *fn, int isutf8)
 {
     char *end, *start;
     struct stat statbuf;
     char *segment = malloc(strlen(fn)+1);
+#ifdef _WIN32
+    wchar_t seg[MAX_PATH+1];
+#endif
 
     start = fn;
 #ifdef _WIN32
@@ -141,12 +149,26 @@ int create_directories(char *fn)
 
     while((end = strpbrk(start+1, PATH_SEPS)) != NULL)
     {
+        int rv;
         memcpy(segment, fn, end-fn);
         segment[end-fn] = 0;
 
-        if(stat(segment,&statbuf)) {
+#ifdef _WIN32
+        if (isutf8) {
+            MultiByteToWideChar(CP_UTF8, 0, segment, -1, seg, MAX_PATH+1);
+            rv = _wstat(seg,&statbuf);
+        } else
+#endif
+            rv = stat(segment,&statbuf);
+        if(rv) {
             if(errno == ENOENT) {
-                if(mkdir(segment, 0777)) {
+#ifdef _WIN32
+                if (isutf8)
+                    rv = _wmkdir(seg);
+                else
+#endif
+                    rv = mkdir(segment, 0777);
+                if(rv) {
                     fprintf(stderr, _("Couldn't create directory \"%s\": %s\n"),
                             segment, strerror(errno));
                     free(segment);
@@ -181,5 +203,129 @@ int create_directories(char *fn)
 
 }
 
+#ifdef _WIN32
 
+FILE *oggenc_fopen(char *fn, char *mode, int isutf8)
+{
+    if (isutf8) {
+        wchar_t wfn[MAX_PATH+1];
+        wchar_t wmode[32];
+        MultiByteToWideChar(CP_UTF8, 0, fn, -1, wfn, MAX_PATH+1);
+        MultiByteToWideChar(CP_ACP, 0, mode, -1, wmode, 32);
+        return _wfopen(wfn, wmode);
+    } else
+        return fopen(fn, mode);
+}
 
+static int
+parse_for_utf8(int argc, char **argv)
+{
+    extern struct option long_options[];
+    int ret;
+    int option_index = 1;
+
+    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:vX:",
+                    long_options, &option_index)) != -1)
+    {
+        switch(ret)
+        {
+            case 0:
+                if(!strcmp(long_options[option_index].name, "utf8")) {
+                    return 1;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    return 0;
+}
+
+typedef WINSHELLAPI LPWSTR *  (APIENTRY *tCommandLineToArgvW)(LPCWSTR lpCmdLine, int*pNumArgs);
+
+void get_args_from_ucs16(int *argc, char ***argv)
+{
+    OSVERSIONINFO vi;
+    int utf8;
+
+    utf8 = parse_for_utf8(*argc, *argv);
+    optind = 1; /* Reset getopt_long */
+
+    /* If command line is already UTF-8, don't convert */
+    if (utf8)
+        return;
+
+    vi.dwOSVersionInfoSize = sizeof(vi);
+    GetVersionEx(&vi);
+
+    /* We only do NT4 and more recent.*/
+    /* It would be relatively easy to add NT3.5 support. Is anyone still using NT3? */
+    /* It would be relatively hard to add 9x support. Fortunately, 9x is
+       a lost cause for unicode support anyway. */
+    if (vi.dwPlatformId == VER_PLATFORM_WIN32_NT && vi.dwMajorVersion >= 4) {
+        const char utf8flag[] = "--utf8";
+        int newargc;
+        int sizeofargs = 0;
+        int a, count;
+        char *argptr;
+        char **newargv = NULL;
+       LPWSTR *ucs16argv = NULL;
+        tCommandLineToArgvW pCommandLineToArgvW = NULL;
+        HMODULE hLib = NULL;
+
+        hLib = LoadLibrary("shell32.dll");
+        if (!hLib)
+            goto bail;
+        pCommandLineToArgvW = (tCommandLineToArgvW)GetProcAddress(hLib, "CommandLineToArgvW");
+        if (!pCommandLineToArgvW)
+            goto bail;
+
+        ucs16argv = pCommandLineToArgvW(GetCommandLineW(), &newargc);
+        if (!ucs16argv)
+            goto bail;
+
+        for (a=0; a<newargc; a++) {
+            count = WideCharToMultiByte(CP_UTF8, 0, ucs16argv[a], -1,
+                NULL, 0, NULL, NULL);
+            if (count == 0)
+                goto bail;
+            sizeofargs += count;
+        }
+
+        sizeofargs += strlen(utf8flag) + 1;
+
+        newargv = malloc(((newargc + 2) * sizeof(char *)) + sizeofargs);
+        argptr = (char *)(&newargv[newargc+2]);
+
+        for (a=0; a<newargc; a++) {
+            count = WideCharToMultiByte(CP_UTF8, 0, ucs16argv[a], -1,
+                argptr, sizeofargs, NULL, NULL);
+            if (count == 0)
+                goto bail;
+
+            newargv[a] = argptr;
+            argptr += count;
+            sizeofargs -= count;
+        }
+
+        count = strlen(utf8flag) + 1;
+        strcpy(argptr, utf8flag);
+        newargv[a] = argptr;
+        argptr += count;
+        sizeofargs -= count;
+
+        newargv[a+1] = NULL;
+
+        *argc = newargc + 1;
+        *argv = newargv;
+
+bail:
+        if (hLib != NULL)
+            FreeLibrary(hLib);
+        if (ucs16argv != NULL)
+            GlobalFree(ucs16argv);
+    }
+}
+
+#endif

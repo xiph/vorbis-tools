@@ -29,5 +29,16 @@ void setbinmode(FILE *);
 
 #endif
 
-#endif /* __PLATFORM_H */
+#ifdef _WIN32
 
+extern FILE *oggenc_fopen(char *fn, char *mode, int isutf8);
+extern void get_args_from_ucs16(int *argc, char ***argv);
+
+#else
+
+#define oggenc_fopen(x,y,z) fopen(x,y)
+#define get_args_from_ucs16(x,y) { }
+
+#endif
+
+#endif /* __PLATFORM_H */

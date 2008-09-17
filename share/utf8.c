@@ -322,3 +322,66 @@ int utf8_decode(const char *from, char **to)
 }
 
 #endif
+
+/* Quick and dirty UTF-8 validation: */
+
+
+/* check the first "count" bytes of "s" to make
+   sure they are all valid UTF-8 "continuation" bytes */
+static int checknext(const char *s, int count)
+{
+    int i;
+    for (i = 0; i < count; i++) {
+	if ((s[i] & 0xc0) != 0x80)
+	    return 0;
+    }
+    return 1;
+}
+
+static struct {
+    char mask;
+    char value;
+    unsigned after;
+} test[] = {
+    { 0x80,    0, 0 }, /* 7-bit ASCII - One byte sequence */
+    { 0xe0, 0xc0, 1 }, /* Two byte sequence */
+    { 0xf0, 0xe0, 2 }, /* Three byte sequence */
+    { 0xf8, 0xf0, 3 }, /* Four byte sequence */
+    { 0xfc, 0xf8, 4 }, /* Five byte sequence */
+    { 0xfe, 0xfc, 5 }, /* Six byte sequence */
+    /* All other values are not valid UTF-8 */
+};
+
+#define NUM_TESTS (sizeof(test)/sizeof(test[0]))
+
+/* Returns true if the C-string is a valid UTF-8 sequence
+   Returns false otherwise */
+int utf8_validate(const char *s)
+{
+    size_t len = strlen(s);
+
+    while (len) {
+	int i;
+	for (i = 0; i < NUM_TESTS; i++) {
+	    if ((s[0] & test[i].mask) == test[i].value) {
+		unsigned after = test[i].after;
+
+		if (len < after + 1)
+		    return 0;
+
+		if (!checknext(s+1, after))
+		    return 0;
+
+		s += after + 1;
+		len -= after + 1;
+		goto next;
+	    }
+	}
+	/* If none of the tests match, invalid UTF-8 */
+	return 0;
+next:   ;
+    }
+
+    /* Zero bytes left, and all test pass. Valid UTF-8. */
+    return 1;
+}

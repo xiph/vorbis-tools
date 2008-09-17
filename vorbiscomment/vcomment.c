@@ -340,7 +340,10 @@ int  add_comment(char *line, vorbis_comment *vc, int raw)
 	value++;
 
     if(raw) {
-        vorbis_comment_add_tag(vc, line, value);
+	if (!utf8_validate(value))
+	    fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
+	else
+	    vorbis_comment_add_tag(vc, line, value);
         return 0;
     }
 	/* convert the value from the native charset to UTF-8 */

@@ -62,6 +62,7 @@ struct option long_options[] = {
     {"scale", 1, 0, 0},
     {"advanced-encode-option", 1, 0, 0},
     {"discard-comments", 0, 0, 0},
+    {"utf8", 0,0,0},
     {"ignorelength", 0, 0, 0},
     {NULL,0,0,0}
 };
@@ -81,13 +82,15 @@ int main(int argc, char **argv)
     oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL,
               0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0, 0,16,44100,2, 0, NULL,
               DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE,
-              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0, 0};
+              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0, 0, 0};
 
     int i;
 
     char **infiles;
     int numfiles;
     int errors=0;
+
+    get_args_from_ucs16(&argc, &argv);
 
     setlocale(LC_ALL, "");
     bindtextdomain(PACKAGE, LOCALEDIR);
@@ -176,7 +179,7 @@ int main(int argc, char **argv)
         }
         else
         {
-            in = fopen(infiles[i], "rb");
+            in = oggenc_fopen(infiles[i], "rb", opt.isutf8);
 
             if(in == NULL)
             {
@@ -279,7 +282,7 @@ int main(int argc, char **argv)
             }
 
             /* Create any missing subdirectories, if possible */
-            if(create_directories(out_fn)) {
+            if(create_directories(out_fn, opt.isutf8)) {
                 if(closein)
                     fclose(in);
                 fprintf(stderr, _("ERROR: Could not create required subdirectories for output filename \"%s\"\n"), out_fn);
@@ -295,7 +298,7 @@ int main(int argc, char **argv)
                 continue;
             }
 
-            out = fopen(out_fn, "wb");
+            out = oggenc_fopen(out_fn, "wb", opt.isutf8);
             if(out == NULL)
             {
                 if(closein)
@@ -311,8 +314,20 @@ int main(int argc, char **argv)
         /* Now, set the rest of the options */
         enc_opts.out = out;
         enc_opts.comments = &vc;
+#ifdef _WIN32
+        if (opt.isutf8) {
+            enc_opts.filename = NULL;
+            enc_opts.infilename = NULL;
+            utf8_decode(out_fn, &enc_opts.filename);
+            utf8_decode(infiles[i], &enc_opts.infilename);
+        } else {
+            enc_opts.filename = strdup(out_fn);
+            enc_opts.infilename = strdup(infiles[i]);
+        }
+#else
         enc_opts.filename = out_fn;
         enc_opts.infilename = infiles[i];
+#endif
         enc_opts.managed = opt.managed;
         enc_opts.bitrate = opt.nominal_bitrate; 
         enc_opts.min_bitrate = opt.min_bitrate;
@@ -377,6 +392,10 @@ clear_all:
 
         if(out_fn) free(out_fn);
         if(opt.outfile) free(opt.outfile);
+#ifdef _WIN32
+        if(enc_opts.filename) free(enc_opts.filename);
+        if(enc_opts.infilename) free(enc_opts.infilename);
+#endif
         vorbis_comment_clear(&vc);
         format->close_func(enc_opts.readdata);
 
@@ -471,6 +490,9 @@ static void usage(void)
         "                      Default settings for the above two arguments are platform\n"
         "                      specific.\n"));
     fprintf(stdout, _(
+        " --utf8               Tells oggenc that the command line parameters date, title,\n"
+        "                      album, artist, genre, and comment are already in UTF-8.\n"
+        "                      On Windows, this switch applies to file names too.\n"
         " -c, --comment=c      Add the given string as an extra comment. This may be\n"
         "                      used multiple times. The argument should be in the\n"
         "                      format \"tag=value\".\n"
@@ -665,6 +687,9 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                         fprintf(stderr, _("Warning: Couldn't parse scaling factor \"%s\"\n"), 
                                 optarg);
                     }
+                }
+                else if(!strcmp(long_options[option_index].name, "utf8")) {
+                    opt->isutf8 = 1;
                 }
                 else if(!strcmp(long_options[option_index].name, "advanced-encode-option")) {
                     char *arg = strdup(optarg);
@@ -887,7 +912,18 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 {
     char *utf8;
-    if(utf8_encode(value, &utf8) >= 0)
+    if (opt->isutf8)
+    {
+	if (!utf8_validate(value)) {
+	    fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), name?name:"comment");
+	} else {
+	    if(name == NULL)
+		vorbis_comment_add(vc, value);
+	    else
+		vorbis_comment_add_tag(vc, name, value);
+	}
+    }
+    else if(utf8_encode(value, &utf8) >= 0)
     {
         if(name == NULL)
             vorbis_comment_add(vc, utf8);
