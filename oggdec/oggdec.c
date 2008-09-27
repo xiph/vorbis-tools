@@ -262,7 +262,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
     int channels;
     int samplerate;
 
-    if(ov_open(in, &vf, NULL, 0) < 0) {
+    if (ov_open_callbacks(in, &vf, NULL, 0, OV_CALLBACKS_DEFAULT) < 0) {
         fprintf(stderr, _("ERROR: Failed to open input as Vorbis\n"));
         fclose(in);
         return 1;
