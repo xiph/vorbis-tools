@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
-"POT-Creation-Date: 2008-09-17 09:35+0100\n"
+"POT-Creation-Date: 2008-09-27 20:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -724,6 +724,57 @@ msgid ""
 " --output, -o     Output to given filename. May only be used\n"
 "                  if there is only one input file, except in\n"
 "                  raw mode.\n"
+msgstr ""
+
+#: oggdec/oggdec.c:114
+#, c-format
+msgid "Internal error: Unrecognised argument\n"
+msgstr ""
+
+#: oggdec/oggdec.c:155 oggdec/oggdec.c:174
+#, c-format
+msgid "ERROR: Failed to write Wave header: %s\n"
+msgstr ""
+
+#: oggdec/oggdec.c:195
+#, c-format
+msgid "ERROR: Failed to open input file: %s\n"
+msgstr ""
+
+#: oggdec/oggdec.c:217
+#, c-format
+msgid "ERROR: Failed to open output file: %s\n"
+msgstr ""
+
+#: oggdec/oggdec.c:266
+#, c-format
+msgid "ERROR: Failed to open input as Vorbis\n"
+msgstr ""
+
+#: oggdec/oggdec.c:308
+#, c-format
+msgid "Logical bitstreams with changing parameters are not supported\n"
+msgstr ""
+
+#: oggdec/oggdec.c:315
+#, c-format
+msgid "WARNING: hole in data (%d)\n"
+msgstr ""
+
+#: oggdec/oggdec.c:330
+#, c-format
+msgid "Error writing to file: %s\n"
+msgstr ""
+
+#: oggdec/oggdec.c:371
+#, c-format
+msgid "ERROR: No input files specified. Use -h for help\n"
+msgstr ""
+
+#: oggdec/oggdec.c:376
+#, c-format
+msgid ""
+"ERROR: Can only specify one input file if output filename is specified\n"
 msgstr ""
 
 #: oggenc/audio.c:50

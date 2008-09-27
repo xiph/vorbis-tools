@@ -111,7 +111,7 @@ static void parse_options(int argc, char **argv)
                 raw = 1;
                 break;
             default:
-                fprintf(stderr, "Internal error: Unrecognised argument\n");
+                fprintf(stderr, _("Internal error: Unrecognised argument\n"));
                 break;
         }
     }
@@ -152,7 +152,7 @@ int write_prelim_header(OggVorbis_File *vf, FILE *out, ogg_int64_t knownlength) 
     WRITE_U32(headbuf+40, size - 44);
 
     if(fwrite(headbuf, 1, 44, out) != 44) {
-        fprintf(stderr, "ERROR: Failed to write wav header: %s\n", strerror(errno));
+        fprintf(stderr, _("ERROR: Failed to write Wave header: %s\n"), strerror(errno));
         return 1;
     }
 
@@ -171,7 +171,7 @@ int rewrite_header(FILE *out, unsigned int written)
         return 1;
 
     if(fwrite(headbuf, 1, 44, out) != 44) {
-        fprintf(stderr, "ERROR: Failed to write wav header: %s\n", strerror(errno));
+        fprintf(stderr, _("ERROR: Failed to write Wave header: %s\n"), strerror(errno));
         return 1;
     }
     return 0;
@@ -192,7 +192,7 @@ static FILE *open_input(char *infile)
     else {
         in = fopen(infile, "rb");
         if(!in) {
-            fprintf(stderr, "ERROR: Failed to open input file: %s\n", strerror(errno));
+            fprintf(stderr, _("ERROR: Failed to open input file: %s\n"), strerror(errno));
             return NULL;
         }
     }
@@ -214,7 +214,7 @@ static FILE *open_output(char *outfile)
     else {
         out = fopen(outfile, "wb");
         if(!out) {
-            fprintf(stderr, "ERROR: Failed to open output file: %s\n", strerror(errno));
+            fprintf(stderr, _("ERROR: Failed to open output file: %s\n"), strerror(errno));
             return NULL;
         }
     }
@@ -263,7 +263,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
     int samplerate;
 
     if(ov_open(in, &vf, NULL, 0) < 0) {
-        fprintf(stderr, "ERROR: Failed to open input as vorbis\n");
+        fprintf(stderr, _("ERROR: Failed to open input as Vorbis\n"));
         fclose(in);
         return 1;
     }
@@ -305,14 +305,14 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
         if(bs != 0) {
             vorbis_info *vi = ov_info(&vf, -1);
             if(channels != vi->channels || samplerate != vi->rate) {
-                fprintf(stderr, "Logical bitstreams with changing parameters are not supported\n");
+                fprintf(stderr, _("Logical bitstreams with changing parameters are not supported\n"));
                 break;
             }
         }
 
         if(ret < 0 ) {
            if( !quiet ) {
-               fprintf(stderr, "Warning: hole in data (%d)\n", ret);
+               fprintf(stderr, _("WARNING: hole in data (%d)\n"), ret);
            }
             continue;
         }
@@ -327,7 +327,7 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
         }
 
         if(fwrite(p_outbuf, 1, ret, out) != ret) {
-            fprintf(stderr, "Error writing to file: %s\n", strerror(errno));
+            fprintf(stderr, _("Error writing to file: %s\n"), strerror(errno));
             ov_clear(&vf);
             return 1;
         }
@@ -368,12 +368,12 @@ int main(int argc, char **argv)
         version();
 
     if(optind >= argc) {
-        fprintf(stderr, "ERROR: No input files specified. Use -h for help\n");
+        fprintf(stderr, _("ERROR: No input files specified. Use -h for help\n"));
         return 1;
     }
 
     if(argc - optind > 1 && outfilename && !raw) {
-        fprintf(stderr, "ERROR: Can only specify one input file if output filename is specified\n");
+        fprintf(stderr, _("ERROR: Can only specify one input file if output filename is specified\n"));
         return 1;
     }
 
