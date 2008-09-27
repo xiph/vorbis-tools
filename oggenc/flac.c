@@ -110,7 +110,7 @@ int flac_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     else
         FLAC__stream_decoder_init_stream(flac->decoder, read_callback, /*seek_callback=*/0, /*tell_callback=*/0, /*length_callback=*/0, eof_callback, write_callback, metadata_callback, error_callback, flac);
 #endif
-    
+
     /* Callback will set the total samples and sample rate */
 #if NEED_EASYFLAC
     EasyFLAC__process_until_end_of_metadata(flac->decoder);
@@ -155,7 +155,7 @@ long flac_read(void *in, float **buffer, int samples)
         {
             int copy = flac->buf_fill < (samples - realsamples) ?
                 flac->buf_fill : (samples - realsamples);
-            
+
             for (i = 0; i < flac->channels; i++)
                 for (j = 0; j < copy; j++)
                     buffer[i][j+realsamples] = 
@@ -216,7 +216,7 @@ FLAC__StreamDecoderReadStatus read_callback(const FLAC__StreamDecoder *decoder, 
     flacfile *flac = (flacfile *) client_data;
     int i = 0;
     int oldbuf_fill = flac->oldbuf_len - flac->oldbuf_start;
-    
+
     /* Immediately return if errors occured */
     if(feof(flac->in))
     {
@@ -233,19 +233,19 @@ FLAC__StreamDecoderReadStatus read_callback(const FLAC__StreamDecoder *decoder, 
     if(oldbuf_fill > 0) 
     {
         int copy;
-        
+
         copy = oldbuf_fill < (*bytes - i) ? oldbuf_fill : (*bytes - i);
         memcpy(buffer + i, flac->oldbuf, copy);
         i += copy;
         flac->oldbuf_start += copy;
     }
-    
+
     if(i < *bytes)
         i += fread(buffer+i, sizeof(FLAC__byte), *bytes - i, flac->in);
 
     *bytes = i;
-    
-    return FLAC__STREAM_DECODER_READ_STATUS_CONTINUE;     
+
+    return FLAC__STREAM_DECODER_READ_STATUS_CONTINUE;
 }
 
 #if NEED_EASYFLAC
@@ -269,7 +269,7 @@ FLAC__StreamDecoderWriteStatus write_callback(const FLAC__StreamDecoder *decoder
 
     flac->buf_start = 0;
     flac->buf_fill = samples;
- 
+
     return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 }
 

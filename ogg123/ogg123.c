@@ -186,7 +186,7 @@ void set_seek_opt(ogg123_options_t *ogg123_opts, char *buf) {
 
   /* skip spaces */
   while (*b && (*b == ' ')) b++;
-  
+
   if (*b == '-') {
   /* relative seek back */
     ogg123_opts->seekoff = -1 * strtotime(b+1);
@@ -374,7 +374,7 @@ void print_audio_devices_info(audio_device_t *d)
 
   while (d != NULL) {
     info = ao_driver_info(d->driver_id);
-    
+
     status_message(2, _("\nAudio Device:   %s"), info->name);
     status_message(3, _("Author:   %s"), info->author);
     status_message(3, _("Comments: %s"), info->comment);
@@ -421,7 +421,7 @@ int main(int argc, char **argv)
       if (S_ISDIR(stat_buf.st_mode)) {
 	if (playlist_append_directory(options.playlist, argv[i]) == 0)
 	  fprintf(stderr, 
-		  _("Warning: Could not read directory %s.\n"), argv[i]);
+		  _("WARNING: Could not read directory %s.\n"), argv[i]);
       } else {
 	playlist_append_file(options.playlist, argv[i]);
       }
@@ -615,7 +615,7 @@ void play (char *source_string)
   while (!eof && !sig_request.exit) {
 
     /* Loop through data within a logical bitstream */
-    eos = 0;    
+    eos = 0;
     while (!eos && !sig_request.exit) {
 
       /* Check signals */
@@ -659,7 +659,7 @@ void play (char *source_string)
 	eof = eos = 1;
 	break;
       } else if (ret < 0) {
-	status_error(_("Error: Decoding failure.\n"));
+	status_error(_("ERROR: Decoding failure.\n"));
 	break;
       }
 
@@ -674,7 +674,7 @@ void play (char *source_string)
 
 	reopen_arg = new_audio_reopen_arg(options.devices, &new_audio_fmt);
 
-	if (audio_buffer)	  
+	if (audio_buffer)
 	  buffer_insert_action_at_end(audio_buffer, &audio_reopen_action,
 				      reopen_arg);
 	else
@@ -702,7 +702,7 @@ void play (char *source_string)
 	if (nthc-- == 0) {
           if (audio_buffer) {
             if (!buffer_submit_data(audio_buffer, convbuffer, ret)) {
-              status_error(_("Error: buffer write failed.\n"));
+              status_error(_("ERROR: buffer write failed.\n"));
               eof = eos = 1;
               break;
             }

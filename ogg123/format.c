@@ -79,7 +79,7 @@ decoder_stats_t *malloc_decoder_stats (decoder_stats_t *to_copy)
   new_stats = malloc(sizeof(decoder_stats_t));
 
   if (new_stats == NULL) {
-    fprintf(stderr, _("Error: Could not allocate memory in malloc_decoder_stats()\n"));
+    fprintf(stderr, _("ERROR: Could not allocate memory in malloc_decoder_stats()\n"));
     exit(1);
   }
 

@@ -57,7 +57,7 @@ EasyFLAC__StreamDecoder *EasyFLAC__stream_decoder_new(FLAC__bool is_oggflac)
     if (decoder != NULL)
     {
         decoder->is_oggflac = is_oggflac;
-        
+
         if (decoder->is_oggflac)
             decoder->oggflac = OggFLAC__stream_decoder_new();
         else

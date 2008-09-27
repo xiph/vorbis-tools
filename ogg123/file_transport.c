@@ -55,13 +55,13 @@ data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
     source->source_string = strdup(source_string);
     source->transport = &file_transport;
     source->private = private;
-    
+
     private->seekable = 1;
     private->stats.transfer_rate = 0;
     private->stats.bytes_read = 0;
     private->stats.input_buffer_used = 0;
   } else {
-    fprintf(stderr, _("Error: Out of memory.\n"));
+    fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
   }
 
@@ -76,7 +76,7 @@ data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
     free(source->source_string);
     free(private);
     free(source);
-    
+
     return NULL;
   }
 
@@ -97,7 +97,7 @@ int file_peek (data_source_t *source, void *ptr, size_t size, size_t nmemb)
   start = ftell(fp);
 
   items = fread(ptr, size, nmemb, fp);
-  
+
   /* Now go back so we maintain the peek() semantics */
   if (fseek(fp, start, SEEK_SET) != 0)
     items = 0; /* Flag error condition since we couldn't seek back to

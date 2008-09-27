@@ -128,7 +128,7 @@ static int find_wav_chunk(FILE *in, char *type, unsigned int *len)
     {
         if(fread(buf,1,8,in) < 8) /* Suck down a chunk specifier */
         {
-            fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
+            fprintf(stderr, _("WARNING: Unexpected EOF in reading Wave header\n"));
             return 0; /* EOF before reaching the appropriate chunk */
         }
 
@@ -165,7 +165,7 @@ static int find_aiff_chunk(FILE *in, char *type, unsigned int *len)
                 fseek(in, 12, SEEK_SET);
                 continue;
             }
-            fprintf(stderr, _("Warning: Unexpected EOF in AIFF chunk\n"));
+            fprintf(stderr, _("WARNING: Unexpected EOF in AIFF chunk\n"));
             return 0;
         }
 
@@ -251,13 +251,13 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 
     if(!find_aiff_chunk(in, "COMM", &len))
     {
-        fprintf(stderr, _("Warning: No common chunk found in AIFF file\n"));
+        fprintf(stderr, _("WARNING: No common chunk found in AIFF file\n"));
         return 0; /* EOF before COMM chunk */
     }
 
     if(len < 18) 
     {
-        fprintf(stderr, _("Warning: Truncated common chunk in AIFF header\n"));
+        fprintf(stderr, _("WARNING: Truncated common chunk in AIFF header\n"));
         return 0; /* Weird common chunk */
     }
 
@@ -265,7 +265,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 
     if(fread(buffer,1,len,in) < len)
     {
-        fprintf(stderr, _("Warning: Unexpected EOF in reading AIFF header\n"));
+        fprintf(stderr, _("WARNING: Unexpected EOF in reading AIFF header\n"));
         return 0;
     }
 
@@ -280,7 +280,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
     {
         if(len < 22)
         {
-            fprintf(stderr, _("Warning: AIFF-C header truncated.\n"));
+            fprintf(stderr, _("WARNING: AIFF-C header truncated.\n"));
             return 0;
         }
 
@@ -294,26 +294,26 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
         }
         else
         {
-            fprintf(stderr, _("Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"), *(buffer+18), *(buffer+19), *(buffer+20), *(buffer+21));
+            fprintf(stderr, _("WARNING: Can't handle compressed AIFF-C (%c%c%c%c)\n"), *(buffer+18), *(buffer+19), *(buffer+20), *(buffer+21));
             return 0; /* Compressed. Can't handle */
         }
     }
 
     if(!find_aiff_chunk(in, "SSND", &len))
     {
-        fprintf(stderr, _("Warning: No SSND chunk found in AIFF file\n"));
+        fprintf(stderr, _("WARNING: No SSND chunk found in AIFF file\n"));
         return 0; /* No SSND chunk -> no actual audio */
     }
 
     if(len < 8) 
     {
-        fprintf(stderr, _("Warning: Corrupted SSND chunk in AIFF header\n"));
+        fprintf(stderr, _("WARNING: Corrupted SSND chunk in AIFF header\n"));
         return 0; 
     }
 
     if(fread(buf2,1,8, in) < 8)
     {
-        fprintf(stderr, _("Warning: Unexpected EOF reading AIFF header\n"));
+        fprintf(stderr, _("WARNING: Unexpected EOF reading AIFF header\n"));
         return 0;
     }
 
@@ -324,7 +324,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
         (format.samplesize == 16 || format.samplesize == 8))
     {
         /* From here on, this is very similar to the wav code. Oh well. */
-        
+
         opt->rate = format.rate;
         opt->channels = format.channels;
         opt->read_samples = wav_read; /* Similar enough, so we use the same */
@@ -350,7 +350,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
     else
     {
         fprintf(stderr, 
-                _("Warning: OggEnc does not support this type of AIFF/AIFC file\n"
+                _("WARNING: oggenc does not support this type of AIFF/AIFC file\n"
                 " Must be 8 or 16 bit PCM.\n"));
         return 0;
     }
@@ -360,7 +360,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 int wav_id(unsigned char *buf, int len)
 {
     unsigned int flen;
-    
+
     if(len<12) return 0; /* Something screwed up */
 
     if(memcmp(buf, "RIFF", 4))
@@ -404,7 +404,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
     if(len < 16)
     {
-        fprintf(stderr, _("Warning: Unrecognised format chunk in WAV header\n"));
+        fprintf(stderr, _("WARNING: Unrecognised format chunk in Wave header\n"));
         return 0; /* Weird format chunk */
     }
 
@@ -417,12 +417,12 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
      */
     if(len!=16 && len!=18 && len!=40)
         fprintf(stderr, 
-                _("Warning: INVALID format chunk in wav header.\n"
+                _("WARNING: Invalid format chunk in Wave header.\n"
                 " Trying to read anyway (may not work)...\n"));
 
     if(fread(buf,1,len,in) < len)
     {
-        fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
+        fprintf(stderr, _("WARNING: Unexpected EOF in reading Wave header\n"));
         return 0;
     }
 
@@ -455,7 +455,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     else
     {
         fprintf(stderr, 
-                _("ERROR: Wav file is unsupported type (must be standard PCM\n"
+                _("ERROR: Wave file is unsupported type (must be standard PCM\n"
                 " or type 3 floating point PCM)\n"));
         return 0;
     }
@@ -464,7 +464,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
         /* This is incorrect according to the spec. Warn loudly, then ignore
          * this value.
          */
-        fprintf(stderr, _("Warning: WAV 'block alignment' value is incorrect, "
+        fprintf(stderr, _("WARNING: Wave 'block alignment' value is incorrect, "
                     "ignoring.\n" 
                     "The software that created this file is incorrect.\n"));
     }
@@ -525,7 +525,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     else
     {
         fprintf(stderr, 
-                _("ERROR: Wav file is unsupported subformat (must be 8,16,24 or 32 bit PCM\n"
+                _("ERROR: Wave file is unsupported subformat (must be 8, 16, 24 or 32 bit PCM\n"
                 "or floating point PCM)\n"));
         return 0;
     }
@@ -729,7 +729,7 @@ static long read_resampled(void *d, float **buffer, int samples)
     out_samples = res_push(&rs->resampler, buffer, (float const **)rs->bufs, in_samples);
 
     if(out_samples <= 0) {
-        fprintf(stderr, _("BUG: Got zero samples from resampler: your file will be truncated. Please report this.\n"));
+        fprintf(stderr, _("BUG: Got zero samples from resampler; your file will be truncated. Please report this.\n"));
     }
 
     return out_samples;
@@ -846,10 +846,10 @@ void setup_downmix(oe_enc_opt *opt) {
     downmix *d = calloc(1, sizeof(downmix));
 
     if(opt->channels != 2) {
-        fprintf(stderr, "Internal error! Please report this bug.\n");
+        fprintf(stderr, _("Internal error! Please report this bug.\n"));
         return;
     }
-    
+
     d->bufs = malloc(2 * sizeof(float *));
     d->bufs[0] = malloc(4096 * sizeof(float));
     d->bufs[1] = malloc(4096 * sizeof(float));
@@ -874,4 +874,3 @@ void clear_downmix(oe_enc_opt *opt) {
     free(d->bufs);
     free(d);
 }
-

@@ -117,7 +117,7 @@ static int write_pages_to_file(ogg_stream_state *stream,
 
 
 /* Write the first stream to output file until we get to the appropriate
- * cut point. 
+ * cut point.
  *
  * We need to do the following:
  *   - Adjust the end of the stream to note the new end of stream.
@@ -212,7 +212,7 @@ static int process_first_stream(vcut_state *s, ogg_stream_state *stream,
 		{
 			if(update_sync(s,in)==0) 
 			{
-				fprintf(stderr, _("Setting eos: update sync returned 0\n"));
+				fprintf(stderr, _("Setting EOS: update sync returned 0\n"));
 				eos=1;
 			}
 		}
@@ -351,7 +351,7 @@ static int process_second_stream(vcut_state *s, ogg_stream_state *stream,
 		 * in case.
 		 */
 		fprintf(stderr, _("ERROR: First two audio packets did not fit into one\n"
-				        "       ogg page. File may not decode correctly.\n"));
+				        "       Ogg page. File may not decode correctly.\n"));
 		fwrite(page.header,1,page.header_len,f);
 		fwrite(page.body,1,page.body_len,f);
 	}
@@ -370,7 +370,7 @@ static int process_second_stream(vcut_state *s, ogg_stream_state *stream,
 					if(update_sync(s, in)==0)
 					{
 						fprintf(stderr,
-							_("Update sync returned 0, setting eos\n"));
+							_("Update sync returned 0, setting EOS\n"));
 						eos=1;
 					}
 				}
@@ -461,13 +461,13 @@ static int process_headers(vcut_state *s)
 	}
 
 	if(ogg_stream_packetout(s->stream_in, &packet)!=1){
-		fprintf(stderr, _("error in first packet\n"));
+		fprintf(stderr, _("Error in first packet\n"));
 		return -1;
 	}
 
 	if(vorbis_synthesis_headerin(s->vi, &vc, &packet)<0)
 	{
-		fprintf(stderr, _("Error in primary header: not vorbis?\n"));
+		fprintf(stderr, _("Error in primary header: not Vorbis?\n"));
 		return -1;
 	}
 

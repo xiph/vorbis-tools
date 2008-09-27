@@ -674,7 +674,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     if(opt->resamplefreq < 100) /* User probably specified it
                                                    in kHz accidently */
                         fprintf(stderr, 
-                                _("Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"), 
+                                _("WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"), 
                                 opt->resamplefreq, opt->resamplefreq*1000);
                 }
                 else if(!strcmp(long_options[option_index].name, "downmix")) {
@@ -684,7 +684,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     opt->scale = atof(optarg);
                     if(sscanf(optarg, "%f", &opt->scale) != 1) {
                         opt->scale = 0;
-                        fprintf(stderr, _("Warning: Couldn't parse scaling factor \"%s\"\n"), 
+                        fprintf(stderr, _("WARNING: Couldn't parse scaling factor \"%s\"\n"), 
                                 optarg);
                     }
                 }
@@ -726,7 +726,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 break;
             case 'c':
                 if(strchr(optarg, '=') == NULL) {
-                    fprintf(stderr, _("Warning: Illegal comment used (\"%s\"), ignoring.\n"), optarg);
+                    fprintf(stderr, _("WARNING: Illegal comment used (\"%s\"), ignoring.\n"), optarg);
                     break;
                 }
                 opt->comments = realloc(opt->comments, (++opt->comment_count)*sizeof(char *));
@@ -763,7 +763,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
             case 'b':
                    if(sscanf(optarg, "%d", &opt->nominal_bitrate)
                         != 1) {
-                    fprintf(stderr, _("Warning: nominal bitrate \"%s\" not recognised\n"), optarg);
+                    fprintf(stderr, _("WARNING: nominal bitrate \"%s\" not recognised\n"), optarg);
                     opt->nominal_bitrate = -1;
                 }
 
@@ -771,7 +771,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
             case 'm':
                 if(sscanf(optarg, "%d", &opt->min_bitrate)
                         != 1) {
-                    fprintf(stderr, _("Warning: minimum bitrate \"%s\" not recognised\n"), optarg);
+                    fprintf(stderr, _("WARNING: minimum bitrate \"%s\" not recognised\n"), optarg);
                     opt->min_bitrate = -1;
                 }
                 if(!opt->managed){
@@ -784,7 +784,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
             case 'M':
                 if(sscanf(optarg, "%d", &opt->max_bitrate)
                         != 1) {
-                    fprintf(stderr, _("Warning: maximum bitrate \"%s\" not recognised\n"), optarg);
+                    fprintf(stderr, _("WARNING: maximum bitrate \"%s\" not recognised\n"), optarg);
                     opt->max_bitrate = -1;
                 }
                 if(!opt->managed){

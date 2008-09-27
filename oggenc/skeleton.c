@@ -5,7 +5,7 @@
 
 /* This file depends on WORDS_BIGENDIAN being defined to 1 if the host
  * processor stores words with the most significant byte first (like Motorola
- * and SPARC, unlike Intel and VAX). 
+ * and SPARC, unlike Intel and VAX).
  * On little endian systems, WORDS_BIGENDIAN should be undefined.
  *
  * When using GNU Autotools, the correct value will be written into config.h
@@ -140,7 +140,7 @@ int ogg_from_fisbone(fisbone_packet *fp,ogg_packet *op) {
 
     packet_size = FISBONE_SIZE + fp->current_header_size;
 
-    memset (op, 0, sizeof (*op));       
+    memset (op, 0, sizeof (*op));
     op->packet = _ogg_calloc (packet_size, sizeof(unsigned char));
     if (!op->packet) return -1;
 

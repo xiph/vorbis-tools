@@ -220,7 +220,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 
       priv->currentsample += to_copy / audio_fmt->channels;
 
-      nbytes -= to_copy * 2;      
+      nbytes -= to_copy * 2;
     } else if (ogg_stream_packetout(&priv->os, &priv->op) == 1) {
       float *temp_output = priv->output;
       /* Decode some more samples */
@@ -245,7 +245,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 	  else if (temp_output[i]<-32000.0)
 	    temp_output[i]=-32000.0;
 	}
-	
+
 	temp_output += priv->frame_size * audio_fmt->channels;
       }
 
@@ -409,7 +409,7 @@ void print_speex_comments(char *comments, int length,
 
   strncpy(temp, c, len);
   temp[len] = '\0';
-		
+
   cb->printf_metadata(callback_arg, 3, _("Encoded by: %s"), temp);
 
 

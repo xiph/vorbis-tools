@@ -42,7 +42,7 @@ audio_device_t *append_audio_device(audio_device_t *devices_list,
 				     ao_option *options, char *filename)
 {
   audio_device_t *head = devices_list;
-  
+
   if (devices_list != NULL) {
     while (devices_list->next_device != NULL)
       devices_list = devices_list->next_device;
@@ -56,7 +56,7 @@ audio_device_t *append_audio_device(audio_device_t *devices_list,
   devices_list->filename = filename;
   devices_list->device = NULL;
   devices_list->next_device = NULL;
-  
+
   return devices_list;
 }
 
@@ -77,23 +77,23 @@ int add_ao_option(ao_option **op_h, const char *optstring)
 {
   char *key, *value;
   int result;
-  
+
   key = strdup(optstring);
   if (key == NULL)
     return 0;
-  
+
   value = strchr(key, ':');
   if (value == NULL) {
     free(key);
     return 0;
   }
-  
+
   /* split by replacing the separator with a null */
   *value++ = '\0';
 
   result = ao_append_option(op_h, key, value);
   free(key);
-  
+
   return (result);
 }
 

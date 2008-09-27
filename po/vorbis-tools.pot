@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
-"POT-Creation-Date: 2008-09-27 20:25+0100\n"
+"POT-Creation-Date: 2008-09-28 00:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,60 +18,60 @@ msgstr ""
 
 #: ogg123/buffer.c:117
 #, c-format
-msgid "Error: Out of memory in malloc_action().\n"
+msgid "ERROR: Out of memory in malloc_action().\n"
 msgstr ""
 
 #: ogg123/buffer.c:360
 #, c-format
-msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
+msgid "ERROR: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr ""
 
 #: ogg123/callbacks.c:75
-msgid "Error: Device not available.\n"
+msgid "ERROR: Device not available.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:78
 #, c-format
-msgid "Error: %s requires an output filename to be specified with -f.\n"
+msgid "ERROR: %s requires an output filename to be specified with -f.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:81
 #, c-format
-msgid "Error: Unsupported option value to %s device.\n"
+msgid "ERROR: Unsupported option value to %s device.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:85
 #, c-format
-msgid "Error: Cannot open device %s.\n"
+msgid "ERROR: Cannot open device %s.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:89
 #, c-format
-msgid "Error: Device %s failure.\n"
+msgid "ERROR: Device %s failure.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:92
 #, c-format
-msgid "Error: An output file cannot be given for %s device.\n"
+msgid "ERROR: An output file cannot be given for %s device.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:95
 #, c-format
-msgid "Error: Cannot open file %s for writing.\n"
+msgid "ERROR: Cannot open file %s for writing.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:99
 #, c-format
-msgid "Error: File %s already exists.\n"
+msgid "ERROR: File %s already exists.\n"
 msgstr ""
 
 #: ogg123/callbacks.c:102
 #, c-format
-msgid "Error: This error should never happen (%d).  Panic!\n"
+msgid "ERROR: This error should never happen (%d).  Panic!\n"
 msgstr ""
 
 #: ogg123/callbacks.c:125 ogg123/callbacks.c:130
-msgid "Error: Out of memory in new_audio_reopen_arg().\n"
+msgid "ERROR: Out of memory in new_audio_reopen_arg().\n"
 msgstr ""
 
 #: ogg123/callbacks.c:174
@@ -79,12 +79,15 @@ msgid "Error: Out of memory in new_print_statistics_arg().\n"
 msgstr ""
 
 #: ogg123/callbacks.c:233
-msgid "Error: Out of memory in new_status_message_arg().\n"
+msgid "ERROR: Out of memory in new_status_message_arg().\n"
 msgstr ""
 
-#: ogg123/callbacks.c:279 ogg123/callbacks.c:298 ogg123/callbacks.c:335
-#: ogg123/callbacks.c:354
+#: ogg123/callbacks.c:279 ogg123/callbacks.c:298
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
+msgstr ""
+
+#: ogg123/callbacks.c:335 ogg123/callbacks.c:354
+msgid "ERROR: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr ""
 
 #: ogg123/cfgfile_options.c:55
@@ -455,20 +458,20 @@ msgstr ""
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
 #: ogg123/oggvorbis_format.c:95
 #, c-format
-msgid "Error: Out of memory.\n"
+msgid "ERROR: Out of memory.\n"
 msgstr ""
 
 #: ogg123/format.c:82
 #, c-format
-msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
+msgid "ERROR: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr ""
 
 #: ogg123/http_transport.c:145
-msgid "Error: Could not set signal mask."
+msgid "ERROR: Could not set signal mask."
 msgstr ""
 
 #: ogg123/http_transport.c:202
-msgid "Error: Unable to create input buffer.\n"
+msgid "ERROR: Unable to create input buffer.\n"
 msgstr ""
 
 #: ogg123/ogg123.c:82
@@ -505,9 +508,9 @@ msgstr ""
 msgid "Comments: %s"
 msgstr ""
 
-#: ogg123/ogg123.c:424 ogg123/playlist.c:160
+#: ogg123/ogg123.c:424
 #, c-format
-msgid "Warning: Could not read directory %s.\n"
+msgid "WARNING: Could not read directory %s.\n"
 msgstr ""
 
 #: ogg123/ogg123.c:460
@@ -545,11 +548,11 @@ msgid "Could not skip %f seconds of audio."
 msgstr ""
 
 #: ogg123/ogg123.c:662
-msgid "Error: Decoding failure.\n"
+msgid "ERROR: Decoding failure.\n"
 msgstr ""
 
 #: ogg123/ogg123.c:705
-msgid "Error: buffer write failed.\n"
+msgid "ERROR: buffer write failed.\n"
 msgstr ""
 
 #: ogg123/ogg123.c:743
@@ -586,7 +589,12 @@ msgstr ""
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, c-format
-msgid "Error: Out of memory in create_playlist_member().\n"
+msgid "ERROR: Out of memory in create_playlist_member().\n"
+msgstr ""
+
+#: ogg123/playlist.c:160
+#, c-format
+msgid "Warning: Could not read directory %s.\n"
 msgstr ""
 
 #: ogg123/playlist.c:222
@@ -596,7 +604,7 @@ msgstr ""
 
 #: ogg123/playlist.c:267 ogg123/playlist.c:279
 #, c-format
-msgid "Error: Out of memory in playlist_to_array().\n"
+msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr ""
 
 #: ogg123/status.c:60
@@ -652,7 +660,7 @@ msgstr ""
 
 #: ogg123/transport.c:71
 #, c-format
-msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
+msgid "ERROR: Could not allocate memory in malloc_data_source_stats()\n"
 msgstr ""
 
 #: oggdec/oggdec.c:50
@@ -795,7 +803,7 @@ msgstr ""
 
 #: oggenc/audio.c:131 oggenc/audio.c:425
 #, c-format
-msgid "Warning: Unexpected EOF in reading WAV header\n"
+msgid "WARNING: Unexpected EOF in reading Wave header\n"
 msgstr ""
 
 #: oggenc/audio.c:142
@@ -805,86 +813,86 @@ msgstr ""
 
 #: oggenc/audio.c:168
 #, c-format
-msgid "Warning: Unexpected EOF in AIFF chunk\n"
+msgid "WARNING: Unexpected EOF in AIFF chunk\n"
 msgstr ""
 
 #: oggenc/audio.c:254
 #, c-format
-msgid "Warning: No common chunk found in AIFF file\n"
+msgid "WARNING: No common chunk found in AIFF file\n"
 msgstr ""
 
 #: oggenc/audio.c:260
 #, c-format
-msgid "Warning: Truncated common chunk in AIFF header\n"
+msgid "WARNING: Truncated common chunk in AIFF header\n"
 msgstr ""
 
 #: oggenc/audio.c:268
 #, c-format
-msgid "Warning: Unexpected EOF in reading AIFF header\n"
+msgid "WARNING: Unexpected EOF in reading AIFF header\n"
 msgstr ""
 
 #: oggenc/audio.c:283
 #, c-format
-msgid "Warning: AIFF-C header truncated.\n"
+msgid "WARNING: AIFF-C header truncated.\n"
 msgstr ""
 
 #: oggenc/audio.c:297
 #, c-format
-msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
+msgid "WARNING: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr ""
 
 #: oggenc/audio.c:304
 #, c-format
-msgid "Warning: No SSND chunk found in AIFF file\n"
+msgid "WARNING: No SSND chunk found in AIFF file\n"
 msgstr ""
 
 #: oggenc/audio.c:310
 #, c-format
-msgid "Warning: Corrupted SSND chunk in AIFF header\n"
+msgid "WARNING: Corrupted SSND chunk in AIFF header\n"
 msgstr ""
 
 #: oggenc/audio.c:316
 #, c-format
-msgid "Warning: Unexpected EOF reading AIFF header\n"
+msgid "WARNING: Unexpected EOF reading AIFF header\n"
 msgstr ""
 
 #: oggenc/audio.c:353
 #, c-format
 msgid ""
-"Warning: OggEnc does not support this type of AIFF/AIFC file\n"
+"WARNING: oggenc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
 msgstr ""
 
 #: oggenc/audio.c:407
 #, c-format
-msgid "Warning: Unrecognised format chunk in WAV header\n"
+msgid "WARNING: Unrecognised format chunk in Wave header\n"
 msgstr ""
 
 #: oggenc/audio.c:420
 #, c-format
 msgid ""
-"Warning: INVALID format chunk in wav header.\n"
+"WARNING: Invalid format chunk in Wave header.\n"
 " Trying to read anyway (may not work)...\n"
 msgstr ""
 
 #: oggenc/audio.c:458
 #, c-format
 msgid ""
-"ERROR: Wav file is unsupported type (must be standard PCM\n"
+"ERROR: Wave file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM)\n"
 msgstr ""
 
 #: oggenc/audio.c:467
 #, c-format
 msgid ""
-"Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
+"WARNING: Wave 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 
 #: oggenc/audio.c:528
 #, c-format
 msgid ""
-"ERROR: Wav file is unsupported subformat (must be 8,16,24 or 32 bit PCM\n"
+"ERROR: Wave file is unsupported subformat (must be 8, 16, 24 or 32 bit PCM\n"
 "or floating point PCM)\n"
 msgstr ""
 
@@ -906,13 +914,18 @@ msgstr ""
 #: oggenc/audio.c:732
 #, c-format
 msgid ""
-"BUG: Got zero samples from resampler: your file will be truncated. Please "
+"BUG: Got zero samples from resampler; your file will be truncated. Please "
 "report this.\n"
 msgstr ""
 
 #: oggenc/audio.c:750
 #, c-format
 msgid "Couldn't initialise resampler\n"
+msgstr ""
+
+#: oggenc/audio.c:849
+#, c-format
+msgid "Internal error! Please report this bug.\n"
 msgstr ""
 
 #: oggenc/encode.c:64
@@ -973,8 +986,20 @@ msgstr ""
 msgid "Mode initialisation failed: invalid parameters for bitrate\n"
 msgstr ""
 
+#: oggenc/encode.c:304
+msgid "Failed writing fishead packet to output stream\n"
+msgstr ""
+
 #: oggenc/encode.c:330 oggenc/encode.c:352
 msgid "Failed writing header to output stream\n"
+msgstr ""
+
+#: oggenc/encode.c:339
+msgid "Failed writing fisbone header packet to output stream\n"
+msgstr ""
+
+#: oggenc/encode.c:362
+msgid "Failed writing skeleton eos packet to output stream\n"
 msgstr ""
 
 #: oggenc/encode.c:426
@@ -1029,6 +1054,26 @@ msgstr ""
 msgid ""
 "\tAverage bitrate: %.1f kb/s\n"
 "\n"
+msgstr ""
+
+#: oggenc/encode.c:537
+#, c-format
+msgid "(min %d kbps, max %d kbps)"
+msgstr ""
+
+#: oggenc/encode.c:539
+#, c-format
+msgid "(min %d kbps, no max)"
+msgstr ""
+
+#: oggenc/encode.c:541
+#, c-format
+msgid "(no min, max %d kbps)"
+msgstr ""
+
+#: oggenc/encode.c:543
+#, c-format
+msgid "(no min or max)"
 msgstr ""
 
 #: oggenc/encode.c:551
@@ -1389,12 +1434,12 @@ msgstr ""
 
 #: oggenc/oggenc.c:677
 #, c-format
-msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
+msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
 msgstr ""
 
 #: oggenc/oggenc.c:687
 #, c-format
-msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
+msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr ""
 
 #: oggenc/oggenc.c:700
@@ -1409,22 +1454,22 @@ msgstr ""
 
 #: oggenc/oggenc.c:729
 #, c-format
-msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
+msgid "WARNING: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr ""
 
 #: oggenc/oggenc.c:766
 #, c-format
-msgid "Warning: nominal bitrate \"%s\" not recognised\n"
+msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr ""
 
 #: oggenc/oggenc.c:774
 #, c-format
-msgid "Warning: minimum bitrate \"%s\" not recognised\n"
+msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr ""
 
 #: oggenc/oggenc.c:787
 #, c-format
-msgid "Warning: maximum bitrate \"%s\" not recognised\n"
+msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr ""
 
 #: oggenc/oggenc.c:799
@@ -2111,7 +2156,7 @@ msgstr ""
 
 #: vcut/vcut.c:215
 #, c-format
-msgid "Setting eos: update sync returned 0\n"
+msgid "Setting EOS: update sync returned 0\n"
 msgstr ""
 
 #: vcut/vcut.c:225
@@ -2133,12 +2178,12 @@ msgstr ""
 #, c-format
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
-"       ogg page. File may not decode correctly.\n"
+"       Ogg page. File may not decode correctly.\n"
 msgstr ""
 
 #: vcut/vcut.c:373
 #, c-format
-msgid "Update sync returned 0, setting eos\n"
+msgid "Update sync returned 0, setting EOS\n"
 msgstr ""
 
 #: vcut/vcut.c:378
@@ -2163,12 +2208,12 @@ msgstr ""
 
 #: vcut/vcut.c:464
 #, c-format
-msgid "error in first packet\n"
+msgid "Error in first packet\n"
 msgstr ""
 
 #: vcut/vcut.c:470
 #, c-format
-msgid "Error in primary header: not vorbis?\n"
+msgid "Error in primary header: not Vorbis?\n"
 msgstr ""
 
 #: vcut/vcut.c:490
@@ -2265,7 +2310,7 @@ msgid "Input is not an Ogg bitstream."
 msgstr ""
 
 #: vorbiscomment/vcedit.c:566
-msgid "Ogg bitstream does not contain vorbis data."
+msgid "Ogg bitstream does not contain Vorbis data."
 msgstr ""
 
 #: vorbiscomment/vcedit.c:579
@@ -2281,7 +2326,7 @@ msgid "Corrupt secondary header."
 msgstr ""
 
 #: vorbiscomment/vcedit.c:660
-msgid "EOF before end of vorbis headers."
+msgid "EOF before end of Vorbis headers."
 msgstr ""
 
 #: vorbiscomment/vcedit.c:835
@@ -2295,7 +2340,7 @@ msgstr ""
 
 #: vorbiscomment/vcomment.c:190 vorbiscomment/vcomment.c:216
 #, c-format
-msgid "Failed to open file as vorbis: %s\n"
+msgid "Failed to open file as Vorbis: %s\n"
 msgstr ""
 
 #: vorbiscomment/vcomment.c:235
@@ -2438,6 +2483,11 @@ msgstr ""
 #: vorbiscomment/vcomment.c:492
 #, c-format
 msgid "Internal error parsing command options\n"
+msgstr ""
+
+#: vorbiscomment/vcomment.c:508
+#, c-format
+msgid "vorbiscomment from vorbis-tools "
 msgstr ""
 
 #: vorbiscomment/vcomment.c:578

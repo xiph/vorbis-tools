@@ -132,18 +132,18 @@ void file_options_describe (file_option_t opts[], FILE *f)
   /* Column headers */
   /* Name */
   totalWidth += fprintf (f, "%-*s", colWidths[0], _("Name"));
-  
+
   /* Description */
   totalWidth += fprintf (f, "%-*s", colWidths[1], _("Description"));
-  
+
   /* Type */
   totalWidth += fprintf (f, "%-*s", colWidths[2], _("Type"));
-  
+
   /* Default */
   totalWidth += fprintf (f, "%-*s", colWidths[3], _("Default"));
 
   fputc ('\n', f);
-  
+
   /* Divider */
   print_space (f, totalWidth, '-');
 
@@ -256,12 +256,12 @@ parse_code_t parse_line (file_option_t opts[], char *line)
   /* remove this if you want a zero-length key */
   if (strlen(line) == 0)
     return parse_nokey;
-  
+
   if (value) {
     /* cut leading whitespace from value */
     while (*value == ' ')
       value++;
-    
+
     /* cut trailing whitespace from value */
     len = strlen (value);
     while (len > 0 && value[len-1] == ' ') {

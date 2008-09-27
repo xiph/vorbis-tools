@@ -187,7 +187,7 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
+			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"), 
 					vcedit_error(state));
             close_files(param, 0);
             free_param(param);
@@ -213,7 +213,7 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, _("Failed to open file as vorbis: %s\n"), 
+			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"), 
 					vcedit_error(state));
 			close_files(param, 0);
 			free_param(param);
@@ -505,7 +505,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 				param->mode = MODE_APPEND;
 				break;
 			case 'V':
-				fprintf(stderr, "vorbiscomment from vorbis-tools " VERSION "\n");
+				fprintf(stderr, _("vorbiscomment from vorbis-tools " VERSION "\n"));
 				exit(0);
 				break;
 			case 'h':
@@ -654,7 +654,7 @@ void close_files(param_t *p, int output_written)
     struct stat st;
     stat (p->infilename, &st);
 #endif
-    
+
     if(output_written) {
       /* Some platforms fail to rename a file if the new name already 
        * exists, so we need to remove, then rename. How stupid.
@@ -679,4 +679,3 @@ void close_files(param_t *p, int output_written)
     }
   }
 }
-

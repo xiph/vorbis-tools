@@ -114,7 +114,7 @@ action_t *malloc_action (action_func_t action_func, void *action_arg)
   action = malloc(sizeof(action_t));
 
   if (action == NULL) {
-    fprintf(stderr, _("Error: Out of memory in malloc_action().\n"));
+    fprintf(stderr, _("ERROR: Out of memory in malloc_action().\n"));
     exit(1);
   }
 
@@ -336,7 +336,7 @@ int submit_data_chunk (buf_t *buf, char *data, size_t size)
     if (!buf->prebuffering && !buf->paused) {
 
       DEBUG("Signalling playback thread that more data is available.");
-      COND_SIGNAL(buf->playback_cond);      
+      COND_SIGNAL(buf->playback_cond);
     } else
       DEBUG("Not signalling playback thread since prebuffering or paused.");
 
@@ -357,7 +357,7 @@ buffer_stats_t *malloc_buffer_stats ()
   new_stats = malloc(sizeof(buffer_stats_t));
 
   if (new_stats == NULL) {
-    fprintf(stderr, _("Error: Could not allocate memory in malloc_buffer_stats()\n"));
+    fprintf(stderr, _("ERROR: Could not allocate memory in malloc_buffer_stats()\n"));
     exit(1);
   }
 
@@ -636,7 +636,7 @@ void buffer_action_now (buf_t *buf, action_func_t action_func,
 			void *action_arg)
 {
   action_t *action;
-  
+
   action = malloc_action(action_func, action_arg);
 
   pthread_cleanup_push(buffer_mutex_unlock, buf);

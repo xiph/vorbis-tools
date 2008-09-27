@@ -168,7 +168,7 @@ int parse_cmdline_options (int argc, char **argv,
 	  cmdline_usage();
 	  exit(0);
 	  break;
-	  
+
 	case 'p':
 	  ogg123_opts->input_prebuffer = atof (optarg);
 	  if (ogg123_opts->input_prebuffer < 0.0f || 
@@ -261,7 +261,7 @@ int parse_cmdline_options (int argc, char **argv,
 	    status_error(_("--- Driver %s specified in configuration file invalid.\n"),
 			 ogg123_opts->default_device);
       }
-      
+
       /* Then try libao autodetect */
       if (temp_driver_id < 0)
 	temp_driver_id = ao_default_driver_id();
@@ -311,7 +311,7 @@ void cmdline_usage (void)
   printf (_("  -d dev, --device dev    Use output device \"dev\". Available devices:\n"));
   printf ("                          ");
   printf (_("Live:"));
-  
+
   for(i = 0, j = 0; i < driver_count; i++) {
     if (devices[i]->type == AO_TYPE_LIVE) {
       printf ("%c %s", LIST_SEP(j), devices[i]->short_name);
@@ -337,7 +337,7 @@ void cmdline_usage (void)
 	    "                          device previously specified with --device. See\n"
 	    "                          the ogg123 man page for available device options.\n"));
   printf ("\n");
-  
+
   printf (_("Playlist options\n"));
   printf (_("  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"));
   printf (_("  -r, --repeat            Repeat playlist indefinitely\n"));

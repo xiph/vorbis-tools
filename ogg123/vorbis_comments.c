@@ -76,7 +76,7 @@ char *lookup_comment_prettyprint (char *comment, int *offset)
     *offset = j + 1;
     s = malloc(j + 2);
     if (s == NULL) {
-      fprintf(stderr, _("Error: Out of memory.\n"));
+      fprintf(stderr, _("ERROR: Out of memory.\n"));
       exit(1);
     };
     strncpy(s, comment, j);
@@ -94,7 +94,7 @@ char *lookup_comment_prettyprint (char *comment, int *offset)
   *offset = 0;
   s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
   if (s == NULL) {
-    fprintf(stderr, _("Error: Out of memory.\n"));
+    fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
   };
   strcpy(s, vorbis_comment_keys[i].formatstr);

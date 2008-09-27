@@ -301,7 +301,7 @@ int oe_encode(oe_enc_opt *opt)
     if (opt->with_skeleton) { 
         add_fishead_packet(&so); 
         if ((ret = flush_ogg_stream_to_file(&so, opt->out))) {
-            opt->error("Failed writing fishead packet to output stream\n");
+            opt->error(_("Failed writing fishead packet to output stream\n"));
             goto cleanup; 
         }
     }
@@ -336,7 +336,7 @@ int oe_encode(oe_enc_opt *opt)
         if (opt->with_skeleton) {
             add_fisbone_packet(&so, opt);
             if ((ret = flush_ogg_stream_to_file(&so, opt->out))) {
-                opt->error("Failed writing fisbone header packet to output stream\n");
+                opt->error(_("Failed writing fisbone header packet to output stream\n"));
                 goto cleanup; 
            }
         }
@@ -359,7 +359,7 @@ int oe_encode(oe_enc_opt *opt)
     if (opt->with_skeleton) { 
         add_eos_packet_to_stream(&so); 
         if ((ret = flush_ogg_stream_to_file(&so, opt->out))) { 
-            opt->error("Failed writing skeleton eos packet to output stream\n"); 
+            opt->error(_("Failed writing skeleton eos packet to output stream\n"));
             goto cleanup;
         }
     }
@@ -534,13 +534,13 @@ void encode_error(char *errmsg)
 static void print_brconstraints(int min, int max)
 {
     if(min > 0 && max > 0)
-        fprintf(stderr, "(min %d kbps, max %d kbps)", min,max);
+        fprintf(stderr, _("(min %d kbps, max %d kbps)"), min,max);
     else if(min > 0)
-        fprintf(stderr, "(min %d kbps, no max)", min);
+        fprintf(stderr, _("(min %d kbps, no max)"), min);
     else if(max > 0)
-        fprintf(stderr, "(no min, max %d kbps)", max);
+        fprintf(stderr, _("(no min, max %d kbps)"), max);
     else
-        fprintf(stderr, "(no min or max)");
+        fprintf(stderr, _("(no min or max)"));
 }
 
 void start_encode_full(char *fn, char *outfn, int bitrate, float quality, int qset,

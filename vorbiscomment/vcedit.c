@@ -563,7 +563,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 						 &header_main) < 0)
 		    {
 			    state->lasterror =
-				    _("Ogg bitstream does not contain vorbis data.");
+				    _("Ogg bitstream does not contain Vorbis data.");
 			    goto err;
 		    }
 		    have_vorbis = 1;
@@ -657,7 +657,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 		bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
 		if(bytes == 0 && i < 2)
 		{
-			state->lasterror = _("EOF before end of vorbis headers.");
+			state->lasterror = _("EOF before end of Vorbis headers.");
 			goto err;
 		}
 		ogg_sync_wrote(state->oy, bytes);
@@ -856,7 +856,7 @@ int vcedit_write(vcedit_state *state, void *out)
 			break;
 		}
 	}
-							
+
 
 cleanup:
 	ogg_stream_clear(&streamout);
@@ -879,4 +879,3 @@ cleanup:
 
 	return 0;
 }
-

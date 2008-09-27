@@ -68,7 +68,7 @@ data_source_stats_t *malloc_data_source_stats (data_source_stats_t *to_copy)
   new_stats = malloc(sizeof(data_source_stats_t));
 
   if (new_stats == NULL) {
-    fprintf(stderr, _("Error: Could not allocate memory in malloc_data_source_stats()\n"));
+    fprintf(stderr, _("ERROR: Could not allocate memory in malloc_data_source_stats()\n"));
     exit(1);
   }
 

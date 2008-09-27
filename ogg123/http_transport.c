@@ -142,7 +142,7 @@ void *curl_thread_func (void *arg)
   sigaddset (&set, SIGTSTP);
   sigaddset (&set, SIGCONT);
   if (pthread_sigmask (SIG_BLOCK, &set, NULL) != 0)
-    status_error(_("Error: Could not set signal mask."));
+    status_error(_("ERROR: Could not set signal mask."));
 
   ret = curl_easy_perform((CURL *) myarg->curl_handle);
 
@@ -199,7 +199,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
 						  buffer in pull mode. */
 				  0 /* Irrelevant */);
     if (private->buf == NULL) {
-      status_error(_("Error: Unable to create input buffer.\n"));
+      status_error(_("ERROR: Unable to create input buffer.\n"));
       exit(1);
     }
 
@@ -212,7 +212,7 @@ data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
     private->cancel_flag = 0;
 
   } else {
-    fprintf(stderr, _("Error: Out of memory.\n"));
+    fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
   }
 

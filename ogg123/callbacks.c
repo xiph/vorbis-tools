@@ -47,7 +47,7 @@ void audio_reopen_action (buf_t *buf, void *arg)
   ao_sample_format format;
 
   close_audio_devices (reopen_arg->devices);
-  
+
   /* Record audio device settings and open the devices */
   format.rate = reopen_arg->format->rate;
   format.channels = reopen_arg->format->channels;
@@ -59,7 +59,7 @@ void audio_reopen_action (buf_t *buf, void *arg)
 
   while (current != NULL) {
     ao_info *info = ao_driver_info(current->driver_id);
-        
+
     if (current->filename == NULL)
       current->device = ao_open_live(current->driver_id, &format,
 				     current->options);
@@ -67,46 +67,46 @@ void audio_reopen_action (buf_t *buf, void *arg)
       current->device = ao_open_file(current->driver_id, current->filename,
 				     1 /*overwrite*/, &format, 
 				     current->options);
-    
+
     /* Report errors */
     if (current->device == NULL) {
       switch (errno) {
       case AO_ENODRIVER:
-        status_error(_("Error: Device not available.\n"));
+        status_error(_("ERROR: Device not available.\n"));
 	break;
       case AO_ENOTLIVE:
-	status_error(_("Error: %s requires an output filename to be specified with -f.\n"), info->short_name);
+	status_error(_("ERROR: %s requires an output filename to be specified with -f.\n"), info->short_name);
 	break;
       case AO_EBADOPTION:
-	status_error(_("Error: Unsupported option value to %s device.\n"),
+	status_error(_("ERROR: Unsupported option value to %s device.\n"),
 		     info->short_name);
 	break;
       case AO_EOPENDEVICE:
-	status_error(_("Error: Cannot open device %s.\n"),
+	status_error(_("ERROR: Cannot open device %s.\n"),
 		     info->short_name);
 	break;
       case AO_EFAIL:
-	status_error(_("Error: Device %s failure.\n"), info->short_name);
+	status_error(_("ERROR: Device %s failure.\n"), info->short_name);
 	break;
       case AO_ENOTFILE:
-	status_error(_("Error: An output file cannot be given for %s device.\n"), info->short_name);
+	status_error(_("ERROR: An output file cannot be given for %s device.\n"), info->short_name);
 	break;
       case AO_EOPENFILE:
-	status_error(_("Error: Cannot open file %s for writing.\n"),
+	status_error(_("ERROR: Cannot open file %s for writing.\n"),
 		     current->filename);
 	break;
       case AO_EFILEEXISTS:
-	status_error(_("Error: File %s already exists.\n"), current->filename);
+	status_error(_("ERROR: File %s already exists.\n"), current->filename);
 	break;
       default:
-	status_error(_("Error: This error should never happen (%d).  Panic!\n"), errno);
+	status_error(_("ERROR: This error should never happen (%d).  Panic!\n"), errno);
 	break;
       }
 	 
       /* We cannot recover from any of these errors */
-      exit(1);      
+      exit(1);
     }
-    
+
     current = current->next_device;
   }
 
@@ -122,15 +122,15 @@ audio_reopen_arg_t *new_audio_reopen_arg (audio_device_t *devices,
   audio_reopen_arg_t *arg;
 
   if ( (arg = malloc(sizeof(audio_reopen_arg_t))) == NULL ) {
-    status_error(_("Error: Out of memory in new_audio_reopen_arg().\n"));
+    status_error(_("ERROR: Out of memory in new_audio_reopen_arg().\n"));
     exit(1);
-  }  
-  
+  }
+
   if ( (arg->format = malloc(sizeof(audio_format_t))) == NULL ) {
-    status_error(_("Error: Out of memory in new_audio_reopen_arg().\n"));
+    status_error(_("ERROR: Out of memory in new_audio_reopen_arg().\n"));
     exit(1);
-  }  
-  
+  }
+
   arg->devices = devices;
   /* Copy format in case fmt is recycled later */
   *arg->format = *fmt;
@@ -173,8 +173,8 @@ print_statistics_arg_t *new_print_statistics_arg (
   if ( (arg = malloc(sizeof(print_statistics_arg_t))) == NULL ) {
     status_error(_("Error: Out of memory in new_print_statistics_arg().\n"));
     exit(1);
-  }  
-  
+  }
+
   arg->stat_format = stat_format;
   arg->data_source_statistics = data_source_statistics;
   arg->decoder_statistics = decoder_statistics;
@@ -230,15 +230,15 @@ status_message_arg_t *new_status_message_arg (int verbosity)
   status_message_arg_t *arg;
 
   if ( (arg = malloc(sizeof(status_message_arg_t))) == NULL ) {
-    status_error(_("Error: Out of memory in new_status_message_arg().\n"));
+    status_error(_("ERROR: Out of memory in new_status_message_arg().\n"));
     exit(1);
-  }  
-  
+  }
+
   arg->verbosity = verbosity;
 
   return arg;
 }
-  
+
 
 void status_error_action (buf_t *buf, void *arg)
 {
@@ -279,13 +279,13 @@ void decoder_buffered_error_callback (void *arg, int severity,
     status_error(_("Error: Out of memory in decoder_buffered_metadata_callback().\n"));
     exit(1);
   }
-  
+
   while (1) {
     /* Try to print in the allocated space. */
     va_start(ap, message);
     n = vsnprintf (sm_arg->message, size, message, ap);
     va_end(ap);
-    
+
     /* If that worked, return the string. */
     if (n > -1 && n < size)
       break;
@@ -300,10 +300,10 @@ void decoder_buffered_error_callback (void *arg, int severity,
     }
   }
 
-  
+
   switch (severity) {
   case ERROR:
-    buffer_append_action_at_end(buf, &status_error_action, sm_arg);    
+    buffer_append_action_at_end(buf, &status_error_action, sm_arg);
     break;
   case WARNING:
     sm_arg->verbosity = WARNING_VERBOSITY;
@@ -332,16 +332,16 @@ void decoder_buffered_metadata_callback (void *arg, int verbosity,
      straight from the vsnprintf() man page.  We do this here because
      we might need to reinit ap several times. */
   if ((sm_arg->message = malloc (size)) == NULL) {
-    status_error(_("Error: Out of memory in decoder_buffered_metadata_callback().\n"));
+    status_error(_("ERROR: Out of memory in decoder_buffered_metadata_callback().\n"));
     exit(1);
   }
-  
+
   while (1) {
     /* Try to print in the allocated space. */
     va_start(ap, message);
     n = vsnprintf (sm_arg->message, size, message, ap);
     va_end(ap);
-    
+
     /* If that worked, return the string. */
     if (n > -1 && n < size)
       break;
@@ -351,7 +351,7 @@ void decoder_buffered_metadata_callback (void *arg, int verbosity,
     else           /* glibc 2.0 */
       size *= 2;  /* twice the old size */
     if ((sm_arg->message = realloc (sm_arg->message, size)) == NULL) {
-      status_error(_("Error: Out of memory in decoder_buffered_metadata_callback().\n"));
+      status_error(_("ERROR: Out of memory in decoder_buffered_metadata_callback().\n"));
       exit(1);
     }
   }

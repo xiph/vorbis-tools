@@ -92,18 +92,18 @@ decoder_t* ovf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     private->stats.instant_bitrate = 0;
     private->stats.avg_bitrate = 0;
   } else {
-    fprintf(stderr, _("Error: Out of memory.\n"));
+    fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
   }
 
   /* Initialize vorbisfile decoder */
-  
+
   ret = ov_open_callbacks (decoder, &private->vf, NULL, 0, 
 			   vorbisfile_callbacks);
 
   if (ret < 0) {
     free(private);
-/*    free(source);     nope.  caller frees. */ 
+/*    free(source);     nope.  caller frees. */
     return NULL;
   }
 
@@ -128,7 +128,7 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.rate = priv->vi->rate;
     decoder->actual_fmt.channels = priv->vi->channels;
 
-   
+
     print_vorbis_stream_info(decoder);
     print_vorbis_comments(priv->vc, cb, decoder->callback_arg);
     priv->bos = 0;
@@ -151,22 +151,22 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       break;
 
     } else if (ret == OV_HOLE) {
-      
+
       if (cb->printf_error != NULL)
 	cb->printf_error(decoder->callback_arg, INFO,
 			   _("--- Hole in the stream; probably harmless\n"));
-    
+
     } else if (ret < 0) {
-      
+
       if (cb->printf_error != NULL)
 	cb->printf_error(decoder->callback_arg, ERROR,
 			 _("=== Vorbis library reported a stream error.\n"));
-      
+
       /* EOF */
       *eos = 1;
       break;
     } else {
-      
+
       bytes_read += ret;
       ptr = (void *)((unsigned char *)ptr + ret);
       nbytes -= ret;
@@ -181,7 +181,7 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     }
 
   }
-  
+
   return bytes_read;
 }
 
@@ -305,7 +305,7 @@ void print_vorbis_stream_info (decoder_t *decoder)
 
   if (cb == NULL || cb->printf_metadata == NULL)
     return;
-    
+
   cb->printf_metadata(decoder->callback_arg, 2,
 		      _("Ogg Vorbis stream: %d channel, %ld Hz"),
 		      priv->vi->channels,
@@ -314,7 +314,7 @@ void print_vorbis_stream_info (decoder_t *decoder)
   cb->printf_metadata(decoder->callback_arg, 3,
 		      _("Vorbis format: Version %d"), 
 		      priv->vi->version);
-  
+
   cb->printf_metadata(decoder->callback_arg, 3,
 		      _("Bitrate hints: upper=%ld nominal=%ld lower=%ld "
 		      "window=%ld"), 
@@ -322,7 +322,7 @@ void print_vorbis_stream_info (decoder_t *decoder)
 		      priv->vi->bitrate_nominal,
 		      priv->vi->bitrate_lower,
 		      priv->vi->bitrate_window);
-    
+
   cb->printf_metadata(decoder->callback_arg, 3,
 		      _("Encoded by: %s"), priv->vc->vendor);
 }
@@ -333,20 +333,20 @@ void print_vorbis_comments (vorbis_comment *vc, decoder_callbacks_t *cb,
   int i;
   char *temp = NULL;
   int temp_len = 0;
-    
+
   for (i = 0; i < vc->comments; i++) {
-    
+
     /* Gotta null terminate these things */
     if (temp_len < vc->comment_lengths[i] + 1) {
       temp_len = vc->comment_lengths[i] + 1;
       temp = realloc(temp, sizeof(char) * temp_len);
     }
-    
+
     strncpy(temp, vc->user_comments[i], vc->comment_lengths[i]);
     temp[vc->comment_lengths[i]] = '\0';
-    
+
     print_vorbis_comment(temp, cb, callback_arg);
   }
-  
+
   free(temp);
 }

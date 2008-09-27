@@ -43,7 +43,7 @@ playlist_element_t *playlist_element_create(char *filename)
 
   if (element == NULL) {
       fprintf(stderr,
-	      _("Error: Out of memory in create_playlist_member().\n"));
+	      _("ERROR: Out of memory in create_playlist_member().\n"));
       exit(1);
   }
 
@@ -51,16 +51,16 @@ playlist_element_t *playlist_element_create(char *filename)
     element->filename = NULL;
   else {
     element->filename = strdup(filename);
-    
+
     if (element->filename == NULL) {
 	fprintf(stderr,
-		_("Error: Out of memory in create_playlist_member().\n"));
+		_("ERROR: Out of memory in create_playlist_member().\n"));
 	exit(1);
     }
   }
-  
+
   element->next = NULL;
-  
+
   return element;
 }
 
@@ -94,7 +94,7 @@ void playlist_destroy(playlist_t *list) {
     next_element = list->head->next;
 
     playlist_element_destroy(list->head);
-    
+
     list->head = next_element;
   }
 
@@ -148,7 +148,7 @@ int playlist_append_directory(playlist_t *list, char *dirname)
       strcpy(nextfile, dirname);
       strcat(nextfile, "/");
       strcat(nextfile, entry->d_name);
-      
+
       if (stat(nextfile, &stat_buf) == 0) {
 	
 	/* Decide what type of entry this is */
@@ -240,13 +240,13 @@ int playlist_length(playlist_t *list)
   int length;
   playlist_element_t *element;
 
-  element = list->head;  
+  element = list->head;
   length = 0; /* don't count head node */
   while (element->next != NULL) {
     length++;
     element = element->next;
   }
-  
+
   return length;
 }
 
@@ -264,7 +264,7 @@ char **playlist_to_array(playlist_t *list, int *size)
 
   if (array == NULL) {
     fprintf(stderr,
-	    _("Error: Out of memory in playlist_to_array().\n"));
+	    _("ERROR: Out of memory in playlist_to_array().\n"));
     exit(1);
   }
 
@@ -276,7 +276,7 @@ char **playlist_to_array(playlist_t *list, int *size)
 
     if (array[i] == NULL) {
       fprintf(stderr,
-	      _("Error: Out of memory in playlist_to_array().\n"));
+	      _("ERROR: Out of memory in playlist_to_array().\n"));
       exit(1);
     }
   }

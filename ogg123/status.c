@@ -358,7 +358,7 @@ void status_print_statistics (stat_format_t *stats,
   /* Updating statistics is not critical.  If another thread is
      already doing output, we skip it. */
   if (pthread_mutex_trylock(&output_lock) == 0) {
-    
+
     if (decoder_statistics != NULL) {
       /* Current playback time */
       write_time_string(stats[1].arg.stringarg,
@@ -368,7 +368,7 @@ void status_print_statistics (stat_format_t *stats,
       write_time_string(stats[2].arg.stringarg,
 			decoder_statistics->total_time - 
 			decoder_statistics->current_time);
-      
+
       /* Total playback time */
       write_time_string(stats[3].arg.stringarg,
 			decoder_statistics->total_time);
@@ -383,7 +383,7 @@ void status_print_statistics (stat_format_t *stats,
 
     if (transport_statistics != NULL && 
 	transport_statistics->input_buffer_used) {
-      
+
       /* Input buffer fill % */
       stats[6].arg.doublearg = transport_statistics->input_buffer.fill;
 
@@ -394,14 +394,14 @@ void status_print_statistics (stat_format_t *stats,
 
 
     if (audio_statistics != NULL) {
-      
+
       /* Output buffer fill % */
       stats[8].arg.doublearg = audio_statistics->fill;
-      
+
       /* Output buffer state */
       write_buffer_state_string(stats[9].arg.stringarg, audio_statistics);
     }
-    
+
     last_line_len = print_statistics_line(stats);
 
     pthread_mutex_unlock(&output_lock);
