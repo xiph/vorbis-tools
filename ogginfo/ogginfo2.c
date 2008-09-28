@@ -64,7 +64,7 @@ struct vorbis_release {
 /* TODO:
  *
  * - detect violations of muxing constraints
- * - detect granulepos 'gaps' (possibly vorbis-specific). (seperate from 
+ * - detect granulepos 'gaps' (possibly vorbis-specific). (seperate from
  *   serial-number gaps)
  */
 
@@ -173,7 +173,7 @@ static void info(char *format, ...)
     va_end(ap);
 }
 
-static void warn(char *format, ...) 
+static void warn(char *format, ...)
 {
     va_list ap;
 
@@ -186,7 +186,7 @@ static void warn(char *format, ...)
     va_end(ap);
 }
 
-static void error(char *format, ...) 
+static void error(char *format, ...)
 {
     va_list ap;
 
@@ -209,7 +209,7 @@ static void check_xiph_comment(stream_processor *stream, int i, const char *comm
     int remaining;
 
     if(sep == NULL) {
-        warn(_("Warning: Comment %d in stream %d has invalid "
+        warn(_("WARNING: Comment %d in stream %d has invalid "
               "format, does not contain '=': \"%s\"\n"), 
               i, stream->num, comment);
              return;
@@ -217,7 +217,7 @@ static void check_xiph_comment(stream_processor *stream, int i, const char *comm
 
     for(j=0; j < sep-comment; j++) {
         if(comment[j] < 0x20 || comment[j] > 0x7D) {
-            warn(_("Warning: Invalid comment fieldname in "
+            warn(_("WARNING: Invalid comment fieldname in "
                    "comment %d (stream %d): \"%s\"\n"),
                    i, stream->num, comment);
             broken = 1;
@@ -248,7 +248,7 @@ static void check_xiph_comment(stream_processor *stream, int i, const char *comm
             else if((val[j] & 0x02) == 0)
                 bytes = 6;
             else {
-                warn(_("Warning: Illegal UTF-8 sequence in "
+                warn(_("WARNING: Illegal UTF-8 sequence in "
                     "comment %d (stream %d): length marker wrong\n"),
                     i, stream->num);
                 broken = 1;
@@ -256,14 +256,14 @@ static void check_xiph_comment(stream_processor *stream, int i, const char *comm
             }
         }
         else {
-            warn(_("Warning: Illegal UTF-8 sequence in comment "
+            warn(_("WARNING: Illegal UTF-8 sequence in comment "
                 "%d (stream %d): length marker wrong\n"), i, stream->num);
             broken = 1;
             break;
         }
 
         if(bytes > remaining) {
-            warn(_("Warning: Illegal UTF-8 sequence in comment "
+            warn(_("WARNING: Illegal UTF-8 sequence in comment "
                 "%d (stream %d): too few bytes\n"), i, stream->num);
             broken = 1;
             break;
@@ -339,7 +339,7 @@ static void check_xiph_comment(stream_processor *stream, int i, const char *comm
              }
              seq[c1] = 0;
              simple[c2] = 0;
-             warn(_("Warning: Illegal UTF-8 sequence in comment "
+             warn(_("WARNING: Illegal UTF-8 sequence in comment "
                    "%d (stream %d): invalid sequence \"%s\": %s\n"), i, 
                    stream->num, simple, seq);
              broken = 1;
@@ -353,7 +353,7 @@ static void check_xiph_comment(stream_processor *stream, int i, const char *comm
 
      if(!broken) {
          if(utf8_decode(sep+1, &decoded) < 0) {
-             warn(_("Warning: Failure in utf8 decoder. This should be impossible\n"));
+             warn(_("WARNING: Failure in UTF-8 decoder. This should not be possible\n"));
              return;
 	 }
          *sep = 0;
@@ -378,7 +378,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
     while(1) {
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res < 0) {
-           warn(_("Warning: discontinuity in stream (%d)\n"), stream->num);
+           warn(_("WARNING: discontinuity in stream (%d)\n"), stream->num);
            continue;
         }
         else if (res == 0)
@@ -386,14 +386,14 @@ static void theora_process(stream_processor *stream, ogg_page *page)
 
         if(inf->doneheaders < 3) {
             if(theora_decode_header(&inf->ti, &inf->tc, &packet) < 0) {
-                warn(_("Warning: Could not decode theora header "
-                       "packet - invalid theora stream (%d)\n"), stream->num);
+                warn(_("WARNING: Could not decode Theora header "
+                       "packet - invalid Theora stream (%d)\n"), stream->num);
                 continue;
             }
             inf->doneheaders++;
             if(inf->doneheaders == 3) {
                 if(ogg_page_granulepos(page) != 0 || ogg_stream_packetpeek(&stream->os, NULL) == 1)
-                    warn(_("Warning: Theora stream %d does not have headers "
+                    warn(_("WARNING: Theora stream %d does not have headers "
                            "correctly framed. Terminal header page contains "
                            "additional packets or has non-zero granulepos\n"),
                             stream->num);
@@ -474,7 +474,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
                 if(inf->framenum_expected >= 0 && 
                     inf->framenum_expected != framenum)
                 {
-                    warn(_("Warning: Expected frame %" I64FORMAT 
+                    warn(_("WARNING: Expected frame %" I64FORMAT 
                            ", got %" I64FORMAT "\n"), 
                            inf->framenum_expected, framenum);
                 }
@@ -490,7 +490,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
-                warn(_("Warning: granulepos in stream %d decreases from %" 
+                warn(_("WARNING: granulepos in stream %d decreases from %" 
                         I64FORMAT " to %" I64FORMAT "\n"),
                         stream->num, inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
@@ -554,8 +554,8 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         packets++;
         if(inf->doneheaders < 3) {
             if(vorbis_synthesis_headerin(&inf->vi, &inf->vc, &packet) < 0) {
-                warn(_("Warning: Could not decode vorbis header "
-                       "packet %d - invalid vorbis stream (%d)\n"), 
+                warn(_("Warning: Could not decode Vorbis header "
+                       "packet %d - invalid Vorbis stream (%d)\n"), 
                         inf->doneheaders, stream->num);
                 continue;
             }
@@ -618,7 +618,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
-                warn(_("Warning: granulepos in stream %d decreases from %" 
+                warn(_("WARNING: granulepos in stream %d decreases from %" 
                         I64FORMAT " to %" I64FORMAT "\n" ),
                         stream->num, inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
@@ -627,7 +627,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
             /* Only do this if we saw at least one packet ending on this page.
              * It's legal (though very unusual) to have no packets in a page at
              * all - this is occasionally used to have an empty EOS page */
-            warn(_("Negative or zero granulepos (%lld) on vorbis stream outside of headers. This file was created by a buggy encoder\n"), gp);
+            warn(_("Negative or zero granulepos (%" I64FORMAT ") on Vorbis stream outside of headers. This file was created by a buggy encoder\n"), gp);
         }
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
@@ -678,7 +678,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
     while(1) {
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res < 0) {
-           warn(_("Warning: discontinuity in stream (%d)\n"), stream->num);
+           warn(_("WARNING: discontinuity in stream (%d)\n"), stream->num);
            continue;
         }
         else if (res == 0)
@@ -689,8 +689,8 @@ static void kate_process(stream_processor *stream, ogg_page *page )
 #ifdef HAVE_KATE
             int ret = kate_ogg_decode_headerin(&inf->ki, &inf->kc, &packet);
             if(ret < 0) {
-                warn(_("Warning: Could not decode kate header "
-                       "packet %d - invalid kate stream (%d)\n"), 
+                warn(_("WARNING: Could not decode Kate header "
+                       "packet %d - invalid Kate stream (%d)\n"), 
                         packet.packetno, stream->num);
                 continue;
             }
@@ -700,8 +700,8 @@ static void kate_process(stream_processor *stream, ogg_page *page )
 #else
             /* if we're not building against libkate, do some limited checks */
             if (packet.bytes<64 || memcmp(packet.packet+1, "kate\0\0\0", 7)) {
-                warn(_("Warning: packet %d does not seem to be a kate header - "
-                       "invalid kate stream (%d)\n"), 
+                warn(_("Warning: packet %d does not seem to be a Kate header - "
+                       "invalid Kate stream (%d)\n"), 
                         packet.packetno, stream->num);
                 continue;
             }
@@ -731,7 +731,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
 
             if(inf->doneheaders) {
                 if(ogg_page_granulepos(page) != 0 || ogg_stream_packetpeek(&stream->os, NULL) == 1)
-                    warn(_("Warning: Kate stream %d does not have headers "
+                    warn(_("WARNING: Kate stream %d does not have headers "
                            "correctly framed. Terminal header page contains "
                            "additional packets or has non-zero granulepos\n"),
                             stream->num);
@@ -816,7 +816,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
         ogg_int64_t gp = ogg_page_granulepos(page);
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
-                warn(_("Warning: granulepos in stream %d decreases from %" 
+                warn(_("WARNING: granulepos in stream %d decreases from %" 
                         I64FORMAT " to %" I64FORMAT "\n" ),
                         stream->num, inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
@@ -825,7 +825,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
             /* Only do this if we saw at least one packet ending on this page.
              * It's legal (though very unusual) to have no packets in a page at
              * all - this is occasionally used to have an empty EOS page */
-            warn(_("Negative granulepos (%lld) on kate stream outside of headers. This file was created by a buggy encoder\n"), gp);
+            warn(_("Negative granulepos (%" I64FORMAT ") on Kate stream outside of headers. This file was created by a buggy encoder\n"), gp);
         }
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
@@ -890,7 +890,7 @@ static void free_stream_set(stream_set *set)
     int i;
     for(i=0; i < set->used; i++) {
         if(!set->streams[i].end) {
-            warn(_("Warning: EOS not set on stream %d\n"), 
+            warn(_("WARNING: EOS not set on stream %d\n"), 
                     set->streams[i].num);
             if(set->streams[i].process_end)
                 set->streams[i].process_end(&set->streams[i]);
@@ -1045,7 +1045,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         ogg_stream_pagein(&stream->os, page);
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res <= 0) {
-            warn(_("Warning: Invalid header page, no packet found\n"));
+            warn(_("WARNING: Invalid header page, no packet found\n"));
             null_start(stream);
         }
         else if(packet.bytes >= 7 && memcmp(packet.packet, "\x01vorbis", 7)==0)
@@ -1071,7 +1071,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
 
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res > 0) {
-            warn(_("Warning: Invalid header page in stream %d, "
+            warn(_("WARNING: Invalid header page in stream %d, "
                               "contains multiple packets\n"), stream->num);
         }
 
@@ -1101,9 +1101,13 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
     int bytes;
 
     while((ret = ogg_sync_pageseek(sync, page)) <= 0) {
-        if(ret < 0)
-            warn(_("Warning: Hole in data (%d bytes) found at approximate offset %" I64FORMAT " bytes. Corrupted ogg.\n"), *written);
+        if(ret < 0) {
+            /* unsynced, we jump over bytes to a possible capture - we don't need to read more just yet */
+            warn(_("WARNING: Hole in data (%d bytes) found at approximate offset %" I64FORMAT " bytes. Corrupted Ogg.\n"), -ret, *written);
+            continue;
+        }
 
+        /* zero return, we didn't have enough data to find a whole page, read */
         buffer = ogg_sync_buffer(sync, CHUNK);
         bytes = fread(buffer, 1, CHUNK, f);
         if(bytes <= 0) {
@@ -1158,8 +1162,8 @@ static void process_file(char *filename) {
                     constraint = _("Error unknown.");
             }
 
-            warn(_("Warning: illegally placed page(s) for logical stream %d\n"
-                   "This indicates a corrupt ogg file: %s.\n"), 
+            warn(_("WARNING: illegally placed page(s) for logical stream %d\n"
+                   "This indicates a corrupt Ogg file: %s.\n"), 
                     p->num, constraint);
             p->shownillegal = 1;
             /* If it's a new stream, we want to continue processing this page
@@ -1173,16 +1177,16 @@ static void process_file(char *filename) {
             info(_("New logical stream (#%d, serial: %08x): type %s\n"), 
                     p->num, p->serial, p->type);
             if(!p->start)
-                warn(_("Warning: stream start flag not set on stream %d\n"),
+                warn(_("WARNING: stream start flag not set on stream %d\n"),
                         p->num);
         }
         else if(p->start)
-            warn(_("Warning: stream start flag found in mid-stream "
+            warn(_("WARNING: stream start flag found in mid-stream "
                       "on stream %d\n"), p->num);
 
         if(p->seqno++ != ogg_page_pageno(&page)) {
             if(!p->lostseq) 
-                warn(_("Warning: sequence number gap in stream %d. Got page "
+                warn(_("WARNING: sequence number gap in stream %d. Got page "
                        "%ld when expecting page %ld. Indicates missing data.\n"
                        ), p->num, ogg_page_pageno(&page), p->seqno - 1);
             p->seqno = ogg_page_pageno(&page);
@@ -1205,7 +1209,7 @@ static void process_file(char *filename) {
     }
 
     if(!gotpage)
-        error(_("Error: No ogg data found in file \"%s\".\n"
+        error(_("ERROR: No Ogg data found in file \"%s\".\n"
                 "Input probably not Ogg.\n"), filename);
 
     free_stream_set(processors);
@@ -1242,7 +1246,7 @@ int main(int argc, char **argv) {
     textdomain(PACKAGE);
 
     if(argc < 2) {
-        fprintf(stderr, 
+        fprintf(stdout, 
                 _("Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
                   "\n"
                   "ogginfo is a tool for printing information about Ogg files\n"
