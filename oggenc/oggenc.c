@@ -21,6 +21,11 @@
 #include <time.h>
 #include <locale.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <unistd.h>
+#if defined WIN32 || defined _WIN32
+#include <process.h>
+#endif
 
 #include "platform.h"
 #include "encode.h"
@@ -128,8 +133,10 @@ int main(int argc, char **argv)
 
     if(!opt.fixedserial)
     {
-        /* We randomly pick a serial number. This is then incremented for each file */
-        srand(time(NULL));
+                /* We randomly pick a serial number. This is then incremented for each
+                   file. The random seed includes the PID so two copies of oggenc that
+                   start in the same second will generate different serial numbers. */
+                srand(time(NULL) ^ getpid());
         opt.serial = rand();
         opt.skeleton_serial = opt.serial + numfiles;
     }
