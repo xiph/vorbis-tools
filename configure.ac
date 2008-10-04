@@ -141,13 +141,21 @@ then
   VORBISFILE_LIBS="-lvorbisfile"
   AC_SUBST(VORBISENC_LIBS)
   AC_SUBST(VORBISFILE_LIBS)
+  libs_save=$LIBS
+  LIBS="$OGG_LIBS $VORBIS_LIBS $VORBISFILE_LIBS"
+  AC_CHECK_FUNC(ov_read_filter, have_ov_read_filter=yes, have_ov_read_filter=no)
+  LIBS=$libs_save
+  if test "x$have_ov_read_filter" = "xyes"
+  then
+    AC_DEFINE(HAVE_OV_READ_FILTER,1,[Defined if we have ov_read_filter()])
+  fi
 fi
 if test "x$HAVE_VORBIS" = "xno"
 then
   dnl fall back to the old school test
   XIPH_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
 fi
-
+AM_CONDITIONAL(HAVE_OV_READ_FILTER, test "x$have_ov_read_filter" = "xyes")
 
 
 SHARE_LIBS='$(top_builddir)/share/libutf8.a $(top_builddir)/share/libgetopt.a'

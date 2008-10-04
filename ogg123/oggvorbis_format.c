@@ -32,6 +32,9 @@
 #include "utf8.h"
 #include "i18n.h"
 
+#ifdef HAVE_OV_READ_FILTER
+#include "vgfilter.h"
+#endif
 
 typedef struct ovf_private_t {
   OggVorbis_File vf;
@@ -42,6 +45,9 @@ typedef struct ovf_private_t {
   int bos; /* At beginning of logical bitstream */
 
   decoder_stats_t stats;
+#ifdef HAVE_OV_READ_FILTER
+  vgain_state vg;
+#endif
 } ovf_private_t;
 
 /* Forward declarations */
@@ -91,6 +97,11 @@ decoder_t* ovf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     private->stats.current_time = 0.0;
     private->stats.instant_bitrate = 0;
     private->stats.avg_bitrate = 0;
+
+#ifdef HAVE_OV_READ_FILTER
+    private->vg.scale_factor = 1.0;
+    private->vg.max_scale = 1.0;
+#endif
   } else {
     fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
@@ -128,6 +139,9 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.rate = priv->vi->rate;
     decoder->actual_fmt.channels = priv->vi->channels;
 
+#ifdef HAVE_OV_READ_FILTER
+    vg_init(&priv->vg, priv->vc);
+#endif
 
     print_vorbis_stream_info(decoder);
     print_vorbis_comments(priv->vc, cb, decoder->callback_arg);
@@ -140,9 +154,16 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
   while (nbytes >= audio_fmt->word_size * audio_fmt->channels) {
 
     old_section = priv->current_section;
+#ifdef HAVE_OV_READ_FILTER
+    ret = ov_read_filter(&priv->vf, ptr, nbytes, audio_fmt->big_endian,
+			 audio_fmt->word_size, audio_fmt->signed_sample,
+			 &priv->current_section,
+			 vg_filter, &priv->vg);
+#else
     ret = ov_read(&priv->vf, ptr, nbytes, audio_fmt->big_endian,
 		  audio_fmt->word_size, audio_fmt->signed_sample,
 		  &priv->current_section);
+#endif
 
     if (ret == 0) {
 

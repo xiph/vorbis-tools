@@ -9,6 +9,11 @@ speex_sources = speex_format.c
 else
 speex_sources =
 endif
+if HAVE_OV_READ_FILTER
+vgfilter_sources = vgfilter.c vgfilter.h
+else
+vgfilter_sources =
+endif
 
 datadir = @datadir@
 localedir = $(datadir)/locale
@@ -37,7 +42,7 @@ ogg123_SOURCES = audio.c buffer.c callbacks.c \
                 cfgfile_options.h cmdline_options.h \
                 format.h ogg123.h playlist.h status.h \
                 transport.h remote.h vorbis_comments.h \
-                $(flac_sources) $(speex_sources)
+                $(flac_sources) $(speex_sources) $(vgfilter_sources)
 
 man_MANS = ogg123.1
 doc_DATA = ogg123rc-example
