@@ -1,7 +1,7 @@
 .\" Process this file with
 .\" groff -man -Tascii oggenc.1
 .\"
-.TH oggenc 1 "2008 September 9" "Xiph.Org Foundation" "Vorbis Tools"
+.TH oggenc 1 "2008 October 05" "Xiph.Org Foundation" "Vorbis Tools"
 
 .SH NAME
 oggenc \- encode audio into the Ogg Vorbis format
@@ -78,6 +78,14 @@ oggenc \- encode audio into the Ogg Vorbis format
 .B -G
 .I genre
 ]
+[
+.B -L
+.I lyrics file
+]
+[
+.B -Y
+.I language-string
+]
 .I input_files \fR...
 
 .SH DESCRIPTION
@@ -94,14 +102,20 @@ unless the
 .B -o
 option is used to redirect the output.  By default, disk files are
 output to Ogg Vorbis files of the same name, with the extension
-changed to ".ogg".  This naming convention can be overridden by the
+changed to ".ogg" or ".oga".  This naming convention can be overridden
+by the
 .B -o
 option (in the case of one file) or the
 .B -n
 option (in the case of several files). Finally, if none of these
 are available, the output filename will be the input filename with the
 extension (that part after the final dot) replaced with ogg, so file.wav
-will become file.ogg
+will become file.ogg.
+.br
+Optionally, lyrics may be embedded in the Ogg file, if Kate support was compiled in.
+.br
+Note that some old players mail fail to play streams with more than a single Vorbis stream
+(the so called "Vorbis I" simple profile).
 
 .SH OPTIONS
 .IP "-h, --help"
@@ -199,11 +213,35 @@ Set the track title comment field to
 .IP "-l album, --album album"
 Set the album comment field to
 .I album.
+
+.IP "-L filename, --lyrics filename"
+Loads lyrics from
+.I filename
+and encodes them into a Kate stream multiplexed with the Vorbis stream.
+Lyrics may be in LRC or SRT format, and should be encoded in UTF-8 or
+plain ASCII. Other encodings may be converted using tools such as iconv
+or recode. Alternatively, the same system as for comments will be used
+for conversion between encodings.
+So called "enhanced LRC" files are supported, and a simple karaoke style
+change will be saved with the lyrics. For more complex karaoke setups,
+.B kateenc(1)
+should be used instead.
+When embedding lyrics, the default output file extention is ".oga".
+
+.IP "-Y language-string, --lyrics-language language-string"
+Sets the language for the corresponding lyrics file to
+.I language-string.
+This should be an ISO 639-1 language code (eg, "en"), or a RFC 3066 language tag
+(eg, "en_US"),
+.B not
+a free form language name. Players will typically recognize this standard tag
+and display the language name in your own language.
+Note that the maximum length of this tag is 15 characters.
 .PP
 
-Note that the \fB-a\fR, \fB-t\fR, and \fB-l\fR options can be given
-multiple times.  They will be applied, one to each file, in the order
-given.  If there are fewer album, title, or artist comments given than
+Note that the \fB-a\fR, \fB-t\fR, \fB-l\fR, \fB-L\fR, and \fB-Y\fR  options
+can be given multiple times.  They will be applied, one to each file, in the
+order given.  If there are fewer album, title, or artist comments given than
 there are input files,
 .B oggenc
 will reuse the final one for the remaining files, and issue a warning
@@ -299,27 +337,27 @@ oggenc somefile.wav -o out.ogg
 .RE
 .PP
 
-Specifying a high-quality encoding averaging 256 kbps (but still VBR).
+Specifying a high-quality encoding averaging 256 kbps (but still VBR):
 .RS
-oggenc infile.wav -b 256 out.ogg
+oggenc infile.wav -b 256 -o out.ogg
 .RE
 .PP
 
-Specifying a maximum and average bitrate, and enforcing these.
+Specifying a maximum and average bitrate, and enforcing these:
 .RS
-oggenc infile.wav --managed -b 128 -M 160 out.ogg
+oggenc infile.wav --managed -b 128 -M 160 -o out.ogg
 .RE
 .PP
 
-Specifying quality rather than bitrate (to a very high quality mode)
+Specifying quality rather than bitrate (to a very high quality mode):
 .RS
-oggenc infile.wav -q 6 out.ogg
+oggenc infile.wav -q 6 -o out.ogg
 .RE
 .PP
 
-Downsampling and downmixing to 11 kHz mono before encoding.
+Downsampling and downmixing to 11 kHz mono before encoding:
 .RS
-oggenc --resample 11025 --downmix infile.wav -q 1 out.ogg
+oggenc --resample 11025 --downmix infile.wav -q 1 -o out.ogg
 .RE
 .PP
 
@@ -328,6 +366,12 @@ Adding some info about the track:
 oggenc somefile.wav -t "The track title" -a "artist who performed this" -l
 "name of album" -c
 "OTHERFIELD=contents of some other field not explicitly supported"
+.RE
+.PP
+
+Adding embedded lyrics:
+.RS
+oggenc somefile.wav --lyrics lyrics.lrc --lyrics-language en -o out.oga
 .RE
 .PP
 
@@ -367,4 +411,4 @@ Reading type 3 Wave files (floating point samples) probably doesn't work other t
 .SH "SEE ALSO"
 
 .PP
-\fBvorbiscomment\fR(1), \fBogg123\fR(1), \fBflac\fR(1), \fBspeexenc\fR(1), \fBffmpeg2theora\fR(1)
+\fBvorbiscomment\fR(1), \fBogg123\fR(1), \fBoggdec\fR(1), \fBflac\fR(1), \fBspeexenc\fR(1), \fBffmpeg2theora\fR(1), \fBkateenc\fR(1)

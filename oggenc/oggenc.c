@@ -69,6 +69,8 @@ struct option long_options[] = {
     {"discard-comments", 0, 0, 0},
     {"utf8", 0,0,0},
     {"ignorelength", 0, 0, 0},
+    {"lyrics",1,0,'L'},
+    {"lyrics-language",1,0,'Y'},
     {NULL,0,0,0}
 };
 
@@ -84,10 +86,17 @@ static void usage(void);
 int main(int argc, char **argv)
 {
     /* Default values */
-    oe_options opt = {NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL,
-              0, NULL, 0, NULL, 0, NULL, 0, 1, 0, 0, 0,16,44100,2, 0, NULL,
-              DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE,
-              NULL, 0, -1,-1,-1,.3,-1,0, 0,0.f, 0, 0, 0, 0};
+    oe_options opt = {
+              NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0,
+              NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0,
+              1, 0, 0, 0,
+              16,44100,2, 0,
+              NULL, DEFAULT_NAMEFMT_REMOVE, DEFAULT_NAMEFMT_REPLACE,
+              NULL,
+              0, -1,-1,-1,
+              .3,-1,
+              0,0,0.f,
+              0, 0, 0, 0, 0};
 
     int i;
 
@@ -139,6 +148,7 @@ int main(int argc, char **argv)
                 srand(time(NULL) ^ getpid());
         opt.serial = rand();
         opt.skeleton_serial = opt.serial + numfiles;
+        opt.kate_serial = opt.skeleton_serial + numfiles;
     }
 
     for(i = 0; i < numfiles; i++)
@@ -153,13 +163,14 @@ int main(int argc, char **argv)
         int closeout = 0, closein = 0;
         char *artist=NULL, *album=NULL, *title=NULL, *track=NULL;
         char *date=NULL, *genre=NULL;
+        char *lyrics=NULL, *lyrics_language=NULL;
         input_format *format;
         int resampled = 0;
 
         /* Set various encoding defaults */
 
         enc_opts.serialno = opt.serial++;
-        enc_opts.skeleton_serialno = opt.skeleton_serial++;
+        enc_opts.kate_serialno = opt.kate_serial++;
         enc_opts.progress_update = update_statistics_full;
         enc_opts.start_encode = start_encode_full;
         enc_opts.end_encode = final_statistics;
@@ -172,6 +183,28 @@ int main(int argc, char **argv)
         /* OK, let's build the vorbis_comments structure */
         build_comments(&vc, &opt, i, &artist, &album, &title, &track,
                 &date, &genre);
+
+        if(opt.lyrics_count)
+        {
+            if(i >= opt.lyrics_count)
+            {
+                lyrics = NULL;
+            }
+            else
+                lyrics = opt.lyrics[i];
+        }
+
+        if(opt.lyrics_language_count)
+        {
+            if(i >= opt.lyrics_language_count)
+            {
+                if(!opt.quiet)
+                    fprintf(stderr, _("WARNING: Insufficient lyrics languages specified, defaulting to final lyrics language.\n"));
+                lyrics_language = opt.lyrics_language[opt.lyrics_language_count-1];
+            }
+            else
+                lyrics_language = opt.lyrics_language[i];
+        }
 
         if(!strcmp(infiles[i], "-"))
         {
@@ -277,15 +310,20 @@ int main(int argc, char **argv)
                 end = strrchr(infiles[i], '.');
                 end = end?end:(start + strlen(infiles[i])+1);
 
-                extension = (opt.with_skeleton) ? ".oga" : ".ogg";
+                /* if adding Skeleton or Kate, we're not Vorbis I anymore */
+                extension = (opt.with_skeleton || opt.lyrics_count>0) ? ".oga" : ".ogg";
                 out_fn = malloc(end - start + 5);
                 strncpy(out_fn, start, end-start);
                 out_fn[end-start] = 0;
                 strcat(out_fn, extension);
             }
             else {
-                fprintf(stderr, _("WARNING: No filename, defaulting to \"default.ogg\"\n"));
-                out_fn = strdup("default.ogg");
+                /* if adding skeleton or kate, we're not Vorbis I anymore */
+                if (opt.with_skeleton || opt.lyrics_count>0)
+                    out_fn = strdup("default.oga");
+                else
+                    out_fn = strdup("default.ogg");
+                fprintf(stderr, _("WARNING: No filename, defaulting to \"%s\"\n"), out_fn);
             }
 
             /* Create any missing subdirectories, if possible */
@@ -343,6 +381,8 @@ int main(int argc, char **argv)
         enc_opts.quality_set = opt.quality_set;
         enc_opts.advopt = opt.advopt;
         enc_opts.advopt_count = opt.advopt_count;
+        enc_opts.lyrics = lyrics;
+        enc_opts.lyrics_language = lyrics_language;
 
         if(opt.resamplefreq && opt.resamplefreq != enc_opts.rate) {
             int fromrate = enc_opts.rate;
@@ -477,7 +517,7 @@ static void usage(void)
     fprintf(stdout, _(
         " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
         "                      being copied to the output Ogg Vorbis file.\n"
-        " --ignorelength       Ignore the datalength in wav headers. This will allow\n"
+        " --ignorelength       Ignore the datalength in Wave headers. This allows\n"
         "                      support for files > 4GB and STDIN data streams. \n"
         "\n"));
     fprintf(stdout, _(
@@ -511,27 +551,33 @@ static void usage(void)
         " -a, --artist         Name of artist\n"
         " -G, --genre          Genre of track\n"));
     fprintf(stdout, _(
+        " -L, --lyrics         Include lyrics from given file (.srt or .lrc format)\n"
+        " -Y, --lyrics-language  Sets the language for the lyrics\n"));
+    fprintf(stdout, _(
         "                      If multiple input files are given, then multiple\n"
-        "                      instances of the previous five arguments will be used,\n"
+        "                      instances of the previous eight arguments will be used,\n"
         "                      in the order they are given. If fewer titles are\n"
         "                      specified than files, OggEnc will print a warning, and\n"
         "                      reuse the final one for the remaining files. If fewer\n"
         "                      track numbers are given, the remaining files will be\n"
-        "                      unnumbered. For the others, the final tag will be reused\n"
-        "                      for all others without warning (so you can specify a date\n"
-        "                      once, for example, and have it used for all the files)\n"
+        "                      unnumbered. If fewer lyrics are given, the remaining\n"
+        "                      files will not have lyrics added. For the others, the\n"
+        "                      final tag will be reused for all others without warning\n"
+        "                      (so you can specify a date once, for example, and have\n"
+        "                      it used for all the files)\n"
         "\n"));
     fprintf(stdout, _(
         "INPUT FILES:\n"
-        " OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or AIFF/C\n"
-        " files, 32 bit IEEE floating point WAV, and optionally FLAC or Ogg FLAC. Files\n"
+        " OggEnc input files must currently be 24, 16, or 8 bit PCM Wave, AIFF, or AIFF/C\n"
+        " files, 32 bit IEEE floating point Wave, and optionally FLAC or Ogg FLAC. Files\n"
                 "  may be mono or stereo (or more channels) and any sample rate.\n"
         " Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-        " must be 16 bit stereo little-endian PCM ('headerless wav'), unless additional\n"
+        " must be 16 bit stereo little-endian PCM ('headerless Wave'), unless additional\n"
         " parameters for raw mode are specified.\n"
         " You can specify taking the file from stdin by using - as the input filename.\n"
         " In this mode, output is to stdout unless an output filename is specified\n"
         " with -o\n"
+        " Lyrics files may be in SubRip (.srt) or LRC (.lrc) format\n"
         "\n"));
 }
 
@@ -643,7 +689,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
     int ret;
     int option_index = 1;
 
-    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hkl:m:M:n:N:o:P:q:QrR:s:t:VX:",
+    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hklL:m:M:n:N:o:P:q:QrR:s:t:VX:Y:",
                     long_options, &option_index)) != -1)
     {
         switch(ret)
@@ -904,6 +950,26 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 break;
             case 'k':
                 opt->with_skeleton = 1;
+                break;
+            case 'L':
+#ifdef HAVE_KATE
+                opt->lyrics = realloc(opt->lyrics, (++opt->lyrics_count)*sizeof(char *));
+                opt->lyrics[opt->lyrics_count - 1] = strdup(optarg);
+#else
+                fprintf(stderr, _("WARNING: Kate support not compiled in; lyrics will not be included.\n"));
+#endif
+                break;
+            case 'Y':
+#ifdef HAVE_KATE
+                opt->lyrics_language = realloc(opt->lyrics_language, (++opt->lyrics_language_count)*sizeof(char *));
+                opt->lyrics_language[opt->lyrics_language_count - 1] = strdup(optarg);
+                if (strlen(opt->lyrics_language[opt->lyrics_language_count - 1]) > 15) {
+                  fprintf(stderr, _("WARNING: language can not be longer than 15 characters; truncated.\n"));
+                  opt->lyrics_language[opt->lyrics_language_count - 1][15] = 0;
+                }
+#else
+                fprintf(stderr, _("WARNING: Kate support not compiled in; lyrics will not be included.\n"));
+#endif
                 break;
             case '?':
                 fprintf(stderr, _("WARNING: Unknown option specified, ignoring->\n"));

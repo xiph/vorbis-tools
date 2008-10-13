@@ -47,7 +47,7 @@
 
 /* Define the supported formats here */
 input_format formats[] = {
-    {wav_id, 12, wav_open, wav_close, "wav", N_("WAV file reader")},
+    {wav_id, 12, wav_open, wav_close, "wav", N_("Wave file reader")},
     {aiff_id, 12, aiff_open, wav_close, "aiff", N_("AIFF/AIFC file reader")},
 #ifdef HAVE_LIBFLAC
     {flac_id,     4, flac_open, flac_close, "flac", N_("FLAC file reader")},

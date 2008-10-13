@@ -54,14 +54,18 @@ typedef struct
     int date_count;
     char **genre;
     int genre_count;
+    char **lyrics;
+    int lyrics_count;
+    char **lyrics_language;
+    int lyrics_language_count;
     adv_opt *advopt;
     int advopt_count;
+
     int copy_comments;
     int with_skeleton;
-
     int quiet;
-
     int rawmode;
+
     int raw_samplesize;
     int raw_samplerate;
     int raw_channels;
@@ -70,6 +74,7 @@ typedef struct
     char *namefmt;
     char *namefmt_remove;
     char *namefmt_replace;
+
     char *outfile;
 
     /* All 3 in kbps */
@@ -88,7 +93,8 @@ typedef struct
 
     unsigned int serial;
     unsigned int skeleton_serial;
-        int fixedserial;
+    unsigned int kate_serial;
+    int fixedserial;
     int ignorelength;
 
     int isutf8;
@@ -99,6 +105,7 @@ typedef struct
     vorbis_comment *comments;
     unsigned int serialno;
     unsigned int skeleton_serialno;
+    unsigned int kate_serialno;
 
     audio_read_func read_samples;
     progress_func progress_update;
@@ -131,6 +138,9 @@ typedef struct
     char *filename;
     char *infilename;
     int ignorelength;
+
+    char *lyrics;
+    char *lyrics_language;
 } oe_enc_opt;
 
 

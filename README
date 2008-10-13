@@ -25,9 +25,9 @@ DEPENDENCIES:
 All of the tools require libogg and libvorbis to be installed (along
 with the header files).  Additionally, ogg123 requires libao, libcurl,
 and a POSIX-compatible thread library.  Ogg123 can optionally compiled
-to use libFLAC, libOggFLAC, and libspeex.  Oggenc can be optionally
-compiled with libFLAC and libOggFLAC.  The libraries libogg,
-libvorbis, and libao are all available at
+to use libFLAC, and libspeex.  Oggenc can be optionally compiled with
+libFLAC, and libkate.  The libraries libogg, libvorbis, and libao are
+all available at
   http://www.vorbis.com/download.psp
 
 The libcurl library is packaged with most Linux distributions.  The
@@ -39,6 +39,9 @@ FLAC is available at:
 
 Speex is available at:
   http://www.speex.org/
+
+libkate is available at:
+  http://libkate.googlecode.com/
 
 CONTACT:
 

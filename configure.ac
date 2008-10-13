@@ -414,7 +414,7 @@ will NOT be built with Speex read support.])
 will NOT be built with http support.])
     fi
     if test "x$HAVE_KATE" != xyes; then
-        AC_MSG_WARN([Kate libraries and/or headers missing, ogginfo 
-will be built with LIMITED Kate read support.])
+        AC_MSG_WARN([Kate libraries and/or headers missing, oggenc 
+will NOT be built with Kate lyrics support.])
     fi
 fi
