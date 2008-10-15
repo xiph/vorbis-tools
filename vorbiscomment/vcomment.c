@@ -34,7 +34,7 @@
 struct option long_options[] = {
 	{"list",0,0,'l'},
 	{"append",0,0,'a'},
-	{"tag",0,0,'t'},
+	{"tag",required_argument,0,'t'},
 	{"write",0,0,'w'},
 	{"help",0,0,'h'},
 	{"quiet",0,0,'q'}, /* unused */

@@ -30,6 +30,7 @@ vorbis-tools 1.3.0 -- Unreleased
  * vcut: 64 bit fixes (#1366)
  * vorbiscomment: correct memory allocation (#472)
  * vorbiscomment: validate raw UTF-8 sent to vorbiscomment (#268)
+ * vorbiscomment: fix segfault when using --tag (#1439)
 
 vorbis-tools 1.2.0 -- 2008-02-21
 
