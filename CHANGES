@@ -12,6 +12,7 @@ vorbis-tools 1.3.0 -- Unreleased
  * ogg123: fixed CPU issue when outputting to a closed pipe (#1357)
  * ogg123: return value to stop decoding after buffer is shut down (#1357)
  * ogg123: support for ReplayGain; requires libvorbis 1.2.1 or later (#381)
+ * ogg123: unset non-blocking mode on stderr
  * oggdec: gettextized help text (#1385)
  * oggdec: gettextized all strings
  * oggdec: call ov_open_callbacks instead of ov_open; it works on Windows now

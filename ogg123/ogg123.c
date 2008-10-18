@@ -503,6 +503,7 @@ int main(int argc, char **argv)
 
   }
   playlist_array_destroy(playlist_array, items);
+  status_deinit();
 
   exit (exit_status);
 }

@@ -324,12 +324,18 @@ void stat_format_cleanup (stat_format_t *stats)
 void status_init (int verbosity)
 {
 #if defined(HAVE_FCNTL) && defined(HAVE_UNISTD_H)
-  fcntl (STDERR_FILENO, F_SETFL, O_NONBLOCK);
+  fcntl (STDERR_FILENO, F_SETFL, fcntl(STDERR_FILENO, F_GETFL) | O_NONBLOCK);
 #endif
 
   max_verbosity = verbosity;
 }
 
+void status_deinit ()
+{
+#if defined(HAVE_FCNTL) && defined(HAVE_UNISTD_H)
+  fcntl (STDERR_FILENO, F_SETFL, fcntl(STDERR_FILENO, F_GETFL) & ~O_NONBLOCK);
+#endif
+}
 
 void status_reset_output_lock ()
 {
