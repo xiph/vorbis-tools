@@ -689,7 +689,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
     int ret;
     int option_index = 1;
 
-    while((ret = getopt_long(argc, argv, "A:a:b:B:c:C:d:G:hklL:m:M:n:N:o:P:q:QrR:s:t:VX:Y:",
+    while((ret = getopt_long(argc, argv, "a:b:B:c:C:d:G:hkl:L:m:M:n:N:o:P:q:QrR:s:t:VX:Y:",
                     long_options, &option_index)) != -1)
     {
         switch(ret)
