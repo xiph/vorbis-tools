@@ -441,6 +441,7 @@ void free_lyrics(oe_lyrics *lyrics)
         for (n=0; n<lyrics->count; ++n) {
           oe_lyrics_item *li=&lyrics->lyrics[n];
           free(li->text);
+#ifdef HAVE_KATE
           if (li->km) {
             for (c=0; c<li->km->ncurves; ++c) {
               free(li->km->curves[c]->pts);
@@ -450,6 +451,7 @@ void free_lyrics(oe_lyrics *lyrics)
             free(li->km->durations);
             free(li->km);
           }
+#endif
         }
         free(lyrics->lyrics);
         free(lyrics);
