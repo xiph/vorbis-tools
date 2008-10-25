@@ -235,13 +235,27 @@ static void add_kate_karaoke_tag(kate_motion *km,kate_float dt,const char *str,s
   km->durations[km->ncurves-1]=dt;
 }
 
+static int fraction_to_milliseconds(int fraction,int digits)
+{
+  while (digits<3) {
+    fraction*=10;
+    ++digits;
+  }
+  while (digits>3) {
+    fraction/=10;
+    --digits;
+  }
+  return fraction;
+}
+
 static kate_motion *process_enhanced_lrc_tags(char *str,kate_float start_time,kate_float end_time,int line)
 {
   char *start,*end;
   int ret;
-  int m,s,cs;
+  int m,s,fs;
   kate_motion *km=NULL;
   kate_float current_time = start_time;
+  int f0,f1;
 
   if (!str) return NULL;
 
@@ -253,16 +267,17 @@ static kate_motion *process_enhanced_lrc_tags(char *str,kate_float start_time,ka
     if (!end) break;
 
     /* we found a <> pair, parse it */
-    ret=sscanf(start,"<%d:%d.%d>",&m,&s,&cs);
+    f0=f1=-1;
+    ret=sscanf(start,"<%d:%d.%n%d%n>",&m,&s,&f0,&fs,&f1);
 
     /* remove the <> tag from input to get raw text */
     memmove(start,end+1,strlen(end+1)+1);
 
-    if (ret!=3 || (m|s|cs)<0) {
+    if (ret<3 || (f0|f1)<0 || f0>=f1 || (m|s|fs)<0) {
       fprintf(stderr, _("WARNING - line %d: failed to process enhanced LRC tag (%*.*s) - ignored\n"),line,(int)(end-start+1),(int)(end-start+1),start);
     }
     else {
-      kate_float tag_time=hmsms2s(0,m,s,cs*10);
+      kate_float tag_time=hmsms2s(0,m,s,fraction_to_milliseconds(fs,f1-f0));
 
       /* if this is the first tag in this line, create a kate motion */
       if (!km) {
@@ -296,12 +311,13 @@ static oe_lyrics *load_lrc_lyrics(FILE *f)
   oe_lyrics *lyrics;
   static char str[4096];
   static char lyrics_line[4096]="";
-  int m,s,cs;
+  int m,s,fs;
   double t,start_time = -1.0;
   int offset;
   int ret;
   unsigned line=0;
   kate_motion *km;
+  int f0,f1;
 
   if (!f) return NULL;
 
@@ -309,8 +325,8 @@ static oe_lyrics *load_lrc_lyrics(FILE *f)
   fgets2(str,sizeof(str),f);
   ++line;
   while (!feof(f)) {
-    ret = sscanf(str, "[%d:%d.%d]%n\n",&m,&s,&cs,&offset);
-    if (ret == 3)
+    ret = sscanf(str, "[%d:%d.%d]%n\n",&m,&s,&fs,&offset);
+    if (ret >= 3)
       break;
     fgets2(str,sizeof(str),f);
     ++line;
@@ -329,13 +345,14 @@ static oe_lyrics *load_lrc_lyrics(FILE *f)
   while (!feof(f)) {
     /* ignore empty lines */
     if (!is_line_empty(str)) {
-      ret=sscanf(str, "[%d:%d.%d]%n\n",&m,&s,&cs,&offset);
-      if (ret != 3 || (m|s|cs)<0) {
+      f0=f1=-1;
+      ret=sscanf(str, "[%d:%d.%n%d%n]%n\n",&m,&s,&f0,&fs,&f1,&offset);
+      if (ret<3 || (f0|f1)<0 || f1<=f0 || (m|s|fs)<0) {
         fprintf(stderr,_("ERROR - line %u: Syntax error: %s\n"),line,str);
         free_lyrics(lyrics);
         return NULL;
       }
-      t=hmsms2s(0,m,s,cs*10);
+      t=hmsms2s(0,m,s,fraction_to_milliseconds(fs,f1-f0));
 
       if (start_time>=0.0 && !is_line_empty(lyrics_line)) {
         km=process_enhanced_lrc_tags(lyrics_line,start_time,t,line);
@@ -436,12 +453,12 @@ oe_lyrics *load_lyrics(const char *filename)
 
 void free_lyrics(oe_lyrics *lyrics)
 {
+#ifdef HAVE_KATE
     size_t n,c;
     if (lyrics) {
         for (n=0; n<lyrics->count; ++n) {
           oe_lyrics_item *li=&lyrics->lyrics[n];
           free(li->text);
-#ifdef HAVE_KATE
           if (li->km) {
             for (c=0; c<li->km->ncurves; ++c) {
               free(li->km->curves[c]->pts);
@@ -451,16 +468,20 @@ void free_lyrics(oe_lyrics *lyrics)
             free(li->km->durations);
             free(li->km);
           }
-#endif
         }
         free(lyrics->lyrics);
         free(lyrics);
     }
+#endif
 }
 
 const oe_lyrics_item *get_lyrics(const oe_lyrics *lyrics, double t, size_t *idx)
 {
+#ifdef HAVE_KATE
     if (!lyrics || *idx>=lyrics->count) return NULL;
     if (lyrics->lyrics[*idx].t0 > t) return NULL;
     return &lyrics->lyrics[(*idx)++];
+#else
+    return NULL;
+#endif
 }

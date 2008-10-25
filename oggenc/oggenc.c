@@ -147,9 +147,9 @@ int main(int argc, char **argv)
                    start in the same second will generate different serial numbers. */
                 srand(time(NULL) ^ getpid());
         opt.serial = rand();
-        opt.skeleton_serial = opt.serial + numfiles;
-        opt.kate_serial = opt.skeleton_serial + numfiles;
     }
+    opt.skeleton_serial = opt.serial + numfiles;
+    opt.kate_serial = opt.skeleton_serial + numfiles;
 
     for(i = 0; i < numfiles; i++)
     {
@@ -170,6 +170,7 @@ int main(int argc, char **argv)
         /* Set various encoding defaults */
 
         enc_opts.serialno = opt.serial++;
+        enc_opts.skeleton_serialno = opt.skeleton_serial++;
         enc_opts.kate_serialno = opt.kate_serial++;
         enc_opts.progress_update = update_statistics_full;
         enc_opts.start_encode = start_encode_full;
@@ -955,6 +956,7 @@ static void parse_options(int argc, char **argv, oe_options *opt)
 #ifdef HAVE_KATE
                 opt->lyrics = realloc(opt->lyrics, (++opt->lyrics_count)*sizeof(char *));
                 opt->lyrics[opt->lyrics_count - 1] = strdup(optarg);
+                opt->with_skeleton = 1;
 #else
                 fprintf(stderr, _("WARNING: Kate support not compiled in; lyrics will not be included.\n"));
 #endif
