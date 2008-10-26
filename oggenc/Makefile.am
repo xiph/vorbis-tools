@@ -5,6 +5,12 @@ else
 flac_sources =
 endif
 
+if HAVE_KATE
+kate_sources = lyrics.c lyrics.h
+else
+kate_sources =
+endif
+
 SUBDIRS = man
 
 datadir = @datadir@
@@ -21,9 +27,9 @@ oggenc_LDADD = @SHARE_LIBS@ \
 
 oggenc_DEPENDENCIES = @SHARE_LIBS@
 
-oggenc_SOURCES = $(flac_sources) \
-                 oggenc.c audio.c encode.c platform.c lyrics.c \
-                 audio.h encode.h platform.h resample.c resample.h skeleton.c skeleton.h
+oggenc_SOURCES = $(flac_sources) $(kate_sources) \
+                 oggenc.c audio.c encode.c platform.c resample.c skeleton.c \
+                 audio.h encode.h platform.h resample.h skeleton.h
 
 
 debug:
