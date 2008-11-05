@@ -148,7 +148,7 @@ decoder_t* speex_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     private->stats.instant_bitrate = 0;
     private->stats.avg_bitrate = 0;
   } else {
-    fprintf(stderr, _("Error: Out of memory.\n"));
+    fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
   }
 
