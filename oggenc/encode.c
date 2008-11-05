@@ -676,6 +676,9 @@ cleanup:
     }
 #endif
 
+    if (opt->with_skeleton)
+        ogg_stream_clear(&so);
+
     ogg_stream_clear(&os);
 
     vorbis_block_clear(&vb);

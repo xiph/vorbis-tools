@@ -67,15 +67,17 @@ static int add_lyrics(oe_lyrics *lyrics, char *text, kate_motion *km, double t0,
     return ret;
   }
 
-  len = strlen(utf8);
   lyrics->lyrics = (oe_lyrics_item*)realloc(lyrics->lyrics, (lyrics->count+1)*sizeof(oe_lyrics_item));
   if (!lyrics->lyrics) {
+    free(utf8);
     fprintf(stderr, _("Out of memory\n"));
     return -1;
   }
+  len = strlen(utf8);
   ret=kate_text_validate(kate_utf8,utf8,len+1);
   if (ret<0) {
     fprintf(stderr,_("WARNING: subtitle %s is not valid UTF-8\n"),utf8);
+    free(utf8);
   }
   else {
     /* kill off trailing \n characters */

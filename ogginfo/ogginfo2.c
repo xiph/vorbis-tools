@@ -1056,6 +1056,8 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             other_start(stream, "MIDI");
         else if(packet.bytes >= 5 && memcmp(packet.packet, "\177FLAC", 5)==0)
             other_start(stream, "FLAC");
+        else if(packet.bytes == 4 && memcmp(packet.packet, "fLaC", 4)==0)
+            other_start(stream, "FLAC (legacy)");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0)
             other_start(stream, "speex");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0)
@@ -1063,7 +1065,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         else if(packet.bytes >= 5 && memcmp(packet.packet, "BBCD\0", 5)==0)
             other_start(stream, "dirac");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "KW-DIRAC", 8)==0)
-            other_start(stream, "dirac (old style)");
+            other_start(stream, "dirac (legacy)");
         else if(packet.bytes >= 8 && memcmp(packet.packet, "\x80kate\0\0\0", 8)==0)
             kate_start(stream);
         else
