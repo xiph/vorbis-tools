@@ -14,8 +14,10 @@ ogg123/http_transport.c
 ogg123/ogg123.c
 ogg123/oggvorbis_format.c
 ogg123/playlist.c
+ogg123/speex_format.c
 ogg123/status.c
 ogg123/transport.c
+ogg123/vorbis_comments.c
 
 # oggdec
 
@@ -26,10 +28,10 @@ oggdec/oggdec.c
 
 oggenc/audio.c
 oggenc/encode.c
+oggenc/lyrics.c
 oggenc/oggenc.c
 oggenc/platform.c
 oggenc/resample.c
-
 
 # ogginfo
 

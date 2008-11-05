@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
-"POT-Creation-Date: 2008-10-25 16:24+0100\n"
+"POT-Creation-Date: 2008-11-05 22:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -456,7 +456,8 @@ msgid "  -V, --version           Display ogg123 version\n"
 msgstr ""
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106
+#: ogg123/oggvorbis_format.c:106 ogg123/vorbis_comments.c:64
+#: ogg123/vorbis_comments.c:79 ogg123/vorbis_comments.c:97
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr ""
@@ -582,7 +583,7 @@ msgstr ""
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:348
+#: ogg123/oggvorbis_format.c:348 ogg123/speex_format.c:413
 #, c-format
 msgid "Encoded by: %s"
 msgstr ""
@@ -605,6 +606,53 @@ msgstr ""
 #: ogg123/playlist.c:267 ogg123/playlist.c:279
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
+msgstr ""
+
+#: ogg123/speex_format.c:151
+#, c-format
+msgid "Error: Out of memory.\n"
+msgstr ""
+
+#: ogg123/speex_format.c:363
+#, c-format
+msgid "Ogg Speex stream: %d channel, %d Hz, %s mode (VBR)"
+msgstr ""
+
+#: ogg123/speex_format.c:369
+#, c-format
+msgid "Ogg Speex stream: %d channel, %d Hz, %s mode"
+msgstr ""
+
+#: ogg123/speex_format.c:375
+#, c-format
+msgid "Speex version: %s"
+msgstr ""
+
+#: ogg123/speex_format.c:391 ogg123/speex_format.c:402
+#: ogg123/speex_format.c:421 ogg123/speex_format.c:431
+#: ogg123/speex_format.c:438
+msgid "Invalid/corrupted comments"
+msgstr ""
+
+#: ogg123/speex_format.c:475
+msgid "Cannot read header"
+msgstr ""
+
+#: ogg123/speex_format.c:480
+#, c-format
+msgid "Mode number %d does not (any longer) exist in this version"
+msgstr ""
+
+#: ogg123/speex_format.c:489
+msgid ""
+"The file was encoded with a newer version of Speex.\n"
+" You need to upgrade in order to play it.\n"
+msgstr ""
+
+#: ogg123/speex_format.c:493
+msgid ""
+"The file was encoded with an older version of Speex.\n"
+"You would need to downgrade the version in order to play it."
 msgstr ""
 
 #: ogg123/status.c:60
@@ -663,12 +711,40 @@ msgstr ""
 msgid "ERROR: Could not allocate memory in malloc_data_source_stats()\n"
 msgstr ""
 
+#: ogg123/vorbis_comments.c:39
+msgid "Track number:"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:40
+msgid "ReplayGain (Track):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:41
+msgid "ReplayGain (Album):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:42
+msgid "ReplayGain Peak (Track):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:43
+msgid "ReplayGain Peak (Album):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:44
+msgid "Copyright"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:45 ogg123/vorbis_comments.c:46
+msgid "Comment:"
+msgstr ""
+
 #: oggdec/oggdec.c:50
 #, c-format
 msgid "oggdec from %s %s\n"
 msgstr ""
 
-#: oggdec/oggdec.c:56 oggenc/oggenc.c:463 ogginfo/ogginfo2.c:1228
+#: oggdec/oggdec.c:56 oggenc/oggenc.c:463 ogginfo/ogginfo2.c:1230
 #, c-format
 msgid ""
 " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
@@ -1037,17 +1113,17 @@ msgstr ""
 msgid "Failed encoding Kate EOS packet\n"
 msgstr ""
 
-#: oggenc/encode.c:705
+#: oggenc/encode.c:708
 #, c-format
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c "
 msgstr ""
 
-#: oggenc/encode.c:715
+#: oggenc/encode.c:718
 #, c-format
 msgid "\tEncoding [%2dm%.2ds so far] %c "
 msgstr ""
 
-#: oggenc/encode.c:733
+#: oggenc/encode.c:736
 #, c-format
 msgid ""
 "\n"
@@ -1055,7 +1131,7 @@ msgid ""
 "Done encoding file \"%s\"\n"
 msgstr ""
 
-#: oggenc/encode.c:735
+#: oggenc/encode.c:738
 #, c-format
 msgid ""
 "\n"
@@ -1063,51 +1139,51 @@ msgid ""
 "Done encoding.\n"
 msgstr ""
 
-#: oggenc/encode.c:739
+#: oggenc/encode.c:742
 #, c-format
 msgid ""
 "\n"
 "\tFile length:  %dm %04.1fs\n"
 msgstr ""
 
-#: oggenc/encode.c:743
+#: oggenc/encode.c:746
 #, c-format
 msgid "\tElapsed time: %dm %04.1fs\n"
 msgstr ""
 
-#: oggenc/encode.c:746
+#: oggenc/encode.c:749
 #, c-format
 msgid "\tRate:         %.4f\n"
 msgstr ""
 
-#: oggenc/encode.c:747
+#: oggenc/encode.c:750
 #, c-format
 msgid ""
 "\tAverage bitrate: %.1f kb/s\n"
 "\n"
 msgstr ""
 
-#: oggenc/encode.c:770
+#: oggenc/encode.c:773
 #, c-format
 msgid "(min %d kbps, max %d kbps)"
 msgstr ""
 
-#: oggenc/encode.c:772
+#: oggenc/encode.c:775
 #, c-format
 msgid "(min %d kbps, no max)"
 msgstr ""
 
-#: oggenc/encode.c:774
+#: oggenc/encode.c:777
 #, c-format
 msgid "(no min, max %d kbps)"
 msgstr ""
 
-#: oggenc/encode.c:776
+#: oggenc/encode.c:779
 #, c-format
 msgid "(no min or max)"
 msgstr ""
 
-#: oggenc/encode.c:784
+#: oggenc/encode.c:787
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1115,17 +1191,17 @@ msgid ""
 "at average bitrate %d kbps "
 msgstr ""
 
-#: oggenc/encode.c:786 oggenc/encode.c:793 oggenc/encode.c:801
-#: oggenc/encode.c:808 oggenc/encode.c:814
+#: oggenc/encode.c:789 oggenc/encode.c:796 oggenc/encode.c:804
+#: oggenc/encode.c:811 oggenc/encode.c:817
 msgid "standard input"
 msgstr ""
 
-#: oggenc/encode.c:787 oggenc/encode.c:794 oggenc/encode.c:802
-#: oggenc/encode.c:809 oggenc/encode.c:815
+#: oggenc/encode.c:790 oggenc/encode.c:797 oggenc/encode.c:805
+#: oggenc/encode.c:812 oggenc/encode.c:818
 msgid "standard output"
 msgstr ""
 
-#: oggenc/encode.c:792
+#: oggenc/encode.c:795
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1133,7 +1209,7 @@ msgid ""
 "at approximate bitrate %d kbps (VBR encoding enabled)\n"
 msgstr ""
 
-#: oggenc/encode.c:800
+#: oggenc/encode.c:803
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1141,7 +1217,7 @@ msgid ""
 "at quality level %2.2f using constrained VBR "
 msgstr ""
 
-#: oggenc/encode.c:807
+#: oggenc/encode.c:810
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1149,12 +1225,90 @@ msgid ""
 "at quality %2.2f\n"
 msgstr ""
 
-#: oggenc/encode.c:813
+#: oggenc/encode.c:816
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
 "         %s%s%s \n"
 "using bitrate management "
+msgstr ""
+
+#: oggenc/lyrics.c:66
+#, c-format
+msgid "Failed to convert to UTF-8: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:73
+#, c-format
+msgid "Out of memory\n"
+msgstr ""
+
+#: oggenc/lyrics.c:79
+#, c-format
+msgid "WARNING: subtitle %s is not valid UTF-8\n"
+msgstr ""
+
+#: oggenc/lyrics.c:141 oggenc/lyrics.c:157 oggenc/lyrics.c:337
+#: oggenc/lyrics.c:353
+#, c-format
+msgid "ERROR - line %u: Syntax error: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:146
+#, c-format
+msgid ""
+"WARNING - line %u: non consecutive ids: %s - pretending not to have noticed\n"
+msgstr ""
+
+#: oggenc/lyrics.c:162
+#, c-format
+msgid "ERROR - line %u: end time must not be less than start time: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:184
+#, c-format
+msgid "WARNING - line %u: text is too long - truncated\n"
+msgstr ""
+
+#: oggenc/lyrics.c:197
+#, c-format
+msgid "WARNING - line %u: missing data - truncated file?\n"
+msgstr ""
+
+#: oggenc/lyrics.c:210
+#, c-format
+msgid "WARNING - line %d: lyrics times must not be decreasing\n"
+msgstr ""
+
+#: oggenc/lyrics.c:218
+#, c-format
+msgid "WARNING - line %d: failed to get UTF-8 glyph from string\n"
+msgstr ""
+
+#: oggenc/lyrics.c:279
+#, c-format
+msgid ""
+"WARNING - line %d: failed to process enhanced LRC tag (%*.*s) - ignored\n"
+msgstr ""
+
+#: oggenc/lyrics.c:288
+#, c-format
+msgid "WARNING: failed to allocate memory - enhanced LRC tag will be ignored\n"
+msgstr ""
+
+#: oggenc/lyrics.c:419
+#, c-format
+msgid "ERROR: No lyrics filename to load from\n"
+msgstr ""
+
+#: oggenc/lyrics.c:425
+#, c-format
+msgid "ERROR: Failed to open lyrics file %s (%s)\n"
+msgstr ""
+
+#: oggenc/lyrics.c:444
+#, c-format
+msgid "ERROR: Failed to load %s - can't determine format\n"
 msgstr ""
 
 #: oggenc/oggenc.c:117
@@ -1670,7 +1824,7 @@ msgstr ""
 msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:381 ogginfo/ogginfo2.c:681
+#: ogginfo/ogginfo2.c:381 ogginfo/ogginfo2.c:548 ogginfo/ogginfo2.c:681
 #, c-format
 msgid "WARNING: discontinuity in stream (%d)\n"
 msgstr ""
@@ -1813,22 +1967,17 @@ msgid ""
 "\tTotal data length: %"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:548
-#, c-format
-msgid "Warning: discontinuity in stream (%d)\n"
-msgstr ""
-
 #: ogginfo/ogginfo2.c:557
 #, c-format
 msgid ""
-"Warning: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
+"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
 "d)\n"
 msgstr ""
 
 #: ogginfo/ogginfo2.c:565
 #, c-format
 msgid ""
-"Warning: Vorbis stream %d does not have headers correctly framed. Terminal "
+"WARNING: Vorbis stream %d does not have headers correctly framed. Terminal "
 "header page contains additional packets or has non-zero granulepos\n"
 msgstr ""
 
@@ -1905,7 +2054,7 @@ msgstr ""
 #: ogginfo/ogginfo2.c:703
 #, c-format
 msgid ""
-"Warning: packet %d does not seem to be a Kate header - invalid Kate stream (%"
+"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream (%"
 "d)\n"
 msgstr ""
 
@@ -2014,99 +2163,99 @@ msgstr ""
 msgid "WARNING: Invalid header page, no packet found\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1074
+#: ogginfo/ogginfo2.c:1076
 #, c-format
 msgid "WARNING: Invalid header page in stream %d, contains multiple packets\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1088
+#: ogginfo/ogginfo2.c:1090
 #, c-format
 msgid ""
 "Note: Stream %d has serial number %d, which is legal but may cause problems "
 "with some tools.\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1106
+#: ogginfo/ogginfo2.c:1108
 msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1133
+#: ogginfo/ogginfo2.c:1135
 #, c-format
 msgid "Error opening input file \"%s\": %s\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1138
+#: ogginfo/ogginfo2.c:1140
 #, c-format
 msgid ""
 "Processing file \"%s\"...\n"
 "\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1147
+#: ogginfo/ogginfo2.c:1149
 msgid "Could not find a processor for stream, bailing\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1155
+#: ogginfo/ogginfo2.c:1157
 msgid "Page found for stream after EOS flag"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1158
+#: ogginfo/ogginfo2.c:1160
 msgid ""
 "Ogg muxing constraints violated, new stream before EOS of all previous "
 "streams"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1162
+#: ogginfo/ogginfo2.c:1164
 msgid "Error unknown."
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1165
+#: ogginfo/ogginfo2.c:1167
 #, c-format
 msgid ""
 "WARNING: illegally placed page(s) for logical stream %d\n"
 "This indicates a corrupt Ogg file: %s.\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1177
+#: ogginfo/ogginfo2.c:1179
 #, c-format
 msgid "New logical stream (#%d, serial: %08x): type %s\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1180
+#: ogginfo/ogginfo2.c:1182
 #, c-format
 msgid "WARNING: stream start flag not set on stream %d\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1184
+#: ogginfo/ogginfo2.c:1186
 #, c-format
 msgid "WARNING: stream start flag found in mid-stream on stream %d\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1189
+#: ogginfo/ogginfo2.c:1191
 #, c-format
 msgid ""
 "WARNING: sequence number gap in stream %d. Got page %ld when expecting page %"
 "ld. Indicates missing data.\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1204
+#: ogginfo/ogginfo2.c:1206
 #, c-format
 msgid "Logical stream %d ended\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1212
+#: ogginfo/ogginfo2.c:1214
 #, c-format
 msgid ""
 "ERROR: No Ogg data found in file \"%s\".\n"
 "Input probably not Ogg.\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1223
+#: ogginfo/ogginfo2.c:1225
 #, c-format
 msgid "ogginfo from %s %s\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1229
+#: ogginfo/ogginfo2.c:1231
 #, c-format
 msgid ""
 "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
@@ -2120,12 +2269,12 @@ msgid ""
 "\t   for some stream types.\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1238
+#: ogginfo/ogginfo2.c:1240
 #, c-format
 msgid "\t-V Output version information and exit\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1250
+#: ogginfo/ogginfo2.c:1252
 #, c-format
 msgid ""
 "Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
@@ -2135,7 +2284,7 @@ msgid ""
 "Full help shown with \"ogginfo -h\".\n"
 msgstr ""
 
-#: ogginfo/ogginfo2.c:1284
+#: ogginfo/ogginfo2.c:1286
 #, c-format
 msgid "No input files specified. \"ogginfo -h\" for help\n"
 msgstr ""

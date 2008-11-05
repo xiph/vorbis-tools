@@ -545,7 +545,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
     while(1) {
         res = ogg_stream_packetout(&stream->os, &packet);
         if(res < 0) {
-           warn(_("Warning: discontinuity in stream (%d)\n"), stream->num);
+           warn(_("WARNING: discontinuity in stream (%d)\n"), stream->num);
            continue;
         }
         else if (res == 0)
@@ -554,7 +554,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         packets++;
         if(inf->doneheaders < 3) {
             if(vorbis_synthesis_headerin(&inf->vi, &inf->vc, &packet) < 0) {
-                warn(_("Warning: Could not decode Vorbis header "
+                warn(_("WARNING: Could not decode Vorbis header "
                        "packet %d - invalid Vorbis stream (%d)\n"), 
                         inf->doneheaders, stream->num);
                 continue;
@@ -562,7 +562,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
             inf->doneheaders++;
             if(inf->doneheaders == 3) {
                 if(ogg_page_granulepos(page) != 0 || ogg_stream_packetpeek(&stream->os, NULL) == 1)
-                    warn(_("Warning: Vorbis stream %d does not have headers "
+                    warn(_("WARNING: Vorbis stream %d does not have headers "
                            "correctly framed. Terminal header page contains "
                            "additional packets or has non-zero granulepos\n"),
                             stream->num);
@@ -700,7 +700,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
 #else
             /* if we're not building against libkate, do some limited checks */
             if (packet.bytes<64 || memcmp(packet.packet+1, "kate\0\0\0", 7)) {
-                warn(_("Warning: packet %d does not seem to be a Kate header - "
+                warn(_("WARNING: packet %d does not seem to be a Kate header - "
                        "invalid Kate stream (%d)\n"), 
                         packet.packetno, stream->num);
                 continue;

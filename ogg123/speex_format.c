@@ -58,7 +58,7 @@ typedef struct speex_private_t {
 		    elements */ 
   int output_start;
   int output_left;
-  
+
   int frames_per_packet;
   int frame_size;
   int vbr;

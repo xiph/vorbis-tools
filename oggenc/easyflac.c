@@ -201,7 +201,7 @@ FLAC__bool EasyFLAC__set_error_callback(EasyFLAC__StreamDecoder *decoder, EasyFL
 FLAC__bool EasyFLAC__set_client_data(EasyFLAC__StreamDecoder *decoder, void *value)
 {
     decoder->callbacks.client_data = value;
-    
+
     if (decoder->is_oggflac)
         return OggFLAC__stream_decoder_set_client_data(decoder->oggflac, decoder);
     else

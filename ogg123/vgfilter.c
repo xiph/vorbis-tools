@@ -1,10 +1,10 @@
 /*
  * vgfilter.c (c) 2007,2008 William Poetra Yoga Hadisoeseno
  * based on:
- * vgplay.c 1.0 (c) 2003 John Morton 
+ * vgplay.c 1.0 (c) 2003 John Morton
 */
 
-/* vgplay.c 1.0 (c) 2003 John Morton 
+/* vgplay.c 1.0 (c) 2003 John Morton
  *
  * Portions of this file are (C) COPYRIGHT 1994-2002 by 
  * the XIPHOPHORUS Company http://www.xiph.org/

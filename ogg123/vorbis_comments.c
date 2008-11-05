@@ -61,7 +61,7 @@ char *lookup_comment_prettyprint (char *comment, int *offset)
       *offset = strlen(vorbis_comment_keys[i].key);
       s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
       if (s == NULL) {
-	fprintf(stderr, _("Error: Out of memory.\n"));
+	fprintf(stderr, _("ERROR: Out of memory.\n"));
 	exit(1);
       };
       strcpy(s, vorbis_comment_keys[i].formatstr);
@@ -107,12 +107,12 @@ void print_vorbis_comment (char *comment, decoder_callbacks_t *cb,
   char *comment_prettyprint;
   char *decoded_value;
   int offset;
-  
+
   if (cb == NULL || cb->printf_metadata == NULL)
     return;
 
   comment_prettyprint = lookup_comment_prettyprint(comment, &offset);
-  
+
   if (utf8_decode(comment + offset, &decoded_value) >= 0) {
     cb->printf_metadata(callback_arg, 1, "%s %s", comment_prettyprint, 
 			decoded_value);
