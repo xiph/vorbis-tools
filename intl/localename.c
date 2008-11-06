@@ -1,5 +1,5 @@
-/* Determine the current selected locale.
-   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+/* Determine name of the currently selected locale.
+   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -20,8 +20,13 @@
 /* Win32 code written by Tor Lillqvist <tml@iki.fi>.  */
 /* MacOS X code written by Bruno Haible <bruno@clisp.org>.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
+
+/* Specification.  */
+#ifdef IN_LIBINTL
+# include "gettextP.h"
+#else
+# include "localename.h"
 #endif
 
 #include <stdlib.h>
@@ -700,8 +705,11 @@
    NAME is a sufficiently large buffer.
    On input, it contains the MacOS X locale name.
    On output, it contains the Unix locale name.  */
+#  if !defined IN_LIBINTL
+static
+#  endif
 void
-_nl_locale_name_canonicalize (char *name)
+gl_locale_name_canonicalize (char *name)
 {
   /* This conversion is based on a posting by
      Deborah GoldSmith <goldsmit@apple.com> on 2005-03-08,
@@ -973,18 +981,18 @@ _nl_locale_name_canonicalize (char *name)
    However it does not specify the exact format.  Neither do SUSV2 and
    ISO C 99.  So we can use this feature only on selected systems (e.g.
    those using GNU C Library).  */
-#if defined _LIBC || (defined __GNU_LIBRARY__ && __GNU_LIBRARY__ >= 2)
+#if defined _LIBC || (defined __GLIBC__ && __GLIBC__ >= 2)
 # define HAVE_LOCALE_NULL
 #endif
 
 /* Determine the current locale's name, and canonicalize it into XPG syntax
-     language[_territory[.codeset]][@modifier]
+     language[_territory][.codeset][@modifier]
    The codeset part in the result is not reliable; the locale_charset()
    should be used for codeset information instead.
    The result must not be freed; it is statically allocated.  */
 
 const char *
-_nl_locale_name_posix (int category, const char *categoryname)
+gl_locale_name_posix (int category, const char *categoryname)
 {
   /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
      On some systems this can be done by the 'setlocale' function itself.  */
@@ -1011,7 +1019,7 @@ _nl_locale_name_posix (int category, const char *categoryname)
 }
 
 const char *
-_nl_locale_name_default (void)
+gl_locale_name_default (void)
 {
   /* POSIX:2001 says:
      "All implementations shall define a locale as the default locale, to be
@@ -1051,7 +1059,7 @@ _nl_locale_name_default (void)
 	if (CFStringGetCString (name, namebuf, sizeof(namebuf),
 				kCFStringEncodingASCII))
 	  {
-	    _nl_locale_name_canonicalize (namebuf);
+	    gl_locale_name_canonicalize (namebuf);
 	    cached_localename = strdup (namebuf);
 	  }
 	CFRelease (locale);
@@ -1064,7 +1072,7 @@ _nl_locale_name_default (void)
 	    && CFStringGetCString ((CFStringRef)value, namebuf, sizeof(namebuf),
 				   kCFStringEncodingASCII))
 	  {
-	    _nl_locale_name_canonicalize (namebuf);
+	    gl_locale_name_canonicalize (namebuf);
 	    cached_localename = strdup (namebuf);
 	  }
 #  endif
@@ -1487,13 +1495,13 @@ _nl_locale_name_default (void)
 }
 
 const char *
-_nl_locale_name (int category, const char *categoryname)
+gl_locale_name (int category, const char *categoryname)
 {
   const char *retval;
 
-  retval = _nl_locale_name_posix (category, categoryname);
+  retval = gl_locale_name_posix (category, categoryname);
   if (retval != NULL)
     return retval;
 
-  return _nl_locale_name_default ();
+  return gl_locale_name_default ();
 }

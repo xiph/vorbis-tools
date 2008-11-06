@@ -1,3 +1,20 @@
+2008-11-06  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* gettext.m4: Upgrade to gettext-0.17.
+	* iconv.m4: Upgrade to gettext-0.17.
+	* lib-link.m4: Upgrade to gettext-0.17.
+	* po.m4: Upgrade to gettext-0.17.
+	* intdiv0.m4: Upgrade to gettext-0.17.
+	* intl.m4: Upgrade to gettext-0.17.
+	* intlmacosx.m4: New file, from gettext-0.17.
+	* lock.m4: Upgrade to gettext-0.17.
+	* longlong.m4: Upgrade to gettext-0.17.
+	* printf-posix.m4: Upgrade to gettext-0.17.
+	* size_max.m4: Upgrade to gettext-0.17.
+	* uintmax_t.m4: Upgrade to gettext-0.17.
+	* wint_t.m4: Upgrade to gettext-0.17.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
 2007-12-30  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* gettext.m4: Upgrade to gettext-0.16.1.

@@ -1,4 +1,4 @@
-EXTRA_DIST = intl.m4 intldir.m4 inttypes-h.m4 lock.m4 visibility.m4 \
+EXTRA_DIST = intlmacosx.m4 intl.m4 intldir.m4 inttypes-h.m4 lock.m4 visibility.m4 \
 codeset.m4 \
 gettext.m4 \
 glibc21.m4 \

@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Copyright (C) YEAR Xiph.Org Foundation
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
-"POT-Creation-Date: 2008-11-05 22:12+0000\n"
+"Project-Id-Version: vorbis-tools 1.3.0\n"
+"Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
+"POT-Creation-Date: 2008-11-06 00:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -456,8 +456,9 @@ msgid "  -V, --version           Display ogg123 version\n"
 msgstr ""
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/vorbis_comments.c:64
-#: ogg123/vorbis_comments.c:79 ogg123/vorbis_comments.c:97
+#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:151
+#: ogg123/vorbis_comments.c:64 ogg123/vorbis_comments.c:79
+#: ogg123/vorbis_comments.c:97
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr ""
@@ -606,11 +607,6 @@ msgstr ""
 #: ogg123/playlist.c:267 ogg123/playlist.c:279
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
-msgstr ""
-
-#: ogg123/speex_format.c:151
-#, c-format
-msgid "Error: Out of memory.\n"
 msgstr ""
 
 #: ogg123/speex_format.c:363

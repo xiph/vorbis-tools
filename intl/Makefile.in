@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling library of GNU gettext
-# Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Library General Public License as published
@@ -51,7 +51,17 @@ subdir = intl
 
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
-mkinstalldirs = @install_sh@ -d
+
+# We use $(mkdir_p).
+# In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
+# "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
+# @install_sh@ does not start with $(SHELL), so we add it.
+# In automake >= 1.10, @mkdir_p@ is derived from ${MKDIR_P}, which is defined
+# either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
+# versions, $(mkinstalldirs) and $(install_sh) are unused.
+mkinstalldirs = $(SHELL) @install_sh@ -d
+install_sh = $(SHELL) @install_sh@
+MKDIR_P = @MKDIR_P@
 mkdir_p = @mkdir_p@
 
 l = @INTL_LIBTOOL_SUFFIX_PREFIX@
@@ -62,6 +72,7 @@ LIBTOOL = @LIBTOOL@
 RANLIB = @RANLIB@
 YACC = @INTLBISON@ -y -d
 YFLAGS = --name-prefix=__gettext
+WINDRES = @WINDRES@
 
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
@@ -90,6 +101,7 @@ HEADERS = \
   localcharset.h \
   lock.h \
   relocatable.h \
+  tsearch.h tsearch.c \
   xsize.h \
   printf-args.h printf-args.c \
   printf-parse.h wprintf-parse.h printf-parse.c \
@@ -154,16 +166,18 @@ OBJECTS = \
   version.$lo \
   osdep.$lo \
   intl-compat.$lo
+OBJECTS_RES_yes = libintl.res
+OBJECTS_RES_no =
 DISTFILES.common = Makefile.in \
-config.charset locale.alias ref-add.sin ref-del.sin export.h \
+config.charset locale.alias ref-add.sin ref-del.sin export.h libintl.rc \
 $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
-DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc \
-libgnuintl.h_vms Makefile.vms \
-libgnuintl.h.msvc-static libgnuintl.h.msvc-shared README.woe32 Makefile.msvc
+DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc README.woe32
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
-COPYING.LIB-2 gettext.h libgettext.h plural-eval.c libgnuintl.h
+COPYING.LIB-2 gettext.h libgettext.h plural-eval.c libgnuintl.h \
+libgnuintl.h_vms Makefile.vms libgnuintl.h.msvc-static \
+libgnuintl.h.msvc-shared Makefile.msvc
 
 all: all-@USE_INCLUDED_LIBINTL@
 all-yes: libintl.$la libintl.h charset.alias ref-add.sed ref-del.sed
@@ -176,10 +190,11 @@ libintl.a libgnuintl.a: $(OBJECTS)
 	$(AR) cru $@ $(OBJECTS)
 	$(RANLIB) $@
 
-libintl.la libgnuintl.la: $(OBJECTS)
+libintl.la libgnuintl.la: $(OBJECTS) $(OBJECTS_RES_@WOE32@)
 	$(LIBTOOL) --mode=link \
 	  $(CC) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS) $(LDFLAGS) -o $@ \
-	  $(OBJECTS) @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(LIBS) @LTLIBTHREAD@ -lc \
+	  $(OBJECTS) @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(LIBS) @LTLIBTHREAD@ @LTLIBC@ \
+	  $(OBJECTS_RES_@WOE32@) \
 	  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
 	  -rpath $(libdir) \
 	  -no-undefined
@@ -190,7 +205,7 @@ libintl.la libgnuintl.la: $(OBJECTS)
 # Maintainers of other packages that include the intl directory must *not*
 # change these values.
 LTV_CURRENT=8
-LTV_REVISION=0
+LTV_REVISION=2
 LTV_AGE=0
 
 .SUFFIXES:
@@ -257,6 +272,24 @@ osdep.lo: $(srcdir)/osdep.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
+
+# This rule is executed only on Woe32 systems.
+# The following sed expressions come from the windres-options script. They are
+# inlined here, so that they can be written in a Makefile without requiring a
+# temporary file. They must contain literal newlines rather than semicolons,
+# so that they work with the sed-3.02 that is shipped with MSYS. We can use
+# GNU bash's $'\n' syntax to obtain such a newline.
+libintl.res: $(srcdir)/libintl.rc
+	nl=$$'\n'; \
+	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	$(WINDRES) \
+	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	  -i $(srcdir)/libintl.rc -o libintl.res --output-format=coff
 
 ref-add.sed: $(srcdir)/ref-add.sin
 	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $(srcdir)/ref-add.sin > t-ref-add.sed
@@ -389,6 +422,8 @@ install-data: all
 
 install-strip: install
 
+install-dvi install-html install-info install-ps install-pdf:
+
 installdirs:
 	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
 	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
@@ -503,7 +538,7 @@ ID: $(HEADERS) $(SOURCES)
 
 
 mostlyclean:
-	rm -f *.a *.la *.o *.obj *.lo core core.*
+	rm -f *.a *.la *.o *.obj *.lo libintl.res core core.*
 	rm -f libgnuintl.h libintl.h charset.alias ref-add.sed ref-del.sed
 	rm -f -r .libs _libs
 
