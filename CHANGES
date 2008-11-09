@@ -8,6 +8,7 @@ vorbis-tools 1.3.0 -- Unreleased
  * Corrected SUBLANG values in intl/localename.c (#1415)
  * Modify -v to -V on oggenc and oggdec for consistency (#1112)
  * Fix for utf8_decode in Windows; improves behavior in vorbiscomment (#268)
+ * Updated gettextize to version 0.17
  * ogg123: backported fix from libfishsound to patch the Speex decoder (#1347)
  * ogg123: fixed CPU issue when outputting to a closed pipe (#1357)
  * ogg123: return value to stop decoding after buffer is shut down (#1357)
@@ -30,6 +31,7 @@ vorbis-tools 1.3.0 -- Unreleased
  * oggenc: lyrics support using .lrc as source; requires libkate (#1403)
  * ogginfo: support for information in Kate streams (#1360)
  * vcut: 64 bit fixes (#1366)
+ * vcut: support for chained streams (#1455)
  * vorbiscomment: correct memory allocation (#472)
  * vorbiscomment: validate raw UTF-8 sent to vorbiscomment (#268)
  * vorbiscomment: fix segfault when using --tag (#1439)
