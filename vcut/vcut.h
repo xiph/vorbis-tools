@@ -47,8 +47,7 @@ typedef struct vcut_segment {
 } vcut_segment;
 
 typedef struct {
-	/* pointer to a linked list of segments/cutpoints; the first element has
-	   cuttime == cutpoint == -1 and represents the data before any cutpoint */
+	/* pointer to a linked list of segments/cutpoints */
 	vcut_segment *next_segment;
 
 	/* the input file may have multiple chained streams; these variables store
@@ -64,6 +63,7 @@ typedef struct {
 	vcut_vorbis_stream vorbis_stream;
 
 	FILE *out;
+	char *output_filename;
 	int drop_output;              /* 1 if we don't want any output */
 	int output_stream_open;       /* 1 if stream_out initialized */
 	ogg_stream_state stream_out;

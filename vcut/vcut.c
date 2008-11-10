@@ -2,6 +2,7 @@
  * a copy of which is included with this program.
  *
  * (c) 2000-2001 Michael Smith <msmith@xiph.org>
+ * (c) 2008 Michael Gold <mgold@ncf.ca>
  *
  *
  * Simple application to cut an ogg at a specified frame, and produce two
@@ -158,44 +159,47 @@ static int close_output_file(vcut_state *s)
 		return -1;
 
 	s->out = NULL;
-	if(!s->drop_output && fclose(out) != 0)
+	if(out && fclose(out) != 0)
 	{
 		fprintf(stderr, _("Couldn't close output file\n"));
 		return -1;
 	}
 
+	s->output_filename = NULL;
 	s->drop_output = 0;
 	return 0;
 }
 
-static void submit_headers_to_stream(vcut_state *s)
+/* Write out the header packets and reference audio packet. */
+static int submit_headers_to_stream(vcut_state *s)
 {
 	vcut_vorbis_stream *vs = &s->vorbis_stream;
 	int i;
-	for(i=0;i<3;i++)
+	for(i=0;i<4;i++)
 	{
 		ogg_packet p;
-		p.bytes = vs->headers[i].length;
-		p.packet = vs->headers[i].packet;
+		if(i < 4)  /* a header packet */
+		{
+			p.bytes = vs->headers[i].length;
+			p.packet = vs->headers[i].packet;
+		}
+		else  /* the reference audio packet */
+		{
+			if (!vs->last_packet.packet) break;
+			p.bytes = vs->last_packet.length;
+			p.packet = vs->last_packet.packet;
+		}
+
 		assert(p.packet);
 		p.b_o_s = ((i==0)?1:0);
 		p.e_o_s = 0;
-		p.granulepos=0;
+		p.granulepos = 0;
+		p.packetno = i;
 
-		ogg_stream_packetin(&s->stream_out, &p);
+		if (write_packet(s, &p) != 0)
+			return -1;
 	}
-}
-
-/* Writes the header packets to the output stream. These 3 packets must
- * already be stored in s->vorbis_stream->headers. */
-static void open_output_stream(vcut_state *s)
-{
-	/* ogg_stream_init should only fail if stream_out is null */
-	int rv = ogg_stream_init(&s->stream_out, ++s->serial_out);
-	assert(rv == 0);
-
-	submit_headers_to_stream(s);
-	s->output_stream_open = 1;
+	return 0;
 }
 
 /* Opens the given output file; or sets s->drop_output if the filename is ".".
@@ -224,24 +228,20 @@ static int open_output_file(vcut_state *s, char *filename)
 
 /* Opens an output stream; if necessary, opens the next output file first.
  * Returns 0 for success, or -1 on failure. */
-static int open_next_output_stream(vcut_state *s)
+static int open_output_stream(vcut_state *s)
 {
 	if(!s->out && !s->drop_output)
 	{
-		char *outname;
-		vcut_segment *segment = s->next_segment;
-		if(!segment) return 0;
-		
-		outname = segment->filename;
-		s->next_segment = segment->next;
-		free(segment);
-		
-		if(open_output_file(s,outname)!=0)
+		if(open_output_file(s, s->output_filename)!=0)
 			return -1;
- 	}
-	
-	open_output_stream(s);
-	return 0;
+	}
+
+	/* ogg_stream_init should only fail if stream_out is null */
+	int rv = ogg_stream_init(&s->stream_out, ++s->serial_out);
+	assert(rv == 0);
+
+	s->output_stream_open = 1;
+	return submit_headers_to_stream(s);
 }
 
 
@@ -271,21 +271,14 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	
+	state.output_filename = argv[2];
 	seg = vcut_malloc(sizeof(vcut_segment));
-	if(!seg)
-		exit(1);
-	seg->cuttime = -1;
-	seg->cutpoint = -1;
-	seg->filename = argv[2];
-	state.next_segment = seg;
-	seg->next = vcut_malloc(sizeof(vcut_segment));
-
-	seg = seg->next;
 	if(!seg)
 		exit(1);
 	seg->cuttime = -1;
 	seg->filename = argv[3];
 	seg->next = NULL;
+	state.next_segment = seg;
 
 	if(strchr(argv[4], '+') != NULL) {
 	  if(sscanf(argv[4], "%lf", &seg->cuttime) != 1) {
@@ -327,6 +320,7 @@ int process_audio_packet(vcut_state *s,
 {
 	int bs = get_blocksize(vs, packet);
 	long cut_on_eos = 0;
+	int packet_done = 0;
 	ogg_int64_t packet_start_granpos = vs->granulepos;
 	ogg_int64_t gp_to_global_sample_adj;
 
@@ -363,6 +357,9 @@ int process_audio_packet(vcut_state *s,
 		 * will start at granulepos 0, or will be the last packet
 		 * on its page (as mentioned above). */
 		vs->granulepos = 0;
+
+		/* Don't look for a cutpoint in this packet. */
+		packet_done = 1;
 	}
 	else
 	{
@@ -370,12 +367,13 @@ int process_audio_packet(vcut_state *s,
 	}
 
 	gp_to_global_sample_adj = s->prevstream_samples - vs->initial_granpos;
-	while(1)
+	while(!packet_done)
 	{
 		ogg_int64_t rel_cutpoint, rel_sample;
-		if(!s->next_segment) break;
+		vcut_segment *segment = s->next_segment;
+		if(!segment) break;
 
-		if(s->next_segment->cuttime >= 0)
+		if(segment->cuttime >= 0)
 		{
 			/* convert cuttime to cutpoint (a sample number) */
 			rel_cutpoint = vs->vi.rate * (s->next_segment->cuttime
@@ -383,14 +381,11 @@ int process_audio_packet(vcut_state *s,
 		}
 		else
 		{
-			if(s->next_segment->cutpoint == -1)
-				break;
-			rel_cutpoint = (s->next_segment->cutpoint
-					- s->prevstream_samples);
+			rel_cutpoint = (segment->cutpoint - s->prevstream_samples);
 		}
 
 		rel_sample = vs->granulepos - vs->initial_granpos;
-		if(rel_sample <= rel_cutpoint)
+		if(rel_sample < rel_cutpoint)
 			break;
 
 		/* reached the cutpoint */
@@ -419,44 +414,37 @@ int process_audio_packet(vcut_state *s,
 		packet->granulepos = rel_cutpoint;
 		cut_on_eos = packet->e_o_s;
 		packet->e_o_s = 1;
-		if(write_packet(s, packet) != 0)
-			return -1;
+		if(rel_cutpoint > 0)
+		{
+			if(write_packet(s, packet) != 0)
+				return -1;
+		}
 		if(close_output_file(s) != 0)
 			return -1;
 
-		packet->granulepos = vs->granulepos - rel_cutpoint;
 		vs->samples_cut = rel_cutpoint;
 		packet->e_o_s = cut_on_eos;
 
-		if(vs->last_packet.packet && vs->granulepos != rel_cutpoint)
-		{
-			ogg_packet ref_packet;
-			ref_packet.bytes = vs->last_packet.length;
-			ref_packet.packet = vs->last_packet.packet;
-			ref_packet.b_o_s = 0;
-			ref_packet.e_o_s = 0;
-			ref_packet.granulepos = 0;
+		s->output_filename = segment->filename;
+		s->next_segment = segment->next;
+		free(segment);
+		segment = NULL;
 
-			if(write_packet(s, &ref_packet) != 0)
-				return -1;
+		if(rel_cutpoint == rel_sample)
+		{
+			/* There's no unwritten data left in this packet. */
+			packet_done = 1;
 		}
-		else break;
 	}
 
-	/* We need to save the last packet in the first
-	 * stream - but we don't know when we're going
-	 * to get there. So we have to keep every packet
-	 * just in case. */
-	if(save_packet(packet, &vs->last_packet) != 0)
-		return -1;
-
-	
-	/* write the packet (header or audio) to the output stream */
-	if(vs->granulepos > 0)
+	/* Write the audio packet to the output stream, unless it's the
+	 * reference packet or we cut it at the last sample. */
+	if(!packet_done)
 	{
 		packet->granulepos = vs->granulepos
 				- vs->initial_granpos - vs->samples_cut;
-		if(packet->granulepos < bs && cut_on_eos && !s->drop_output)
+		if(packet->granulepos < bs && cut_on_eos
+				&& strcmp(s->output_filename, ".") != 0)
 		{
 			fprintf(stderr, _("Can't produce a file starting between sample"
 					" positions " FORMAT_INT64 " and " FORMAT_INT64 ".\n"),
@@ -466,8 +454,18 @@ int process_audio_packet(vcut_state *s,
 					" to suppress this error.\n"));
 			return -1;
 		}
+		if(write_packet(s, packet) != 0)
+			return -1;
 	}
-	return write_packet(s, packet);
+
+	/* We need to save the last packet in the first
+	 * stream - but we don't know when we're going
+	 * to get there. So we have to keep every packet
+	 * just in case. */
+	if(save_packet(packet, &vs->last_packet) != 0)
+		return -1;
+
+	return 0;
 }
 
 /* Writes a packet, opening an output stream/file if necessary.
@@ -475,11 +473,17 @@ int process_audio_packet(vcut_state *s,
 int write_packet(vcut_state *s, ogg_packet *packet)
 {
 	int flush;
-	if(!s->output_stream_open && open_next_output_stream(s) != 0)
+	if(!s->output_stream_open && open_output_stream(s) != 0)
 		return -1;
 
-	flush = (s->stream_out.packetno == 4 && packet->granulepos != -1)
-			|| packet->e_o_s;
+	/* According to the Vorbis I spec, we need to flush the stream after:
+	 *  - the first (BOS) header packet
+	 *  - the last header packet (packet #2)
+	 *  - the second audio packet (packet #4), if the stream starts at
+	 *    a non-zero granulepos */
+	flush = (s->stream_out.packetno == 2)
+			|| (s->stream_out.packetno == 4 && packet->granulepos != -1)
+			|| packet->b_o_s || packet->e_o_s;
 	ogg_stream_packetin(&s->stream_out, packet);
 
 	if(write_pages_to_file(&s->stream_out, s->out, flush) != 0)
