@@ -98,7 +98,7 @@ AC_ARG_ENABLE(ogg123, [  --disable-ogg123   Skip building ogg123], build_ogg123=
 AC_ARG_ENABLE(oggdec, [  --disable-oggdec   Skip building oggdec], build_oggdec="$enableval", build_oggdec="yes")
 AC_ARG_ENABLE(oggenc, [  --disable-oggenc   Skip building oggenc], build_oggenc="$enableval", build_oggenc="yes")
 AC_ARG_ENABLE(ogginfo,[  --disable-ogginfo  Skip building ogginfo], build_ogginfo="$enableval", build_ogginfo="yes")
-AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$enableval", build_vcut="no")
+AC_ARG_ENABLE(vcut,   [  --disable-vcut     Skip building vcut], build_vcut="$enableval", build_vcut="yes")
 AC_ARG_ENABLE(vorbiscomment, [  --disable-vorbiscomment   Skip building vorbiscomment], build_vorbiscomment="$enableval", build_vorbiscomment="yes")
 AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_flac="$withval", build_flac="yes")
 AC_ARG_WITH(speex,    [  --without-speex    Do not compile Speex support], build_speex="$withval", build_speex="yes")

@@ -61,9 +61,9 @@ static void usage(void)
     fprintf(stdout, _(" --version, -V    Print out version number.\n"));
     fprintf(stdout, _(" --bits, -b       Bit depth for output (8 and 16 supported)\n"));
     fprintf(stdout, _(" --endianness, -e Output endianness for 16-bit output; 0 for\n"
-                       "                  little endian (default), 1 for big endian.\n"));
+                      "                  little endian (default), 1 for big endian.\n"));
     fprintf(stdout, _(" --sign, -s       Sign for output PCM; 0 for unsigned, 1 for\n"
-                       "                  signed (default 1).\n"));
+                      "                  signed (default 1).\n"));
     fprintf(stdout, _(" --raw, -R        Raw (headerless) output.\n"));
     fprintf(stdout, _(" --output, -o     Output to given filename. May only be used\n"
                       "                  if there is only one input file, except in\n"
@@ -289,9 +289,9 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
             length = ov_pcm_total(&vf, 0);
         size = bits/8 * channels;
         if(!quiet)
-            fprintf(stderr, "Decoding \"%s\" to \"%s\"\n", 
-                    infile?infile:"standard input", 
-                    outfile?outfile:"standard output");
+            fprintf(stderr, _("Decoding \"%s\" to \"%s\"\n"), 
+                    infile?infile:_("standard input"), 
+                    outfile?outfile:_("standard output"));
     }
 
     if(!raw) {
