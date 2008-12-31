@@ -41,6 +41,7 @@ struct option long_options[] = {
 	{"version", 0, 0, 'V'},
 	{"commentfile",1,0,'c'},
 	{"raw", 0,0,'R'},
+	{"escapes",0,0,'e'},
 	{NULL,0,0,0}
 };
 
@@ -49,6 +50,7 @@ typedef struct {
 	/* mode and flags */
 	int	mode;
 	int	raw;
+	int	escapes;
 
 	/* file names and handles */
 	char	*infilename, *outfilename;
@@ -68,8 +70,11 @@ typedef struct {
 
 /* prototypes */
 void usage(void);
-void print_comments(FILE *out, vorbis_comment *vc, int raw);
-int  add_comment(char *line, vorbis_comment *vc, int raw);
+void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes);
+int  add_comment(char *line, vorbis_comment *vc, int raw, int escapes);
+
+char *escape(const char *from, int fromsize);
+char *unescape(const char *from, int *tosize);
 
 param_t	*new_param(void);
 void free_param(param_t *param);
@@ -197,7 +202,7 @@ int main(int argc, char **argv)
 
 		/* extract and display the comments */
 		vc = vcedit_comments(state);
-		print_comments(param->com, vc, param->raw);
+		print_comments(param->com, vc, param->raw, param->escapes);
 
 		/* done */
 		vcedit_clear(state);
@@ -231,7 +236,8 @@ int main(int argc, char **argv)
 
 		for(i=0; i < param->commentcount; i++)
 		{
-			if(add_comment(param->comments[i], vc, param->raw) < 0)
+			if (add_comment(param->comments[i], vc,
+					param->raw, param->escapes) < 0)
 				fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
 		}
 
@@ -242,7 +248,7 @@ int main(int argc, char **argv)
 
 			while ((comment = read_line (param->com)))
                         {
-                                if (add_comment (comment, vc, param->raw) < 0)
+                                if (add_comment(comment, vc, param->raw, param->escapes) < 0)
                                 {
                                         fprintf (stderr, _("bad comment: \"%s\"\n"),
                                                  comment);
@@ -285,17 +291,27 @@ int main(int argc, char **argv)
 
 ***********/
 
-void print_comments(FILE *out, vorbis_comment *vc, int raw)
+void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
 {
 	int i;
-	char *decoded_value;
+	char *escaped_value, *decoded_value;
 
 	for (i = 0; i < vc->comments; i++) {
-		if (!raw && utf8_decode(vc->user_comments[i], &decoded_value) >= 0) {
-    			fprintf(out, "%s\n", decoded_value);
+		if (escapes) {
+			escaped_value = escape(vc->user_comments[i], vc->comment_lengths[i]);
+		} else {
+			escaped_value = vc->user_comments[i];
+		}
+
+		if (!raw && utf8_decode(escaped_value, &decoded_value) >= 0) {
+			fprintf(out, "%s\n", decoded_value);
 			free(decoded_value);
 		} else {
-			fprintf(out, "%s\n", vc->user_comments[i]);
+			fprintf(out, "%s\n", escaped_value);
+		}
+
+		if (escapes) {
+			free(escaped_value);
 		}
 	}
 }
@@ -304,16 +320,17 @@ void print_comments(FILE *out, vorbis_comment *vc, int raw)
 
    Take a line of the form "TAG=value string", parse it, convert the
    value to UTF-8, and add it to the
-   vorbis_comment structure. Error checking is performed.
+   Error checking is performed (return 0 if OK, negative on error).
 
    Note that this assumes a null-terminated string, which may cause
    problems with > 8-bit character sets!
 
 ***********/
 
-int  add_comment(char *line, vorbis_comment *vc, int raw)
+int  add_comment(char *line, vorbis_comment *vc, int raw, int escapes)
 {
-	char	*mark, *value, *utf8_value;
+	char *mark, *value, *utf8_value, *unescaped_value;
+	int unescaped_len;
 
 	/* strip any terminal newline */
 	{
@@ -339,25 +356,155 @@ int  add_comment(char *line, vorbis_comment *vc, int raw)
 	*mark = '\0';	
 	value++;
 
-    if(raw) {
-	if (!utf8_validate(value))
-	    fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
-	else
-	    vorbis_comment_add_tag(vc, line, value);
-        return 0;
-    }
-	/* convert the value from the native charset to UTF-8 */
-    else if (utf8_encode(value, &utf8_value) >= 0) {
-		
-		/* append the comment and return */
-		vorbis_comment_add_tag(vc, line, utf8_value);
-        free(utf8_value);
-		return 0;
+	if (raw) {
+		if (!utf8_validate(value)) {
+			fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
+			return -1;
+		}
+		utf8_value = value;
 	} else {
-		fprintf(stderr, _("Couldn't convert comment to UTF-8, "
-			"cannot add\n"));
-		return -1;
+		/* convert the value from the native charset to UTF-8 */
+		if (utf8_encode(value, &utf8_value) < 0) {
+			fprintf(stderr,
+					_("Couldn't convert comment to UTF-8, cannot add\n"));
+			return -1;
+		}
 	}
+
+	if (escapes) {
+		unescaped_value = unescape(utf8_value, &unescaped_len);
+		/*
+		  NOTE: unescaped_len remains unused; to write comments with embeded
+		  \0's one would need to access the vc struct directly -- see
+		  vorbis_comment_add() in vorbis/lib/info.c for details, but use mem*
+		  instead of str*...
+		*/
+		if(unescaped_value == NULL) {
+			fprintf(stderr,
+					_("Couldn't un-escape comment, cannot add\n"));
+			if (!raw)
+				free(utf8_value);
+			return -1;
+		}
+	} else {
+		unescaped_value = utf8_value;
+	}
+
+	/* append the comment and return */
+	vorbis_comment_add_tag(vc, line, unescaped_value);
+	if (escapes)
+		free(unescaped_value);
+	if (!raw)
+		free(utf8_value);
+	return 0;
+}
+
+
+/*** Escaping routines. ***/
+
+/**********
+
+   Convert raw comment content to a safely escaped single-line 0-terminated
+   string.  The raw comment can contain null bytes and thus requires an
+   explicit size argument.  The size argument doesn't include a trailing '\0'
+   (the vorbis bitstream doesn't use one).
+
+   Returns the address of a newly allocated string - caller is responsible to
+   free it.
+
+***********/
+
+char *escape(const char *from, int fromsize)
+{
+	/* worst-case allocation, will be trimmed when done */
+	char *to = malloc(fromsize * 2 + 1);
+
+	char *s;
+	for (s = to; fromsize > 0; fromsize--, from++) {
+		switch (*from) {
+		case '\n':
+			*s++ = '\\';
+			*s++ = 'n';
+			break;
+		case '\r':
+			*s++ = '\\';
+			*s++ = 'r';
+			break;
+		case '\0':
+			*s++ = '\\';
+			*s++ = '0';
+			break;
+		case '\\':
+			*s++ = '\\';
+			*s++ = '\\';
+			break;
+		default:
+			/* normal character */
+			*s++ = *from;
+			break;
+		}
+	}
+	
+	*s++ = '\0';
+	to = realloc(to, s - to);	/* free unused space */
+	return to;
+}
+
+/**********
+
+   Convert a safely escaped 0-terminated string to raw comment content.  The
+   result can contain null bytes, so the the result's length is written into
+   *tosize.  This size doesn't include a trailing '\0' (the vorbis bitstream
+   doesn't use one) but we do append it for convenience since
+   vorbis_comment_add[_tag]() has a null-terminated interface.
+
+   Returns the address of a newly allocated string - caller is responsible to
+   free it.  Returns NULL in case of error (if the input is mal-formed).
+
+***********/
+
+char *unescape(const char *from, int *tosize)
+{
+	/* worst-case allocation, will be trimmed when done */
+	char *to = malloc(strlen(from) + 1);
+
+	char *s;
+	for (s = to; *from != '\0'; ) {
+		if (*from == '\\') {
+			from++;
+			switch (*from++) {
+			case 'n':
+				*s++ = '\n';
+				break;
+			case 'r':
+				*s++ = '\r';
+				break;
+			case '0':
+				*s++ = '\0';
+				break;
+			case '\\':
+				*s++ = '\\';
+				break;
+			case '\0':
+				/* A backslash as the last character of the string is an error. */
+				/* FALL-THROUGH */
+			default:
+				/* We consider any unrecognized escape as an error.  This is
+				   good in general and reserves them for future expansion. */
+				free(to);
+				return NULL;
+			}
+		} else {
+			/* normal character */
+			*s++ = *from++;
+		}
+	}
+
+	*tosize = s - to;			/* excluding '\0' */
+
+	*s++ = '\0';
+	to = realloc(to, s - to);	/* free unused space */
+	return to;
 }
 
 
@@ -383,9 +530,9 @@ void usage(void)
   printf ("\n");
 
   printf (_("Usage: \n"
-            "  vorbiscomment [-Vh]\n" 
-            "  vorbiscomment [-lR] file\n"
-            "  vorbiscomment [-R] [-c file] [-t tag] <-a|-w> inputfile [outputfile]\n"));
+	    "  vorbiscomment [-Vh]\n"
+	    "  vorbiscomment [-lRe] inputfile\n"
+	    "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"));
   printf ("\n");
 
   printf (_("Listing options\n"));
@@ -404,6 +551,7 @@ void usage(void)
             "                          When listing, write comments to the specified file.\n"
             "                          When editing, read comments from the specified file.\n"));
   printf (_("  -R, --raw               Read and write comments in UTF-8\n"));
+  printf (_("  -e, --escapes           Use \\n-style escapes to allow multiline comments.\n"));
   printf ("\n");
 
   printf (_("  -h, --help              Display this help\n"));
@@ -428,8 +576,10 @@ void usage(void)
   printf ("\n");
 
   printf (_("NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather than\n"
-            "converting to the user's character set, which is useful in scripts. However,\n"
-            "this is not sufficient for general round-tripping of comments in all cases.\n"));
+	    "converting to the user's character set, which is useful in scripts. However,\n"
+	    "this is not sufficient for general round-tripping of comments in all cases,\n"
+	    "since comments can contain newlines. To handle that, use escaping (-e,\n"
+	    "--escape).\n"));
 }
 
 void free_param(param_t *param) {
@@ -451,6 +601,7 @@ param_t *new_param(void)
 	/* mode and flags */
 	param->mode = MODE_LIST;
 	param->raw = 0;
+	param->escapes = 0;
 
 	/* filenames */
 	param->infilename  = NULL;
@@ -485,7 +636,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 
 	setlocale(LC_ALL, "");
 
-	while ((ret = getopt_long(argc, argv, "alwhqVc:t:R",
+	while ((ret = getopt_long(argc, argv, "alwhqVc:t:Re",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -497,6 +648,9 @@ void parse_options(int argc, char *argv[], param_t *param)
 				break;
 			case 'R':
 				param->raw = 1;
+				break;
+			case 'e':
+				param->escapes = 1;
 				break;
 			case 'w':
 				param->mode = MODE_WRITE;

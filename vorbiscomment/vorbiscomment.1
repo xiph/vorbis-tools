@@ -1,20 +1,24 @@
 .\" Process this file with
 .\" groff -man -Tascii vorbiscomment.1
 .\"
-.TH VORBISCOMMENT 1 "November 19, 2007" "Xiph.Org Foundation" "Ogg Vorbis Tools"
+.TH VORBISCOMMENT 1 "December 30, 2008" "Xiph.Org Foundation" "Ogg Vorbis Tools"
 
 .SH NAME
 vorbiscomment \- List or edit comments in Ogg Vorbis files
 
 .SH SYNOPSIS
 .B vorbiscomment
-.RB [ -l ]
+.B [-l]
+.RB [ -R ]
+.RB [ -e ]
 .I file.ogg
 .br
 .B vorbiscomment
 .B -a
 .B [ -c commentfile | -t \*(lqname=value\*(rq ]
 .RB [ -q ]
+.RB [ -R ]
+.RB [ -e ]
 .I in.ogg
 .I [out.ogg]
 .br
@@ -22,6 +26,8 @@ vorbiscomment \- List or edit comments in Ogg Vorbis files
 .B -w
 .B [ -c commentfile | -t \*(lqname=value\*(rq ]
 .RB [ -q ]
+.RB [ -R ]
+.RB [ -e ]
 .I in.ogg
 .I [out.ogg]
 
@@ -46,6 +52,12 @@ Specify a new tag on the command line. Each tag is given as a single string. The
 Replace comments with the new set given either on the command line with -t or from a file with -c. If neither -c nor -t is given, the new set will be read from the standard input.
 .IP "-R, --raw"
 Read and write comments in UTF-8, rather than converting to the user's character set.
+.IP "-e, --escapes"
+Quote/unquote newlines and backslashes in the comments. This ensures every comment is exactly one line in the output (or input), allowing to filter and round-trip them. Without it, you can only write multi-line comments by using -t and you can't reliably distinguish them from multiple one-line comments.
+
+Supported escapes are c-style "\en", "\er", "\e\e" and "\e0". A backslash followed by anything else is an error.
+
+Note: currently, anything after the first "\e0" is thrown away while writing.  This is a bug -- the Vorbis format can safely store null characters, but most other tools wouldn't handle them anyway.
 .IP "-V, --version"
 Display the version of vorbiscomment.
 
