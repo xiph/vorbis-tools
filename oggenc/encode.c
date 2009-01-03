@@ -359,7 +359,7 @@ int oe_encode(oe_enc_opt *opt)
         } else {
             /* init kate for encoding */
             kate_info_init(&ki);
-            kate_info_set_category(&ki, "lyrics");
+            kate_info_set_category(&ki, "LRC");
             if (opt->lyrics_language)
               kate_info_set_language(&ki, opt->lyrics_language);
             else
