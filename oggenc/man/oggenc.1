@@ -267,14 +267,14 @@ crispness of transients in the encoded audio.  The tradeoff for better
 transient response is a higher bitrate.
 
 .IP "bitrate_hard_max=N"
-Set the allowed bitrate maximum for the encoded file to N bits per 
+Set the allowed bitrate maximum for the encoded file to N kilobits per 
 second.  This bitrate may be exceeded only when there is spare bits
 in the bit reservoir; if the bit reservoir is exhausted, frames will
 be held under this value.  This setting must be used with --managed 
 to have any effect.
 
 .IP "bitrate_hard_min=N"
-Set the allowed bitrate minimum for the encoded file to N bits per
+Set the allowed bitrate minimum for the encoded file to N kilobits per
 second.  This bitrate may be underrun only when the bit reservoir is
 not full; if the bit reservoir is full, frames will be held over this
 value; if it impossible to add bits constructively, the frame will be
@@ -300,7 +300,7 @@ middle, the manager uses a balanced approach.  The default setting is \.2,
 thus biasing slightly toward transient reproduction.
 
 .IP "bitrate_average=N"
-Set the average bitrate for the file to N bits per second.  When used
+Set the average bitrate for the file to N kilobits per second.  When used
 without hard minimum or maximum limits, this option selects
 reservoirless Average Bit Rate encoding, where the encoder attempts to
 perfectly track a desired bitrate, but imposes no strict momentary
