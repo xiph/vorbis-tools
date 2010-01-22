@@ -30,6 +30,7 @@ typedef struct {
     int bytespersec;
     short align;
     short samplesize;
+    unsigned int mask;
 } wav_fmt;
 
 typedef struct {

@@ -386,7 +386,7 @@ static int wav_permute_matrix[8][8] =
 
 int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 {
-    unsigned char buf[16];
+    unsigned char buf[40];
     unsigned int len;
     int samplesize;
     wav_fmt format;
@@ -408,34 +408,45 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
         return 0; /* Weird format chunk */
     }
 
-    /* A common error is to have a format chunk that is not 16 or 18 bytes
-     * in size.  This is incorrect, but not fatal, so we only warn about 
-     * it instead of refusing to work with the file.  Please, if you
-     * have a program that's creating format chunks of sizes other than
-     * 16 or 18 bytes in size, report a bug to the author.
+    /* A common error is to have a format chunk that is not 16, 18 or
+     * 40 bytes in size.  This is incorrect, but not fatal, so we only
+     * warn about it instead of refusing to work with the file.
+     * Please, if you have a program that's creating format chunks of
+     * sizes other than 16 or 18 bytes in size, report a bug to the
+     * author.
      */
-    if(len!=16 && len!=18)
+    if(len!=16 && len!=18 && len!=40)
         fprintf(stderr, 
                 _("Warning: INVALID format chunk in wav header.\n"
                 " Trying to read anyway (may not work)...\n"));
 
-    if(fread(buf,1,16,in) < 16)
+    if(len>40)len=40;
+
+    if(fread(buf,1,len,in) < len)
     {
         fprintf(stderr, _("Warning: Unexpected EOF in reading WAV header\n"));
         return 0;
     }
 
-    /* Deal with stupid broken apps. Don't use these programs.
-     */
-    if(len - 16 > 0 && !seek_forward(in, len-16))
-        return 0;
-
-    format.format =      READ_U16_LE(buf); 
-    format.channels =    READ_U16_LE(buf+2); 
+    format.format =      READ_U16_LE(buf);
+    format.channels =    READ_U16_LE(buf+2);
     format.samplerate =  READ_U32_LE(buf+4);
     format.bytespersec = READ_U32_LE(buf+8);
     format.align =       READ_U16_LE(buf+12);
     format.samplesize =  READ_U16_LE(buf+14);
+
+    if(format.format == -2) /* WAVE_FORMAT_EXTENSIBLE */
+    {
+      if(len<40)
+      {
+        fprintf(stderr,"ERROR: Extended WAV format header invalid (too small)\n");
+        return 0;
+      }
+
+      format.mask = READ_U32_LE(buf+20); /* not used for now, not entirely clear it's useful */
+      format.format = READ_U16_LE(buf+24);
+
+    }
 
     if(!find_wav_chunk(in, "data", &len))
         return 0; /* EOF */
