@@ -142,6 +142,19 @@ int flac_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
     return 1;
 }
 
+/* FLAC follows the WAV channel ordering pattern; we must permute to
+   put things in Vorbis channel order */
+static int wav_permute_matrix[8][8] = 
+{
+  {0},              /* 1.0 mono   */
+  {0,1},            /* 2.0 stereo */
+  {0,2,1},          /* 3.0 channel ('wide') stereo */
+  {0,1,2,3},        /* 4.0 discrete quadraphonic */
+  {0,2,1,3,4},      /* 5.0 surround */
+  {0,2,1,4,5,3},    /* 5.1 surround */
+  {0,2,1,4,5,6,3},  /* 6.1 surround */
+  {0,2,1,6,7,4,5,3} /* 7.1 surround (classic theater 8-track) */
+};
 
 long flac_read(void *in, float **buffer, int samples)
 {
@@ -156,10 +169,12 @@ long flac_read(void *in, float **buffer, int samples)
             int copy = flac->buf_fill < (samples - realsamples) ?
                 flac->buf_fill : (samples - realsamples);
 
-            for (i = 0; i < flac->channels; i++)
+            for (i = 0; i < flac->channels; i++){
+              int permute = wav_permute_matrix[flac->channels-1][i];
                 for (j = 0; j < copy; j++)
-                    buffer[i][j+realsamples] = 
-                        flac->buf[i][j+flac->buf_start];
+                    buffer[i][j+realsamples] =
+                        flac->buf[permute][j+flac->buf_start];
+            }
             flac->buf_start += copy;
             flac->buf_fill -= copy;
             realsamples += copy;
