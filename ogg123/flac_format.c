@@ -264,6 +264,36 @@ int flac_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.channels = priv->channels;
     decoder->actual_fmt.word_size = ((priv->bits_per_sample + 7) / 8);
 
+    switch(decoder->actual_fmt.channels){
+    case 1:
+      decoder->actual_fmt.matrix="M";
+      break;
+    case 2:
+      decoder->actual_fmt.matrix="L,R";
+      break;
+    case 3:
+      decoder->actual_fmt.matrix="L,R,C";
+      break;
+    case 4:
+      decoder->actual_fmt.matrix="L,R,BL,BR";
+      break;
+    case 5:
+      decoder->actual_fmt.matrix="L,R,C,BL,BR";
+      break;
+    case 6:
+      decoder->actual_fmt.matrix="L,R,C,LFE,BL,BR";
+      break;
+    case 7:
+      decoder->actual_fmt.matrix="L,R,C,LFE,SL,SR,BC";
+      break;
+    case 8:
+      decoder->actual_fmt.matrix="L,R,C,LFE,SL,SR,BL,BR";
+      break;
+    default:
+      decoder->actual_fmt.matrix=NULL;
+      break;
+    }
+
     print_flac_stream_info(decoder);
     if (priv->comments != NULL) 
       print_flac_comments(&priv->comments->data.vorbis_comment, cb,
