@@ -231,6 +231,17 @@ int aiff_id(unsigned char *buf, int len)
     return 1;
 }
 
+static int aiff_permute_matrix[6][6] = 
+{
+  {0},              /* 1.0 mono   */
+  {0,1},            /* 2.0 stereo */
+  {0,2,1},          /* 3.0 channel ('wide') stereo */
+  {0,1,2,3},        /* 4.0 discrete quadraphonic (WARN) */
+  {0,2,1,3,4},      /* 5.0 surround (WARN) */
+  {0,1,2,3,4,5},    /* 5.1 surround (WARN)*/
+};
+
+
 int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 {
     int aifc; /* AIFC or AIFF? */
@@ -333,13 +344,22 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
         aiff->samplesize = format.samplesize;
         aiff->totalsamples = format.totalframes;
 
+        if(aiff->channels>3)
+          fprintf(stderr,"WARNING: AIFF[-C] files with greater than three channels use\n"
+                  "speaker locations incompatable with Vorbis suppound definitions.\n"
+                  "Not performaing channel location mapping.\n");
+
         opt->readdata = (void *)aiff;
 
         aiff->channel_permute = malloc(aiff->channels * sizeof(int));
-        /* Use a default 1-1 mapping, not sure what the spec says */
-        for (i=0; i < aiff->channels; i++)
-            aiff->channel_permute[i] = i;
-
+        if (aiff->channels <= 6)
+            /* Where we know the mappings, use them. */
+            memcpy(aiff->channel_permute, aiff_permute_matrix[aiff->channels-1], 
+                    sizeof(int) * aiff->channels);
+        else
+            /* Use a default 1-1 mapping */
+            for (i=0; i < aiff->channels; i++)
+                aiff->channel_permute[i] = i;
 
         seek_forward(in, format.offset); /* Swallow some data */
         return 1;
@@ -549,9 +569,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
         wav->totalsamples = opt->total_samples_per_channel;
 
         opt->readdata = (void *)wav;
-        
-        /* TODO: Read the extended wav header to get this right in weird cases,
-         * and/or error out if neccesary. Suck. */
+
         wav->channel_permute = malloc(wav->channels * sizeof(int));
         if (wav->channels <= 8)
             /* Where we know the mappings, use them. */
@@ -590,7 +608,7 @@ long wav_read(void *in, float **buffer, int samples)
 
     realsamples = bytes_read/(sampbyte*f->channels);
     f->samplesread += realsamples;
-        
+
     if(f->samplesize==8)
     {
         unsigned char *bufu = (unsigned char *)buf;
