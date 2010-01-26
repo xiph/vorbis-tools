@@ -443,9 +443,41 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
         return 0;
       }
 
-      format.mask = READ_U32_LE(buf+20); /* not used for now, not entirely clear it's useful */
+      format.mask = READ_U32_LE(buf+20);
+      /* warn the user if the format mask is not a supported/expected type */
+      switch(format.mask){
+      case 1539: /* 4.0 using side surround instead of back */
+        fprintf(stderr,"WARNING: WAV file uses side surround instead of rear for quadraphonic;\n"
+                "remapping side speakers to rear in encoding.\n");
+        break;
+      case 1551: /* 5.1 using side instead of rear */
+        fprintf(stderr,"WARNING: WAV file uses side surround instead of rear for 5.1;\n"
+                "remapping side speakers to rear in encoding.\n");
+        break;
+      case 319:  /* 6.1 using rear instead of side */
+        fprintf(stderr,"WARNING: WAV file uses rear surround instead of side for 6.1;\n"
+                "remapping rear speakers to side in encoding.\n");
+        break;
+      case 255:  /* 7.1 'Widescreen' */
+        fprintf(stderr,"WARNING: WAV file is a 7.1 'Widescreen' channel mapping;\n"
+                "remapping speakers to Vorbis 7.1 format.\n");
+        break;
+      case 0:    /* default/undeclared */
+      case 1:    /* mono */
+      case 3:    /* stereo */
+      case 51:   /* quad */
+      case 55:   /* 5.0 */
+      case 63:   /* 5.1 */
+      case 1807: /* 6.1 */
+      case 1599: /* 7.1 */
+        break;
+      default:
+        fprintf(stderr,"WARNING: Unknown WAV surround channel mask: %d\n"
+                "blindly mapping speakers using default SMPTE/ITU ordering.\n",
+                format.mask);
+        break;
+      }
       format.format = READ_U16_LE(buf+24);
-      fprintf(stderr,"Channel mask: %x\n",format.mask);
     }
 
     if(!find_wav_chunk(in, "data", &len))
