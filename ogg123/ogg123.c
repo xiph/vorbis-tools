@@ -53,7 +53,6 @@
 
 extern int exit_status; /* from status.c */
 
-void exit_cleanup ();
 void play (char *source_string);
 
 #define PRIMAGIC (2*2*2*2*3*3*3*5*7)
@@ -64,7 +63,7 @@ int convsize = AUDIO_CHUNK_SIZE;
 
 ogg123_options_t options;
 stat_format_t *stat_format;
-buf_t *audio_buffer;
+buf_t *audio_buffer=NULL;
 
 audio_play_arg_t audio_play_arg;
 
@@ -466,7 +465,6 @@ int main(int argc, char **argv)
 
   /* Setup signal handlers and callbacks */
 
-  ATEXIT (exit_cleanup);
   signal (SIGINT, signal_handler);
   signal (SIGTSTP, signal_handler);
   signal (SIGCONT, signal_handler);
@@ -504,6 +502,13 @@ int main(int argc, char **argv)
   }
   playlist_array_destroy(playlist_array, items);
   status_deinit();
+
+  if (audio_buffer != NULL) {
+    buffer_destroy (audio_buffer);
+    audio_buffer = NULL;
+  }
+
+  ao_onexit (options.devices);
 
   exit (exit_status);
 }
@@ -747,14 +752,3 @@ void play (char *source_string)
     exit (exit_status);
 }
 
-
-void exit_cleanup ()
-{
-
-  if (audio_buffer != NULL) {
-    buffer_destroy (audio_buffer);
-    audio_buffer = NULL;
-  }
-
-  ao_onexit (options.devices);
-}

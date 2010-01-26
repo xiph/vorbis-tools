@@ -124,12 +124,12 @@ audio_reopen_arg_t *new_audio_reopen_arg (audio_device_t *devices,
 {
   audio_reopen_arg_t *arg;
 
-  if ( (arg = malloc(sizeof(audio_reopen_arg_t))) == NULL ) {
+  if ( (arg = calloc(1,sizeof(audio_reopen_arg_t))) == NULL ) {
     status_error(_("ERROR: Out of memory in new_audio_reopen_arg().\n"));
     exit(1);
   }
 
-  if ( (arg->format = malloc(sizeof(audio_format_t))) == NULL ) {
+  if ( (arg->format = calloc(1,sizeof(audio_format_t))) == NULL ) {
     status_error(_("ERROR: Out of memory in new_audio_reopen_arg().\n"));
     exit(1);
   }
@@ -175,7 +175,7 @@ print_statistics_arg_t *new_print_statistics_arg (
 {
   print_statistics_arg_t *arg;
 
-  if ( (arg = malloc(sizeof(print_statistics_arg_t))) == NULL ) {
+  if ( (arg = calloc(1,sizeof(print_statistics_arg_t))) == NULL ) {
     status_error(_("Error: Out of memory in new_print_statistics_arg().\n"));
     exit(1);
   }
@@ -234,7 +234,7 @@ status_message_arg_t *new_status_message_arg (int verbosity)
 {
   status_message_arg_t *arg;
 
-  if ( (arg = malloc(sizeof(status_message_arg_t))) == NULL ) {
+  if ( (arg = calloc(1,sizeof(status_message_arg_t))) == NULL ) {
     status_error(_("ERROR: Out of memory in new_status_message_arg().\n"));
     exit(1);
   }
@@ -280,7 +280,7 @@ void decoder_buffered_error_callback (void *arg, int severity,
   /* Preformat the string and allocate space for it.  This code taken
      straight from the vsnprintf() man page.  We do this here because
      we might need to reinit ap several times. */
-  if ((sm_arg->message = malloc (size)) == NULL) {
+  if ((sm_arg->message = calloc (size,1)) == NULL) {
     status_error(_("Error: Out of memory in decoder_buffered_metadata_callback().\n"));
     exit(1);
   }
@@ -336,7 +336,7 @@ void decoder_buffered_metadata_callback (void *arg, int verbosity,
   /* Preformat the string and allocate space for it.  This code taken
      straight from the vsnprintf() man page.  We do this here because
      we might need to reinit ap several times. */
-  if ((sm_arg->message = malloc (size)) == NULL) {
+  if ((sm_arg->message = calloc (size,1)) == NULL) {
     status_error(_("ERROR: Out of memory in decoder_buffered_metadata_callback().\n"));
     exit(1);
   }
