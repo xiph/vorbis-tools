@@ -139,6 +139,36 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     decoder->actual_fmt.rate = priv->vi->rate;
     decoder->actual_fmt.channels = priv->vi->channels;
 
+    switch(decoder->actual_fmt.channels){
+    case 1:
+      decoder->actual_fmt.matrix="M";
+      break;
+    case 2:
+      decoder->actual_fmt.matrix="L,R";
+      break;
+    case 3:
+      decoder->actual_fmt.matrix="L,C,R";
+      break;
+    case 4:
+      decoder->actual_fmt.matrix="L,R,BL,BR";
+      break;
+    case 5:
+      decoder->actual_fmt.matrix="L,C,R,BL,BR";
+      break;
+    case 6:
+      decoder->actual_fmt.matrix="L,C,R,BL,BR,LFE";
+      break;
+    case 7:
+      decoder->actual_fmt.matrix="L,C,R,SL,SR,BC,LFE";
+      break;
+    case 8:
+      decoder->actual_fmt.matrix="L,C,R,SL,SR,BL,BR,LFE";
+      break;
+    default:
+      decoder->actual_fmt.matrix=NULL;
+      break;
+    }
+
 #ifdef HAVE_OV_READ_FILTER
     vg_init(&priv->vg, priv->vc);
 #endif

@@ -445,7 +445,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
 
       format.mask = READ_U32_LE(buf+20); /* not used for now, not entirely clear it's useful */
       format.format = READ_U16_LE(buf+24);
-
+      fprintf(stderr,"Channel mask: %x\n",format.mask);
     }
 
     if(!find_wav_chunk(in, "data", &len))

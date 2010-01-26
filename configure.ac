@@ -189,7 +189,9 @@ fi
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
   XIPH_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
-
+  AC_CHECK_MEMBER(ao_sample_format.matrix,,
+	build_ogg123=no; AC_MSG_WARN([libao too old; >= 1.0.0 needed]),
+	[#include <ao/ao.h>])
   ACX_PTHREAD(,build_ogg123=no; AC_MSG_WARN(POSIX threads missing))
 fi
 

@@ -29,6 +29,7 @@ typedef struct audio_format_t {
   int signed_sample;
   int rate;
   int channels;
+  char *matrix; 
 } audio_format_t;
 
 

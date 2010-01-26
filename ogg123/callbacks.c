@@ -54,6 +54,7 @@ void audio_reopen_action (buf_t *buf, void *arg)
   format.bits = reopen_arg->format->word_size * 8;
   format.byte_format = reopen_arg->format->big_endian ? 
     AO_FMT_BIG : AO_FMT_LITTLE;
+  format.matrix = reopen_arg->format->matrix;
 
   current = reopen_arg->devices;
 
@@ -111,6 +112,8 @@ void audio_reopen_action (buf_t *buf, void *arg)
   }
 
   /* Cleanup argument */
+  if(reopen_arg->format->matrix)
+    free(reopen_arg->format->matrix);
   free(reopen_arg->format);
   free(reopen_arg);
 }
@@ -134,6 +137,8 @@ audio_reopen_arg_t *new_audio_reopen_arg (audio_device_t *devices,
   arg->devices = devices;
   /* Copy format in case fmt is recycled later */
   *arg->format = *fmt;
+  if(fmt->matrix)
+    arg->format->matrix = strdup(fmt->matrix);
 
   return arg;
 }

@@ -278,6 +278,18 @@ int parse_cmdline_options (int argc, char **argv,
 					     NULL);
     }
 
+  /* if verbosity has been altered, add options to drivers... */
+  {
+    audio_device_t *head = ogg123_opts->devices;
+    while (head){
+      if(ogg123_opts->verbosity>2)
+        ao_append_option(&(head->options),"verbose",NULL);
+      if(ogg123_opts->verbosity==0)
+        ao_append_option(&(head->options),"quiet",NULL);
+      head = head->next_device;
+    }
+  }
+
 
   return optind;
 }

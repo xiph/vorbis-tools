@@ -33,9 +33,10 @@ int audio_format_equal (audio_format_t *a, audio_format_t *b)
     a->word_size     == b->word_size     &&
     a->signed_sample == b->signed_sample &&
     a->rate          == b->rate          &&
-    a->channels      == b->channels;
+    a->channels      == b->channels      &&
+    ((a->matrix==NULL && b->matrix==NULL) ||
+     !strcmp(a->matrix,b->matrix));
 }
-
 
 audio_device_t *append_audio_device(audio_device_t *devices_list,
 				     int driver_id,
