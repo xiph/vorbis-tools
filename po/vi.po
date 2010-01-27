@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.2.1\n"
-"Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
-"POT-Creation-Date: 2008-09-12 02:53+0100\n"
+"Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
+"POT-Creation-Date: 2008-11-06 00:04+0000\n"
 "PO-Revision-Date: 2008-09-22 18:57+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -18,75 +18,94 @@ msgstr ""
 "X-Generator: LocFactoryEditor 1.7b3\n"
 
 #: ogg123/buffer.c:117
-#, c-format
-msgid "Error: Out of memory in malloc_action().\n"
+#, fuzzy, c-format
+msgid "ERROR: Out of memory in malloc_action().\n"
 msgstr "Error: Out of memory in malloc_action().\n"
 
 #: ogg123/buffer.c:360
-#, c-format
-msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
-msgstr "Lỗi: không thể phân địnha đủ bộ trong « malloc_buffer_stats() » (thống kê vùng đệm phân định bộ nhớ)\n"
+#, fuzzy, c-format
+msgid "ERROR: Could not allocate memory in malloc_buffer_stats()\n"
+msgstr ""
+"Lỗi: không thể phân địnha đủ bộ trong « malloc_buffer_stats() » (thống kê "
+"vùng đệm phân định bộ nhớ)\n"
 
 #: ogg123/callbacks.c:75
-msgid "Error: Device not available.\n"
+#, fuzzy
+msgid "ERROR: Device not available.\n"
 msgstr "Lỗi: thiết bị không sẵn sàng.\n"
 
 #: ogg123/callbacks.c:78
-#, c-format
-msgid "Error: %s requires an output filename to be specified with -f.\n"
+#, fuzzy, c-format
+msgid "ERROR: %s requires an output filename to be specified with -f.\n"
 msgstr "Lỗi: %s cần thiết tên tập tin xuất được ghi rõ bằng tùy chọn « -f ».\n"
 
 #: ogg123/callbacks.c:81
-#, c-format
-msgid "Error: Unsupported option value to %s device.\n"
+#, fuzzy, c-format
+msgid "ERROR: Unsupported option value to %s device.\n"
 msgstr "Lỗi: giá trị tùy chọn không được hỗ trợ đối với thiết bị %s.\n"
 
 #: ogg123/callbacks.c:85
-#, c-format
-msgid "Error: Cannot open device %s.\n"
+#, fuzzy, c-format
+msgid "ERROR: Cannot open device %s.\n"
 msgstr "Lỗi: không thể mở thiết bị %s.\n"
 
 #: ogg123/callbacks.c:89
-#, c-format
-msgid "Error: Device %s failure.\n"
+#, fuzzy, c-format
+msgid "ERROR: Device %s failure.\n"
 msgstr "Lỗi: thiết bị %s bị hỏng hóc.\n"
 
 #: ogg123/callbacks.c:92
-#, c-format
-msgid "Error: An output file cannot be given for %s device.\n"
+#, fuzzy, c-format
+msgid "ERROR: An output file cannot be given for %s device.\n"
 msgstr "Lỗi: không thể đưa ra tập tin xuất cho thiết bị %s.\n"
 
 #: ogg123/callbacks.c:95
-#, c-format
-msgid "Error: Cannot open file %s for writing.\n"
+#, fuzzy, c-format
+msgid "ERROR: Cannot open file %s for writing.\n"
 msgstr "Lỗi: không thể mở tập tin %s để ghi.\n"
 
 #: ogg123/callbacks.c:99
-#, c-format
-msgid "Error: File %s already exists.\n"
+#, fuzzy, c-format
+msgid "ERROR: File %s already exists.\n"
 msgstr "Lỗi: tập tin %s đã có.\n"
 
 #: ogg123/callbacks.c:102
-#, c-format
-msgid "Error: This error should never happen (%d).  Panic!\n"
+#, fuzzy, c-format
+msgid "ERROR: This error should never happen (%d).  Panic!\n"
 msgstr "Lỗi: lỗi này không bao giờ nên xảy ra (%d). Nghiệm trọng!\n"
 
 #: ogg123/callbacks.c:125 ogg123/callbacks.c:130
-msgid "Error: Out of memory in new_audio_reopen_arg().\n"
-msgstr "Lỗi: hết bộ nhớ trong « new_audio_reopen_arg() » (đối số mở lại âm thanh mới).\n"
+#, fuzzy
+msgid "ERROR: Out of memory in new_audio_reopen_arg().\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « new_audio_reopen_arg() » (đối số mở lại âm thanh "
+"mới).\n"
 
 #: ogg123/callbacks.c:174
 msgid "Error: Out of memory in new_print_statistics_arg().\n"
-msgstr "Lỗi: hết bộ nhớ trong « new_print_statistics_arg() » (đối số thống kê in mới).\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « new_print_statistics_arg() » (đối số thống kê in "
+"mới).\n"
 
 #: ogg123/callbacks.c:233
-msgid "Error: Out of memory in new_status_message_arg().\n"
-msgstr "Lỗi: hết bộ nhớ trong « new_status_message_arg() » (đối số thông điệp trạng thái mới).\n"
+#, fuzzy
+msgid "ERROR: Out of memory in new_status_message_arg().\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « new_status_message_arg() » (đối số thông điệp trạng "
+"thái mới).\n"
 
-#: ogg123/callbacks.c:279 ogg123/callbacks.c:298 ogg123/callbacks.c:335
-#: ogg123/callbacks.c:354
+#: ogg123/callbacks.c:279 ogg123/callbacks.c:298
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
-msgstr "Lỗi: hết bộ nhớ trong « decoder_buffered_metadata_callback() » (gọi lại siêu dữ liệu có vùng đệm bộ giải mã).\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « decoder_buffered_metadata_callback() » (gọi lại siêu "
+"dữ liệu có vùng đệm bộ giải mã).\n"
+
+#: ogg123/callbacks.c:335 ogg123/callbacks.c:354
+#, fuzzy
+msgid "ERROR: Out of memory in decoder_buffered_metadata_callback().\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « decoder_buffered_metadata_callback() » (gọi lại siêu "
+"dữ liệu có vùng đệm bộ giải mã).\n"
 
 #: ogg123/cfgfile_options.c:55
 msgid "System error"
@@ -157,9 +176,9 @@ msgstr "khác"
 msgid "(NULL)"
 msgstr "(RỖNG)"
 
-#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:571 oggenc/oggenc.c:576
-#: oggenc/oggenc.c:581 oggenc/oggenc.c:586 oggenc/oggenc.c:591
-#: oggenc/oggenc.c:596
+#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:647 oggenc/oggenc.c:652
+#: oggenc/oggenc.c:657 oggenc/oggenc.c:662 oggenc/oggenc.c:667
+#: oggenc/oggenc.c:672
 msgid "(none)"
 msgstr "(không có)"
 
@@ -262,11 +281,16 @@ msgstr "—— Tùy chọn xung đột: giờ kết thúc nằm trước giờ b
 #: ogg123/cmdline_options.c:261
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
-msgstr "━━ Trình điều khiển %s được ghi rõ trong tập tin cấu hình là không hợp lệ.\n"
+msgstr ""
+"━━ Trình điều khiển %s được ghi rõ trong tập tin cấu hình là không hợp lệ.\n"
 
 #: ogg123/cmdline_options.c:271
-msgid "=== Could not load default driver and no driver specified in config file. Exiting.\n"
-msgstr "━━ Không thể tải trình điều khiển mặc định và chưa ghi rõ trình điều khiển trong tập tin cấu hình nên thoát.\n"
+msgid ""
+"=== Could not load default driver and no driver specified in config file. "
+"Exiting.\n"
+msgstr ""
+"━━ Không thể tải trình điều khiển mặc định và chưa ghi rõ trình điều khiển "
+"trong tập tin cấu hình nên thoát.\n"
 
 #: ogg123/cmdline_options.c:292
 #, c-format
@@ -321,8 +345,11 @@ msgstr "Tùy chọn xuất\n"
 
 #: ogg123/cmdline_options.c:311
 #, c-format
-msgid "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
-msgstr "  -d thiết_bị, --device thiết_bị    Dùng thiết bị xuất này. Các thiết bị sẵn sàng:\n"
+msgid ""
+"  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
+msgstr ""
+"  -d thiết_bị, --device thiết_bị    Dùng thiết bị xuất này. Các thiết bị sẵn "
+"sàng:\n"
 
 #: ogg123/cmdline_options.c:313
 #, c-format
@@ -340,13 +367,16 @@ msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
 "                          previously specified with --device.\n"
 msgstr ""
-"  -f tập_tin, --file tập_tin    Đặt tên tập tin xuất cho một thiết bị tập tin\n"
+"  -f tập_tin, --file tập_tin    Đặt tên tập tin xuất cho một thiết bị tập "
+"tin\n"
 "\t\t\t\tđược xác định trước dùng « --device ».\n"
 
 #: ogg123/cmdline_options.c:334
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
-msgstr "  --audio-buffer n        Dùng một vùng đệm âm thanh xuất có kích cỡ « n » kilô-byte\n"
+msgstr ""
+"  --audio-buffer n        Dùng một vùng đệm âm thanh xuất có kích cỡ « n » "
+"kilô-byte\n"
 
 #: ogg123/cmdline_options.c:335
 #, c-format
@@ -369,8 +399,11 @@ msgstr "Tùy chọn danh mục phát\n"
 
 #: ogg123/cmdline_options.c:342
 #, c-format
-msgid "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
-msgstr "  -@ tập_tin, --list tập_tin    Đọc danh mục phát các tập tin và địa chỉ URL từ tập tin này\n"
+msgid ""
+"  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
+msgstr ""
+"  -@ tập_tin, --list tập_tin    Đọc danh mục phát các tập tin và địa chỉ URL "
+"từ tập tin này\n"
 
 #: ogg123/cmdline_options.c:343
 #, c-format
@@ -385,12 +418,14 @@ msgstr "  -R, --remote            Dùng giao diện điều khiển từ xa\n"
 #: ogg123/cmdline_options.c:345
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
-msgstr "  -z, --shuffle           Trộn bài danh sách các tập tin trước khi phát\n"
+msgstr ""
+"  -z, --shuffle           Trộn bài danh sách các tập tin trước khi phát\n"
 
 #: ogg123/cmdline_options.c:346
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
-msgstr "  -Z, --random            Phát ngẫu nhiên các tập tin đến khi bị giản đoạn\n"
+msgstr ""
+"  -Z, --random            Phát ngẫu nhiên các tập tin đến khi bị giản đoạn\n"
 
 #: ogg123/cmdline_options.c:349
 #, c-format
@@ -400,7 +435,8 @@ msgstr "Tùy chọn nhập liệu\n"
 #: ogg123/cmdline_options.c:350
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
-msgstr "  -b n, --buffer n        Dùng một vùng đệm nhập có kích cỡ « n » kilô-byte\n"
+msgstr ""
+"  -b n, --buffer n        Dùng một vùng đệm nhập có kích cỡ « n » kilô-byte\n"
 
 #: ogg123/cmdline_options.c:351
 #, c-format
@@ -414,16 +450,20 @@ msgstr "Tùy chọn giải mã\n"
 
 #: ogg123/cmdline_options.c:355
 #, c-format
-msgid "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
+msgid ""
+"  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
-"  -k n, --skip n          Bỏ qua « n » giây đầu tiên (hoặc dùng định dạng hh:mm:ss)\n"
+"  -k n, --skip n          Bỏ qua « n » giây đầu tiên (hoặc dùng định dạng hh:"
+"mm:ss)\n"
 "\n"
 "hh:mm:ss\tgiờ:phút:giây, mỗi phần theo hai chữ số\n"
 
 #: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
-msgstr "  -K n, --end n           Kết thúc ở « n » giây (hoặc dùng định dạng hh:mm:ss)\n"
+msgstr ""
+"  -K n, --end n           Kết thúc ở « n » giây (hoặc dùng định dạng hh:mm:"
+"ss)\n"
 
 #: ogg123/cmdline_options.c:357
 #, c-format
@@ -435,7 +475,7 @@ msgstr "  -x n, --nth n           Phát mỗi khối thứ « n »\n"
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Lặp lại « n » lần mỗi khối được phát\n"
 
-#: ogg123/cmdline_options.c:361 vorbiscomment/vcomment.c:399
+#: ogg123/cmdline_options.c:361 vorbiscomment/vcomment.c:402
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Tùy chọn khác\n"
@@ -454,7 +494,7 @@ msgstr ""
 "\t\t\t\tcũng chấm dứt nếu nhận hai SIGINT\n"
 "\t\t\t\ttrong thời hạn đã ghi rõ « s » (mặc định 500)\n"
 
-#: ogg123/cmdline_options.c:367 vorbiscomment/vcomment.c:406
+#: ogg123/cmdline_options.c:367 vorbiscomment/vcomment.c:409
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Hiển thị trợ giúp này\n"
@@ -466,8 +506,10 @@ msgstr "  -q, --quiet             Không hiển thị gì (không tên)\n"
 
 #: ogg123/cmdline_options.c:369
 #, c-format
-msgid "  -v, --verbose           Display progress and other status information\n"
-msgstr "  -v, --verbose           Hiển thị tiến hành và thông tin trạng thái khác\n"
+msgid ""
+"  -v, --verbose           Display progress and other status information\n"
+msgstr ""
+"  -v, --verbose           Hiển thị tiến hành và thông tin trạng thái khác\n"
 
 #: ogg123/cmdline_options.c:370
 #, c-format
@@ -475,22 +517,28 @@ msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Hiển thị phiên bản ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:95
-#, c-format
-msgid "Error: Out of memory.\n"
+#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:151
+#: ogg123/vorbis_comments.c:64 ogg123/vorbis_comments.c:79
+#: ogg123/vorbis_comments.c:97
+#, fuzzy, c-format
+msgid "ERROR: Out of memory.\n"
 msgstr "Lỗi: hết bộ nhớ.\n"
 
 #: ogg123/format.c:82
-#, c-format
-msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
-msgstr "Lỗi: không thể phân định bộ nhớ trong « malloc_decoder_stats() » (thống kê giải mã phân định bộ nhớ)\n"
+#, fuzzy, c-format
+msgid "ERROR: Could not allocate memory in malloc_decoder_stats()\n"
+msgstr ""
+"Lỗi: không thể phân định bộ nhớ trong « malloc_decoder_stats() » (thống kê "
+"giải mã phân định bộ nhớ)\n"
 
 #: ogg123/http_transport.c:145
-msgid "Error: Could not set signal mask."
+#, fuzzy
+msgid "ERROR: Could not set signal mask."
 msgstr "Lỗi: không thể lập mặt nạ tín hiệu."
 
 #: ogg123/http_transport.c:202
-msgid "Error: Unable to create input buffer.\n"
+#, fuzzy
+msgid "ERROR: Unable to create input buffer.\n"
 msgstr "Lỗi: không thể tạo vùng đệm nhập.\n"
 
 #: ogg123/ogg123.c:82
@@ -529,89 +577,98 @@ msgstr "Tác giả:   %s"
 msgid "Comments: %s"
 msgstr "Ghi chú : %s"
 
-#: ogg123/ogg123.c:424 ogg123/playlist.c:160
-#, c-format
-msgid "Warning: Could not read directory %s.\n"
+#: ogg123/ogg123.c:424
+#, fuzzy, c-format
+msgid "WARNING: Could not read directory %s.\n"
 msgstr "Cảnh báo : không thể đọc thư mục %s.\n"
 
 #: ogg123/ogg123.c:460
 msgid "Error: Could not create audio buffer.\n"
 msgstr "Lỗi: không thể tạo vùng đệm âm thanh.\n"
 
-#: ogg123/ogg123.c:556
+#: ogg123/ogg123.c:557
 #, c-format
 msgid "No module could be found to read from %s.\n"
 msgstr "Không tìm thấy mô-đụn để đọc từ %s.\n"
 
-#: ogg123/ogg123.c:561
+#: ogg123/ogg123.c:562
 #, c-format
 msgid "Cannot open %s.\n"
 msgstr "Không thể mở %s.\n"
 
-#: ogg123/ogg123.c:567
+#: ogg123/ogg123.c:568
 #, c-format
 msgid "The file format of %s is not supported.\n"
 msgstr "Khuôn dạng tập tin của %s không được hỗ trợ.\n"
 
-#: ogg123/ogg123.c:577
+#: ogg123/ogg123.c:578
 #, c-format
 msgid "Error opening %s using the %s module.  The file may be corrupted.\n"
 msgstr "Gặp lỗi khi mở %s bằng mô-đun %s. Có lẽ tập tin bị hỏng.\n"
 
-#: ogg123/ogg123.c:596
+#: ogg123/ogg123.c:597
 #, c-format
 msgid "Playing: %s"
 msgstr "Đang phát: %s"
 
-#: ogg123/ogg123.c:607
+#: ogg123/ogg123.c:608
 #, c-format
 msgid "Could not skip %f seconds of audio."
 msgstr "Không thể nhảy qua %f giây âm thanh."
 
-#: ogg123/ogg123.c:662
-msgid "Error: Decoding failure.\n"
+#: ogg123/ogg123.c:663
+#, fuzzy
+msgid "ERROR: Decoding failure.\n"
 msgstr "Lỗi: việc giải mã không chạy được.\n"
 
-#: ogg123/ogg123.c:705
-msgid "Error: buffer write failed.\n"
+#: ogg123/ogg123.c:706
+#, fuzzy
+msgid "ERROR: buffer write failed.\n"
 msgstr "Lỗi: không ghi được vào vùng đệm.\n"
 
-#: ogg123/ogg123.c:743
+#: ogg123/ogg123.c:744
 msgid "Done."
 msgstr "Đã xong."
 
-#: ogg123/oggvorbis_format.c:157
+#: ogg123/oggvorbis_format.c:178
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "━━ Gặp lỗ trong luồng; rất có thể là vô hại\n"
 
-#: ogg123/oggvorbis_format.c:163
+#: ogg123/oggvorbis_format.c:184
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "━━ Thư viên Vorbis đã thông báo lỗi luồng.\n"
 
-#: ogg123/oggvorbis_format.c:310
+#: ogg123/oggvorbis_format.c:331
 #, c-format
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Luồng Ogg Vorbis: %d kênh, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:315
+#: ogg123/oggvorbis_format.c:336
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Định dạng Vorbis: phiên bản %d"
 
-#: ogg123/oggvorbis_format.c:319
+#: ogg123/oggvorbis_format.c:340
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Mẹo tỷ lệ bit: trên=%ld không đáng kể=%ld dưới=%ld cửa sổ=%ld"
 
-#: ogg123/oggvorbis_format.c:327
+#: ogg123/oggvorbis_format.c:348 ogg123/speex_format.c:413
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Mã hóa do : %s"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
+#, fuzzy, c-format
+msgid "ERROR: Out of memory in create_playlist_member().\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « create_playlist_member() » (tạo thành viên danh sách "
+"phát).\n"
+
+#: ogg123/playlist.c:160
 #, c-format
-msgid "Error: Out of memory in create_playlist_member().\n"
-msgstr "Lỗi: hết bộ nhớ trong « create_playlist_member() » (tạo thành viên danh sách phát).\n"
+msgid "Warning: Could not read directory %s.\n"
+msgstr "Cảnh báo : không thể đọc thư mục %s.\n"
 
 #: ogg123/playlist.c:222
 #, c-format
@@ -619,9 +676,53 @@ msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Cảnh báo từ danh sách phát %s: không thể đọc thư mục %s.\n"
 
 #: ogg123/playlist.c:267 ogg123/playlist.c:279
+#, fuzzy, c-format
+msgid "ERROR: Out of memory in playlist_to_array().\n"
+msgstr ""
+"Lỗi: hết bộ nhớ trong « playlist_to_array() » (danh sách phát tới mảng).\n"
+
+#: ogg123/speex_format.c:363
+#, fuzzy, c-format
+msgid "Ogg Speex stream: %d channel, %d Hz, %s mode (VBR)"
+msgstr "Luồng Ogg Vorbis: %d kênh, %ld Hz"
+
+#: ogg123/speex_format.c:369
+#, fuzzy, c-format
+msgid "Ogg Speex stream: %d channel, %d Hz, %s mode"
+msgstr "Luồng Ogg Vorbis: %d kênh, %ld Hz"
+
+#: ogg123/speex_format.c:375
+#, fuzzy, c-format
+msgid "Speex version: %s"
+msgstr "Phiên bản %d\n"
+
+#: ogg123/speex_format.c:391 ogg123/speex_format.c:402
+#: ogg123/speex_format.c:421 ogg123/speex_format.c:431
+#: ogg123/speex_format.c:438
+msgid "Invalid/corrupted comments"
+msgstr ""
+
+#: ogg123/speex_format.c:475
+#, fuzzy
+msgid "Cannot read header"
+msgstr "Gặp lỗi khi đọc phần đầu\n"
+
+#: ogg123/speex_format.c:480
 #, c-format
-msgid "Error: Out of memory in playlist_to_array().\n"
-msgstr "Lỗi: hết bộ nhớ trong « playlist_to_array() » (danh sách phát tới mảng).\n"
+msgid "Mode number %d does not (any longer) exist in this version"
+msgstr ""
+
+#: ogg123/speex_format.c:489
+msgid ""
+"The file was encoded with a newer version of Speex.\n"
+" You need to upgrade in order to play it.\n"
+msgstr ""
+
+#: ogg123/speex_format.c:493
+msgid ""
+"The file was encoded with an older version of Speex.\n"
+"You would need to downgrade the version in order to play it."
+msgstr ""
 
 #: ogg123/status.c:60
 #, c-format
@@ -675,16 +776,47 @@ msgid " Output Buffer %5.1f%%"
 msgstr " Vùng đệm xuất %5.1f%%"
 
 #: ogg123/transport.c:71
-#, c-format
-msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
-msgstr "Lỗi: không thể phân chia bộ nhớ trong « malloc_data_source_stats() » (thống kê nguồn dữ liệu phân định bộ nhớ).\n"
+#, fuzzy, c-format
+msgid "ERROR: Could not allocate memory in malloc_data_source_stats()\n"
+msgstr ""
+"Lỗi: không thể phân chia bộ nhớ trong « malloc_data_source_stats() » (thống "
+"kê nguồn dữ liệu phân định bộ nhớ).\n"
+
+#: ogg123/vorbis_comments.c:39
+msgid "Track number:"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:40
+msgid "ReplayGain (Track):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:41
+msgid "ReplayGain (Album):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:42
+msgid "ReplayGain Peak (Track):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:43
+msgid "ReplayGain Peak (Album):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:44
+msgid "Copyright"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:45 ogg123/vorbis_comments.c:46
+#, fuzzy
+msgid "Comment:"
+msgstr "Ghi chú : %s"
 
 #: oggdec/oggdec.c:50
 #, c-format
 msgid "oggdec from %s %s\n"
 msgstr "oggdec từ %s %s\n"
 
-#: oggdec/oggdec.c:56 oggenc/oggenc.c:396 ogginfo/ogginfo2.c:1223
+#: oggdec/oggdec.c:56 oggenc/oggenc.c:463 ogginfo/ogginfo2.c:1230
 #, c-format
 msgid ""
 " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
@@ -763,110 +895,156 @@ msgstr ""
 "\t\t\t\tChỉ có thể dùng với 1 tập tin nhập vào,\n"
 "\t\t\t\ttrừ ở chế độ thô.\n"
 
-#: oggenc/audio.c:51
-msgid "WAV file reader"
+#: oggdec/oggdec.c:114
+#, c-format
+msgid "Internal error: Unrecognised argument\n"
+msgstr ""
+
+#: oggdec/oggdec.c:155 oggdec/oggdec.c:174
+#, c-format
+msgid "ERROR: Failed to write Wave header: %s\n"
+msgstr ""
+
+#: oggdec/oggdec.c:195
+#, fuzzy, c-format
+msgid "ERROR: Failed to open input file: %s\n"
+msgstr "LỖI: không thể mở tập tin nhập « %s »: %s\n"
+
+#: oggdec/oggdec.c:217
+#, fuzzy, c-format
+msgid "ERROR: Failed to open output file: %s\n"
+msgstr "LỖI: không thể mở tập tin xuất « %s »: %s\n"
+
+#: oggdec/oggdec.c:266
+#, fuzzy, c-format
+msgid "ERROR: Failed to open input as Vorbis\n"
+msgstr "Lỗi mở tập tin là dạng vorbis: %s\n"
+
+#: oggdec/oggdec.c:308
+#, c-format
+msgid "Logical bitstreams with changing parameters are not supported\n"
+msgstr ""
+
+#: oggdec/oggdec.c:315
+#, c-format
+msgid "WARNING: hole in data (%d)\n"
+msgstr ""
+
+#: oggdec/oggdec.c:330
+#, fuzzy, c-format
+msgid "Error writing to file: %s\n"
+msgstr "Gặp lỗi khi gỡ bỏ tập tin cũ %s\n"
+
+#: oggdec/oggdec.c:371
+#, fuzzy, c-format
+msgid "ERROR: No input files specified. Use -h for help\n"
+msgstr ""
+"LỖI: chưa ghi rõ tập tin nhập vào. Hãy sử dụng lệnh « -h » để xem trợ giúp.\n"
+
+#: oggdec/oggdec.c:376
+#, fuzzy, c-format
+msgid ""
+"ERROR: Can only specify one input file if output filename is specified\n"
+msgstr ""
+"LỖI: có nhiều tập tin nhập với cùng một tên tập tin xuất: đệ nghị dùng tùy "
+"chọn « -n »\n"
+
+#: oggenc/audio.c:50
+#, fuzzy
+msgid "Wave file reader"
 msgstr "Bộ đọc tập tin WAV"
 
-#: oggenc/audio.c:52
+#: oggenc/audio.c:51
 msgid "AIFF/AIFC file reader"
 msgstr "Bộ đọc tập tin AIFF/AIFC"
 
-#: oggenc/audio.c:54
+#: oggenc/audio.c:53
 msgid "FLAC file reader"
 msgstr "Bộ đọc tập tin FLAC"
 
-#: oggenc/audio.c:55
+#: oggenc/audio.c:54
 msgid "Ogg FLAC file reader"
 msgstr "Bộ đọc tập tin FLAC Ogg"
 
-#: oggenc/audio.c:57
-msgid "AU file reader"
-msgstr "Bộ đọc tập tin AU"
+#: oggenc/audio.c:131 oggenc/audio.c:425
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF in reading Wave header\n"
+msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu Wave\n"
 
-#: oggenc/audio.c:133
-#, c-format
-msgid "Warning: Unexpected EOF in reading WAV header\n"
-msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu WAV\n"
-
-#: oggenc/audio.c:144
+#: oggenc/audio.c:142
 #, c-format
 msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Đang nhảy qua từng đoạn kiểu « %s », độ dài %d\n"
 
-#: oggenc/audio.c:170
-#, c-format
-msgid "Warning: Unexpected EOF in AIFF chunk\n"
+#: oggenc/audio.c:168
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF in AIFF chunk\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường trong từng đoạn AIFF\n"
 
-#: oggenc/audio.c:256
-#, c-format
-msgid "Warning: No common chunk found in AIFF file\n"
+#: oggenc/audio.c:254
+#, fuzzy, c-format
+msgid "WARNING: No common chunk found in AIFF file\n"
 msgstr "Cảnh báo : không tìm thấy từng đoạn dùng chung trong tập tin AIFF\n"
 
-#: oggenc/audio.c:262
-#, c-format
-msgid "Warning: Truncated common chunk in AIFF header\n"
+#: oggenc/audio.c:260
+#, fuzzy, c-format
+msgid "WARNING: Truncated common chunk in AIFF header\n"
 msgstr "Cảnh báo : gặp từng đoạn dùng chung bị cụt trong phần đầu AIFF\n"
 
-#: oggenc/audio.c:270
-#, c-format
-msgid "Warning: Unexpected EOF in reading AIFF header\n"
+#: oggenc/audio.c:268
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF in reading AIFF header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu AIFF\n"
 
-#: oggenc/audio.c:285
-#, c-format
-msgid "Warning: AIFF-C header truncated.\n"
+#: oggenc/audio.c:283
+#, fuzzy, c-format
+msgid "WARNING: AIFF-C header truncated.\n"
 msgstr "Cảnh báo : phần đầu AIFF bị cụt.\n"
 
-#: oggenc/audio.c:299
-#, c-format
-msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
+#: oggenc/audio.c:297
+#, fuzzy, c-format
+msgid "WARNING: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Cảnh báo : không thể xử lý AIFF-C đã nén (%c%c%c%c)\n"
 
-#: oggenc/audio.c:306
-#, c-format
-msgid "Warning: No SSND chunk found in AIFF file\n"
+#: oggenc/audio.c:304
+#, fuzzy, c-format
+msgid "WARNING: No SSND chunk found in AIFF file\n"
 msgstr "Cảnh báo : không tìm thấy từng đoạn SSND trong tập tin AIFF\n"
 
-#: oggenc/audio.c:312
-#, c-format
-msgid "Warning: Corrupted SSND chunk in AIFF header\n"
+#: oggenc/audio.c:310
+#, fuzzy, c-format
+msgid "WARNING: Corrupted SSND chunk in AIFF header\n"
 msgstr "Cảnh báo : gặp từng đoạn SSND trong phần đầu AIFF\n"
 
-#: oggenc/audio.c:318
-#, c-format
-msgid "Warning: Unexpected EOF reading AIFF header\n"
+#: oggenc/audio.c:316
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF reading AIFF header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu AIFF\n"
 
-#: oggenc/audio.c:355
-#, c-format
+#: oggenc/audio.c:353
+#, fuzzy, c-format
 msgid ""
-"Warning: OggEnc does not support this type of AIFF/AIFC file\n"
+"WARNING: oggenc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
 msgstr ""
 "Cảnh báo : OggEnc không hỗ trợ kiểu tập tin AIFF/AIFC này\n"
 "Phải là PCM 8 hay 16 bit.\n"
 
-#: oggenc/audio.c:409
-#, c-format
-msgid "Warning: Unrecognised format chunk in Wave header\n"
+#: oggenc/audio.c:407
+#, fuzzy, c-format
+msgid "WARNING: Unrecognised format chunk in Wave header\n"
 msgstr "Cảnh báo : không nhận ra từng đoạn định dạng trong phần đầu Wave\n"
 
-#: oggenc/audio.c:422
-#, c-format
+#: oggenc/audio.c:420
+#, fuzzy, c-format
 msgid ""
-"Warning: INVALID format chunk in Wave header.\n"
+"WARNING: Invalid format chunk in Wave header.\n"
 " Trying to read anyway (may not work)...\n"
 msgstr ""
 "Cảnh báo : gặp từng đoạn định dạng KHÔNG HỢP LỆ trong phần đầu Wave.\n"
 "Vẫn đang thử đọc nó (có lẽ không thể)...\n"
 
-#: oggenc/audio.c:427
-#, c-format
-msgid "Warning: Unexpected EOF in reading Wave header\n"
-msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu Wave\n"
-
-#: oggenc/audio.c:460
+#: oggenc/audio.c:458
 #, c-format
 msgid ""
 "ERROR: Wave file is unsupported type (must be standard PCM\n"
@@ -875,138 +1053,190 @@ msgstr ""
 "LỖI: tập tin Wave có kiểu không được hỗ trợ (phải là PCM tiêu chuẩn\n"
 "hay PCM điểm động kiểu 3)\n"
 
-#: oggenc/audio.c:469
-#, c-format
+#: oggenc/audio.c:467
+#, fuzzy, c-format
 msgid ""
-"Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
+"WARNING: Wave 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 "Cảnh báo : giá trị « chỉnh canh khối » WAV không đúng nên bỏ qua.\n"
 "Tập tin này đã được tạo bởi phần mềm sai.\n"
 
-#: oggenc/audio.c:530
-#, c-format
+#: oggenc/audio.c:528
+#, fuzzy, c-format
 msgid ""
-"ERROR: Wav file is unsupported subformat (must be 8,16,24 or 32 bit PCM\n"
+"ERROR: Wave file is unsupported subformat (must be 8, 16, 24 or 32 bit PCM\n"
 "or floating point PCM)\n"
 msgstr ""
 "LỖI: tập tin Wav có định dạng con không được hỗ trợ\n"
 "(phải là PCM 8, 16, 24 hay 32-bit) hay PCM chấm động)\n"
 
-#: oggenc/audio.c:606
+#: oggenc/audio.c:604
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
-msgstr "Dữ liệu PCM 24-bit kiểu cuối lớn không phải được hỗ trợ hiện thời nên hủy bỏ.\n"
+msgstr ""
+"Dữ liệu PCM 24-bit kiểu cuối lớn không phải được hỗ trợ hiện thời nên hủy "
+"bỏ.\n"
 
-#: oggenc/audio.c:626
+#: oggenc/audio.c:624
 #, c-format
 msgid "Big endian 32 bit PCM data is not currently supported, aborting.\n"
-msgstr "Dữ liệu PCM 32-bit về cuối lớn hiện thời không được hỗ trợ nên hủy bỏ.\n"
+msgstr ""
+"Dữ liệu PCM 32-bit về cuối lớn hiện thời không được hỗ trợ nên hủy bỏ.\n"
 
-#: oggenc/audio.c:632
+#: oggenc/audio.c:630
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Lỗi nội bộ : thử đọc độ sâu bit không được hỗ trợ %d\n"
 
-#: oggenc/audio.c:734
-#, c-format
-msgid "BUG: Got zero samples from resampler: your file will be truncated. Please report this.\n"
-msgstr "LỖI: không nhận mẫu nào từ bộ lấy lại mẫu: tập tin bạn sẽ bị cụt. Vui lòng thông báo lỗi này.\n"
+#: oggenc/audio.c:732
+#, fuzzy, c-format
+msgid ""
+"BUG: Got zero samples from resampler; your file will be truncated. Please "
+"report this.\n"
+msgstr ""
+"LỖI: không nhận mẫu nào từ bộ lấy lại mẫu: tập tin bạn sẽ bị cụt. Vui lòng "
+"thông báo lỗi này.\n"
 
-#: oggenc/audio.c:752
+#: oggenc/audio.c:750
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Không thể khởi động bộ lấy lại mẫu.\n"
 
-#: oggenc/audio.c:882
-#, c-format
-msgid "Out of memory opening AU driver\n"
-msgstr "Cạn bộ nhớ khi mở trình điều khiển AU\n"
-
-#: oggenc/audio.c:889
-#, c-format
-msgid "At this moment, only linear 16 bit .au files are supported\n"
-msgstr "Hiện thời chỉ hỗ trợ tập tin kiểu .au 16-bit tuyến tính\n"
-
-#: oggenc/audio.c:941
+#: oggenc/audio.c:849
 #, c-format
 msgid "Internal error! Please report this bug.\n"
 msgstr "Gặp lỗi nội bộ — thông báo nhé.\n"
 
-#: oggenc/encode.c:64
+#: oggenc/encode.c:69
 #, c-format
 msgid "Setting advanced encoder option \"%s\" to %s\n"
 msgstr "Đang lập tùy chọn mã hóa cấp cao « %s » thành %s\n"
 
-#: oggenc/encode.c:101
+#: oggenc/encode.c:106
 #, c-format
 msgid "Changed lowpass frequency from %f kHz to %f kHz\n"
 msgstr "Mới thay đổi tần số qua thấp từ %f kHz thành %f kHz\n"
 
-#: oggenc/encode.c:104
+#: oggenc/encode.c:109
 #, c-format
 msgid "Unrecognised advanced option \"%s\"\n"
 msgstr "Không chấp nhận tùy chọn cấp cao « %s »\n"
 
-#: oggenc/encode.c:111
+#: oggenc/encode.c:116
 #, c-format
 msgid "Failed to set advanced rate management parameters\n"
 msgstr "Lỗi đặt tham số quản lý tỷ lệ cấp cao\n"
 
-#: oggenc/encode.c:115 oggenc/encode.c:252
+#: oggenc/encode.c:120 oggenc/encode.c:308
 #, c-format
-msgid "This version of libvorbisenc cannot set advanced rate management parameters\n"
-msgstr "Phiên bản libvorbisenc này không có khả năng đặt tham số quản lý tỷ lệ cấp cao\n"
+msgid ""
+"This version of libvorbisenc cannot set advanced rate management parameters\n"
+msgstr ""
+"Phiên bản libvorbisenc này không có khả năng đặt tham số quản lý tỷ lệ cấp "
+"cao\n"
 
-#: oggenc/encode.c:174
+#: oggenc/encode.c:194
 #, c-format
-msgid "255 channels should be enough for anyone. (Sorry, but Vorbis doesn't support more)\n"
-msgstr "255 kênh nên là đủ cho bất cứ ai. (Tiếc là Vorbis không hỗ trợ nhiều hơn đó)\n"
+msgid "WARNING: failed to add Kate karaoke style\n"
+msgstr ""
 
-#: oggenc/encode.c:182
+#: oggenc/encode.c:230
+#, c-format
+msgid ""
+"255 channels should be enough for anyone. (Sorry, but Vorbis doesn't support "
+"more)\n"
+msgstr ""
+"255 kênh nên là đủ cho bất cứ ai. (Tiếc là Vorbis không hỗ trợ nhiều hơn "
+"đó)\n"
+
+#: oggenc/encode.c:238
 #, c-format
 msgid "Requesting a minimum or maximum bitrate requires --managed\n"
-msgstr "Việc yêu cầu tỷ lệ bit tối thiểu hay tối đa cần thiết tùy chọn « --managed » (đã quản lý)\n"
+msgstr ""
+"Việc yêu cầu tỷ lệ bit tối thiểu hay tối đa cần thiết tùy chọn « --managed "
+"» (đã quản lý)\n"
 
-#: oggenc/encode.c:200
+#: oggenc/encode.c:256
 #, c-format
 msgid "Mode initialisation failed: invalid parameters for quality\n"
 msgstr "Việc khởi động chế độ bị lỗi: tham số không hợp lệ với chất lượng\n"
 
-#: oggenc/encode.c:245
+#: oggenc/encode.c:301
 #, c-format
 msgid "Set optional hard quality restrictions\n"
 msgstr "Đặt sự hạn chế chất lượng cứng tùy chọn\n"
 
-#: oggenc/encode.c:247
+#: oggenc/encode.c:303
 #, c-format
 msgid "Failed to set bitrate min/max in quality mode\n"
 msgstr "Lỗi đặt tỷ lệ bit tiểu/đại trong chế độ chất lượng\n"
 
-#: oggenc/encode.c:263
+#: oggenc/encode.c:319
 #, c-format
 msgid "Mode initialisation failed: invalid parameters for bitrate\n"
 msgstr "Việc khởi động chế độ bị lỗi: tham số không hợp lệ với tỷ lệ bit\n"
 
-#: oggenc/encode.c:330 oggenc/encode.c:352
+#: oggenc/encode.c:366
+#, fuzzy, c-format
+msgid "WARNING: no language specified for %s\n"
+msgstr "CẢNH BÁO : ghi rõ tùy chọn lạ nên giả sử →\n"
+
+#: oggenc/encode.c:388
+#, fuzzy
+msgid "Failed writing fishead packet to output stream\n"
+msgstr "Gặp lỗi khi ghi phần đầu vào luồng xuất\n"
+
+#: oggenc/encode.c:414 oggenc/encode.c:435 oggenc/encode.c:471
+#: oggenc/encode.c:491
 msgid "Failed writing header to output stream\n"
 msgstr "Gặp lỗi khi ghi phần đầu vào luồng xuất\n"
 
-#: oggenc/encode.c:426
+#: oggenc/encode.c:425
+msgid "Failed encoding Kate header\n"
+msgstr ""
+
+#: oggenc/encode.c:447 oggenc/encode.c:454
+#, fuzzy
+msgid "Failed writing fisbone header packet to output stream\n"
+msgstr "Gặp lỗi khi ghi phần đầu vào luồng xuất\n"
+
+#: oggenc/encode.c:502
+#, fuzzy
+msgid "Failed writing skeleton eos packet to output stream\n"
+msgstr "Gặp lỗi khi ghi phần đầu vào luồng xuất\n"
+
+#: oggenc/encode.c:573 oggenc/encode.c:577
+msgid "Failed encoding karaoke style - continuing anyway\n"
+msgstr ""
+
+#: oggenc/encode.c:581
+msgid "Failed encoding karaoke motion - continuing anyway\n"
+msgstr ""
+
+#: oggenc/encode.c:586
+msgid "Failed encoding lyrics - continuing anyway\n"
+msgstr ""
+
+#: oggenc/encode.c:598 oggenc/encode.c:613 oggenc/encode.c:649
 msgid "Failed writing data to output stream\n"
 msgstr "Gặp lỗi khi ghi dữ liệu vào luồng xuất\n"
 
-#: oggenc/encode.c:472
+#: oggenc/encode.c:633
+msgid "Failed encoding Kate EOS packet\n"
+msgstr ""
+
+#: oggenc/encode.c:708
 #, c-format
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c "
 msgstr "\t[%5.1f%%] [%2dm%.2ds còn lại] %c "
 
-#: oggenc/encode.c:482
+#: oggenc/encode.c:718
 #, c-format
 msgid "\tEncoding [%2dm%.2ds so far] %c "
 msgstr "\tĐang mã hoá [%2dm%.2ds đến lúc này] %c "
 
-#: oggenc/encode.c:500
+#: oggenc/encode.c:736
 #, c-format
 msgid ""
 "\n"
@@ -1017,7 +1247,7 @@ msgstr ""
 "\n"
 "Mới mã hóa xong tập tin « %s »\n"
 
-#: oggenc/encode.c:502
+#: oggenc/encode.c:738
 #, c-format
 msgid ""
 "\n"
@@ -1028,7 +1258,7 @@ msgstr ""
 "\n"
 "Mới mã hóa xong.\n"
 
-#: oggenc/encode.c:506
+#: oggenc/encode.c:742
 #, c-format
 msgid ""
 "\n"
@@ -1037,17 +1267,17 @@ msgstr ""
 "\n"
 "\tĐộ dài tập tin:  %dp %04.1fg\n"
 
-#: oggenc/encode.c:510
+#: oggenc/encode.c:746
 #, c-format
 msgid "\tElapsed time: %dm %04.1fs\n"
 msgstr "\tThời gian đã qua: %dp %04.1fg\n"
 
-#: oggenc/encode.c:513
+#: oggenc/encode.c:749
 #, c-format
 msgid "\tRate:         %.4f\n"
 msgstr "\tTỷ lệ:         %.4f\n"
 
-#: oggenc/encode.c:514
+#: oggenc/encode.c:750
 #, c-format
 msgid ""
 "\tAverage bitrate: %.1f kb/s\n"
@@ -1056,7 +1286,27 @@ msgstr ""
 "\tTỷ lệ trung bình: %.1f kb/g\n"
 "\n"
 
-#: oggenc/encode.c:551
+#: oggenc/encode.c:773
+#, c-format
+msgid "(min %d kbps, max %d kbps)"
+msgstr ""
+
+#: oggenc/encode.c:775
+#, c-format
+msgid "(min %d kbps, no max)"
+msgstr ""
+
+#: oggenc/encode.c:777
+#, c-format
+msgid "(no min, max %d kbps)"
+msgstr ""
+
+#: oggenc/encode.c:779
+#, c-format
+msgid "(no min or max)"
+msgstr ""
+
+#: oggenc/encode.c:787
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1067,17 +1317,17 @@ msgstr ""
 "         %s%s%s \n"
 "với tỷ lệ bit trung bình %d kb/g"
 
-#: oggenc/encode.c:553 oggenc/encode.c:560 oggenc/encode.c:568
-#: oggenc/encode.c:575 oggenc/encode.c:581
+#: oggenc/encode.c:789 oggenc/encode.c:796 oggenc/encode.c:804
+#: oggenc/encode.c:811 oggenc/encode.c:817
 msgid "standard input"
 msgstr "thiết bị nhập chuẩn"
 
-#: oggenc/encode.c:554 oggenc/encode.c:561 oggenc/encode.c:569
-#: oggenc/encode.c:576 oggenc/encode.c:582
+#: oggenc/encode.c:790 oggenc/encode.c:797 oggenc/encode.c:805
+#: oggenc/encode.c:812 oggenc/encode.c:818
 msgid "standard output"
 msgstr "thiết bị xuất chuẩn"
 
-#: oggenc/encode.c:559
+#: oggenc/encode.c:795
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1088,7 +1338,7 @@ msgstr ""
 "         %s%s%s \n"
 "với tỷ lệ trung bình %d kb/g (cách mã hóa VBR đã bật)\n"
 
-#: oggenc/encode.c:567
+#: oggenc/encode.c:803
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1099,7 +1349,7 @@ msgstr ""
 "         %s%s%s \n"
 "với cấp chất lượng %2.2f bằng VBR ràng buộc"
 
-#: oggenc/encode.c:574
+#: oggenc/encode.c:810
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1110,7 +1360,7 @@ msgstr ""
 "         %s%s%s \n"
 "với chất lượng %2.2f\n"
 
-#: oggenc/encode.c:580
+#: oggenc/encode.c:816
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1121,86 +1371,178 @@ msgstr ""
 "         %s%s%s \n"
 "bằng cách quản lý tỷ lệ bit"
 
-#: oggenc/oggenc.c:100
+#: oggenc/lyrics.c:66
+#, fuzzy, c-format
+msgid "Failed to convert to UTF-8: %s\n"
+msgstr "Lỗi mở tập tin là dạng vorbis: %s\n"
+
+#: oggenc/lyrics.c:73
+#, fuzzy, c-format
+msgid "Out of memory\n"
+msgstr "Lỗi: hết bộ nhớ.\n"
+
+#: oggenc/lyrics.c:79
+#, c-format
+msgid "WARNING: subtitle %s is not valid UTF-8\n"
+msgstr ""
+
+#: oggenc/lyrics.c:141 oggenc/lyrics.c:157 oggenc/lyrics.c:337
+#: oggenc/lyrics.c:353
+#, c-format
+msgid "ERROR - line %u: Syntax error: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:146
+#, c-format
+msgid ""
+"WARNING - line %u: non consecutive ids: %s - pretending not to have noticed\n"
+msgstr ""
+
+#: oggenc/lyrics.c:162
+#, c-format
+msgid "ERROR - line %u: end time must not be less than start time: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:184
+#, c-format
+msgid "WARNING - line %u: text is too long - truncated\n"
+msgstr ""
+
+#: oggenc/lyrics.c:197
+#, c-format
+msgid "WARNING - line %u: missing data - truncated file?\n"
+msgstr ""
+
+#: oggenc/lyrics.c:210
+#, c-format
+msgid "WARNING - line %d: lyrics times must not be decreasing\n"
+msgstr ""
+
+#: oggenc/lyrics.c:218
+#, c-format
+msgid "WARNING - line %d: failed to get UTF-8 glyph from string\n"
+msgstr ""
+
+#: oggenc/lyrics.c:279
+#, c-format
+msgid ""
+"WARNING - line %d: failed to process enhanced LRC tag (%*.*s) - ignored\n"
+msgstr ""
+
+#: oggenc/lyrics.c:288
+#, c-format
+msgid "WARNING: failed to allocate memory - enhanced LRC tag will be ignored\n"
+msgstr ""
+
+#: oggenc/lyrics.c:419
+#, c-format
+msgid "ERROR: No lyrics filename to load from\n"
+msgstr ""
+
+#: oggenc/lyrics.c:425
+#, fuzzy, c-format
+msgid "ERROR: Failed to open lyrics file %s (%s)\n"
+msgstr "LỖI: không thể mở tập tin nhập « %s »: %s\n"
+
+#: oggenc/lyrics.c:444
+#, c-format
+msgid "ERROR: Failed to load %s - can't determine format\n"
+msgstr ""
+
+#: oggenc/oggenc.c:117
 #, c-format
 msgid "ERROR: No input files specified. Use -h for help.\n"
-msgstr "LỖI: chưa ghi rõ tập tin nhập vào. Hãy sử dụng lệnh « -h » để xem trợ giúp.\n"
+msgstr ""
+"LỖI: chưa ghi rõ tập tin nhập vào. Hãy sử dụng lệnh « -h » để xem trợ giúp.\n"
 
-#: oggenc/oggenc.c:115
+#: oggenc/oggenc.c:132
 #, c-format
 msgid "ERROR: Multiple files specified when using stdin\n"
 msgstr "LỖI: nhiều tập tin được ghi rõ khi dùng thiết bị nhập chuẩn\n"
 
-#: oggenc/oggenc.c:122
+#: oggenc/oggenc.c:139
 #, c-format
-msgid "ERROR: Multiple input files with specified output filename: suggest using -n\n"
-msgstr "LỖI: có nhiều tập tin nhập với cùng một tên tập tin xuất: đệ nghị dùng tùy chọn « -n »\n"
+msgid ""
+"ERROR: Multiple input files with specified output filename: suggest using -"
+"n\n"
+msgstr ""
+"LỖI: có nhiều tập tin nhập với cùng một tên tập tin xuất: đệ nghị dùng tùy "
+"chọn « -n »\n"
 
-#: oggenc/oggenc.c:183
+#: oggenc/oggenc.c:203
+#, fuzzy, c-format
+msgid ""
+"WARNING: Insufficient lyrics languages specified, defaulting to final lyrics "
+"language.\n"
+msgstr "CẢNH BÁO : chưa ghi rõ đủ tựa nên dùng mặc định (tựa cuối cùng).\n"
+
+#: oggenc/oggenc.c:227
 #, c-format
 msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgstr "LỖI: không thể mở tập tin nhập « %s »: %s\n"
 
-#: oggenc/oggenc.c:199
+#: oggenc/oggenc.c:243
 msgid "RAW file reader"
 msgstr "Bộ đọc tập tin RAW"
 
-#: oggenc/oggenc.c:216
+#: oggenc/oggenc.c:260
 #, c-format
 msgid "Opening with %s module: %s\n"
 msgstr "Đang mở bằng mô-đun %s: %s\n"
 
-#: oggenc/oggenc.c:225
+#: oggenc/oggenc.c:269
 #, c-format
 msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr "LỖI: tập tin nhập « %s » không phải là định dạng được hỗ trợ\n"
 
-#: oggenc/oggenc.c:277
-#, c-format
-msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
+#: oggenc/oggenc.c:327
+#, fuzzy, c-format
+msgid "WARNING: No filename, defaulting to \"%s\"\n"
 msgstr "CẢNH BÁO : không có tên tập tin nên dùng mặc định « default.ogg »\n"
 
-#: oggenc/oggenc.c:285
+#: oggenc/oggenc.c:334
 #, c-format
-msgid "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
-msgstr "LỖI: không thể tạo những thư mục con cần thiết cho tên tập tin xuất « %s »\n"
+msgid ""
+"ERROR: Could not create required subdirectories for output filename \"%s\"\n"
+msgstr ""
+"LỖI: không thể tạo những thư mục con cần thiết cho tên tập tin xuất « %s »\n"
 
-#: oggenc/oggenc.c:292
+#: oggenc/oggenc.c:341
 #, c-format
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
 msgstr "LỖI: tên tập tin nhập vào trùng với tên tập tin xuất ra « %s »\n"
 
-#: oggenc/oggenc.c:303
+#: oggenc/oggenc.c:352
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr "LỖI: không thể mở tập tin xuất « %s »: %s\n"
 
-#: oggenc/oggenc.c:335
+#: oggenc/oggenc.c:398
 #, c-format
 msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr "Đang lấy lại mẫu nhập từ %d Hz đến %d Hz\n"
 
-#: oggenc/oggenc.c:342
+#: oggenc/oggenc.c:405
 #, c-format
 msgid "Downmixing stereo to mono\n"
 msgstr "Đang hoà trộn xuống âm lập thể thành nguồn đơn\n"
 
-#: oggenc/oggenc.c:345
+#: oggenc/oggenc.c:408
 #, c-format
 msgid "WARNING: Can't downmix except from stereo to mono\n"
 msgstr "CẢNH BÁO : không thể hoà tiếng từ âm lập thể xuống nguồn đơn\n"
 
-#: oggenc/oggenc.c:353
+#: oggenc/oggenc.c:416
 #, c-format
 msgid "Scaling input to %f\n"
 msgstr "Đang co dãn kết nhập thành %f\n"
 
-#: oggenc/oggenc.c:395
+#: oggenc/oggenc.c:462
 #, c-format
 msgid "oggenc from %s %s"
 msgstr "oggenc từ %s %s"
 
-#: oggenc/oggenc.c:397
+#: oggenc/oggenc.c:464
 #, c-format
 msgid ""
 "Usage: oggenc [options] inputfile [...]\n"
@@ -1209,7 +1551,7 @@ msgstr ""
 "Sử dụng: oggenc [tùy_chọn] tập_tin_nhập [...]\n"
 "\n"
 
-#: oggenc/oggenc.c:398
+#: oggenc/oggenc.c:465
 #, c-format
 msgid ""
 "OPTIONS:\n"
@@ -1225,7 +1567,7 @@ msgstr ""
 " -h, --help           In ra trợ giúp này\n"
 " -V, --version        In ra số thứ tự phiên bản\n"
 
-#: oggenc/oggenc.c:404
+#: oggenc/oggenc.c:471
 #, c-format
 msgid ""
 " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
@@ -1236,13 +1578,15 @@ msgid ""
 " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"
 msgstr ""
 " -k, --skeleton       Thêm một luồng bit kiểu Ogg Skeleton\n"
-" -r, --raw            Chế độ thô. Tập tin nhập vào thì được đọc trực tiếp là dữ liệu PCM\n"
+" -r, --raw            Chế độ thô. Tập tin nhập vào thì được đọc trực tiếp là "
+"dữ liệu PCM\n"
 " -B, --raw-bits=n     Đặt số bit/mẫu cho dữ liệu nhập thô ; mặc định là 16\n"
 " -C, --raw-chan=n     Đặt số kênh cho dữ liệu nhập thô ; mặc định là 2\n"
-" -R, --raw-rate=n     Đặt số mẫu/giây cho dữ liệu nhập thô ; mặc định là 44100\n"
+" -R, --raw-rate=n     Đặt số mẫu/giây cho dữ liệu nhập thô ; mặc định là "
+"44100\n"
 " --raw-endianness     1 về cuối lớn, 0 về cuối nhỏ (mặc định là 0)\n"
 
-#: oggenc/oggenc.c:411
+#: oggenc/oggenc.c:478
 #, c-format
 msgid ""
 " -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
@@ -1260,11 +1604,12 @@ msgstr ""
 "\t\t\tXem tùy chọn « --managed » để dùng một tỷ lệ bit\n"
 "\t\t\tđược quản lý nhắm mục đích là tỷ lệ bit được chọn.\n"
 
-#: oggenc/oggenc.c:418
+#: oggenc/oggenc.c:485
 #, c-format
 msgid ""
 " --managed            Enable the bitrate management engine. This will allow\n"
-"                      much greater control over the precise bitrate(s) used,\n"
+"                      much greater control over the precise bitrate(s) "
+"used,\n"
 "                      but encoding will be much slower. Don't use it unless\n"
 "                      you have a strong need for detailed control over\n"
 "                      bitrate, such as for streaming.\n"
@@ -1277,7 +1622,7 @@ msgstr ""
 "\t\t\tcần điều khiển chi tiết tỷ lệ bit,\n"
 "\t\t\tv.d. để chạy luồng.\n"
 
-#: oggenc/oggenc.c:424
+#: oggenc/oggenc.c:491
 #, c-format
 msgid ""
 " -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
@@ -1297,7 +1642,7 @@ msgstr ""
 "\t\t\tDùng tùy chọn này cũng tự động bật chế độ tỷ lệ bit\n"
 "\t\t\tđược quản lý (xem tùy chọn « --managed »).\n"
 
-#: oggenc/oggenc.c:432
+#: oggenc/oggenc.c:499
 #, c-format
 msgid ""
 " --advanced-encode-option option=value\n"
@@ -1315,7 +1660,7 @@ msgstr ""
 "\t\t\tTùy chọn kiểu này chỉ cho người dùng thành thạo,\n"
 "\t\t\tcũng nên dùng cẩn thận.\n"
 
-#: oggenc/oggenc.c:439
+#: oggenc/oggenc.c:506
 #, c-format
 msgid ""
 " -q, --quality        Specify quality, between -1 (very low) and 10 (very\n"
@@ -1331,7 +1676,7 @@ msgstr ""
 "\t\t\tCũng cho phép giá trị phân số (v.d. 2.75).\n"
 "\t\t\tMức chất lượng mặc định là 3.\n"
 
-#: oggenc/oggenc.c:445
+#: oggenc/oggenc.c:512
 #, c-format
 msgid ""
 " --resample n         Resample input data to sampling rate n (Hz)\n"
@@ -1348,12 +1693,12 @@ msgstr ""
 "\t\t\tNếu mã hoá nhiều tập tin, số thứ tự này\n"
 "\t\t\tsẽ tăng dần với mỗi luồng nằm sau cái đầu tiên.\n"
 
-#: oggenc/oggenc.c:452
-#, c-format
+#: oggenc/oggenc.c:519
+#, fuzzy, c-format
 msgid ""
 " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
 "                      being copied to the output Ogg Vorbis file.\n"
-" --ignorelength       Ignore the datalength in wav headers. This will allow\n"
+" --ignorelength       Ignore the datalength in Wave headers. This allows\n"
 "                      support for files > 4GB and STDIN data streams. \n"
 "\n"
 msgstr ""
@@ -1364,14 +1709,16 @@ msgstr ""
 "\t\t\tvà luồng dữ liệu trên đầu vào tiêu chuẩn (STDIN).\n"
 "\n"
 
-#: oggenc/oggenc.c:458
+#: oggenc/oggenc.c:525
 #, c-format
 msgid ""
 " Naming:\n"
 " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
 " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%l,\n"
-"                      %%n, %%d replaced by artist, title, album, track number,\n"
-"                      and date, respectively (see below for specifying these).\n"
+"                      %%n, %%d replaced by artist, title, album, track "
+"number,\n"
+"                      and date, respectively (see below for specifying "
+"these).\n"
 "                      %%%% gives a literal %%.\n"
 msgstr ""
 " Đặt tên:\n"
@@ -1386,16 +1733,19 @@ msgstr ""
 "\t\t\txem dưới đây để tìm thông tin\n"
 "\t\t\tvề cách xác định những biến đặc biệt này.\n"
 
-#: oggenc/oggenc.c:465
+#: oggenc/oggenc.c:532
 #, c-format
 msgid ""
-" -X, --name-remove=s  Remove the specified characters from parameters to the\n"
+" -X, --name-remove=s  Remove the specified characters from parameters to "
+"the\n"
 "                      -n format string. Useful to ensure legal filenames.\n"
 " -P, --name-replace=s Replace characters removed by --name-remove with the\n"
-"                      characters specified. If this string is shorter than the\n"
+"                      characters specified. If this string is shorter than "
+"the\n"
 "                      --name-remove list or is not specified, the extra\n"
 "                      characters are just removed.\n"
-"                      Default settings for the above two arguments are platform\n"
+"                      Default settings for the above two arguments are "
+"platform\n"
 "                      specific.\n"
 msgstr ""
 " -X, --name-remove=s\t\tGỡ bỏ những ký tự được xác định ở đây\n"
@@ -1410,9 +1760,14 @@ msgstr ""
 "\t\t\tThiết lập mặc định cho hai đối số trên\n"
 "\t\t\tcũng đặc trưng cho nền tảng.\n"
 
-#: oggenc/oggenc.c:474
-#, c-format
+#: oggenc/oggenc.c:541
+#, fuzzy, c-format
 msgid ""
+" --utf8               Tells oggenc that the command line parameters date, "
+"title,\n"
+"                      album, artist, genre, and comment are already in UTF-"
+"8.\n"
+"                      On Windows, this switch applies to file names too.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
 "                      used multiple times. The argument should be in the\n"
 "                      format \"tag=value\".\n"
@@ -1423,7 +1778,7 @@ msgstr ""
 "\t\t\tĐối số nên có dạng « thẻ=giá_trị ».\n"
 " -d, --date           Ngày tháng của rãnh (thường là ngày biểu diễn)\n"
 
-#: oggenc/oggenc.c:479
+#: oggenc/oggenc.c:549
 #, c-format
 msgid ""
 " -N, --tracknum       Track number for this track\n"
@@ -1438,18 +1793,31 @@ msgstr ""
 " -a, --artist         Tên của nghệ sĩ\n"
 " -G, --genre          Thể loại của rãnh\n"
 
-#: oggenc/oggenc.c:485
+#: oggenc/oggenc.c:555
 #, c-format
 msgid ""
+" -L, --lyrics         Include lyrics from given file (.srt or .lrc format)\n"
+" -Y, --lyrics-language  Sets the language for the lyrics\n"
+msgstr ""
+
+#: oggenc/oggenc.c:558
+#, fuzzy, c-format
+msgid ""
 "                      If multiple input files are given, then multiple\n"
-"                      instances of the previous five arguments will be used,\n"
+"                      instances of the previous eight arguments will be "
+"used,\n"
 "                      in the order they are given. If fewer titles are\n"
-"                      specified than files, OggEnc will print a warning, and\n"
+"                      specified than files, OggEnc will print a warning, "
+"and\n"
 "                      reuse the final one for the remaining files. If fewer\n"
 "                      track numbers are given, the remaining files will be\n"
-"                      unnumbered. For the others, the final tag will be reused\n"
-"                      for all others without warning (so you can specify a date\n"
-"                      once, for example, and have it used for all the files)\n"
+"                      unnumbered. If fewer lyrics are given, the remaining\n"
+"                      files will not have lyrics added. For the others, the\n"
+"                      final tag will be reused for all others without "
+"warning\n"
+"                      (so you can specify a date once, for example, and "
+"have\n"
+"                      it used for all the files)\n"
 "\n"
 msgstr ""
 "\t\t\tĐưa ra nhiều tập tin nhập vào, thì dùng nhiều lần\n"
@@ -1462,19 +1830,25 @@ msgstr ""
 "\t\t\tmà không cảnh báo (thì có thể xác định một lần\n"
 "\t\t\tmột ngày tháng nào đó mà được dùng lại cho mọi tập tin)\n"
 
-#: oggenc/oggenc.c:496
-#, c-format
+#: oggenc/oggenc.c:571
+#, fuzzy, c-format
 msgid ""
 "INPUT FILES:\n"
-" OggEnc input files must currently be 24, 16, or 8 bit PCM Wave, 16 bit u-Law (.au), AIFF, or AIFF/C\n"
-" files, 32 bit IEEE floating point Wave, and optionally FLAC or Ogg FLAC. Files\n"
+" OggEnc input files must currently be 24, 16, or 8 bit PCM Wave, AIFF, or "
+"AIFF/C\n"
+" files, 32 bit IEEE floating point Wave, and optionally FLAC or Ogg FLAC. "
+"Files\n"
 "  may be mono or stereo (or more channels) and any sample rate.\n"
-" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-" must be 16 bit stereo little-endian PCM ('headerless wave'), unless additional\n"
+" Alternatively, the --raw option may be used to use a raw PCM data file, "
+"which\n"
+" must be 16 bit stereo little-endian PCM ('headerless Wave'), unless "
+"additional\n"
 " parameters for raw mode are specified.\n"
-" You can specify taking the file from stdin by using - as the input filename.\n"
+" You can specify taking the file from stdin by using - as the input "
+"filename.\n"
 " In this mode, output is to stdout unless an output filename is specified\n"
 " with -o\n"
+" Lyrics files may be in SubRip (.srt) or LRC (.lrc) format\n"
 "\n"
 msgstr ""
 "TẬP TIN NHẬP:\n"
@@ -1492,330 +1866,396 @@ msgstr ""
 "nếu không đặt tên tập tin kết xuất bằng « -o ».\n"
 "\n"
 
-#: oggenc/oggenc.c:601
+#: oggenc/oggenc.c:677
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
-msgstr "CẢNH BÁO : đang bỏ qua ký tự thoát không được phép « %c » trong định dạng tên\n"
+msgstr ""
+"CẢNH BÁO : đang bỏ qua ký tự thoát không được phép « %c » trong định dạng "
+"tên\n"
 
-#: oggenc/oggenc.c:630 oggenc/oggenc.c:755 oggenc/oggenc.c:768
+#: oggenc/oggenc.c:706 oggenc/oggenc.c:834 oggenc/oggenc.c:847
 #, c-format
 msgid "Enabling bitrate management engine\n"
 msgstr "Đang bật cơ chế quản lý tỷ lệ bit\n"
 
-#: oggenc/oggenc.c:639
+#: oggenc/oggenc.c:715
 #, c-format
-msgid "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
-msgstr "CẢNH BÁO : tính trạng cuối thô được ghi rõ cho dữ liệu không phải thô. Như thế thì sẽ giả sử dữ liệu nhập có phải là thô.\n"
+msgid ""
+"WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"CẢNH BÁO : tính trạng cuối thô được ghi rõ cho dữ liệu không phải thô. Như "
+"thế thì sẽ giả sử dữ liệu nhập có phải là thô.\n"
 
-#: oggenc/oggenc.c:642
+#: oggenc/oggenc.c:718
 #, c-format
 msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
 msgstr "CẢNH BÁO : không thể đọc đối số tính trạng cuối « %s »\n"
 
-#: oggenc/oggenc.c:649
+#: oggenc/oggenc.c:725
 #, c-format
 msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
 msgstr "CẢNH BÁO : không thể đọc tần số lấy lại mẫu « %s »\n"
 
-#: oggenc/oggenc.c:655
-#, c-format
-msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
-msgstr "Cảnh báo : tỷ lệ lấy lại mẫu được ghi rõ là %d Hz. Bạn có định gõ %d Hz không?\n"
+#: oggenc/oggenc.c:731
+#, fuzzy, c-format
+msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
+msgstr ""
+"Cảnh báo : tỷ lệ lấy lại mẫu được ghi rõ là %d Hz. Bạn có định gõ %d Hz "
+"không?\n"
 
-#: oggenc/oggenc.c:665
-#, c-format
-msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
+#: oggenc/oggenc.c:741
+#, fuzzy, c-format
+msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr "Cảnh báo : không thể phân tách hệ số co dãn « %s »\n"
 
-#: oggenc/oggenc.c:675
+#: oggenc/oggenc.c:754
 #, c-format
 msgid "No value for advanced encoder option found\n"
 msgstr "Không tìm thấy giá trị cho tùy chọn mã hóa cấp cao\n"
 
-#: oggenc/oggenc.c:693
+#: oggenc/oggenc.c:772
 #, c-format
 msgid "Internal error parsing command line options\n"
 msgstr "Gặp lỗi nội bộ khi phân tách tùy chọn dòng lệnh\n"
 
-#: oggenc/oggenc.c:704
-#, c-format
-msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
+#: oggenc/oggenc.c:783
+#, fuzzy, c-format
+msgid "WARNING: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr "Cảnh báo : dùng ghi chú không được phép (« %s ») nên bỏ qua.\n"
 
-#: oggenc/oggenc.c:741
-#, c-format
-msgid "Warning: nominal bitrate \"%s\" not recognised\n"
+#: oggenc/oggenc.c:820
+#, fuzzy, c-format
+msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr "Cảnh báo : không nhận ra tỷ lệ không đáng kể « %s »\n"
 
-#: oggenc/oggenc.c:749
-#, c-format
-msgid "Warning: minimum bitrate \"%s\" not recognised\n"
+#: oggenc/oggenc.c:828
+#, fuzzy, c-format
+msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr "Cảnh báo : không nhận ra tỷ lệ tối thiểu « %s »\n"
 
-#: oggenc/oggenc.c:762
-#, c-format
-msgid "Warning: maximum bitrate \"%s\" not recognised\n"
+#: oggenc/oggenc.c:841
+#, fuzzy, c-format
+msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr "Cảnh báo : không nhận ra tỷ lệ tối đa « %s »\n"
 
-#: oggenc/oggenc.c:774
+#: oggenc/oggenc.c:853
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr "Không nhận ra tùy chọn chất lượng « %s » nên bỏ qua\n"
 
-#: oggenc/oggenc.c:782
+#: oggenc/oggenc.c:861
 #, c-format
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
-msgstr "CẢNH BÁO : thiết lập chất lượng quá cao nên lập thành chất lượng tối đa.\n"
+msgstr ""
+"CẢNH BÁO : thiết lập chất lượng quá cao nên lập thành chất lượng tối đa.\n"
 
-#: oggenc/oggenc.c:788
+#: oggenc/oggenc.c:867
 #, c-format
 msgid "WARNING: Multiple name formats specified, using final\n"
 msgstr "CẢNH BÁO : nhiều định dạng tên được ghi rõ nên dùng điều cuối cùng\n"
 
-#: oggenc/oggenc.c:797
+#: oggenc/oggenc.c:876
 #, c-format
 msgid "WARNING: Multiple name format filters specified, using final\n"
-msgstr "CẢNH BÁO : nhiều bộ lọc định dạng tên được ghi rõ nên dùng điều cuối cùng\n"
+msgstr ""
+"CẢNH BÁO : nhiều bộ lọc định dạng tên được ghi rõ nên dùng điều cuối cùng\n"
 
-#: oggenc/oggenc.c:806
+#: oggenc/oggenc.c:885
 #, c-format
-msgid "WARNING: Multiple name format filter replacements specified, using final\n"
-msgstr "CẢNH BÁO : nhiều điều thay thế bộ lọc định dạng tên được ghi rõ nên dùng điều cuối cùng\n"
+msgid ""
+"WARNING: Multiple name format filter replacements specified, using final\n"
+msgstr ""
+"CẢNH BÁO : nhiều điều thay thế bộ lọc định dạng tên được ghi rõ nên dùng "
+"điều cuối cùng\n"
 
-#: oggenc/oggenc.c:814
+#: oggenc/oggenc.c:893
 #, c-format
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
-msgstr "CẢNH BÁO : nhiều tập tin xuất được ghi rõ nên đệ nghị dùng tùy chọn « -n »\n"
+msgstr ""
+"CẢNH BÁO : nhiều tập tin xuất được ghi rõ nên đệ nghị dùng tùy chọn « -n »\n"
 
-#: oggenc/oggenc.c:826
+#: oggenc/oggenc.c:905
 #, c-format
 msgid "oggenc from %s %s\n"
 msgstr "oggenc từ %s %s\n"
 
-#: oggenc/oggenc.c:833
+#: oggenc/oggenc.c:912
 #, c-format
-msgid "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
-msgstr "CẢNH BÁO : bit/mẫu thô được ghi rõ cho dữ liệu không phải thô nên giả sử dữ liệu nhập có phải là thô.\n"
+msgid ""
+"WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"CẢNH BÁO : bit/mẫu thô được ghi rõ cho dữ liệu không phải thô nên giả sử dữ "
+"liệu nhập có phải là thô.\n"
 
-#: oggenc/oggenc.c:838 oggenc/oggenc.c:842
+#: oggenc/oggenc.c:917 oggenc/oggenc.c:921
 #, c-format
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr "CẢNH BÁO : ghi rõ bit/mẫu không hợp lệ nên giả sử 16.\n"
 
-#: oggenc/oggenc.c:849
+#: oggenc/oggenc.c:928
 #, c-format
-msgid "WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n"
-msgstr "CẢNH BÁO : số đếm kênh thô được ghi rõ cho dữ liệu không phải thô nên giả sử dữ liệu nhập có phải là thô.\n"
+msgid ""
+"WARNING: Raw channel count specified for non-raw data. Assuming input is "
+"raw.\n"
+msgstr ""
+"CẢNH BÁO : số đếm kênh thô được ghi rõ cho dữ liệu không phải thô nên giả sử "
+"dữ liệu nhập có phải là thô.\n"
 
-#: oggenc/oggenc.c:854
+#: oggenc/oggenc.c:933
 #, c-format
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr "CẢNH BÁO : ghi rõ số đếm kênh không hợp lệ nên giả sử 2.\n"
 
-#: oggenc/oggenc.c:865
+#: oggenc/oggenc.c:944
 #, c-format
-msgid "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
-msgstr "CẢNH BÁO : tỷ lệ lấy mẫu thô được ghi rõ cho dữ liệu không phải thô nên giả sử dữ liệu nhập có phải là thô.\n"
+msgid ""
+"WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"CẢNH BÁO : tỷ lệ lấy mẫu thô được ghi rõ cho dữ liệu không phải thô nên giả "
+"sử dữ liệu nhập có phải là thô.\n"
 
-#: oggenc/oggenc.c:870
+#: oggenc/oggenc.c:949
 #, c-format
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
 msgstr "CẢNH BÁO : ghi rõ tỷ lệ lấy mẫu không hợp lệ nên giả sử 44100.\n"
 
-#: oggenc/oggenc.c:877
+#: oggenc/oggenc.c:961 oggenc/oggenc.c:973
+#, c-format
+msgid "WARNING: Kate support not compiled in; lyrics will not be included.\n"
+msgstr ""
+
+#: oggenc/oggenc.c:969
+#, c-format
+msgid "WARNING: language can not be longer than 15 characters; truncated.\n"
+msgstr ""
+
+#: oggenc/oggenc.c:977
 #, c-format
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "CẢNH BÁO : ghi rõ tùy chọn lạ nên giả sử →\n"
 
-#: oggenc/oggenc.c:899 vorbiscomment/vcomment.c:354
+#: oggenc/oggenc.c:993 vorbiscomment/vcomment.c:344
+#, fuzzy, c-format
+msgid "'%s' is not valid UTF-8, cannot add\n"
+msgstr "Không thể chuyển đôi ghi chú đến UTF-8 nên không thể thêm\n"
+
+#: oggenc/oggenc.c:1010 vorbiscomment/vcomment.c:357
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Không thể chuyển đôi ghi chú đến UTF-8 nên không thể thêm\n"
 
-#: oggenc/oggenc.c:918
+#: oggenc/oggenc.c:1029
 #, c-format
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
 msgstr "CẢNH BÁO : chưa ghi rõ đủ tựa nên dùng mặc định (tựa cuối cùng).\n"
 
-#: oggenc/platform.c:150
+#: oggenc/platform.c:172
 #, c-format
 msgid "Couldn't create directory \"%s\": %s\n"
 msgstr "Không thể tạo thư mục « %s »: %s\n"
 
-#: oggenc/platform.c:157
+#: oggenc/platform.c:179
 #, c-format
 msgid "Error checking for existence of directory %s: %s\n"
 msgstr "Gặp lỗi khi kiểm tra có thư mục %s: %s\n"
 
-#: oggenc/platform.c:170
+#: oggenc/platform.c:192
 #, c-format
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr "Lỗi: đoạn đường dẫn « %s » không phải là thư mục\n"
 
-#: ogginfo/ogginfo2.c:211
-#, c-format
-msgid "Warning: Comment %d in stream %d has invalid format, does not contain '=': \"%s\"\n"
-msgstr "Cảnh báo : ghi chú %d trong luồng %d có định dạng không hợp lệ, không chứa '=': \"%s\"\n"
+#: ogginfo/ogginfo2.c:212
+#, fuzzy, c-format
+msgid ""
+"WARNING: Comment %d in stream %d has invalid format, does not contain '=': "
+"\"%s\"\n"
+msgstr ""
+"Cảnh báo : ghi chú %d trong luồng %d có định dạng không hợp lệ, không chứa "
+"'=': \"%s\"\n"
 
-#: ogginfo/ogginfo2.c:219
-#, c-format
-msgid "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
-msgstr "Cảnh báo : tên trường ghi chú không hợp lệ trong ghi chú %d (luồng %d): « %s »\n"
+#: ogginfo/ogginfo2.c:220
+#, fuzzy, c-format
+msgid "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
+msgstr ""
+"Cảnh báo : tên trường ghi chú không hợp lệ trong ghi chú %d (luồng %d): « %s "
+"»\n"
 
-#: ogginfo/ogginfo2.c:250 ogginfo/ogginfo2.c:258
-#, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker wrong\n"
-msgstr "Cảnh báo : chuỗi UTF-8 không được phép trong ghi chú %d (luồng %d): dấu độ dài không đúng\n"
+#: ogginfo/ogginfo2.c:251 ogginfo/ogginfo2.c:259
+#, fuzzy, c-format
+msgid ""
+"WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
+"wrong\n"
+msgstr ""
+"Cảnh báo : chuỗi UTF-8 không được phép trong ghi chú %d (luồng %d): dấu độ "
+"dài không đúng\n"
 
-#: ogginfo/ogginfo2.c:265
-#, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
-msgstr "Cảnh báo : chuỗi UTF-8 không được phép trong ghi chú %d (luồng %d): quá ít byte\n"
+#: ogginfo/ogginfo2.c:266
+#, fuzzy, c-format
+msgid ""
+"WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
+msgstr ""
+"Cảnh báo : chuỗi UTF-8 không được phép trong ghi chú %d (luồng %d): quá ít "
+"byte\n"
 
-#: ogginfo/ogginfo2.c:341
-#, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence \"%s\": %s\n"
-msgstr "Cảnh báo : chuỗi UTF-8 không được phép trong ghi chú %d (luồng %d): chuỗi không hợp lệ « %s »: %s\n"
+#: ogginfo/ogginfo2.c:342
+#, fuzzy, c-format
+msgid ""
+"WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence "
+"\"%s\": %s\n"
+msgstr ""
+"Cảnh báo : chuỗi UTF-8 không được phép trong ghi chú %d (luồng %d): chuỗi "
+"không hợp lệ « %s »: %s\n"
 
-#: ogginfo/ogginfo2.c:355
-msgid "Warning: Failure in utf8 decoder. This should be impossible\n"
+#: ogginfo/ogginfo2.c:356
+#, fuzzy
+msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
 msgstr "Cảnh báo : bộ giải mã UTF-8 không chạy được. Mà nên không thể.\n"
 
-#: ogginfo/ogginfo2.c:380 ogginfo/ogginfo2.c:547 ogginfo/ogginfo2.c:680
-#, c-format
-msgid "Warning: discontinuity in stream (%d)\n"
+#: ogginfo/ogginfo2.c:381 ogginfo/ogginfo2.c:548 ogginfo/ogginfo2.c:681
+#, fuzzy, c-format
+msgid "WARNING: discontinuity in stream (%d)\n"
 msgstr "Cảnh báo : gặp điểm gián đoạn trong luồng (%d)\n"
 
-#: ogginfo/ogginfo2.c:388
-#, c-format
-msgid "Warning: Could not decode theora header packet - invalid theora stream (%d)\n"
-msgstr "Cảnh báo : không thể giải mã gói tin phần đầu theora: luồng theora không hợp lệ (%d)\n"
+#: ogginfo/ogginfo2.c:389
+#, fuzzy, c-format
+msgid ""
+"WARNING: Could not decode Theora header packet - invalid Theora stream (%d)\n"
+msgstr ""
+"Cảnh báo : không thể giải mã gói tin phần đầu theora: luồng theora không hợp "
+"lệ (%d)\n"
 
-#: ogginfo/ogginfo2.c:395
-#, c-format
-msgid "Warning: Theora stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Cảnh báo : luồng theora %d không có phần đầu trong khung đúng. Trang phần đầu cuối cùng chứa các gói tin thêm, hoặc có granulepos khác số không\n"
+#: ogginfo/ogginfo2.c:396
+#, fuzzy, c-format
+msgid ""
+"WARNING: Theora stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Cảnh báo : luồng theora %d không có phần đầu trong khung đúng. Trang phần "
+"đầu cuối cùng chứa các gói tin thêm, hoặc có granulepos khác số không\n"
 
-#: ogginfo/ogginfo2.c:399
+#: ogginfo/ogginfo2.c:400
 #, c-format
 msgid "Theora headers parsed for stream %d, information follows...\n"
-msgstr "Phần đầu theora đã được phân tách cho luồng %d, thông tin theo đây...\n"
+msgstr ""
+"Phần đầu theora đã được phân tách cho luồng %d, thông tin theo đây...\n"
 
-#: ogginfo/ogginfo2.c:402
+#: ogginfo/ogginfo2.c:403
 #, c-format
 msgid "Version: %d.%d.%d\n"
 msgstr "Phiên bản: %d.%d.%d\n"
 
-#: ogginfo/ogginfo2.c:404 ogginfo/ogginfo2.c:582 ogginfo/ogginfo2.c:742
+#: ogginfo/ogginfo2.c:405 ogginfo/ogginfo2.c:583 ogginfo/ogginfo2.c:743
 #, c-format
 msgid "Vendor: %s\n"
 msgstr "Nhà sản xuất: %s\n"
 
-#: ogginfo/ogginfo2.c:405
+#: ogginfo/ogginfo2.c:406
 #, c-format
 msgid "Width: %d\n"
 msgstr "Rộng: %d\n"
 
-#: ogginfo/ogginfo2.c:406
+#: ogginfo/ogginfo2.c:407
 #, c-format
 msgid "Height: %d\n"
 msgstr "Cao : %d\n"
 
-#: ogginfo/ogginfo2.c:407
+#: ogginfo/ogginfo2.c:408
 #, c-format
 msgid "Total image: %d by %d, crop offset (%d, %d)\n"
 msgstr "Toàn ảnh: %d × %d, xén hiệu (%d, %d)\n"
 
-#: ogginfo/ogginfo2.c:410
+#: ogginfo/ogginfo2.c:411
 msgid "Frame offset/size invalid: width incorrect\n"
 msgstr "Hiệu/cỡ khung không hợp lệ: độ rộng không đúng\n"
 
-#: ogginfo/ogginfo2.c:412
+#: ogginfo/ogginfo2.c:413
 msgid "Frame offset/size invalid: height incorrect\n"
 msgstr "Hiệu/cỡ khung không hợp lệ: độ cao không đúng\n"
 
-#: ogginfo/ogginfo2.c:415
+#: ogginfo/ogginfo2.c:416
 msgid "Invalid zero framerate\n"
 msgstr "Tỷ lệ khung số không thì không hợp lệ\n"
 
-#: ogginfo/ogginfo2.c:417
+#: ogginfo/ogginfo2.c:418
 #, c-format
 msgid "Framerate %d/%d (%.02f fps)\n"
 msgstr "Tỷ lệ khung %d/%d (%.02f khung/giây)\n"
 
-#: ogginfo/ogginfo2.c:421
+#: ogginfo/ogginfo2.c:422
 msgid "Aspect ratio undefined\n"
 msgstr "Chưa xác định tỷ lệ hình thể\n"
 
-#: ogginfo/ogginfo2.c:426
+#: ogginfo/ogginfo2.c:427
 #, c-format
 msgid "Pixel aspect ratio %d:%d (%f:1)\n"
 msgstr "Tỷ lệ hình thể điểm ảnh %d:%d (%f:1)\n"
 
-#: ogginfo/ogginfo2.c:428
+#: ogginfo/ogginfo2.c:429
 msgid "Frame aspect 4:3\n"
 msgstr "Hình thể khung 4:3\n"
 
-#: ogginfo/ogginfo2.c:430
+#: ogginfo/ogginfo2.c:431
 msgid "Frame aspect 16:9\n"
 msgstr "Hình thể khung 16:9\n"
 
-#: ogginfo/ogginfo2.c:432
+#: ogginfo/ogginfo2.c:433
 #, c-format
 msgid "Frame aspect %f:1\n"
 msgstr "Hình thể khung %f:1\n"
 
-#: ogginfo/ogginfo2.c:436
+#: ogginfo/ogginfo2.c:437
 msgid "Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"
 msgstr "Miền màu : Rec. ITU-R BT.470-6 System M (NTSC)\n"
 
-#: ogginfo/ogginfo2.c:438
+#: ogginfo/ogginfo2.c:439
 msgid "Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"
 msgstr "Miền màu : Rec. ITU-R BT.470-6 Systems B và G (PAL)\n"
 
-#: ogginfo/ogginfo2.c:440
+#: ogginfo/ogginfo2.c:441
 msgid "Colourspace unspecified\n"
 msgstr "Chưa xác định miền màu\n"
 
-#: ogginfo/ogginfo2.c:443
+#: ogginfo/ogginfo2.c:444
 msgid "Pixel format 4:2:0\n"
 msgstr "Định dạng điểm ảnh 4:2:0\n"
 
-#: ogginfo/ogginfo2.c:445
+#: ogginfo/ogginfo2.c:446
 msgid "Pixel format 4:2:2\n"
 msgstr "Định dạng điểm ảnh 4:2:2\n"
 
-#: ogginfo/ogginfo2.c:447
+#: ogginfo/ogginfo2.c:448
 msgid "Pixel format 4:4:4\n"
 msgstr "Định dạng điểm ảnh 4:4:4\n"
 
-#: ogginfo/ogginfo2.c:449
+#: ogginfo/ogginfo2.c:450
 msgid "Pixel format invalid\n"
 msgstr "Định dạng điểm ảnh không hợp lệ\n"
 
-#: ogginfo/ogginfo2.c:451
+#: ogginfo/ogginfo2.c:452
 #, c-format
 msgid "Target bitrate: %d kbps\n"
 msgstr "Tỷ lệ bit đích: %d kbps\n"
 
-#: ogginfo/ogginfo2.c:452
+#: ogginfo/ogginfo2.c:453
 #, c-format
 msgid "Nominal quality setting (0-63): %d\n"
 msgstr "Thiết lập chất lượng danh nghĩa (0-63): %d\n"
 
-#: ogginfo/ogginfo2.c:455 ogginfo/ogginfo2.c:605 ogginfo/ogginfo2.c:801
+#: ogginfo/ogginfo2.c:456 ogginfo/ogginfo2.c:606 ogginfo/ogginfo2.c:802
 msgid "User comments section follows...\n"
 msgstr "Phần ghi chú người dùng theo đây...\n"
 
-#: ogginfo/ogginfo2.c:476
-msgid "Warning: Expected frame %"
+#: ogginfo/ogginfo2.c:477
+#, fuzzy
+msgid "WARNING: Expected frame %"
 msgstr "Cảnh báo : mong đợi khung %"
 
-#: ogginfo/ogginfo2.c:492 ogginfo/ogginfo2.c:620 ogginfo/ogginfo2.c:818
-msgid "Warning: granulepos in stream %d decreases from %"
+#: ogginfo/ogginfo2.c:493 ogginfo/ogginfo2.c:621 ogginfo/ogginfo2.c:819
+#, fuzzy
+msgid "WARNING: granulepos in stream %d decreases from %"
 msgstr "Cảnh báo : granulepos trong luồng %d giảm từ %"
 
-#: ogginfo/ogginfo2.c:519
+#: ogginfo/ogginfo2.c:520
 msgid ""
 "Theora stream %d:\n"
 "\tTotal data length: %"
@@ -1823,37 +2263,46 @@ msgstr ""
 "Luồng Theora %d:\n"
 "\tTổng chiều dài dữ liệu : %"
 
-#: ogginfo/ogginfo2.c:556
-#, c-format
-msgid "Warning: Could not decode vorbis header packet %d - invalid vorbis stream (%d)\n"
-msgstr "Cảnh báo : không thể giải mã gói tin phần đầu vorbis %d: luồng vorbis không hợp lệ (%d)\n"
+#: ogginfo/ogginfo2.c:557
+#, fuzzy, c-format
+msgid ""
+"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
+"d)\n"
+msgstr ""
+"Cảnh báo : không thể giải mã gói tin phần đầu vorbis %d: luồng vorbis không "
+"hợp lệ (%d)\n"
 
-#: ogginfo/ogginfo2.c:564
-#, c-format
-msgid "Warning: Vorbis stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Cảnh báo : luồng vorbis %d không có phần đầu trong khung một cách đúng. Trang phần đầu cuối cùng chứa một số gói tin thêm, hoặc có granulepos (vị trí hột nhỏ?) không phải là số không\n"
+#: ogginfo/ogginfo2.c:565
+#, fuzzy, c-format
+msgid ""
+"WARNING: Vorbis stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Cảnh báo : luồng vorbis %d không có phần đầu trong khung một cách đúng. "
+"Trang phần đầu cuối cùng chứa một số gói tin thêm, hoặc có granulepos (vị "
+"trí hột nhỏ?) không phải là số không\n"
 
-#: ogginfo/ogginfo2.c:568
+#: ogginfo/ogginfo2.c:569
 #, c-format
 msgid "Vorbis headers parsed for stream %d, information follows...\n"
 msgstr "Phần đầu vorbis được phân tách cho luồng %d, thông tin theo đây...\n"
 
-#: ogginfo/ogginfo2.c:571
+#: ogginfo/ogginfo2.c:572
 #, c-format
 msgid "Version: %d\n"
 msgstr "Phiên bản %d\n"
 
-#: ogginfo/ogginfo2.c:575
+#: ogginfo/ogginfo2.c:576
 #, c-format
 msgid "Vendor: %s (%s)\n"
 msgstr "Nhà sản xuất: %s (%s)\n"
 
-#: ogginfo/ogginfo2.c:583
+#: ogginfo/ogginfo2.c:584
 #, c-format
 msgid "Channels: %d\n"
 msgstr "Kênh: %d\n"
 
-#: ogginfo/ogginfo2.c:584
+#: ogginfo/ogginfo2.c:585
 #, c-format
 msgid ""
 "Rate: %ld\n"
@@ -1862,39 +2311,39 @@ msgstr ""
 "Tỷ lệ: %ld\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:587
+#: ogginfo/ogginfo2.c:588
 #, c-format
 msgid "Nominal bitrate: %f kb/s\n"
 msgstr "Tỷ lệ bit không đáng kể: %f kb/g\n"
 
-#: ogginfo/ogginfo2.c:590
+#: ogginfo/ogginfo2.c:591
 msgid "Nominal bitrate not set\n"
 msgstr "Chưa lập tỷ lệ bit không đáng kể\n"
 
-#: ogginfo/ogginfo2.c:593
+#: ogginfo/ogginfo2.c:594
 #, c-format
 msgid "Upper bitrate: %f kb/s\n"
 msgstr "Tỷ lệ bit trên: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:596
+#: ogginfo/ogginfo2.c:597
 msgid "Upper bitrate not set\n"
 msgstr "Chưa lập tỷ lệ bit trên\n"
 
-#: ogginfo/ogginfo2.c:599
+#: ogginfo/ogginfo2.c:600
 #, c-format
 msgid "Lower bitrate: %f kb/s\n"
 msgstr "Tỷ lệ bit dưới: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:602
+#: ogginfo/ogginfo2.c:603
 msgid "Lower bitrate not set\n"
 msgstr "Chưa ghi rõ tỷ lệ bit dưới\n"
 
-#: ogginfo/ogginfo2.c:629
-#, c-format
-msgid "Negative or zero granulepos (%lld) on vorbis stream outside of headers. This file was created by a buggy encoder\n"
-msgstr "Gặp granulepos âm hay số không (%lld) trên luông vorbis bên ngoài phần đầu. Tập tin này đã được tạo bởi một bộ mã hoá có lỗi.\n"
+#: ogginfo/ogginfo2.c:630
+#, fuzzy
+msgid "Negative or zero granulepos (%"
+msgstr "Tỷ lệ granulepos số không thì không hợp lệ\n"
 
-#: ogginfo/ogginfo2.c:650
+#: ogginfo/ogginfo2.c:651
 msgid ""
 "Vorbis stream %d:\n"
 "\tTotal data length: %"
@@ -1902,106 +2351,117 @@ msgstr ""
 "Luồng Vorbis %d:\n"
 "\tTổng chiều dài dữ liệu : %"
 
-#: ogginfo/ogginfo2.c:691
-#, c-format
-msgid "Warning: Could not decode kate header packet %d - invalid kate stream (%d)\n"
-msgstr "Cảnh báo : không thể giải mã gói tin phần đầu kate %d: luồng kate không hợp lệ (%d)\n"
+#: ogginfo/ogginfo2.c:692
+#, fuzzy, c-format
+msgid ""
+"WARNING: Could not decode Kate header packet %d - invalid Kate stream (%d)\n"
+msgstr ""
+"Cảnh báo : không thể giải mã gói tin phần đầu kate %d: luồng kate không hợp "
+"lệ (%d)\n"
 
-#: ogginfo/ogginfo2.c:702
-#, c-format
-msgid "Warning: packet %d does not seem to be a kate header - invalid kate stream (%d)\n"
-msgstr "Cảnh báo : hình như gói tin %d không phải là một phần đầu kate: luồng kate không hợp lệ (%d)\n"
+#: ogginfo/ogginfo2.c:703
+#, fuzzy, c-format
+msgid ""
+"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream (%"
+"d)\n"
+msgstr ""
+"Cảnh báo : hình như gói tin %d không phải là một phần đầu kate: luồng kate "
+"không hợp lệ (%d)\n"
 
-#: ogginfo/ogginfo2.c:733
-#, c-format
-msgid "Warning: Kate stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Cảnh báo : luồng Kate %d không có phần đầu trong khung đúng. Trang phần đầu cuối cùng chứa gói tin bổ sung, hoặc có granulepos khác số không\n"
+#: ogginfo/ogginfo2.c:734
+#, fuzzy, c-format
+msgid ""
+"WARNING: Kate stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Cảnh báo : luồng Kate %d không có phần đầu trong khung đúng. Trang phần đầu "
+"cuối cùng chứa gói tin bổ sung, hoặc có granulepos khác số không\n"
 
-#: ogginfo/ogginfo2.c:737
+#: ogginfo/ogginfo2.c:738
 #, c-format
 msgid "Kate headers parsed for stream %d, information follows...\n"
-msgstr "Phần đầu Kate đã được phân tích cho luồng %d, có thông tin theo đây...\n"
+msgstr ""
+"Phần đầu Kate đã được phân tích cho luồng %d, có thông tin theo đây...\n"
 
-#: ogginfo/ogginfo2.c:740
+#: ogginfo/ogginfo2.c:741
 #, c-format
 msgid "Version: %d.%d\n"
 msgstr "Phiên bản: %d.%d\n"
 
-#: ogginfo/ogginfo2.c:746
+#: ogginfo/ogginfo2.c:747
 #, c-format
 msgid "Language: %s\n"
 msgstr "Ngôn ngữ : %s\n"
 
-#: ogginfo/ogginfo2.c:749
+#: ogginfo/ogginfo2.c:750
 msgid "No language set\n"
 msgstr "Chưa đặt ngôn ngữ\n"
 
-#: ogginfo/ogginfo2.c:752
+#: ogginfo/ogginfo2.c:753
 #, c-format
 msgid "Category: %s\n"
 msgstr "Phân loại: %s\n"
 
-#: ogginfo/ogginfo2.c:755
+#: ogginfo/ogginfo2.c:756
 msgid "No category set\n"
 msgstr "Chưa đặt phân loại\n"
 
-#: ogginfo/ogginfo2.c:760
+#: ogginfo/ogginfo2.c:761
 msgid "utf-8"
 msgstr "utf-8"
 
-#: ogginfo/ogginfo2.c:764
+#: ogginfo/ogginfo2.c:765
 #, c-format
 msgid "Character encoding: %s\n"
 msgstr "Bộ ký tự : %s\n"
 
-#: ogginfo/ogginfo2.c:767
+#: ogginfo/ogginfo2.c:768
 msgid "Unknown character encoding\n"
 msgstr "Không rõ bộ ký tự\n"
 
-#: ogginfo/ogginfo2.c:772
+#: ogginfo/ogginfo2.c:773
 msgid "left to right, top to bottom"
 msgstr "trái sang phải, trên xuống dưới"
 
-#: ogginfo/ogginfo2.c:773
+#: ogginfo/ogginfo2.c:774
 msgid "right to left, top to bottom"
 msgstr "phải sang trái, dưới lên trên"
 
-#: ogginfo/ogginfo2.c:774
+#: ogginfo/ogginfo2.c:775
 msgid "top to bottom, right to left"
 msgstr "trên xuống dưới, phải sang trái"
 
-#: ogginfo/ogginfo2.c:775
+#: ogginfo/ogginfo2.c:776
 msgid "top to bottom, left to right"
 msgstr "trên xuống dưới, trái sang phải"
 
-#: ogginfo/ogginfo2.c:779
+#: ogginfo/ogginfo2.c:780
 #, c-format
 msgid "Text directionality: %s\n"
 msgstr "Hướng văn bản: %s\n"
 
-#: ogginfo/ogginfo2.c:782
+#: ogginfo/ogginfo2.c:783
 msgid "Unknown text directionality\n"
 msgstr "Không rõ hướng văn bản\n"
 
-#: ogginfo/ogginfo2.c:794
+#: ogginfo/ogginfo2.c:795
 msgid "Invalid zero granulepos rate\n"
 msgstr "Tỷ lệ granulepos số không thì không hợp lệ\n"
 
-#: ogginfo/ogginfo2.c:796
+#: ogginfo/ogginfo2.c:797
 #, c-format
 msgid "Granulepos rate %d/%d (%.02f gps)\n"
 msgstr "Tỷ lệ granulepos %d/%d (%.02f khung/giây)\n"
 
-#: ogginfo/ogginfo2.c:809
+#: ogginfo/ogginfo2.c:810
 msgid "\n"
 msgstr "\n"
 
-#: ogginfo/ogginfo2.c:827
-#, c-format
-msgid "Negative granulepos (%lld) on kate stream outside of headers. This file was created by a buggy encoder\n"
-msgstr "granulepos âm (%lld) trên luông Kate bên ngoài phần đầu. Tập tin này đã được tạo bởi một bộ mã hoá có lỗi.\n"
+#: ogginfo/ogginfo2.c:828
+msgid "Negative granulepos (%"
+msgstr ""
 
-#: ogginfo/ogginfo2.c:852
+#: ogginfo/ogginfo2.c:853
 msgid ""
 "Kate stream %d:\n"
 "\tTotal data length: %"
@@ -2009,35 +2469,42 @@ msgstr ""
 "Luồng Kate %d:\n"
 "\tTổng chiều dài dữ liệu : %"
 
-#: ogginfo/ogginfo2.c:892
-#, c-format
-msgid "Warning: EOS not set on stream %d\n"
+#: ogginfo/ogginfo2.c:893
+#, fuzzy, c-format
+msgid "WARNING: EOS not set on stream %d\n"
 msgstr "Cảnh báo : chưa lập kết thúc luồng trên luồng %d\n"
 
-#: ogginfo/ogginfo2.c:1047
-msgid "Warning: Invalid header page, no packet found\n"
+#: ogginfo/ogginfo2.c:1048
+#, fuzzy
+msgid "WARNING: Invalid header page, no packet found\n"
 msgstr "Cảnh báo: trang phần đầu không hợp lệ, không tìm thấy gói tin\n"
 
-#: ogginfo/ogginfo2.c:1073
-#, c-format
-msgid "Warning: Invalid header page in stream %d, contains multiple packets\n"
-msgstr "Cảnh báo: trang phần đầu không hợp lệ trong luồng %d, chứa nhiều gói tin\n"
+#: ogginfo/ogginfo2.c:1076
+#, fuzzy, c-format
+msgid "WARNING: Invalid header page in stream %d, contains multiple packets\n"
+msgstr ""
+"Cảnh báo: trang phần đầu không hợp lệ trong luồng %d, chứa nhiều gói tin\n"
 
-#: ogginfo/ogginfo2.c:1087
+#: ogginfo/ogginfo2.c:1090
 #, c-format
-msgid "Note: Stream %d has serial number %d, which is legal but may cause problems with some tools.\n"
-msgstr "Ghi chú : luồng %d có số sản xuất %d mà hợp pháp nhưng có thể gây ra lỗi trong một số công cụ.\n"
+msgid ""
+"Note: Stream %d has serial number %d, which is legal but may cause problems "
+"with some tools.\n"
+msgstr ""
+"Ghi chú : luồng %d có số sản xuất %d mà hợp pháp nhưng có thể gây ra lỗi "
+"trong một số công cụ.\n"
 
-#: ogginfo/ogginfo2.c:1104
-msgid "Warning: Hole in data (%d bytes) found at approximate offset %"
+#: ogginfo/ogginfo2.c:1108
+#, fuzzy
+msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
 msgstr "Cảnh báo : gặp lỗ trong dữ liệu (%d byte) ở hiệu xấp xỉ %"
 
-#: ogginfo/ogginfo2.c:1128
+#: ogginfo/ogginfo2.c:1135
 #, c-format
 msgid "Error opening input file \"%s\": %s\n"
 msgstr "Gặp lỗi khi mở tập tin nhập « %s »: %s\n"
 
-#: ogginfo/ogginfo2.c:1133
+#: ogginfo/ogginfo2.c:1140
 #, c-format
 msgid ""
 "Processing file \"%s\"...\n"
@@ -2046,71 +2513,79 @@ msgstr ""
 "Đang xử lý tập tin « %s »....\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:1142
+#: ogginfo/ogginfo2.c:1149
 msgid "Could not find a processor for stream, bailing\n"
 msgstr "Không tìm thấy bộ xử lý cho luồng nên hủy bỏ\n"
 
-#: ogginfo/ogginfo2.c:1150
+#: ogginfo/ogginfo2.c:1157
 msgid "Page found for stream after EOS flag"
 msgstr "Tìm thấy trang cho luồng sau cờ EOS (kết thúc luồng)"
 
-#: ogginfo/ogginfo2.c:1153
-msgid "Ogg muxing constraints violated, new stream before EOS of all previous streams"
-msgstr "Vi phạm các ràng buộc mux Ogg, có luồng mới nằm trước EOS (kết thúc luồng) của các luồng trước"
+#: ogginfo/ogginfo2.c:1160
+msgid ""
+"Ogg muxing constraints violated, new stream before EOS of all previous "
+"streams"
+msgstr ""
+"Vi phạm các ràng buộc mux Ogg, có luồng mới nằm trước EOS (kết thúc luồng) "
+"của các luồng trước"
 
-#: ogginfo/ogginfo2.c:1157
+#: ogginfo/ogginfo2.c:1164
 msgid "Error unknown."
 msgstr "Gặp lỗi không rõ."
 
-#: ogginfo/ogginfo2.c:1160
-#, c-format
+#: ogginfo/ogginfo2.c:1167
+#, fuzzy, c-format
 msgid ""
-"Warning: illegally placed page(s) for logical stream %d\n"
-"This indicates a corrupt ogg file: %s.\n"
+"WARNING: illegally placed page(s) for logical stream %d\n"
+"This indicates a corrupt Ogg file: %s.\n"
 msgstr ""
 "Cảnh báo : (các) trang có vị trí cấm cho luồng luận lý %d\n"
 "Ngụ ý tập tin ogg bị hỏng: %s.\n"
 
-#: ogginfo/ogginfo2.c:1172
+#: ogginfo/ogginfo2.c:1179
 #, c-format
 msgid "New logical stream (#%d, serial: %08x): type %s\n"
 msgstr "Luồng hợp lý mới (#%d, nối tiếp: %08x): kiểu %s\n"
 
-#: ogginfo/ogginfo2.c:1175
-#, c-format
-msgid "Warning: stream start flag not set on stream %d\n"
+#: ogginfo/ogginfo2.c:1182
+#, fuzzy, c-format
+msgid "WARNING: stream start flag not set on stream %d\n"
 msgstr "Cảnh báo : chưa lập cờ bất đầu luồng trên luồng %d\n"
 
-#: ogginfo/ogginfo2.c:1179
-#, c-format
-msgid "Warning: stream start flag found in mid-stream on stream %d\n"
+#: ogginfo/ogginfo2.c:1186
+#, fuzzy, c-format
+msgid "WARNING: stream start flag found in mid-stream on stream %d\n"
 msgstr "Cảnh báo : tìm thấy cờ bất đầu luồng trên giữa trên luồng %d\n"
 
-#: ogginfo/ogginfo2.c:1184
-#, c-format
-msgid "Warning: sequence number gap in stream %d. Got page %ld when expecting page %ld. Indicates missing data.\n"
-msgstr "Cảnh báo : gặp chỗ không có số trong luồng %d. Đã nhận trang %ld còn mong đợi trang %ld. Đó ngụ ý dữ liệu bị thiếu.\n"
+#: ogginfo/ogginfo2.c:1191
+#, fuzzy, c-format
+msgid ""
+"WARNING: sequence number gap in stream %d. Got page %ld when expecting page %"
+"ld. Indicates missing data.\n"
+msgstr ""
+"Cảnh báo : gặp chỗ không có số trong luồng %d. Đã nhận trang %ld còn mong "
+"đợi trang %ld. Đó ngụ ý dữ liệu bị thiếu.\n"
 
-#: ogginfo/ogginfo2.c:1199
+#: ogginfo/ogginfo2.c:1206
 #, c-format
 msgid "Logical stream %d ended\n"
 msgstr "Luồng hợp lý %d đã kết thúc\n"
 
-#: ogginfo/ogginfo2.c:1207
-#, c-format
+#: ogginfo/ogginfo2.c:1214
+#, fuzzy, c-format
 msgid ""
-"Error: No ogg data found in file \"%s\".\n"
+"ERROR: No Ogg data found in file \"%s\".\n"
 "Input probably not Ogg.\n"
 msgstr ""
 "Lỗi: không tìm thấy dữ liệu ogg trong tập tin « %s ».\n"
 "Vì vậy dữ liệu nhập vào rất không phải là Ogg.\n"
 
-#: ogginfo/ogginfo2.c:1218
+#: ogginfo/ogginfo2.c:1225
 #, c-format
 msgid "ogginfo from %s %s\n"
 msgstr "ogginfo từ %s %s\n"
 
-#: ogginfo/ogginfo2.c:1224
+#: ogginfo/ogginfo2.c:1231
 #, c-format
 msgid ""
 "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
@@ -2134,12 +2609,12 @@ msgstr ""
 "\t-v \t\tXuất nhiều chi tiết hơn. Có thể bật các sự kiểm tra chi tiết hơn\n"
 "\t\tcho một số kiểu luồng\n"
 
-#: ogginfo/ogginfo2.c:1233
+#: ogginfo/ogginfo2.c:1240
 #, c-format
 msgid "\t-V Output version information and exit\n"
 msgstr "\t-V\t\tXuất thông tin phiên bản, sau đó thoát\n"
 
-#: ogginfo/ogginfo2.c:1245
+#: ogginfo/ogginfo2.c:1252
 #, c-format
 msgid ""
 "Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
@@ -2154,10 +2629,11 @@ msgstr ""
 "và chẩn đoán vấn đề với nó.\n"
 "Có thể xem trợ giúp đầy đủ bằng cách sử dụng lệnh « ogginfo -h ».\n"
 
-#: ogginfo/ogginfo2.c:1279
+#: ogginfo/ogginfo2.c:1286
 #, c-format
 msgid "No input files specified. \"ogginfo -h\" for help\n"
-msgstr "Chưa ghi rõ tập tin nhập nào. Sử dụng lệnh « ogginfo -h » để xem trợ giúp.\n"
+msgstr ""
+"Chưa ghi rõ tập tin nhập nào. Sử dụng lệnh « ogginfo -h » để xem trợ giúp.\n"
 
 #: share/getopt.c:673
 #, c-format
@@ -2230,38 +2706,42 @@ msgid "Found EOS before cut point.\n"
 msgstr "Tìm chỗ kết thúc luồng đằng trước điểm cắt.\n"
 
 #: vcut/vcut.c:215
-#, c-format
-msgid "Setting eos: update sync returned 0\n"
+#, fuzzy, c-format
+msgid "Setting EOS: update sync returned 0\n"
 msgstr "Đang lập kết thúc luồng: việc cập nhật sự đồng bộ đã trả lại 0\n"
 
 #: vcut/vcut.c:225
 #, c-format
 msgid "Cutpoint not within stream. Second file will be empty\n"
-msgstr "Điểm cắt không phải ở trong luồng. Như thế thì tập tin thứ hai sẽ là rỗng.\n"
+msgstr ""
+"Điểm cắt không phải ở trong luồng. Như thế thì tập tin thứ hai sẽ là rỗng.\n"
 
 #: vcut/vcut.c:277
 #, c-format
 msgid "Unhandled special case: first file too short?\n"
-msgstr "Trường hợp đặc biệt không được quản lý: tập tin thứ nhất quá ngắn không?\n"
+msgstr ""
+"Trường hợp đặc biệt không được quản lý: tập tin thứ nhất quá ngắn không?\n"
 
 #: vcut/vcut.c:327
 #, c-format
 msgid "Cutpoint too close to end of file. Second file will be empty.\n"
-msgstr "Điểm cắt quá gần với kết thúc của tập tin. Vì thế tập tin thứ hai sẽ là trống.\n"
+msgstr ""
+"Điểm cắt quá gần với kết thúc của tập tin. Vì thế tập tin thứ hai sẽ là "
+"trống.\n"
 
 #: vcut/vcut.c:353
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
-"       ogg page. File may not decode correctly.\n"
+"       Ogg page. File may not decode correctly.\n"
 msgstr ""
 "LỖI: hai gói tin âm thanh thứ nhất không vừa\n"
 "trong một trang ogg. Như thế thì\n"
 "tập tin có lẽ sẽ không giải mã cho đúng.\n"
 
 #: vcut/vcut.c:373
-#, c-format
-msgid "Update sync returned 0, setting eos\n"
+#, fuzzy, c-format
+msgid "Update sync returned 0, setting EOS\n"
 msgstr "Việc cập nhật sự đồng bộ đã trả lại 0 nên lập kết thúc luồng\n"
 
 #: vcut/vcut.c:378
@@ -2285,13 +2765,13 @@ msgid "Error in first page\n"
 msgstr "Lỗi trong trang thứ nhất\n"
 
 #: vcut/vcut.c:464
-#, c-format
-msgid "error in first packet\n"
+#, fuzzy, c-format
+msgid "Error in first packet\n"
 msgstr "lỗi trong gói tin thứ nhất\n"
 
 #: vcut/vcut.c:470
-#, c-format
-msgid "Error in primary header: not vorbis?\n"
+#, fuzzy, c-format
+msgid "Error in primary header: not Vorbis?\n"
 msgstr "Lỗi trong phần đầu chính: không phải là định dạng vorbis không?\n"
 
 #: vcut/vcut.c:490
@@ -2306,8 +2786,11 @@ msgstr "Gặp kết thúc tập tin trong phần đầu\n"
 
 #: vcut/vcut.c:535
 #, c-format
-msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
-msgstr "Cách sử dụng: vcut tập_tin_nhập.ogg tập_tin_xuất1.ogg tập_tin_xuất2.ogg [điểm_cắt | +điểm_cắt]\n"
+msgid ""
+"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
+msgstr ""
+"Cách sử dụng: vcut tập_tin_nhập.ogg tập_tin_xuất1.ogg tập_tin_xuất2.ogg "
+"[điểm_cắt | +điểm_cắt]\n"
 
 #: vcut/vcut.c:539
 #, c-format
@@ -2390,7 +2873,8 @@ msgid "Input is not an Ogg bitstream."
 msgstr "Dữ liệu nhập không phải là một luồng bit Ogg."
 
 #: vorbiscomment/vcedit.c:566
-msgid "Ogg bitstream does not contain vorbis data."
+#, fuzzy
+msgid "Ogg bitstream does not contain Vorbis data."
 msgstr "Luồng bit ogg không chứa dữ liệu vorbis."
 
 #: vorbiscomment/vcedit.c:579
@@ -2406,7 +2890,8 @@ msgid "Corrupt secondary header."
 msgstr "Phần đầu phụ bị hỏng."
 
 #: vorbiscomment/vcedit.c:660
-msgid "EOF before end of vorbis headers."
+#, fuzzy
+msgid "EOF before end of Vorbis headers."
 msgstr "Gặp kết thúc tập tin đằng trước kết thúc phần đầu vorbis."
 
 #: vorbiscomment/vcedit.c:835
@@ -2414,12 +2899,13 @@ msgid "Corrupt or missing data, continuing..."
 msgstr "Dữ liệu bị hỏng hay còn thiếu, vẫn tiếp tục..."
 
 #: vorbiscomment/vcedit.c:875
-msgid "Error writing stream to output. Output stream may be corrupted or truncated."
+msgid ""
+"Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr "Gặp lỗi khi ghi luồng vào xuất. Luồng xuất có lẽ bị hỏng hay bị cụt."
 
 #: vorbiscomment/vcomment.c:190 vorbiscomment/vcomment.c:216
-#, c-format
-msgid "Failed to open file as vorbis: %s\n"
+#, fuzzy, c-format
+msgid "Failed to open file as Vorbis: %s\n"
 msgstr "Lỗi mở tập tin là dạng vorbis: %s\n"
 
 #: vorbiscomment/vcomment.c:235
@@ -2442,7 +2928,7 @@ msgstr "Lỗi ghi các ghi chú vào tập tin xuất: %s\n"
 msgid "no action specified\n"
 msgstr "Chưa ghi rõ hành động nào\n"
 
-#: vorbiscomment/vcomment.c:376
+#: vorbiscomment/vcomment.c:379
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2453,12 +2939,12 @@ msgstr ""
 " của Tổ chức Xiph.Org (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:379
+#: vorbiscomment/vcomment.c:382
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Liệt kê hoặc chỉnh sửa ghi chú trong tập tin kiểu Ogg Vorbis.\n"
 
-#: vorbiscomment/vcomment.c:382
+#: vorbiscomment/vcomment.c:385
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2469,29 +2955,34 @@ msgstr ""
 "Sử dụng: \n"
 "  vorbiscomment [-Vh]\n"
 "  vorbiscomment [-lR] tập_tin\n"
-"  vorbiscomment [-R] [-c tập_tin] [-t thẻ] <-a|-w> tập_tin_nhập [tập_tin_xuất]\n"
+"  vorbiscomment [-R] [-c tập_tin] [-t thẻ] <-a|-w> tập_tin_nhập "
+"[tập_tin_xuất]\n"
 
-#: vorbiscomment/vcomment.c:388
+#: vorbiscomment/vcomment.c:391
 #, c-format
 msgid "Listing options\n"
 msgstr "Tùy chọn liệt kê\n"
 
-#: vorbiscomment/vcomment.c:389
-#, c-format
-msgid "  -l, --list              List the comments (default if no options are given)\n"
-msgstr "  -l, --list              Liệt kê các ghi chú (mặc định nếu không đưa ra tùy chọn)\n"
-
 #: vorbiscomment/vcomment.c:392
+#, c-format
+msgid ""
+"  -l, --list              List the comments (default if no options are "
+"given)\n"
+msgstr ""
+"  -l, --list              Liệt kê các ghi chú (mặc định nếu không đưa ra tùy "
+"chọn)\n"
+
+#: vorbiscomment/vcomment.c:395
 #, c-format
 msgid "Editing options\n"
 msgstr "Tùy chọn chỉnh sửa\n"
 
-#: vorbiscomment/vcomment.c:393
+#: vorbiscomment/vcomment.c:396
 #, c-format
 msgid "  -a, --append            Append comments\n"
 msgstr "  -a, --append            Phụ thêm các ghi chú\n"
 
-#: vorbiscomment/vcomment.c:394
+#: vorbiscomment/vcomment.c:397
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2500,60 +2991,72 @@ msgstr ""
 "  -t \"tên=giá_trị\", --tag \"ên=giá_trị\"\n"
 "                          Ghi rõ một ghi chú trên dòng lệnh\n"
 
-#: vorbiscomment/vcomment.c:396
+#: vorbiscomment/vcomment.c:399
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr "  -w, --write             Ghi chú, mà thay thế ghi chú đã có\n"
 
-#: vorbiscomment/vcomment.c:400
+#: vorbiscomment/vcomment.c:403
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
-"                          When listing, write comments to the specified file.\n"
-"                          When editing, read comments from the specified file.\n"
+"                          When listing, write comments to the specified "
+"file.\n"
+"                          When editing, read comments from the specified "
+"file.\n"
 msgstr ""
 "  -c tập_tin, --commentfile tập_tin\n"
-"                          Khi liệt kê thì cũng ghi các ghi chú vào tập tin đưa ra.\n"
-"                          Khi chỉnh sửa thì cũng đọc các ghi chú từ tập tin đưa ra.\n"
+"                          Khi liệt kê thì cũng ghi các ghi chú vào tập tin "
+"đưa ra.\n"
+"                          Khi chỉnh sửa thì cũng đọc các ghi chú từ tập tin "
+"đưa ra.\n"
 
-#: vorbiscomment/vcomment.c:403
+#: vorbiscomment/vcomment.c:406
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Đọc và ghi các ghi chú theo UTF-8\n"
 
-#: vorbiscomment/vcomment.c:407
+#: vorbiscomment/vcomment.c:410
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr "  -V, --version           Xuất thông tin phiên bản, sau đó thoát\n"
 
-#: vorbiscomment/vcomment.c:410
+#: vorbiscomment/vcomment.c:413
 #, c-format
 msgid ""
-"If no output file is specified, vorbiscomment will modify the input file. This\n"
-"is handled via temporary file, such that the input file is not modified if any\n"
+"If no output file is specified, vorbiscomment will modify the input file. "
+"This\n"
+"is handled via temporary file, such that the input file is not modified if "
+"any\n"
 "errors are encountered during processing.\n"
 msgstr ""
-"Nếu không đưa ra tập tin kết xuất thì vorbiscomment sửa đổi tập tin nhập vào.\n"
+"Nếu không đưa ra tập tin kết xuất thì vorbiscomment sửa đổi tập tin nhập "
+"vào.\n"
 "Việc này được quản lý dùng một tập tin tạm thời, để mà tập tin nhập vào\n"
 "không phải bị sửa đổi nếu gặp lỗi trong khi xử lý.\n"
 
-#: vorbiscomment/vcomment.c:415
+#: vorbiscomment/vcomment.c:418
 #, c-format
 msgid ""
-"vorbiscomment handles comments in the format \"name=value\", one per line. By\n"
-"default, comments are written to stdout when listing, and read from stdin when\n"
+"vorbiscomment handles comments in the format \"name=value\", one per line. "
+"By\n"
+"default, comments are written to stdout when listing, and read from stdin "
+"when\n"
 "editing. Alternatively, a file can be specified with the -c option, or tags\n"
-"can be given on the commandline with -t \"name=value\". Use of either -c or -t\n"
+"can be given on the commandline with -t \"name=value\". Use of either -c or -"
+"t\n"
 "disables reading from stdin.\n"
 msgstr ""
-"vorbiscomment quản lý ghi chú theo định dạng \"tên=giá_trị\", mỗi dòng một mục.\n"
+"vorbiscomment quản lý ghi chú theo định dạng \"tên=giá_trị\", mỗi dòng một "
+"mục.\n"
 "Mặc định là ghi chú được ghi ra đầu ra tiêu chuẩn khi liệt kê,\n"
 "và được đọc từ đầu vào tiêu chuẩn khi chỉnh sửa.\n"
 "Hoặc có thể xác định một tập tin dùng tùy chọn « -c »,\n"
 "hoặc có thê đưa ra thẻ trên dòng lệnh dùng « -t \"tên=giá_trị\" ».\n"
-"Dùng tùy chọn hoặc « -c » hoặc « -t » thì cũng tắt chức năng đọc từ đầu vào tiêu chuẩn.\n"
+"Dùng tùy chọn hoặc « -c » hoặc « -t » thì cũng tắt chức năng đọc từ đầu vào "
+"tiêu chuẩn.\n"
 
-#: vorbiscomment/vcomment.c:422
+#: vorbiscomment/vcomment.c:425
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2564,58 +3067,93 @@ msgstr ""
 "  vorbiscomment -a in.ogg -c ghi_chú.txt\n"
 "  vorbiscomment -a in.ogg -t \"ARTIST=Người Nào\" -t \"TITLE=Tên Bài\"\n"
 
-#: vorbiscomment/vcomment.c:427
+#: vorbiscomment/vcomment.c:430
 #, c-format
 msgid ""
-"NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather than\n"
-"converting to the user's character set, which is useful in scripts. However,\n"
+"NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
+"than\n"
+"converting to the user's character set, which is useful in scripts. "
+"However,\n"
 "this is not sufficient for general round-tripping of comments in all cases.\n"
 msgstr ""
 "GHI CHÚ : chế độ thô (--raw, -R) thì đọc và ghi các ghi chú theo UTF-8\n"
-"thay vào chuyển đổi sang bộ ký tự riêng của người dùng, mà có ích đối với văn lệnh.\n"
-"Tuy nhiên, thiết lập này không đủ để « khứ hồi » chung các ghi chú trong mọi trường hợp.\n"
+"thay vào chuyển đổi sang bộ ký tự riêng của người dùng, mà có ích đối với "
+"văn lệnh.\n"
+"Tuy nhiên, thiết lập này không đủ để « khứ hồi » chung các ghi chú trong mọi "
+"trường hợp.\n"
 
-#: vorbiscomment/vcomment.c:489
+#: vorbiscomment/vcomment.c:492
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Gặp lỗi nội bộ khi phân tách tùy chọn lệnh\n"
 
-#: vorbiscomment/vcomment.c:575
+#: vorbiscomment/vcomment.c:508
+#, c-format
+msgid "vorbiscomment from vorbis-tools "
+msgstr ""
+
+#: vorbiscomment/vcomment.c:578
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Gặp lỗi khi mở tập tin nhập « %s ».\n"
 
-#: vorbiscomment/vcomment.c:584
+#: vorbiscomment/vcomment.c:587
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Tên tập tin nhập có lẽ không trùng với tên tập tin xuất\n"
 
-#: vorbiscomment/vcomment.c:595
+#: vorbiscomment/vcomment.c:598
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Gặp lỗi khi mở tập tin xuất « %s ».\n"
 
-#: vorbiscomment/vcomment.c:610
+#: vorbiscomment/vcomment.c:613
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Gặp lỗi khi mở tập tin ghi chú « %s ».\n"
 
-#: vorbiscomment/vcomment.c:627
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Gặp lỗi khi mở tập tin ghi chú  « %s ».\n"
 
-#: vorbiscomment/vcomment.c:661
+#: vorbiscomment/vcomment.c:664
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Gặp lỗi khi gỡ bỏ tập tin cũ %s\n"
 
-#: vorbiscomment/vcomment.c:663
+#: vorbiscomment/vcomment.c:666
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Gặp lỗi khi thay đổi tên %s thành %s\n"
 
-#: vorbiscomment/vcomment.c:673
+#: vorbiscomment/vcomment.c:676
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Gặp lỗi khi gỡ bỏ tập tin tạm thời bị lỗi %s\n"
+
+#~ msgid "AU file reader"
+#~ msgstr "Bộ đọc tập tin AU"
+
+#~ msgid "Warning: Unexpected EOF in reading WAV header\n"
+#~ msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu WAV\n"
+
+#~ msgid "Out of memory opening AU driver\n"
+#~ msgstr "Cạn bộ nhớ khi mở trình điều khiển AU\n"
+
+#~ msgid "At this moment, only linear 16 bit .au files are supported\n"
+#~ msgstr "Hiện thời chỉ hỗ trợ tập tin kiểu .au 16-bit tuyến tính\n"
+
+#~ msgid ""
+#~ "Negative or zero granulepos (%lld) on vorbis stream outside of headers. "
+#~ "This file was created by a buggy encoder\n"
+#~ msgstr ""
+#~ "Gặp granulepos âm hay số không (%lld) trên luông vorbis bên ngoài phần "
+#~ "đầu. Tập tin này đã được tạo bởi một bộ mã hoá có lỗi.\n"
+
+#~ msgid ""
+#~ "Negative granulepos (%lld) on kate stream outside of headers. This file "
+#~ "was created by a buggy encoder\n"
+#~ msgstr ""
+#~ "granulepos âm (%lld) trên luông Kate bên ngoài phần đầu. Tập tin này đã "
+#~ "được tạo bởi một bộ mã hoá có lỗi.\n"

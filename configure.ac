@@ -11,7 +11,7 @@ AC_CANONICAL_TARGET
 
 AC_PREREQ(2.53)
 
-AM_INIT_AUTOMAKE([vorbis-tools],[1.3.0])
+AM_INIT_AUTOMAKE([vorbis-tools],[1.4.0])
 AM_MAINTAINER_MODE
 
 AM_CONFIG_HEADER([config.h])
@@ -188,10 +188,7 @@ fi
 
 if test "x$build_ogg123" = xyes; then
   AC_MSG_RESULT([checking for ogg123 requirements])
-  XIPH_PATH_AO(,build_ogg123=no; AC_MSG_WARN(libao missing))
-  AC_CHECK_MEMBER(ao_sample_format.matrix,,
-	build_ogg123=no; AC_MSG_WARN([libao too old; >= 1.0.0 needed]),
-	[#include <ao/ao.h>])
+  PKG_CHECK_MODULES(AO, ao >= 1.0.0,,build_ogg123=no; AC_MSG_WARN(libao too old; >= 1.0.0 required))
   ACX_PTHREAD(,build_ogg123=no; AC_MSG_WARN(POSIX threads missing))
 fi
 

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.2.1\n"
-"Report-Msgid-Bugs-To: http://trac.xiph.org/\n"
-"POT-Creation-Date: 2008-09-12 02:53+0100\n"
+"Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
+"POT-Creation-Date: 2008-11-06 00:04+0000\n"
 "PO-Revision-Date: 2008-09-21 16:26-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -16,61 +16,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ogg123/buffer.c:117
-#, c-format
-msgid "Error: Out of memory in malloc_action().\n"
+#, fuzzy, c-format
+msgid "ERROR: Out of memory in malloc_action().\n"
 msgstr "Eraro: Mankis memoro en malloc_action().\n"
 
 #: ogg123/buffer.c:360
-#, c-format
-msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
+#, fuzzy, c-format
+msgid "ERROR: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr "Eraro: Ne eblis rezervi memoron en malloc_buffer_stats()\n"
 
 #: ogg123/callbacks.c:75
-msgid "Error: Device not available.\n"
+#, fuzzy
+msgid "ERROR: Device not available.\n"
 msgstr "Eraro: Aparato ne disponebla.\n"
 
 #: ogg123/callbacks.c:78
-#, c-format
-msgid "Error: %s requires an output filename to be specified with -f.\n"
+#, fuzzy, c-format
+msgid "ERROR: %s requires an output filename to be specified with -f.\n"
 msgstr "Eraro: %s postulas ke elig-dosiernomo estu indikita per -f.\n"
 
 #: ogg123/callbacks.c:81
-#, c-format
-msgid "Error: Unsupported option value to %s device.\n"
+#, fuzzy, c-format
+msgid "ERROR: Unsupported option value to %s device.\n"
 msgstr "Eraro: Nesubtenata opcia valoro por la aparato %s.\n"
 
 #: ogg123/callbacks.c:85
-#, c-format
-msgid "Error: Cannot open device %s.\n"
+#, fuzzy, c-format
+msgid "ERROR: Cannot open device %s.\n"
 msgstr "Eraro: Ne eblas malfermi la aparaton %s.\n"
 
 #: ogg123/callbacks.c:89
-#, c-format
-msgid "Error: Device %s failure.\n"
+#, fuzzy, c-format
+msgid "ERROR: Device %s failure.\n"
 msgstr "Eraro: Aparato %s misfunkcias.\n"
 
 #: ogg123/callbacks.c:92
-#, c-format
-msgid "Error: An output file cannot be given for %s device.\n"
+#, fuzzy, c-format
+msgid "ERROR: An output file cannot be given for %s device.\n"
 msgstr "Eraro: Elig-dosiero ne povas esti uzata por aparato %s.\n"
 
 #: ogg123/callbacks.c:95
-#, c-format
-msgid "Error: Cannot open file %s for writing.\n"
+#, fuzzy, c-format
+msgid "ERROR: Cannot open file %s for writing.\n"
 msgstr "Eraro: Ne eblas malfermi la dosieron %s por skribi.\n"
 
 #: ogg123/callbacks.c:99
-#, c-format
-msgid "Error: File %s already exists.\n"
+#, fuzzy, c-format
+msgid "ERROR: File %s already exists.\n"
 msgstr "Eraro: La dosiero %s jam ekzistas.\n"
 
 #: ogg123/callbacks.c:102
-#, c-format
-msgid "Error: This error should never happen (%d).  Panic!\n"
+#, fuzzy, c-format
+msgid "ERROR: This error should never happen (%d).  Panic!\n"
 msgstr "Eraro: Tiu ĉi eraro devus neniam okazi (%d). Paniko!\n"
 
 #: ogg123/callbacks.c:125 ogg123/callbacks.c:130
-msgid "Error: Out of memory in new_audio_reopen_arg().\n"
+#, fuzzy
+msgid "ERROR: Out of memory in new_audio_reopen_arg().\n"
 msgstr "Eraro: Mankis memoro en new_audio_reopen_arg().\n"
 
 #: ogg123/callbacks.c:174
@@ -78,12 +80,17 @@ msgid "Error: Out of memory in new_print_statistics_arg().\n"
 msgstr "Eraro: Mankis memoro en new_print_statistics_arg().\n"
 
 #: ogg123/callbacks.c:233
-msgid "Error: Out of memory in new_status_message_arg().\n"
+#, fuzzy
+msgid "ERROR: Out of memory in new_status_message_arg().\n"
 msgstr "Eraro: Mankis memoro en new_status_message_arg().\n"
 
-#: ogg123/callbacks.c:279 ogg123/callbacks.c:298 ogg123/callbacks.c:335
-#: ogg123/callbacks.c:354
+#: ogg123/callbacks.c:279 ogg123/callbacks.c:298
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
+msgstr "Eraro: Mankis memoro en decoder_bufferd_metadata_callback().\n"
+
+#: ogg123/callbacks.c:335 ogg123/callbacks.c:354
+#, fuzzy
+msgid "ERROR: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr "Eraro: Mankis memoro en decoder_bufferd_metadata_callback().\n"
 
 #: ogg123/cfgfile_options.c:55
@@ -155,9 +162,9 @@ msgstr "alia"
 msgid "(NULL)"
 msgstr "(NULL)"
 
-#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:571 oggenc/oggenc.c:576
-#: oggenc/oggenc.c:581 oggenc/oggenc.c:586 oggenc/oggenc.c:591
-#: oggenc/oggenc.c:596
+#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:647 oggenc/oggenc.c:652
+#: oggenc/oggenc.c:657 oggenc/oggenc.c:662 oggenc/oggenc.c:667
+#: oggenc/oggenc.c:672
 msgid "(none)"
 msgstr "(neniu)"
 
@@ -263,8 +270,12 @@ msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "--- La pelilo %s indikita en la agordo-dosiero malvalidas.\n"
 
 #: ogg123/cmdline_options.c:271
-msgid "=== Could not load default driver and no driver specified in config file. Exiting.\n"
-msgstr "=== Ne eblis ŝargi je antaŭsupozita pelilo kaj neniu alia estas indikita en la agordo-dosiero. Nepras eliro.\n"
+msgid ""
+"=== Could not load default driver and no driver specified in config file. "
+"Exiting.\n"
+msgstr ""
+"=== Ne eblis ŝargi je antaŭsupozita pelilo kaj neniu alia estas indikita en "
+"la agordo-dosiero. Nepras eliro.\n"
 
 #: ogg123/cmdline_options.c:292
 #, c-format
@@ -319,8 +330,11 @@ msgstr "Eligaj opcioj\n"
 
 #: ogg123/cmdline_options.c:311
 #, c-format
-msgid "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
-msgstr "  -d dev, --device dev    Uzu la eligan aparaton  \"dev\". Disponeblaj aparatoj:\n"
+msgid ""
+"  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
+msgstr ""
+"  -d dev, --device dev    Uzu la eligan aparaton  \"dev\". Disponeblaj "
+"aparatoj:\n"
 
 #: ogg123/cmdline_options.c:313
 #, c-format
@@ -368,10 +382,12 @@ msgstr "Muziklistaj opcioj\n"
 
 #: ogg123/cmdline_options.c:342
 #, c-format
-msgid "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
+msgid ""
+"  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
 msgstr ""
 "  -@ dosiero, --list dosiero\n"
-"                          Legas muzikliston de dosieroj kaj URL-oj el \"dosiero\"\n"
+"                          Legas muzikliston de dosieroj kaj URL-oj el "
+"\"dosiero\"\n"
 
 #: ogg123/cmdline_options.c:343
 #, c-format
@@ -406,7 +422,8 @@ msgstr "  -b n, --buffer n        Uzas enigan bufron el 'n' kilobajtoj\n"
 #: ogg123/cmdline_options.c:351
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
-msgstr "  -p n, --prebuffer n     Ŝargas je n%% el la eniga bufro antaŭ ol ludi\n"
+msgstr ""
+"  -p n, --prebuffer n     Ŝargas je n%% el la eniga bufro antaŭ ol ludi\n"
 
 #: ogg123/cmdline_options.c:354
 #, c-format
@@ -415,8 +432,11 @@ msgstr "Dekodaj opcioj\n"
 
 #: ogg123/cmdline_options.c:355
 #, c-format
-msgid "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
-msgstr "  -k n, --skip n          Pretersaltas la unuajn 'n' sekundoj (aŭ laŭ hh:mm:ss)\n"
+msgid ""
+"  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
+msgstr ""
+"  -k n, --skip n          Pretersaltas la unuajn 'n' sekundoj (aŭ laŭ hh:mm:"
+"ss)\n"
 
 #: ogg123/cmdline_options.c:356
 #, c-format
@@ -433,7 +453,7 @@ msgstr "  -x n, --nth n           Ludas ĉiun 'n'-an blokon\n"
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Ripetas ĉiun luditan blokon 'n' foje\n"
 
-#: ogg123/cmdline_options.c:361 vorbiscomment/vcomment.c:399
+#: ogg123/cmdline_options.c:361 vorbiscomment/vcomment.c:402
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Mikstemaj opcioj\n"
@@ -446,12 +466,16 @@ msgid ""
 "                          and will terminate if two SIGINTs are received\n"
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
-"  -l s, --delay s         Difinas ĉesigan tempo-limon per milisekundoj. ogg123\n"
-"                          pretersaltos al la sekvonta muziko okaze de SIGINT\n"
-"                          (Ctrl-C), kaj ĉesiĝos se du SIGINT-oj estos ricevitaj\n"
-"                          ene de la specifita tempo-limo 's'. (implicite 500)\n"
+"  -l s, --delay s         Difinas ĉesigan tempo-limon per milisekundoj. "
+"ogg123\n"
+"                          pretersaltos al la sekvonta muziko okaze de "
+"SIGINT\n"
+"                          (Ctrl-C), kaj ĉesiĝos se du SIGINT-oj estos "
+"ricevitaj\n"
+"                          ene de la specifita tempo-limo 's'. (implicite "
+"500)\n"
 
-#: ogg123/cmdline_options.c:367 vorbiscomment/vcomment.c:406
+#: ogg123/cmdline_options.c:367 vorbiscomment/vcomment.c:409
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Montrigas ĉi tiun helpon\n"
@@ -463,8 +487,10 @@ msgstr "  -q, --quiet             Ne montrigas ion ajn (neniu titolo)\n"
 
 #: ogg123/cmdline_options.c:369
 #, c-format
-msgid "  -v, --verbose           Display progress and other status information\n"
-msgstr "  -v, --verbose           Montrigas evoluan kaj aliajn statusajn informojn\n"
+msgid ""
+"  -v, --verbose           Display progress and other status information\n"
+msgstr ""
+"  -v, --verbose           Montrigas evoluan kaj aliajn statusajn informojn\n"
 
 #: ogg123/cmdline_options.c:370
 #, c-format
@@ -472,22 +498,26 @@ msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Montrigas la version de ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:95
-#, c-format
-msgid "Error: Out of memory.\n"
+#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:151
+#: ogg123/vorbis_comments.c:64 ogg123/vorbis_comments.c:79
+#: ogg123/vorbis_comments.c:97
+#, fuzzy, c-format
+msgid "ERROR: Out of memory.\n"
 msgstr "Eraro: Mankis memoro.\n"
 
 #: ogg123/format.c:82
-#, c-format
-msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
+#, fuzzy, c-format
+msgid "ERROR: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr "Eraro: Ne eblis rezervi memoron en malloc_decoder_stats()\n"
 
 #: ogg123/http_transport.c:145
-msgid "Error: Could not set signal mask."
+#, fuzzy
+msgid "ERROR: Could not set signal mask."
 msgstr "Eraro: Ne eblis difini signalan maskon."
 
 #: ogg123/http_transport.c:202
-msgid "Error: Unable to create input buffer.\n"
+#, fuzzy
+msgid "ERROR: Unable to create input buffer.\n"
 msgstr "Eraro: Ne eblas krei enigan bufron.\n"
 
 #: ogg123/ogg123.c:82
@@ -526,89 +556,99 @@ msgstr "Aŭtoro:   %s"
 msgid "Comments: %s"
 msgstr "Komentoj: %s"
 
-#: ogg123/ogg123.c:424 ogg123/playlist.c:160
-#, c-format
-msgid "Warning: Could not read directory %s.\n"
+#: ogg123/ogg123.c:424
+#, fuzzy, c-format
+msgid "WARNING: Could not read directory %s.\n"
 msgstr "Averto: Ne eblis legi la dosierujon %s.\n"
 
 #: ogg123/ogg123.c:460
 msgid "Error: Could not create audio buffer.\n"
 msgstr "Eraro: Ne eblis krei sonigan bufron.\n"
 
-#: ogg123/ogg123.c:556
+#: ogg123/ogg123.c:557
 #, c-format
 msgid "No module could be found to read from %s.\n"
 msgstr "Neniu modulo povus esti trovita por legi el %s.\n"
 
-#: ogg123/ogg123.c:561
+#: ogg123/ogg123.c:562
 #, c-format
 msgid "Cannot open %s.\n"
 msgstr "Ne eblas malfermi %s.\n"
 
-#: ogg123/ogg123.c:567
+#: ogg123/ogg123.c:568
 #, c-format
 msgid "The file format of %s is not supported.\n"
 msgstr "La dosierformo de %s ne estas subtenata.\n"
 
-#: ogg123/ogg123.c:577
+#: ogg123/ogg123.c:578
 #, c-format
 msgid "Error opening %s using the %s module.  The file may be corrupted.\n"
-msgstr "Eraro dum malfermo de %s uzante la modulon %s-on.  La dosiero povas esti disrompita.\n"
+msgstr ""
+"Eraro dum malfermo de %s uzante la modulon %s-on.  La dosiero povas esti "
+"disrompita.\n"
 
-#: ogg123/ogg123.c:596
+#: ogg123/ogg123.c:597
 #, c-format
 msgid "Playing: %s"
 msgstr "Oni ludas: %s"
 
-#: ogg123/ogg123.c:607
+#: ogg123/ogg123.c:608
 #, c-format
 msgid "Could not skip %f seconds of audio."
 msgstr "Ne eblis pretersalti %f sekundoj da sonigo."
 
-#: ogg123/ogg123.c:662
-msgid "Error: Decoding failure.\n"
+#: ogg123/ogg123.c:663
+#, fuzzy
+msgid "ERROR: Decoding failure.\n"
 msgstr "Eraro: dekoda malsukceso.\n"
 
-#: ogg123/ogg123.c:705
-msgid "Error: buffer write failed.\n"
+#: ogg123/ogg123.c:706
+#, fuzzy
+msgid "ERROR: buffer write failed.\n"
 msgstr "Eraro: bufra skribado malsukcesis.\n"
 
-#: ogg123/ogg123.c:743
+#: ogg123/ogg123.c:744
 msgid "Done."
 msgstr "Farita."
 
-#: ogg123/oggvorbis_format.c:157
+#: ogg123/oggvorbis_format.c:178
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Truo en la fluo; probable ne malutile\n"
 
-#: ogg123/oggvorbis_format.c:163
+#: ogg123/oggvorbis_format.c:184
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== La biblioteko de Vorbis raportis eraron pri fluo.\n"
 
-#: ogg123/oggvorbis_format.c:310
+#: ogg123/oggvorbis_format.c:331
 #, c-format
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Fluo de Ogg Vorbis: %d kanalo, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:315
+#: ogg123/oggvorbis_format.c:336
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Formo de Vorbis: Versio %d"
 
-#: ogg123/oggvorbis_format.c:319
+#: ogg123/oggvorbis_format.c:340
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
-msgstr "Konsiletoj pri bitrapido: supra=%ld meznombra=%ld suba=%ld intervalo=%ld"
+msgstr ""
+"Konsiletoj pri bitrapido: supra=%ld meznombra=%ld suba=%ld intervalo=%ld"
 
-#: ogg123/oggvorbis_format.c:327
+#: ogg123/oggvorbis_format.c:348 ogg123/speex_format.c:413
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Enkodita de: %s"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
-#, c-format
-msgid "Error: Out of memory in create_playlist_member().\n"
+#, fuzzy, c-format
+msgid "ERROR: Out of memory in create_playlist_member().\n"
 msgstr "Eraro: Mankis memoro en create-playlist_member().\n"
+
+#: ogg123/playlist.c:160
+#, c-format
+msgid "Warning: Could not read directory %s.\n"
+msgstr "Averto: Ne eblis legi la dosierujon %s.\n"
 
 #: ogg123/playlist.c:222
 #, c-format
@@ -616,9 +656,52 @@ msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Averto el ludlisto %s: Ne eblis legi la dosierujon %s.\n"
 
 #: ogg123/playlist.c:267 ogg123/playlist.c:279
-#, c-format
-msgid "Error: Out of memory in playlist_to_array().\n"
+#, fuzzy, c-format
+msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "Eraro: Mankis memoro en playlist_to_array().\n"
+
+#: ogg123/speex_format.c:363
+#, fuzzy, c-format
+msgid "Ogg Speex stream: %d channel, %d Hz, %s mode (VBR)"
+msgstr "Fluo de Ogg Vorbis: %d kanalo, %ld Hz"
+
+#: ogg123/speex_format.c:369
+#, fuzzy, c-format
+msgid "Ogg Speex stream: %d channel, %d Hz, %s mode"
+msgstr "Fluo de Ogg Vorbis: %d kanalo, %ld Hz"
+
+#: ogg123/speex_format.c:375
+#, fuzzy, c-format
+msgid "Speex version: %s"
+msgstr "Versio: %d\n"
+
+#: ogg123/speex_format.c:391 ogg123/speex_format.c:402
+#: ogg123/speex_format.c:421 ogg123/speex_format.c:431
+#: ogg123/speex_format.c:438
+msgid "Invalid/corrupted comments"
+msgstr ""
+
+#: ogg123/speex_format.c:475
+#, fuzzy
+msgid "Cannot read header"
+msgstr "Eraro dum la legado de datumkapoj\n"
+
+#: ogg123/speex_format.c:480
+#, c-format
+msgid "Mode number %d does not (any longer) exist in this version"
+msgstr ""
+
+#: ogg123/speex_format.c:489
+msgid ""
+"The file was encoded with a newer version of Speex.\n"
+" You need to upgrade in order to play it.\n"
+msgstr ""
+
+#: ogg123/speex_format.c:493
+msgid ""
+"The file was encoded with an older version of Speex.\n"
+"You would need to downgrade the version in order to play it."
+msgstr ""
 
 #: ogg123/status.c:60
 #, c-format
@@ -672,16 +755,45 @@ msgid " Output Buffer %5.1f%%"
 msgstr " Eliga Bufro %5.1f%%"
 
 #: ogg123/transport.c:71
-#, c-format
-msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
+#, fuzzy, c-format
+msgid "ERROR: Could not allocate memory in malloc_data_source_stats()\n"
 msgstr "Eraro: Ne eblis rezervi memoron en malloc_data_source_stats()\n"
+
+#: ogg123/vorbis_comments.c:39
+msgid "Track number:"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:40
+msgid "ReplayGain (Track):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:41
+msgid "ReplayGain (Album):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:42
+msgid "ReplayGain Peak (Track):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:43
+msgid "ReplayGain Peak (Album):"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:44
+msgid "Copyright"
+msgstr ""
+
+#: ogg123/vorbis_comments.c:45 ogg123/vorbis_comments.c:46
+#, fuzzy
+msgid "Comment:"
+msgstr "Komentoj: %s"
 
 #: oggdec/oggdec.c:50
 #, c-format
 msgid "oggdec from %s %s\n"
 msgstr "oggdec el %s %s\n"
 
-#: oggdec/oggdec.c:56 oggenc/oggenc.c:396 ogginfo/ogginfo2.c:1223
+#: oggdec/oggdec.c:56 oggenc/oggenc.c:463 ogginfo/ogginfo2.c:1230
 #, c-format
 msgid ""
 " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
@@ -758,251 +870,350 @@ msgstr ""
 "                  uzata se ekzistas nur unu eniga dosiero, krom en\n"
 "                  kruda reĝimo.\n"
 
-#: oggenc/audio.c:51
-msgid "WAV file reader"
+#: oggdec/oggdec.c:114
+#, c-format
+msgid "Internal error: Unrecognised argument\n"
+msgstr ""
+
+#: oggdec/oggdec.c:155 oggdec/oggdec.c:174
+#, c-format
+msgid "ERROR: Failed to write Wave header: %s\n"
+msgstr ""
+
+#: oggdec/oggdec.c:195
+#, fuzzy, c-format
+msgid "ERROR: Failed to open input file: %s\n"
+msgstr "ERARO: Ne eblas malfermi la enig-dosieron \"%s\": %s\n"
+
+#: oggdec/oggdec.c:217
+#, fuzzy, c-format
+msgid "ERROR: Failed to open output file: %s\n"
+msgstr "ERARO: Ne eblas malfermi la elig-dosieron \"%s\": %s\n"
+
+#: oggdec/oggdec.c:266
+#, fuzzy, c-format
+msgid "ERROR: Failed to open input as Vorbis\n"
+msgstr "Malsukcesis malfermo de dosiero kiel vorbis: %s\n"
+
+#: oggdec/oggdec.c:308
+#, c-format
+msgid "Logical bitstreams with changing parameters are not supported\n"
+msgstr ""
+
+#: oggdec/oggdec.c:315
+#, c-format
+msgid "WARNING: hole in data (%d)\n"
+msgstr ""
+
+#: oggdec/oggdec.c:330
+#, fuzzy, c-format
+msgid "Error writing to file: %s\n"
+msgstr "Eraro dum forigo de la malnova dosiero '%s'\n"
+
+#: oggdec/oggdec.c:371
+#, fuzzy, c-format
+msgid "ERROR: No input files specified. Use -h for help\n"
+msgstr ""
+"ERARO: Neniu enig-dosiero estis indikita. Uzu la opcion -h por helpo.\n"
+
+#: oggdec/oggdec.c:376
+#, fuzzy, c-format
+msgid ""
+"ERROR: Can only specify one input file if output filename is specified\n"
+msgstr ""
+"ERARO: Pluraj enig-dosieroj kun elig-dosiernomo indikita: ni sugestas uzon "
+"de -n\n"
+
+#: oggenc/audio.c:50
+#, fuzzy
+msgid "Wave file reader"
 msgstr "Legilo de dosiero WAV"
 
-#: oggenc/audio.c:52
+#: oggenc/audio.c:51
 msgid "AIFF/AIFC file reader"
 msgstr "Legilo de dosiero AIFF/AIFC"
 
-#: oggenc/audio.c:54
+#: oggenc/audio.c:53
 msgid "FLAC file reader"
 msgstr "Legilo de dosiero FLAC"
 
-#: oggenc/audio.c:55
+#: oggenc/audio.c:54
 msgid "Ogg FLAC file reader"
 msgstr "Legilo de dosiero Ogg FLAC"
 
-#: oggenc/audio.c:57
-msgid "AU file reader"
-msgstr "Legilo de dosiero AU"
+#: oggenc/audio.c:131 oggenc/audio.c:425
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF in reading Wave header\n"
+msgstr ""
+"Averto: Neatendita EOF (fino de dosiero) dum legado de kapo de 'Wave'\n"
 
-#: oggenc/audio.c:133
-#, c-format
-msgid "Warning: Unexpected EOF in reading WAV header\n"
-msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de WAV-kapo\n"
-
-#: oggenc/audio.c:144
+#: oggenc/audio.c:142
 #, c-format
 msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Oni preterpasas pecon el tipo \"%s\", grandeco %d\n"
 
-#: oggenc/audio.c:170
-#, c-format
-msgid "Warning: Unexpected EOF in AIFF chunk\n"
+#: oggenc/audio.c:168
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF in AIFF chunk\n"
 msgstr "Averto: Neatendita EOF (fino de dosiero) en AIFF-a peco\n"
 
-#: oggenc/audio.c:256
-#, c-format
-msgid "Warning: No common chunk found in AIFF file\n"
+#: oggenc/audio.c:254
+#, fuzzy, c-format
+msgid "WARNING: No common chunk found in AIFF file\n"
 msgstr "Averto: Neniu komuna peco estis trovita en la AIFF-a dosiero\n"
 
-#: oggenc/audio.c:262
-#, c-format
-msgid "Warning: Truncated common chunk in AIFF header\n"
+#: oggenc/audio.c:260
+#, fuzzy, c-format
+msgid "WARNING: Truncated common chunk in AIFF header\n"
 msgstr "Averto: Distranĉita komuna peco en AIFF-kapo\n"
 
-#: oggenc/audio.c:270
-#, c-format
-msgid "Warning: Unexpected EOF in reading AIFF header\n"
+#: oggenc/audio.c:268
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF in reading AIFF header\n"
 msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de AIFF-kapo\n"
 
-#: oggenc/audio.c:285
-#, c-format
-msgid "Warning: AIFF-C header truncated.\n"
+#: oggenc/audio.c:283
+#, fuzzy, c-format
+msgid "WARNING: AIFF-C header truncated.\n"
 msgstr "Averto: AIFF-C-kapo estas distranĉita.\n"
 
-#: oggenc/audio.c:299
-#, c-format
-msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
+#: oggenc/audio.c:297
+#, fuzzy, c-format
+msgid "WARNING: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Averto: Ne eblas trakti kompaktitan AIFF-C-on (%c%c%c%c)\n"
 
-#: oggenc/audio.c:306
-#, c-format
-msgid "Warning: No SSND chunk found in AIFF file\n"
+#: oggenc/audio.c:304
+#, fuzzy, c-format
+msgid "WARNING: No SSND chunk found in AIFF file\n"
 msgstr "Averto: Neniu SSND-peco estis trovita en la AIFF-dosiero\n"
 
-#: oggenc/audio.c:312
-#, c-format
-msgid "Warning: Corrupted SSND chunk in AIFF header\n"
+#: oggenc/audio.c:310
+#, fuzzy, c-format
+msgid "WARNING: Corrupted SSND chunk in AIFF header\n"
 msgstr "Averto: Disrompita SSND-peco en AIFF-kapo\n"
 
-#: oggenc/audio.c:318
-#, c-format
-msgid "Warning: Unexpected EOF reading AIFF header\n"
+#: oggenc/audio.c:316
+#, fuzzy, c-format
+msgid "WARNING: Unexpected EOF reading AIFF header\n"
 msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de AIFF-kapo\n"
 
-#: oggenc/audio.c:355
-#, c-format
+#: oggenc/audio.c:353
+#, fuzzy, c-format
 msgid ""
-"Warning: OggEnc does not support this type of AIFF/AIFC file\n"
+"WARNING: oggenc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
 msgstr ""
 "Averto: OggEnc ne subtenas tiu tipo de AIFF/AIFC-dosiero\n"
 " Devas esti 8 aŭ 16-bita PCM.\n"
 "\n"
 
-#: oggenc/audio.c:409
-#, c-format
-msgid "Warning: Unrecognised format chunk in Wave header\n"
+#: oggenc/audio.c:407
+#, fuzzy, c-format
+msgid "WARNING: Unrecognised format chunk in Wave header\n"
 msgstr "Averto: Nerekonita form-difiniga peco en la kapo de 'Wave'\n"
 
-#: oggenc/audio.c:422
-#, c-format
+#: oggenc/audio.c:420
+#, fuzzy, c-format
 msgid ""
-"Warning: INVALID format chunk in Wave header.\n"
+"WARNING: Invalid format chunk in Wave header.\n"
 " Trying to read anyway (may not work)...\n"
 msgstr ""
 "Averto: NEVALIDA form-difiniga peco en kapo de 'Wave'.\n"
 " Ni provos legi tiel mem (eble sensukcese)...\n"
 
-#: oggenc/audio.c:427
-#, c-format
-msgid "Warning: Unexpected EOF in reading Wave header\n"
-msgstr "Averto: Neatendita EOF (fino de dosiero) dum legado de kapo de 'Wave'\n"
-
-#: oggenc/audio.c:460
+#: oggenc/audio.c:458
 #, c-format
 msgid ""
 "ERROR: Wave file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM)\n"
 msgstr ""
-"ERARO: La 'Wave'-dosiero prezentas nesubtenatan tipon (devas esti laŭnorma PCM\n"
+"ERARO: La 'Wave'-dosiero prezentas nesubtenatan tipon (devas esti laŭnorma "
+"PCM\n"
 " aŭ glitkoma PCM tipo 3)\n"
 
-#: oggenc/audio.c:469
-#, c-format
+#: oggenc/audio.c:467
+#, fuzzy, c-format
 msgid ""
-"Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
+"WARNING: Wave 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 "Averto: WAV-a valoro 'block alignment' estas malĝusta, ni ignoras.\n"
 "La programo kiu kreis tiun ĉi dosieron estas malkorekta.\n"
 
-#: oggenc/audio.c:530
-#, c-format
+#: oggenc/audio.c:528
+#, fuzzy, c-format
 msgid ""
-"ERROR: Wav file is unsupported subformat (must be 8,16,24 or 32 bit PCM\n"
+"ERROR: Wave file is unsupported subformat (must be 8, 16, 24 or 32 bit PCM\n"
 "or floating point PCM)\n"
 msgstr ""
-"ERARO: La Wav-dosiero prezentas nesubtenatan subformon (devas esti 8,16,24 aŭ 32-bita PCM\n"
+"ERARO: La Wav-dosiero prezentas nesubtenatan subformon (devas esti 8,16,24 "
+"aŭ 32-bita PCM\n"
 " aŭ glitkoma PCM)\n"
 
-#: oggenc/audio.c:606
+#: oggenc/audio.c:604
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
-msgstr "Pezkomenca 24-bita PCM-a datumaro ne estas aktuale subtenata, ni ĉesigas.\n"
+msgstr ""
+"Pezkomenca 24-bita PCM-a datumaro ne estas aktuale subtenata, ni ĉesigas.\n"
 
-#: oggenc/audio.c:626
+#: oggenc/audio.c:624
 #, c-format
 msgid "Big endian 32 bit PCM data is not currently supported, aborting.\n"
-msgstr "Pezkomenca 32-bita PCM-datumaro ne estas aktuale subtenata, ni ĉesigas.\n"
+msgstr ""
+"Pezkomenca 32-bita PCM-datumaro ne estas aktuale subtenata, ni ĉesigas.\n"
 
-#: oggenc/audio.c:632
+#: oggenc/audio.c:630
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Interna eraro: provo legi nesubtenatan bitprofundecon %d\n"
 
-#: oggenc/audio.c:734
-#, c-format
-msgid "BUG: Got zero samples from resampler: your file will be truncated. Please report this.\n"
-msgstr "MALĜUSTAĴO: Ni trovis nulajn specimenojn el la specimen-reakirilo: via dosiero estos tranĉita. Bonvolu raporti ĉi tion.\n"
+#: oggenc/audio.c:732
+#, fuzzy, c-format
+msgid ""
+"BUG: Got zero samples from resampler; your file will be truncated. Please "
+"report this.\n"
+msgstr ""
+"MALĜUSTAĴO: Ni trovis nulajn specimenojn el la specimen-reakirilo: via "
+"dosiero estos tranĉita. Bonvolu raporti ĉi tion.\n"
 
-#: oggenc/audio.c:752
+#: oggenc/audio.c:750
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Ne eblis lanĉi la specimen-reakirilon\n"
 
-#: oggenc/audio.c:882
-#, c-format
-msgid "Out of memory opening AU driver\n"
-msgstr "Manko de memoro dun malfermo de AU-pelilo\n"
-
-#: oggenc/audio.c:889
-#, c-format
-msgid "At this moment, only linear 16 bit .au files are supported\n"
-msgstr "Je tiu ĉi momento, nur linearaj 16-bitaj '.au'-dosieroj estas subtenataj\n"
-
-#: oggenc/audio.c:941
+#: oggenc/audio.c:849
 #, c-format
 msgid "Internal error! Please report this bug.\n"
 msgstr "Interna eraro! Bonvolu raporti tiun ĉi problemon.\n"
 
-#: oggenc/encode.c:64
+#: oggenc/encode.c:69
 #, c-format
 msgid "Setting advanced encoder option \"%s\" to %s\n"
 msgstr "Ni difinas la alnivelan enkodilan opcion \"%s\" al %s\n"
 
-#: oggenc/encode.c:101
+#: oggenc/encode.c:106
 #, c-format
 msgid "Changed lowpass frequency from %f kHz to %f kHz\n"
 msgstr "La malaltpasa frekvenco ŝanĝis de %f kHz al %f kHz\n"
 
-#: oggenc/encode.c:104
+#: oggenc/encode.c:109
 #, c-format
 msgid "Unrecognised advanced option \"%s\"\n"
 msgstr "Nerekonita altnivela opcio \"%s\"\n"
 
-#: oggenc/encode.c:111
+#: oggenc/encode.c:116
 #, c-format
 msgid "Failed to set advanced rate management parameters\n"
 msgstr "Malsukceso dum difino de altnivelaj rapidec-administraj parametroj\n"
 
-#: oggenc/encode.c:115 oggenc/encode.c:252
+#: oggenc/encode.c:120 oggenc/encode.c:308
 #, c-format
-msgid "This version of libvorbisenc cannot set advanced rate management parameters\n"
-msgstr "Tiu ĉi versio de 'libvorbisenc' ne povas difini alnivelajn rapidec-administrajn parametrojn\n"
+msgid ""
+"This version of libvorbisenc cannot set advanced rate management parameters\n"
+msgstr ""
+"Tiu ĉi versio de 'libvorbisenc' ne povas difini alnivelajn rapidec-"
+"administrajn parametrojn\n"
 
-#: oggenc/encode.c:174
+#: oggenc/encode.c:194
 #, c-format
-msgid "255 channels should be enough for anyone. (Sorry, but Vorbis doesn't support more)\n"
-msgstr "255 kanaloj devus sufiĉi por ĉiuj. (Pardonon, Vorbis ne subtenas pli ol tiom)\n"
+msgid "WARNING: failed to add Kate karaoke style\n"
+msgstr ""
 
-#: oggenc/encode.c:182
+#: oggenc/encode.c:230
+#, c-format
+msgid ""
+"255 channels should be enough for anyone. (Sorry, but Vorbis doesn't support "
+"more)\n"
+msgstr ""
+"255 kanaloj devus sufiĉi por ĉiuj. (Pardonon, Vorbis ne subtenas pli ol "
+"tiom)\n"
+
+#: oggenc/encode.c:238
 #, c-format
 msgid "Requesting a minimum or maximum bitrate requires --managed\n"
 msgstr "Peti minimuman aŭ maksimuman bitrapidon postulas la opcion --managed\n"
 
-#: oggenc/encode.c:200
+#: oggenc/encode.c:256
 #, c-format
 msgid "Mode initialisation failed: invalid parameters for quality\n"
 msgstr "La ekdifino de reĝimo malsukcesis: nevalidaj parametroj por kvalito\n"
 
-#: oggenc/encode.c:245
+#: oggenc/encode.c:301
 #, c-format
 msgid "Set optional hard quality restrictions\n"
 msgstr "Difinu kromajn postuligajn kvalito-limigojn\n"
 
-#: oggenc/encode.c:247
+#: oggenc/encode.c:303
 #, c-format
 msgid "Failed to set bitrate min/max in quality mode\n"
 msgstr "Malsukceso dum difino de bitrapido min/maks en kvalita reĝimo\n"
 
-#: oggenc/encode.c:263
+#: oggenc/encode.c:319
 #, c-format
 msgid "Mode initialisation failed: invalid parameters for bitrate\n"
-msgstr "La ekdifino de reĝimo malsukcesis: nevalidaj parametroj por bitrapido\n"
+msgstr ""
+"La ekdifino de reĝimo malsukcesis: nevalidaj parametroj por bitrapido\n"
 
-#: oggenc/encode.c:330 oggenc/encode.c:352
+#: oggenc/encode.c:366
+#, fuzzy, c-format
+msgid "WARNING: no language specified for %s\n"
+msgstr "AVERTO: Nekonata opcio estis specifita, ni preteratentas->\n"
+
+#: oggenc/encode.c:388
+#, fuzzy
+msgid "Failed writing fishead packet to output stream\n"
+msgstr "Malsukceso dum skribado de kapo al la elfluo\n"
+
+#: oggenc/encode.c:414 oggenc/encode.c:435 oggenc/encode.c:471
+#: oggenc/encode.c:491
 msgid "Failed writing header to output stream\n"
 msgstr "Malsukceso dum skribado de kapo al la elfluo\n"
 
-#: oggenc/encode.c:426
+#: oggenc/encode.c:425
+msgid "Failed encoding Kate header\n"
+msgstr ""
+
+#: oggenc/encode.c:447 oggenc/encode.c:454
+#, fuzzy
+msgid "Failed writing fisbone header packet to output stream\n"
+msgstr "Malsukceso dum skribado de kapo al la elfluo\n"
+
+#: oggenc/encode.c:502
+#, fuzzy
+msgid "Failed writing skeleton eos packet to output stream\n"
+msgstr "Malsukceso dum skribado de kapo al la elfluo\n"
+
+#: oggenc/encode.c:573 oggenc/encode.c:577
+msgid "Failed encoding karaoke style - continuing anyway\n"
+msgstr ""
+
+#: oggenc/encode.c:581
+msgid "Failed encoding karaoke motion - continuing anyway\n"
+msgstr ""
+
+#: oggenc/encode.c:586
+msgid "Failed encoding lyrics - continuing anyway\n"
+msgstr ""
+
+#: oggenc/encode.c:598 oggenc/encode.c:613 oggenc/encode.c:649
 msgid "Failed writing data to output stream\n"
 msgstr "Malsukceso dum skribado de datumaro al la elfluo\n"
 
-#: oggenc/encode.c:472
+#: oggenc/encode.c:633
+msgid "Failed encoding Kate EOS packet\n"
+msgstr ""
+
+#: oggenc/encode.c:708
 #, c-format
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c "
 msgstr "\t[%5.1f%%] [%2dm%.2ds restas] %c "
 
-#: oggenc/encode.c:482
+#: oggenc/encode.c:718
 #, c-format
 msgid "\tEncoding [%2dm%.2ds so far] %c "
 msgstr "\tEnkodado [%2dm%.2ds farita] %c "
 
-#: oggenc/encode.c:500
+#: oggenc/encode.c:736
 #, c-format
 msgid ""
 "\n"
@@ -1013,7 +1224,7 @@ msgstr ""
 "\n"
 "Farita: enkodado de la dosiero \"%s\"\n"
 
-#: oggenc/encode.c:502
+#: oggenc/encode.c:738
 #, c-format
 msgid ""
 "\n"
@@ -1024,7 +1235,7 @@ msgstr ""
 "\n"
 "Enkodado farita.\n"
 
-#: oggenc/encode.c:506
+#: oggenc/encode.c:742
 #, c-format
 msgid ""
 "\n"
@@ -1033,17 +1244,17 @@ msgstr ""
 "\n"
 "\tDosier-grandeco:  %dm %04.1fs\n"
 
-#: oggenc/encode.c:510
+#: oggenc/encode.c:746
 #, c-format
 msgid "\tElapsed time: %dm %04.1fs\n"
 msgstr "\tPasita tempo: %dm %04.1fs\n"
 
-#: oggenc/encode.c:513
+#: oggenc/encode.c:749
 #, c-format
 msgid "\tRate:         %.4f\n"
 msgstr "\tRapideco:     %.4f\n"
 
-#: oggenc/encode.c:514
+#: oggenc/encode.c:750
 #, c-format
 msgid ""
 "\tAverage bitrate: %.1f kb/s\n"
@@ -1052,7 +1263,27 @@ msgstr ""
 "\tMeza rapideco: %.1f kb/s\n"
 "\n"
 
-#: oggenc/encode.c:551
+#: oggenc/encode.c:773
+#, c-format
+msgid "(min %d kbps, max %d kbps)"
+msgstr ""
+
+#: oggenc/encode.c:775
+#, c-format
+msgid "(min %d kbps, no max)"
+msgstr ""
+
+#: oggenc/encode.c:777
+#, c-format
+msgid "(no min, max %d kbps)"
+msgstr ""
+
+#: oggenc/encode.c:779
+#, c-format
+msgid "(no min or max)"
+msgstr ""
+
+#: oggenc/encode.c:787
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1063,17 +1294,17 @@ msgstr ""
 "            %s%s%s \n"
 "je meza bitrapido %d kbps "
 
-#: oggenc/encode.c:553 oggenc/encode.c:560 oggenc/encode.c:568
-#: oggenc/encode.c:575 oggenc/encode.c:581
+#: oggenc/encode.c:789 oggenc/encode.c:796 oggenc/encode.c:804
+#: oggenc/encode.c:811 oggenc/encode.c:817
 msgid "standard input"
 msgstr "ordinara enigo"
 
-#: oggenc/encode.c:554 oggenc/encode.c:561 oggenc/encode.c:569
-#: oggenc/encode.c:576 oggenc/encode.c:582
+#: oggenc/encode.c:790 oggenc/encode.c:797 oggenc/encode.c:805
+#: oggenc/encode.c:812 oggenc/encode.c:818
 msgid "standard output"
 msgstr "ordinara eligo"
 
-#: oggenc/encode.c:559
+#: oggenc/encode.c:795
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1084,7 +1315,7 @@ msgstr ""
 "            %s%s%s \n"
 "je proksimuma bitrapido %d kbps (VBR-enkodado ebligita)\n"
 
-#: oggenc/encode.c:567
+#: oggenc/encode.c:803
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1095,7 +1326,7 @@ msgstr ""
 "            %s%s%s \n"
 "je kvalitnivelo %2.2f uzante limigitan VBR-on "
 
-#: oggenc/encode.c:574
+#: oggenc/encode.c:810
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1106,7 +1337,7 @@ msgstr ""
 "            %s%s%s \n"
 "je kvalitnivelo %2.2f\n"
 
-#: oggenc/encode.c:580
+#: oggenc/encode.c:816
 #, c-format
 msgid ""
 "Encoding %s%s%s to \n"
@@ -1117,86 +1348,180 @@ msgstr ""
 "            %s%s%s \n"
 "uzante regadon de bitrapido "
 
-#: oggenc/oggenc.c:100
+#: oggenc/lyrics.c:66
+#, fuzzy, c-format
+msgid "Failed to convert to UTF-8: %s\n"
+msgstr "Malsukcesis malfermo de dosiero kiel vorbis: %s\n"
+
+#: oggenc/lyrics.c:73
+#, fuzzy, c-format
+msgid "Out of memory\n"
+msgstr "Eraro: Mankis memoro.\n"
+
+#: oggenc/lyrics.c:79
+#, c-format
+msgid "WARNING: subtitle %s is not valid UTF-8\n"
+msgstr ""
+
+#: oggenc/lyrics.c:141 oggenc/lyrics.c:157 oggenc/lyrics.c:337
+#: oggenc/lyrics.c:353
+#, c-format
+msgid "ERROR - line %u: Syntax error: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:146
+#, c-format
+msgid ""
+"WARNING - line %u: non consecutive ids: %s - pretending not to have noticed\n"
+msgstr ""
+
+#: oggenc/lyrics.c:162
+#, c-format
+msgid "ERROR - line %u: end time must not be less than start time: %s\n"
+msgstr ""
+
+#: oggenc/lyrics.c:184
+#, c-format
+msgid "WARNING - line %u: text is too long - truncated\n"
+msgstr ""
+
+#: oggenc/lyrics.c:197
+#, c-format
+msgid "WARNING - line %u: missing data - truncated file?\n"
+msgstr ""
+
+#: oggenc/lyrics.c:210
+#, c-format
+msgid "WARNING - line %d: lyrics times must not be decreasing\n"
+msgstr ""
+
+#: oggenc/lyrics.c:218
+#, c-format
+msgid "WARNING - line %d: failed to get UTF-8 glyph from string\n"
+msgstr ""
+
+#: oggenc/lyrics.c:279
+#, c-format
+msgid ""
+"WARNING - line %d: failed to process enhanced LRC tag (%*.*s) - ignored\n"
+msgstr ""
+
+#: oggenc/lyrics.c:288
+#, c-format
+msgid "WARNING: failed to allocate memory - enhanced LRC tag will be ignored\n"
+msgstr ""
+
+#: oggenc/lyrics.c:419
+#, c-format
+msgid "ERROR: No lyrics filename to load from\n"
+msgstr ""
+
+#: oggenc/lyrics.c:425
+#, fuzzy, c-format
+msgid "ERROR: Failed to open lyrics file %s (%s)\n"
+msgstr "ERARO: Ne eblas malfermi la enig-dosieron \"%s\": %s\n"
+
+#: oggenc/lyrics.c:444
+#, c-format
+msgid "ERROR: Failed to load %s - can't determine format\n"
+msgstr ""
+
+#: oggenc/oggenc.c:117
 #, c-format
 msgid "ERROR: No input files specified. Use -h for help.\n"
-msgstr "ERARO: Neniu enig-dosiero estis indikita. Uzu la opcion -h por helpo.\n"
+msgstr ""
+"ERARO: Neniu enig-dosiero estis indikita. Uzu la opcion -h por helpo.\n"
 
-#: oggenc/oggenc.c:115
+#: oggenc/oggenc.c:132
 #, c-format
 msgid "ERROR: Multiple files specified when using stdin\n"
 msgstr "ERARO: Pluraj dosieroj estis indikitaj dum uzo de 'stdin'\n"
 
-#: oggenc/oggenc.c:122
+#: oggenc/oggenc.c:139
 #, c-format
-msgid "ERROR: Multiple input files with specified output filename: suggest using -n\n"
-msgstr "ERARO: Pluraj enig-dosieroj kun elig-dosiernomo indikita: ni sugestas uzon de -n\n"
+msgid ""
+"ERROR: Multiple input files with specified output filename: suggest using -"
+"n\n"
+msgstr ""
+"ERARO: Pluraj enig-dosieroj kun elig-dosiernomo indikita: ni sugestas uzon "
+"de -n\n"
 
-#: oggenc/oggenc.c:183
+#: oggenc/oggenc.c:203
+#, fuzzy, c-format
+msgid ""
+"WARNING: Insufficient lyrics languages specified, defaulting to final lyrics "
+"language.\n"
+msgstr ""
+"AVERTO: Nesufiĉe da titoloj estis specifitaj: promanke al la lasta titolo.\n"
+
+#: oggenc/oggenc.c:227
 #, c-format
 msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgstr "ERARO: Ne eblas malfermi la enig-dosieron \"%s\": %s\n"
 
-#: oggenc/oggenc.c:199
+#: oggenc/oggenc.c:243
 msgid "RAW file reader"
 msgstr "Legilo de dosiero RAW"
 
-#: oggenc/oggenc.c:216
+#: oggenc/oggenc.c:260
 #, c-format
 msgid "Opening with %s module: %s\n"
 msgstr "Malfermado kun %s-modulo: %s\n"
 
-#: oggenc/oggenc.c:225
+#: oggenc/oggenc.c:269
 #, c-format
 msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr "ERARO: La enig-dosiero \"%s\" ne estas subtenata formo\n"
 
-#: oggenc/oggenc.c:277
-#, c-format
-msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
+#: oggenc/oggenc.c:327
+#, fuzzy, c-format
+msgid "WARNING: No filename, defaulting to \"%s\"\n"
 msgstr "AVERTO: Neniu dosiernomo, apriore ni uzu \"default.ogg\"-on\n"
 
-#: oggenc/oggenc.c:285
+#: oggenc/oggenc.c:334
 #, c-format
-msgid "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
-msgstr "ERARO: Ne eblis krei postulatajn subdosierujojn por la elig-dosiernomo \"%s\"\n"
+msgid ""
+"ERROR: Could not create required subdirectories for output filename \"%s\"\n"
+msgstr ""
+"ERARO: Ne eblis krei postulatajn subdosierujojn por la elig-dosiernomo \"%s"
+"\"\n"
 
-#: oggenc/oggenc.c:292
+#: oggenc/oggenc.c:341
 #, c-format
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
 msgstr "ERARO: La enig-dosieromo estas la sama ol la elig-dosiernomo \"%s\"\n"
 
-#: oggenc/oggenc.c:303
+#: oggenc/oggenc.c:352
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr "ERARO: Ne eblas malfermi la elig-dosieron \"%s\": %s\n"
 
-#: oggenc/oggenc.c:335
+#: oggenc/oggenc.c:398
 #, c-format
 msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr "Reakirado de enigo el %d Hz al %d Hz\n"
 
-#: oggenc/oggenc.c:342
+#: oggenc/oggenc.c:405
 #, c-format
 msgid "Downmixing stereo to mono\n"
 msgstr "Enmiksado de dukanalo al unukanalo\n"
 
-#: oggenc/oggenc.c:345
+#: oggenc/oggenc.c:408
 #, c-format
 msgid "WARNING: Can't downmix except from stereo to mono\n"
 msgstr "AVERTO: Ne eblas enmiksi, krom de dukanalo al unukanalo\n"
 
-#: oggenc/oggenc.c:353
+#: oggenc/oggenc.c:416
 #, c-format
 msgid "Scaling input to %f\n"
 msgstr "Reskalado de la enigo al %f\n"
 
-#: oggenc/oggenc.c:395
+#: oggenc/oggenc.c:462
 #, c-format
 msgid "oggenc from %s %s"
 msgstr "oggenc el %s %s"
 
-#: oggenc/oggenc.c:397
+#: oggenc/oggenc.c:464
 #, c-format
 msgid ""
 "Usage: oggenc [options] inputfile [...]\n"
@@ -1205,7 +1530,7 @@ msgstr ""
 "Uzado: oggenc [opcioj] enigdosiero [...]\n"
 "\n"
 
-#: oggenc/oggenc.c:398
+#: oggenc/oggenc.c:465
 #, c-format
 msgid ""
 "OPTIONS:\n"
@@ -1220,7 +1545,7 @@ msgstr ""
 " -h, --help           Montrigas tiun ĉi helpo-tekston\n"
 " -V, --version        Montrigas la versi-numeron\n"
 
-#: oggenc/oggenc.c:404
+#: oggenc/oggenc.c:471
 #, c-format
 msgid ""
 " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
@@ -1231,13 +1556,17 @@ msgid ""
 " --raw-endianness     1 for bigendian, 0 for little (defaults to 0)\n"
 msgstr ""
 " -k, --skeleton       Aldonas bitfluon 'Ogg Skeleton'\n"
-" -r, --raw            Kruda reĝimo. Enig-dosieroj estas legataj rekte kiel PCM-datumaro\n"
-" -B, --raw-bits=n     Difinas bitoj/specimeno por kruda enigo; implicite estas 16\n"
-" -C, --raw-chan=n     Difinas la nombron da kanaloj por kruda enigo; implicite estas 2\n"
-" -R, --raw-rate=n     Difinas specimenojn/sek por kruda enigo; implicite estas 44100\n"
+" -r, --raw            Kruda reĝimo. Enig-dosieroj estas legataj rekte kiel "
+"PCM-datumaro\n"
+" -B, --raw-bits=n     Difinas bitoj/specimeno por kruda enigo; implicite "
+"estas 16\n"
+" -C, --raw-chan=n     Difinas la nombron da kanaloj por kruda enigo; "
+"implicite estas 2\n"
+" -R, --raw-rate=n     Difinas specimenojn/sek por kruda enigo; implicite "
+"estas 44100\n"
 " --raw-endianness     1 por pezkomenca, 0 por pezfina (implicite estas 0)\n"
 
-#: oggenc/oggenc.c:411
+#: oggenc/oggenc.c:478
 #, c-format
 msgid ""
 " -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
@@ -1248,28 +1577,33 @@ msgid ""
 "                      targetting the selected bitrate.\n"
 msgstr ""
 " -b, --bitrate        Elektas meznombran bitrapidon por enkodigo. Ĝi provas\n"
-"                      enkodi je bitrapido ĉirkaŭ tiu ĉi valoro. Ĝi prenas argumenton\n"
-"                      je kbps. Antaŭsupoze, tio produktas VBR-enkodon, ekvivalenta\n"
+"                      enkodi je bitrapido ĉirkaŭ tiu ĉi valoro. Ĝi prenas "
+"argumenton\n"
+"                      je kbps. Antaŭsupoze, tio produktas VBR-enkodon, "
+"ekvivalenta\n"
 "                      al tia, kiam oni uzas la opcion -q aŭ --quality.\n"
-"                      Vidu la opcion --managed por uzi mastrumitan bitrapidon,\n"
+"                      Vidu la opcion --managed por uzi mastrumitan "
+"bitrapidon,\n"
 "                      kiu celu la elektitan valoron.\n"
 
-#: oggenc/oggenc.c:418
+#: oggenc/oggenc.c:485
 #, c-format
 msgid ""
 " --managed            Enable the bitrate management engine. This will allow\n"
-"                      much greater control over the precise bitrate(s) used,\n"
+"                      much greater control over the precise bitrate(s) "
+"used,\n"
 "                      but encoding will be much slower. Don't use it unless\n"
 "                      you have a strong need for detailed control over\n"
 "                      bitrate, such as for streaming.\n"
 msgstr ""
 " --managed            Ŝaltas la motoron por mastrumado de bitrapido. Tio\n"
-"                       permesos multe pli grandan precizecon por specifi la uzata(j)n\n"
+"                       permesos multe pli grandan precizecon por specifi la "
+"uzata(j)n\n"
 "                       bitrapido(j)n, tamen la enkodado estos multe pli\n"
 "                       malrapida. Ne uzu tion, krom se vi bezonegas bonan\n"
 "                       precizecon por bitrapido, ekzemple dum sonfluo.\n"
 
-#: oggenc/oggenc.c:424
+#: oggenc/oggenc.c:491
 #, c-format
 msgid ""
 " -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
@@ -1285,10 +1619,11 @@ msgstr ""
 "                      ebligos la reĝimon de mastrumado de bitrapido\n"
 "                      (vidu la opcion --managed).\n"
 " -M, --max-bitrate    Specifas maksimuman bitrapidon po kbps. Utilas por\n"
-"                      sonfluaj aplikaĵoj. Tio aŭtomate ebligos la reĝimon de\n"
+"                      sonfluaj aplikaĵoj. Tio aŭtomate ebligos la reĝimon "
+"de\n"
 "                      mastrumado de bitrapido (vidu la opcion --managed).\n"
 
-#: oggenc/oggenc.c:432
+#: oggenc/oggenc.c:499
 #, c-format
 msgid ""
 " --advanced-encode-option option=value\n"
@@ -1299,13 +1634,16 @@ msgid ""
 "                      caution.\n"
 msgstr ""
 " --advanced-encode-option opcio=valoro\n"
-"                      Difinas alnivelan enkodigan opcion por la indikita valoro.\n"
-"                      La validaj opcioj (kaj ties valoroj) estas priskribitaj\n"
+"                      Difinas alnivelan enkodigan opcion por la indikita "
+"valoro.\n"
+"                      La validaj opcioj (kaj ties valoroj) estas "
+"priskribitaj\n"
 "                      en la 'man'-paĝo disponigita kun tiu ĉi programo. Ili\n"
-"                      celas precipe alnivelajn uzantojn, kaj devus esti uzata\n"
+"                      celas precipe alnivelajn uzantojn, kaj devus esti "
+"uzata\n"
 "                      tre singarde.\n"
 
-#: oggenc/oggenc.c:439
+#: oggenc/oggenc.c:506
 #, c-format
 msgid ""
 " -q, --quality        Specify quality, between -1 (very low) and 10 (very\n"
@@ -1320,7 +1658,7 @@ msgstr ""
 "                      Frakciaj kvalitoj (ekz. 2.75) estas permesitaj.\n"
 "                      La implicita kvalito-nivelo estas 3.\n"
 
-#: oggenc/oggenc.c:445
+#: oggenc/oggenc.c:512
 #, c-format
 msgid ""
 " --resample n         Resample input data to sampling rate n (Hz)\n"
@@ -1334,76 +1672,98 @@ msgstr ""
 " --downmix            Enmiksas dukanalon al unukanalo. Nur ebligita por\n"
 "                      dukanala enigo.\n"
 " -s, --serial         Specifas serian numeron por la fluo. Se oni enkodas\n"
-"                      multoblajn dosierojn, tiu numero kreskas post ĉiu fluo.\n"
+"                      multoblajn dosierojn, tiu numero kreskas post ĉiu "
+"fluo.\n"
 
-#: oggenc/oggenc.c:452
-#, c-format
+#: oggenc/oggenc.c:519
+#, fuzzy, c-format
 msgid ""
 " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
 "                      being copied to the output Ogg Vorbis file.\n"
-" --ignorelength       Ignore the datalength in wav headers. This will allow\n"
+" --ignorelength       Ignore the datalength in Wave headers. This allows\n"
 "                      support for files > 4GB and STDIN data streams. \n"
 "\n"
 msgstr ""
 " --discard-comments   Evitas komentojn en FLAC aŭ Ogg-FLAC-dosieroj por ke\n"
-"                      ili ne estu kopiitaj al la elig-dosiero de Ogg Vorbis.\n"
+"                      ili ne estu kopiitaj al la elig-dosiero de Ogg "
+"Vorbis.\n"
 " --ignorelength       Ignoras la datumlongecon en la kapoj de 'wav'. Tio\n"
-"                     ebligos subtenon de dosierojn > 4GB kaj datumfluojn 'STDIN'.\n"
+"                     ebligos subtenon de dosierojn > 4GB kaj datumfluojn "
+"'STDIN'.\n"
 "\n"
 
-#: oggenc/oggenc.c:458
+#: oggenc/oggenc.c:525
 #, c-format
 msgid ""
 " Naming:\n"
 " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
 " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%l,\n"
-"                      %%n, %%d replaced by artist, title, album, track number,\n"
-"                      and date, respectively (see below for specifying these).\n"
+"                      %%n, %%d replaced by artist, title, album, track "
+"number,\n"
+"                      and date, respectively (see below for specifying "
+"these).\n"
 "                      %%%% gives a literal %%.\n"
 msgstr ""
 " Nomigo:\n"
-" -o, --output=dn      Skribas dosieron kun la nomo 'dn' (nur validas por unuop-\n"
+" -o, --output=dn      Skribas dosieron kun la nomo 'dn' (nur validas por "
+"unuop-\n"
 "                      dosiera reĝimo)\n"
 " -n, --names=ĉeno    Produktas dosiernomojn laŭ tiu 'ĉeno', kun %%a, %%t,\n"
-"                      %%l, %%n, %%d anstataŭitaj per artisto, titolo, albumo,\n"
-"                      bendnumero kaj dato, respektive (vidu sube kiel specifi\n"
+"                      %%l, %%n, %%d anstataŭitaj per artisto, titolo, "
+"albumo,\n"
+"                      bendnumero kaj dato, respektive (vidu sube kiel "
+"specifi\n"
 "                      tion). %%%% rezultigas la signon %%.\n"
 
-#: oggenc/oggenc.c:465
+#: oggenc/oggenc.c:532
 #, c-format
 msgid ""
-" -X, --name-remove=s  Remove the specified characters from parameters to the\n"
+" -X, --name-remove=s  Remove the specified characters from parameters to "
+"the\n"
 "                      -n format string. Useful to ensure legal filenames.\n"
 " -P, --name-replace=s Replace characters removed by --name-remove with the\n"
-"                      characters specified. If this string is shorter than the\n"
+"                      characters specified. If this string is shorter than "
+"the\n"
 "                      --name-remove list or is not specified, the extra\n"
 "                      characters are just removed.\n"
-"                      Default settings for the above two arguments are platform\n"
+"                      Default settings for the above two arguments are "
+"platform\n"
 "                      specific.\n"
 msgstr ""
-" -X, --name-remove=s  Forigas la indikitajn signojn en 's' el la parametroj de\n"
+" -X, --name-remove=s  Forigas la indikitajn signojn en 's' el la parametroj "
+"de\n"
 "                      la ĉeno post -n. Utilas por validigi dosiernomojn\n"
-" -P, --name-replace=s Anstataŭigas signojn forigitaj de --name-remove per la\n"
-"                      specifitaj signoj en la ĉeno 's'. Se tiu ĉeno estos pli\n"
+" -P, --name-replace=s Anstataŭigas signojn forigitaj de --name-remove per "
+"la\n"
+"                      specifitaj signoj en la ĉeno 's'. Se tiu ĉeno estos "
+"pli\n"
 "                      mallonga ol la listo en --name-remove aŭ tiu ne estas\n"
 "                      specifita, la signoj estos simple forigitaj.\n"
-"                      Implicitaj valoroj por la supraj du argumentoj dependas de\n"
+"                      Implicitaj valoroj por la supraj du argumentoj "
+"dependas de\n"
 "                      la platformo de via sistemo.\n"
 
-#: oggenc/oggenc.c:474
-#, c-format
+#: oggenc/oggenc.c:541
+#, fuzzy, c-format
 msgid ""
+" --utf8               Tells oggenc that the command line parameters date, "
+"title,\n"
+"                      album, artist, genre, and comment are already in UTF-"
+"8.\n"
+"                      On Windows, this switch applies to file names too.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
 "                      used multiple times. The argument should be in the\n"
 "                      format \"tag=value\".\n"
 " -d, --date           Date for track (usually date of performance)\n"
 msgstr ""
-" -c, --comment=k      Aldonas la ĉenon 'k' kiel kroman komenton. Tio povas esti\n"
+" -c, --comment=k      Aldonas la ĉenon 'k' kiel kroman komenton. Tio povas "
+"esti\n"
 "                      uzata plurfoje. La argumento devas esti laŭ la formo\n"
 "                      \"etikedo=valoro\".\n"
-" -d, --date           Dato por la bendo (ordinare temas pri la dato de ludado)\n"
+" -d, --date           Dato por la bendo (ordinare temas pri la dato de "
+"ludado)\n"
 
-#: oggenc/oggenc.c:479
+#: oggenc/oggenc.c:549
 #, c-format
 msgid ""
 " -N, --tracknum       Track number for this track\n"
@@ -1418,53 +1778,81 @@ msgstr ""
 " -a, --artist         Nomo de la artisto\n"
 " -G, --genre          Muzikstilo de la bendo\n"
 
-#: oggenc/oggenc.c:485
+#: oggenc/oggenc.c:555
 #, c-format
 msgid ""
+" -L, --lyrics         Include lyrics from given file (.srt or .lrc format)\n"
+" -Y, --lyrics-language  Sets the language for the lyrics\n"
+msgstr ""
+
+#: oggenc/oggenc.c:558
+#, fuzzy, c-format
+msgid ""
 "                      If multiple input files are given, then multiple\n"
-"                      instances of the previous five arguments will be used,\n"
+"                      instances of the previous eight arguments will be "
+"used,\n"
 "                      in the order they are given. If fewer titles are\n"
-"                      specified than files, OggEnc will print a warning, and\n"
+"                      specified than files, OggEnc will print a warning, "
+"and\n"
 "                      reuse the final one for the remaining files. If fewer\n"
 "                      track numbers are given, the remaining files will be\n"
-"                      unnumbered. For the others, the final tag will be reused\n"
-"                      for all others without warning (so you can specify a date\n"
-"                      once, for example, and have it used for all the files)\n"
+"                      unnumbered. If fewer lyrics are given, the remaining\n"
+"                      files will not have lyrics added. For the others, the\n"
+"                      final tag will be reused for all others without "
+"warning\n"
+"                      (so you can specify a date once, for example, and "
+"have\n"
+"                      it used for all the files)\n"
 "\n"
 msgstr ""
 "                      Se multopaj enig-dosieroj estas indikitaj, tiaokaze\n"
-"                      multopaj ekzemploj de la antaŭaj kvin argumentoj estos\n"
+"                      multopaj ekzemploj de la antaŭaj kvin argumentoj "
+"estos\n"
 "                      uzitaj, laŭ la donita ordo. Se oni indikis malpli da\n"
-"                      titoloj ol dosieroj, OggEnc montros averton, kaj reuzos\n"
-"                      la lastan por la restantaj dosieroj. Se malpli da bend-\n"
+"                      titoloj ol dosieroj, OggEnc montros averton, kaj "
+"reuzos\n"
+"                      la lastan por la restantaj dosieroj. Se malpli da "
+"bend-\n"
 "                      numeroj estas indikitaj, la restantaj dosieroj estos\n"
-"                      nenumeritaj. Por la aliaj, la lasta etikedo estos reuzata\n"
+"                      nenumeritaj. Por la aliaj, la lasta etikedo estos "
+"reuzata\n"
 "                      por ĉiuj restantaj sen ajna averto (tiel ekzemple vi\n"
 "                      povas specifigi daton kaj aplikigi ĝin por ĉiuj aliaj\n"
 "                      dosieroj.\n"
 "\n"
 
-#: oggenc/oggenc.c:496
-#, c-format
+#: oggenc/oggenc.c:571
+#, fuzzy, c-format
 msgid ""
 "INPUT FILES:\n"
-" OggEnc input files must currently be 24, 16, or 8 bit PCM Wave, 16 bit u-Law (.au), AIFF, or AIFF/C\n"
-" files, 32 bit IEEE floating point Wave, and optionally FLAC or Ogg FLAC. Files\n"
+" OggEnc input files must currently be 24, 16, or 8 bit PCM Wave, AIFF, or "
+"AIFF/C\n"
+" files, 32 bit IEEE floating point Wave, and optionally FLAC or Ogg FLAC. "
+"Files\n"
 "  may be mono or stereo (or more channels) and any sample rate.\n"
-" Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-" must be 16 bit stereo little-endian PCM ('headerless wave'), unless additional\n"
+" Alternatively, the --raw option may be used to use a raw PCM data file, "
+"which\n"
+" must be 16 bit stereo little-endian PCM ('headerless Wave'), unless "
+"additional\n"
 " parameters for raw mode are specified.\n"
-" You can specify taking the file from stdin by using - as the input filename.\n"
+" You can specify taking the file from stdin by using - as the input "
+"filename.\n"
 " In this mode, output is to stdout unless an output filename is specified\n"
 " with -o\n"
+" Lyrics files may be in SubRip (.srt) or LRC (.lrc) format\n"
 "\n"
 msgstr ""
 "ENIG-DOSIEROJ:\n"
-" Enigaj dosieroj de OggEnc aktuale devas esti laŭ la formoj 24, 16 aŭ 8-bitaj\n"
-" PCM WAV, AIFF aŭ AIFF/C, 32-bitaj IEEE-glitkomaj Wave kaj, laŭdezire, FLAC aŭ\n"
-" Ogg FLAC. Dosieroj povas esti unukanalaj aŭ dukanalaj (aŭ plurkanalaj) kaj je\n"
-" iu ajn akiro-rapido. Alternative, la opcio --raw povas esti indikata por ke oni\n"
-" uzu krudan PCM-datuman dosieron, kiu devas esti 16-bita dukanala pezfina PCM\n"
+" Enigaj dosieroj de OggEnc aktuale devas esti laŭ la formoj 24, 16 aŭ 8-"
+"bitaj\n"
+" PCM WAV, AIFF aŭ AIFF/C, 32-bitaj IEEE-glitkomaj Wave kaj, laŭdezire, FLAC "
+"aŭ\n"
+" Ogg FLAC. Dosieroj povas esti unukanalaj aŭ dukanalaj (aŭ plurkanalaj) kaj "
+"je\n"
+" iu ajn akiro-rapido. Alternative, la opcio --raw povas esti indikata por ke "
+"oni\n"
+" uzu krudan PCM-datuman dosieron, kiu devas esti 16-bita dukanala pezfina "
+"PCM\n"
 " ('senkapa wav'), krom se oni specifu kromajn parametrojn por kruda reĝimo.\n"
 " Vi povas indiki akiradon de dosiero el 'stdin' uzante la signon '-' kiel\n"
 " enig-dosiernomon.\n"
@@ -1472,330 +1860,400 @@ msgstr ""
 " indikita per -o\n"
 "\n"
 
-#: oggenc/oggenc.c:601
+#: oggenc/oggenc.c:677
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
-msgstr "AVERTO: ni preteratentas malpermesitan specialan signon '%c' en la nomformo\n"
+msgstr ""
+"AVERTO: ni preteratentas malpermesitan specialan signon '%c' en la nomformo\n"
 
-#: oggenc/oggenc.c:630 oggenc/oggenc.c:755 oggenc/oggenc.c:768
+#: oggenc/oggenc.c:706 oggenc/oggenc.c:834 oggenc/oggenc.c:847
 #, c-format
 msgid "Enabling bitrate management engine\n"
 msgstr "Ni ebligas la motoron kiu regas bitrapidon\n"
 
-#: oggenc/oggenc.c:639
+#: oggenc/oggenc.c:715
 #, c-format
-msgid "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
-msgstr "AVERTO: Kruda pez-ordo estis specifita por nekruda datumaro. Ni konsideros ke la enigo estas kruda.\n"
+msgid ""
+"WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"AVERTO: Kruda pez-ordo estis specifita por nekruda datumaro. Ni konsideros "
+"ke la enigo estas kruda.\n"
 
-#: oggenc/oggenc.c:642
+#: oggenc/oggenc.c:718
 #, c-format
 msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
 msgstr "AVERTO: Ne eblis legi pez-ordan argumenton \"%s\"\n"
 
-#: oggenc/oggenc.c:649
+#: oggenc/oggenc.c:725
 #, c-format
 msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
 msgstr "AVERTO: Ne eblis legi reakiradan frekvencon \"%s\"\n"
 
-#: oggenc/oggenc.c:655
-#, c-format
-msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
-msgstr "Averto: La reakirada rapideco estis specifita kiel %d Hz. Eble vi volis indiki %d Hz, ĉu?\n"
+#: oggenc/oggenc.c:731
+#, fuzzy, c-format
+msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
+msgstr ""
+"Averto: La reakirada rapideco estis specifita kiel %d Hz. Eble vi volis "
+"indiki %d Hz, ĉu?\n"
 
-#: oggenc/oggenc.c:665
-#, c-format
-msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
+#: oggenc/oggenc.c:741
+#, fuzzy, c-format
+msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr "Averto: Ne eblis malkomponi skalan faktoron \"%s\"\n"
 
-#: oggenc/oggenc.c:675
+#: oggenc/oggenc.c:754
 #, c-format
 msgid "No value for advanced encoder option found\n"
 msgstr "Neniu valoro por la opcio de alnivela enkodilo estis trovita\n"
 
-#: oggenc/oggenc.c:693
+#: oggenc/oggenc.c:772
 #, c-format
 msgid "Internal error parsing command line options\n"
 msgstr "Interna eraro dum analizado de la komandlinaj opcioj\n"
 
-#: oggenc/oggenc.c:704
-#, c-format
-msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
+#: oggenc/oggenc.c:783
+#, fuzzy, c-format
+msgid "WARNING: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr "Averto: Malpermesita komento estis uzata (\"%s\"), ni preteratentas.\n"
 
-#: oggenc/oggenc.c:741
-#, c-format
-msgid "Warning: nominal bitrate \"%s\" not recognised\n"
+#: oggenc/oggenc.c:820
+#, fuzzy, c-format
+msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr "Averto: la meznombra bitrapido \"%s\" ne estis rekonita\n"
 
-#: oggenc/oggenc.c:749
-#, c-format
-msgid "Warning: minimum bitrate \"%s\" not recognised\n"
+#: oggenc/oggenc.c:828
+#, fuzzy, c-format
+msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr "Averto: la minimuma bitrapido \"%s\" ne estis rekonita\n"
 
-#: oggenc/oggenc.c:762
-#, c-format
-msgid "Warning: maximum bitrate \"%s\" not recognised\n"
+#: oggenc/oggenc.c:841
+#, fuzzy, c-format
+msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr "Averto: la maksimuma bitrapido \"%s\" ne estis rekonita\n"
 
-#: oggenc/oggenc.c:774
+#: oggenc/oggenc.c:853
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr "La kvalita opcio \"%s\" ne estis rekonita, ni preteratentas\n"
 
-#: oggenc/oggenc.c:782
+#: oggenc/oggenc.c:861
 #, c-format
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
-msgstr "AVERTO: la kvalito nivelo estas tro alta, ni uzos la maksimuman valoron.\n"
+msgstr ""
+"AVERTO: la kvalito nivelo estas tro alta, ni uzos la maksimuman valoron.\n"
 
-#: oggenc/oggenc.c:788
+#: oggenc/oggenc.c:867
 #, c-format
 msgid "WARNING: Multiple name formats specified, using final\n"
-msgstr "AVERTO: Tromultaj formo-indikoj por nomoj estis specifitaj, ni uzos la lastan\n"
+msgstr ""
+"AVERTO: Tromultaj formo-indikoj por nomoj estis specifitaj, ni uzos la "
+"lastan\n"
 
-#: oggenc/oggenc.c:797
+#: oggenc/oggenc.c:876
 #, c-format
 msgid "WARNING: Multiple name format filters specified, using final\n"
-msgstr "AVERTO: Tromultaj filtriloj de nomformo-indikoj estis specifitaj, ni uzos la lastan\n"
+msgstr ""
+"AVERTO: Tromultaj filtriloj de nomformo-indikoj estis specifitaj, ni uzos la "
+"lastan\n"
 
-#: oggenc/oggenc.c:806
+#: oggenc/oggenc.c:885
 #, c-format
-msgid "WARNING: Multiple name format filter replacements specified, using final\n"
-msgstr "AVERTO: Tromultaj anstataŭigoj de filtriloj de nomformo-indikoj estis specifitaj, ni uzos la lastan\n"
+msgid ""
+"WARNING: Multiple name format filter replacements specified, using final\n"
+msgstr ""
+"AVERTO: Tromultaj anstataŭigoj de filtriloj de nomformo-indikoj estis "
+"specifitaj, ni uzos la lastan\n"
 
-#: oggenc/oggenc.c:814
+#: oggenc/oggenc.c:893
 #, c-format
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
-msgstr "AVERTO: Tromultaj eligaj dosieroj estis specifitaj, tio sugestas uzon de -n\n"
+msgstr ""
+"AVERTO: Tromultaj eligaj dosieroj estis specifitaj, tio sugestas uzon de -n\n"
 
-#: oggenc/oggenc.c:826
+#: oggenc/oggenc.c:905
 #, c-format
 msgid "oggenc from %s %s\n"
 msgstr "oggenc el %s %s\n"
 
-#: oggenc/oggenc.c:833
+#: oggenc/oggenc.c:912
 #, c-format
-msgid "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
-msgstr "AVERTO: Kruda bitoj/specimeno estis specifita por nekruda datumaro. Ni konsideros ke la enigo estas kruda.\n"
+msgid ""
+"WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"AVERTO: Kruda bitoj/specimeno estis specifita por nekruda datumaro. Ni "
+"konsideros ke la enigo estas kruda.\n"
 
-#: oggenc/oggenc.c:838 oggenc/oggenc.c:842
+#: oggenc/oggenc.c:917 oggenc/oggenc.c:921
 #, c-format
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
-msgstr "AVERTO: Nevalida bitoj/specimeno estis specifita, ni konsideros kiel 16.\n"
+msgstr ""
+"AVERTO: Nevalida bitoj/specimeno estis specifita, ni konsideros kiel 16.\n"
 
-#: oggenc/oggenc.c:849
+#: oggenc/oggenc.c:928
 #, c-format
-msgid "WARNING: Raw channel count specified for non-raw data. Assuming input is raw.\n"
-msgstr "AVERTO: Kruda kanal-nombro estis specifita por nekruda datumaro. Ni konsideros ke la enigo estas kruda.\n"
+msgid ""
+"WARNING: Raw channel count specified for non-raw data. Assuming input is "
+"raw.\n"
+msgstr ""
+"AVERTO: Kruda kanal-nombro estis specifita por nekruda datumaro. Ni "
+"konsideros ke la enigo estas kruda.\n"
 
-#: oggenc/oggenc.c:854
+#: oggenc/oggenc.c:933
 #, c-format
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr "AVERTO: Nevalida kanal-nombro estis specifita, ni konsideros kiel 2.\n"
 
-#: oggenc/oggenc.c:865
+#: oggenc/oggenc.c:944
 #, c-format
-msgid "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
-msgstr "AVERTO: Kruda akiro-rapido estis specifita por nekruda datumaro. Ni konsideros ke la enigo estas kruda.\n"
+msgid ""
+"WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
+msgstr ""
+"AVERTO: Kruda akiro-rapido estis specifita por nekruda datumaro. Ni "
+"konsideros ke la enigo estas kruda.\n"
 
-#: oggenc/oggenc.c:870
+#: oggenc/oggenc.c:949
 #, c-format
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
-msgstr "AVERTO: Nevalida akiro-rapido estis specifita, ni konsideros kiel 44100.\n"
+msgstr ""
+"AVERTO: Nevalida akiro-rapido estis specifita, ni konsideros kiel 44100.\n"
 
-#: oggenc/oggenc.c:877
+#: oggenc/oggenc.c:961 oggenc/oggenc.c:973
+#, c-format
+msgid "WARNING: Kate support not compiled in; lyrics will not be included.\n"
+msgstr ""
+
+#: oggenc/oggenc.c:969
+#, c-format
+msgid "WARNING: language can not be longer than 15 characters; truncated.\n"
+msgstr ""
+
+#: oggenc/oggenc.c:977
 #, c-format
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "AVERTO: Nekonata opcio estis specifita, ni preteratentas->\n"
 
-#: oggenc/oggenc.c:899 vorbiscomment/vcomment.c:354
+#: oggenc/oggenc.c:993 vorbiscomment/vcomment.c:344
+#, fuzzy, c-format
+msgid "'%s' is not valid UTF-8, cannot add\n"
+msgstr "Ne eblis konverti la komenton al UTF-8, ne eblas aldoni\n"
+
+#: oggenc/oggenc.c:1010 vorbiscomment/vcomment.c:357
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Ne eblis konverti la komenton al UTF-8, ne eblas aldoni\n"
 
-#: oggenc/oggenc.c:918
+#: oggenc/oggenc.c:1029
 #, c-format
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
-msgstr "AVERTO: Nesufiĉe da titoloj estis specifitaj: promanke al la lasta titolo.\n"
+msgstr ""
+"AVERTO: Nesufiĉe da titoloj estis specifitaj: promanke al la lasta titolo.\n"
 
-#: oggenc/platform.c:150
+#: oggenc/platform.c:172
 #, c-format
 msgid "Couldn't create directory \"%s\": %s\n"
 msgstr "Ne eblis krei la dosierujon \"%s\": %s\n"
 
-#: oggenc/platform.c:157
+#: oggenc/platform.c:179
 #, c-format
 msgid "Error checking for existence of directory %s: %s\n"
 msgstr "Okazis eraro kiam ni kontrolis ekziston de la dosierujo %s: %s\n"
 
-#: oggenc/platform.c:170
+#: oggenc/platform.c:192
 #, c-format
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr "Eraro: la pado-segmento \"%s\" ne estas dosierujo\n"
 
-#: ogginfo/ogginfo2.c:211
-#, c-format
-msgid "Warning: Comment %d in stream %d has invalid format, does not contain '=': \"%s\"\n"
-msgstr "Averto: La komendo %d en la fluo %d havas nevalidan formon, ĝi ne enhavas la simbolon '=': \"%s\"\n"
+#: ogginfo/ogginfo2.c:212
+#, fuzzy, c-format
+msgid ""
+"WARNING: Comment %d in stream %d has invalid format, does not contain '=': "
+"\"%s\"\n"
+msgstr ""
+"Averto: La komendo %d en la fluo %d havas nevalidan formon, ĝi ne enhavas la "
+"simbolon '=': \"%s\"\n"
 
-#: ogginfo/ogginfo2.c:219
-#, c-format
-msgid "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
-msgstr "Averto : Nevalida komenta nomo-kampo en la komento %d (fluo %d): \"%s\"\n"
+#: ogginfo/ogginfo2.c:220
+#, fuzzy, c-format
+msgid "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
+msgstr ""
+"Averto : Nevalida komenta nomo-kampo en la komento %d (fluo %d): \"%s\"\n"
 
-#: ogginfo/ogginfo2.c:250 ogginfo/ogginfo2.c:258
-#, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker wrong\n"
-msgstr "Averto: Malpermesita UTF-8-a signo-sekvo en la komento %d (fluo %d): la grandeca marko malĝustas\n"
+#: ogginfo/ogginfo2.c:251 ogginfo/ogginfo2.c:259
+#, fuzzy, c-format
+msgid ""
+"WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
+"wrong\n"
+msgstr ""
+"Averto: Malpermesita UTF-8-a signo-sekvo en la komento %d (fluo %d): la "
+"grandeca marko malĝustas\n"
 
-#: ogginfo/ogginfo2.c:265
-#, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
-msgstr "Averto: Malpermesita UTF-8-a signo-sekvo en la komento %d (fluo %d): tro malmultaj bitokoj\n"
+#: ogginfo/ogginfo2.c:266
+#, fuzzy, c-format
+msgid ""
+"WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
+msgstr ""
+"Averto: Malpermesita UTF-8-a signo-sekvo en la komento %d (fluo %d): tro "
+"malmultaj bitokoj\n"
 
-#: ogginfo/ogginfo2.c:341
-#, c-format
-msgid "Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence \"%s\": %s\n"
-msgstr "Averto: Malpermesita UTF-8-a signo-vico en la komento %d (fluo %d): nevalida signo-sekvo \"%s\": %s\n"
+#: ogginfo/ogginfo2.c:342
+#, fuzzy, c-format
+msgid ""
+"WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid sequence "
+"\"%s\": %s\n"
+msgstr ""
+"Averto: Malpermesita UTF-8-a signo-vico en la komento %d (fluo %d): nevalida "
+"signo-sekvo \"%s\": %s\n"
 
-#: ogginfo/ogginfo2.c:355
-msgid "Warning: Failure in utf8 decoder. This should be impossible\n"
+#: ogginfo/ogginfo2.c:356
+#, fuzzy
+msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
 msgstr "Averto: Malsukceso en utf8-a dekodilo. Tio ĉi devus esti malebla\n"
 
-#: ogginfo/ogginfo2.c:380 ogginfo/ogginfo2.c:547 ogginfo/ogginfo2.c:680
-#, c-format
-msgid "Warning: discontinuity in stream (%d)\n"
+#: ogginfo/ogginfo2.c:381 ogginfo/ogginfo2.c:548 ogginfo/ogginfo2.c:681
+#, fuzzy, c-format
+msgid "WARNING: discontinuity in stream (%d)\n"
 msgstr "Averto: malkontinuaĵo en fluo (%d)\n"
 
-#: ogginfo/ogginfo2.c:388
-#, c-format
-msgid "Warning: Could not decode theora header packet - invalid theora stream (%d)\n"
-msgstr "Averto: Ne eblis dekodi 'theora' kapo-pako - nevalida 'theora' fluo (%d)\n"
+#: ogginfo/ogginfo2.c:389
+#, fuzzy, c-format
+msgid ""
+"WARNING: Could not decode Theora header packet - invalid Theora stream (%d)\n"
+msgstr ""
+"Averto: Ne eblis dekodi 'theora' kapo-pako - nevalida 'theora' fluo (%d)\n"
 
-#: ogginfo/ogginfo2.c:395
-#, c-format
-msgid "Warning: Theora stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Averto: La 'theora' fluo %d ne havas ĝuste enkadrigitan kapdatumaron. La kap-paĝo de la terminalo enhavas kromajn pakojn aŭ ĝi havas la atributon 'granulepos' ne-nula\n"
+#: ogginfo/ogginfo2.c:396
+#, fuzzy, c-format
+msgid ""
+"WARNING: Theora stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Averto: La 'theora' fluo %d ne havas ĝuste enkadrigitan kapdatumaron. La kap-"
+"paĝo de la terminalo enhavas kromajn pakojn aŭ ĝi havas la atributon "
+"'granulepos' ne-nula\n"
 
-#: ogginfo/ogginfo2.c:399
+#: ogginfo/ogginfo2.c:400
 #, c-format
 msgid "Theora headers parsed for stream %d, information follows...\n"
-msgstr "'Theora'-kapoj estis malkomponitaj por la fluo %d, jen pli da informo...\n"
+msgstr ""
+"'Theora'-kapoj estis malkomponitaj por la fluo %d, jen pli da informo...\n"
 
-#: ogginfo/ogginfo2.c:402
+#: ogginfo/ogginfo2.c:403
 #, c-format
 msgid "Version: %d.%d.%d\n"
 msgstr "Versio: %d.%d.%d\n"
 
-#: ogginfo/ogginfo2.c:404 ogginfo/ogginfo2.c:582 ogginfo/ogginfo2.c:742
+#: ogginfo/ogginfo2.c:405 ogginfo/ogginfo2.c:583 ogginfo/ogginfo2.c:743
 #, c-format
 msgid "Vendor: %s\n"
 msgstr "Vendanto: %s\n"
 
-#: ogginfo/ogginfo2.c:405
+#: ogginfo/ogginfo2.c:406
 #, c-format
 msgid "Width: %d\n"
 msgstr "Larĝeco: %d\n"
 
-#: ogginfo/ogginfo2.c:406
+#: ogginfo/ogginfo2.c:407
 #, c-format
 msgid "Height: %d\n"
 msgstr "Alteco: %d\n"
 
-#: ogginfo/ogginfo2.c:407
+#: ogginfo/ogginfo2.c:408
 #, c-format
 msgid "Total image: %d by %d, crop offset (%d, %d)\n"
 msgstr "Tuta bildo: %d je %d, marĝena deŝovo (%d, %d)\n"
 
-#: ogginfo/ogginfo2.c:410
+#: ogginfo/ogginfo2.c:411
 msgid "Frame offset/size invalid: width incorrect\n"
 msgstr "Malvalida deŝovo/grandeco de kadro: malĝusta larĝeco\n"
 
-#: ogginfo/ogginfo2.c:412
+#: ogginfo/ogginfo2.c:413
 msgid "Frame offset/size invalid: height incorrect\n"
 msgstr "Malvalida deŝovo/grandeco de kadro: malĝusta alteco\n"
 
-#: ogginfo/ogginfo2.c:415
+#: ogginfo/ogginfo2.c:416
 msgid "Invalid zero framerate\n"
 msgstr "Malvalida nula kadro-rapido\n"
 
-#: ogginfo/ogginfo2.c:417
+#: ogginfo/ogginfo2.c:418
 #, c-format
 msgid "Framerate %d/%d (%.02f fps)\n"
 msgstr "Kadro-rapido %d/%d (%.02f pkps)\n"
 
-#: ogginfo/ogginfo2.c:421
+#: ogginfo/ogginfo2.c:422
 msgid "Aspect ratio undefined\n"
 msgstr "Nedifinita kadra proporcio\n"
 
-#: ogginfo/ogginfo2.c:426
+#: ogginfo/ogginfo2.c:427
 #, c-format
 msgid "Pixel aspect ratio %d:%d (%f:1)\n"
 msgstr "Bildera proporcio %d:%d (%f:1)\n"
 
-#: ogginfo/ogginfo2.c:428
+#: ogginfo/ogginfo2.c:429
 msgid "Frame aspect 4:3\n"
 msgstr "Kadra proporcio 4:3\n"
 
-#: ogginfo/ogginfo2.c:430
+#: ogginfo/ogginfo2.c:431
 msgid "Frame aspect 16:9\n"
 msgstr "Kadra proporcio 16:9\n"
 
-#: ogginfo/ogginfo2.c:432
+#: ogginfo/ogginfo2.c:433
 #, c-format
 msgid "Frame aspect %f:1\n"
 msgstr "Kadra proporcio %f:1\n"
 
-#: ogginfo/ogginfo2.c:436
+#: ogginfo/ogginfo2.c:437
 msgid "Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"
 msgstr "Kolorspaco: Rec. ITU-R BT.470-6 System M (NTSC)\n"
 
-#: ogginfo/ogginfo2.c:438
+#: ogginfo/ogginfo2.c:439
 msgid "Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"
 msgstr "Kolorspaco: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"
 
-#: ogginfo/ogginfo2.c:440
+#: ogginfo/ogginfo2.c:441
 msgid "Colourspace unspecified\n"
 msgstr "Nespecifita kolorspaco\n"
 
-#: ogginfo/ogginfo2.c:443
+#: ogginfo/ogginfo2.c:444
 msgid "Pixel format 4:2:0\n"
 msgstr "Bildero-formo 4:2:0\n"
 
-#: ogginfo/ogginfo2.c:445
+#: ogginfo/ogginfo2.c:446
 msgid "Pixel format 4:2:2\n"
 msgstr "Bildero-formo 4:2:2\n"
 
-#: ogginfo/ogginfo2.c:447
+#: ogginfo/ogginfo2.c:448
 msgid "Pixel format 4:4:4\n"
 msgstr "Bildero-formo 4:4:4\n"
 
-#: ogginfo/ogginfo2.c:449
+#: ogginfo/ogginfo2.c:450
 msgid "Pixel format invalid\n"
 msgstr "Malvalida bildero-formo\n"
 
-#: ogginfo/ogginfo2.c:451
+#: ogginfo/ogginfo2.c:452
 #, c-format
 msgid "Target bitrate: %d kbps\n"
 msgstr "Celata bitrapido: %d kbps\n"
 
-#: ogginfo/ogginfo2.c:452
+#: ogginfo/ogginfo2.c:453
 #, c-format
 msgid "Nominal quality setting (0-63): %d\n"
 msgstr "Meznombra kvalito alĝustigo (0-63: %d\n"
 
-#: ogginfo/ogginfo2.c:455 ogginfo/ogginfo2.c:605 ogginfo/ogginfo2.c:801
+#: ogginfo/ogginfo2.c:456 ogginfo/ogginfo2.c:606 ogginfo/ogginfo2.c:802
 msgid "User comments section follows...\n"
 msgstr "Jen sekcio de uzant-komentoj...\n"
 
-#: ogginfo/ogginfo2.c:476
-msgid "Warning: Expected frame %"
+#: ogginfo/ogginfo2.c:477
+#, fuzzy
+msgid "WARNING: Expected frame %"
 msgstr "Averto: Atendita kadro %"
 
-#: ogginfo/ogginfo2.c:492 ogginfo/ogginfo2.c:620 ogginfo/ogginfo2.c:818
-msgid "Warning: granulepos in stream %d decreases from %"
+#: ogginfo/ogginfo2.c:493 ogginfo/ogginfo2.c:621 ogginfo/ogginfo2.c:819
+#, fuzzy
+msgid "WARNING: granulepos in stream %d decreases from %"
 msgstr "Averto: 'granulepos' en la fluo %d malpliiĝas de %"
 
-#: ogginfo/ogginfo2.c:519
+#: ogginfo/ogginfo2.c:520
 msgid ""
 "Theora stream %d:\n"
 "\tTotal data length: %"
@@ -1803,37 +2261,47 @@ msgstr ""
 "'Theora'-fluo %d:\n"
 "\tTotala datum-longeco: %"
 
-#: ogginfo/ogginfo2.c:556
-#, c-format
-msgid "Warning: Could not decode vorbis header packet %d - invalid vorbis stream (%d)\n"
-msgstr "Averto: Ne eblis dekodi 'vorbis'-an kapo-pakon %d - malvalida 'vorbis'-a fluo (%d)\n"
+#: ogginfo/ogginfo2.c:557
+#, fuzzy, c-format
+msgid ""
+"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
+"d)\n"
+msgstr ""
+"Averto: Ne eblis dekodi 'vorbis'-an kapo-pakon %d - malvalida 'vorbis'-a "
+"fluo (%d)\n"
 
-#: ogginfo/ogginfo2.c:564
-#, c-format
-msgid "Warning: Vorbis stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Averto: La 'vorbis'-a fluo %d ne havas ĝuste enkadrigitan kapdatumaron. La kap-paĝo de la terminalo enhavas kromajn pakojn aŭ ĝi havas la atributon 'granulepos' ne-nula\n"
+#: ogginfo/ogginfo2.c:565
+#, fuzzy, c-format
+msgid ""
+"WARNING: Vorbis stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Averto: La 'vorbis'-a fluo %d ne havas ĝuste enkadrigitan kapdatumaron. La "
+"kap-paĝo de la terminalo enhavas kromajn pakojn aŭ ĝi havas la atributon "
+"'granulepos' ne-nula\n"
 
-#: ogginfo/ogginfo2.c:568
+#: ogginfo/ogginfo2.c:569
 #, c-format
 msgid "Vorbis headers parsed for stream %d, information follows...\n"
-msgstr "'Vorbis'-kapoj estis malkomponitaj por la fluo %d, jen pli da informo...\n"
+msgstr ""
+"'Vorbis'-kapoj estis malkomponitaj por la fluo %d, jen pli da informo...\n"
 
-#: ogginfo/ogginfo2.c:571
+#: ogginfo/ogginfo2.c:572
 #, c-format
 msgid "Version: %d\n"
 msgstr "Versio: %d\n"
 
-#: ogginfo/ogginfo2.c:575
+#: ogginfo/ogginfo2.c:576
 #, c-format
 msgid "Vendor: %s (%s)\n"
 msgstr "Vendanto: %s (%s)\n"
 
-#: ogginfo/ogginfo2.c:583
+#: ogginfo/ogginfo2.c:584
 #, c-format
 msgid "Channels: %d\n"
 msgstr "Kanaloj: %d\n"
 
-#: ogginfo/ogginfo2.c:584
+#: ogginfo/ogginfo2.c:585
 #, c-format
 msgid ""
 "Rate: %ld\n"
@@ -1842,39 +2310,39 @@ msgstr ""
 "Rapido: %ld\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:587
+#: ogginfo/ogginfo2.c:588
 #, c-format
 msgid "Nominal bitrate: %f kb/s\n"
 msgstr "Meznombra bitrapido: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:590
+#: ogginfo/ogginfo2.c:591
 msgid "Nominal bitrate not set\n"
 msgstr "La meznombra bitrapido ne estas difinita\n"
 
-#: ogginfo/ogginfo2.c:593
+#: ogginfo/ogginfo2.c:594
 #, c-format
 msgid "Upper bitrate: %f kb/s\n"
 msgstr "Supera bitrapido:  %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:596
+#: ogginfo/ogginfo2.c:597
 msgid "Upper bitrate not set\n"
 msgstr "La supera bitrapido ne esta difinita\n"
 
-#: ogginfo/ogginfo2.c:599
+#: ogginfo/ogginfo2.c:600
 #, c-format
 msgid "Lower bitrate: %f kb/s\n"
 msgstr "Malsupera bitrapido: %f kb/s\n"
 
-#: ogginfo/ogginfo2.c:602
+#: ogginfo/ogginfo2.c:603
 msgid "Lower bitrate not set\n"
 msgstr "La malsupera bitrapido ne estas difinita\n"
 
-#: ogginfo/ogginfo2.c:629
-#, c-format
-msgid "Negative or zero granulepos (%lld) on vorbis stream outside of headers. This file was created by a buggy encoder\n"
-msgstr "Negativa aŭ nula 'granulepos' (%lld) aperis for de kapdatumaro en 'vorbis'-a fluo. Tiu ĉi dosiero estis kreita de fuŝa enkodilo\n"
+#: ogginfo/ogginfo2.c:630
+#, fuzzy
+msgid "Negative or zero granulepos (%"
+msgstr "Malvalida nula 'granulepos'-rapido\n"
 
-#: ogginfo/ogginfo2.c:650
+#: ogginfo/ogginfo2.c:651
 msgid ""
 "Vorbis stream %d:\n"
 "\tTotal data length: %"
@@ -1882,106 +2350,116 @@ msgstr ""
 "Fluo Vorbis %d:\n"
 "\tEntuta datumlongeco: %"
 
-#: ogginfo/ogginfo2.c:691
-#, c-format
-msgid "Warning: Could not decode kate header packet %d - invalid kate stream (%d)\n"
-msgstr "Averto: Ne eblis dekodi 'kate'-an kapo-pakon %d - nevalida 'kate'-a fluo (%d)\n"
+#: ogginfo/ogginfo2.c:692
+#, fuzzy, c-format
+msgid ""
+"WARNING: Could not decode Kate header packet %d - invalid Kate stream (%d)\n"
+msgstr ""
+"Averto: Ne eblis dekodi 'kate'-an kapo-pakon %d - nevalida 'kate'-a fluo (%"
+"d)\n"
 
-#: ogginfo/ogginfo2.c:702
-#, c-format
-msgid "Warning: packet %d does not seem to be a kate header - invalid kate stream (%d)\n"
-msgstr "Averto: la pako %d ne ŝajnas esti 'kate'-kapo - nevalida 'kate'-a fluo (%d)\n"
+#: ogginfo/ogginfo2.c:703
+#, fuzzy, c-format
+msgid ""
+"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream (%"
+"d)\n"
+msgstr ""
+"Averto: la pako %d ne ŝajnas esti 'kate'-kapo - nevalida 'kate'-a fluo (%d)\n"
 
-#: ogginfo/ogginfo2.c:733
-#, c-format
-msgid "Warning: Kate stream %d does not have headers correctly framed. Terminal header page contains additional packets or has non-zero granulepos\n"
-msgstr "Averto: La 'kate'-fluo %d ne havas ĝuste enkadrigitan kapdatumaron. La fina kap-paĝo enhavas kromajn pakojn aŭ ĝi havas ne-nulan 'granulepos'-atributon\n"
+#: ogginfo/ogginfo2.c:734
+#, fuzzy, c-format
+msgid ""
+"WARNING: Kate stream %d does not have headers correctly framed. Terminal "
+"header page contains additional packets or has non-zero granulepos\n"
+msgstr ""
+"Averto: La 'kate'-fluo %d ne havas ĝuste enkadrigitan kapdatumaron. La fina "
+"kap-paĝo enhavas kromajn pakojn aŭ ĝi havas ne-nulan 'granulepos'-atributon\n"
 
-#: ogginfo/ogginfo2.c:737
+#: ogginfo/ogginfo2.c:738
 #, c-format
 msgid "Kate headers parsed for stream %d, information follows...\n"
-msgstr "'Kate'-kapoj estis disanalizitaj por la fluo %d, jen pli da informo...\n"
+msgstr ""
+"'Kate'-kapoj estis disanalizitaj por la fluo %d, jen pli da informo...\n"
 
-#: ogginfo/ogginfo2.c:740
+#: ogginfo/ogginfo2.c:741
 #, c-format
 msgid "Version: %d.%d\n"
 msgstr "Versio: %d.%d\n"
 
-#: ogginfo/ogginfo2.c:746
+#: ogginfo/ogginfo2.c:747
 #, c-format
 msgid "Language: %s\n"
 msgstr "Lingvo: %s\n"
 
-#: ogginfo/ogginfo2.c:749
+#: ogginfo/ogginfo2.c:750
 msgid "No language set\n"
 msgstr "Neniu lingvo estis difinita\n"
 
-#: ogginfo/ogginfo2.c:752
+#: ogginfo/ogginfo2.c:753
 #, c-format
 msgid "Category: %s\n"
 msgstr "Kategorio: %s\n"
 
-#: ogginfo/ogginfo2.c:755
+#: ogginfo/ogginfo2.c:756
 msgid "No category set\n"
 msgstr "Neniu kategorio estis difinita\n"
 
-#: ogginfo/ogginfo2.c:760
+#: ogginfo/ogginfo2.c:761
 msgid "utf-8"
 msgstr "utf-8"
 
-#: ogginfo/ogginfo2.c:764
+#: ogginfo/ogginfo2.c:765
 #, c-format
 msgid "Character encoding: %s\n"
 msgstr "Sign-enkodo: %s\n"
 
-#: ogginfo/ogginfo2.c:767
+#: ogginfo/ogginfo2.c:768
 msgid "Unknown character encoding\n"
 msgstr "Nekonata sign-enkodo\n"
 
-#: ogginfo/ogginfo2.c:772
+#: ogginfo/ogginfo2.c:773
 msgid "left to right, top to bottom"
 msgstr "maldekstre dekstren, supre malsupren"
 
-#: ogginfo/ogginfo2.c:773
+#: ogginfo/ogginfo2.c:774
 msgid "right to left, top to bottom"
 msgstr "dekstre maldekstren, supre malsupren"
 
-#: ogginfo/ogginfo2.c:774
+#: ogginfo/ogginfo2.c:775
 msgid "top to bottom, right to left"
 msgstr "supre malsupren, dekstre maldekstren"
 
-#: ogginfo/ogginfo2.c:775
+#: ogginfo/ogginfo2.c:776
 msgid "top to bottom, left to right"
 msgstr "supre malsupren, maldekstre dekstren"
 
-#: ogginfo/ogginfo2.c:779
+#: ogginfo/ogginfo2.c:780
 #, c-format
 msgid "Text directionality: %s\n"
 msgstr "Direkto de teksto: %s\n"
 
-#: ogginfo/ogginfo2.c:782
+#: ogginfo/ogginfo2.c:783
 msgid "Unknown text directionality\n"
 msgstr "Nekonata direkto de teksto\n"
 
-#: ogginfo/ogginfo2.c:794
+#: ogginfo/ogginfo2.c:795
 msgid "Invalid zero granulepos rate\n"
 msgstr "Malvalida nula 'granulepos'-rapido\n"
 
-#: ogginfo/ogginfo2.c:796
+#: ogginfo/ogginfo2.c:797
 #, c-format
 msgid "Granulepos rate %d/%d (%.02f gps)\n"
 msgstr "'Granulepos'-rapido %d/%d (%.02f gps)\n"
 
-#: ogginfo/ogginfo2.c:809
+#: ogginfo/ogginfo2.c:810
 msgid "\n"
 msgstr "\n"
 
-#: ogginfo/ogginfo2.c:827
-#, c-format
-msgid "Negative granulepos (%lld) on kate stream outside of headers. This file was created by a buggy encoder\n"
-msgstr "Negativa 'granulepos' (%lld) aperis for de kapdatumaro en 'kate'-fluo. Tiu ĉi dosiero estis kreita de fuŝa enkodilo\n"
+#: ogginfo/ogginfo2.c:828
+msgid "Negative granulepos (%"
+msgstr ""
 
-#: ogginfo/ogginfo2.c:852
+#: ogginfo/ogginfo2.c:853
 msgid ""
 "Kate stream %d:\n"
 "\tTotal data length: %"
@@ -1989,35 +2467,44 @@ msgstr ""
 "Fluo Kate %d:\n"
 "\tEntuta datumlongeco: %"
 
-#: ogginfo/ogginfo2.c:892
-#, c-format
-msgid "Warning: EOS not set on stream %d\n"
+#: ogginfo/ogginfo2.c:893
+#, fuzzy, c-format
+msgid "WARNING: EOS not set on stream %d\n"
 msgstr "Averto: Neniu EOS (flufino) estis difinita en la fluo %d\n"
 
-#: ogginfo/ogginfo2.c:1047
-msgid "Warning: Invalid header page, no packet found\n"
+#: ogginfo/ogginfo2.c:1048
+#, fuzzy
+msgid "WARNING: Invalid header page, no packet found\n"
 msgstr "Averto: Nevalida kap-paĝo, neniu pako estis trovita\n"
 
-#: ogginfo/ogginfo2.c:1073
+#: ogginfo/ogginfo2.c:1076
+#, fuzzy, c-format
+msgid "WARNING: Invalid header page in stream %d, contains multiple packets\n"
+msgstr ""
+"Averto: Nevalida kap-paĝo en la fluo %d, ĝi enhavas tromultajn pakojn\n"
+
+#: ogginfo/ogginfo2.c:1090
 #, c-format
-msgid "Warning: Invalid header page in stream %d, contains multiple packets\n"
-msgstr "Averto: Nevalida kap-paĝo en la fluo %d, ĝi enhavas tromultajn pakojn\n"
+msgid ""
+"Note: Stream %d has serial number %d, which is legal but may cause problems "
+"with some tools.\n"
+msgstr ""
+"Rimarko: La fluo %d havas seri-numero %d, kiu estas permesita, sed ĝi povas "
+"kaŭzi problemojn kun kelkaj iloj.\n"
 
-#: ogginfo/ogginfo2.c:1087
-#, c-format
-msgid "Note: Stream %d has serial number %d, which is legal but may cause problems with some tools.\n"
-msgstr "Rimarko: La fluo %d havas seri-numero %d, kiu estas permesita, sed ĝi povas kaŭzi problemojn kun kelkaj iloj.\n"
+#: ogginfo/ogginfo2.c:1108
+#, fuzzy
+msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
+msgstr ""
+"Averto: Truo estis trovita en la datumaro (%d bajtoj) proksimume ĉe la "
+"deŝovo %"
 
-#: ogginfo/ogginfo2.c:1104
-msgid "Warning: Hole in data (%d bytes) found at approximate offset %"
-msgstr "Averto: Truo estis trovita en la datumaro (%d bajtoj) proksimume ĉe la deŝovo %"
-
-#: ogginfo/ogginfo2.c:1128
+#: ogginfo/ogginfo2.c:1135
 #, c-format
 msgid "Error opening input file \"%s\": %s\n"
 msgstr "Eraro dum malfermado de la enig-dosiero \"%s\": %s\n"
 
-#: ogginfo/ogginfo2.c:1133
+#: ogginfo/ogginfo2.c:1140
 #, c-format
 msgid ""
 "Processing file \"%s\"...\n"
@@ -2026,71 +2513,82 @@ msgstr ""
 "Procezado de la dosiero \"%s\"...\n"
 "\n"
 
-#: ogginfo/ogginfo2.c:1142
+#: ogginfo/ogginfo2.c:1149
 msgid "Could not find a processor for stream, bailing\n"
 msgstr "Ne eblis trovi procezilon por la fluo, do ni forlasas ĝin\n"
 
-#: ogginfo/ogginfo2.c:1150
+#: ogginfo/ogginfo2.c:1157
 msgid "Page found for stream after EOS flag"
 msgstr "Estis trovita paĝo por la fluo post signo EOS (flufino)"
 
-#: ogginfo/ogginfo2.c:1153
-msgid "Ogg muxing constraints violated, new stream before EOS of all previous streams"
-msgstr "Oni preterobservis la limojn por intermiksado: aperis nova fluo antaŭ la fino de ĉiuj antaŭaj fluoj"
+#: ogginfo/ogginfo2.c:1160
+msgid ""
+"Ogg muxing constraints violated, new stream before EOS of all previous "
+"streams"
+msgstr ""
+"Oni preterobservis la limojn por intermiksado: aperis nova fluo antaŭ la "
+"fino de ĉiuj antaŭaj fluoj"
 
-#: ogginfo/ogginfo2.c:1157
+#: ogginfo/ogginfo2.c:1164
 msgid "Error unknown."
 msgstr "Eraro nekonata."
 
-#: ogginfo/ogginfo2.c:1160
-#, c-format
+#: ogginfo/ogginfo2.c:1167
+#, fuzzy, c-format
 msgid ""
-"Warning: illegally placed page(s) for logical stream %d\n"
-"This indicates a corrupt ogg file: %s.\n"
+"WARNING: illegally placed page(s) for logical stream %d\n"
+"This indicates a corrupt Ogg file: %s.\n"
 msgstr ""
 "Averto: malvalide lokita(j) paĝo(j) por la logika fluo %d\n"
 "Tio indikas ke la ogg-dosiero estas disrompita: %s.\n"
 
-#: ogginfo/ogginfo2.c:1172
+#: ogginfo/ogginfo2.c:1179
 #, c-format
 msgid "New logical stream (#%d, serial: %08x): type %s\n"
 msgstr "Nova logika datum-fluo (num.: %d, serio: %08x): tipo %s\n"
 
-#: ogginfo/ogginfo2.c:1175
-#, c-format
-msgid "Warning: stream start flag not set on stream %d\n"
-msgstr "Averto: komenco-signalo por fluo ne estis difinita en la datum-fluo %d\n"
+#: ogginfo/ogginfo2.c:1182
+#, fuzzy, c-format
+msgid "WARNING: stream start flag not set on stream %d\n"
+msgstr ""
+"Averto: komenco-signalo por fluo ne estis difinita en la datum-fluo %d\n"
 
-#: ogginfo/ogginfo2.c:1179
-#, c-format
-msgid "Warning: stream start flag found in mid-stream on stream %d\n"
-msgstr "Averto: komenco-signalo por fluo ne estis trovita en la mezo de la datum-fluo %d\n"
+#: ogginfo/ogginfo2.c:1186
+#, fuzzy, c-format
+msgid "WARNING: stream start flag found in mid-stream on stream %d\n"
+msgstr ""
+"Averto: komenco-signalo por fluo ne estis trovita en la mezo de la datum-"
+"fluo %d\n"
 
-#: ogginfo/ogginfo2.c:1184
-#, c-format
-msgid "Warning: sequence number gap in stream %d. Got page %ld when expecting page %ld. Indicates missing data.\n"
-msgstr "Averto: aperis intervalo en numer-sekvoj de la fluo %d. Oni ricevis la paĝon %ld atendinte la paĝon %ld. Tio indikas nekompletan datumaron.\n"
+#: ogginfo/ogginfo2.c:1191
+#, fuzzy, c-format
+msgid ""
+"WARNING: sequence number gap in stream %d. Got page %ld when expecting page %"
+"ld. Indicates missing data.\n"
+msgstr ""
+"Averto: aperis intervalo en numer-sekvoj de la fluo %d. Oni ricevis la paĝon "
+"%ld atendinte la paĝon %ld. Tio indikas nekompletan datumaron.\n"
 
-#: ogginfo/ogginfo2.c:1199
+#: ogginfo/ogginfo2.c:1206
 #, c-format
 msgid "Logical stream %d ended\n"
 msgstr "La logika fluo %d finiĝis\n"
 
-#: ogginfo/ogginfo2.c:1207
-#, c-format
+#: ogginfo/ogginfo2.c:1214
+#, fuzzy, c-format
 msgid ""
-"Error: No ogg data found in file \"%s\".\n"
+"ERROR: No Ogg data found in file \"%s\".\n"
 "Input probably not Ogg.\n"
 msgstr ""
 "Eraro: Neniu ogg-datumaro estis trovita en la dosiero \"%s\".\n"
 "La enigo probable ne estas Ogg.\n"
 
-#: ogginfo/ogginfo2.c:1218
+#: ogginfo/ogginfo2.c:1225
 #, c-format
 msgid "ogginfo from %s %s\n"
 msgstr "ogginfo el %s %s\n"
 
-#: ogginfo/ogginfo2.c:1224
+#: ogginfo/ogginfo2.c:1231
 #, c-format
 msgid ""
 "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
@@ -2113,12 +2611,12 @@ msgstr ""
 "\t-v Fariĝas pli mesaĝema. Tio ebligos pli detalajn kontrolojn\n"
 "\t   por kelkaj tipoj de fluoj.\n"
 
-#: ogginfo/ogginfo2.c:1233
+#: ogginfo/ogginfo2.c:1240
 #, c-format
 msgid "\t-V Output version information and exit\n"
 msgstr "\t-V Eligas eligan informaron kaj ĉesiĝas\n"
 
-#: ogginfo/ogginfo2.c:1245
+#: ogginfo/ogginfo2.c:1252
 #, c-format
 msgid ""
 "Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
@@ -2133,7 +2631,7 @@ msgstr ""
 "kaj helpas malkovri problemojn pri ili.\n"
 "Kompleta helpo estas montrata per \"ogginfo -h\".\n"
 
-#: ogginfo/ogginfo2.c:1279
+#: ogginfo/ogginfo2.c:1286
 #, c-format
 msgid "No input files specified. \"ogginfo -h\" for help\n"
 msgstr "Neniu enig-dosiero estis specifica. Uzu \"ogginfo -h\" por helpo\n"
@@ -2209,8 +2707,8 @@ msgid "Found EOS before cut point.\n"
 msgstr "Flufino estis trovita antaŭ tondpunkto.\n"
 
 #: vcut/vcut.c:215
-#, c-format
-msgid "Setting eos: update sync returned 0\n"
+#, fuzzy, c-format
+msgid "Setting EOS: update sync returned 0\n"
 msgstr "Difinado de flufino: ĝisdatigo de sinkronigo respondis per 0\n"
 
 #: vcut/vcut.c:225
@@ -2229,17 +2727,17 @@ msgid "Cutpoint too close to end of file. Second file will be empty.\n"
 msgstr "Tondpunkto tro proksima de la dosierfino. Dua dosiero malpleniĝos.\n"
 
 #: vcut/vcut.c:353
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "ERROR: First two audio packets did not fit into one\n"
-"       ogg page. File may not decode correctly.\n"
+"       Ogg page. File may not decode correctly.\n"
 msgstr ""
 "ERARO: La unuaj du son-pakoj ne enteniĝas en unu\n"
 "       ogg-paĝo. La dosiero eble ne estos ĝuste dekodita.\n"
 
 #: vcut/vcut.c:373
-#, c-format
-msgid "Update sync returned 0, setting eos\n"
+#, fuzzy, c-format
+msgid "Update sync returned 0, setting EOS\n"
 msgstr "La ĝisdatigo de sinkronigo respondis per 0, ni almetas flufinon\n"
 
 #: vcut/vcut.c:378
@@ -2263,13 +2761,13 @@ msgid "Error in first page\n"
 msgstr "Eraro en la unua paĝo\n"
 
 #: vcut/vcut.c:464
-#, c-format
-msgid "error in first packet\n"
+#, fuzzy, c-format
+msgid "Error in first packet\n"
 msgstr "eraro en la unua pako\n"
 
 #: vcut/vcut.c:470
-#, c-format
-msgid "Error in primary header: not vorbis?\n"
+#, fuzzy, c-format
+msgid "Error in primary header: not Vorbis?\n"
 msgstr "Eraro en la unua datumkapo: ĉu ne estas 'vorbis'?\n"
 
 #: vcut/vcut.c:490
@@ -2284,8 +2782,11 @@ msgstr "Finfluo en datumkapoj\n"
 
 #: vcut/vcut.c:535
 #, c-format
-msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
-msgstr "Uzado: vcut enigdosiero.ogg eligdosiero1.ogg eligdosiero2.ogg [tondpunkto | +tondpunkto]\n"
+msgid ""
+"Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
+msgstr ""
+"Uzado: vcut enigdosiero.ogg eligdosiero1.ogg eligdosiero2.ogg [tondpunkto | "
+"+tondpunkto]\n"
 
 #: vcut/vcut.c:539
 #, c-format
@@ -2295,7 +2796,8 @@ msgid ""
 "\n"
 msgstr ""
 "AVERTO: vcut ankoraŭ estas eksperimenta programeto.\n"
-"Certigu ke la eligitaj dosieroj estas korektaj antaŭ ol forigi la fontdosierojn.\n"
+"Certigu ke la eligitaj dosieroj estas korektaj antaŭ ol forigi la "
+"fontdosierojn.\n"
 "\n"
 
 #: vcut/vcut.c:544
@@ -2357,7 +2859,8 @@ msgstr "Eraro dum legado de la komenca kapo-pako."
 
 #: vorbiscomment/vcedit.c:238
 msgid "Couldn't get enough memory to register new stream serial number."
-msgstr "Ne eblis disponi sufiĉe da memoro por registri novan seri-numeron de fluo."
+msgstr ""
+"Ne eblis disponi sufiĉe da memoro por registri novan seri-numeron de fluo."
 
 #: vorbiscomment/vcedit.c:506
 msgid "Input truncated or empty."
@@ -2368,7 +2871,8 @@ msgid "Input is not an Ogg bitstream."
 msgstr "La enigo ne estas Ogg-bitfluo."
 
 #: vorbiscomment/vcedit.c:566
-msgid "Ogg bitstream does not contain vorbis data."
+#, fuzzy
+msgid "Ogg bitstream does not contain Vorbis data."
 msgstr "La Ogg-bitfluo ne enhavas vorbis-datumaron."
 
 #: vorbiscomment/vcedit.c:579
@@ -2384,7 +2888,8 @@ msgid "Corrupt secondary header."
 msgstr "Disrompita dua datumkapo."
 
 #: vorbiscomment/vcedit.c:660
-msgid "EOF before end of vorbis headers."
+#, fuzzy
+msgid "EOF before end of Vorbis headers."
 msgstr "Finfluo antaŭ la fino de la vorbis-datumkapoj."
 
 #: vorbiscomment/vcedit.c:835
@@ -2392,12 +2897,15 @@ msgid "Corrupt or missing data, continuing..."
 msgstr "Disrompita aŭ malkompleta datumaro, ni daŭrigas..."
 
 #: vorbiscomment/vcedit.c:875
-msgid "Error writing stream to output. Output stream may be corrupted or truncated."
-msgstr "Eraro dum skribado de fluo al la eligo. La elig-fluo povas esti disrompita aŭ tranĉita."
+msgid ""
+"Error writing stream to output. Output stream may be corrupted or truncated."
+msgstr ""
+"Eraro dum skribado de fluo al la eligo. La elig-fluo povas esti disrompita "
+"aŭ tranĉita."
 
 #: vorbiscomment/vcomment.c:190 vorbiscomment/vcomment.c:216
-#, c-format
-msgid "Failed to open file as vorbis: %s\n"
+#, fuzzy, c-format
+msgid "Failed to open file as Vorbis: %s\n"
 msgstr "Malsukcesis malfermo de dosiero kiel vorbis: %s\n"
 
 #: vorbiscomment/vcomment.c:235
@@ -2420,7 +2928,7 @@ msgstr "Malsukcesis skribo de komentoj al la elig-dosiero: %s\n"
 msgid "no action specified\n"
 msgstr "neniu ago estis indikita\n"
 
-#: vorbiscomment/vcomment.c:376
+#: vorbiscomment/vcomment.c:379
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2431,12 +2939,12 @@ msgstr ""
 " farite de Fondaĵo Xiph.Org (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:379
+#: vorbiscomment/vcomment.c:382
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Listigi aŭ redakti komentojn en dosieroj Ogg Vorbis.\n"
 
-#: vorbiscomment/vcomment.c:382
+#: vorbiscomment/vcomment.c:385
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2447,29 +2955,34 @@ msgstr ""
 "Uzado: \n"
 "  vorbiscomment [-Vh]\n"
 "  vorbiscomment [-lR] dosiero\n"
-"  vorbiscomment [-R] [-c dosiero] [-t etikedo] <-a|-w> enigdosiero [eligdosiero]\n"
+"  vorbiscomment [-R] [-c dosiero] [-t etikedo] <-a|-w> enigdosiero "
+"[eligdosiero]\n"
 
-#: vorbiscomment/vcomment.c:388
+#: vorbiscomment/vcomment.c:391
 #, c-format
 msgid "Listing options\n"
 msgstr "Listigaj opcioj\n"
 
-#: vorbiscomment/vcomment.c:389
-#, c-format
-msgid "  -l, --list              List the comments (default if no options are given)\n"
-msgstr "  -l, --list              Listigas la komentojn (implicite, se neniu opcio estas indikita)\n"
-
 #: vorbiscomment/vcomment.c:392
+#, c-format
+msgid ""
+"  -l, --list              List the comments (default if no options are "
+"given)\n"
+msgstr ""
+"  -l, --list              Listigas la komentojn (implicite, se neniu opcio "
+"estas indikita)\n"
+
+#: vorbiscomment/vcomment.c:395
 #, c-format
 msgid "Editing options\n"
 msgstr "Redaktadaj opcioj\n"
 
-#: vorbiscomment/vcomment.c:393
+#: vorbiscomment/vcomment.c:396
 #, c-format
 msgid "  -a, --append            Append comments\n"
 msgstr "  -a, --append            Postaldonas komentojn\n"
 
-#: vorbiscomment/vcomment.c:394
+#: vorbiscomment/vcomment.c:397
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2478,59 +2991,76 @@ msgstr ""
 "  -t \"nomo=valoro\", --tag \"nomo=valoro\"\n"
 "                          Specifas komentan etikedon ĉe la komand-linio\n"
 
-#: vorbiscomment/vcomment.c:396
+#: vorbiscomment/vcomment.c:399
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
-msgstr "  -w, --write             Skribas komentojn, anstataŭigante la jam ekzistantajn\n"
+msgstr ""
+"  -w, --write             Skribas komentojn, anstataŭigante la jam "
+"ekzistantajn\n"
 
-#: vorbiscomment/vcomment.c:400
+#: vorbiscomment/vcomment.c:403
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
-"                          When listing, write comments to the specified file.\n"
-"                          When editing, read comments from the specified file.\n"
+"                          When listing, write comments to the specified "
+"file.\n"
+"                          When editing, read comments from the specified "
+"file.\n"
 msgstr ""
 "  -c dosiero, --commentfile dosiero\n"
-"                          Dum listigo, skribas komentojn al la indikita dosiero.\n"
-"                          Dum redaktado, legas komentojn el la indikita dosiero.\n"
+"                          Dum listigo, skribas komentojn al la indikita "
+"dosiero.\n"
+"                          Dum redaktado, legas komentojn el la indikita "
+"dosiero.\n"
 
-#: vorbiscomment/vcomment.c:403
+#: vorbiscomment/vcomment.c:406
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Legas kaj skribas komentojn per UTF-8\n"
 
-#: vorbiscomment/vcomment.c:407
+#: vorbiscomment/vcomment.c:410
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr "  -V, --version           Eligas versian informon kaj ĉesiĝas\n"
 
-#: vorbiscomment/vcomment.c:410
+#: vorbiscomment/vcomment.c:413
 #, c-format
 msgid ""
-"If no output file is specified, vorbiscomment will modify the input file. This\n"
-"is handled via temporary file, such that the input file is not modified if any\n"
+"If no output file is specified, vorbiscomment will modify the input file. "
+"This\n"
+"is handled via temporary file, such that the input file is not modified if "
+"any\n"
 "errors are encountered during processing.\n"
 msgstr ""
-"Se neniu elig-dosiero estas indikita, vorbiscomment modifos la enig-dosieron. Tio\n"
-"estas traktata per provizora dosiero, tiel ke la enig-dosiero ne estu modifita\n"
+"Se neniu elig-dosiero estas indikita, vorbiscomment modifos la enig-"
+"dosieron. Tio\n"
+"estas traktata per provizora dosiero, tiel ke la enig-dosiero ne estu "
+"modifita\n"
 "okaze de iu eraro dum la procezado.\n"
 
-#: vorbiscomment/vcomment.c:415
+#: vorbiscomment/vcomment.c:418
 #, c-format
 msgid ""
-"vorbiscomment handles comments in the format \"name=value\", one per line. By\n"
-"default, comments are written to stdout when listing, and read from stdin when\n"
+"vorbiscomment handles comments in the format \"name=value\", one per line. "
+"By\n"
+"default, comments are written to stdout when listing, and read from stdin "
+"when\n"
 "editing. Alternatively, a file can be specified with the -c option, or tags\n"
-"can be given on the commandline with -t \"name=value\". Use of either -c or -t\n"
+"can be given on the commandline with -t \"name=value\". Use of either -c or -"
+"t\n"
 "disables reading from stdin.\n"
 msgstr ""
-"vorbiscomment traktas komentojn kiuj estu laŭ la formo \"nomo=valoro\", po unu por\n"
-"linio. Implicite, komentoj estas skribitaj al 'stdout' dum listado, kaj estas legitaj\n"
-"el 'stdin' dum redaktado. Alternative, dosiero povas esti indikita per la opcio -c,\n"
-"aŭ etikedoj povas esti indikitaj en la komand-linio per -t \"nomo=valoro\". Uzo de\n"
+"vorbiscomment traktas komentojn kiuj estu laŭ la formo \"nomo=valoro\", po "
+"unu por\n"
+"linio. Implicite, komentoj estas skribitaj al 'stdout' dum listado, kaj "
+"estas legitaj\n"
+"el 'stdin' dum redaktado. Alternative, dosiero povas esti indikita per la "
+"opcio -c,\n"
+"aŭ etikedoj povas esti indikitaj en la komand-linio per -t \"nomo=valoro\". "
+"Uzo de\n"
 "-c aŭ -t malebligas legi el 'stdin'.\n"
 
-#: vorbiscomment/vcomment.c:422
+#: vorbiscomment/vcomment.c:425
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2541,61 +3071,97 @@ msgstr ""
 "  vorbiscomment -a enig.ogg -c komentoj.txt\n"
 "  vorbiscomment -a enig.ogg -t \"ARTIST=Iu Homo\" -t \"TITLE=Iu Titolo\"\n"
 
-#: vorbiscomment/vcomment.c:427
+#: vorbiscomment/vcomment.c:430
 #, c-format
 msgid ""
-"NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather than\n"
-"converting to the user's character set, which is useful in scripts. However,\n"
+"NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
+"than\n"
+"converting to the user's character set, which is useful in scripts. "
+"However,\n"
 "this is not sufficient for general round-tripping of comments in all cases.\n"
 msgstr ""
-"ATENTU: kruda reĝimo (--raw, -R) legos kaj skribos komentojn per UTF-8 anstataŭ\n"
-"konverti al la signaro de la uzanto, kio utilas por skriptoj. Tamen, tio ne sufiĉas\n"
+"ATENTU: kruda reĝimo (--raw, -R) legos kaj skribos komentojn per UTF-8 "
+"anstataŭ\n"
+"konverti al la signaro de la uzanto, kio utilas por skriptoj. Tamen, tio ne "
+"sufiĉas\n"
 "por ĝenerala difinado de komentoj en ĉiuj situacioj.\n"
 
-#: vorbiscomment/vcomment.c:489
+#: vorbiscomment/vcomment.c:492
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Interna eraro dum malkomponado de la komandliniaj opcioj\n"
 
-#: vorbiscomment/vcomment.c:575
+#: vorbiscomment/vcomment.c:508
+#, c-format
+msgid "vorbiscomment from vorbis-tools "
+msgstr ""
+
+#: vorbiscomment/vcomment.c:578
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Eraro dum malfermo de la enig-dosiero '%s'.\n"
 
-#: vorbiscomment/vcomment.c:584
+#: vorbiscomment/vcomment.c:587
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "La enig-dosiernomo eble ne estas la sama ol la elig-dosiernomo\n"
 
-#: vorbiscomment/vcomment.c:595
+#: vorbiscomment/vcomment.c:598
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Eraro dum malfermo de la elig-dosiero '%s'.\n"
 
-#: vorbiscomment/vcomment.c:610
+#: vorbiscomment/vcomment.c:613
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Eraro dum malfermo de la koment-dosiero '%s'.\n"
 
-#: vorbiscomment/vcomment.c:627
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Eraro dum malfermo de la koment-dosiero '%s'\n"
 
-#: vorbiscomment/vcomment.c:661
+#: vorbiscomment/vcomment.c:664
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Eraro dum forigo de la malnova dosiero '%s'\n"
 
-#: vorbiscomment/vcomment.c:663
+#: vorbiscomment/vcomment.c:666
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Eraro dum renomigo de '%s' al '%s'\n"
 
-#: vorbiscomment/vcomment.c:673
+#: vorbiscomment/vcomment.c:676
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
+
+#~ msgid "AU file reader"
+#~ msgstr "Legilo de dosiero AU"
+
+#~ msgid "Warning: Unexpected EOF in reading WAV header\n"
+#~ msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de WAV-kapo\n"
+
+#~ msgid "Out of memory opening AU driver\n"
+#~ msgstr "Manko de memoro dun malfermo de AU-pelilo\n"
+
+#~ msgid "At this moment, only linear 16 bit .au files are supported\n"
+#~ msgstr ""
+#~ "Je tiu ĉi momento, nur linearaj 16-bitaj '.au'-dosieroj estas subtenataj\n"
+
+#~ msgid ""
+#~ "Negative or zero granulepos (%lld) on vorbis stream outside of headers. "
+#~ "This file was created by a buggy encoder\n"
+#~ msgstr ""
+#~ "Negativa aŭ nula 'granulepos' (%lld) aperis for de kapdatumaro en "
+#~ "'vorbis'-a fluo. Tiu ĉi dosiero estis kreita de fuŝa enkodilo\n"
+
+#~ msgid ""
+#~ "Negative granulepos (%lld) on kate stream outside of headers. This file "
+#~ "was created by a buggy encoder\n"
+#~ msgstr ""
+#~ "Negativa 'granulepos' (%lld) aperis for de kapdatumaro en 'kate'-fluo. "
+#~ "Tiu ĉi dosiero estis kreita de fuŝa enkodilo\n"
 
 #~ msgid ""
 #~ "ogg123 from %s %s\n"
@@ -2628,7 +3194,8 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "  -o, --device-option=k:v passes special option k with value\n"
 #~ "      v to previously specified device (with -d).  See\n"
 #~ "      man page for more info.\n"
-#~ "  -@, --list=filename   Read playlist of files and URLs from \"filename\"\n"
+#~ "  -@, --list=filename   Read playlist of files and URLs from \"filename"
+#~ "\"\n"
 #~ "  -b n, --buffer n  Use an input buffer of 'n' kilobytes\n"
 #~ "  -p n, --prebuffer n  Load n%% of the input buffer before playing\n"
 #~ "  -v, --verbose  Display progress and other status information\n"
@@ -2643,12 +3210,14 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ msgstr ""
 #~ "  -f, --file=dosiernomo  Difinas la eligan dosiernomon por antaŭe\n"
 #~ "      indikita aparat-dosiero (kun -d).\n"
-#~ "  -k n, --skip n  Preterpasas la unuajn 'n' sekundojn (aŭ laŭ formo hh:mm:ss)\n"
+#~ "  -k n, --skip n  Preterpasas la unuajn 'n' sekundojn (aŭ laŭ formo hh:mm:"
+#~ "ss)\n"
 #~ "  -K n, --end n   Finas je la sekundo 'n' (aŭ laŭ formo hh:mm:ss)\n"
 #~ "  -o, --device-option=k:v pasas specialan opcion 'k' kun valoro\n"
 #~ "      'v' al antaŭe indikita aparato (kun -d).  Vidu\n"
 #~ "      \"man\"-an paĝon por pli da informo.\n"
-#~ "  -@, --list=dosiernomo   Legas dosierojn kaj URL-ojn el 'dosiernomo' kun ludlisto\n"
+#~ "  -@, --list=dosiernomo   Legas dosierojn kaj URL-ojn el 'dosiernomo' kun "
+#~ "ludlisto\n"
 #~ "  -b n, --buffer n  Uzas enigan bufron el 'n' kilobajtoj\n"
 #~ "  -p n, --prebuffer n  Ŝarĝas je 'n'%% el la eniga bufro antaŭ ol ekludi\n"
 #~ "  -v, --verbose  Montras progreson kaj ceteran informaron pri stato\n"
@@ -2657,7 +3226,8 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "  -y n, --ntimes Ripetas ĉiun luditan blokon 'n' foje\n"
 #~ "  -z, --shuffle  Hazarda ludado\n"
 #~ "\n"
-#~ "ogg123 pretersaltos al la sekvan muzikon pro SIGINT (Ctrl-C); du SIGINT-oj ene de\n"
+#~ "ogg123 pretersaltos al la sekvan muzikon pro SIGINT (Ctrl-C); du SIGINT-"
+#~ "oj ene de\n"
 #~ "'s' milisekundoj finigas ogg123-on.\n"
 #~ "  -l, --delay=s  Difinas 's'-on [milisekundoj] (antaŭsupoze al 500).\n"
 
@@ -2670,7 +3240,8 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ " -Q, --quiet          Produce no output to stderr\n"
 #~ " -h, --help           Print this help text\n"
 #~ " -v, --version        Print the version number\n"
-#~ " -r, --raw            Raw mode. Input files are read directly as PCM data\n"
+#~ " -r, --raw            Raw mode. Input files are read directly as PCM "
+#~ "data\n"
 #~ " -B, --raw-bits=n     Set bits/sample for raw input. Default is 16\n"
 #~ " -C, --raw-chan=n     Set number of channels for raw input. Default is 2\n"
 #~ " -R, --raw-rate=n     Set samples/sec for raw input. Default is 44100\n"
@@ -2681,9 +3252,12 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "                      encoding, equivalent to using -q or --quality.\n"
 #~ "                      See the --managed option to use a managed bitrate\n"
 #~ "                      targetting the selected bitrate.\n"
-#~ " --managed            Enable the bitrate management engine. This will allow\n"
-#~ "                      much greater control over the precise bitrate(s) used,\n"
-#~ "                      but encoding will be much slower. Don't use it unless\n"
+#~ " --managed            Enable the bitrate management engine. This will "
+#~ "allow\n"
+#~ "                      much greater control over the precise bitrate(s) "
+#~ "used,\n"
+#~ "                      but encoding will be much slower. Don't use it "
+#~ "unless\n"
 #~ "                      you have a strong need for detailed control over\n"
 #~ "                      bitrate, such as for streaming.\n"
 #~ " -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
@@ -2691,15 +3265,20 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "                      automatically enable managed bitrate mode (see\n"
 #~ "                      --managed).\n"
 #~ " -M, --max-bitrate    Specify a maximum bitrate in kbps. Useful for\n"
-#~ "                      streaming applications. Using this will automatically\n"
+#~ "                      streaming applications. Using this will "
+#~ "automatically\n"
 #~ "                      enable managed bitrate mode (see --managed).\n"
 #~ " --advanced-encode-option option=value\n"
-#~ "                      Sets an advanced encoder option to the given value.\n"
-#~ "                      The valid options (and their values) are documented\n"
-#~ "                      in the man page supplied with this program. They are\n"
+#~ "                      Sets an advanced encoder option to the given "
+#~ "value.\n"
+#~ "                      The valid options (and their values) are "
+#~ "documented\n"
+#~ "                      in the man page supplied with this program. They "
+#~ "are\n"
 #~ "                      for advanced users only, and should be used with\n"
 #~ "                      caution.\n"
-#~ " -q, --quality        Specify quality, between -1 (very low) and 10 (very\n"
+#~ " -q, --quality        Specify quality, between -1 (very low) and 10 "
+#~ "(very\n"
 #~ "                      high), instead of specifying a particular bitrate.\n"
 #~ "                      This is the normal mode of operation.\n"
 #~ "                      Fractional qualities (e.g. 2.75) are permitted\n"
@@ -2707,7 +3286,8 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ " --resample n         Resample input data to sampling rate n (Hz)\n"
 #~ " --downmix            Downmix stereo to mono. Only allowed on stereo\n"
 #~ "                      input.\n"
-#~ " -s, --serial         Specify a serial number for the stream. If encoding\n"
+#~ " -s, --serial         Specify a serial number for the stream. If "
+#~ "encoding\n"
 #~ "                      multiple files, this will be incremented for each\n"
 #~ "                      stream after the first.\n"
 #~ " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
@@ -2715,19 +3295,28 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "\n"
 #~ " Naming:\n"
 #~ " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
-#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%l,\n"
-#~ "                      %%n, %%d replaced by artist, title, album, track number,\n"
-#~ "                      and date, respectively (see below for specifying these).\n"
+#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%"
+#~ "l,\n"
+#~ "                      %%n, %%d replaced by artist, title, album, track "
+#~ "number,\n"
+#~ "                      and date, respectively (see below for specifying "
+#~ "these).\n"
 #~ "                      %%%% gives a literal %%.\n"
-#~ " -X, --name-remove=s  Remove the specified characters from parameters to the\n"
-#~ "                      -n format string. Useful to ensure legal filenames.\n"
-#~ " -P, --name-replace=s Replace characters removed by --name-remove with the\n"
-#~ "                      characters specified. If this string is shorter than the\n"
+#~ " -X, --name-remove=s  Remove the specified characters from parameters to "
+#~ "the\n"
+#~ "                      -n format string. Useful to ensure legal "
+#~ "filenames.\n"
+#~ " -P, --name-replace=s Replace characters removed by --name-remove with "
+#~ "the\n"
+#~ "                      characters specified. If this string is shorter "
+#~ "than the\n"
 #~ "                      --name-remove list or is not specified, the extra\n"
 #~ "                      characters are just removed.\n"
-#~ "                      Default settings for the above two arguments are platform\n"
+#~ "                      Default settings for the above two arguments are "
+#~ "platform\n"
 #~ "                      specific.\n"
-#~ " -c, --comment=c      Add the given string as an extra comment. This may be\n"
+#~ " -c, --comment=c      Add the given string as an extra comment. This may "
+#~ "be\n"
 #~ "                      used multiple times. The argument should be in the\n"
 #~ "                      format \"tag=value\".\n"
 #~ " -d, --date           Date for track (usually date of performance)\n"
@@ -2737,24 +3326,37 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ " -a, --artist         Name of artist\n"
 #~ " -G, --genre          Genre of track\n"
 #~ "                      If multiple input files are given, then multiple\n"
-#~ "                      instances of the previous five arguments will be used,\n"
+#~ "                      instances of the previous five arguments will be "
+#~ "used,\n"
 #~ "                      in the order they are given. If fewer titles are\n"
-#~ "                      specified than files, OggEnc will print a warning, and\n"
-#~ "                      reuse the final one for the remaining files. If fewer\n"
-#~ "                      track numbers are given, the remaining files will be\n"
-#~ "                      unnumbered. For the others, the final tag will be reused\n"
-#~ "                      for all others without warning (so you can specify a date\n"
-#~ "                      once, for example, and have it used for all the files)\n"
+#~ "                      specified than files, OggEnc will print a warning, "
+#~ "and\n"
+#~ "                      reuse the final one for the remaining files. If "
+#~ "fewer\n"
+#~ "                      track numbers are given, the remaining files will "
+#~ "be\n"
+#~ "                      unnumbered. For the others, the final tag will be "
+#~ "reused\n"
+#~ "                      for all others without warning (so you can specify "
+#~ "a date\n"
+#~ "                      once, for example, and have it used for all the "
+#~ "files)\n"
 #~ "\n"
 #~ "INPUT FILES:\n"
-#~ " OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or AIFF/C\n"
-#~ " files, 32 bit IEEE floating point WAV, and optionally FLAC or Ogg FLAC. Files\n"
+#~ " OggEnc input files must currently be 24, 16, or 8 bit PCM WAV, AIFF, or "
+#~ "AIFF/C\n"
+#~ " files, 32 bit IEEE floating point WAV, and optionally FLAC or Ogg FLAC. "
+#~ "Files\n"
 #~ "  may be mono or stereo (or more channels) and any sample rate.\n"
-#~ " Alternatively, the --raw option may be used to use a raw PCM data file, which\n"
-#~ " must be 16 bit stereo little-endian PCM ('headerless wav'), unless additional\n"
+#~ " Alternatively, the --raw option may be used to use a raw PCM data file, "
+#~ "which\n"
+#~ " must be 16 bit stereo little-endian PCM ('headerless wav'), unless "
+#~ "additional\n"
 #~ " parameters for raw mode are specified.\n"
-#~ " You can specify taking the file from stdin by using - as the input filename.\n"
-#~ " In this mode, output is to stdout unless an output filename is specified\n"
+#~ " You can specify taking the file from stdin by using - as the input "
+#~ "filename.\n"
+#~ " In this mode, output is to stdout unless an output filename is "
+#~ "specified\n"
 #~ " with -o\n"
 #~ "\n"
 #~ msgstr ""
@@ -2766,39 +3368,58 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ " -Q, --quiet          Skribas nenion al 'stderr'\n"
 #~ " -h, --help           Montras tiun ĉi helpan tekston\n"
 #~ " -v, --version        Montras la version de la programo\n"
-#~ " -r, --raw            Kruda reĝimo. Enig-dosieroj estas rekte legataj kiel\n"
+#~ " -r, --raw            Kruda reĝimo. Enig-dosieroj estas rekte legataj "
+#~ "kiel\n"
 #~ "                      PCM-datumaron\n"
-#~ " -B, --raw-bits=n     Difinas po bitoj/specimeno dum kruda enigo. Antaŭsupoze al 16\n"
-#~ " -C, --raw-chan=n     Difinas la nombron da kanaloj dum kruda enigo. Antaŭsupoze\n"
+#~ " -B, --raw-bits=n     Difinas po bitoj/specimeno dum kruda enigo. "
+#~ "Antaŭsupoze al 16\n"
+#~ " -C, --raw-chan=n     Difinas la nombron da kanaloj dum kruda enigo. "
+#~ "Antaŭsupoze\n"
 #~ "                      al 2\n"
-#~ " -R, --raw-rate=n     Difinas po specimenoj/sekundo dum kruda enigo. Antaŭsupoze al\n"
+#~ " -R, --raw-rate=n     Difinas po specimenoj/sekundo dum kruda enigo. "
+#~ "Antaŭsupoze al\n"
 #~ "                      44100\n"
-#~ " --raw-endianness     1 por pezkomenceco, 0 por pezfineco (antaŭsupoze al 0)\n"
-#~ " -b, --bitrate        Elektas meznombran bitrapidon por enkodigo. Oni provas\n"
-#~ "                      enkodi je bitrapido ĉirkaŭ tio. Ĝi prenas argumenton\n"
-#~ "                      je kbps. Antaŭsupoze, tio produktas VBR-enkodon ekvivalentan\n"
+#~ " --raw-endianness     1 por pezkomenceco, 0 por pezfineco (antaŭsupoze al "
+#~ "0)\n"
+#~ " -b, --bitrate        Elektas meznombran bitrapidon por enkodigo. Oni "
+#~ "provas\n"
+#~ "                      enkodi je bitrapido ĉirkaŭ tio. Ĝi prenas "
+#~ "argumenton\n"
+#~ "                      je kbps. Antaŭsupoze, tio produktas VBR-enkodon "
+#~ "ekvivalentan\n"
 #~ "                      al tia, kiam oni uzas la opcion -q aŭ --quality.\n"
-#~ "                      Vidu la opcion --managed por uzi regitan bitrapidon\n"
+#~ "                      Vidu la opcion --managed por uzi regitan "
+#~ "bitrapidon\n"
 #~ "                      kiu celu elektitan valoron.\n"
-#~ " --managed            Ŝaltas la motoron por regado de bitrapido. Tio permesos\n"
-#~ "                      multe pli grandan precizecon por specifi la uzata(j)n\n"
+#~ " --managed            Ŝaltas la motoron por regado de bitrapido. Tio "
+#~ "permesos\n"
+#~ "                      multe pli grandan precizecon por specifi la uzata(j)"
+#~ "n\n"
 #~ "                      bitrapido(j)n, tamen la enkodado estos multe pli\n"
 #~ "                      malrapida. Ne uzu tion, krom se vi bezonegas bonan\n"
 #~ "                      precizecon por bitrapido, ekzemple dum sonfluo.\n"
-#~ " -m, --min-bitrate    Specifas minimuman bitrapidon (po kbps). Utilas por\n"
-#~ "                      enkodado de kanalo kun fiksita grandeco. Tio aŭtomate\n"
+#~ " -m, --min-bitrate    Specifas minimuman bitrapidon (po kbps). Utilas "
+#~ "por\n"
+#~ "                      enkodado de kanalo kun fiksita grandeco. Tio "
+#~ "aŭtomate\n"
 #~ "                      ebligos la reĝimon de regado de bitrapido\n"
 #~ "                      (vidu la opcion --managed).\n"
 #~ " -M, --max-bitrate    Specifas maksimuman bitrapidon po kbps. Utilas por\n"
-#~ "                      sonfluaj aplikaĵoj. Tio aŭtomate ebligos la reĝimon de\n"
+#~ "                      sonfluaj aplikaĵoj. Tio aŭtomate ebligos la reĝimon "
+#~ "de\n"
 #~ "                      regado de bitrapido (vidu la opcion --managed).\n"
 #~ " --advanced-encode-option option=value\n"
-#~ "                      Difinas alnivelan enkodan opcion por la indikita valoro.\n"
-#~ "                      La validaj opcioj (kaj ties valoroj) estas priskribitaj\n"
-#~ "                      en la 'man'-paĝo disponigita kun tiu ĉi programo. Ili\n"
-#~ "                      celas precipe alnivelajn uzantojn, kaj devus esti uzata\n"
+#~ "                      Difinas alnivelan enkodan opcion por la indikita "
+#~ "valoro.\n"
+#~ "                      La validaj opcioj (kaj ties valoroj) estas "
+#~ "priskribitaj\n"
+#~ "                      en la 'man'-paĝo disponigita kun tiu ĉi programo. "
+#~ "Ili\n"
+#~ "                      celas precipe alnivelajn uzantojn, kaj devus esti "
+#~ "uzata\n"
 #~ "                      tre singarde.\n"
-#~ " -q, --quality        Specifas kvaliton, inter -1 (tre malalta) kaj 10 (tre\n"
+#~ " -q, --quality        Specifas kvaliton, inter -1 (tre malalta) kaj 10 "
+#~ "(tre\n"
 #~ "                      alta), anstataŭ indiki specifan bitrapidon.\n"
 #~ "                      Tio estas la normala reĝimo de funkciado.\n"
 #~ "                      Frakciaj kvalitoj (ekz. 2.75) estas permesitaj.\n"
@@ -2806,54 +3427,85 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ " --resample n         Reakiras enigan datumaron per rapideco 'n' (Hz).\n"
 #~ " --downmix            Enmiksas dukanalon al unukanalo. Nur ebligita por\n"
 #~ "                      dukanala enigo.\n"
-#~ " -s, --serial         Specifas serian numeron por la fluo. Se oni enkodas\n"
-#~ "                      multopajn dosierojn, tio estos pliigita por ĉiu fluo\n"
+#~ " -s, --serial         Specifas serian numeron por la fluo. Se oni "
+#~ "enkodas\n"
+#~ "                      multopajn dosierojn, tio estos pliigita por ĉiu "
+#~ "fluo\n"
 #~ "                      post la unua.\n"
-#~ " --discard-comments   Evitas komentojn en FLAC aŭ Ogg-FLAC-dosieroj por ke\n"
-#~ "                      ili ne estu kopiitaj al la elig-dosiero de Ogg Vorbis.\n"
+#~ " --discard-comments   Evitas komentojn en FLAC aŭ Ogg-FLAC-dosieroj por "
+#~ "ke\n"
+#~ "                      ili ne estu kopiitaj al la elig-dosiero de Ogg "
+#~ "Vorbis.\n"
 #~ "\n"
 #~ " Nomado:\n"
-#~ " -o, --output=dn      Skribas dosieron kun la nomo 'dn' (nur validas por unuop-\n"
+#~ " -o, --output=dn      Skribas dosieron kun la nomo 'dn' (nur validas por "
+#~ "unuop-\n"
 #~ "                      dosiera reĝimo)\n"
-#~ " -n, --names=ĉeno    Produktas dosiernomojn laŭ tiu 'ĉeno', kun %%a, %%t,\n"
-#~ "                      %%l, %%n, %%d anstataŭitaj per artisto, titolo, albumo,\n"
-#~ "                      bendnumero kaj dato, respektive (vidu sube kiel specifi\n"
+#~ " -n, --names=ĉeno    Produktas dosiernomojn laŭ tiu 'ĉeno', kun %%a, %%"
+#~ "t,\n"
+#~ "                      %%l, %%n, %%d anstataŭitaj per artisto, titolo, "
+#~ "albumo,\n"
+#~ "                      bendnumero kaj dato, respektive (vidu sube kiel "
+#~ "specifi\n"
 #~ "                      tion). %%%% rezultigas la signon %%.\n"
-#~ " -X, --name-remove=s  Forigas la indikitajn signojn en 's' el la parametroj de\n"
-#~ "                      la ĉeno post -n. Utilas por certigi validajn dosiernomojn\n"
-#~ " -P, --name-replace=s Anstataŭigas signojn forigitaj de --name-remove per la\n"
-#~ "                      specifitaj signoj en la ĉeno 's'. Se tiu ĉeno estos pli\n"
-#~ "                      mallonga ol la listo en --name-remove aŭ tiu ne estas\n"
+#~ " -X, --name-remove=s  Forigas la indikitajn signojn en 's' el la "
+#~ "parametroj de\n"
+#~ "                      la ĉeno post -n. Utilas por certigi validajn "
+#~ "dosiernomojn\n"
+#~ " -P, --name-replace=s Anstataŭigas signojn forigitaj de --name-remove per "
+#~ "la\n"
+#~ "                      specifitaj signoj en la ĉeno 's'. Se tiu ĉeno estos "
+#~ "pli\n"
+#~ "                      mallonga ol la listo en --name-remove aŭ tiu ne "
+#~ "estas\n"
 #~ "                      specifita, la signoj estos simple forigitaj.\n"
-#~ "                      Antaŭsupozitaj valoroj por la supraj du argumentoj dependas de\n"
+#~ "                      Antaŭsupozitaj valoroj por la supraj du argumentoj "
+#~ "dependas de\n"
 #~ "                      la platformo de via sistemo.\n"
-#~ " -c, --comment=k      Aldonas la ĉenon 'k' kiel kroman komenton. Tio povas esti\n"
+#~ " -c, --comment=k      Aldonas la ĉenon 'k' kiel kroman komenton. Tio "
+#~ "povas esti\n"
 #~ "                      uzata plurfoje. La argumento devas laŭi la formon\n"
 #~ "                      \"etikedo=valoro\".\n"
-#~ " -d, --date           Dato por la bendo (ordinare temas pri la dato de ludado)\n"
+#~ " -d, --date           Dato por la bendo (ordinare temas pri la dato de "
+#~ "ludado)\n"
 #~ " -N, --tracknum       Bendnumero por tiu ĉi bendo\n"
 #~ " -t, --title          Titolo por tiu ĉi bendo\n"
 #~ " -l, --album          Nomo de la albumo\n"
 #~ " -a, --artist         Nomo de la artisto\n"
 #~ " -G, --genre          Muzikstilo de la bendo\n"
-#~ "                      Se multopaj enig-dosieroj estas indikitaj, tiaokaze\n"
-#~ "                      multopaj ekzemploj de la antaŭaj kvin argumentoj estos\n"
-#~ "                      uzitaj, laŭ la donita ordo. Se oni indikis malpli da\n"
-#~ "                      titoloj ol dosieroj, OggEnc montros averton, kaj reuzos\n"
-#~ "                      la lastan por la restantaj dosieroj. Se malpli da bend-\n"
-#~ "                      numeroj estas indikitaj, la restantaj dosieroj estos\n"
-#~ "                      nenumeritaj. Por la aliaj, la lasta etikedo estos reuzata\n"
-#~ "                      por ĉiuj restantaj sen ajna averto (tiel ekzemple vi\n"
-#~ "                      povas specifi daton kaj aplikigi ĝin por ĉiuj aliaj\n"
+#~ "                      Se multopaj enig-dosieroj estas indikitaj, "
+#~ "tiaokaze\n"
+#~ "                      multopaj ekzemploj de la antaŭaj kvin argumentoj "
+#~ "estos\n"
+#~ "                      uzitaj, laŭ la donita ordo. Se oni indikis malpli "
+#~ "da\n"
+#~ "                      titoloj ol dosieroj, OggEnc montros averton, kaj "
+#~ "reuzos\n"
+#~ "                      la lastan por la restantaj dosieroj. Se malpli da "
+#~ "bend-\n"
+#~ "                      numeroj estas indikitaj, la restantaj dosieroj "
+#~ "estos\n"
+#~ "                      nenumeritaj. Por la aliaj, la lasta etikedo estos "
+#~ "reuzata\n"
+#~ "                      por ĉiuj restantaj sen ajna averto (tiel ekzemple "
+#~ "vi\n"
+#~ "                      povas specifi daton kaj aplikigi ĝin por ĉiuj "
+#~ "aliaj\n"
 #~ "                      dosieroj.\n"
 #~ "\n"
 #~ "ENIG-DOSIEROJ:\n"
-#~ " Enigaj dosieroj de OggEnc aktuale devas esti laŭ la formoj 24, 16 aŭ 8-bitaj\n"
-#~ " PCM WAV, AIFF aŭ AIFF/C, 32-bitaj IEEE-glitkomaj WAV kaj, laŭdezire, FLAC aŭ\n"
-#~ " Ogg FLAC. Dosieroj povas esti unukanalaj aŭ dukanalaj (aŭ plurkanalaj) kaj je\n"
-#~ " iu ajn akiro-rapido. Alternative, la opcio --raw povas esti indikata por ke oni\n"
-#~ " uzu krudan PCM-datuman dosieron, kiu devas esti 16-bita dukanala pezfina PCM\n"
-#~ " ('senkapa wav'), krom se oni specifu kromajn parametrojn por kruda reĝimo.\n"
+#~ " Enigaj dosieroj de OggEnc aktuale devas esti laŭ la formoj 24, 16 aŭ 8-"
+#~ "bitaj\n"
+#~ " PCM WAV, AIFF aŭ AIFF/C, 32-bitaj IEEE-glitkomaj WAV kaj, laŭdezire, "
+#~ "FLAC aŭ\n"
+#~ " Ogg FLAC. Dosieroj povas esti unukanalaj aŭ dukanalaj (aŭ plurkanalaj) "
+#~ "kaj je\n"
+#~ " iu ajn akiro-rapido. Alternative, la opcio --raw povas esti indikata por "
+#~ "ke oni\n"
+#~ " uzu krudan PCM-datuman dosieron, kiu devas esti 16-bita dukanala pezfina "
+#~ "PCM\n"
+#~ " ('senkapa wav'), krom se oni specifu kromajn parametrojn por kruda "
+#~ "reĝimo.\n"
 #~ " Vi povas indiki akiron de dosiero el 'stdin' uzante la signon '-' kiel\n"
 #~ " enig-dosiernomon.\n"
 #~ " Laŭ tiu reĝimo, eligo iras al 'stdout', krom se elig-dosiernomo estis\n"
@@ -2910,8 +3562,12 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "\tSonluda grandeco: %ldm:%02ld.%03lds\n"
 #~ "\tMeznombra bitrapido: %f kb/s\n"
 
-#~ msgid "Warning: Hole in data found at approximate offset %I64d bytes. Corrupted ogg.\n"
-#~ msgstr "Averto: Truo estis trovita en la datumaro proksimume ĉe la deŝovo je %I64d bitokoj. Disrompita 'ogg'.\n"
+#~ msgid ""
+#~ "Warning: Hole in data found at approximate offset %I64d bytes. Corrupted "
+#~ "ogg.\n"
+#~ msgstr ""
+#~ "Averto: Truo estis trovita en la datumaro proksimume ĉe la deŝovo je %"
+#~ "I64d bitokoj. Disrompita 'ogg'.\n"
 
 #~ msgid ""
 #~ "Usage: \n"

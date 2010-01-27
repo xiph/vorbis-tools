@@ -6,7 +6,7 @@
  *
  * Comment editing backend, suitable for use by nice frontend interfaces.
  *
- * last modified: $Id: vcedit.c,v 1.23 2003/09/03 07:58:05 calc Exp $
+ * last modified: $Id$
  */
 
 /* Handle muxed streams and the Vorbis renormalization without having

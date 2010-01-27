@@ -8,7 +8,7 @@
  * Simple application to cut an ogg at a specified frame, and produce two
  * output files.
  *
- * last modified: $Id: vcut.c,v 1.9 2003/09/03 07:58:05 calc Exp $
+ * last modified: $Id$
  */
 
 #ifdef HAVE_CONFIG_H
