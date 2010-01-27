@@ -1,5 +1,5 @@
 /* ogg123.c by Kenneth Arnold <kcarnold-xiph@arnoldnet.net> */
-/* Maintained by Stan Seibert <volsung@xiph.org> */
+/* Maintained by Stan Seibert <volsung@xiph.org>, Monty <monty@xiph.org> */
 
 /********************************************************************
  *                                                                  *
@@ -14,7 +14,7 @@
  *                                                                  *
  ********************************************************************
 
- last mod: $Id: ogg123.c,v 1.71 2003/11/27 19:38:29 volsung Exp $
+ last mod: $Id$
 
  ********************************************************************/
 
