@@ -243,30 +243,34 @@ void *buffer_thread_func (void *arg)
 
     UNLOCK_MUTEX(buf->mutex);
  
-    /* No need to lock mutex here because the other thread will
-       NEVER reduce the number of bytes stored in the buffer */
-    DEBUG1("Sending %d bytes to the audio device", write_amount);
-    write_amount = buf->write_func(buf->buffer + buf->start, write_amount,
-		    /* Only set EOS if this is the last chunk */
-		    write_amount == buf->curfill ? buf->eos : 0,
-		    buf->write_arg);
+    if(write_amount){ /* we might have been woken spuriously */
+      /* No need to lock mutex here because the other thread will
+         NEVER reduce the number of bytes stored in the buffer */
+      DEBUG1("Sending %d bytes to the audio device", write_amount);
+      write_amount = buf->write_func(buf->buffer + buf->start, write_amount,
+                                     /* Only set EOS if this is the last chunk */
+                                     write_amount == buf->curfill ? buf->eos : 0,
+                                     buf->write_arg);
 
-    if (!write_amount) {
-      DEBUG("Error writing to the audio device. Aborting.");
-      buffer_abort_write(buf);
+      if (!write_amount) {
+        DEBUG("Error writing to the audio device. Aborting.");
+        buffer_abort_write(buf);
+      }
+
+      LOCK_MUTEX(buf->mutex);
+
+      buf->curfill -= write_amount;
+      buf->position += write_amount;
+      buf->start = (buf->start + write_amount) % buf->size;
+      DEBUG1("Updated buffer fill, curfill = %ld", buf->curfill);
+
+      /* If we've essentially emptied the buffer and prebuffering is enabled,
+         we need to do another prebuffering session */
+      if (!buf->eos && (buf->curfill < buf->audio_chunk_size))
+        buf->prebuffering = buf->prebuffer_size > 0;
+    }else{
+      DEBUG("Woken spuriously");
     }
-
-    LOCK_MUTEX(buf->mutex);
-
-    buf->curfill -= write_amount;
-    buf->position += write_amount;
-    buf->start = (buf->start + write_amount) % buf->size;
-    DEBUG1("Updated buffer fill, curfill = %ld", buf->curfill);
-
-    /* If we've essentially emptied the buffer and prebuffering is enabled,
-       we need to do another prebuffering session */
-    if (!buf->eos && (buf->curfill < buf->audio_chunk_size))
-      buf->prebuffering = buf->prebuffer_size > 0;
 
     /* Signal a waiting decoder thread that they can put more audio into the
        buffer */
