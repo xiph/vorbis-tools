@@ -317,7 +317,7 @@ dnl --------------------------------------------------
 
 AC_FUNC_ALLOCA
 AM_ICONV
-AC_CHECK_FUNCS(atexit on_exit fcntl select stat chmod)
+AC_CHECK_FUNCS(atexit on_exit fcntl select stat chmod alphasort scandir)
 AM_LANGINFO_CODESET
 
 dnl --------------------------------------------------

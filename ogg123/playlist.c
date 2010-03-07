@@ -120,6 +120,61 @@ int playlist_append_file(playlist_t *list, char *filename)
 }
 
 /* Recursively adds files from the directory and subdirectories */
+#if defined(HAVE_ALPHASORT) && defined(HAVE_SCANDIR)
+int playlist_append_directory(playlist_t *list, char *dirname)
+{
+  int dir_len = strlen(dirname);
+  int num_entries = 0, i = 0;
+  struct dirent **entries;
+  struct stat stat_buf;
+  char nextfile[NAME_MAX + 1];
+
+  num_entries = scandir(dirname, &entries, 0, alphasort);
+
+  if (num_entries < 0) {
+    return 0;
+  }
+
+  for (i=0; i<num_entries; i++) {
+    int sub_len = strlen(entries[i]->d_name);
+
+    /* Make sure full pathname is within limits and we don't parse the
+       relative directory entries. */
+    if (dir_len + sub_len + 1 < NAME_MAX 
+        && strcmp(entries[i]->d_name, ".") != 0  
+        && strcmp(entries[i]->d_name, "..") != 0  ) {
+
+      /* Build the new full pathname */
+      strcpy(nextfile, dirname);
+      strcat(nextfile, "/");
+      strcat(nextfile, entries[i]->d_name);
+
+      if (stat(nextfile, &stat_buf) == 0) {
+        
+        /* Decide what type of entry this is */
+        if (S_ISDIR(stat_buf.st_mode)) {
+          
+        /* Recursively follow directories */
+          if ( playlist_append_directory(list, nextfile) == 0 ) {
+            fprintf(stderr,
+                  _("Warning: Could not read directory %s.\n"), 
+                    nextfile);
+          }
+        } else {
+        /* Assume everything else is a file of some sort */
+          playlist_append_file(list, nextfile);
+        }
+      }
+    }
+
+    free(entries[i]);
+  }
+
+  free(entries);
+
+  return 1;
+}
+#else
 int playlist_append_directory(playlist_t *list, char *dirname)
 {
   DIR *dir;
@@ -174,6 +229,7 @@ int playlist_append_directory(playlist_t *list, char *dirname)
 
   return 1;
 }
+#endif
 
 
 /* Opens a file containing filenames, one per line, and adds them to the
