@@ -55,9 +55,9 @@ extern int exit_status; /* from status.c */
 
 void play (char *source_string);
 
-#define PRIMAGIC (2*2*2*2*3*3*3*5*7)
+#define PRIMAGIC (2*2*2*3*3*3*5*7)
 /* take buffer out of the data segment, not the stack */
-#define AUDIO_CHUNK_SIZE ((32768 + PRIMAGIC - 1)/ PRIMAGIC * PRIMAGIC)
+#define AUDIO_CHUNK_SIZE ((16384 + PRIMAGIC - 1)/ PRIMAGIC * PRIMAGIC)
 unsigned char convbuffer[AUDIO_CHUNK_SIZE];
 int convsize = AUDIO_CHUNK_SIZE;
 

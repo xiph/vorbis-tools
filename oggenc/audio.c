@@ -4,6 +4,7 @@
  ** A copy of this license is included with this source.
  **
  ** Copyright 2000-2002, Michael Smith <msmith@xiph.org>
+ **           2010, Monty <monty@xiph.org>
  **
  ** AIFF/AIFC support from OggSquish, (c) 1994-1996 Monty <xiphmont@xiph.org>
  **/
@@ -26,8 +27,6 @@
 #ifdef HAVE_LIBFLAC
 #include "flac.h"
 #endif
-
-#define WAV_HEADER_SIZE 44
 
 /* Macros to read header data */
 #define READ_U32_LE(buf) \

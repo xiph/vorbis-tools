@@ -325,6 +325,13 @@ the more demand on the bit reservoir.
 The setting must be greater than zero and the useful range is
 approximately \.05 to 10.  The default is \.75 seconds.
 
+.IP "disable_coupling"
+Disable use of channel coupling for multichannel encoding.  At present,
+the encoder will normally use channel coupling to further increase
+compression with stereo and 5.1 inputs. This option forces the encoder
+to encode each channel fully independently using neither lossy nor
+lossless coupling. 
+
 .SH EXAMPLES
 
 Simplest version. Produces output as somefile.ogg:

@@ -749,13 +749,16 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     char *arg = strdup(optarg);
                     char *val;
 
-                    val = strchr(arg, '=');
-                    if(val == NULL) {
+                    if(strcmp("disable_coupling",arg)){
+                      val = strchr(arg, '=');
+                      if(val == NULL) {
                         fprintf(stderr, _("No value for advanced encoder option found\n"));
                         continue;
-                    }
-                    else
+                      }
+                      else
                         *val++=0;
+                    }else
+                      val=0;
 
                     opt->advopt = realloc(opt->advopt, (++opt->advopt_count)*sizeof(adv_opt));
                     opt->advopt[opt->advopt_count - 1].arg = arg;

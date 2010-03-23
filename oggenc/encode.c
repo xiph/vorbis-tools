@@ -66,8 +66,12 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
     vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_GET, &ai);
 
     for(i=0; i < count; i++) {
+      if(opts[i].val)
         fprintf(stderr, _("Setting advanced encoder option \"%s\" to %s\n"),
                 opts[i].arg, opts[i].val);
+      else
+        fprintf(stderr, _("Setting advanced encoder option \"%s\"\n"),
+                opts[i].arg);
 
         if(!strcmp(opts[i].arg, "bitrate_average_damping")) {
             SETD(ai.bitrate_average_damping);
@@ -92,6 +96,10 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
         else if(!strcmp(opts[i].arg, "bitrate_hard_max")) {
             SETL(ai.bitrate_limit_max_kbps);
             manage = 1;
+        }
+        else if(!strcmp(opts[i].arg, "disable_coupling")) {
+            int val=0;
+            vorbis_encode_ctl(vi, OV_ECTL_COUPLING_SET, &val);
         }
         else if(!strcmp(opts[i].arg, "impulse_noisetune")) {
             double val;
