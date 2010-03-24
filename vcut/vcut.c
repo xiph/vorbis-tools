@@ -216,7 +216,10 @@ static int open_output_file(vcut_state *s, char *filename)
 
 	else
 	{
-		s->out = fopen(filename, "wb");
+                if(strcmp(filename, "-") == 0)
+                        s->out = fdopen(1, "wb");
+                else
+                        s->out = fopen(filename, "wb");
 		s->drop_output = 0;
 		if(!s->out) {
 			fprintf(stderr, _("Couldn't open %s for writing\n"), filename);
@@ -266,11 +269,15 @@ int main(int argc, char **argv)
 	}
 
 	state.in = fopen(argv[1], "rb");
+        if(strcmp(argv[1], "-") == 0)
+                state.in = fdopen(0, "rb");
+        else
+                state.in = fopen(argv[1], "rb");
 	if(!state.in) {
 		fprintf(stderr, _("Couldn't open %s for reading\n"), argv[1]);
 		exit(1);
 	}
-	
+
 	state.output_filename = argv[2];
 	seg = vcut_malloc(sizeof(vcut_segment));
 	if(!seg)
