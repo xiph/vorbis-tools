@@ -83,8 +83,8 @@ Stops playing 'n' seconds from the start of the stream.  'n' may also have the
 same format as used in the
 .I --skip
 option.
-.IP "-o option:value, --device-option option:value"
-Assigns the option
+.IP "-o option[:value], --device-option option[:value]"
+Sets the option
 .I option
 to 
 .I value
@@ -119,6 +119,113 @@ devices supported by the target platform will be available.  The
 .B -f
 option may only be used with devices that write to files.
 
+Options supported by all devices:
+.RS
+.IP debug
+Turn on debugging output [if any] for a chosen driver.
+.IP matrix:value
+Force a specific output channel ordering for a given device.  
+.I value
+is a comma 
+seperated list of AO style channel names, eg, L,R,C,LFE,BL,BR,SL,SR.
+.IP verbose
+Turn on verbose output for a chosen driver. the -v option will also set the 
+driver verbose option.
+.IP quiet
+Force chosen driver to be completely silent.  Even errors will not produce any 
+output. -q will also set the driver quiet option.
+.RE
+
+.B
+.IP aixs
+AIX live output driver. Options:
+.RS
+.IP dev:value
+Set AIX output device to
+.I value
+.RE
+
+.B
+.IP alsa
+Advanced Linux Sound Architecture live output driver. Options:
+.RS
+.IP buffer_time:value
+Override the default hardware buffer size (in milliseconds).
+.IP dev:value
+ALSA device label to use. Examples include "hw:0" for the first soundcard 
+and "hw:1" for the second.  The alsa driver normally chooses one of 
+"surround71", 
+"surround51", 
+"surround40" or 
+"default" 
+automatically depending on number of output channels.  For more information,
+see http://alsa.opensrc.org/ALSA+device+labels
+.IP period_time:value
+Override the default hardware period size (in microseconds).
+.IP period_time:value
+Override the default hardware period size (in microseconds).
+.IP use_mmap:value
+.I value
+is set to "yes" or "no" to override the compiled-in default to use or not use 
+mmap device access.  In the past, some buggy alsa drivers have behaved better when
+not using mmap access at the penalty of slightly higher CPU usage.
+.RE
+
+.B
+.IP arts
+aRts Sound Daemon live output driver. Options:
+.RS
+.IP multi:value
+.I value
+is set to "yes" or "no" to allow opening the aRts playback device for multiply
+concurrent playback.  Although the driver works properly in multi mode, it is 
+known to occasionally crash the aRts server itself.  Default behavior is "no".
+.RE
+
+.B
+.IP au
+Sun audio file output.  Writes the audio samples in AU format.  The AU
+format supports writing to unseekable files like standard out.  In
+such circumstances, the AU header will specify the sample format, but
+not the length of the recording.
+
+.B
+.IP esd
+Enlightened Sound Daemon live output. Options:
+.RS
+.IP host:value
+.I value
+specifies the hostname where esd is running.  This can include a port number
+after a colon, as in "whizbang.com:555".  (Default = localhost)
+.RE
+
+.B
+.IP irix
+IRIX live output audio driver.
+
+.B
+.IP macosx_auhal
+MacOS X 'AU HAL' live output driver.  This driver supports MacOS X
+10.5 and later (10.4 and earlier uses an earlier, incompatable
+interface). Options:
+.RS
+.IP buffer_time:value
+Set the hardware buffer size to the equivalent of
+.I value
+milliseconds.
+.RE
+
+.B
+.IP nas
+Network Audio Server live output driver. Options:
+.RS
+.IP buf_size:value
+Set size of audio buffer on server in bytes.
+.IP host:value
+Set location of NAS server; See nas(1) for format. 
+.RE
+
+.B
 .IP null
 Null driver.  All audio data is discarded.  (Note: Audio data is not
 written to 
@@ -126,82 +233,76 @@ written to
 !)  You could use this driver to test raw decoding speed without
 output overhead. 
 
-.IP alsa
-Advanced Linux Sound Architecture.
-.RS
-Options:
-.RS
-.IP dev
-ALSA device label to use. The system default is used by default.
-Examples include "plughw:0,0" for the first soundcard, and "plughw:1,0" for
-the second. For more information, see
-http://alsa.opensrc.org/ALSA+device+labels
-.IP buf_size
-Override the default buffer size (in bytes).
-.RE
-.RE
-
-.IP arts
-aRts Sound Daemon.
-
-.IP esd
-Enlightened Sound Daemon.
-.RS
-Options:
-.RS
-.IP host
-The hostname where esd is running.  This can include a port number
-after a colon, as in "whizbang.com:555".  (Default = localhost)
-.RE
-.RE
-
-.IP irix
-IRIX audio driver.
-
+.B
 .IP oss
-Open Sound System driver for Linux and FreeBSD.
+Open Sound System driver for Linux and FreeBSD, versions 2, 3 and 4. Options:
 .RS
-Options:
-.RS 
-.IP dsp
+.IP dsp:value
 DSP device for soundcard.  Defaults to  
 .B /dev/dsp.
 .RE
+
+.B
+.IP pulse
+Pulseaudio live audio sound driver. Options:
+.RS
+.IP server:value
+Specifies location of remote or alternate Pulseaudio server.
+.IP sink:value
+Specifies a non-default Pulseaudio sink for audio stream.
 .RE
 
+.B
+.IP raw
+Raw file output.  Writes raw audio samples to a file. Options:
+.RS
+.IP byteorder:value
+Chooses big endian ("big"), little endian ("little"), or native ("native") byte order.  
+Default is native order.
+.RE
+
+.B
+.IP roar
+Roar Audio Daemon live output driver. Options:
+.RS
+.IP host:value
+Specifies location of remote Roar server to use.
+.RE
+
+.B
+.IP sndio
+OpenBSD SNDIO live output driver. Options:
+.RS
+.IP dev:value
+Specifies audio device to use for playback.
+.RE
+
+.B
 .IP sun
-Sun Audio driver for NetBSD, OpenBSD, and Solaris.
+Sun Audio live output driver for NetBSD, OpenBSD, and Solaris. Options:
 .RS
-Options:
-.RS
-.IP dev
+.IP dev:value
 Audio device for soundcard.  Defaults to  
 .B /dev/audio.
 .RE
-.RE
 
-.IP au
-Sun audio file output.  Writes the audio samples in AU format.  The AU
-format supports writing to unseekable files, like standard out.  In
-such circumstances, the AU header will specify the sample format, but
-not the length of the recording.
 
-.IP raw
-Raw sample output.  Writes raw audio samples to a file.
-.RS
-Options:
-.RS
-.IP byteorder
-Choose big endian, little endian, or native byte order.  (Default = "native")
-.RE
-.RE
-
+.B
 .IP wav
 WAV file output.  Writes the sound data to disk in uncompressed form.
 If multiple files are played, all of them will be concatenated into
 the same WAV file.  WAV files cannot be written to unseekable files,
 such as standard out.  Use the AU format instead.
 
+.B
+.IP wmm
+Windows MultiMedia live output driver for Win98 and later. Options:
+.RS
+.IP dev:value
+Selects audio device to use for playback by device name.
+.IP id:value
+Selects audio device to use for playback by device id (card number).
+.RE
 
 .SH EXAMPLES
 

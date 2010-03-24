@@ -84,13 +84,10 @@ int add_ao_option(ao_option **op_h, const char *optstring)
     return 0;
 
   value = strchr(key, ':');
-  if (value == NULL) {
-    free(key);
-    return 0;
+  if (value) {
+    /* split by replacing the separator with a null */
+    *value++ = '\0';
   }
-
-  /* split by replacing the separator with a null */
-  *value++ = '\0';
 
   result = ao_append_option(op_h, key, value);
   free(key);
