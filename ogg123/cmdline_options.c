@@ -282,6 +282,8 @@ int parse_cmdline_options (int argc, char **argv,
   {
     audio_device_t *head = ogg123_opts->devices;
     while (head){
+      if(ogg123_opts->verbosity>3)
+        ao_append_global_option("debug",NULL);
       if(ogg123_opts->verbosity>2)
         ao_append_option(&(head->options),"verbose",NULL);
       if(ogg123_opts->verbosity==0)
