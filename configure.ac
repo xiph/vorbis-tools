@@ -166,6 +166,7 @@ I18N_LIBS=$INTLLIBS
 
 SOCKET_LIBS=
 AC_CHECK_LIB(socket, socket, SOCKET_LIBS="-lsocket")
+AC_CHECK_LIB(network, socket, SOCKET_LIBS="-lnetwork")
 AC_CHECK_LIB(nsl, gethostbyname, SOCKET_LIBS="-lnsl $SOCKET_LIBS")
 
 

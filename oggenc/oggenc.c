@@ -305,14 +305,15 @@ int main(int argc, char **argv)
             {
                 /* Create a filename from existing filename, replacing extension with .ogg or .oga */
                 char *start, *end;
-				char *extension;
+                char *extension;
+
+                /* if adding Skeleton or Kate, we're not Vorbis I anymore */
+                extension = (opt.with_skeleton || opt.lyrics_count>0) ? ".oga" : ".ogg";
 
                 start = infiles[i];
                 end = strrchr(infiles[i], '.');
                 end = end?end:(start + strlen(infiles[i])+1);
 
-                /* if adding Skeleton or Kate, we're not Vorbis I anymore */
-                extension = (opt.with_skeleton || opt.lyrics_count>0) ? ".oga" : ".ogg";
                 out_fn = malloc(end - start + 5);
                 strncpy(out_fn, start, end-start);
                 out_fn[end-start] = 0;
