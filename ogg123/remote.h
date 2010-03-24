@@ -7,7 +7,7 @@
  * THE GNU PUBLIC LICENSE 2, WHICH IS INCLUDED WITH THIS SOURCE.    *
  * PLEASE READ THESE TERMS BEFORE DISTRIBUTING.                     *
  *                                                                  *
- * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2001                *
+ * THE Ogg123 SOURCE CODE IS (C) COPYRIGHT 2000-2010                *
  * by Kenneth C. Arnold <ogg@arnoldnet.net> AND OTHER CONTRIBUTORS  *
  * http://www.xiph.org/                                             *
  *                                                                  *
@@ -19,4 +19,4 @@
 
 void remote_mainloop(void);
 int remote_playloop(void);
-void remote_time(double current, double total, long bitrate);
+void remote_time(double current, double total);

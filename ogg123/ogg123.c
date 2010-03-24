@@ -295,10 +295,9 @@ void display_statistics (stat_format_t *stat_format,
   if (options.remote) {
 
     /* Display statistics via the remote interface */
-    remote_time(pstats_arg->decoder_statistics->current_time, 
-                pstats_arg->decoder_statistics->total_time,
-				pstats_arg->decoder_statistics->instant_bitrate);
-				
+    remote_time(pstats_arg->decoder_statistics->current_time,
+                pstats_arg->decoder_statistics->total_time);
+
   } else {
 
 	/* Disable/Enable statistics as needed */

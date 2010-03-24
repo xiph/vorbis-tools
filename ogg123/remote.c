@@ -415,10 +415,10 @@ int remote_playloop(void) {
   return ((s == NEXT) || (s == STOP) || (s == QUIT));
 }
 
-void remote_time(double current, double total, long bitrate) {
+void remote_time(double current, double total) {
 
-  /* Send the frame (not implemented yet) the time and current bitrate */
-  send_msg("F 0 0 %.2f %.2f %li", current, (total-current), (bitrate/1024));
-  
+  /* Send the frame (not implemented yet) and the time */
+  send_msg("F 0 0 %.2f %.2f", current, (total-current));
+
   return;
 }
