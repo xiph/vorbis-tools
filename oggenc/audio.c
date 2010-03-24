@@ -96,13 +96,14 @@ input_format *open_audio_file(FILE *in, oe_enc_opt *opt)
     return NULL;
 }
 
-static int seek_forward(FILE *in, int length)
+static int seek_forward(FILE *in, unsigned int length)
 {
     if(fseek(in, length, SEEK_CUR))
     {
         /* Failed. Do it the hard way. */
         unsigned char buf[1024];
-        int seek_needed = length, seeked;
+        unsigned int seek_needed = length;
+        int seeked;
         while(seek_needed > 0)
         {
             seeked = fread(buf, 1, seek_needed>1024?1024:seek_needed, in);
