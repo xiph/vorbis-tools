@@ -292,12 +292,12 @@ parse_code_t parse_line (file_option_t opts[], char *line)
 	/* Maybe this is a numeric bool */
 	tmpl = strtol (value, &endptr, 0);
 
-	if ( strncasecmp(value, "y", 1) == 0
-	     || strcasecmp(value, "true")
+	if ( !strncasecmp(value, "y", 1)
+	     || !strcasecmp(value, "true")
 	     || (*endptr == '\0' && tmpl) )
 	  *(int *) opt->ptr = 1;
-	else if ( strncasecmp(value, "n", 1) == 0
-		  || strcasecmp(value, "false")
+	else if ( !strncasecmp(value, "n", 1)
+		  || !strcasecmp(value, "false")
 		  || (*endptr == '\0' && !tmpl) )
 	  *(int *) opt->ptr = 0;
 	else
