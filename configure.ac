@@ -133,7 +133,7 @@ dnl first check through pkg-config since it's more flexible
 
 if test "x$HAVE_PKG_CONFIG" = "xyes"
 then
-  PKG_CHECK_MODULES(VORBIS, vorbis >= 1.1.1, HAVE_VORBIS=yes, HAVE_VORBIS=no)
+  PKG_CHECK_MODULES(VORBIS, vorbis >= 1.3.0, HAVE_VORBIS=yes, HAVE_VORBIS=no)
   dnl also set VORBISENC_LIBS since an examples needs it
   dnl the old .m4 sets this to a value to use on top of VORBIS_LIBS,
   dnl so we do the same here.
@@ -154,6 +154,12 @@ if test "x$HAVE_VORBIS" = "xno"
 then
   dnl fall back to the old school test
   XIPH_PATH_VORBIS(,AC_MSG_ERROR(Vorbis needed!))
+  AC_CHECK_DECL(OV_ECTL_COUPLING_SET, , , [#include <vorbis/vorbisenc.h>])
+  if test "x$ac_cv_have_decl_OV_ECTL_COUPLING_SET" = "xno"
+  then
+    AC_MSG_ERROR([Vorbis >= 1.3.0 required !])
+    HAVE_VORBIS=no
+  fi
 fi
 AM_CONDITIONAL(HAVE_OV_READ_FILTER, test "x$have_ov_read_filter" = "xyes")
 
