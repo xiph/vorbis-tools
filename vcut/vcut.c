@@ -540,6 +540,12 @@ int process_page(vcut_state *s, ogg_page *page)
 		if(!vs->headers[headercount].packet) break;
 
 	result = ogg_stream_pagein(&vs->stream_in, page);
+	if(result)
+	{
+		fprintf(stderr, _("Internal stream parsing error\n"));
+		return -1;
+	}
+
 	while(1)
 	{
 		ogg_packet packet;
