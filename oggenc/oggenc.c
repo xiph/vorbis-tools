@@ -874,8 +874,8 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 opt->namefmt = strdup(optarg);
                 break;
             case 'X':
-                if(opt->namefmt_remove && opt->namefmt_remove != 
-                        DEFAULT_NAMEFMT_REMOVE)
+                if(opt->namefmt_remove &&
+                        strcmp(opt->namefmt_remove, DEFAULT_NAMEFMT_REMOVE))
                 {
                     fprintf(stderr, _("WARNING: Multiple name format filters specified, using final\n"));
                     free(opt->namefmt_remove);
@@ -883,8 +883,8 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                 opt->namefmt_remove = strdup(optarg);
                 break;
             case 'P':
-                if(opt->namefmt_replace && opt->namefmt_replace != 
-                        DEFAULT_NAMEFMT_REPLACE)
+                if(opt->namefmt_replace &&
+                        strcmp(opt->namefmt_replace, DEFAULT_NAMEFMT_REPLACE))
                 {
                     fprintf(stderr, _("WARNING: Multiple name format filter replacements specified, using final\n"));
                     free(opt->namefmt_replace);

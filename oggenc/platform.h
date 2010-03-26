@@ -19,13 +19,13 @@
 void setbinmode(FILE *);
 
 #define DEFAULT_NAMEFMT_REMOVE "/\\:<>|"
-#define DEFAULT_NAMEFMT_REPLACE NULL
+#define DEFAULT_NAMEFMT_REPLACE ""
 
 #else /* Unix, mostly */
 
 #define setbinmode(x) {}
 #define DEFAULT_NAMEFMT_REMOVE "/"
-#define DEFAULT_NAMEFMT_REPLACE NULL
+#define DEFAULT_NAMEFMT_REPLACE ""
 
 #endif
 
