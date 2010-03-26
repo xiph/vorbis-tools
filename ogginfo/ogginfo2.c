@@ -982,7 +982,7 @@ static void kate_start(stream_processor *stream)
 static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
 {
     ogg_uint32_t serial = ogg_page_serialno(page);
-    int i, found = 0;
+    int i;
     int invalid = 0;
     int constraint = 0;
     stream_processor *stream;
@@ -990,7 +990,6 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
     for(i=0; i < set->used; i++) {
         if(serial == set->streams[i].serial) {
             /* We have a match! */
-            found = 1;
             stream = &(set->streams[i]);
 
             set->in_headers = 0;
