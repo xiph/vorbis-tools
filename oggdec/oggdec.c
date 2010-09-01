@@ -47,7 +47,7 @@ unsigned char headbuf[44]; /* The whole buffer */
 char *outfilename = NULL;
 
 static void version (void) {
-    fprintf(stdout, _("oggdec from %s %s\n"), PACKAGE, VERSION);
+    fprintf(stderr, _("oggdec from %s %s\n"), PACKAGE, VERSION);
 }
 
 static void usage(void)
