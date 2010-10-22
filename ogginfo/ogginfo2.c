@@ -1274,7 +1274,7 @@ int main(int argc, char **argv) {
     }
 
     if(verbose > 1)
-        printlots = 0;
+        printlots = 1;
     if(verbose < 1)
         printinfo = 0;
     if(verbose < 0) 
