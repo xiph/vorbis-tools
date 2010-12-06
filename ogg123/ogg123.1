@@ -265,8 +265,14 @@ Default is native order.
 .IP roar
 RoarAudio Daemon live output driver. Options:
 .RS
-.IP host:value
+.IP "server:value, host:value"
 Specifies location of remote RoarAudio server to use.
+.IP "id:value, dev:value"
+Specifies a non-default mixer within a RoarAudio server for audio stream.
+.IP role:value
+Sets the role setting for the audio stream.
+.IP client_name:value
+Sets the client name for the new audio stream. Defaults to "libao client".
 .RE
 
 .B
