@@ -905,12 +905,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     break;
                 }
                 opt->quality_set=1;
-                opt->quality *= 0.1;
-                if(opt->quality > 1.0f)
+                if(opt->quality > 10.0f)
                 {
-                    opt->quality = 1.0f;
+                    opt->quality = 10.0f;
                     fprintf(stderr, _("WARNING: quality setting too high, setting to maximum quality.\n"));
                 }
+                opt->quality *= 0.1;
                 break;
             case 'n':
                 if(opt->namefmt)
