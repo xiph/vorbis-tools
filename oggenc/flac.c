@@ -341,17 +341,15 @@ void resize_buffer(flacfile *flac, int newchannels, int newsamples)
         return;
     }
 
+    /* Deallocate all of the sample vectors */
+    for (i = 0; i < flac->channels; i++)
+        free(flac->buf[i]);
 
     /* Not the most efficient approach, but it is easy to follow */
     if(newchannels != flac->channels)
     {
-        /* Deallocate all of the sample vectors */
-        for (i = 0; i < flac->channels; i++)
-            free(flac->buf[i]);
-
         flac->buf = realloc(flac->buf, sizeof(float*) * newchannels);
         flac->channels = newchannels;
-
     }
 
     for (i = 0; i < newchannels; i++)
