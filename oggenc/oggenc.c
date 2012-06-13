@@ -418,7 +418,7 @@ int main(int argc, char **argv)
         }
 
 
-        if(!enc_opts.total_samples_per_channel)
+        if(enc_opts.total_samples_per_channel <= 0)
             enc_opts.progress_update = update_statistics_notime;
 
         if(opt.quiet)

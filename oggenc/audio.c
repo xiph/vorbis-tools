@@ -332,7 +332,11 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
         (format.samplesize == 16 || format.samplesize == 8))
     {
         /* From here on, this is very similar to the wav code. Oh well. */
-        
+        if(opt->ignorelength)
+        {
+            format.totalframes = -1;
+        }
+
         opt->rate = format.rate;
         opt->channels = format.channels;
         opt->read_samples = wav_read; /* Similar enough, so we use the same */
@@ -547,25 +551,34 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
                                             of trying to abstract stuff. */
         wav->samplesize = format.samplesize;
 
-        if(len)
+        if(opt->ignorelength)
         {
-            opt->total_samples_per_channel = len/(format.channels*samplesize);
+            opt->total_samples_per_channel = -1;
         }
         else
         {
-            long pos;
-            pos = ftell(in);
-            if(fseek(in, 0, SEEK_END) == -1)
+            if(len)
             {
-                opt->total_samples_per_channel = 0; /* Give up */
+                opt->total_samples_per_channel =
+                    len/(format.channels*samplesize);
             }
             else
             {
-                opt->total_samples_per_channel = (ftell(in) - pos)/
-                    (format.channels*samplesize);
-                fseek(in,pos, SEEK_SET);
+                long pos;
+                pos = ftell(in);
+                if(fseek(in, 0, SEEK_END) == -1)
+                {
+                    opt->total_samples_per_channel = 0; /* Give up */
+                }
+                else
+                {
+                    opt->total_samples_per_channel = (ftell(in) - pos)/
+                        (format.channels*samplesize);
+                    fseek(in,pos, SEEK_SET);
+                }
             }
         }
+
         wav->totalsamples = opt->total_samples_per_channel;
 
         opt->readdata = (void *)wav;
@@ -601,7 +614,7 @@ long wav_read(void *in, float **buffer, int samples)
     long realsamples;
     int *ch_permute = f->channel_permute;
 
-    if(f->totalsamples && f->samplesread + 
+    if(f->totalsamples > 0 && f->samplesread + 
             bytes_read/(sampbyte*f->channels) > f->totalsamples) {
         bytes_read = sampbyte*f->channels*(f->totalsamples - f->samplesread);
     }
@@ -684,7 +697,7 @@ long wav_ieee_read(void *in, float **buffer, int samples)
     long realsamples;
 
 
-    if(f->totalsamples && f->samplesread +
+    if(f->totalsamples > 0 && f->samplesread +
             bytes_read/(4*f->channels) > f->totalsamples)
         bytes_read = 4*f->channels*(f->totalsamples - f->samplesread);
     realsamples = bytes_read/(4*f->channels);
@@ -724,14 +737,14 @@ int raw_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
     wav->bigendian =     opt->endianness;
     wav->channels =      format.channels;
     wav->samplesize =    opt->samplesize;
-    wav->totalsamples =  0;
+    wav->totalsamples =  -1;
     wav->channel_permute = malloc(wav->channels * sizeof(int));
     for (i=0; i < wav->channels; i++)
       wav->channel_permute[i] = i;
 
     opt->read_samples = wav_read;
     opt->readdata = (void *)wav;
-    opt->total_samples_per_channel = 0; /* raw mode, don't bother */
+    opt->total_samples_per_channel = -1; /* raw mode, don't bother */
     return 1;
 }
 
@@ -796,7 +809,7 @@ int setup_resample(oe_enc_opt *opt) {
 
     opt->read_samples = read_resampled;
     opt->readdata = rs;
-    if(opt->total_samples_per_channel)
+    if(opt->total_samples_per_channel > 0)
         opt->total_samples_per_channel = (int)((float)opt->total_samples_per_channel * 
             ((float)opt->resamplefreq/(float)opt->rate));
     opt->rate = opt->resamplefreq;
