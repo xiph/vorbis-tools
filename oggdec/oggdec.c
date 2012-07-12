@@ -403,6 +403,7 @@ int main(int argc, char **argv)
 
             if(!infile) {
                 fclose(outfile);
+                free(outfilename);
                 return 1;
             }
             if(decode_file(infile, outfile, infilename, outfilename)) {
@@ -444,8 +445,11 @@ int main(int argc, char **argv)
             }
 
             infile = open_input(in);
-            if(!infile)
+            if(!infile) {
+                if(outfilename)
+                    free(outfilename);
                 return 1;
+            }
             outfile = open_output(out);
             if(!outfile) {
                 fclose(infile);
