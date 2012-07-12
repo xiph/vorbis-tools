@@ -382,11 +382,10 @@ int main(int argc, char **argv)
         char *infilename;
 
         if(!strcmp(outfilename, "-")) {
+            free(outfilename);
             outfilename = NULL;
-            outfile = open_output(NULL);
         }
-        else
-            outfile = open_output(outfilename);
+        outfile = open_output(outfilename);
 
         if(!outfile)
             return 1;
