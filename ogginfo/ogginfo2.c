@@ -506,11 +506,18 @@ static void theora_end(stream_processor *stream)
     misc_theora_info *inf = stream->data;
     long minutes, seconds, milliseconds;
     double bitrate, time;
+    int new_gp;
+    new_gp = inf->ti.version_major > 3
+       || (inf->ti.version_major == 3 && (inf->ti.version_minor > 2
+       || (inf->ti.version_minor == 2 && inf->ti.version_subminor > 0)));
 
     /* This should be lastgranulepos - startgranulepos, or something like that*/
     ogg_int64_t iframe=inf->lastgranulepos>>inf->ti.granule_shift;
     ogg_int64_t pframe=inf->lastgranulepos-(iframe<<inf->ti.granule_shift);
-    time = (double)(iframe+pframe) /
+    /* The granule position starts at 0 for stream version 3.2.0, but starts at
+       1 for version 3.2.1 and above. In the former case, we need to add one
+       to the final granule position to get the frame count. */
+    time = (double)(iframe+pframe+!new_gp) /
 	((float)inf->ti.fps_numerator/(float)inf->ti.fps_denominator);
     minutes = (long)time / 60;
     seconds = (long)time - minutes*60;
