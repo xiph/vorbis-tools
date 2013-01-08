@@ -4,17 +4,18 @@ dnl ------------------------------------------------
 dnl Initialization
 dnl ------------------------------------------------
 
-AC_INIT(oggenc/encode.c)
+AC_INIT([vorbis-tools],[1.4.0],[vorbis-dev@xiph.org])
+
+AC_CONFIG_SRCDIR(oggenc/encode.c)
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
 AC_PREREQ(2.53)
 
-AM_INIT_AUTOMAKE([vorbis-tools],[1.4.0])
-AM_MAINTAINER_MODE
-
-AM_CONFIG_HEADER([config.h])
+AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE([enable])
 
 AC_USE_SYSTEM_EXTENSIONS
 
@@ -379,7 +380,8 @@ AC_SUBST(CURL_LIBS)
 AC_SUBST(I18N_CFLAGS)
 AC_SUBST(I18N_LIBS)
 
-AC_OUTPUT([
+
+AC_CONFIG_FILES([
 Makefile
 m4/Makefile
 po/Makefile.in
@@ -396,6 +398,10 @@ vcut/Makefile
 ogginfo/Makefile
 debian/Makefile
 ])
+
+AC_CONFIG_HEADERS([config.h])
+
+AC_OUTPUT
 
 if test "x$build_oggenc" = xyes -a "x$have_libFLAC" != xyes; then
     AC_MSG_WARN([FLAC and/or OggFLAC libraries or headers missing, oggenc 
