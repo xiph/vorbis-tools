@@ -233,6 +233,7 @@ static int open_output_file(vcut_state *s, char *filename)
  * Returns 0 for success, or -1 on failure. */
 static int open_output_stream(vcut_state *s)
 {
+        int rv;
 	if(!s->out && !s->drop_output)
 	{
 		if(open_output_file(s, s->output_filename)!=0)
@@ -240,7 +241,7 @@ static int open_output_stream(vcut_state *s)
 	}
 
 	/* ogg_stream_init should only fail if stream_out is null */
-	int rv = ogg_stream_init(&s->stream_out, ++s->serial_out);
+	rv = ogg_stream_init(&s->stream_out, ++s->serial_out);
 	assert(rv == 0);
 
 	s->output_stream_open = 1;
