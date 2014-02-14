@@ -42,15 +42,13 @@ audio_device_t *append_audio_device(audio_device_t *devices_list,
 				     int driver_id,
 				     ao_option *options, char *filename)
 {
-  audio_device_t *head = devices_list;
-
   if (devices_list != NULL) {
     while (devices_list->next_device != NULL)
       devices_list = devices_list->next_device;
     devices_list = devices_list->next_device =
       malloc(sizeof(audio_device_t));
   } else {
-    head = devices_list = (audio_device_t *) malloc(sizeof(audio_device_t));
+    devices_list = (audio_device_t *) malloc(sizeof(audio_device_t));
   }
   devices_list->driver_id = driver_id;
   devices_list->options = options;

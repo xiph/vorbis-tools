@@ -94,6 +94,7 @@ void buffer_thread_init (buf_t *buf)
 void buffer_thread_cleanup (void *arg)
 {
   buf_t *buf = (buf_t *)arg;
+  (void)buf;
 
   DEBUG("Enter buffer_thread_cleanup");
 }
