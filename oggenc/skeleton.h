@@ -41,7 +41,7 @@ typedef struct {
     ogg_int64_t granule_rate_d;                            /* granule rate denominator */
     ogg_int64_t start_granule;                             /* start granule value */
     ogg_uint32_t preroll;                                   /* preroll */
-    unsigned char granule_shift; // a 8-bit field           /* 1 byte value holding the granule shift */
+    unsigned char granule_shift;                            /* 1 byte value holding the granule shift */
     char *message_header_fields;                            /* holds all the message header fields */
     /* current total size of the message header fields, for realloc purpose, initially zero */
     ogg_uint32_t current_header_size;
