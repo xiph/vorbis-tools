@@ -148,7 +148,7 @@ int print_statistics_line (stat_format_t stats[])
 
     switch (stats->type) {
     case stat_noarg:
-      len += sprintf(str+len, stats->formatstr);
+      len += sprintf(str+len, "%s", stats->formatstr);
       break;
     case stat_intarg:
       len += sprintf(str+len, stats->formatstr, stats->arg.intarg);
