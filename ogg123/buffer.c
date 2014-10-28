@@ -213,8 +213,16 @@ void *buffer_thread_func (void *arg)
     LOCK_MUTEX (buf->mutex);
 
     DEBUG("Check for cancelation");
-    if (buf->cancel_flag || sig_request.cancel)
+    if (buf->cancel_flag || sig_request.cancel) {
+      /* signal empty buffer space, so the main
+         thread can wake up to die in peace */
+      DEBUG("Abort: Wake up the writer thread");
+      COND_SIGNAL(buf->write_cond);
+
+      /* abort this thread, too */
+      UNLOCK_MUTEX(buf->mutex);
       break;
+    }
 
     DEBUG("Check for something to play");
     /* Block until we can play something */
@@ -227,8 +235,16 @@ void *buffer_thread_func (void *arg)
     }
 
     DEBUG("Check for cancelation");
-    if (buf->cancel_flag || sig_request.cancel)
+    if (buf->cancel_flag || sig_request.cancel) {
+      /* signal empty buffer space, so the main
+         thread can wake up to die in peace */
+      DEBUG("Abort: Wake up the writer thread");
+      COND_SIGNAL(buf->write_cond);
+
+      /* abort this thread, too */
+      UNLOCK_MUTEX(buf->mutex);
       break;
+    }
 
     DEBUG("Ready to play");
 
@@ -760,7 +776,7 @@ void buffer_wait_for_empty (buf_t *buf)
   pthread_cleanup_push(buffer_mutex_unlock, buf);
 
   LOCK_MUTEX(buf->mutex);
-  while (!empty && !buf->abort_write) {
+  while (!empty && !buf->abort_write && !buf->cancel_flag && !sig_request.cancel) {
 
     if (buf->curfill > 0) {
       DEBUG1("Buffer curfill = %ld, going back to sleep.", buf->curfill);
