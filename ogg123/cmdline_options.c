@@ -140,7 +140,7 @@ int parse_cmdline_options (int argc, char **argv,
 	    exit(1);
 	  }
 	} else {
-	  status_error(_("=== Cannot specify output file without specifying a driver.\n"));
+	  status_error(_("=== Cannot specify output file without previously specifying a driver.\n"));
 	  exit (1);
 	}
 	break;
