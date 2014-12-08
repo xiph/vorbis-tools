@@ -24,6 +24,7 @@
 #include <pthread.h>
 
 #ifdef HAVE_UNISTD_H
+#include <sys/ioctl.h>
 #include <unistd.h>
 #endif
 
@@ -166,6 +167,28 @@ int print_statistics_line (stat_format_t stats[])
 
     stats++;
   }
+  
+#ifdef HAVE_UNISTD_H
+  /* If the line would break in the console, truncate it to avoid the break,
+     and indicate the truncation by adding points of ellipsis */
+  struct winsize max;
+  int ioctlError = ioctl(STDERR_FILENO, TIOCGWINSZ, &max);
+  if (!ioctlError) {
+    const int limit = max.ws_col - 1;
+    if (len > limit) {
+      int pointsStart = limit - 3;
+      if (pointsStart < 0) {
+        pointsStart = 0;
+      }
+      int position;
+      for (position = pointsStart; position < limit; position++) {
+        str[position] = '.';
+      }
+      str[position] = 0;
+      len = position;
+    }
+  }
+#endif
 
   len += sprintf(str+len, "\r");
 
