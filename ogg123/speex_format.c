@@ -560,7 +560,19 @@ int read_speex_header (decoder_t *decoder)
 
 	  if (!priv->frames_per_packet)
 	    priv->frames_per_packet=1;
-	
+
+      switch(decoder->actual_fmt.channels) {
+      case 1:
+        decoder->actual_fmt.matrix="M";
+        break;
+      case 2:
+        decoder->actual_fmt.matrix="L,R";
+        break;
+      default:
+        decoder->actual_fmt.matrix=NULL;
+        break;
+      }
+
 
 	  priv->output = calloc(priv->frame_size * 
 				decoder->actual_fmt.channels * 
