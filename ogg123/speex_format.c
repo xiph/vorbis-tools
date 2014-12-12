@@ -47,7 +47,7 @@ typedef struct speex_private_t {
   ogg_packet op;
   ogg_stream_state os;
   SpeexBits bits;
-  SpeexStereoState stereo;
+  SpeexStereoState *stereo;
   SpeexHeader *header;
   void *st;
 
@@ -142,6 +142,7 @@ decoder_t* speex_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     private->comment_packet = NULL;
     private->comment_packet_len = 0;
     private->header = NULL;
+    private->stereo = speex_stereo_state_init();
 
     private->stats.total_time = 0.0;
     private->stats.current_time = 0.0;
@@ -234,7 +235,7 @@ int speex_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 	speex_decode(priv->st, &priv->bits, temp_output);
 
 	if (audio_fmt->channels==2)
-	  speex_decode_stereo(temp_output, priv->frame_size, &priv->stereo);
+	  speex_decode_stereo(temp_output, priv->frame_size, priv->stereo);
 	
 	priv->samples_decoded += priv->frame_size;
 
@@ -328,6 +329,7 @@ void speex_cleanup (decoder_t *decoder)
 {
   speex_private_t *priv = decoder->private;
 
+  speex_stereo_state_destroy(priv->stereo);
   free(priv->comment_packet);
   free(priv->output);
   free(decoder->private);
@@ -544,7 +546,7 @@ int read_speex_header (decoder_t *decoder)
 	  priv->st = process_header(&priv->op, 
 				    &priv->frame_size,
 				    &priv->header,
-				    &priv->stereo,
+				    priv->stereo,
 				    decoder->callbacks,
 				    decoder->callback_arg);
 
