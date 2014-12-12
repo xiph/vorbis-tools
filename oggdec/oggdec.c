@@ -16,6 +16,7 @@
 #include <getopt.h>
 #include <errno.h>
 #include <string.h>
+#include <locale.h>
 
 #if defined(_WIN32) || defined(__EMX__) || defined(__WATCOMC__)
 #include <fcntl.h>
@@ -363,6 +364,10 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
 int main(int argc, char **argv)
 {
     int i;
+
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    textdomain(PACKAGE);
 
     if(argc == 1) {
         usage();
