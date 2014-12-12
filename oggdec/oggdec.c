@@ -310,11 +310,18 @@ static int decode_file(FILE *in, FILE *out, char *infile, char *outfile)
             }
         }
 
-        if(ret < 0 ) {
-           if( !quiet ) {
-               fprintf(stderr, _("WARNING: hole in data (%d)\n"), ret);
-           }
+        if(ret == OV_HOLE) {
+            if(!quiet) {
+                fprintf(stderr, _("WARNING: hole in data (%d)\n"), ret);
+            }
             continue;
+        }
+        else if(ret < 0) {
+            if(!quiet) {
+                fprintf(stderr, _("=== Vorbis library reported a stream error.\n"));
+            }
+            ov_clear(&vf);
+            return 1;
         }
 
         if(channels > 2 && !raw) {
