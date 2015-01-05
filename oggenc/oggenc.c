@@ -272,6 +272,15 @@ int main(int argc, char **argv)
             errors++;
             continue;
         }
+        
+        if(enc_opts.rate <= 0)
+        {
+            fprintf(stderr, _("ERROR: Input file \"%s\" has invalid sampling rate\n"), infiles[i]?infiles[i]:"(stdin)");
+            if(closein)
+                fclose(in);
+            errors++;
+            continue;
+        }
 
         /* Ok. We can read the file - so now open the output file */
 
