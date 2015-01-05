@@ -33,6 +33,14 @@
 #include "utf8.h"
 #include "i18n.h"
 
+/* fallback for stand-alone compiles */
+#ifndef PACKAGE
+# define PACKAGE "oggenc"
+#endif
+#ifndef VERSION
+# define VERSION "unknown"
+#endif
+
 #define CHUNK 4096 /* We do reads, etc. in multiples of this */
 
 struct option long_options[] = {
