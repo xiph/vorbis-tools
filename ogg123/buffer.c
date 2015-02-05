@@ -210,12 +210,14 @@ void *buffer_thread_func (void *arg)
      never be unset. */
   while ( !(buf->eos && buf->curfill == 0) && !buf->abort_write) {
 
+    LOCK_MUTEX (buf->mutex);
+
+    DEBUG("Check for cancelation");
     if (buf->cancel_flag || sig_request.cancel)
       break;
 
     DEBUG("Check for something to play");
     /* Block until we can play something */
-    LOCK_MUTEX (buf->mutex);
     if (buf->prebuffering || 
 	buf->paused || 
 	(buf->curfill < buf->audio_chunk_size && !buf->eos)) {
@@ -224,12 +226,13 @@ void *buffer_thread_func (void *arg)
       COND_WAIT(buf->playback_cond, buf->mutex);
     }
 
+    DEBUG("Check for cancelation");
+    if (buf->cancel_flag || sig_request.cancel)
+      break;
+
     DEBUG("Ready to play");
 
     UNLOCK_MUTEX(buf->mutex);
-
-    if (buf->cancel_flag || sig_request.cancel)
-      break;
 
     /* Don't need to lock buffer while running actions since position
        won't change.  We clear out any actions before we compute the
