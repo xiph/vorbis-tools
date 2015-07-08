@@ -2,6 +2,7 @@ Makefile
 Makefile.in
 vorbis-tools-*.zip
 vorbis-tools-*.tar.gz
+compile
 configure
 config.rpath
 config.log
@@ -12,6 +13,7 @@ config.h
 config.h.in
 depcomp
 ltmain.sh
+mkinstalldirs
 ABOUT-NLS
 stamp-h1
 autom4te.cache
