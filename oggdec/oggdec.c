@@ -443,16 +443,21 @@ int main(int argc, char **argv)
                     out = outfilename;
             }
             else {
-                char *end = strrchr(argv[i], '.');
-                end = end?end:(argv[i] + strlen(argv[i]) + 1);
+                if(!strcmp(argv[i], "-")) {
+                    out = NULL;
+                }
+                else {
+                    char *end = strrchr(argv[i], '.');
+                    end = end?end:(argv[i] + strlen(argv[i]) + 1);
 
-                out = malloc(strlen(argv[i]) + 10);
-                strncpy(out, argv[i], end-argv[i]);
-                out[end-argv[i]] = 0;
-                if(raw)
-                    strcat(out, ".raw");
-                else
-                    strcat(out, ".wav");
+                    out = malloc(strlen(argv[i]) + 10);
+                    strncpy(out, argv[i], end-argv[i]);
+                    out[end-argv[i]] = 0;
+                    if(raw)
+                        strcat(out, ".raw");
+                    else
+                        strcat(out, ".wav");
+                }
             }
 
             infile = open_input(in);
@@ -472,7 +477,7 @@ int main(int argc, char **argv)
                 return 1;
             }
 
-            if(!outfilename)
+            if(!outfilename && out)
                 free(out);
 
             fclose(outfile);
