@@ -383,14 +383,19 @@ int main(int argc, char **argv)
         enc_opts.out = out;
         enc_opts.comments = &vc;
 #ifdef _WIN32
+        enc_opts.filename = NULL;
+        enc_opts.infilename = NULL;
+
         if (opt.isutf8) {
-            enc_opts.filename = NULL;
-            enc_opts.infilename = NULL;
-            utf8_decode(out_fn, &enc_opts.filename);
-            utf8_decode(infiles[i], &enc_opts.infilename);
+            if (out_fn)
+                utf8_decode(out_fn, &enc_opts.filename);
+            if (infiles[i])
+                utf8_decode(infiles[i], &enc_opts.infilename);
         } else {
-            enc_opts.filename = strdup(out_fn);
-            enc_opts.infilename = strdup(infiles[i]);
+            if (out_fn)
+                enc_opts.filename = strdup(out_fn);
+            if (infiles[i])
+                enc_opts.infilename = strdup(infiles[i]);
         }
 #else
         enc_opts.filename = out_fn;
