@@ -317,8 +317,6 @@ void easyflac_error_callback(const EasyFLAC__StreamDecoder *decoder, FLAC__Strea
 void error_callback(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data)
 #endif
 {
-    flacfile *flac = (flacfile *) client_data;
-
 }
 
 #if !NEED_EASYFLAC

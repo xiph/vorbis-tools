@@ -146,8 +146,6 @@ decoder_t* flac_init (data_source_t *source, ogg123_options_t *ogg123_opts,
 {
   decoder_t *decoder;
   flac_private_t *private;
-  FLAC__bool ret;
-
 
   /* Allocate data source structures */
   decoder = malloc(sizeof(decoder_t));
@@ -485,8 +483,9 @@ FLAC__StreamDecoderWriteStatus write_callback(const FLAC__StreamDecoder *decoder
 
   int samples = frame->header.blocksize;
   int channels = frame->header.channels;
-  int bits_per_sample = priv->bits_per_sample = frame->header.bits_per_sample;
   int i, j;
+
+  priv->bits_per_sample = frame->header.bits_per_sample;
 
   resize_buffer(priv, channels, samples);
 
@@ -496,7 +495,6 @@ FLAC__StreamDecoderWriteStatus write_callback(const FLAC__StreamDecoder *decoder
 
   priv->buf_start = 0;
   priv->buf_fill = samples;
-
 
   priv->samples_decoded += samples;
 
