@@ -387,15 +387,19 @@ int main(int argc, char **argv)
         enc_opts.infilename = NULL;
 
         if (opt.isutf8) {
-            if (out_fn)
+            if (out_fn) {
                 utf8_decode(out_fn, &enc_opts.filename);
-            if (infiles[i])
+            }
+            if (infiles[i]) {
                 utf8_decode(infiles[i], &enc_opts.infilename);
+            }
         } else {
-            if (out_fn)
+            if (out_fn) {
                 enc_opts.filename = strdup(out_fn);
-            if (infiles[i])
+            }
+            if (infiles[i]) {
                 enc_opts.infilename = strdup(infiles[i]);
+            }
         }
 #else
         enc_opts.filename = out_fn;
@@ -421,15 +425,17 @@ int main(int argc, char **argv)
                 errors++;
                 goto clear_all;
             }
-            else if(!opt.quiet)
+            else if(!opt.quiet) {
                 fprintf(stderr, _("Resampling input from %d Hz to %d Hz\n"), fromrate, opt.resamplefreq);
+            }
         }
 
         if(opt.downmix) {
             if(enc_opts.channels == 2) {
                 setup_downmix(&enc_opts);
-                if(!opt.quiet)
+                if(!opt.quiet) {
                     fprintf(stderr, _("Downmixing stereo to mono\n"));
+                }
             }
             else {
                 fprintf(stderr, _("WARNING: Can't downmix except from stereo to mono\n"));
@@ -439,13 +445,15 @@ int main(int argc, char **argv)
 
         if(opt.scale > 0.f) {
             setup_scaler(&enc_opts, opt.scale);
-            if(!opt.quiet)
+            if(!opt.quiet) {
                 fprintf(stderr, _("Scaling input to %f\n"), opt.scale);
+            }
         }
 
 
-        if(enc_opts.total_samples_per_channel <= 0)
+        if(enc_opts.total_samples_per_channel <= 0) {
             enc_opts.progress_update = update_statistics_notime;
+        }
 
         if(opt.quiet)
         {
@@ -454,15 +462,19 @@ int main(int argc, char **argv)
             enc_opts.end_encode = final_statistics_null;
         }
 
-        if(oe_encode(&enc_opts))
+        if(oe_encode(&enc_opts)) {
             errors++;
+        }
 
-        if(opt.scale > 0)
+        if(opt.scale > 0) {
             clear_scaler(&enc_opts);
-        if(opt.downmix)
+        }
+        if(opt.downmix) {
             clear_downmix(&enc_opts);
-        if(resampled)
+        }
+        if(resampled) {
             clear_resample(&enc_opts);
+        }
 clear_all:
 
         if(out_fn) free(out_fn);
@@ -474,10 +486,12 @@ clear_all:
         vorbis_comment_clear(&vc);
         format->close_func(enc_opts.readdata);
 
-        if(closein)
+        if(closein) {
             fclose(in);
-        if(closeout)
+        }
+        if(closeout) {
             fclose(out);
+        }
     }/* Finished this file, loop around to next... */
 
     return errors?1:0;
@@ -752,11 +766,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                         fprintf(stderr, _("WARNING: Couldn't read resampling frequency \"%s\"\n"), optarg);
                         opt->resamplefreq = 0;
                     }
-                    if(opt->resamplefreq < 100) /* User probably specified it
-                                                   in kHz accidently */
+                    if(opt->resamplefreq < 100) { /* User probably specified it
+                                                     in kHz accidently */
                         fprintf(stderr, 
                                 _("WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"), 
                                 opt->resamplefreq, opt->resamplefreq*1000);
+                    }
                 }
                 else if(!strcmp(long_options[option_index].name, "downmix")) {
                     opt->downmix = 1;
@@ -782,10 +797,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                         fprintf(stderr, _("No value for advanced encoder option found\n"));
                         continue;
                       }
-                      else
+                      else {
                         *val++=0;
-                    }else
+                      }
+                    }else {
                       val=0;
+                    }
 
                     opt->advopt = realloc(opt->advopt, (++opt->advopt_count)*sizeof(adv_opt));
                     opt->advopt[opt->advopt_count - 1].arg = arg;
@@ -835,10 +852,12 @@ static void parse_options(int argc, char **argv, oe_options *opt)
             case 's':
                 /* Would just use atoi(), but that doesn't deal with unsigned
                  * ints. Damn */
-                if(sscanf(optarg, "%u", &opt->serial) != 1)
+                if(sscanf(optarg, "%u", &opt->serial) != 1) {
                     opt->serial = 0; /* Failed, so just set to zero */
-                                else
-                                    opt->fixedserial = 1;
+                }
+                else {
+                    opt->fixedserial = 1;
+                }
                 break;
             case 't':
                 opt->title = realloc(opt->title, (++opt->title_count)*sizeof(char *));
@@ -859,9 +878,10 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     opt->min_bitrate = -1;
                 }
                 if(!opt->managed){
-                  if(!opt->quiet)
+                  if(!opt->quiet) {
                     fprintf(stderr, 
                         _("Enabling bitrate management engine\n"));
+                  }
                   opt->managed = 1;
                 }
                 break;
@@ -872,9 +892,10 @@ static void parse_options(int argc, char **argv, oe_options *opt)
                     opt->max_bitrate = -1;
                 }
                 if(!opt->managed){
-                  if(!opt->quiet)
+                  if(!opt->quiet) {
                     fprintf(stderr, 
                         _("Enabling bitrate management engine\n"));
+                  }
                   opt->managed = 1;
                 }
                 break;
@@ -1022,22 +1043,27 @@ static void add_tag(vorbis_comment *vc, oe_options *opt,char *name, char *value)
 	if (!utf8_validate(value)) {
 	    fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), name?name:"comment");
 	} else {
-	    if(name == NULL)
+	    if(name == NULL) {
 		vorbis_comment_add(vc, value);
-	    else
+            }
+            else {
 		vorbis_comment_add_tag(vc, name, value);
+            }
 	}
     }
     else if(utf8_encode(value, &utf8) >= 0)
     {
-        if(name == NULL)
+        if(name == NULL) {
             vorbis_comment_add(vc, utf8);
-        else
+        }
+        else {
             vorbis_comment_add_tag(vc, name, utf8);
+        }
         free(utf8);
     }
-    else
+    else {
         fprintf(stderr, _("Couldn't convert comment to UTF-8, cannot add\n"));
+    }
 }
 
 static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum, 
@@ -1048,19 +1074,22 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 
     vorbis_comment_init(vc);
 
-    for(i = 0; i < opt->comment_count; i++)
+    for(i = 0; i < opt->comment_count; i++) {
         add_tag(vc, opt, NULL, opt->comments[i]);
+    }
 
     if(opt->title_count)
     {
         if(filenum >= opt->title_count)
         {
-            if(!opt->quiet)
+            if(!opt->quiet) {
                 fprintf(stderr, _("WARNING: Insufficient titles specified, defaulting to final title.\n"));
+            }
             i = opt->title_count-1;
         }
-        else
+        else {
             i = filenum;
+        }
 
         *title = opt->title[i];
         add_tag(vc, opt, "title", opt->title[i]);
@@ -1068,10 +1097,12 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 
     if(opt->artist_count)
     {
-        if(filenum >= opt->artist_count)
+        if(filenum >= opt->artist_count) {
             i = opt->artist_count-1;
-        else
+        }
+        else {
             i = filenum;
+        }
 
         *artist = opt->artist[i];
         add_tag(vc, opt, "artist", opt->artist[i]);
@@ -1079,10 +1110,12 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 
     if(opt->genre_count)
     {
-        if(filenum >= opt->genre_count)
+        if(filenum >= opt->genre_count) {
             i = opt->genre_count-1;
-        else
+        }
+        else {
             i = filenum;
+        }
 
         *genre = opt->genre[i];
         add_tag(vc, opt, "genre", opt->genre[i]);
@@ -1090,10 +1123,12 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
 
     if(opt->date_count)
     {
-        if(filenum >= opt->date_count)
+        if(filenum >= opt->date_count) {
             i = opt->date_count-1;
-        else
+        }
+        else {
             i = filenum;
+        }
 
         *date = opt->dates[i];
         add_tag(vc, opt, "date", opt->dates[i]);
@@ -1105,8 +1140,9 @@ static void build_comments(vorbis_comment *vc, oe_options *opt, int filenum,
         {
             i = opt->album_count-1;
         }
-        else
+        else {
             i = filenum;
+        }
 
         *album = opt->album[i];
         add_tag(vc, opt, "album", opt->album[i]);
