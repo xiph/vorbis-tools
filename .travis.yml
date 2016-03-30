@@ -1,0 +1,12 @@
+language: c
+
+addons:
+  apt:
+    packages:
+      - libogg-dev
+      - libvorbis-dev
+
+script:
+  - ./autogen.sh
+  - ./configure
+  - make -j2 V=1 check
