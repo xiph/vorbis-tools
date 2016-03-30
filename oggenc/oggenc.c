@@ -22,7 +22,11 @@
 #include <locale.h>
 #include <errno.h>
 #include <sys/types.h>
+
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
+
 #if defined WIN32 || defined _WIN32
 #include <process.h>
 #endif
