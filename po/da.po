@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2002-11-09 14:59+0100\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1589,8 +1590,8 @@ msgstr ""
 msgid ""
 " --utf8               Tells oggenc that the command line parameters date, "
 "title,\n"
-"                      album, artist, genre, and comment are already in UTF-"
-"8.\n"
+"                      album, artist, genre, and comment are already in "
+"UTF-8.\n"
 "                      On Windows, this switch applies to file names too.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
 "                      used multiple times. The argument should be in the\n"
@@ -2023,8 +2024,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:557
 #, c-format
 msgid ""
-"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
-"d)\n"
+"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
+"(%d)\n"
 msgstr ""
 
 #: ogginfo/ogginfo2.c:565
@@ -2113,8 +2114,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:703
 #, c-format
 msgid ""
-"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream (%"
-"d)\n"
+"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream "
+"(%d)\n"
 msgstr ""
 
 #: ogginfo/ogginfo2.c:734
@@ -2297,8 +2298,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:1191
 #, c-format
 msgid ""
-"WARNING: sequence number gap in stream %d. Got page %ld when expecting page %"
-"ld. Indicates missing data.\n"
+"WARNING: sequence number gap in stream %d. Got page %ld when expecting page "
+"%ld. Indicates missing data.\n"
 msgstr ""
 
 #: ogginfo/ogginfo2.c:1206
@@ -2945,8 +2946,8 @@ msgstr "Fejl ved åbning af udfil \"%s\".\n"
 #~ "\n"
 #~ " Naming:\n"
 #~ " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
-#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%"
-#~ "l,\n"
+#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %"
+#~ "%l,\n"
 #~ "                      %%n, %%d replaced by artist, title, album, track "
 #~ "number,\n"
 #~ "                      and date, respectively (see below for specifying "

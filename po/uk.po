@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2007-08-17 16:32+0200\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,8 +24,8 @@ msgstr "Помилка: недостатньо пам'яті при викона
 #, fuzzy, c-format
 msgid "ERROR: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr ""
-"Помилка: не вдається розподілити пам'ять при виконанні malloc_buffer_stats"
-"()\n"
+"Помилка: не вдається розподілити пам'ять при виконанні "
+"malloc_buffer_stats()\n"
 
 #: ogg123/callbacks.c:75
 #, fuzzy
@@ -89,15 +90,15 @@ msgstr "Помилка: недостатньо пам'яті при викона
 #: ogg123/callbacks.c:279 ogg123/callbacks.c:298
 msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr ""
-"Помилка: недостатньо пам'яті при виконанні decoder_buffered_metadata_callback"
-"().\n"
+"Помилка: недостатньо пам'яті при виконанні "
+"decoder_buffered_metadata_callback().\n"
 
 #: ogg123/callbacks.c:335 ogg123/callbacks.c:354
 #, fuzzy
 msgid "ERROR: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr ""
-"Помилка: недостатньо пам'яті при виконанні decoder_buffered_metadata_callback"
-"().\n"
+"Помилка: недостатньо пам'яті при виконанні "
+"decoder_buffered_metadata_callback().\n"
 
 #: ogg123/cfgfile_options.c:55
 msgid "System error"
@@ -484,8 +485,8 @@ msgstr "Помилка: недостатньо пам'яті.\n"
 #, fuzzy, c-format
 msgid "ERROR: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr ""
-"Помилка: не вдається розподілити пам'ять при виконанні malloc_decoder_stats"
-"()\n"
+"Помилка: не вдається розподілити пам'ять при виконанні "
+"malloc_decoder_stats()\n"
 
 #: ogg123/http_transport.c:145
 #, fuzzy
@@ -608,8 +609,8 @@ msgstr "Формат Vorbis: Версія %d"
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
-"Значення щільності потоку бітів: верхнє=%ld номінальне=%ld нижнє=%ld вікно=%"
-"ld"
+"Значення щільності потоку бітів: верхнє=%ld номінальне=%ld нижнє=%ld вікно="
+"%ld"
 
 #: ogg123/oggvorbis_format.c:348 ogg123/speex_format.c:413
 #, c-format
@@ -1632,8 +1633,8 @@ msgstr ""
 msgid ""
 " --utf8               Tells oggenc that the command line parameters date, "
 "title,\n"
-"                      album, artist, genre, and comment are already in UTF-"
-"8.\n"
+"                      album, artist, genre, and comment are already in "
+"UTF-8.\n"
 "                      On Windows, this switch applies to file names too.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
 "                      used multiple times. The argument should be in the\n"
@@ -2104,8 +2105,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:557
 #, fuzzy, c-format
 msgid ""
-"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
-"d)\n"
+"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
+"(%d)\n"
 msgstr ""
 "Попередження: не вдається розкодувати пакет заголовків vorbis - неправильний "
 "потік vorbis (%d)\n"
@@ -2196,8 +2197,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:703
 #, fuzzy, c-format
 msgid ""
-"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream (%"
-"d)\n"
+"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream "
+"(%d)\n"
 msgstr ""
 "Попередження: не вдається розкодувати пакет заголовків theora - неправильний "
 "потік theora (%d)\n"
@@ -2396,11 +2397,11 @@ msgstr "Попередження: у середині потоку %d знайд
 #: ogginfo/ogginfo2.c:1191
 #, fuzzy, c-format
 msgid ""
-"WARNING: sequence number gap in stream %d. Got page %ld when expecting page %"
-"ld. Indicates missing data.\n"
+"WARNING: sequence number gap in stream %d. Got page %ld when expecting page "
+"%ld. Indicates missing data.\n"
 msgstr ""
-"Попередження: пропущений порядковий номер у потоку %d. Отримана сторінка %"
-"ld, але очікувалась %ld. Це свідчить про пропуск у даних.\n"
+"Попередження: пропущений порядковий номер у потоку %d. Отримана сторінка "
+"%ld, але очікувалась %ld. Це свідчить про пропуск у даних.\n"
 
 #: ogginfo/ogginfo2.c:1206
 #, c-format
@@ -3064,8 +3065,8 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "\n"
 #~ " Naming:\n"
 #~ " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
-#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%"
-#~ "l,\n"
+#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %"
+#~ "%l,\n"
 #~ "                      %%n, %%d replaced by artist, title, album, track "
 #~ "number,\n"
 #~ "                      and date, respectively (see below for specifying "

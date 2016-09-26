@@ -33,6 +33,7 @@ msgstr ""
 "PO-Revision-Date: 2003-03-06 15:15+0100\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@ens-lyon.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,8 +78,8 @@ msgstr "Erreur : Erreur de périphérique %s.\n"
 #, fuzzy, c-format
 msgid "ERROR: An output file cannot be given for %s device.\n"
 msgstr ""
-"Erreur : Impossible d'attribuer un fichier de sortie pour le périphérique %"
-"s.\n"
+"Erreur : Impossible d'attribuer un fichier de sortie pour le périphérique "
+"%s.\n"
 
 #: ogg123/callbacks.c:95
 #, fuzzy, c-format
@@ -1647,8 +1648,8 @@ msgstr ""
 msgid ""
 " --utf8               Tells oggenc that the command line parameters date, "
 "title,\n"
-"                      album, artist, genre, and comment are already in UTF-"
-"8.\n"
+"                      album, artist, genre, and comment are already in "
+"UTF-8.\n"
 "                      On Windows, this switch applies to file names too.\n"
 " -c, --comment=c      Add the given string as an extra comment. This may be\n"
 "                      used multiple times. The argument should be in the\n"
@@ -1947,7 +1948,8 @@ msgstr ""
 #, fuzzy, c-format
 msgid "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 msgstr ""
-"Attention : nom de champ invalide dans le commentaire %d du flux %d : « %s »\n"
+"Attention : nom de champ invalide dans le commentaire %d du flux %d : « %s "
+"»\n"
 
 #: ogginfo/ogginfo2.c:251 ogginfo/ogginfo2.c:259
 #, fuzzy, c-format
@@ -2135,8 +2137,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:557
 #, fuzzy, c-format
 msgid ""
-"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream (%"
-"d)\n"
+"WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
+"(%d)\n"
 msgstr ""
 "Attention : Impossible de décoder l'entête du paquet vorbis - flux vorbis "
 "invalide (%d)\n"
@@ -2229,8 +2231,8 @@ msgstr ""
 #: ogginfo/ogginfo2.c:703
 #, c-format
 msgid ""
-"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream (%"
-"d)\n"
+"WARNING: packet %d does not seem to be a Kate header - invalid Kate stream "
+"(%d)\n"
 msgstr ""
 
 # FIXME
@@ -2423,8 +2425,8 @@ msgstr "Attention : fanion de début de flux au milieu du flux %d\n"
 #: ogginfo/ogginfo2.c:1191
 #, fuzzy, c-format
 msgid ""
-"WARNING: sequence number gap in stream %d. Got page %ld when expecting page %"
-"ld. Indicates missing data.\n"
+"WARNING: sequence number gap in stream %d. Got page %ld when expecting page "
+"%ld. Indicates missing data.\n"
 msgstr ""
 "Attention : trou dans les séquences du flux %d. Reçu la page %ld à la place "
 "de la page %ld escomptée. Il manque des données.\n"
@@ -3077,8 +3079,8 @@ msgstr "Erreur lors de la suppression du vieux fichier %s\n"
 #~ "\n"
 #~ " Naming:\n"
 #~ " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
-#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %%"
-#~ "l,\n"
+#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %"
+#~ "%l,\n"
 #~ "                      %%n, %%d replaced by artist, title, album, track "
 #~ "number,\n"
 #~ "                      and date, respectively (see below for specifying "
