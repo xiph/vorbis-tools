@@ -3,6 +3,7 @@ Makefile.in
 *.o
 .deps
 .libs
+*~
 vorbis-tools-*.zip
 vorbis-tools-*.tar.gz
 compile
@@ -35,6 +36,8 @@ oggdec/oggdec
 oggenc/oggenc
 ogginfo/ogginfo
 po/POTFILES
+po/stamp-po
+po/*.gmo
 share/libgetopt.a
 share/libutf8.a
 vcut/vcut
