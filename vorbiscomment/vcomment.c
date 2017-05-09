@@ -394,7 +394,7 @@ int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
   }
 
   /* validation: basically, we assume it's a tag
-   * if if has an '=' after valid tag characters,
+   * if it has an '=' after valid tag characters,
    * or if it just contains valid tag characters
    * and we're allowing empty values. */
 
