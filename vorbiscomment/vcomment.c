@@ -33,37 +33,37 @@
 
 /* getopt format struct */
 struct option long_options[] = {
-	{"list",0,0,'l'},
-	{"append",0,0,'a'},
-	{"tag",required_argument,0,'t'},
-	{"rm",required_argument,0,'d'},
-	{"write",0,0,'w'},
-	{"help",0,0,'h'},
-	{"quiet",0,0,'q'}, /* unused */
-	{"version", 0, 0, 'V'},
-	{"commentfile",1,0,'c'},
-	{"raw", 0,0,'R'},
-	{"escapes",0,0,'e'},
-	{NULL,0,0,0}
+  {"list",0,0,'l'},
+  {"append",0,0,'a'},
+  {"tag",required_argument,0,'t'},
+  {"rm",required_argument,0,'d'},
+  {"write",0,0,'w'},
+  {"help",0,0,'h'},
+  {"quiet",0,0,'q'}, /* unused */
+  {"version", 0, 0, 'V'},
+  {"commentfile",1,0,'c'},
+  {"raw", 0,0,'R'},
+  {"escapes",0,0,'e'},
+  {NULL,0,0,0}
 };
 
 /* local parameter storage from parsed options */
 typedef struct {
-	/* mode and flags */
-	int	mode;
-	int	raw;
-	int	escapes;
+  /* mode and flags */
+  int mode;
+  int raw;
+  int escapes;
 
-	/* file names and handles */
-	char	*infilename, *outfilename;
-	char	*commentfilename;
-	FILE	*in, *out, *com;
-	int	tempoutfile;
+  /* file names and handles */
+  char  *infilename, *outfilename;
+  char  *commentfilename;
+  FILE  *in, *out, *com;
+  int tempoutfile;
 
-	/* comments */
-	int	commentcount;
-	char	**comments;
-	int 	*changetypes;
+  /* comments */
+  int commentcount;
+  char  **comments;
+  int   *changetypes;
 } param_t;
 
 #define MODE_NONE  0
@@ -82,7 +82,7 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
 char *escape(const char *from, int fromsize);
 char *unescape(const char *from, int *tosize);
 
-param_t	*new_param(void);
+param_t *new_param(void);
 void free_param(param_t *param);
 void parse_options(int argc, char *argv[], param_t *param);
 void open_files(param_t *p);
@@ -93,72 +93,72 @@ static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const ch
 char *
 read_line (FILE *input)
 {
-        /* Construct a list of buffers. Each buffer will hold 1024 bytes. If
-         * more is required, it is easier to extend the list than to extend
-         * a massive buffer. When all the bytes up to a newline have been
-         * retrieved, join the buffers together
-        **/
-        int buffer_count = 0, max_buffer_count = 10, buffer_size = 1024;
-        int ii;
-        char **buffers = 0, *buffer;
+  /* Construct a list of buffers. Each buffer will hold 1024 bytes. If
+   * more is required, it is easier to extend the list than to extend
+   * a massive buffer. When all the bytes up to a newline have been
+   * retrieved, join the buffers together
+  **/
+  int buffer_count = 0, max_buffer_count = 10, buffer_size = 1024;
+  int ii;
+  char **buffers = 0, *buffer;
 
-        /* Start with room for 10 buffers */
-        buffers = malloc (sizeof (char *) * max_buffer_count);
+  /* Start with room for 10 buffers */
+  buffers = malloc (sizeof (char *) * max_buffer_count);
 
-        while (1)
-        {
-                char *retval;
+  while (1)
+  {
+    char *retval;
 
-                /* Increase the max buffer count in increments of 10 */
-                if (buffer_count == max_buffer_count)
-                {
-                        max_buffer_count = buffer_count + 10;
-                        buffers = realloc (buffers, sizeof (char *) * max_buffer_count);
-                }
+    /* Increase the max buffer count in increments of 10 */
+    if (buffer_count == max_buffer_count)
+    {
+      max_buffer_count = buffer_count + 10;
+      buffers = realloc (buffers, sizeof (char *) * max_buffer_count);
+    }
 
-                buffer = malloc (sizeof (char) * (buffer_size + 1));
-                retval = fgets (buffer, (buffer_size + 1), input);
+    buffer = malloc (sizeof (char) * (buffer_size + 1));
+    retval = fgets (buffer, (buffer_size + 1), input);
 
-                if (retval)
-                {
-                        buffers[buffer_count] = buffer;
-                        buffer_count++;
+    if (retval)
+    {
+      buffers[buffer_count] = buffer;
+      buffer_count++;
 
-                        if (retval[strlen (retval) - 1] == '\n')
-                        {
-                                /* End of the line */
-                                break;
-                        }
-                }
+      if (retval[strlen (retval) - 1] == '\n')
+      {
+        /* End of the line */
+        break;
+      }
+    }
 
-                else
-                {
-                        /* End of the file */
-                        free (buffer);
-                        break;
-                }
-        }
+    else
+    {
+      /* End of the file */
+      free (buffer);
+      break;
+    }
+  }
 
-        if (buffer_count == 0)
-        {
-                /* No more data to read */
-                free (buffers);
-                return 0;
-        }
+  if (buffer_count == 0)
+  {
+    /* No more data to read */
+    free (buffers);
+    return 0;
+  }
 
-        /* Create one giant buffer to contain all the retrieved text */
-        buffer = malloc (sizeof (char) * (buffer_count * (buffer_size + 1)));
+  /* Create one giant buffer to contain all the retrieved text */
+  buffer = malloc (sizeof (char) * (buffer_count * (buffer_size + 1)));
 
-        /* Copy buffer data and free memory */
-        for (ii = 0; ii < buffer_count; ii++)
-        {
-                strncpy (buffer + (ii * buffer_size), buffers[ii], buffer_size);
-                free (buffers[ii]);
-        }
+  /* Copy buffer data and free memory */
+  for (ii = 0; ii < buffer_count; ii++)
+  {
+    strncpy (buffer + (ii * buffer_size), buffers[ii], buffer_size);
+    free (buffers[ii]);
+  }
 
-        free (buffers);
-        buffer[buffer_count * (buffer_size + 1) - 1] = 0;
-        return buffer;
+  free (buffers);
+  buffer[buffer_count * (buffer_size + 1) - 1] = 0;
+  return buffer;
 }
 
 /**********
@@ -175,47 +175,47 @@ read_line (FILE *input)
 
 static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const char *contents)
 {
-	vorbis_comment vc_tmp;
-	size_t taglen;
-	int i;
-	const char *p;
-	int match;
+  vorbis_comment vc_tmp;
+  size_t taglen;
+  int i;
+  const char *p;
+  int match;
 
-	taglen = strlen(tag);
+  taglen = strlen(tag);
 
-	vorbis_comment_init(&vc_tmp);
+  vorbis_comment_init(&vc_tmp);
 
-	for (i = 0; i < vc->comments; i++)
-	{
-		p = vc->user_comments[i];
-		match = 0;
+  for (i = 0; i < vc->comments; i++)
+  {
+    p = vc->user_comments[i];
+    match = 0;
 
-		do {
-			if (strncasecmp(p, tag, taglen) != 0) {
-				break;
-			}
-			p += taglen;
-			if (*p != '=') {
-				break;
-			}
-			p++;
-			if (contents) {
-				if (strcmp(p, contents) != 0) {
-					break;
-				}
-			}
+    do {
+      if (strncasecmp(p, tag, taglen) != 0) {
+        break;
+      }
+      p += taglen;
+      if (*p != '=') {
+        break;
+      }
+      p++;
+      if (contents) {
+        if (strcmp(p, contents) != 0) {
+          break;
+        }
+      }
 
-			match = 1;
-		} while (0);
+      match = 1;
+    } while (0);
 
-		if (!match) {
-			vorbis_comment_add(&vc_tmp, vc->user_comments[i]);
-		}
-	}
+    if (!match) {
+      vorbis_comment_add(&vc_tmp, vc->user_comments[i]);
+    }
+  }
 
-	vorbis_comment_clear(vc);
+  vorbis_comment_clear(vc);
 
-	*vc = vc_tmp;
+  *vc = vc_tmp;
 }
 
 /**********
@@ -232,119 +232,119 @@ static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const ch
 
 int main(int argc, char **argv)
 {
-	vcedit_state *state;
-	vorbis_comment *vc;
-	param_t	*param;
-	int i;
+  vcedit_state *state;
+  vorbis_comment *vc;
+  param_t *param;
+  int i;
 
-	setlocale(LC_ALL, "");
-	bindtextdomain(PACKAGE, LOCALEDIR);
-	textdomain(PACKAGE);
+  setlocale(LC_ALL, "");
+  bindtextdomain(PACKAGE, LOCALEDIR);
+  textdomain(PACKAGE);
 
-	/* initialize the cmdline interface */
-	param = new_param();
-	parse_options(argc, argv, param);
+  /* initialize the cmdline interface */
+  param = new_param();
+  parse_options(argc, argv, param);
 
-	/* take care of opening the requested files */
-	/* relevent file pointers are returned in the param struct */
-	open_files(param);
+  /* take care of opening the requested files */
+  /* relevent file pointers are returned in the param struct */
+  open_files(param);
 
-	/* which mode are we in? */
+  /* which mode are we in? */
 
-	if (param->mode == MODE_LIST) {
+  if (param->mode == MODE_LIST) {
 
-		state = vcedit_new_state();
+    state = vcedit_new_state();
 
-		if(vcedit_open(state, param->in) < 0)
-		{
-			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
-					vcedit_error(state));
-            close_files(param, 0);
-            free_param(param);
-            vcedit_clear(state);
-			return 1;
-		}
+    if(vcedit_open(state, param->in) < 0)
+    {
+      fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
+      vcedit_error(state));
+      close_files(param, 0);
+      free_param(param);
+      vcedit_clear(state);
+      return 1;
+    }
 
-		/* extract and display the comments */
-		vc = vcedit_comments(state);
-		print_comments(param->com, vc, param->raw, param->escapes);
+    /* extract and display the comments */
+    vc = vcedit_comments(state);
+    print_comments(param->com, vc, param->raw, param->escapes);
 
-		/* done */
-		vcedit_clear(state);
+    /* done */
+    vcedit_clear(state);
 
-		close_files(param, 0);
-        free_param(param);
-		return 0;
-	}
-
-	if (param->mode == MODE_WRITE || param->mode == MODE_APPEND) {
-
-		state = vcedit_new_state();
-
-		if(vcedit_open(state, param->in) < 0)
-		{
-			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
-					vcedit_error(state));
-			close_files(param, 0);
-			free_param(param);
-			vcedit_clear(state);
-			return 1;
-		}
-
-		/* grab and clear the exisiting comments */
-		vc = vcedit_comments(state);
-		if(param->mode != MODE_APPEND)
-		{
-			vorbis_comment_clear(vc);
-			vorbis_comment_init(vc);
-		}
-
-		for(i=0; i < param->commentcount; i++)
-		{
-			if (alter_comment(param->comments[i], vc,
-					param->raw, param->escapes, param->changetypes[i]) < 0)
-				fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
-		}
-
-		/* build the replacement structure */
-		if(param->commentcount==0)
-		{
-			char *comment;
-
-			while ((comment = read_line (param->com)))
-                        {
-                                if (alter_comment(comment, vc, param->raw, param->escapes, CHANGETYPE_ADD) < 0)
-                                {
-                                        fprintf (stderr, _("bad comment: \"%s\"\n"),
-                                                 comment);
-                                }
-                                free (comment);
-                        }
-		}
-
-		/* write out the modified stream */
-		if(vcedit_write(state, param->out) < 0)
-		{
-			fprintf(stderr, _("Failed to write comments to output file: %s\n"),
-					vcedit_error(state));
-			close_files(param, 0);
-			free_param(param);
-			vcedit_clear(state);
-			return 1;
-		}
-
-		/* done */
-		vcedit_clear(state);
-
-		close_files(param, 1);
-		free_param(param);
-		return 0;
-	}
-
-	/* should never reach this point */
-	fprintf(stderr, _("no action specified\n"));
+    close_files(param, 0);
     free_param(param);
-	return 1;
+    return 0;
+  }
+
+  if (param->mode == MODE_WRITE || param->mode == MODE_APPEND) {
+
+    state = vcedit_new_state();
+
+    if(vcedit_open(state, param->in) < 0)
+    {
+      fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
+      vcedit_error(state));
+      close_files(param, 0);
+      free_param(param);
+      vcedit_clear(state);
+      return 1;
+    }
+
+    /* grab and clear the exisiting comments */
+    vc = vcedit_comments(state);
+    if(param->mode != MODE_APPEND)
+    {
+      vorbis_comment_clear(vc);
+      vorbis_comment_init(vc);
+    }
+
+    for(i=0; i < param->commentcount; i++)
+    {
+      if (alter_comment(param->comments[i], vc,
+        param->raw, param->escapes, param->changetypes[i]) < 0)
+        fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
+    }
+
+    /* build the replacement structure */
+    if(param->commentcount==0)
+    {
+      char *comment;
+
+      while ((comment = read_line (param->com)))
+      {
+        if (alter_comment(comment, vc, param->raw, param->escapes, CHANGETYPE_ADD) < 0)
+        {
+          fprintf (stderr, _("bad comment: \"%s\"\n"),
+                   comment);
+        }
+        free (comment);
+      }
+    }
+
+    /* write out the modified stream */
+    if(vcedit_write(state, param->out) < 0)
+    {
+      fprintf(stderr, _("Failed to write comments to output file: %s\n"),
+      vcedit_error(state));
+      close_files(param, 0);
+      free_param(param);
+      vcedit_clear(state);
+      return 1;
+    }
+
+    /* done */
+    vcedit_clear(state);
+
+    close_files(param, 1);
+    free_param(param);
+    return 0;
+  }
+
+  /* should never reach this point */
+  fprintf(stderr, _("no action specified\n"));
+    free_param(param);
+  return 1;
 }
 
 /**********
@@ -358,27 +358,27 @@ int main(int argc, char **argv)
 
 void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
 {
-	int i;
-	char *escaped_value, *decoded_value;
+  int i;
+  char *escaped_value, *decoded_value;
 
-	for (i = 0; i < vc->comments; i++) {
-		if (escapes) {
-			escaped_value = escape(vc->user_comments[i], vc->comment_lengths[i]);
-		} else {
-			escaped_value = vc->user_comments[i];
-		}
+  for (i = 0; i < vc->comments; i++) {
+    if (escapes) {
+      escaped_value = escape(vc->user_comments[i], vc->comment_lengths[i]);
+    } else {
+      escaped_value = vc->user_comments[i];
+    }
 
-		if (!raw && utf8_decode(escaped_value, &decoded_value) >= 0) {
-			fprintf(out, "%s\n", decoded_value);
-			free(decoded_value);
-		} else {
-			fprintf(out, "%s\n", escaped_value);
-		}
+    if (!raw && utf8_decode(escaped_value, &decoded_value) >= 0) {
+      fprintf(out, "%s\n", decoded_value);
+      free(decoded_value);
+    } else {
+      fprintf(out, "%s\n", escaped_value);
+    }
 
-		if (escapes) {
-			free(escaped_value);
-		}
-	}
+    if (escapes) {
+      free(escaped_value);
+    }
+  }
 }
 
 /**********
@@ -394,104 +394,102 @@ void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
 
 int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int changetype)
 {
-	char *mark, *value, *utf8_value, *unescaped_value;
-	int unescaped_len;
-	int allow_empty = 0;
-	int is_empty = 0;
+  char *mark, *value, *utf8_value, *unescaped_value;
+  int unescaped_len;
+  int allow_empty = 0;
+  int is_empty = 0;
 
-	if (changetype != CHANGETYPE_ADD &&
-	    changetype != CHANGETYPE_REMOVE) {
-		return -1;
-	}
+  if (changetype != CHANGETYPE_ADD &&
+      changetype != CHANGETYPE_REMOVE) {
+    return -1;
+  }
 
-	if (changetype == CHANGETYPE_REMOVE) {
-		allow_empty = 1;
-	}
+  if (changetype == CHANGETYPE_REMOVE) {
+    allow_empty = 1;
+  }
 
-	/* strip any terminal newline */
-	{
-		int len = strlen(line);
-		if (line[len-1] == '\n') line[len-1] = '\0';
-	}
+  /* strip any terminal newline */
+  {
+    int len = strlen(line);
+    if (line[len-1] == '\n') line[len-1] = '\0';
+  }
 
-	/* validation: basically, we assume it's a tag
-	 * if if has an '=' after valid tag characters,
-	 * or if it just contains valid tag characters
-	 * and we're allowing empty values. */
+  /* validation: basically, we assume it's a tag
+   * if if has an '=' after valid tag characters,
+   * or if it just contains valid tag characters
+   * and we're allowing empty values. */
 
-	mark = strchr(line, '=');
-	if (mark == NULL) {
-		if (allow_empty) {
-			mark = line + strlen(line);
-			is_empty = 1;
-		} else {
-			return -1;
-		}
-	}
+  mark = strchr(line, '=');
+  if (mark == NULL) {
+    if (allow_empty) {
+      mark = line + strlen(line);
+      is_empty = 1;
+    } else {
+      return -1;
+    }
+  }
 
-	value = line;
-	while (value < mark) {
-		if(*value < 0x20 || *value > 0x7d || *value == 0x3d) return -1;
-		value++;
-	}
+  value = line;
+  while (value < mark) {
+    if(*value < 0x20 || *value > 0x7d || *value == 0x3d) return -1;
+    value++;
+  }
 
-	if (is_empty) {
-		unescaped_value = NULL;
-	} else {
-		/* split the line by turning the '=' in to a null */
-		*mark = '\0';
-		value++;
+  if (is_empty) {
+    unescaped_value = NULL;
+  } else {
+    /* split the line by turning the '=' in to a null */
+    *mark = '\0';
+    value++;
 
-		if (raw) {
-			if (!utf8_validate(value)) {
-				fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
-				return -1;
-			}
-			utf8_value = value;
-		} else {
-			/* convert the value from the native charset to UTF-8 */
-			if (utf8_encode(value, &utf8_value) < 0) {
-				fprintf(stderr,
-						_("Couldn't convert comment to UTF-8, cannot add\n"));
-				return -1;
-			}
-		}
+    if (raw) {
+      if (!utf8_validate(value)) {
+        fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
+        return -1;
+      }
+      utf8_value = value;
+    } else {
+      /* convert the value from the native charset to UTF-8 */
+      if (utf8_encode(value, &utf8_value) < 0) {
+        fprintf(stderr, _("Couldn't convert comment to UTF-8, cannot add\n"));
+        return -1;
+      }
+    }
 
-		if (escapes) {
-			unescaped_value = unescape(utf8_value, &unescaped_len);
-			/*
-			  NOTE: unescaped_len remains unused; to write comments with embeded
-			  \0's one would need to access the vc struct directly -- see
-			  vorbis_comment_add() in vorbis/lib/info.c for details, but use mem*
-			  instead of str*...
-			*/
-			if(unescaped_value == NULL) {
-				fprintf(stderr,
-						_("Couldn't un-escape comment, cannot add\n"));
-				if (!raw)
-					free(utf8_value);
-				return -1;
-			}
-		} else {
-			unescaped_value = utf8_value;
-		}
-	}
+    if (escapes) {
+      unescaped_value = unescape(utf8_value, &unescaped_len);
+      /*
+        NOTE: unescaped_len remains unused; to write comments with embeded
+        \0's one would need to access the vc struct directly -- see
+        vorbis_comment_add() in vorbis/lib/info.c for details, but use mem*
+        instead of str*...
+      */
+      if(unescaped_value == NULL) {
+        fprintf(stderr, _("Couldn't un-escape comment, cannot add\n"));
+        if (!raw)
+          free(utf8_value);
+        return -1;
+      }
+    } else {
+      unescaped_value = utf8_value;
+    }
+  }
 
-	/* append or delete the comment and return */
-	switch (changetype) {
-	case CHANGETYPE_ADD:
-		vorbis_comment_add_tag(vc, line, unescaped_value);
-		break;
-	case CHANGETYPE_REMOVE:
-		_vorbis_comment_rm_tag(vc, line, unescaped_value);
-		break;
-	}
+  /* append or delete the comment and return */
+  switch (changetype) {
+  case CHANGETYPE_ADD:
+    vorbis_comment_add_tag(vc, line, unescaped_value);
+    break;
+  case CHANGETYPE_REMOVE:
+    _vorbis_comment_rm_tag(vc, line, unescaped_value);
+    break;
+  }
 
-	if (escapes)
-		free(unescaped_value);
-	if (!raw && !is_empty)
-		free(utf8_value);
-	return 0;
+  if (escapes)
+    free(unescaped_value);
+  if (!raw && !is_empty)
+    free(utf8_value);
+  return 0;
 }
 
 
@@ -511,38 +509,38 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
 
 char *escape(const char *from, int fromsize)
 {
-	/* worst-case allocation, will be trimmed when done */
-	char *to = malloc(fromsize * 2 + 1);
+  /* worst-case allocation, will be trimmed when done */
+  char *to = malloc(fromsize * 2 + 1);
 
-	char *s;
-	for (s = to; fromsize > 0; fromsize--, from++) {
-		switch (*from) {
-		case '\n':
-			*s++ = '\\';
-			*s++ = 'n';
-			break;
-		case '\r':
-			*s++ = '\\';
-			*s++ = 'r';
-			break;
-		case '\0':
-			*s++ = '\\';
-			*s++ = '0';
-			break;
-		case '\\':
-			*s++ = '\\';
-			*s++ = '\\';
-			break;
-		default:
-			/* normal character */
-			*s++ = *from;
-			break;
-		}
-	}
+  char *s;
+  for (s = to; fromsize > 0; fromsize--, from++) {
+    switch (*from) {
+    case '\n':
+      *s++ = '\\';
+      *s++ = 'n';
+      break;
+    case '\r':
+      *s++ = '\\';
+      *s++ = 'r';
+      break;
+    case '\0':
+      *s++ = '\\';
+      *s++ = '0';
+      break;
+    case '\\':
+      *s++ = '\\';
+      *s++ = '\\';
+      break;
+    default:
+      /* normal character */
+      *s++ = *from;
+      break;
+    }
+  }
 
-	*s++ = '\0';
-	to = realloc(to, s - to);	/* free unused space */
-	return to;
+  *s++ = '\0';
+  to = realloc(to, s - to); /* free unused space */
+  return to;
 }
 
 /**********
@@ -560,46 +558,46 @@ char *escape(const char *from, int fromsize)
 
 char *unescape(const char *from, int *tosize)
 {
-	/* worst-case allocation, will be trimmed when done */
-	char *to = malloc(strlen(from) + 1);
+  /* worst-case allocation, will be trimmed when done */
+  char *to = malloc(strlen(from) + 1);
 
-	char *s;
-	for (s = to; *from != '\0'; ) {
-		if (*from == '\\') {
-			from++;
-			switch (*from++) {
-			case 'n':
-				*s++ = '\n';
-				break;
-			case 'r':
-				*s++ = '\r';
-				break;
-			case '0':
-				*s++ = '\0';
-				break;
-			case '\\':
-				*s++ = '\\';
-				break;
-			case '\0':
-				/* A backslash as the last character of the string is an error. */
-				/* FALL-THROUGH */
-			default:
-				/* We consider any unrecognized escape as an error.  This is
-				   good in general and reserves them for future expansion. */
-				free(to);
-				return NULL;
-			}
-		} else {
-			/* normal character */
-			*s++ = *from++;
-		}
-	}
+  char *s;
+  for (s = to; *from != '\0'; ) {
+    if (*from == '\\') {
+      from++;
+      switch (*from++) {
+      case 'n':
+        *s++ = '\n';
+        break;
+      case 'r':
+        *s++ = '\r';
+        break;
+      case '0':
+        *s++ = '\0';
+        break;
+      case '\\':
+        *s++ = '\\';
+        break;
+      case '\0':
+        /* A backslash as the last character of the string is an error. */
+        /* FALL-THROUGH */
+      default:
+        /* We consider any unrecognized escape as an error.  This is
+           good in general and reserves them for future expansion. */
+        free(to);
+        return NULL;
+      }
+    } else {
+      /* normal character */
+      *s++ = *from++;
+    }
+  }
 
-	*tosize = s - to;			/* excluding '\0' */
+  *tosize = s - to;     /* excluding '\0' */
 
-	*s++ = '\0';
-	to = realloc(to, s - to);	/* free unused space */
-	return to;
+  *s++ = '\0';
+  to = realloc(to, s - to); /* free unused space */
+  return to;
 }
 
 
@@ -625,9 +623,9 @@ void usage(void)
   printf ("\n");
 
   printf (_("Usage: \n"
-	    "  vorbiscomment [-Vh]\n"
-	    "  vorbiscomment [-lRe] inputfile\n"
-	    "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"));
+      "  vorbiscomment [-Vh]\n"
+      "  vorbiscomment [-lRe] inputfile\n"
+      "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"));
   printf ("\n");
 
   printf (_("Listing options\n"));
@@ -675,10 +673,10 @@ void usage(void)
   printf ("\n");
 
   printf (_("NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather than\n"
-	    "converting to the user's character set, which is useful in scripts. However,\n"
-	    "this is not sufficient for general round-tripping of comments in all cases,\n"
-	    "since comments can contain newlines. To handle that, use escaping (-e,\n"
-	    "--escape).\n"));
+      "converting to the user's character set, which is useful in scripts. However,\n"
+      "this is not sufficient for general round-tripping of comments in all cases,\n"
+      "since comments can contain newlines. To handle that, use escaping (-e,\n"
+      "--escape).\n"));
 }
 
 void free_param(param_t *param) {
@@ -695,29 +693,29 @@ void free_param(param_t *param) {
 
 param_t *new_param(void)
 {
-	param_t *param = (param_t *)malloc(sizeof(param_t));
+  param_t *param = (param_t *)malloc(sizeof(param_t));
 
-	/* mode and flags */
-	param->mode = MODE_LIST;
-	param->raw = 0;
-	param->escapes = 0;
+  /* mode and flags */
+  param->mode = MODE_LIST;
+  param->raw = 0;
+  param->escapes = 0;
 
-	/* filenames */
-	param->infilename  = NULL;
-	param->outfilename = NULL;
-	param->commentfilename = "-";	/* default */
+  /* filenames */
+  param->infilename  = NULL;
+  param->outfilename = NULL;
+  param->commentfilename = "-"; /* default */
 
-	/* file pointers */
-	param->in = param->out = NULL;
-	param->com = NULL;
-	param->tempoutfile=0;
+  /* file pointers */
+  param->in = param->out = NULL;
+  param->com = NULL;
+  param->tempoutfile=0;
 
-	/* comments */
-	param->commentcount=0;
-	param->comments=NULL;
-	param->changetypes=NULL;
+  /* comments */
+  param->commentcount=0;
+  param->comments=NULL;
+  param->changetypes=NULL;
 
-	return param;
+  return param;
 }
 
 /**********
@@ -731,93 +729,93 @@ param_t *new_param(void)
 
 void parse_options(int argc, char *argv[], param_t *param)
 {
-	int ret;
-	int option_index = 1;
+  int ret;
+  int option_index = 1;
 
-	setlocale(LC_ALL, "");
+  setlocale(LC_ALL, "");
 
-	while ((ret = getopt_long(argc, argv, "alwhqVc:t:d:Re",
-			long_options, &option_index)) != -1) {
-		switch (ret) {
-			case 0:
-				fprintf(stderr, _("Internal error parsing command options\n"));
-				exit(1);
-				break;
-			case 'l':
-				param->mode = MODE_LIST;
-				break;
-			case 'R':
-				param->raw = 1;
-				break;
-			case 'e':
-				param->escapes = 1;
-				break;
-			case 'w':
-				param->mode = MODE_WRITE;
-				break;
-			case 'a':
-				param->mode = MODE_APPEND;
-				break;
-			case 'V':
-				fprintf(stderr, _("vorbiscomment from vorbis-tools " VERSION "\n"));
-				exit(0);
-				break;
-			case 'h':
-				usage();
-				exit(0);
-				break;
-			case 'q':
-				/* set quiet flag: unused */
-				break;
-			case 'c':
-				param->commentfilename = strdup(optarg);
-				break;
-			case 't':
-				param->comments = realloc(param->comments,
-						(param->commentcount+1)*sizeof(char *));
-				param->changetypes = realloc(param->changetypes,
-						(param->commentcount+1)*sizeof(int));
-				param->comments[param->commentcount] = strdup(optarg);
-				param->changetypes[param->commentcount] = CHANGETYPE_ADD;
-				param->commentcount++;
-				break;
-			case 'd':
-				param->comments = realloc(param->comments,
-						(param->commentcount+1)*sizeof(char *));
-				param->changetypes = realloc(param->changetypes,
-						(param->commentcount+1)*sizeof(int));
-				param->comments[param->commentcount] = strdup(optarg);
-				param->changetypes[param->commentcount] = CHANGETYPE_REMOVE;
-				param->commentcount++;
-				param->mode = MODE_APPEND;
-				break;
-			default:
-				usage();
-				exit(1);
-		}
-	}
+  while ((ret = getopt_long(argc, argv, "alwhqVc:t:d:Re",
+                    long_options, &option_index)) != -1) {
+    switch (ret) {
+      case 0:
+        fprintf(stderr, _("Internal error parsing command options\n"));
+        exit(1);
+        break;
+      case 'l':
+        param->mode = MODE_LIST;
+        break;
+      case 'R':
+        param->raw = 1;
+        break;
+      case 'e':
+        param->escapes = 1;
+        break;
+      case 'w':
+        param->mode = MODE_WRITE;
+        break;
+      case 'a':
+        param->mode = MODE_APPEND;
+        break;
+      case 'V':
+        fprintf(stderr, _("vorbiscomment from vorbis-tools " VERSION "\n"));
+        exit(0);
+        break;
+      case 'h':
+        usage();
+        exit(0);
+        break;
+      case 'q':
+        /* set quiet flag: unused */
+        break;
+      case 'c':
+        param->commentfilename = strdup(optarg);
+        break;
+      case 't':
+        param->comments = realloc(param->comments,
+            (param->commentcount+1)*sizeof(char *));
+        param->changetypes = realloc(param->changetypes,
+            (param->commentcount+1)*sizeof(int));
+        param->comments[param->commentcount] = strdup(optarg);
+        param->changetypes[param->commentcount] = CHANGETYPE_ADD;
+        param->commentcount++;
+        break;
+      case 'd':
+        param->comments = realloc(param->comments,
+            (param->commentcount+1)*sizeof(char *));
+        param->changetypes = realloc(param->changetypes,
+            (param->commentcount+1)*sizeof(int));
+        param->comments[param->commentcount] = strdup(optarg);
+        param->changetypes[param->commentcount] = CHANGETYPE_REMOVE;
+        param->commentcount++;
+        param->mode = MODE_APPEND;
+        break;
+      default:
+        usage();
+        exit(1);
+    }
+  }
 
-	/* remaining bits must be the filenames */
-	if((param->mode == MODE_LIST && (argc-optind) != 1) ||
-	   ((param->mode == MODE_WRITE || param->mode == MODE_APPEND) &&
-	   ((argc-optind) < 1 || (argc-optind) > 2))) {
-			usage();
-			exit(1);
-	}
+  /* remaining bits must be the filenames */
+  if((param->mode == MODE_LIST && (argc-optind) != 1) ||
+     ((param->mode == MODE_WRITE || param->mode == MODE_APPEND) &&
+     ((argc-optind) < 1 || (argc-optind) > 2))) {
+    usage();
+    exit(1);
+  }
 
-	param->infilename = strdup(argv[optind]);
-	if (param->mode == MODE_WRITE || param->mode == MODE_APPEND)
-	{
-		if(argc-optind == 1)
-		{
-			param->tempoutfile = 1;
-			param->outfilename = malloc(strlen(param->infilename)+8);
-			strcpy(param->outfilename, param->infilename);
-			strcat(param->outfilename, ".vctemp");
-		}
-		else
-			param->outfilename = strdup(argv[optind+1]);
-	}
+  param->infilename = strdup(argv[optind]);
+  if (param->mode == MODE_WRITE || param->mode == MODE_APPEND)
+  {
+    if(argc-optind == 1)
+    {
+      param->tempoutfile = 1;
+      param->outfilename = malloc(strlen(param->infilename)+8);
+      strcpy(param->outfilename, param->infilename);
+      strcat(param->outfilename, ".vctemp");
+    }
+    else
+      param->outfilename = strdup(argv[optind+1]);
+  }
 }
 
 /**********
@@ -834,74 +832,71 @@ void parse_options(int argc, char *argv[], param_t *param)
 
 void open_files(param_t *p)
 {
-	/* for all modes, open the input file */
+  /* for all modes, open the input file */
 
-	if (strncmp(p->infilename,"-",2) == 0) {
-		p->in = stdin;
-	} else {
-		p->in = fopen(p->infilename, "rb");
-	}
-	if (p->in == NULL) {
-		fprintf(stderr,
-			_("Error opening input file '%s'.\n"),
-			p->infilename);
-		exit(1);
-	}
+  if (strncmp(p->infilename,"-",2) == 0) {
+    p->in = stdin;
+  } else {
+    p->in = fopen(p->infilename, "rb");
+  }
+  if (p->in == NULL) {
+    fprintf(stderr,
+      _("Error opening input file '%s'.\n"),
+      p->infilename);
+    exit(1);
+  }
 
-	if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) {
+  if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) {
 
-		/* open output for write mode */
-        if(!strcmp(p->infilename, p->outfilename)) {
-            fprintf(stderr, _("Input filename may not be the same as output filename\n"));
-            exit(1);
-        }
+    /* open output for write mode */
+    if(!strcmp(p->infilename, p->outfilename)) {
+      fprintf(stderr, _("Input filename may not be the same as output filename\n"));
+      exit(1);
+    }
 
-		if (strncmp(p->outfilename,"-",2) == 0) {
-			p->out = stdout;
-		} else {
-			p->out = fopen(p->outfilename, "wb");
-		}
-		if(p->out == NULL) {
-			fprintf(stderr,
-				_("Error opening output file '%s'.\n"),
-				p->outfilename);
-			exit(1);
-		}
+    if (strncmp(p->outfilename,"-",2) == 0) {
+      p->out = stdout;
+    } else {
+      p->out = fopen(p->outfilename, "wb");
+    }
+    if(p->out == NULL) {
+      fprintf(stderr, _("Error opening output file '%s'.\n"),
+          p->outfilename);
+      exit(1);
+    }
 
-		/* commentfile is input */
+    /* commentfile is input */
 
-		if ((p->commentfilename == NULL) ||
-				(strncmp(p->commentfilename,"-",2) == 0)) {
-			p->com = stdin;
-		} else {
-			p->com = fopen(p->commentfilename, "r");
-		}
-		if (p->com == NULL) {
-			fprintf(stderr,
-				_("Error opening comment file '%s'.\n"),
-				p->commentfilename);
-			exit(1);
-		}
+    if ((p->commentfilename == NULL) ||
+        (strncmp(p->commentfilename,"-",2) == 0)) {
+      p->com = stdin;
+    } else {
+      p->com = fopen(p->commentfilename, "r");
+    }
+    if (p->com == NULL) {
+      fprintf(stderr, _("Error opening comment file '%s'.\n"),
+        p->commentfilename);
+      exit(1);
+    }
 
-	} else {
+  } else {
 
-		/* in list mode, commentfile is output */
+    /* in list mode, commentfile is output */
 
-		if ((p->commentfilename == NULL) ||
-				(strncmp(p->commentfilename,"-",2) == 0)) {
-			p->com = stdout;
-		} else {
-			p->com = fopen(p->commentfilename, "w");
-		}
-		if (p->com == NULL) {
-			fprintf(stderr,
-				_("Error opening comment file '%s'\n"),
-				p->commentfilename);
-			exit(1);
-		}
-	}
+    if ((p->commentfilename == NULL) ||
+        (strncmp(p->commentfilename,"-",2) == 0)) {
+      p->com = stdout;
+    } else {
+      p->com = fopen(p->commentfilename, "w");
+    }
+    if (p->com == NULL) {
+      fprintf(stderr, _("Error opening comment file '%s'\n"),
+        p->commentfilename);
+      exit(1);
+    }
+  }
 
-	/* all done */
+  /* all done */
 }
 
 /**********
