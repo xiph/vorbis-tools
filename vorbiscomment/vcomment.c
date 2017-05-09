@@ -13,39 +13,36 @@
 #include <config.h>
 #endif
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #if HAVE_STAT && HAVE_CHMOD
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 #endif
 
 #include "getopt.h"
-#include "utf8.h"
 #include "i18n.h"
+#include "utf8.h"
 
 #include "vcedit.h"
 
-
 /* getopt format struct */
-struct option long_options[] = {
-  {"list",0,0,'l'},
-  {"append",0,0,'a'},
-  {"tag",required_argument,0,'t'},
-  {"rm",required_argument,0,'d'},
-  {"write",0,0,'w'},
-  {"help",0,0,'h'},
-  {"quiet",0,0,'q'}, /* unused */
-  {"version", 0, 0, 'V'},
-  {"commentfile",1,0,'c'},
-  {"raw", 0,0,'R'},
-  {"escapes",0,0,'e'},
-  {NULL,0,0,0}
-};
+struct option long_options[] = {{"list", 0, 0, 'l'},
+                                {"append", 0, 0, 'a'},
+                                {"tag", required_argument, 0, 't'},
+                                {"rm", required_argument, 0, 'd'},
+                                {"write", 0, 0, 'w'},
+                                {"help", 0, 0, 'h'},
+                                {"quiet", 0, 0, 'q'}, /* unused */
+                                {"version", 0, 0, 'V'},
+                                {"commentfile", 1, 0, 'c'},
+                                {"raw", 0, 0, 'R'},
+                                {"escapes", 0, 0, 'e'},
+                                {NULL, 0, 0, 0}};
 
 /* local parameter storage from parsed options */
 typedef struct {
@@ -55,19 +52,19 @@ typedef struct {
   int escapes;
 
   /* file names and handles */
-  char  *infilename, *outfilename;
-  char  *commentfilename;
-  FILE  *in, *out, *com;
+  char *infilename, *outfilename;
+  char *commentfilename;
+  FILE *in, *out, *com;
   int tempoutfile;
 
   /* comments */
   int commentcount;
-  char  **comments;
-  int   *changetypes;
+  char **comments;
+  int *changetypes;
 } param_t;
 
-#define MODE_NONE  0
-#define MODE_LIST  1
+#define MODE_NONE 0
+#define MODE_LIST 1
 #define MODE_WRITE 2
 #define MODE_APPEND 3
 
@@ -77,7 +74,8 @@ typedef struct {
 /* prototypes */
 void usage(void);
 void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes);
-int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int changetype);
+int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
+                  int changetype);
 
 char *escape(const char *from, int fromsize);
 char *unescape(const char *from, int *tosize);
@@ -88,11 +86,10 @@ void parse_options(int argc, char *argv[], param_t *param);
 void open_files(param_t *p);
 void close_files(param_t *p, int output_written);
 
-static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const char *contents);
+static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag,
+                                   const char *contents);
 
-char *
-read_line (FILE *input)
-{
+char *read_line(FILE *input) {
   /* Construct a list of buffers. Each buffer will hold 1024 bytes. If
    * more is required, it is easier to extend the list than to extend
    * a massive buffer. When all the bytes up to a newline have been
@@ -103,60 +100,53 @@ read_line (FILE *input)
   char **buffers = 0, *buffer;
 
   /* Start with room for 10 buffers */
-  buffers = malloc (sizeof (char *) * max_buffer_count);
+  buffers = malloc(sizeof(char *) * max_buffer_count);
 
-  while (1)
-  {
+  while (1) {
     char *retval;
 
     /* Increase the max buffer count in increments of 10 */
-    if (buffer_count == max_buffer_count)
-    {
+    if (buffer_count == max_buffer_count) {
       max_buffer_count = buffer_count + 10;
-      buffers = realloc (buffers, sizeof (char *) * max_buffer_count);
+      buffers = realloc(buffers, sizeof(char *) * max_buffer_count);
     }
 
-    buffer = malloc (sizeof (char) * (buffer_size + 1));
-    retval = fgets (buffer, (buffer_size + 1), input);
+    buffer = malloc(sizeof(char) * (buffer_size + 1));
+    retval = fgets(buffer, (buffer_size + 1), input);
 
-    if (retval)
-    {
+    if (retval) {
       buffers[buffer_count] = buffer;
       buffer_count++;
 
-      if (retval[strlen (retval) - 1] == '\n')
-      {
+      if (retval[strlen(retval) - 1] == '\n') {
         /* End of the line */
         break;
       }
     }
 
-    else
-    {
+    else {
       /* End of the file */
-      free (buffer);
+      free(buffer);
       break;
     }
   }
 
-  if (buffer_count == 0)
-  {
+  if (buffer_count == 0) {
     /* No more data to read */
-    free (buffers);
+    free(buffers);
     return 0;
   }
 
   /* Create one giant buffer to contain all the retrieved text */
-  buffer = malloc (sizeof (char) * (buffer_count * (buffer_size + 1)));
+  buffer = malloc(sizeof(char) * (buffer_count * (buffer_size + 1)));
 
   /* Copy buffer data and free memory */
-  for (ii = 0; ii < buffer_count; ii++)
-  {
-    strncpy (buffer + (ii * buffer_size), buffers[ii], buffer_size);
-    free (buffers[ii]);
+  for (ii = 0; ii < buffer_count; ii++) {
+    strncpy(buffer + (ii * buffer_size), buffers[ii], buffer_size);
+    free(buffers[ii]);
   }
 
-  free (buffers);
+  free(buffers);
   buffer[buffer_count * (buffer_size + 1) - 1] = 0;
   return buffer;
 }
@@ -173,8 +163,8 @@ read_line (FILE *input)
 
 ***********/
 
-static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const char *contents)
-{
+static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag,
+                                   const char *contents) {
   vorbis_comment vc_tmp;
   size_t taglen;
   int i;
@@ -185,8 +175,7 @@ static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const ch
 
   vorbis_comment_init(&vc_tmp);
 
-  for (i = 0; i < vc->comments; i++)
-  {
+  for (i = 0; i < vc->comments; i++) {
     p = vc->user_comments[i];
     match = 0;
 
@@ -230,8 +219,7 @@ static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const ch
 
 ***********/
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   vcedit_state *state;
   vorbis_comment *vc;
   param_t *param;
@@ -255,10 +243,9 @@ int main(int argc, char **argv)
 
     state = vcedit_new_state();
 
-    if(vcedit_open(state, param->in) < 0)
-    {
+    if (vcedit_open(state, param->in) < 0) {
       fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
-      vcedit_error(state));
+              vcedit_error(state));
       close_files(param, 0);
       free_param(param);
       vcedit_clear(state);
@@ -281,10 +268,9 @@ int main(int argc, char **argv)
 
     state = vcedit_new_state();
 
-    if(vcedit_open(state, param->in) < 0)
-    {
+    if (vcedit_open(state, param->in) < 0) {
       fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
-      vcedit_error(state));
+              vcedit_error(state));
       close_files(param, 0);
       free_param(param);
       vcedit_clear(state);
@@ -293,40 +279,34 @@ int main(int argc, char **argv)
 
     /* grab and clear the exisiting comments */
     vc = vcedit_comments(state);
-    if(param->mode != MODE_APPEND)
-    {
+    if (param->mode != MODE_APPEND) {
       vorbis_comment_clear(vc);
       vorbis_comment_init(vc);
     }
 
-    for(i=0; i < param->commentcount; i++)
-    {
-      if (alter_comment(param->comments[i], vc,
-        param->raw, param->escapes, param->changetypes[i]) < 0)
+    for (i = 0; i < param->commentcount; i++) {
+      if (alter_comment(param->comments[i], vc, param->raw, param->escapes,
+                        param->changetypes[i]) < 0)
         fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
     }
 
     /* build the replacement structure */
-    if(param->commentcount==0)
-    {
+    if (param->commentcount == 0) {
       char *comment;
 
-      while ((comment = read_line (param->com)))
-      {
-        if (alter_comment(comment, vc, param->raw, param->escapes, CHANGETYPE_ADD) < 0)
-        {
-          fprintf (stderr, _("bad comment: \"%s\"\n"),
-                   comment);
+      while ((comment = read_line(param->com))) {
+        if (alter_comment(comment, vc, param->raw, param->escapes,
+                          CHANGETYPE_ADD) < 0) {
+          fprintf(stderr, _("bad comment: \"%s\"\n"), comment);
         }
-        free (comment);
+        free(comment);
       }
     }
 
     /* write out the modified stream */
-    if(vcedit_write(state, param->out) < 0)
-    {
+    if (vcedit_write(state, param->out) < 0) {
       fprintf(stderr, _("Failed to write comments to output file: %s\n"),
-      vcedit_error(state));
+              vcedit_error(state));
       close_files(param, 0);
       free_param(param);
       vcedit_clear(state);
@@ -343,7 +323,7 @@ int main(int argc, char **argv)
 
   /* should never reach this point */
   fprintf(stderr, _("no action specified\n"));
-    free_param(param);
+  free_param(param);
   return 1;
 }
 
@@ -356,8 +336,7 @@ int main(int argc, char **argv)
 
 ***********/
 
-void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
-{
+void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes) {
   int i;
   char *escaped_value, *decoded_value;
 
@@ -392,15 +371,14 @@ void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
 
 ***********/
 
-int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int changetype)
-{
+int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
+                  int changetype) {
   char *mark, *value, *utf8_value, *unescaped_value;
   int unescaped_len;
   int allow_empty = 0;
   int is_empty = 0;
 
-  if (changetype != CHANGETYPE_ADD &&
-      changetype != CHANGETYPE_REMOVE) {
+  if (changetype != CHANGETYPE_ADD && changetype != CHANGETYPE_REMOVE) {
     return -1;
   }
 
@@ -411,7 +389,8 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
   /* strip any terminal newline */
   {
     int len = strlen(line);
-    if (line[len-1] == '\n') line[len-1] = '\0';
+    if (line[len - 1] == '\n')
+      line[len - 1] = '\0';
   }
 
   /* validation: basically, we assume it's a tag
@@ -431,7 +410,8 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
 
   value = line;
   while (value < mark) {
-    if(*value < 0x20 || *value > 0x7d || *value == 0x3d) return -1;
+    if (*value < 0x20 || *value > 0x7d || *value == 0x3d)
+      return -1;
     value++;
   }
 
@@ -464,7 +444,7 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
         vorbis_comment_add() in vorbis/lib/info.c for details, but use mem*
         instead of str*...
       */
-      if(unescaped_value == NULL) {
+      if (unescaped_value == NULL) {
         fprintf(stderr, _("Couldn't un-escape comment, cannot add\n"));
         if (!raw)
           free(utf8_value);
@@ -492,7 +472,6 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
   return 0;
 }
 
-
 /*** Escaping routines. ***/
 
 /**********
@@ -507,8 +486,7 @@ int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int cha
 
 ***********/
 
-char *escape(const char *from, int fromsize)
-{
+char *escape(const char *from, int fromsize) {
   /* worst-case allocation, will be trimmed when done */
   char *to = malloc(fromsize * 2 + 1);
 
@@ -556,13 +534,12 @@ char *escape(const char *from, int fromsize)
 
 ***********/
 
-char *unescape(const char *from, int *tosize)
-{
+char *unescape(const char *from, int *tosize) {
   /* worst-case allocation, will be trimmed when done */
   char *to = malloc(strlen(from) + 1);
 
   char *s;
-  for (s = to; *from != '\0'; ) {
+  for (s = to; *from != '\0';) {
     if (*from == '\\') {
       from++;
       switch (*from++) {
@@ -579,8 +556,8 @@ char *unescape(const char *from, int *tosize)
         *s++ = '\\';
         break;
       case '\0':
-        /* A backslash as the last character of the string is an error. */
-        /* FALL-THROUGH */
+      /* A backslash as the last character of the string is an error. */
+      /* FALL-THROUGH */
       default:
         /* We consider any unrecognized escape as an error.  This is
            good in general and reserves them for future expansion. */
@@ -593,13 +570,12 @@ char *unescape(const char *from, int *tosize)
     }
   }
 
-  *tosize = s - to;     /* excluding '\0' */
+  *tosize = s - to; /* excluding '\0' */
 
   *s++ = '\0';
   to = realloc(to, s - to); /* free unused space */
   return to;
 }
-
 
 /*** ui-specific routines ***/
 
@@ -610,79 +586,100 @@ char *unescape(const char *from, int *tosize)
 ***********/
 
 /* XXX: -q is unused
-  printf (_("  -q, --quiet             Don't display comments while editing\n"));
+  printf (_("  -q, --quiet             Don't display comments while
+  editing\n"));
 */
 
-void usage(void)
-{
+void usage(void) {
 
-  printf (_("vorbiscomment from %s %s\n"
-            " by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"), PACKAGE, VERSION);
+  printf(_("vorbiscomment from %s %s\n"
+           " by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"),
+         PACKAGE, VERSION);
 
-  printf (_("List or edit comments in Ogg Vorbis files.\n"));
-  printf ("\n");
+  printf(_("List or edit comments in Ogg Vorbis files.\n"));
+  printf("\n");
 
-  printf (_("Usage: \n"
-      "  vorbiscomment [-Vh]\n"
-      "  vorbiscomment [-lRe] inputfile\n"
-      "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"));
-  printf ("\n");
+  printf(_("Usage: \n"
+           "  vorbiscomment [-Vh]\n"
+           "  vorbiscomment [-lRe] inputfile\n"
+           "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile "
+           "[outputfile]\n"));
+  printf("\n");
 
-  printf (_("Listing options\n"));
-  printf (_("  -l, --list              List the comments (default if no options are given)\n"));
-  printf ("\n");
+  printf(_("Listing options\n"));
+  printf(_("  -l, --list              List the comments (default if no options "
+           "are given)\n"));
+  printf("\n");
 
-  printf (_("Editing options\n"));
-  printf (_("  -a, --append            Update comments\n"));
-  printf (_("  -t \"name=value\", --tag \"name=value\"\n"
-            "                          Specify a comment tag on the commandline\n"));
-  printf (_("  -d \"name[=value]\", --rm \"name[=value]\"\n"
-            "                          Specify a comment tag on the commandline to remove\n"
-            "                          If no value is given all tags with that name are removed\n"
-            "                          This implies -a,\n"));
-  printf (_("  -w, --write             Write comments, replacing the existing ones\n"));
-  printf ("\n");
+  printf(_("Editing options\n"));
+  printf(_("  -a, --append            Update comments\n"));
+  printf(_(
+      "  -t \"name=value\", --tag \"name=value\"\n"
+      "                          Specify a comment tag on the commandline\n"));
+  printf(_("  -d \"name[=value]\", --rm \"name[=value]\"\n"
+           "                          Specify a comment tag on the commandline "
+           "to remove\n"
+           "                          If no value is given all tags with that "
+           "name are removed\n"
+           "                          This implies -a,\n"));
+  printf(_("  -w, --write             Write comments, replacing the existing "
+           "ones\n"));
+  printf("\n");
 
-  printf (_("Miscellaneous options\n"));
-  printf (_("  -c file, --commentfile file\n"
-            "                          When listing, write comments to the specified file.\n"
-            "                          When editing, read comments from the specified file.\n"));
-  printf (_("  -R, --raw               Read and write comments in UTF-8\n"));
-  printf (_("  -e, --escapes           Use \\n-style escapes to allow multiline comments.\n"));
-  printf ("\n");
+  printf(_("Miscellaneous options\n"));
+  printf(_("  -c file, --commentfile file\n"
+           "                          When listing, write comments to the "
+           "specified file.\n"
+           "                          When editing, read comments from the "
+           "specified file.\n"));
+  printf(_("  -R, --raw               Read and write comments in UTF-8\n"));
+  printf(_("  -e, --escapes           Use \\n-style escapes to allow multiline "
+           "comments.\n"));
+  printf("\n");
 
-  printf (_("  -h, --help              Display this help\n"));
-  printf (_("  -V, --version           Output version information and exit\n"));
-  printf ("\n");
+  printf(_("  -h, --help              Display this help\n"));
+  printf(_("  -V, --version           Output version information and exit\n"));
+  printf("\n");
 
-  printf (_("If no output file is specified, vorbiscomment will modify the input file. This\n"
-            "is handled via temporary file, such that the input file is not modified if any\n"
-            "errors are encountered during processing.\n"));
-  printf ("\n");
+  printf(_("If no output file is specified, vorbiscomment will modify the "
+           "input file. This\n"
+           "is handled via temporary file, such that the input file is not "
+           "modified if any\n"
+           "errors are encountered during processing.\n"));
+  printf("\n");
 
-  printf (_("vorbiscomment handles comments in the format \"name=value\", one per line. By\n"
-            "default, comments are written to stdout when listing, and read from stdin when\n"
-            "editing. Alternatively, a file can be specified with the -c option, or tags\n"
-            "can be given on the commandline with -t \"name=value\". Use of either -c or -t\n"
-            "disables reading from stdin.\n"));
-  printf ("\n");
+  printf(_("vorbiscomment handles comments in the format \"name=value\", one "
+           "per line. By\n"
+           "default, comments are written to stdout when listing, and read "
+           "from stdin when\n"
+           "editing. Alternatively, a file can be specified with the -c "
+           "option, or tags\n"
+           "can be given on the commandline with -t \"name=value\". Use of "
+           "either -c or -t\n"
+           "disables reading from stdin.\n"));
+  printf("\n");
 
-  printf (_("Examples:\n"
-            "  vorbiscomment -a in.ogg -c comments.txt\n"
-            "  vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"));
-  printf ("\n");
+  printf(_("Examples:\n"
+           "  vorbiscomment -a in.ogg -c comments.txt\n"
+           "  vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A "
+           "Title\"\n"));
+  printf("\n");
 
-  printf (_("NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather than\n"
-      "converting to the user's character set, which is useful in scripts. However,\n"
-      "this is not sufficient for general round-tripping of comments in all cases,\n"
+  printf(_(
+      "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
+      "than\n"
+      "converting to the user's character set, which is useful in scripts. "
+      "However,\n"
+      "this is not sufficient for general round-tripping of comments in all "
+      "cases,\n"
       "since comments can contain newlines. To handle that, use escaping (-e,\n"
       "--escape).\n"));
 }
 
 void free_param(param_t *param) {
-    free(param->infilename);
-    free(param->outfilename);
-    free(param);
+  free(param->infilename);
+  free(param->outfilename);
+  free(param);
 }
 
 /**********
@@ -691,8 +688,7 @@ void free_param(param_t *param) {
 
 ***********/
 
-param_t *new_param(void)
-{
+param_t *new_param(void) {
   param_t *param = (param_t *)malloc(sizeof(param_t));
 
   /* mode and flags */
@@ -701,19 +697,19 @@ param_t *new_param(void)
   param->escapes = 0;
 
   /* filenames */
-  param->infilename  = NULL;
+  param->infilename = NULL;
   param->outfilename = NULL;
   param->commentfilename = "-"; /* default */
 
   /* file pointers */
   param->in = param->out = NULL;
   param->com = NULL;
-  param->tempoutfile=0;
+  param->tempoutfile = 0;
 
   /* comments */
-  param->commentcount=0;
-  param->comments=NULL;
-  param->changetypes=NULL;
+  param->commentcount = 0;
+  param->comments = NULL;
+  param->changetypes = NULL;
 
   return param;
 }
@@ -727,94 +723,90 @@ param_t *new_param(void)
 
 ***********/
 
-void parse_options(int argc, char *argv[], param_t *param)
-{
+void parse_options(int argc, char *argv[], param_t *param) {
   int ret;
   int option_index = 1;
 
   setlocale(LC_ALL, "");
 
-  while ((ret = getopt_long(argc, argv, "alwhqVc:t:d:Re",
-                    long_options, &option_index)) != -1) {
+  while ((ret = getopt_long(argc, argv, "alwhqVc:t:d:Re", long_options,
+                            &option_index)) != -1) {
     switch (ret) {
-      case 0:
-        fprintf(stderr, _("Internal error parsing command options\n"));
-        exit(1);
-        break;
-      case 'l':
-        param->mode = MODE_LIST;
-        break;
-      case 'R':
-        param->raw = 1;
-        break;
-      case 'e':
-        param->escapes = 1;
-        break;
-      case 'w':
-        param->mode = MODE_WRITE;
-        break;
-      case 'a':
-        param->mode = MODE_APPEND;
-        break;
-      case 'V':
-        fprintf(stderr, _("vorbiscomment from vorbis-tools " VERSION "\n"));
-        exit(0);
-        break;
-      case 'h':
-        usage();
-        exit(0);
-        break;
-      case 'q':
-        /* set quiet flag: unused */
-        break;
-      case 'c':
-        param->commentfilename = strdup(optarg);
-        break;
-      case 't':
-        param->comments = realloc(param->comments,
-            (param->commentcount+1)*sizeof(char *));
-        param->changetypes = realloc(param->changetypes,
-            (param->commentcount+1)*sizeof(int));
-        param->comments[param->commentcount] = strdup(optarg);
-        param->changetypes[param->commentcount] = CHANGETYPE_ADD;
-        param->commentcount++;
-        break;
-      case 'd':
-        param->comments = realloc(param->comments,
-            (param->commentcount+1)*sizeof(char *));
-        param->changetypes = realloc(param->changetypes,
-            (param->commentcount+1)*sizeof(int));
-        param->comments[param->commentcount] = strdup(optarg);
-        param->changetypes[param->commentcount] = CHANGETYPE_REMOVE;
-        param->commentcount++;
-        param->mode = MODE_APPEND;
-        break;
-      default:
-        usage();
-        exit(1);
+    case 0:
+      fprintf(stderr, _("Internal error parsing command options\n"));
+      exit(1);
+      break;
+    case 'l':
+      param->mode = MODE_LIST;
+      break;
+    case 'R':
+      param->raw = 1;
+      break;
+    case 'e':
+      param->escapes = 1;
+      break;
+    case 'w':
+      param->mode = MODE_WRITE;
+      break;
+    case 'a':
+      param->mode = MODE_APPEND;
+      break;
+    case 'V':
+      fprintf(stderr, _("vorbiscomment from vorbis-tools " VERSION "\n"));
+      exit(0);
+      break;
+    case 'h':
+      usage();
+      exit(0);
+      break;
+    case 'q':
+      /* set quiet flag: unused */
+      break;
+    case 'c':
+      param->commentfilename = strdup(optarg);
+      break;
+    case 't':
+      param->comments =
+          realloc(param->comments, (param->commentcount + 1) * sizeof(char *));
+      param->changetypes =
+          realloc(param->changetypes, (param->commentcount + 1) * sizeof(int));
+      param->comments[param->commentcount] = strdup(optarg);
+      param->changetypes[param->commentcount] = CHANGETYPE_ADD;
+      param->commentcount++;
+      break;
+    case 'd':
+      param->comments =
+          realloc(param->comments, (param->commentcount + 1) * sizeof(char *));
+      param->changetypes =
+          realloc(param->changetypes, (param->commentcount + 1) * sizeof(int));
+      param->comments[param->commentcount] = strdup(optarg);
+      param->changetypes[param->commentcount] = CHANGETYPE_REMOVE;
+      param->commentcount++;
+      param->mode = MODE_APPEND;
+      break;
+    default:
+      usage();
+      exit(1);
     }
   }
 
   /* remaining bits must be the filenames */
-  if((param->mode == MODE_LIST && (argc-optind) != 1) ||
-     ((param->mode == MODE_WRITE || param->mode == MODE_APPEND) &&
-     ((argc-optind) < 1 || (argc-optind) > 2))) {
+  if ((param->mode == MODE_LIST && (argc - optind) != 1) ||
+      ((param->mode == MODE_WRITE || param->mode == MODE_APPEND) &&
+       ((argc - optind) < 1 || (argc - optind) > 2))) {
     usage();
     exit(1);
   }
 
   param->infilename = strdup(argv[optind]);
-  if (param->mode == MODE_WRITE || param->mode == MODE_APPEND)
-  {
-    if(argc-optind == 1)
-    {
+  if (param->mode == MODE_WRITE || param->mode == MODE_APPEND) {
+    if (argc - optind == 1) {
       param->tempoutfile = 1;
-      param->outfilename = malloc(strlen(param->infilename)+8);
+      param->outfilename = malloc(strlen(param->infilename) + 8);
       strcpy(param->outfilename, param->infilename);
       strcat(param->outfilename, ".vctemp");
-    }
-    else
-      param->outfilename = strdup(argv[optind+1]);
+    } else
+      param->outfilename = strdup(argv[optind + 1]);
   }
 }
 
@@ -830,52 +822,49 @@ void parse_options(int argc, char *argv[], param_t *param)
 
 ***********/
 
-void open_files(param_t *p)
-{
+void open_files(param_t *p) {
   /* for all modes, open the input file */
 
-  if (strncmp(p->infilename,"-",2) == 0) {
+  if (strncmp(p->infilename, "-", 2) == 0) {
     p->in = stdin;
   } else {
     p->in = fopen(p->infilename, "rb");
   }
   if (p->in == NULL) {
-    fprintf(stderr,
-      _("Error opening input file '%s'.\n"),
-      p->infilename);
+    fprintf(stderr, _("Error opening input file '%s'.\n"), p->infilename);
     exit(1);
   }
 
   if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) {
 
     /* open output for write mode */
-    if(!strcmp(p->infilename, p->outfilename)) {
-      fprintf(stderr, _("Input filename may not be the same as output filename\n"));
+    if (!strcmp(p->infilename, p->outfilename)) {
+      fprintf(stderr,
+              _("Input filename may not be the same as output filename\n"));
       exit(1);
     }
 
-    if (strncmp(p->outfilename,"-",2) == 0) {
+    if (strncmp(p->outfilename, "-", 2) == 0) {
       p->out = stdout;
     } else {
       p->out = fopen(p->outfilename, "wb");
     }
-    if(p->out == NULL) {
-      fprintf(stderr, _("Error opening output file '%s'.\n"),
-          p->outfilename);
+    if (p->out == NULL) {
+      fprintf(stderr, _("Error opening output file '%s'.\n"), p->outfilename);
       exit(1);
     }
 
     /* commentfile is input */
 
     if ((p->commentfilename == NULL) ||
-        (strncmp(p->commentfilename,"-",2) == 0)) {
+        (strncmp(p->commentfilename, "-", 2) == 0)) {
       p->com = stdin;
     } else {
       p->com = fopen(p->commentfilename, "r");
     }
     if (p->com == NULL) {
       fprintf(stderr, _("Error opening comment file '%s'.\n"),
-        p->commentfilename);
+              p->commentfilename);
       exit(1);
     }
 
@@ -884,14 +873,14 @@ void open_files(param_t *p)
     /* in list mode, commentfile is output */
 
     if ((p->commentfilename == NULL) ||
-        (strncmp(p->commentfilename,"-",2) == 0)) {
+        (strncmp(p->commentfilename, "-", 2) == 0)) {
       p->com = stdout;
     } else {
       p->com = fopen(p->commentfilename, "w");
     }
     if (p->com == NULL) {
       fprintf(stderr, _("Error opening comment file '%s'\n"),
-        p->commentfilename);
+              p->commentfilename);
       exit(1);
     }
   }
@@ -906,38 +895,39 @@ void open_files(param_t *p)
 
 ***********/
 
-void close_files(param_t *p, int output_written)
-{
-  if (p->in != NULL && p->in != stdin) fclose(p->in);
-  if (p->out != NULL && p->out != stdout) fclose(p->out);
-  if (p->com != NULL && p->com != stdout && p->com != stdin) fclose(p->com);
+void close_files(param_t *p, int output_written) {
+  if (p->in != NULL && p->in != stdin)
+    fclose(p->in);
+  if (p->out != NULL && p->out != stdout)
+    fclose(p->out);
+  if (p->com != NULL && p->com != stdout && p->com != stdin)
+    fclose(p->com);
 
-  if(p->tempoutfile) {
+  if (p->tempoutfile) {
 #if HAVE_STAT && HAVE_CHMOD
     struct stat st;
-    stat (p->infilename, &st);
+    stat(p->infilename, &st);
 #endif
 
-    if(output_written) {
+    if (output_written) {
       /* Some platforms fail to rename a file if the new name already
        * exists, so we need to remove, then rename. How stupid.
        */
-      if(rename(p->outfilename, p->infilename)) {
-        if(remove(p->infilename))
+      if (rename(p->outfilename, p->infilename)) {
+        if (remove(p->infilename))
           fprintf(stderr, _("Error removing old file %s\n"), p->infilename);
-        else if(rename(p->outfilename, p->infilename))
+        else if (rename(p->outfilename, p->infilename))
           fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename,
                   p->infilename);
       } else {
 #if HAVE_STAT && HAVE_CHMOD
-        chmod (p->infilename, st.st_mode);
+        chmod(p->infilename, st.st_mode);
 #endif
       }
-    }
-    else {
-      if(remove(p->outfilename)) {
+    } else {
+      if (remove(p->outfilename)) {
         fprintf(stderr, _("Error removing erroneous temporary file %s\n"),
-                    p->outfilename);
+                p->outfilename);
       }
     }
   }
