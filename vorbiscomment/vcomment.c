@@ -122,9 +122,7 @@ char *read_line(FILE *input) {
         /* End of the line */
         break;
       }
-    }
-
-    else {
+    } else {
       /* End of the file */
       free(buffer);
       break;
@@ -286,8 +284,9 @@ int main(int argc, char **argv) {
 
     for (i = 0; i < param->commentcount; i++) {
       if (alter_comment(param->comments[i], vc, param->raw, param->escapes,
-                        param->changetypes[i]) < 0)
+                        param->changetypes[i]) < 0) {
         fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
+      }
     }
 
     /* build the replacement structure */
@@ -389,8 +388,9 @@ int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
   /* strip any terminal newline */
   {
     int len = strlen(line);
-    if (line[len - 1] == '\n')
+    if (line[len - 1] == '\n') {
       line[len - 1] = '\0';
+    }
   }
 
   /* validation: basically, we assume it's a tag
@@ -410,8 +410,9 @@ int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
 
   value = line;
   while (value < mark) {
-    if (*value < 0x20 || *value > 0x7d || *value == 0x3d)
+    if (*value < 0x20 || *value > 0x7d || *value == 0x3d) {
       return -1;
+    }
     value++;
   }
 
@@ -446,8 +447,9 @@ int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
       */
       if (unescaped_value == NULL) {
         fprintf(stderr, _("Couldn't un-escape comment, cannot add\n"));
-        if (!raw)
+        if (!raw) {
           free(utf8_value);
+        }
         return -1;
       }
     } else {
@@ -465,10 +467,12 @@ int alter_comment(char *line, vorbis_comment *vc, int raw, int escapes,
     break;
   }
 
-  if (escapes)
+  if (escapes) {
     free(unescaped_value);
-  if (!raw && !is_empty)
+  }
+  if (!raw && !is_empty) {
     free(utf8_value);
+  }
   return 0;
 }
 
@@ -805,8 +809,9 @@ void parse_options(int argc, char *argv[], param_t *param) {
       param->outfilename = malloc(strlen(param->infilename) + 8);
       strcpy(param->outfilename, param->infilename);
       strcat(param->outfilename, ".vctemp");
-    } else
+    } else {
       param->outfilename = strdup(argv[optind + 1]);
+    }
   }
 }
 
@@ -896,12 +901,15 @@ void open_files(param_t *p) {
 ***********/
 
 void close_files(param_t *p, int output_written) {
-  if (p->in != NULL && p->in != stdin)
+  if (p->in != NULL && p->in != stdin) {
     fclose(p->in);
-  if (p->out != NULL && p->out != stdout)
+  }
+  if (p->out != NULL && p->out != stdout) {
     fclose(p->out);
-  if (p->com != NULL && p->com != stdout && p->com != stdin)
+  }
+  if (p->com != NULL && p->com != stdout && p->com != stdin) {
     fclose(p->com);
+  }
 
   if (p->tempoutfile) {
 #if HAVE_STAT && HAVE_CHMOD
@@ -914,11 +922,12 @@ void close_files(param_t *p, int output_written) {
        * exists, so we need to remove, then rename. How stupid.
        */
       if (rename(p->outfilename, p->infilename)) {
-        if (remove(p->infilename))
+        if (remove(p->infilename)) {
           fprintf(stderr, _("Error removing old file %s\n"), p->infilename);
-        else if (rename(p->outfilename, p->infilename))
+        } else if (rename(p->outfilename, p->infilename)) {
           fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename,
                   p->infilename);
+        }
       } else {
 #if HAVE_STAT && HAVE_CHMOD
         chmod(p->infilename, st.st_mode);
