@@ -1,4 +1,4 @@
-/* This program is licensed under the GNU General Public License, 
+/* This program is licensed under the GNU General Public License,
  * version 2, a copy of which is included with this program.
  *
  * (c) 2000-2002 Michael Smith <msmith@xiph.org>
@@ -252,12 +252,12 @@ int main(int argc, char **argv)
 	/* which mode are we in? */
 
 	if (param->mode == MODE_LIST) {
-		
+
 		state = vcedit_new_state();
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"), 
+			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
 					vcedit_error(state));
             close_files(param, 0);
             free_param(param);
@@ -274,7 +274,7 @@ int main(int argc, char **argv)
 
 		close_files(param, 0);
         free_param(param);
-		return 0;		
+		return 0;
 	}
 
 	if (param->mode == MODE_WRITE || param->mode == MODE_APPEND) {
@@ -283,7 +283,7 @@ int main(int argc, char **argv)
 
 		if(vcedit_open(state, param->in) < 0)
 		{
-			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"), 
+			fprintf(stderr, _("Failed to open file as Vorbis: %s\n"),
 					vcedit_error(state));
 			close_files(param, 0);
 			free_param(param);
@@ -293,7 +293,7 @@ int main(int argc, char **argv)
 
 		/* grab and clear the exisiting comments */
 		vc = vcedit_comments(state);
-		if(param->mode != MODE_APPEND) 
+		if(param->mode != MODE_APPEND)
 		{
 			vorbis_comment_clear(vc);
 			vorbis_comment_init(vc);
@@ -325,7 +325,7 @@ int main(int argc, char **argv)
 		/* write out the modified stream */
 		if(vcedit_write(state, param->out) < 0)
 		{
-			fprintf(stderr, _("Failed to write comments to output file: %s\n"), 
+			fprintf(stderr, _("Failed to write comments to output file: %s\n"),
 					vcedit_error(state));
 			close_files(param, 0);
 			free_param(param);
@@ -335,7 +335,7 @@ int main(int argc, char **argv)
 
 		/* done */
 		vcedit_clear(state);
-		
+
 		close_files(param, 1);
 		free_param(param);
 		return 0;
@@ -539,7 +539,7 @@ char *escape(const char *from, int fromsize)
 			break;
 		}
 	}
-	
+
 	*s++ = '\0';
 	to = realloc(to, s - to);	/* free unused space */
 	return to;
@@ -773,7 +773,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 				param->commentfilename = strdup(optarg);
 				break;
 			case 't':
-				param->comments = realloc(param->comments, 
+				param->comments = realloc(param->comments,
 						(param->commentcount+1)*sizeof(char *));
 				param->changetypes = realloc(param->changetypes,
 						(param->commentcount+1)*sizeof(int));
@@ -782,7 +782,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 				param->commentcount++;
 				break;
 			case 'd':
-				param->comments = realloc(param->comments, 
+				param->comments = realloc(param->comments,
 						(param->commentcount+1)*sizeof(char *));
 				param->changetypes = realloc(param->changetypes,
 						(param->commentcount+1)*sizeof(int));
@@ -848,7 +848,7 @@ void open_files(param_t *p)
 		exit(1);
 	}
 
-	if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) { 
+	if (p->mode == MODE_WRITE || p->mode == MODE_APPEND) {
 
 		/* open output for write mode */
         if(!strcmp(p->infilename, p->outfilename)) {
@@ -869,7 +869,7 @@ void open_files(param_t *p)
 		}
 
 		/* commentfile is input */
-		
+
 		if ((p->commentfilename == NULL) ||
 				(strncmp(p->commentfilename,"-",2) == 0)) {
 			p->com = stdin;
@@ -924,14 +924,14 @@ void close_files(param_t *p, int output_written)
 #endif
 
     if(output_written) {
-      /* Some platforms fail to rename a file if the new name already 
+      /* Some platforms fail to rename a file if the new name already
        * exists, so we need to remove, then rename. How stupid.
        */
       if(rename(p->outfilename, p->infilename)) {
         if(remove(p->infilename))
           fprintf(stderr, _("Error removing old file %s\n"), p->infilename);
-        else if(rename(p->outfilename, p->infilename)) 
-          fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename, 
+        else if(rename(p->outfilename, p->infilename))
+          fprintf(stderr, _("Error renaming %s to %s\n"), p->outfilename,
                   p->infilename);
       } else {
 #if HAVE_STAT && HAVE_CHMOD
@@ -941,7 +941,7 @@ void close_files(param_t *p, int output_written)
     }
     else {
       if(remove(p->outfilename)) {
-        fprintf(stderr, _("Error removing erroneous temporary file %s\n"), 
+        fprintf(stderr, _("Error removing erroneous temporary file %s\n"),
                     p->outfilename);
       }
     }

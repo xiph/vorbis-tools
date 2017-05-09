@@ -52,7 +52,7 @@ static int page_buffer_push(vcedit_buffer_chain *bufferlink, ogg_page *og) {
 	int result=0;
 	char *tmp;
 	vcedit_page_buffer *buffer;
-	
+
 	buffer = &bufferlink->buffer;
 	tmp = realloc(buffer->data,
 		      buffer->data_len + og->header_len + og->body_len);
@@ -68,7 +68,7 @@ static int page_buffer_push(vcedit_buffer_chain *bufferlink, ogg_page *og) {
 	} else {
 		result = -1;
 	}
-	
+
 	return result;
 }
 
@@ -85,7 +85,7 @@ static int buffer_chain_writelink(vcedit_state *state, void *out) {
 		if(state->write(tmpbuffer->data,1,tmpbuffer->data_len, out) !=
 		   (size_t) tmpbuffer->data_len)
 			result = -1;
-		else 
+		else
 			result = 1;
 	}
 
@@ -99,7 +99,7 @@ static int buffer_chain_writelink(vcedit_state *state, void *out) {
 static int buffer_chain_newlink(vcedit_state *state) {
 	int result = 1;
 	vcedit_buffer_chain *bufferlink;
-	
+
 	if(!state->sidebuf) {
 		state->sidebuf = malloc (sizeof *state->sidebuf);
 		if(state->sidebuf) {
@@ -125,7 +125,7 @@ static int buffer_chain_newlink(vcedit_state *state) {
 		bufferlink->buffer.data = 0;
 		bufferlink->buffer.data_len = 0;
 	}
-	else 
+	else
 		state->lasterror =
 			_("Couldn't get enough memory for input buffering.");
 
@@ -142,7 +142,7 @@ static int buffer_chain_push(vcedit_state *state, ogg_page *og) {
 	if(!state->sidebuf) {
 		result = buffer_chain_newlink(state);
 	}
-	
+
 	if(result > 0) {
 		bufferlink = state->sidebuf;
 		while(bufferlink->next) {
@@ -166,11 +166,11 @@ static int vcedit_supported_stream(vcedit_state *state, ogg_page *og) {
 	vorbis_comment vc;
 	ogg_packet header;
 	int result = 0;
-	
+
 	ogg_stream_init(&os, ogg_page_serialno(og));
 	vorbis_info_init(&vi);
 	vorbis_comment_init(&vc);
-	
+
 	if( !ogg_page_bos(og) )
                 result = -1;
 
@@ -211,7 +211,7 @@ static int vcedit_contains_serial (vcedit_state *state, int serialno) {
 		if ( *(state->serials.streams + count ) == serialno )
 			result = 1;
 	}
-	
+
 	return result;
 }
 
@@ -219,8 +219,8 @@ static int vcedit_contains_serial (vcedit_state *state, int serialno) {
 static int vcedit_add_serial (vcedit_state *state, long serial) {
         int result = 0;
         long *tmp;
-	
-	
+
+
 	if( vcedit_contains_serial(state, serial) )
         {
 		result = 1;
@@ -238,7 +238,7 @@ static int vcedit_add_serial (vcedit_state *state, long serial) {
 				_("Couldn't get enough memory to register new stream serial number.");
 		        result = -1;
 		}
-	} 
+	}
 	return result;
 }
 
@@ -352,7 +352,7 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 
 	oggpack_writeinit(&opb);
 
-	/* preamble */  
+	/* preamble */
 	oggpack_write(&opb,0x03,8);
 	_v_writestring(&opb,"vorbis", 6);
 
@@ -367,7 +367,7 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 		for(i=0;i<vc->comments;i++){
 			if(vc->user_comments[i]){
 				oggpack_write(&opb,vc->comment_lengths[i],32);
-				_v_writestring(&opb,vc->user_comments[i], 
+				_v_writestring(&opb,vc->user_comments[i],
                         vc->comment_lengths[i]);
 			}else{
 				oggpack_write(&opb,0,32);
@@ -442,7 +442,7 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
 					s->extrapage = 1;
 					return 0;
 				}
-			} 
+			}
 			else
 			{
 			  ogg_stream_pagein(s->os, page);
@@ -464,7 +464,7 @@ static int _fetch_next_packet(vcedit_state *s, ogg_packet *p, ogg_page *page)
 
 int vcedit_open(vcedit_state *state, FILE *in)
 {
-	return vcedit_open_callbacks(state, (void *)in, 
+	return vcedit_open_callbacks(state, (void *)in,
 			(vcedit_read_func)fread, (vcedit_write_func)fwrite);
 }
 
@@ -535,7 +535,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 		    state->serial = ogg_page_serialno(&og);
 		    if(vcedit_add_serial ( state, ogg_page_serialno(&og)) < 0)
 		       goto err;
- 
+
 		    state->os = malloc(sizeof(ogg_stream_state));
 		    ogg_stream_init(state->os, state->serial);
 
@@ -547,7 +547,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 
 		    if(ogg_stream_pagein(state->os, &og) < 0)
 		    {
-			    state->lasterror = 
+			    state->lasterror =
 				    _("Error reading first page of Ogg bitstream.");
 			    goto err;
 		    }
@@ -644,7 +644,7 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 					{
 						state->booklen = header->bytes;
 						state->bookbuf = malloc(state->booklen);
-						memcpy(state->bookbuf, header->packet, 
+						memcpy(state->bookbuf, header->packet,
 								header->bytes);
 					}
 					i++;
@@ -720,7 +720,7 @@ int vcedit_write(vcedit_state *state, void *out)
 		if(state->write(ogout.header,1,ogout.header_len, out) !=
 				(size_t) ogout.header_len)
 			goto cleanup;
-		if(state->write(ogout.body,1,ogout.body_len, out) != 
+		if(state->write(ogout.body,1,ogout.body_len, out) !=
 				(size_t) ogout.body_len)
 			goto cleanup;
 	}
@@ -745,10 +745,10 @@ int vcedit_write(vcedit_state *state, void *out)
 				if(state->sidebuf &&
 				   buffer_chain_writelink(state, out) < 0)
 					goto cleanup;
-				if(state->write(ogout.header,1,ogout.header_len, 
+				if(state->write(ogout.header,1,ogout.header_len,
 							out) != (size_t) ogout.header_len)
 					goto cleanup;
-				if(state->write(ogout.body,1,ogout.body_len, 
+				if(state->write(ogout.body,1,ogout.body_len,
 							out) != (size_t) ogout.body_len)
 					goto cleanup;
 			}
@@ -760,10 +760,10 @@ int vcedit_write(vcedit_state *state, void *out)
 				if(state->sidebuf &&
 				   buffer_chain_writelink(state, out) < 0)
 					goto cleanup;
-				if(state->write(ogout.header,1,ogout.header_len, 
+				if(state->write(ogout.header,1,ogout.header_len,
 							out) != (size_t) ogout.header_len)
 					goto cleanup;
-				if(state->write(ogout.body,1,ogout.body_len, 
+				if(state->write(ogout.body,1,ogout.body_len,
 							out) != (size_t) ogout.body_len)
 					goto cleanup;
 			}
@@ -776,8 +776,8 @@ int vcedit_write(vcedit_state *state, void *out)
 			op.granulepos = granpos;
 			ogg_stream_packetin(&streamout, &op);
 		}
-		else /* granulepos is set, validly. Use it, and force a flush to 
-				account for shortened blocks (vcut) when appropriate */ 
+		else /* granulepos is set, validly. Use it, and force a flush to
+				account for shortened blocks (vcut) when appropriate */
 		{
 			if(granpos > op.granulepos)
 			{
@@ -785,12 +785,12 @@ int vcedit_write(vcedit_state *state, void *out)
 				ogg_stream_packetin(&streamout, &op);
 				needflush=1;
 			}
-			else 
+			else
 			{
 				ogg_stream_packetin(&streamout, &op);
 				needout=1;
 			}
-		}		
+		}
 	}
 
 	streamout.e_o_s = 1;
@@ -798,10 +798,10 @@ int vcedit_write(vcedit_state *state, void *out)
 	{
 		if(state->sidebuf && buffer_chain_writelink(state, out) < 0)
 			goto cleanup;
-		if(state->write(ogout.header,1,ogout.header_len, 
+		if(state->write(ogout.header,1,ogout.header_len,
 					out) != (size_t) ogout.header_len)
 			goto cleanup;
-		if(state->write(ogout.body,1,ogout.body_len, 
+		if(state->write(ogout.body,1,ogout.body_len,
 					out) != (size_t) ogout.body_len)
 			goto cleanup;
 	}
@@ -835,9 +835,9 @@ int vcedit_write(vcedit_state *state, void *out)
 				state->lasterror = _("Corrupt or missing data, continuing...");
 			else
 			{
-				/* Don't bother going through the rest, we can just 
+				/* Don't bother going through the rest, we can just
 				 * write the page out now */
-				if(state->write(ogout.header,1,ogout.header_len, 
+				if(state->write(ogout.header,1,ogout.header_len,
 						out) != (size_t) ogout.header_len) {
 					goto cleanup;
                 }
@@ -850,7 +850,7 @@ int vcedit_write(vcedit_state *state, void *out)
 		buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
 		bytes = state->read(buffer,1, CHUNKSIZE, state->in);
 		ogg_sync_wrote(state->oy, bytes);
-		if(bytes == 0) 
+		if(bytes == 0)
 		{
 			state->eosin = 1;
 			break;
