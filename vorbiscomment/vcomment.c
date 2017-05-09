@@ -3,6 +3,7 @@
  *
  * (c) 2000-2002 Michael Smith <msmith@xiph.org>
  * (c) 2001 Ralph Giles <giles@xiph.org>
+ * (c) 2017 Philipp Schafft <phschafft@de.loewenfelsen.net>
  *
  * Front end to show how to use vcedit;
  * Of limited usability on its own, but could be useful.
@@ -35,6 +36,7 @@ struct option long_options[] = {
 	{"list",0,0,'l'},
 	{"append",0,0,'a'},
 	{"tag",required_argument,0,'t'},
+	{"rm",required_argument,0,'d'},
 	{"write",0,0,'w'},
 	{"help",0,0,'h'},
 	{"quiet",0,0,'q'}, /* unused */
@@ -61,6 +63,7 @@ typedef struct {
 	/* comments */
 	int	commentcount;
 	char	**comments;
+	int 	*changetypes;
 } param_t;
 
 #define MODE_NONE  0
@@ -68,10 +71,13 @@ typedef struct {
 #define MODE_WRITE 2
 #define MODE_APPEND 3
 
+#define CHANGETYPE_ADD 0
+#define CHANGETYPE_REMOVE 1
+
 /* prototypes */
 void usage(void);
 void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes);
-int  add_comment(char *line, vorbis_comment *vc, int raw, int escapes);
+int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int changetype);
 
 char *escape(const char *from, int fromsize);
 char *unescape(const char *from, int *tosize);
@@ -81,6 +87,8 @@ void free_param(param_t *param);
 void parse_options(int argc, char *argv[], param_t *param);
 void open_files(param_t *p);
 void close_files(param_t *p, int output_written);
+
+static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const char *contents);
 
 char *
 read_line (FILE *input)
@@ -151,6 +159,63 @@ read_line (FILE *input)
         free (buffers);
         buffer[buffer_count * (buffer_size + 1) - 1] = 0;
         return buffer;
+}
+
+/**********
+
+   Delete a comment from the comment list.
+
+   This deletes a comment from the list.
+   We implement this here as libvorbis does not provide it.
+   Also this is very inefficent as we need to copy the compelet structure.
+   But it is only called once for each file and each deleted key so that is
+   not much of a problem.
+
+***********/
+
+static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const char *contents)
+{
+	vorbis_comment vc_tmp;
+	size_t taglen;
+	int i;
+	const char *p;
+	int match;
+
+	taglen = strlen(tag);
+
+	vorbis_comment_init(&vc_tmp);
+
+	for (i = 0; i < vc->comments; i++)
+	{
+		p = vc->user_comments[i];
+		match = 0;
+
+		do {
+			if (strncasecmp(p, tag, taglen) != 0) {
+				break;
+			}
+			p += taglen;
+			if (*p != '=') {
+				break;
+			}
+			p++;
+			if (contents) {
+				if (strcmp(p, contents) != 0) {
+					break;
+				}
+			}
+
+			match = 1;
+		} while (0);
+
+		if (!match) {
+			vorbis_comment_add(&vc_tmp, vc->user_comments[i]);
+		}
+	}
+
+	vorbis_comment_clear(vc);
+
+	*vc = vc_tmp;
 }
 
 /**********
@@ -236,8 +301,8 @@ int main(int argc, char **argv)
 
 		for(i=0; i < param->commentcount; i++)
 		{
-			if (add_comment(param->comments[i], vc,
-					param->raw, param->escapes) < 0)
+			if (alter_comment(param->comments[i], vc,
+					param->raw, param->escapes, param->changetypes[i]) < 0)
 				fprintf(stderr, _("Bad comment: \"%s\"\n"), param->comments[i]);
 		}
 
@@ -248,7 +313,7 @@ int main(int argc, char **argv)
 
 			while ((comment = read_line (param->com)))
                         {
-                                if (add_comment(comment, vc, param->raw, param->escapes) < 0)
+                                if (alter_comment(comment, vc, param->raw, param->escapes, CHANGETYPE_ADD) < 0)
                                 {
                                         fprintf (stderr, _("bad comment: \"%s\"\n"),
                                                  comment);
@@ -319,7 +384,7 @@ void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
 /**********
 
    Take a line of the form "TAG=value string", parse it, convert the
-   value to UTF-8, and add it to the
+   value to UTF-8, and add or remove it from vc comment block.
    Error checking is performed (return 0 if OK, negative on error).
 
    Note that this assumes a null-terminated string, which may cause
@@ -327,10 +392,21 @@ void print_comments(FILE *out, vorbis_comment *vc, int raw, int escapes)
 
 ***********/
 
-int  add_comment(char *line, vorbis_comment *vc, int raw, int escapes)
+int  alter_comment(char *line, vorbis_comment *vc, int raw, int escapes, int changetype)
 {
 	char *mark, *value, *utf8_value, *unescaped_value;
 	int unescaped_len;
+	int allow_empty = 0;
+	int is_empty = 0;
+
+	if (changetype != CHANGETYPE_ADD &&
+	    changetype != CHANGETYPE_REMOVE) {
+		return -1;
+	}
+
+	if (changetype == CHANGETYPE_REMOVE) {
+		allow_empty = 1;
+	}
 
 	/* strip any terminal newline */
 	{
@@ -339,12 +415,19 @@ int  add_comment(char *line, vorbis_comment *vc, int raw, int escapes)
 	}
 
 	/* validation: basically, we assume it's a tag
-	 * if it has an '=' after one or more valid characters,
-	 * as the comment spec requires. For the moment, we
-	 * also restrict ourselves to 0-terminated values */
+	 * if if has an '=' after valid tag characters,
+	 * or if it just contains valid tag characters
+	 * and we're allowing empty values. */
 
 	mark = strchr(line, '=');
-	if (mark == NULL) return -1;
+	if (mark == NULL) {
+		if (allow_empty) {
+			mark = line + strlen(line);
+			is_empty = 1;
+		} else {
+			return -1;
+		}
+	}
 
 	value = line;
 	while (value < mark) {
@@ -352,49 +435,61 @@ int  add_comment(char *line, vorbis_comment *vc, int raw, int escapes)
 		value++;
 	}
 
-	/* split the line by turning the '=' in to a null */
-	*mark = '\0';	
-	value++;
-
-	if (raw) {
-		if (!utf8_validate(value)) {
-			fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
-			return -1;
-		}
-		utf8_value = value;
+	if (is_empty) {
+		unescaped_value = NULL;
 	} else {
-		/* convert the value from the native charset to UTF-8 */
-		if (utf8_encode(value, &utf8_value) < 0) {
-			fprintf(stderr,
-					_("Couldn't convert comment to UTF-8, cannot add\n"));
-			return -1;
+		/* split the line by turning the '=' in to a null */
+		*mark = '\0';
+		value++;
+
+		if (raw) {
+			if (!utf8_validate(value)) {
+				fprintf(stderr, _("'%s' is not valid UTF-8, cannot add\n"), line);
+				return -1;
+			}
+			utf8_value = value;
+		} else {
+			/* convert the value from the native charset to UTF-8 */
+			if (utf8_encode(value, &utf8_value) < 0) {
+				fprintf(stderr,
+						_("Couldn't convert comment to UTF-8, cannot add\n"));
+				return -1;
+			}
+		}
+
+		if (escapes) {
+			unescaped_value = unescape(utf8_value, &unescaped_len);
+			/*
+			  NOTE: unescaped_len remains unused; to write comments with embeded
+			  \0's one would need to access the vc struct directly -- see
+			  vorbis_comment_add() in vorbis/lib/info.c for details, but use mem*
+			  instead of str*...
+			*/
+			if(unescaped_value == NULL) {
+				fprintf(stderr,
+						_("Couldn't un-escape comment, cannot add\n"));
+				if (!raw)
+					free(utf8_value);
+				return -1;
+			}
+		} else {
+			unescaped_value = utf8_value;
 		}
 	}
 
-	if (escapes) {
-		unescaped_value = unescape(utf8_value, &unescaped_len);
-		/*
-		  NOTE: unescaped_len remains unused; to write comments with embeded
-		  \0's one would need to access the vc struct directly -- see
-		  vorbis_comment_add() in vorbis/lib/info.c for details, but use mem*
-		  instead of str*...
-		*/
-		if(unescaped_value == NULL) {
-			fprintf(stderr,
-					_("Couldn't un-escape comment, cannot add\n"));
-			if (!raw)
-				free(utf8_value);
-			return -1;
-		}
-	} else {
-		unescaped_value = utf8_value;
+	/* append or delete the comment and return */
+	switch (changetype) {
+	case CHANGETYPE_ADD:
+		vorbis_comment_add_tag(vc, line, unescaped_value);
+		break;
+	case CHANGETYPE_REMOVE:
+		_vorbis_comment_rm_tag(vc, line, unescaped_value);
+		break;
 	}
 
-	/* append the comment and return */
-	vorbis_comment_add_tag(vc, line, unescaped_value);
 	if (escapes)
 		free(unescaped_value);
-	if (!raw)
+	if (!raw && !is_empty)
 		free(utf8_value);
 	return 0;
 }
@@ -540,9 +635,13 @@ void usage(void)
   printf ("\n");
 
   printf (_("Editing options\n"));
-  printf (_("  -a, --append            Append comments\n"));
+  printf (_("  -a, --append            Update comments\n"));
   printf (_("  -t \"name=value\", --tag \"name=value\"\n"
             "                          Specify a comment tag on the commandline\n"));
+  printf (_("  -d \"name[=value]\", --rm \"name[=value]\"\n"
+            "                          Specify a comment tag on the commandline to remove\n"
+            "                          If no value is given all tags with that name are removed\n"
+            "                          This implies -a,\n"));
   printf (_("  -w, --write             Write comments, replacing the existing ones\n"));
   printf ("\n");
 
@@ -616,6 +715,7 @@ param_t *new_param(void)
 	/* comments */
 	param->commentcount=0;
 	param->comments=NULL;
+	param->changetypes=NULL;
 
 	return param;
 }
@@ -636,7 +736,7 @@ void parse_options(int argc, char *argv[], param_t *param)
 
 	setlocale(LC_ALL, "");
 
-	while ((ret = getopt_long(argc, argv, "alwhqVc:t:Re",
+	while ((ret = getopt_long(argc, argv, "alwhqVc:t:d:Re",
 			long_options, &option_index)) != -1) {
 		switch (ret) {
 			case 0:
@@ -675,7 +775,21 @@ void parse_options(int argc, char *argv[], param_t *param)
 			case 't':
 				param->comments = realloc(param->comments, 
 						(param->commentcount+1)*sizeof(char *));
-				param->comments[param->commentcount++] = strdup(optarg);
+				param->changetypes = realloc(param->changetypes,
+						(param->commentcount+1)*sizeof(int));
+				param->comments[param->commentcount] = strdup(optarg);
+				param->changetypes[param->commentcount] = CHANGETYPE_ADD;
+				param->commentcount++;
+				break;
+			case 'd':
+				param->comments = realloc(param->comments, 
+						(param->commentcount+1)*sizeof(char *));
+				param->changetypes = realloc(param->changetypes,
+						(param->commentcount+1)*sizeof(int));
+				param->comments[param->commentcount] = strdup(optarg);
+				param->changetypes[param->commentcount] = CHANGETYPE_REMOVE;
+				param->commentcount++;
+				param->mode = MODE_APPEND;
 				break;
 			default:
 				usage();
