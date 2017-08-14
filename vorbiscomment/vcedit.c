@@ -570,6 +570,9 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 	    }
 	    while(1)
 	    {
+		    if(ogg_sync_pageout(state->oy, &og) == 1)
+			    break;
+
 		    buffer = ogg_sync_buffer(state->oy, CHUNKSIZE);
 		    bytes = state->read(buffer, 1, CHUNKSIZE, state->in);
 
@@ -581,9 +584,6 @@ int vcedit_open_callbacks(vcedit_state *state, void *in,
 		    }
 
 		    ogg_sync_wrote(state->oy, bytes);
-
-		    if(ogg_sync_pageout(state->oy, &og) == 1)
-			    break;
 	    }
 	    if(!ogg_page_bos(&og)) {
 		    read_bos = 0;
