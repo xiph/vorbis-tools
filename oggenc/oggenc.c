@@ -501,7 +501,8 @@ clear_all:
 static void usage(void)
 {
     fprintf(stdout, _("oggenc from %s %s"), PACKAGE, VERSION);
-    fprintf(stdout, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    fprintf(stdout, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n"));
+    fprintf(stdout, _("Using encoder %s\n\n"), vorbis_version_string());
     fprintf(stdout, _("Usage: oggenc [options] inputfile [...]\n\n"));
     fprintf(stdout, _("OPTIONS:\n"
         " General:\n"
