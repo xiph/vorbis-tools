@@ -621,7 +621,7 @@ void print_flac_comments (FLAC__StreamMetadata_VorbisComment *f_comments,
       temp = realloc(temp, sizeof(char) * temp_len);
     }
 
-    strncpy(temp, f_comments->comments[i].entry, 
+    strncpy(temp, (char *)f_comments->comments[i].entry,
 	    f_comments->comments[i].length);
     temp[f_comments->comments[i].length] = '\0';
 
