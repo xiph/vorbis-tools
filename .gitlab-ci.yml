@@ -12,8 +12,5 @@ build:
     - ./configure
     - make
     - make distcheck
-  cache:
-    paths:
-      - "*.o"
   tags:
     - docker
