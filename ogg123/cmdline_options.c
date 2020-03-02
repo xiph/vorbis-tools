@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vorbis/vorbisfile.h>
 #include <ao/ao.h>
 
 #include "getopt.h"
@@ -304,7 +305,8 @@ void cmdline_usage (void)
   ao_info **devices = ao_driver_info_list(&driver_count);
 
   printf (_("ogg123 from %s %s\n"
-         " by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"), PACKAGE, VERSION);
+         " by the Xiph.Org Foundation (https://www.xiph.org/)\n"), PACKAGE, VERSION);
+  printf (_(" using decoder %s.\n\n"), vorbis_version_string());
 
   printf (_("Usage: ogg123 [options] file ...\n"
 	    "Play Ogg audio files and network streams.\n\n"));

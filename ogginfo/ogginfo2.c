@@ -1233,7 +1233,7 @@ static void version (void) {
 
 static void usage(void) {
     version ();
-    printf (_(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    printf (_(" by the Xiph.Org Foundation (https://www.xiph.org/)\n\n"));
     printf(_("(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
              "\n"
              "Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"

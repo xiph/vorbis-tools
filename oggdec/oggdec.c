@@ -54,7 +54,8 @@ static void version (void) {
 static void usage(void)
 {
     version ();
-    fprintf(stdout, _(" by the Xiph.Org Foundation (http://www.xiph.org/)\n\n"));
+    fprintf(stdout, _(" by the Xiph.Org Foundation (https://www.xiph.org/)\n"));
+    fprintf(stdout, _(" using decoder %s.\n\n"), vorbis_version_string());
     fprintf(stdout, _("Usage: oggdec [options] file1.ogg [file2.ogg ... fileN.ogg]\n\n"));
     fprintf(stdout, _("Supported options:\n"));
     fprintf(stdout, _(" --quiet, -Q      Quiet mode. No console output.\n"));
