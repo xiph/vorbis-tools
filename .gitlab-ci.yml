@@ -6,6 +6,7 @@ build:
   before_script:
     - apt-get update &&
       apt-get install -y libogg-dev libvorbis-dev libao-dev
+        gettext
   script:
     - ./autogen.sh
     - ./configure
