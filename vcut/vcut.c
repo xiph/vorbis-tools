@@ -181,7 +181,7 @@ static int submit_headers_to_stream(vcut_state *s)
 	for(i=0;i<4;i++)
 	{
 		ogg_packet p;
-		if(i < 4)  /* a header packet */
+		if(i < 3)  /* a header packet */
 		{
 			p.bytes = vs->headers[i].length;
 			p.packet = vs->headers[i].packet;
