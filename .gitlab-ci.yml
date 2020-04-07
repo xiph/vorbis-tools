@@ -5,7 +5,7 @@ build:
   stage: build
   before_script:
     - apt-get update &&
-      apt-get install -y libogg-dev libvorbis-dev libao-dev
+      apt-get install -y libogg-dev libvorbis-dev libao-dev libflac-dev
         gettext zip
   script:
     - ./autogen.sh
