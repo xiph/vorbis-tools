@@ -1,0 +1,17 @@
+# Image from https://hub.docker.com/_/gcc/ based on Debian
+image: gcc
+
+build:
+  stage: build
+  before_script:
+    - apt-get update &&
+      apt-get install -y libogg-dev libvorbis-dev
+        libao-dev libflac-dev libspeex-dev libkate-dev liboggkate-dev
+        gettext zip
+  script:
+    - ./autogen.sh
+    - ./configure
+    - make
+    - make distcheck
+  tags:
+    - docker
