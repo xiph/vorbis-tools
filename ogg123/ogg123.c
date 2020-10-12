@@ -706,7 +706,7 @@ void play (char *source_string)
 	
 	if (nthc-- == 0) {
           if (audio_buffer) {
-            if (!buffer_submit_data(audio_buffer, convbuffer, ret)) {
+            if (!buffer_submit_data(audio_buffer, (char *)convbuffer, ret)) {
               status_error(_("ERROR: buffer write failed.\n"));
               eof = eos = 1;
               break;

@@ -366,7 +366,7 @@ void copy_comments (vorbis_comment *v_comments, FLAC__StreamMetadata_VorbisComme
     {
         char *comment = malloc(f_comments->comments[i].length + 1);
         memset(comment, '\0', f_comments->comments[i].length + 1);
-        strncpy(comment, f_comments->comments[i].entry, f_comments->comments[i].length);
+        strncpy(comment, (char *)f_comments->comments[i].entry, f_comments->comments[i].length);
         vorbis_comment_add(v_comments, comment);
         free(comment);
     }
