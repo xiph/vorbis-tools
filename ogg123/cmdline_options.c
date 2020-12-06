@@ -70,7 +70,7 @@ int parse_cmdline_options (int argc, char **argv,
   ao_option ** current_options = &temp_options;
   ao_info *info;
   int temp_driver_id = -1;
-  audio_device_t *current;
+  audio_device_t *current = NULL;
   int ret;
 
   while (-1 != (ret = getopt_long(argc, argv, "b:c::d:f:hl:k:K:o:p:qrRvVx:y:zZ@:",
