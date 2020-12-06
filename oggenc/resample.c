@@ -71,7 +71,7 @@ static void filt_sinc(float *dest, int N, int step, double fc, double gain, int 
         if (dest >= endpoint)
             dest = ++base;
     }
-    assert(dest == origdest + width);
+    assert(dest == (origdest + width));
 }
 
 
@@ -125,7 +125,7 @@ static void win_kaiser(float *dest, int N, double alpha, int width)
         if (dest >= endpoint)
             dest = ++base;
     }
-    assert(dest == origdest + width);
+    assert(dest == (origdest + width));
 }
 
 
@@ -174,7 +174,7 @@ int res_init(res_state *state, int channels, int outfreq, int infreq, res_parame
                 assert(beta > 2.0);
                 break;
             default:
-                assert("arglist" == "valid");
+                assert(0);
                 return -1;
             }
             op1 = va_arg(argp, res_parameter);
@@ -197,7 +197,7 @@ int res_init(res_state *state, int channels, int outfreq, int infreq, res_parame
         taps = taps * infreq/outfreq;
     }
 
-    assert(taps >= (infreq + outfreq - 1) / outfreq);
+    assert(taps >= ((infreq + outfreq - 1) / outfreq));
 
     if ((state->table = calloc(outfreq * taps, sizeof(float))) == NULL)
         return -1;
@@ -286,7 +286,7 @@ static int push(res_state const * const state, SAMPLE *pool, int * const poolfil
         }
     }
 
-    assert(dest == destbase + lencheck * dststep);
+    assert(dest == (destbase + lencheck * dststep));
 
     /* pretend that source has that underrun data we're not going to get */
     srclen += (source - endpoint) / srcstep;
