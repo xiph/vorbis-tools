@@ -34,25 +34,7 @@
 #include <locale.h>
 #include "i18n.h"
 
-#ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
-#define FORMAT_INT64 "%" PRId64
-#define FORMAT_INT64_TIME "+%" PRId64
-#else
-
-#ifdef _WIN32
-#define FORMAT_INT64	  "%I64d"
-#define FORMAT_INT64_TIME "+%I64d"
-#else
-#if LONG_MAX!=2147483647L
-#define FORMAT_INT64      "%ld"
-#define FORMAT_INT64_TIME "+%ld"
-#else
-#define FORMAT_INT64	  "%lld"
-#define FORMAT_INT64_TIME "+%lld"
-#endif
-#endif
-#endif
 
 static void clear_packet(vcut_packet *p)
 {
@@ -296,7 +278,7 @@ int main(int argc, char **argv)
 	    fprintf(stderr, _("Couldn't parse cutpoint \"%s\"\n"), argv[4]);
             exit(1);
 	  }
-	} else if(sscanf(argv[4], FORMAT_INT64, &seg->cutpoint) != 1) {
+	} else if(sscanf(argv[4], "%" PRId64, &seg->cutpoint) != 1) {
 	    fprintf(stderr, _("Couldn't parse cutpoint \"%s\"\n"), argv[4]);
             exit(1);
 	}
@@ -357,7 +339,7 @@ int process_audio_packet(vcut_state *s,
 				&& vs->granulepos > 0 && !packet->e_o_s)
 		{
 			fprintf(stderr, _("WARNING: unexpected granulepos "
-					FORMAT_INT64 " (expected " FORMAT_INT64 ")\n"),
+					"%" PRId64 " (expected " "%" PRId64 ")\n"),
 					packet->granulepos, (vs->granulepos + bs));
 		}
 		vs->granulepos = packet->granulepos;
@@ -414,8 +396,8 @@ int process_audio_packet(vcut_state *s,
 		if(rel_sample < bs && !s->drop_output)
 		{
 			fprintf(stderr, _("Can't produce a file starting"
-					" and ending between sample positions " FORMAT_INT64
-					" and " FORMAT_INT64 "\n"),
+					" and ending between sample positions " "%" PRId64
+					" and " "%" PRId64 "\n"),
 					packet_start_granpos + gp_to_global_sample_adj - 1,
 					vs->granulepos + gp_to_global_sample_adj);
 			return -1;
@@ -458,7 +440,7 @@ int process_audio_packet(vcut_state *s,
 				&& strcmp(s->output_filename, ".") != 0)
 		{
 			fprintf(stderr, _("Can't produce a file starting between sample"
-					" positions " FORMAT_INT64 " and " FORMAT_INT64 ".\n"),
+					" positions " "%" PRId64 " and " "%" PRId64 ".\n"),
 					packet_start_granpos + gp_to_global_sample_adj - 1,
 					vs->granulepos + gp_to_global_sample_adj);
 			fprintf(stderr, _("Specify \".\" as the second output file"

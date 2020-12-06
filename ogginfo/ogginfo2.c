@@ -17,6 +17,7 @@
 #include <stdarg.h>
 #include <getopt.h>
 #include <math.h>
+#include <inttypes.h>
 
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
@@ -32,12 +33,6 @@
 #include "theora.h"
 
 #define CHUNK 4500
-
-#ifdef _WIN32
-#define I64FORMAT "I64d"
-#else
-#define I64FORMAT "lld"
-#endif
 
 struct vorbis_release {
     char *vendor_string;
@@ -474,8 +469,8 @@ static void theora_process(stream_processor *stream, ogg_page *page)
                 if(inf->framenum_expected >= 0 && 
                     inf->framenum_expected != framenum)
                 {
-                    warn(_("WARNING: Expected frame %" I64FORMAT 
-                           ", got %" I64FORMAT "\n"), 
+                    warn(_("WARNING: Expected frame %" PRId64 
+                           ", got %" PRId64 "\n"), 
                            inf->framenum_expected, framenum);
                 }
                 inf->framenum_expected = framenum + 1;
@@ -491,7 +486,7 @@ static void theora_process(stream_processor *stream, ogg_page *page)
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
                 warn(_("WARNING: granulepos in stream %d decreases from %" 
-                        I64FORMAT " to %" I64FORMAT "\n"),
+                        PRId64 " to %" PRId64 "\n"),
                         stream->num, inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
         }
@@ -525,7 +520,7 @@ static void theora_end(stream_processor *stream)
     bitrate = inf->bytes*8 / time / 1000.0;
 
     info(_("Theora stream %d:\n"
-           "\tTotal data length: %" I64FORMAT " bytes\n"
+           "\tTotal data length: %" PRId64 " bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
@@ -626,7 +621,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
                 warn(_("WARNING: granulepos in stream %d decreases from %" 
-                        I64FORMAT " to %" I64FORMAT "\n" ),
+                        PRId64 " to %" PRId64 "\n" ),
                         stream->num, inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
         }
@@ -634,7 +629,7 @@ static void vorbis_process(stream_processor *stream, ogg_page *page )
             /* Only do this if we saw at least one packet ending on this page.
              * It's legal (though very unusual) to have no packets in a page at
              * all - this is occasionally used to have an empty EOS page */
-            warn(_("Negative or zero granulepos (%" I64FORMAT ") on Vorbis stream outside of headers. This file was created by a buggy encoder\n"), gp);
+            warn(_("Negative or zero granulepos (%" PRId64 ") on Vorbis stream outside of headers. This file was created by a buggy encoder\n"), gp);
         }
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
@@ -656,7 +651,7 @@ static void vorbis_end(stream_processor *stream)
     bitrate = inf->bytes*8 / time / 1000.0;
 
     info(_("Vorbis stream %d:\n"
-           "\tTotal data length: %" I64FORMAT " bytes\n"
+           "\tTotal data length: %" PRId64 " bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
@@ -824,7 +819,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
         if(gp > 0) {
             if(gp < inf->lastgranulepos)
                 warn(_("WARNING: granulepos in stream %d decreases from %" 
-                        I64FORMAT " to %" I64FORMAT "\n" ),
+                        PRId64 " to %" PRId64 "\n" ),
                         stream->num, inf->lastgranulepos, gp);
             inf->lastgranulepos = gp;
         }
@@ -832,7 +827,7 @@ static void kate_process(stream_processor *stream, ogg_page *page )
             /* Only do this if we saw at least one packet ending on this page.
              * It's legal (though very unusual) to have no packets in a page at
              * all - this is occasionally used to have an empty EOS page */
-            warn(_("Negative granulepos (%" I64FORMAT ") on Kate stream outside of headers. This file was created by a buggy encoder\n"), gp);
+            warn(_("Negative granulepos (%" PRId64 ") on Kate stream outside of headers. This file was created by a buggy encoder\n"), gp);
         }
         if(inf->firstgranulepos < 0) { /* Not set yet */
         }
@@ -858,7 +853,7 @@ static void kate_end(stream_processor *stream)
     bitrate = inf->bytes*8 / time / 1000.0;
 
     info(_("Kate stream %d:\n"
-           "\tTotal data length: %" I64FORMAT " bytes\n"
+           "\tTotal data length: %" PRId64 " bytes\n"
            "\tPlayback length: %ldm:%02ld.%03lds\n"
            "\tAverage bitrate: %f kb/s\n"), 
             stream->num,inf->bytes, minutes, seconds, milliseconds, bitrate);
@@ -1111,7 +1106,7 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
     while((ret = ogg_sync_pageseek(sync, page)) <= 0) {
         if(ret < 0) {
             /* unsynced, we jump over bytes to a possible capture - we don't need to read more just yet */
-            warn(_("WARNING: Hole in data (%d bytes) found at approximate offset %" I64FORMAT " bytes. Corrupted Ogg.\n"), -ret, *written);
+            warn(_("WARNING: Hole in data (%d bytes) found at approximate offset %" PRId64 " bytes. Corrupted Ogg.\n"), -ret, *written);
             continue;
         }
 
