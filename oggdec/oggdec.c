@@ -28,15 +28,15 @@
 #include "i18n.h"
 
 struct option long_options[] = {
-    {"quiet", 0,0,'Q'},
-    {"help",0,0,'h'},
-    {"version", 0, 0, 'V'},
-    {"bits", 1, 0, 'b'},
-    {"endianness", 1, 0, 'e'},
-    {"raw", 0, 0, 'R'},
-    {"sign", 1, 0, 's'},
-    {"output", 1, 0, 'o'},
-    {NULL,0,0,0}
+    {"quiet", no_argument, NULL, 'Q'},
+    {"help", no_argument, NULL, 'h'},
+    {"version", no_argument, NULL, 'V'},
+    {"bits", required_argument, NULL, 'b'},
+    {"endianness", required_argument, NULL, 'e'},
+    {"raw", no_argument, NULL, 'R'},
+    {"sign", required_argument, NULL, 's'},
+    {"output", required_argument, NULL, 'o'},
+    {NULL,0,NULL,0}
 };
 
 static int quiet = 0;
