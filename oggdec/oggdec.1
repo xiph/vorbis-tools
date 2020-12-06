@@ -62,7 +62,7 @@ Decode a file
 .B enabler.ogg
 to 
 .B enabler.wav
- as little-endian unsigned 16-bit (default options):
+ as little-endian signed 16-bit (default options):
 .RS
 oggdec enabler.ogg
 .RE
@@ -71,9 +71,9 @@ Decode a file
 .B enabler.ogg
 to 
 .B enabler.raw
-as headerless little-endian unsigned 16-bit:
+as headerless little-endian signed 16-bit:
 .RS
-oggdec --raw=1 enabler.ogg
+oggdec --raw enabler.ogg
 .RE
 
 Decode 
