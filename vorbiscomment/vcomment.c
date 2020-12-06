@@ -90,6 +90,10 @@ void close_files(param_t *p, int output_written);
 
 static void _vorbis_comment_rm_tag(vorbis_comment *vc, const char *tag, const char *contents);
 
+#ifdef _MSC_VER
+#define strncasecmp _strnicmp
+#endif
+
 char *
 read_line (FILE *input)
 {
