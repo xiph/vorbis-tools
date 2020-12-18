@@ -28,7 +28,7 @@ static void process_other(stream_processor *stream, ogg_page *page )
     }
 }
 
-void other_start(stream_processor *stream, char *type)
+void other_start(stream_processor *stream, const char *type)
 {
     if (type) {
         stream->type = type;

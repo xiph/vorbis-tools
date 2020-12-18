@@ -65,7 +65,7 @@ static stream_set *create_stream_set(void) {
     return set;
 }
 
-void info(char *format, ...)
+void info(const char *format, ...)
 {
     va_list ap;
 
@@ -77,7 +77,7 @@ void info(char *format, ...)
     va_end(ap);
 }
 
-void warn(char *format, ...)
+void warn(const char *format, ...)
 {
     va_list ap;
 
@@ -90,7 +90,7 @@ void warn(char *format, ...)
     va_end(ap);
 }
 
-void error(char *format, ...)
+void error(const char *format, ...)
 {
     va_list ap;
 
