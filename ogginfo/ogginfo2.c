@@ -33,6 +33,8 @@
 
 #include "theora.h"
 
+#include "private.h"
+
 #define CHUNK 4500
 
 static const struct vorbis_release {
@@ -63,27 +65,6 @@ static const struct vorbis_release {
  * - detect granulepos 'gaps' (possibly vorbis-specific). (seperate from
  *   serial-number gaps)
  */
-
-typedef struct _stream_processor {
-    void (*process_page)(struct _stream_processor *, ogg_page *);
-    void (*process_end)(struct _stream_processor *);
-    int isillegal;
-    int constraint_violated;
-    int shownillegal;
-    int isnew;
-    long seqno;
-    int lostseq;
-
-    int start;
-    int end;
-
-    int num;
-    char *type;
-
-    ogg_uint32_t serial; /* must be 32 bit unsigned */
-    ogg_stream_state os;
-    void *data;
-} stream_processor;
 
 typedef struct {
     stream_processor *streams;
@@ -875,18 +856,6 @@ static void process_null(stream_processor *stream, ogg_page *page)
     /* This is for invalid streams. */
 }
 
-static void process_other(stream_processor *stream, ogg_page *page )
-{
-    ogg_packet packet;
-
-    ogg_stream_pagein(&stream->os, page);
-
-    while (ogg_stream_packetout(&stream->os, &packet) > 0) {
-        /* Should we do anything here? Currently, we don't */
-    }
-}
-
-
 static void free_stream_set(stream_set *set)
 {
     int i;
@@ -921,17 +890,6 @@ static void null_start(stream_processor *stream)
     stream->process_end = NULL;
     stream->type = "invalid";
     stream->process_page = process_null;
-}
-
-static void other_start(stream_processor *stream, char *type)
-{
-    if (type) {
-        stream->type = type;
-    } else {
-        stream->type = "unknown";
-    }
-    stream->process_page = process_other;
-    stream->process_end = NULL;
 }
 
 static void theora_start(stream_processor *stream)

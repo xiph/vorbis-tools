@@ -1,9 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
 mans = ogginfo.1
-ogginfosources = ogginfo2.c theora.c
+ogginfosources = ogginfo2.c theora.c codec_other.c
 
 noinst_HEADERS = \
+	private.h \
 	theora.h
 
 datadir = @datadir@
