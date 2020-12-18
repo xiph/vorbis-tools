@@ -1,7 +1,14 @@
 ## Process this file with automake to produce Makefile.in
 
 mans = ogginfo.1
-ogginfosources = ogginfo2.c theora.c codec_other.c
+ogginfosources = \
+	ogginfo2.c \
+	theora.c \
+	codec_vorbis.c \
+	codec_theora.c \
+	codec_kate.c \
+	codec_other.c \
+	codec_invalid.c
 
 noinst_HEADERS = \
 	private.h \

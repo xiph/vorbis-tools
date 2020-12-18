@@ -33,6 +33,16 @@ typedef struct _stream_processor {
     void *data;
 } stream_processor;
 
+void info(char *format, ...);
+void warn(char *format, ...);
+void error(char *format, ...);
+
+void check_xiph_comment(stream_processor *stream, int i, const char *comment, int comment_length);
+
+void vorbis_start(stream_processor *stream);
+void theora_start(stream_processor *stream);
+void kate_start(stream_processor *stream);
 void other_start(stream_processor *stream, char *type);
+void invalid_start(stream_processor *stream);
 
 #endif
