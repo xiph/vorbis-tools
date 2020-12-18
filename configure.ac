@@ -166,6 +166,16 @@ then
 fi
 AM_CONDITIONAL(HAVE_OV_READ_FILTER, test "x$have_ov_read_filter" = "xyes")
 
+if test "x$HAVE_PKG_CONFIG" = "xyes"
+then
+  PKG_CHECK_MODULES(OPUSFILE, opusfile >= 0.2, HAVE_LIBOPUSFILE=yes, HAVE_LIBOPUSFILE=no)
+  AC_SUBST(OPUSFILE_LIBS)
+  if test "x$HAVE_LIBOPUSFILE" = xyes; then
+    AC_DEFINE(HAVE_LIBOPUSFILE, 1, [Defined if we have libopusfile])
+  fi
+fi
+AM_CONDITIONAL(HAVE_LIBOPUSFILE, test "x$HAVE_LIBOPUSFILE" = "xyes")
+
 
 SHARE_LIBS='$(top_builddir)/share/libutf8.a $(top_builddir)/share/libgetopt.a'
 SHARE_CFLAGS='-I$(top_srcdir)/include'

@@ -38,6 +38,11 @@ extern format_t oggflac_format;
 extern format_t speex_format;
 #endif
 
+#ifdef HAVE_LIBOPUSFILE
+extern format_t opus_format;
+#endif
+
+
 format_t *formats[] = { 
 #ifdef HAVE_LIBFLAC
 			&flac_format,
@@ -45,6 +50,9 @@ format_t *formats[] = {
 #endif
 #ifdef HAVE_LIBSPEEX
 			&speex_format,
+#endif
+#ifdef HAVE_LIBOPUSFILE
+			&opus_format,
 #endif
 			&oggvorbis_format, 
 			NULL };

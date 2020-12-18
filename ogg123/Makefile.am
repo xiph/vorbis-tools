@@ -9,6 +9,12 @@ speex_sources = speex_format.c
 else
 speex_sources =
 endif
+if HAVE_LIBOPUSFILE
+opus_sources = opus_format.c
+else
+opus_sources =
+endif
+
 if HAVE_OV_READ_FILTER
 vgfilter_sources = vgfilter.c vgfilter.h
 else
@@ -24,13 +30,14 @@ mandir = @MANDIR@
 
 bin_PROGRAMS = ogg123
 
-AM_CPPFLAGS = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AO_CFLAGS@ @CURL_CFLAGS@ \
+AM_CPPFLAGS = @OGG_CFLAGS@ @VORBIS_CFLAGS@ @OPUSFILE_CFLAGS@ @AO_CFLAGS@ @CURL_CFLAGS@ \
               @PTHREAD_CFLAGS@ @SHARE_CFLAGS@ @I18N_CFLAGS@
 
 ogg123_LDADD = @SHARE_LIBS@ \
 	       @VORBISFILE_LIBS@ @VORBIS_LIBS@ @OGG_LIBS@ @AO_LIBS@ \
                @SOCKET_LIBS@ @LIBICONV@ @CURL_LIBS@ @PTHREAD_CFLAGS@ \
-               @PTHREAD_LIBS@ @I18N_LIBS@ @FLAC_LIBS@ @SPEEX_LIBS@ -lm
+               @PTHREAD_LIBS@ @I18N_LIBS@ @FLAC_LIBS@ @SPEEX_LIBS@ @OPUSFILE_LIBS@ \
+	       -lm
 
 ogg123_DEPENDENCIES = @SHARE_LIBS@
 ogg123_SOURCES = audio.c buffer.c callbacks.c \
@@ -42,7 +49,8 @@ ogg123_SOURCES = audio.c buffer.c callbacks.c \
                 cfgfile_options.h cmdline_options.h \
                 format.h ogg123.h playlist.h status.h \
                 transport.h remote.h vorbis_comments.h \
-                $(flac_sources) $(speex_sources) $(vgfilter_sources)
+                $(flac_sources) $(speex_sources) $(opus_sources) \
+		$(vgfilter_sources)
 
 man_MANS = ogg123.1
 doc_DATA = ogg123rc-example

@@ -321,6 +321,10 @@ void cmdline_usage (void)
   printf (_("Speex, "));
 #endif
 
+#ifdef HAVE_LIBOPUSFILE
+  printf (_("Opus, "));
+#endif
+
   printf (_("Ogg Vorbis.\n\n"));
 
   printf (_("Output options\n"));
