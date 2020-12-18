@@ -34,9 +34,9 @@
 
 #define CHUNK 4500
 
-struct vorbis_release {
-    char *vendor_string;
-    char *desc;
+static const struct vorbis_release {
+    const char *vendor_string;
+    const char *desc;
 } releases[] = {
     {"Xiphophorus libVorbis I 20000508", "1.0 beta 1 or beta 2"},
     {"Xiphophorus libVorbis I 20001031", "1.0 beta 3"},
