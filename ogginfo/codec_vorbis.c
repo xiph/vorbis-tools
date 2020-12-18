@@ -2,7 +2,7 @@
  *
  * A tool to describe ogg file contents and metadata.
  *
- * This file handles codecs we have no specific handling for.
+ * This file handles vorbis streams.
  *
  * Copyright 2002-2005 Michael Smith <msmith@xiph.org>
  * Copyright 2020      Philipp Schafft <lion@lion.leolix.org>
