@@ -4,6 +4,7 @@ Makefile.in
 .deps
 .libs
 *~
+.*.swp
 vorbis-tools-*.zip
 vorbis-tools-*.tar.gz
 compile
