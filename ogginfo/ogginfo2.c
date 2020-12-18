@@ -1066,6 +1066,8 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
             other_start(stream, "dirac");
         } else if (packet.bytes >= 8 && memcmp(packet.packet, "KW-DIRAC", 8)==0) {
             other_start(stream, "dirac (legacy)");
+        } else if (packet.bytes >= 8 && memcmp(packet.packet, "OpusHead", 8)==0) {
+            other_start(stream, "Opus");
         } else if (packet.bytes >= 8 && memcmp(packet.packet, "\x80kate\0\0\0", 8)==0) {
             kate_start(stream);
         } else {
