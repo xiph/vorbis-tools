@@ -9,6 +9,7 @@ ogginfosources = \
 	codec_kate.c \
 	codec_opus.c \
 	codec_speex.c \
+	codec_flac.c \
 	codec_other.c \
 	codec_invalid.c
 

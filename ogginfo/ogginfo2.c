@@ -425,7 +425,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         } else if (packet.bytes >= 8 && memcmp(packet.packet, "OggMIDI\0", 8)==0) {
             other_start(stream, "MIDI");
         } else if (packet.bytes >= 5 && memcmp(packet.packet, "\177FLAC", 5)==0) {
-            other_start(stream, "FLAC");
+            flac_start(stream);
         } else if (packet.bytes == 4 && memcmp(packet.packet, "fLaC", 4)==0) {
             other_start(stream, "FLAC (legacy)");
         } else if (packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0) {
