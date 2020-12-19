@@ -429,7 +429,7 @@ static stream_processor *find_stream_processor(stream_set *set, ogg_page *page)
         } else if (packet.bytes == 4 && memcmp(packet.packet, "fLaC", 4)==0) {
             other_start(stream, "FLAC (legacy)");
         } else if (packet.bytes >= 8 && memcmp(packet.packet, "Speex   ", 8)==0) {
-            other_start(stream, "speex");
+            speex_start(stream);
         } else if (packet.bytes >= 8 && memcmp(packet.packet, "fishead\0", 8)==0) {
             other_start(stream, "skeleton");
         } else if (packet.bytes >= 5 && memcmp(packet.packet, "BBCD\0", 5)==0) {

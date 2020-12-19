@@ -54,6 +54,7 @@ void vorbis_start(stream_processor *stream);
 void theora_start(stream_processor *stream);
 void kate_start(stream_processor *stream);
 void opus_start(stream_processor *stream);
+void speex_start(stream_processor *stream);
 void other_start(stream_processor *stream, const char *type);
 void invalid_start(stream_processor *stream);
 
