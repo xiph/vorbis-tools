@@ -95,8 +95,12 @@ static void opus_process_opushead(stream_processor *stream, misc_opus_info *self
             info(_("Preskip: %d (%.1fms)\n"), (int)self->pre_skip, (self->pre_skip / 48.));
             info(_("Output gain: %.1fdB\n"), self->output_gain / 256.);
             info(_("Mapping family: %d (%s)\n"), self->mapping_family, mapping_family_name(self->mapping_family));
-            info(_("Input rate: %ld\n"), (long int)self->input_sample_rate);
+            /*
+             * Not reported as per discussion in #xiph on 2020-12-19 -- phschafft
+            if (self->input_sample_rate)
+                info(_("Input rate: %ld\n"), (long int)self->input_sample_rate);
             info(_("Rate: %ld\n\n"), (long int)48000);
+            */
         } else {
             warn(_("WARNING: invalid OpusHead version %d on stream %d\n"), self->version, stream->num);
         }
