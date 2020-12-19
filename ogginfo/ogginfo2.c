@@ -142,7 +142,7 @@ int handle_vorbis_comments(stream_processor *stream, const unsigned char *in, si
         if (length < (*end + user_comment_string_length))
             return -1;
 
-        buf = malloc(user_comment_string_length);
+        buf = malloc(user_comment_string_length + 1);
         if (buf) {
             memcpy(buf, in + *end, user_comment_string_length);
             buf[user_comment_string_length] = 0;
