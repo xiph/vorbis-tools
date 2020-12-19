@@ -32,19 +32,19 @@
 
 
 /* getopt format struct */
-struct option long_options[] = {
-    {"list",0,0,'l'},
-    {"append",0,0,'a'},
-    {"tag",required_argument,0,'t'},
-    {"rm",required_argument,0,'d'},
-    {"write",0,0,'w'},
-    {"help",0,0,'h'},
-    {"quiet",0,0,'q'}, /* unused */
-    {"version", 0, 0, 'V'},
-    {"commentfile",1,0,'c'},
-    {"raw", 0,0,'R'},
-    {"escapes",0,0,'e'},
-    {NULL,0,0,0}
+static const struct option long_options[] = {
+    {"list",        no_argument,        0, 'l'},
+    {"append",      no_argument,        0, 'a'},
+    {"tag",         required_argument,  0, 't'},
+    {"rm",          required_argument,  0, 'd'},
+    {"write",       no_argument,        0, 'w'},
+    {"help",        no_argument,        0, 'h'},
+    {"quiet",       no_argument,        0, 'q'},  /* unused */
+    {"version",     no_argument,        0, 'V'},
+    {"commentfile", required_argument,  0, 'c'},
+    {"raw",         no_argument,        0, 'R'},
+    {"escapes",     no_argument,        0, 'e'},
+    {NULL, 0, 0, 0}
 };
 
 /* local parameter storage from parsed options */
