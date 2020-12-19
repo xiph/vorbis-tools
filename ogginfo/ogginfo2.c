@@ -45,7 +45,7 @@ typedef struct {
     int in_headers;
 } stream_set;
 
-static int printlots = 0;
+int printlots = 0;
 static int printinfo = 1;
 static int printwarn = 1;
 static int verbose = 1;

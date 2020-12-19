@@ -33,6 +33,8 @@ typedef struct _stream_processor {
     void *data;
 } stream_processor;
 
+extern int printlots;
+
 static inline ogg_uint16_t read_u16le(const unsigned char *in)
 {
     return in[0] | (in[1] << 8);
