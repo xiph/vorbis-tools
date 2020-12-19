@@ -14,6 +14,7 @@
 #endif
 
 #include <stdlib.h>
+#include <inttypes.h>
 #include <math.h>
 
 #include <ogg/ogg.h>
