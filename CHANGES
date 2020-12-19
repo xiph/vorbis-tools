@@ -1,3 +1,38 @@
+vorbis-tools 1.?.? -- 2020-12-??
+
+ * Updated documentation including manpages (including: #1679, Debian bug: #359948)
+ * Cleanup of the build system
+ * Code cleanup
+ * Fixed invalid handling of input data (#2007)
+ * Fixed build with MSVC.
+ * Added gitlab-ci configuration
+ * oggenc, oggdec: Fixed memory leak
+ * oggenc, ogg123: Always link libm
+ * oggenc: Fixed RIFF/WAVE 6.1 channel mapping (#1749)
+ * oggenc: Fixed --ignorelength (#1803)
+ * oggenc: Fixed crash on raw input (#2009)
+ * oggenc: Reject files with invalid sample rates (#2078)
+ * oggenc: Fixed crash when encoding from stdin
+ * oggenc: Fixed floating point error (Debian bug: #328266, #634855)
+ * oggenc: Fixed large alloca on bad AIFF input (#2212, Debian bug: #797461, CVE: CVE-2015-6749)
+ * oggenc: Validate count of channels in the header (#2136, #2137, Debian bug: #776086, CVE: CVE-2014-9638, CVE-2014-9639)
+ * oggdec: Fixed write of version to not corrupt data (Debian bug: #595104)
+ * oggdec: Fixed crash on stream errors (#2148, Debian bug: #772978, Ubuntu bug: #629135)
+ * oggdec: Use translations (#2149, Debian bug: #772976)
+ * oggdec: Fixed output to stdout (Do not write "-.wav" files) (#1678, Debian bug: 263762)
+ * ogg123: Fixed format string error
+ * ogg123: Fixed playback of stereo speex tracks with no intensity signal (#1676)
+ * ogg123: Fixed locking/synchronization error
+ * ogg123: Fixed freeze on interupt at EOF (#1956, Debian bug: #307325)
+ * ogg123: Fixed wrong display of status lines (#1677, Debian bug: #239073)
+ * ogg123: Fixed Speex playback, correctly initialize channel matrix (Debian bug: #772766)
+ * ogg123: Added support for Opus files
+ * ogginfo: Corrected reported duration for Theora streams
+ * ogginfo: Added support for Opus, FLAC, and speex
+ * vcut: Corrected code to match language specification (#1701)
+ * vorbiscomment: Added -d/--rm to allow removal of tags
+ * vorbiscomment: Fixed handling of short files
+
 vorbis-tools 1.4.0 -- 2010-03-25
 
  * Implement corrected channel mappings for all input and playback file types
