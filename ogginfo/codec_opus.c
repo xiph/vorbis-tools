@@ -46,16 +46,6 @@ typedef struct {
     ogg_int64_t firstgranulepos;
 } misc_opus_info;
 
-static inline ogg_uint16_t read_u16le(const unsigned char *in)
-{
-    return in[0] | (in[1] << 8);
-}
-
-static inline ogg_uint32_t read_u32le(const unsigned char *in)
-{
-    return in[0] | (in[1] << 8) | (in[2] << 16) | (in[3] << 24);
-}
-
 static inline const char * mapping_family_name(int mapping_family)
 {
     switch (mapping_family) {
