@@ -100,25 +100,11 @@ static void opus_process_opushead(stream_processor *stream, misc_opus_info *self
     self->seen_opushead = true;
 }
 
-static void print_vendor(const unsigned char *str, size_t len)
-{
-    char *buf = malloc(len + 1);
-    if (buf) {
-        memcpy(buf, str, len);
-        buf[len] = 0;
-        info(_("Vendor: %s\n"), buf);
-        free(buf);
-    }
-}
-
 static void opus_process_opustags(stream_processor *stream, misc_opus_info *self, ogg_packet *packet)
 {
     bool too_short = false;
 
     do {
-        ogg_uint32_t vendor_string_length;
-        ogg_uint32_t user_comment_list_length;
-        ogg_uint32_t i;
         size_t offset;
 
         if (packet->bytes < 16) {
@@ -126,35 +112,12 @@ static void opus_process_opustags(stream_processor *stream, misc_opus_info *self
             break;
         }
 
-        vendor_string_length = read_u32le(&(packet->packet[8]));
-        if (packet->bytes < (16 + vendor_string_length)) {
+        if (handle_vorbis_comments(stream, &(packet->packet[8]), packet->bytes - 8, &offset) == -1) {
             too_short = true;
             break;
         }
 
-        print_vendor(&(packet->packet[12]), vendor_string_length);
-
-        user_comment_list_length = read_u32le(&(packet->packet[12 + vendor_string_length]));
-        offset = 16 + vendor_string_length;
-        if (packet->bytes < (offset + 4 * user_comment_list_length)) {
-            too_short = true;
-            break;
-        }
-
-        if (user_comment_list_length)
-            info(_("User comments section follows...\n"));
-
-        for (i = 0; i < user_comment_list_length; i++) {
-            ogg_uint32_t user_comment_string_length = read_u32le(&(packet->packet[offset]));
-            offset += 4;
-            if (packet->bytes < (offset + user_comment_string_length)) {
-                too_short = true;
-                break;
-            }
-
-            check_xiph_comment(stream, i, (const char *)&(packet->packet[offset]), user_comment_string_length);
-            offset += user_comment_string_length;
-        }
+        offset += 8;
 
         if (packet->bytes - offset - 1) {
             if (packet->packet[offset] & 0x1) {

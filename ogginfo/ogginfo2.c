@@ -101,6 +101,61 @@ void error(const char *format, ...)
     va_end(ap);
 }
 
+static void print_vendor(const unsigned char *str, size_t len)
+{
+    char *buf = malloc(len + 1);
+    if (buf) {
+        memcpy(buf, str, len);
+        buf[len] = 0;
+        info(_("Vendor: %s\n"), buf);
+        free(buf);
+    }
+}
+
+int handle_vorbis_comments(stream_processor *stream, const unsigned char *in, size_t length, size_t *end)
+{
+    ogg_uint32_t vendor_string_length;
+    ogg_uint32_t user_comment_list_length;
+    ogg_uint32_t i;
+
+    if (length < 8)
+        return -1;
+
+    vendor_string_length = read_u32le(in);
+    if (length < (8 + vendor_string_length))
+        return -1;
+
+    print_vendor(in + 4, vendor_string_length);
+
+    user_comment_list_length = read_u32le(in + 4 + vendor_string_length);
+
+    if (user_comment_list_length)
+        info(_("User comments section follows...\n"));
+
+    *end = 8 + vendor_string_length;
+    for (i = 0; i < user_comment_list_length; i++) {
+        ogg_uint32_t user_comment_string_length = read_u32le(in + *end);
+        char *buf;
+
+        (*end) += 4;
+
+        if (length < (*end + user_comment_string_length))
+            return -1;
+
+        buf = malloc(user_comment_string_length);
+        if (buf) {
+            memcpy(buf, in + *end, user_comment_string_length);
+            buf[user_comment_string_length] = 0;
+            check_xiph_comment(stream, i, buf, user_comment_string_length);
+            free(buf);
+        }
+
+        (*end) += user_comment_string_length;
+    }
+
+    return 0;
+}
+
 void check_xiph_comment(stream_processor *stream, int i, const char *comment, int comment_length)
 {
     char *sep = strchr(comment, '=');
