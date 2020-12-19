@@ -17,7 +17,7 @@
 
 #include "private.h"
 
-static void process_other(stream_processor *stream, ogg_page *page )
+static void process_other(stream_processor *stream, ogg_page *page)
 {
     ogg_packet packet;
 
