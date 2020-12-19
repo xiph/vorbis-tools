@@ -179,8 +179,6 @@ static void opus_process(stream_processor *stream, ogg_page *page)
 static void opus_end(stream_processor *stream)
 {
     misc_opus_info *self = stream->data;
-    long minutes, seconds, milliseconds;
-    double bitrate, time;
 
     if (!self->seen_opushead)
         warn(_("WARNING: stream (%d) did not contain OpusHead header\n"), stream->num);
@@ -191,17 +189,7 @@ static void opus_end(stream_processor *stream)
     if (!self->seen_data)
         warn(_("WARNING: stream (%d) did not contain data packets\n"), stream->num);
 
-    time = (double)(self->lastgranulepos - self->firstgranulepos - self->pre_skip) / 48000.;
-    minutes = (long)time / 60;
-    seconds = (long)time - minutes*60;
-    milliseconds = (long)((time - minutes*60 - seconds)*1000);
-    bitrate = self->bytes*8 / time / 1000.0;
-
-    info(_("Opus stream %d:\n"
-           "\tTotal data length: %" PRId64 " bytes\n"
-           "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kb/s\n"),
-            stream->num, self->bytes, minutes, seconds, milliseconds, bitrate);
+    print_summary(stream, self->bytes, (double)(self->lastgranulepos - self->firstgranulepos - self->pre_skip) / 48000.);
 
     free(stream->data);
 }

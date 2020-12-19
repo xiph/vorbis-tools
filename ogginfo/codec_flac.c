@@ -299,27 +299,15 @@ static void flac_process(stream_processor *stream, ogg_page *page)
 static void flac_end(stream_processor *stream)
 {
     misc_flac_info *self = stream->data;
-    long minutes, seconds, milliseconds;
-    double bitrate, time;
-
-    /* This should be lastgranulepos - startgranulepos, or something like that*/
-    time = (double)self->lastgranulepos / self->rate;
-    minutes = (long)time / 60;
-    seconds = (long)time - minutes*60;
-    milliseconds = (long)((time - minutes*60 - seconds)*1000);
-    bitrate = self->bytes*8 / time / 1000.0;
-
-    info(_("FLAC stream %d:\n"
-           "\tTotal data length: %" PRId64 " bytes\n"
-           "\tPlayback length: %ldm:%02ld.%03lds\n"
-           "\tAverage bitrate: %f kb/s\n"),
-            stream->num, self->bytes, minutes, seconds, milliseconds, bitrate);
 
     if (!self->seen_streaminfo)
         warn(_("WARNING: stream (%d) did not contain STREAMINFO\n"), stream->num);
 
     if (!self->seen_data)
         warn(_("WARNING: stream (%d) did not contain data packets\n"), stream->num);
+
+    /* This should be lastgranulepos - startgranulepos, or something like that*/
+    print_summary(stream, self->bytes, (double)self->lastgranulepos / self->rate);
 
     free(stream->data);
 }

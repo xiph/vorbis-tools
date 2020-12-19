@@ -101,6 +101,23 @@ void error(const char *format, ...)
     va_end(ap);
 }
 
+void print_summary(stream_processor *stream, size_t bytes, double time)
+{
+    long minutes, seconds, milliseconds;
+    double bitrate;
+
+    minutes = (long)time / 60;
+    seconds = (long)time - minutes*60;
+    milliseconds = (long)((time - minutes*60 - seconds)*1000);
+    bitrate = bytes*8 / time / 1000.0;
+
+    info(_("%s stream %d:\n"
+           "\tTotal data length: %" PRId64 " bytes\n"
+           "\tPlayback length: %ldm:%02ld.%03lds\n"
+           "\tAverage bitrate: %f kb/s\n"),
+            stream->type, stream->num, bytes, minutes, seconds, milliseconds, bitrate);
+}
+
 static void print_vendor(const unsigned char *str, size_t len)
 {
     char *buf = malloc(len + 1);

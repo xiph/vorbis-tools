@@ -47,6 +47,7 @@ void info(const char *format, ...);
 void warn(const char *format, ...);
 void error(const char *format, ...);
 
+void print_summary(stream_processor *stream, size_t bytes, double time);
 int handle_vorbis_comments(stream_processor *stream, const unsigned char *in, size_t length, size_t *end);
 void check_xiph_comment(stream_processor *stream, int i, const char *comment, int comment_length);
 
