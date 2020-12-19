@@ -113,9 +113,9 @@ void check_xiph_comment(stream_processor *stream, int i, const char *comment, in
 
     if (sep == NULL) {
         warn(_("WARNING: Comment %d in stream %d has invalid "
-              "format, does not contain '=': \"%s\"\n"),
-              i, stream->num, comment);
-             return;
+               "format, does not contain '=': \"%s\"\n"),
+               i, stream->num, comment);
+        return;
     }
 
     for (j=0; j < sep-comment; j++) {
@@ -129,7 +129,7 @@ void check_xiph_comment(stream_processor *stream, int i, const char *comment, in
     }
 
     if (broken)
-	return;
+        return;
 
     val = (unsigned char *)comment;
 
@@ -254,17 +254,17 @@ void check_xiph_comment(stream_processor *stream, int i, const char *comment, in
          j += bytes;
      }
 
-     if (!broken) {
-         if (utf8_decode(sep+1, &decoded) < 0) {
-             warn(_("WARNING: Failure in UTF-8 decoder. This should not be possible\n"));
-             return;
-	 }
-         *sep = 0;
-         if (!broken) {
-           info("\t%s=%s\n", comment, decoded);
-           free(decoded);
-         }
-     }
+    if (!broken) {
+        if (utf8_decode(sep+1, &decoded) < 0) {
+            warn(_("WARNING: Failure in UTF-8 decoder. This should not be possible\n"));
+            return;
+        }
+        *sep = 0;
+        if (!broken) {
+            info("\t%s=%s\n", comment, decoded);
+            free(decoded);
+        }
+    }
 }
 
 static void free_stream_set(stream_set *set)
