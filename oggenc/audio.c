@@ -357,7 +357,7 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
 
         if(aiff->channels>3)
           fprintf(stderr,"WARNING: AIFF[-C] files with greater than three channels use\n"
-                  "speaker locations incompatable with Vorbis suppound definitions.\n"
+                  "speaker locations incompatible with Vorbis suppound definitions.\n"
                   "Not performaing channel location mapping.\n");
 
         opt->readdata = (void *)aiff;
