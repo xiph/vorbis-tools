@@ -30,6 +30,7 @@ vorbis-tools 1.?.? -- 2020-12-??
  * ogginfo: Corrected reported duration for Theora streams
  * ogginfo: Added support for Opus, FLAC, and speex
  * vcut: Corrected code to match language specification (#1701)
+ * vcut: Corrected memory access (#2264, Debian bug: #818037)
  * vorbiscomment: Added -d/--rm to allow removal of tags
  * vorbiscomment: Fixed handling of short files
 
