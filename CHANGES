@@ -1,4 +1,4 @@
-vorbis-tools 1.?.? -- 2020-12-??
+vorbis-tools 1.4.1 -- 2020-12-??
 
  * Updated documentation including manpages (including: #1679, Debian bug: #359948)
  * Cleanup of the build system
