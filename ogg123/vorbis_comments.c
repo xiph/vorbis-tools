@@ -38,6 +38,7 @@ static const struct {
   const char *formatstr;   /* formatted output */
 } vorbis_comment_keys[] = {
   {"TRACKNUMBER=", N_("Track number:")},
+  {"REPLAYGAIN_REFERENCE_LOUDNESS=", N_("ReplayGain (Reference loudness):")},
   {"REPLAYGAIN_TRACK_GAIN=", N_("ReplayGain (Track):")},
   {"REPLAYGAIN_ALBUM_GAIN=", N_("ReplayGain (Album):")},
   {"REPLAYGAIN_TRACK_PEAK=", N_("ReplayGain Peak (Track):")},
