@@ -60,12 +60,11 @@ char *lookup_comment_prettyprint (const char *comment, int *offset)
 		       strlen(vorbis_comment_keys[i].key)) ) {
 
       *offset = strlen(vorbis_comment_keys[i].key);
-      s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
+      s = strdup(vorbis_comment_keys[i].formatstr);
       if (s == NULL) {
 	fprintf(stderr, _("ERROR: Out of memory.\n"));
 	exit(1);
-      };
-      strcpy(s, vorbis_comment_keys[i].formatstr);
+      }
       return s;
     }
 
@@ -87,18 +86,17 @@ char *lookup_comment_prettyprint (const char *comment, int *offset)
     s[0] = toupper(s[0]);
     for (i = 1; i < j; i++) {
       s[i] = tolower(s[i]);
-    };
+    }
     return s;
   }
 
   /* Unrecognized comment, use last format string */
   *offset = 0;
-  s = malloc(strlen(vorbis_comment_keys[i].formatstr) + 1);
+  s = strdup(vorbis_comment_keys[i].formatstr);
   if (s == NULL) {
     fprintf(stderr, _("ERROR: Out of memory.\n"));
     exit(1);
-  };
-  strcpy(s, vorbis_comment_keys[i].formatstr);
+  }
   return s;
 }
 
@@ -118,8 +116,9 @@ void print_vorbis_comment (const char *comment, decoder_callbacks_t *cb,
     cb->printf_metadata(callback_arg, 1, "%s %s", comment_prettyprint, 
 			decoded_value);
     free(decoded_value);
-  } else
+  } else {
     cb->printf_metadata(callback_arg, 1, "%s %s", comment_prettyprint, 
 			comment + offset);
+  }
   free(comment_prettyprint);
 }
