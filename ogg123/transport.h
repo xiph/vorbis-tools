@@ -43,9 +43,9 @@ typedef struct data_source_t {
 } data_source_t;
 
 typedef struct transport_t {
-  char *name;
-  int (* can_transport)(char *source_string);
-  data_source_t* (* open) (char *source_string, ogg123_options_t *ogg123_opts);
+  const char *name;
+  int (* can_transport)(const char *source_string);
+  data_source_t* (* open) (const char *source_string, ogg123_options_t *ogg123_opts);
   int (* peek) (data_source_t *source, void *ptr, size_t size, size_t nmemb);
   int (* read) (data_source_t *source, void *ptr, size_t size, size_t nmemb);
   int (* seek) (data_source_t *source, long offset, int whence);
@@ -54,8 +54,8 @@ typedef struct transport_t {
   void (* close) (data_source_t *source);
 } transport_t;
 
-transport_t *get_transport_by_name (char *name);
-transport_t *select_transport (char *source);
+const transport_t *get_transport_by_name (const char *name);
+const transport_t *select_transport (const char *source);
 
 data_source_stats_t *malloc_data_source_stats (data_source_stats_t *to_copy);
 

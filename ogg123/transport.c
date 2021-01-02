@@ -30,7 +30,7 @@ extern transport_t file_transport;
 extern transport_t http_transport;
 #endif
 
-transport_t *transports[] = {
+static const transport_t *transports[] = {
 #ifdef HAVE_CURL
   &http_transport,
 #endif
@@ -39,7 +39,7 @@ transport_t *transports[] = {
 };
 
 
-transport_t *get_transport_by_name (char *name)
+const transport_t *get_transport_by_name (const char *name)
 {
   int i = 0;
 
@@ -50,7 +50,7 @@ transport_t *get_transport_by_name (char *name)
 }
 
 
-transport_t *select_transport (char *source)
+const transport_t *select_transport (const char *source)
 {
   int i = 0;
 

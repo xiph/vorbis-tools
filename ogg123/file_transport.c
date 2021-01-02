@@ -37,12 +37,12 @@ typedef struct file_private_t {
 transport_t file_transport;  /* Forward declaration */
 
 
-int file_can_transport (char *source_string)
+int file_can_transport (const char *source_string)
 {
   return 1;  /* The file transport is tested last, so always try it */
 }
 
-data_source_t* file_open (char *source_string, ogg123_options_t *ogg123_opts)
+data_source_t* file_open (const char *source_string, ogg123_options_t *ogg123_opts)
 {
   data_source_t *source;
   file_private_t *private;

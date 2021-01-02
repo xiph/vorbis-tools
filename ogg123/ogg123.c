@@ -514,7 +514,7 @@ int main(int argc, char **argv)
 
 void play (char *source_string)
 {
-  transport_t *transport;
+  const transport_t *transport;
   format_t *format;
   data_source_t *source;
   decoder_t *decoder;

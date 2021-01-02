@@ -167,7 +167,7 @@ void *curl_thread_func (void *arg)
 
 /* -------------------------- Public interface -------------------------- */
 
-int http_can_transport (char *source_string)
+int http_can_transport (const char *source_string)
 {
   int tmp;
 
@@ -178,7 +178,7 @@ int http_can_transport (char *source_string)
 }
 
 
-data_source_t* http_open (char *source_string, ogg123_options_t *ogg123_opts)
+data_source_t* http_open (const char *source_string, ogg123_options_t *ogg123_opts)
 {
   data_source_t *source;
   http_private_t *private;

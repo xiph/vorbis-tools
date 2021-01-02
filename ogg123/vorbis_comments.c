@@ -29,12 +29,13 @@
 #include "format.h"
 #include "utf8.h"
 #include "i18n.h"
+#include "vorbis_comments.h"
 
 
 /* Vorbis comment keys that need special formatting. */
-struct {
-  char *key;         /* includes the '=' for programming convenience */
-  char *formatstr;   /* formatted output */
+static const struct {
+  const char *key;         /* includes the '=' for programming convenience */
+  const char *formatstr;   /* formatted output */
 } vorbis_comment_keys[] = {
   {"TRACKNUMBER=", N_("Track number:")},
   {"REPLAYGAIN_TRACK_GAIN=", N_("ReplayGain (Track):")},
@@ -47,7 +48,7 @@ struct {
 };
 
 
-char *lookup_comment_prettyprint (char *comment, int *offset)
+char *lookup_comment_prettyprint (const char *comment, int *offset)
 {
   int i, j;
   char *s;
@@ -101,7 +102,7 @@ char *lookup_comment_prettyprint (char *comment, int *offset)
   return s;
 }
 
-void print_vorbis_comment (char *comment, decoder_callbacks_t *cb, 
+void print_vorbis_comment (const char *comment, decoder_callbacks_t *cb,
 			   void *callback_arg)
 {
   char *comment_prettyprint;

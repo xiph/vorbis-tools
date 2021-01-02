@@ -22,7 +22,7 @@
 #include "format.h"
 
 
-void print_vorbis_comment (char *comment, decoder_callbacks_t *cb, 
+void print_vorbis_comment (const char *comment, decoder_callbacks_t *cb,
 			   void *callback_arg);
 
 #endif /* __VORBIS_COMMENTS_H__ */
