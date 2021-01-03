@@ -65,6 +65,8 @@ typedef struct {
     size_t private_data_length;
 } flac_picture_t;
 
+const char * flac_picture_type_string(flac_picture_type type);
+
 flac_picture_t * flac_picture_parse_from_base64(const char *str);
 
 void flac_picture_free(flac_picture_t *picture);

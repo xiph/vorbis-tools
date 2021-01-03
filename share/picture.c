@@ -23,6 +23,78 @@
 #include "base64.h"
 #include "picture.h"
 
+const char * flac_picture_type_string(flac_picture_type type)
+{
+    switch (type) {
+        case FLAC_PICTURE_OTHER:
+            return "Other";
+            break;
+        case FLAC_PICTURE_FILE_ICON:
+            return "32x32 pixels file icon (PNG)";
+            break;
+        case FLAC_PICTURE_OTHER_FILE_ICON:
+            return "Other file icon";
+            break;
+        case FLAC_PICTURE_COVER_FRONT:
+            return "Cover (front)";
+            break;
+        case FLAC_PICTURE_COVER_BACK:
+            return "Cover (back)";
+            break;
+        case FLAC_PICTURE_LEAFLET_PAGE:
+            return "Leaflet page";
+            break;
+        case FLAC_PICTURE_MEDIA:
+            return "Media";
+            break;
+        case FLAC_PICTURE_LEAD:
+            return "Lead artist/lead performer/soloist";
+            break;
+        case FLAC_PICTURE_ARTIST:
+            return "Artist/performer";
+            break;
+        case FLAC_PICTURE_CONDUCTOR:
+            return "Conductor";
+            break;
+        case FLAC_PICTURE_BAND:
+            return "Band/Orchestra";
+            break;
+        case FLAC_PICTURE_COMPOSER:
+            return "Composer";
+            break;
+        case FLAC_PICTURE_LYRICIST:
+            return "Lyricist/text writer";
+            break;
+        case FLAC_PICTURE_RECORDING_LOCATION:
+            return "Recording Location";
+            break;
+        case FLAC_PICTURE_DURING_RECORDING:
+            return "During recording";
+            break;
+        case FLAC_PICTURE_DURING_PREFORMANCE:
+            return "During performance";
+            break;
+        case FLAC_PICTURE_SCREEN_CAPTURE:
+            return "Movie/video screen capture";
+            break;
+        case FLAC_PICTURE_A_BRIGHT_COLOURED_FISH:
+            return "A bright coloured fish";
+            break;
+        case FLAC_PICTURE_ILLUSTRATION:
+            return "Illustration";
+            break;
+        case FLAC_PICTURE_BAND_LOGOTYPE:
+            return "Band/artist logotype";
+            break;
+        case FLAC_PICTURE_PUBLISHER_LOGOTYPE:
+            return "Publisher/Studio logotype";
+            break;
+        default:
+            return "<unknown>";
+            break;
+    }
+}
+
 static uint32_t read32be(unsigned char *buf)
 {
     uint32_t ret = 0;
