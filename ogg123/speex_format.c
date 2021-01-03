@@ -284,7 +284,9 @@ int speex_seek (decoder_t *decoder, double offset, int whence)
 {
   speex_private_t *priv = decoder->private;
 
-    return 0;
+  (void)priv;
+
+  return 0;
 }
 
 
@@ -294,7 +296,6 @@ decoder_stats_t *speex_statistics (decoder_t *decoder)
 {
   speex_private_t *priv = decoder->private;
   long instant_bitrate;
-  long avg_bitrate;
 
   priv->stats.total_time = (double) priv->totalsamples /
     (double) decoder->actual_fmt.rate;
