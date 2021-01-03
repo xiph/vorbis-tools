@@ -53,27 +53,26 @@
 
 extern int exit_status; /* from status.c */
 
-void play (char *source_string);
+void play (const char *source_string);
 
 #define PRIMAGIC (2*2*2*2*3*3*3*5*7)
 /* take buffer out of the data segment, not the stack */
 #define AUDIO_CHUNK_SIZE ((16384 + PRIMAGIC - 1)/ PRIMAGIC * PRIMAGIC)
-unsigned char convbuffer[AUDIO_CHUNK_SIZE];
-int convsize = AUDIO_CHUNK_SIZE;
+static unsigned char convbuffer[AUDIO_CHUNK_SIZE];
+static int convsize = AUDIO_CHUNK_SIZE;
 
 ogg123_options_t options;
 stat_format_t *stat_format;
-buf_t *audio_buffer=NULL;
+static buf_t *audio_buffer=NULL;
 
-audio_play_arg_t audio_play_arg;
+static audio_play_arg_t audio_play_arg;
 
 
 /* ------------------------- config file options -------------------------- */
 
 /* This macro is used to create some dummy variables to hold default values
    for the options. */
-#define INIT(type, value) type type##_##value = value
-INIT(int, 1);
+#define INIT(type, value) static type type##_##value = value
 INIT(int, 0);
 
 file_option_t file_opts[] = {
@@ -512,7 +511,7 @@ int main(int argc, char **argv)
   exit (exit_status);
 }
 
-void play (char *source_string)
+void play (const char *source_string)
 {
   const transport_t *transport;
   format_t *format;

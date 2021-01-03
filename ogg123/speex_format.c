@@ -467,7 +467,7 @@ void *process_header(ogg_packet *op, int *frame_size,
 		     void *callback_arg)
 {
    void *st;
-   SpeexMode *mode;
+   const SpeexMode *mode;
    int modeID;
    SpeexCallback callback;
    int enhance = ENHANCE_AUDIO;
