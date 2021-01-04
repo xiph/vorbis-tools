@@ -29,6 +29,7 @@
 #include "format.h"
 #include "utf8.h"
 #include "i18n.h"
+#include "picture.h"
 #include "vorbis_comments.h"
 
 
@@ -101,6 +102,49 @@ char *lookup_comment_prettyprint (const char *comment, int *offset)
   return s;
 }
 
+static void print_vorbis_comment_picture(const char *comment,
+                                         decoder_callbacks_t *cb,
+                                         void *callback_arg)
+{
+    flac_picture_t *picture;
+
+    comment = strstr(comment, "=");
+    if (!comment || !*comment)
+        return;
+    comment++;
+
+    picture = flac_picture_parse_from_base64(comment);
+    if (picture) {
+        const char *description = picture->description;
+        char res[64];
+
+        if (picture->width && picture->height) {
+            if (picture->colors) {
+                snprintf(res, sizeof(res), " %ux%u@%u/%u", picture->width, picture->height, picture->depth, picture->colors);
+            } else {
+                snprintf(res, sizeof(res), " %ux%u@%u", picture->width, picture->height, picture->depth);
+            }
+        }
+
+        if (picture->uri) {
+            if (description) {
+                cb->printf_metadata(callback_arg, 1, N_("Picture: Type \"%s\"%s with description \"%s\" and URI %s"), flac_picture_type_string(picture->type), res, description, picture->uri);
+            } else {
+                cb->printf_metadata(callback_arg, 1, N_("Picture: Type \"%s\"%s URI %s"), flac_picture_type_string(picture->type), res, picture->uri);
+            }
+        } else {
+            if (description) {
+                cb->printf_metadata(callback_arg, 1, N_("Picture: Type \"%s\"%s with description \"%s\", %zu bytes %s"), flac_picture_type_string(picture->type), res, description, picture->binary_length, picture->media_type);
+            } else {
+                cb->printf_metadata(callback_arg, 1, N_("Picture: Type \"%s\"%s %zu bytes %s"), flac_picture_type_string(picture->type), res, picture->binary_length, picture->media_type);
+            }
+        }
+        flac_picture_free(picture);
+    } else {
+        cb->printf_metadata(callback_arg, 1, "Picture: <corrupted>");
+    }
+}
+
 void print_vorbis_comment (const char *comment, decoder_callbacks_t *cb,
 			   void *callback_arg)
 {
@@ -110,6 +154,11 @@ void print_vorbis_comment (const char *comment, decoder_callbacks_t *cb,
 
   if (cb == NULL || cb->printf_metadata == NULL)
     return;
+
+  if (strncasecmp(comment, "METADATA_BLOCK_PICTURE=", 23) == 0) {
+    print_vorbis_comment_picture(comment, cb, callback_arg);
+    return;
+  }
 
   comment_prettyprint = lookup_comment_prettyprint(comment, &offset);
 
