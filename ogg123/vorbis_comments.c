@@ -141,7 +141,7 @@ static void print_vorbis_comment_picture(const char *comment,
         }
         flac_picture_free(picture);
     } else {
-        cb->printf_metadata(callback_arg, 1, "Picture: <corrupted>");
+        cb->printf_metadata(callback_arg, 1, _("Picture: <corrupted>"));
     }
 }
 
