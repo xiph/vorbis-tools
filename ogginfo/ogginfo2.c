@@ -16,6 +16,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <getopt.h>
 #include <math.h>
 #include <inttypes.h>
@@ -334,8 +335,55 @@ void check_xiph_comment(stream_processor *stream, int i, const char *comment, in
         *sep = 0;
         if (!broken) {
             info("\t%s=%s\n", comment, decoded);
+            if (strcasecmp(comment, "METADATA_BLOCK_PICTURE") == 0) {
+                flac_picture_t *picture = flac_picture_parse_from_base64(decoded);
+                check_flac_picture(picture, "\t");
+                flac_picture_free(picture);
+            }
             free(decoded);
         }
+    }
+}
+
+void check_flac_picture(flac_picture_t *picture, const char *prefix)
+{
+    if (!picture) {
+        warn("%s%s", prefix, _("Picture: <corrupted>"));
+        return;
+    }
+
+    info("%s", prefix);
+    info(_("Picture: %d (%s)\n"), (int)picture->type, flac_picture_type_string(picture->type));
+
+    if (picture->media_type) {
+        info("%s", prefix);
+        info(_("\tMIME-Type: %s\n"), picture->media_type);
+    }
+
+    if (picture->description) {
+        info("%s", prefix);
+        info(_("\tDescription: %s\n"), picture->description);
+    }
+
+    info("%s", prefix);
+    info(_("\tWidth: %ld\n"), (long int)picture->width);
+    info("%s", prefix);
+    info(_("\tHeight: %ld\n"), (long int)picture->height);
+    info("%s", prefix);
+    info(_("\tColor depth: %ld\n"), (long int)picture->depth);
+    if (picture->colors) {
+        info("%s", prefix);
+        info(_("\tUsed colors: %ld\n"), (long int)picture->colors);
+    }
+
+    if (picture->uri) {
+        info("%s", prefix);
+        info(_("\tURL: %s\n"), picture->uri);
+    }
+
+    if (picture->binary_length) {
+        info("%s", prefix);
+        info(_("\tSize: %ld bytes\n"), (long int)picture->binary_length);
     }
 }
 

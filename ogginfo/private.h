@@ -12,6 +12,8 @@
 #ifndef __VORBIS_TOOLS__PRIVATE_H__
 #define __VORBIS_TOOLS__PRIVATE_H__
 
+#include "picture.h"
+
 typedef struct _stream_processor {
     void (*process_page)(struct _stream_processor *, ogg_page *);
     void (*process_end)(struct _stream_processor *);
@@ -52,6 +54,7 @@ void error(const char *format, ...);
 void print_summary(stream_processor *stream, size_t bytes, double time);
 int handle_vorbis_comments(stream_processor *stream, const unsigned char *in, size_t length, size_t *end);
 void check_xiph_comment(stream_processor *stream, int i, const char *comment, int comment_length);
+void check_flac_picture(flac_picture_t *picture, const char *prefix);
 
 void vorbis_start(stream_processor *stream);
 void theora_start(stream_processor *stream);
