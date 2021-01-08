@@ -5,7 +5,7 @@
  * This file handles codecs we have no specific handling for.
  *
  * Copyright 2002-2005 Michael Smith <msmith@xiph.org>
- * Copyright 2020      Philipp Schafft <lion@lion.leolix.org>
+ * Copyright 2020-2021 Philipp Schafft <lion@lion.leolix.org>
  * Licensed under the GNU GPL, distributed with this program.
  */
 
