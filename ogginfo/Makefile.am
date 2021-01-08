@@ -3,6 +3,7 @@
 mans = ogginfo.1
 ogginfosources = \
 	ogginfo2.c \
+	metadata.c \
 	theora.c \
 	codec_vorbis.c \
 	codec_theora.c \
