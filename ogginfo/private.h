@@ -62,6 +62,7 @@ void kate_start(stream_processor *stream);
 void opus_start(stream_processor *stream);
 void speex_start(stream_processor *stream);
 void flac_start(stream_processor *stream);
+void skeleton_start(stream_processor *stream);
 void other_start(stream_processor *stream, const char *type);
 void invalid_start(stream_processor *stream);
 

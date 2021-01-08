@@ -11,6 +11,7 @@ ogginfosources = \
 	codec_opus.c \
 	codec_speex.c \
 	codec_flac.c \
+	codec_skeleton.c \
 	codec_other.c \
 	codec_invalid.c
 
