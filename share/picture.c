@@ -208,6 +208,30 @@ flac_picture_t * flac_picture_parse_from_base64(const char *str)
     return ret;
 }
 
+flac_picture_t * flac_picture_parse_from_blob(const void *in, size_t len)
+{
+    flac_picture_t *ret;
+    void *data;
+
+    if (!in || !len)
+        return NULL;
+
+    data = calloc(1, len + 1);
+    if (!data)
+        return NULL;
+
+    memcpy(data, in, len);
+
+    ret = flac_picture_parse_eat(data, len);
+
+    if (!ret) {
+        free(data);
+        return NULL;
+    }
+
+    return ret;
+}
+
 void flac_picture_free(flac_picture_t *picture)
 {
     if (!picture)
