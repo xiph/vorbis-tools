@@ -41,5 +41,7 @@ po/stamp-po
 po/*.gmo
 share/libgetopt.a
 share/libutf8.a
+share/libbase64.a
+share/libpicture.a
 vcut/vcut
 vorbiscomment/vorbiscomment
