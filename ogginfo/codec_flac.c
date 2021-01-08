@@ -96,137 +96,14 @@ static void flac_process_vorbis_comments(stream_processor *stream, misc_flac_inf
     }
 }
 
-static inline const char * picture_type_name(ogg_int64_t type)
-{
-    switch (type) {
-        case 0:
-            return "Other";
-            break;
-        case 1:
-            return "32x32 pixels file icon (PNG)";
-            break;
-        case 2:
-            return "Other file icon";
-            break;
-        case 3:
-            return "Cover (front)";
-            break;
-        case 4:
-            return "Cover (back)";
-            break;
-        case 5:
-            return "Leaflet page";
-            break;
-        case 6:
-            return "Media";
-            break;
-        case 7:
-            return "Lead artist/lead performer/soloist";
-            break;
-        case 8:
-            return "Artist/performer";
-            break;
-        case 9:
-            return "Conductor";
-            break;
-        case 10:
-            return "Band/Orchestra";
-            break;
-        case 11:
-            return "Composer";
-            break;
-        case 12:
-            return "Lyricist/text writer";
-            break;
-        case 13:
-            return "Recording Location";
-            break;
-        case 14:
-            return "During recording";
-            break;
-        case 15:
-            return "During performance";
-            break;
-        case 16:
-            return "Movie/video screen capture";
-            break;
-        case 17:
-            return "A bright coloured fish";
-            break;
-        case 18:
-            return "Illustration";
-            break;
-        case 19:
-            return "Band/artist logotype";
-            break;
-        case 20:
-            return "Publisher/Studio logotype";
-            break;
-        default:
-            return "<unknown>";
-            break;
-    }
-}
-
-static inline char * read_string(const unsigned char *in, size_t *len)
-{
-    char *ret;
-
-    *len = read_intNbe(in, 32, 0);
-
-    ret = malloc((*len) + 1);
-    if (!ret)
-        return NULL;
-
-    memcpy(ret, in + 4, *len);
-    ret[*len] = 0;
-
-    *len += 4;
-
-    return ret;
-} 
-
 static void flac_process_picture(stream_processor *stream, misc_flac_info *self, ogg_packet *packet)
 {
-    ogg_int64_t type = read_intNbe(&(packet->packet[4]), 32, 0);
-    ogg_int64_t picture_length;
-    size_t offset = 8;
-    size_t len;
-    char *str;
-    bool is_url;
+    flac_picture_t *picture = NULL;
 
-    info(_("Picture: %d (%s)\n"), (int)type, picture_type_name(type));
-
-    str = read_string(&(packet->packet[offset]), &len);
-    offset += len;
-    if (strcmp(str, "-->") == 0) {
-        is_url = true;
-    } else {
-        info(_("\tMIME-Type: %s\n"), str);
-        is_url = false;
-    }
-    free(str);
-
-    str = read_string(&(packet->packet[offset]), &len);
-    offset += len;
-    if (*str)
-        info(_("\tDescription: %s\n"), str);
-    free(str);
-
-    info(_("\tWidth: %ld\n"), (long int)read_intNbe(&(packet->packet[offset]), 32, 0));
-    info(_("\tHeight: %ld\n"), (long int)read_intNbe(&(packet->packet[offset + 4]), 32, 0));
-    info(_("\tColor depth: %ld\n"), (long int)read_intNbe(&(packet->packet[offset + 8]), 32, 0));
-    if (read_intNbe(&(packet->packet[offset + 12]), 32, 0))
-        info(_("\tUsed colors: %ld\n"), (long int)read_intNbe(&(packet->packet[offset + 12]), 32, 0));
-
-    picture_length = read_intNbe(&(packet->packet[offset + 16]), 32, 0);
-    if (is_url) {
-        str = read_string(&(packet->packet[offset + 16]), &len);
-        info(_("\tURL: %s\n"), str);
-        free(str);
-    } else {
-        info(_("\tSize: %ld bytes\n"), (long int)picture_length);
-    }
+    if (packet->bytes > 4)
+        picture = flac_picture_parse_from_blob(&(packet->packet[4]), packet->bytes - 4);
+    check_flac_picture(picture, NULL);
+    flac_picture_free(picture);
 }
 
 static void flac_process_data(stream_processor *stream, misc_flac_info *self, ogg_packet *packet)

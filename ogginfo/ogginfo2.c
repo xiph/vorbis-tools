@@ -347,6 +347,9 @@ void check_xiph_comment(stream_processor *stream, int i, const char *comment, in
 
 void check_flac_picture(flac_picture_t *picture, const char *prefix)
 {
+    if (!prefix)
+        prefix = "";
+
     if (!picture) {
         warn("%s%s\n", prefix, _("Picture: <corrupted>"));
         return;
