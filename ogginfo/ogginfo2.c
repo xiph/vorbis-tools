@@ -293,7 +293,7 @@ static int get_next_page(FILE *f, ogg_sync_state *sync, ogg_page *page,
     return 1;
 }
 
-static void process_file(char *filename) {
+static void process_file(const char *filename) {
     FILE *file = fopen(filename, "rb");
     ogg_sync_state sync;
     ogg_page page;
