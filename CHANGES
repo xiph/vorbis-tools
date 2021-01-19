@@ -1,4 +1,9 @@
-vorbis-tools 1.4.1 -- 2020-12-21
+vorbis-tools 1.4.2 -- 2021-01-??
+ * Code cleanup
+ * ogg123, ogginfo: Added support to decode METADATA_BLOCK_PICTURE
+ * ogginfo: Added support for decoding Skeleton
+
+vorbis-tools 1.4.1 -- Unreleased (2020-12-21)
 
  * Updated documentation including manpages (including: #1679, Debian bug: #359948)
  * Cleanup of the build system
