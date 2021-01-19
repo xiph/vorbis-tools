@@ -408,7 +408,6 @@ ogg123/Makefile
 vorbiscomment/Makefile
 vcut/Makefile
 ogginfo/Makefile
-debian/Makefile
 ])
 
 AC_CONFIG_HEADERS([config.h])
