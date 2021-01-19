@@ -6,7 +6,7 @@ SUBDIRS = po intl include share win32 @OPT_SUBDIRS@
 DIST_SUBDIRS = po intl include share win32 ogg123 oggenc oggdec ogginfo \
 	vcut vorbiscomment m4
 
-EXTRA_DIST = config.rpath README AUTHORS COPYING CHANGES vorbis-tools.spec
+EXTRA_DIST = config.rpath README AUTHORS COPYING CHANGES
 
 debug:
 	$(MAKE) all CFLAGS="@DEBUG@"

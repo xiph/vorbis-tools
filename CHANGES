@@ -1,7 +1,7 @@
 vorbis-tools 1.4.2 -- 2021-01-??
  * Cleanup of the build system
  * Code cleanup
- * Removed outdated debian/
+ * Removed outdated debian/, and vorbis-tools.spec
  * ogg123, ogginfo: Added support to decode METADATA_BLOCK_PICTURE
  * ogginfo: Added support for decoding Skeleton
 
