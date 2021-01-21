@@ -1,4 +1,4 @@
-vorbis-tools 1.4.2 -- 2021-01-??
+vorbis-tools 1.4.2 -- 2021-01-21
  * Cleanup of the build system
  * Code cleanup
  * Removed outdated debian/, and vorbis-tools.spec
