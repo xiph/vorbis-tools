@@ -680,6 +680,7 @@ void free_param(param_t *param)
 {
     free(param->infilename);
     free(param->outfilename);
+    free(param->commentfilename);
     free(param);
 }
 
@@ -701,7 +702,7 @@ param_t *new_param(void)
     /* filenames */
     param->infilename  = NULL;
     param->outfilename = NULL;
-    param->commentfilename = "-";   /* default */
+    param->commentfilename = strdup("-");   /* default, must be free()'d */
 
     /* file pointers */
     param->in = param->out = NULL;
@@ -766,6 +767,7 @@ void parse_options(int argc, char *argv[], param_t *param)
                 /* set quiet flag: unused */
                 break;
             case 'c':
+                free(param->commentfilename);
                 param->commentfilename = strdup(optarg);
                 break;
             case 't':
