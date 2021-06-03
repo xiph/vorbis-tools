@@ -31,6 +31,7 @@ typedef struct file_private_t {
   FILE *fp;
   data_source_stats_t stats;
   int seekable;
+  long length;
 } file_private_t;
 
 
@@ -40,6 +41,37 @@ transport_t file_transport;  /* Forward declaration */
 int file_can_transport (const char *source_string)
 {
   return 1;  /* The file transport is tested last, so always try it */
+}
+
+static long stdio_file_length(FILE *fp) {
+  int rc;
+  long len, off;
+
+  if (!fp) {
+    return -1;
+  }
+
+  off = ftell(fp);
+  if (off < 0) {
+    return -1;
+  }
+
+  rc = fseek(fp, 0, SEEK_END);
+  if (rc != 0) {
+    return -1;
+  }
+
+  len = ftell(fp);
+  if (len < 0) {
+    return -1;
+  }
+
+  rc = fseek(fp, off, SEEK_SET);
+  if (rc != 0) {
+    return -1;
+  }
+
+  return len;
 }
 
 data_source_t* file_open (const char *source_string, ogg123_options_t *ogg123_opts)
@@ -69,8 +101,19 @@ data_source_t* file_open (const char *source_string, ogg123_options_t *ogg123_op
   if (strcmp(source_string, "-") == 0) {
     private->fp = stdin;
     private->seekable = 0;
-  } else
-    private->fp = fopen(source_string, "r");
+    private->length = -1;
+  } else {
+    FILE *fp = fopen(source_string, "r");
+    long len = stdio_file_length(fp);
+
+    if (fp && len < 0) {
+      fclose(fp);
+      fp = NULL;
+    }
+
+    private->fp = fp;
+    private->length = len;
+  }
 
   if (private->fp == NULL) {
     free(source->source_string);
@@ -164,6 +207,11 @@ void file_close (data_source_t *source)
   free(source);
 }
 
+long file_length (data_source_t *source) {
+  file_private_t *private = source->private;
+
+  return private->length;
+}
 
 transport_t file_transport = {
   "file",
@@ -174,5 +222,6 @@ transport_t file_transport = {
   &file_seek,
   &file_statistics,
   &file_tell,
-  &file_close
+  &file_close,
+  &file_length
 };

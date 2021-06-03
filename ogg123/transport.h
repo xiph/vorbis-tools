@@ -52,6 +52,7 @@ typedef struct transport_t {
   data_source_stats_t * (* statistics) (data_source_t *source);
   long (* tell) (data_source_t *source);
   void (* close) (data_source_t *source);
+  long (* length) (data_source_t *source);
 } transport_t;
 
 const transport_t *get_transport_by_name (const char *name);
