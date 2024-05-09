@@ -54,7 +54,7 @@
 
 extern int exit_status; /* from status.c */
 
-void play (const char *source_string);
+int play (const char *source_string);
 
 #define PRIMAGIC (2*2*2*2*3*3*3*5*7)
 /* take buffer out of the data segment, not the stack */
@@ -474,8 +474,11 @@ int main(int argc, char **argv)
     remote_mainloop();
 
   } else {
+    int at_least_one;
 
     do {
+      at_least_one = 0;
+
       /* Shuffle playlist */
       if (options.shuffle) {
         int i;
@@ -493,10 +496,10 @@ int main(int argc, char **argv)
       /* Play the files/streams */
       i = 0;
       while (i < items && !sig_request.exit) {
-        play(playlist_array[i]);
+        at_least_one |= (play(playlist_array[i]) != 0);
         i++;
       }
-    } while (options.repeat);
+    } while (at_least_one && options.repeat);
 
   }
   playlist_array_destroy(playlist_array, items);
@@ -513,7 +516,7 @@ int main(int argc, char **argv)
   exit (exit_status);
 }
 
-void play (const char *source_string)
+int play (const char *source_string)
 {
   const transport_t *transport;
   format_t *format;
@@ -530,7 +533,7 @@ void play (const char *source_string)
   audio_reopen_arg_t *reopen_arg;
 
   /* Flags and counters galore */
-  int eof = 0, eos = 0, ret;
+  int eof = 0, eos = 0, ret = 1;
   int nthc = 0, ntimesc = 0;
   int next_status = 0;
   static int status_interval = 0;
@@ -560,18 +563,18 @@ void play (const char *source_string)
   /* Locate and use transport for this data source */  
   if ( (transport = select_transport(source_string)) == NULL ) {
     status_error(_("No module could be found to read from %s.\n"), source_string);
-    return;
+    return 0;
   }
   
   if ( (source = transport->open(source_string, &options)) == NULL ) {
     status_error(_("Cannot open %s.\n"), source_string);
-    return;
+    return 0;
   }
 
   /* Detect the file format and initialize a decoder */
   if ( (format = select_format(source)) == NULL ) {
     status_error(_("The file format of %s is not supported.\n"), source_string);
-    return;
+    return 0;
   }
 
   if ( (decoder = format->init(source, &options, &new_audio_fmt, 
@@ -583,7 +586,7 @@ void play (const char *source_string)
       status_error(_("Error opening %s using the %s module."
 		     "  The file may be corrupted.\n"), source_string,
 		   format->name);
-    return;
+    return 0;
   }
 
   /* Decide which statistics are valid */
@@ -613,7 +616,7 @@ void play (const char *source_string)
       status_error(_("Could not skip %f seconds of audio."), options.seekoff);
       if (audio_buffer != NULL)
 	buffer_thread_kill(audio_buffer);
-      return;
+      return 0;
     }
   }
 
@@ -662,7 +665,7 @@ void play (const char *source_string)
 
       /* Bail if we need to */
       if (ret == 0) {
-	eof = eos = 1;
+	ret = eof = eos = 1;
 	break;
       } else if (ret < 0) {
 	status_error(_("ERROR: Decoding failure.\n"));
@@ -706,14 +709,19 @@ void play (const char *source_string)
       do {
 	
 	if (nthc-- == 0) {
-          if (audio_buffer) {
-            if (!buffer_submit_data(audio_buffer, convbuffer, ret)) {
+          int r;
+
+          if (audio_buffer)
+            r = buffer_submit_data(audio_buffer, convbuffer, ret);
+          else
+            r = audio_play_callback(convbuffer, ret, eos, &audio_play_arg);
+
+          if (!r) {
               status_error(_("ERROR: buffer write failed.\n"));
               eof = eos = 1;
+              ret = 0;
               break;
-            }
-          } else
-	    audio_play_callback(convbuffer, ret, eos, &audio_play_arg);
+          }
 
 	  nthc = options.nth - 1;
 	}
@@ -750,5 +758,7 @@ void play (const char *source_string)
 
   if (sig_request.exit)
     exit (exit_status);
+
+  return ret;
 }
 
