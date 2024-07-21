@@ -28,6 +28,8 @@
 
 #include "private.h"
 
+#include "utf8.h"
+
 typedef struct {
     bool supported;
     uint16_t version_major;
