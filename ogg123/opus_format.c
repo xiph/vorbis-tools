@@ -30,6 +30,7 @@
 #include "vorbis_comments.h"
 #include "utf8.h"
 #include "i18n.h"
+#include "ogg123.h"
 
 typedef struct opf_private_t {
   OggOpusFile *of;
@@ -90,6 +91,7 @@ decoder_t* opf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     decoder->callbacks = callbacks;
     decoder->callback_arg = callback_arg;
     decoder->private = private;
+    decoder->options = ogg123_opts;
 
     private->bos = 1;
     private->current_section = -1;
@@ -124,6 +126,8 @@ int opf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 {
   opf_private_t *priv = decoder->private;
   decoder_callbacks_t *cb = decoder->callbacks;
+  ogg123_options_t *options = decoder->options;
+  int output_gain = 1280;
   int bytes_read = 0;
   int ret;
   int old_section;
@@ -132,6 +136,7 @@ int opf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
   if (priv->bos) {
     priv->ot = op_tags(priv->of, -1);
     priv->oh = op_head(priv->of, -1);
+    output_gain += priv->oh->output_gain;
 
     decoder->actual_fmt.channels = priv->oh->channel_count;
     decoder->actual_fmt.rate = 48000;
@@ -166,6 +171,21 @@ int opf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
       break;
     }
 
+    if (opus_tags_get_album_gain(priv->ot, &ret) != OP_FALSE &&
+        (options->gain_mode == GAIN_ALBUM || options->gain_mode == GAIN_AUTO)) {
+      output_gain += ret;
+      op_set_gain_offset(priv->of, OP_ABSOLUTE_GAIN, output_gain);
+      cb->printf_metadata(decoder->callback_arg, 3,
+                          _("Applying album gain: %.2f dB"),
+                          ret/256.0);
+    } else if (opus_tags_get_track_gain(priv->ot, &ret) != OP_FALSE &&
+        (options->gain_mode == GAIN_TRACK || options->gain_mode == GAIN_AUTO)) {
+      output_gain += ret;
+      op_set_gain_offset(priv->of, OP_ABSOLUTE_GAIN, output_gain);
+      cb->printf_metadata(decoder->callback_arg, 3,
+                          _("Applying track gain: %.2f dB"),
+                          ret/256.0);
+    }
 
     print_opus_stream_info(decoder);
     print_opus_comments(priv->ot, cb, decoder->callback_arg);
