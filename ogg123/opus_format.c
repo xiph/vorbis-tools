@@ -350,6 +350,10 @@ void print_opus_stream_info (decoder_t *decoder)
 		      _("Ogg Opus stream: %d channel, 48000 Hz"),
 		      priv->oh->channel_count);
 
+  cb->printf_metadata(decoder->callback_arg, 2,
+		      _("Output gain: %.2f dB"),
+		      priv->oh->output_gain/256.0);
+
   cb->printf_metadata(decoder->callback_arg, 3,
 		      _("Opus format: Version %d"),
 		      priv->oh->version);
