@@ -351,7 +351,7 @@ void print_opus_stream_info (decoder_t *decoder)
 		      priv->oh->channel_count);
 
   cb->printf_metadata(decoder->callback_arg, 3,
-		      _("Vorbis format: Version %d"), 
+		      _("Opus format: Version %d"),
 		      priv->oh->version);
 
   cb->printf_metadata(decoder->callback_arg, 3,
