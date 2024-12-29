@@ -24,6 +24,9 @@
 
 enum {
   OPT_AUDIO_BUFFER = 0x100,
+  OPT_ALBUM_GAIN,
+  OPT_TRACK_GAIN,
+  OPT_NO_GAIN,
 };
 
 int parse_cmdline_options (int argc, char **argv,

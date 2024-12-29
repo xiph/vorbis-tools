@@ -50,6 +50,7 @@ typedef struct decoder_t {
   decoder_callbacks_t *callbacks;
   void *callback_arg;
   void *private;
+  ogg123_options_t *options;
 } decoder_t;
 
 /* whence constants */

@@ -89,6 +89,7 @@ decoder_t* ovf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
     decoder->callbacks = callbacks;
     decoder->callback_arg = callback_arg;
     decoder->private = private;
+    decoder->options = ogg123_opts;
 
     private->bos = 1;
     private->current_section = -1;
@@ -171,7 +172,7 @@ int ovf_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
     }
 
 #ifdef HAVE_OV_READ_FILTER
-    vg_init(&priv->vg, priv->vc);
+    vg_init(&priv->vg, priv->vc, decoder->options->gain_mode);
 #endif
 
     print_vorbis_stream_info(decoder);

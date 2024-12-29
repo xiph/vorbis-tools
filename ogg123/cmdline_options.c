@@ -58,6 +58,9 @@ struct option long_options[] = {
     {"list", required_argument, 0, '@'},
     {"audio-buffer", required_argument, 0, OPT_AUDIO_BUFFER},
     {"repeat", no_argument, 0, 'r'},
+    {"album-gain", no_argument, 0, OPT_ALBUM_GAIN},
+    {"track-gain", no_argument, 0, OPT_TRACK_GAIN},
+    {"no-gain", no_argument, 0, OPT_NO_GAIN},
     {0, 0, 0, 0}
 };
 
@@ -243,6 +246,18 @@ int parse_cmdline_options (int argc, char **argv,
       case '?':
 	break;
 	
+      case OPT_ALBUM_GAIN:
+        ogg123_opts->gain_mode = GAIN_ALBUM;
+	break;
+
+      case OPT_TRACK_GAIN:
+        ogg123_opts->gain_mode = GAIN_TRACK;
+	break;
+
+      case OPT_NO_GAIN:
+        ogg123_opts->gain_mode = GAIN_NONE;
+	break;
+
       default:
 	cmdline_usage();
 	exit(1);
@@ -382,6 +397,9 @@ void cmdline_usage (void)
   printf (_("  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"));
   printf (_("  -x n, --nth n           Play every 'n'th block\n"));
   printf (_("  -y n, --ntimes n        Repeat every played block 'n' times\n"));
+  printf (_("  --album-gain            Use album gain value (ReplayGain)\n"));
+  printf (_("  --track-gain            Use track gain value (ReplayGain)\n"));
+  printf (_("  --no-gain               Disable ReplayGain\n"));
   printf ("\n");
 
   printf (_("Miscellaneous options\n"));

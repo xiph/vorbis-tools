@@ -165,6 +165,7 @@ void options_init (ogg123_options_t *opts)
   opts->remote = 0;
   opts->repeat = 0;
 
+  opts->gain_mode = GAIN_AUTO;
 }
 
 double strtotime(char *s)

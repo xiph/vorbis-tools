@@ -49,6 +49,8 @@
 #ifndef __VGPLAY_H
 #define __VGPLAY_H
 
+#include "ogg123.h"
+
 /* Default pre-amp in dB */
 #define VG_PREAMP_DB         0.0
 
@@ -59,7 +61,7 @@ typedef struct {
 
 
 /* Initializes the ReplayGain the vgain_state structure for a track. */
-extern void vg_init(vgain_state *vg_state, vorbis_comment *vc);
+extern void vg_init(vgain_state *vg_state, vorbis_comment *vc, gain_mode_t gain_mode);
 
 /* The filter where VorbisGain is applied */
 extern void vg_filter(float **pcm, long channels, long samples, void *filter_param);

@@ -59,16 +59,18 @@
 /*
  * Initialize the replaygain parameters from vorbis comments.
  */
-void vg_init(vgain_state *vg, vorbis_comment *vc) {
+void vg_init(vgain_state *vg, vorbis_comment *vc, gain_mode_t gain_mode) {
   float track_gain_db = 0.00, track_peak = 1.00;
   char *tag = NULL;
 
-  if (vc) {
-    if ((tag = vorbis_comment_query(vc, "replaygain_album_gain", 0))
-        || (tag = vorbis_comment_query(vc, "rg_audiophile", 0)))
+  if (vc && gain_mode != GAIN_NONE) {
+    if (((tag = vorbis_comment_query(vc, "replaygain_album_gain", 0))
+        || (tag = vorbis_comment_query(vc, "rg_audiophile", 0))) &&
+        (gain_mode == GAIN_AUTO || gain_mode == GAIN_ALBUM))
       track_gain_db = atof(tag);
-    else if ((tag = vorbis_comment_query(vc, "replaygain_track_gain", 0))
-        || (tag = vorbis_comment_query(vc, "rg_radio", 0)))
+    else if (((tag = vorbis_comment_query(vc, "replaygain_track_gain", 0))
+        || (tag = vorbis_comment_query(vc, "rg_radio", 0))) &&
+        (gain_mode == GAIN_AUTO || gain_mode == GAIN_TRACK))
       track_gain_db = atof(tag);
 
     if ((tag = vorbis_comment_query(vc, "replaygain_album_peak", 0))

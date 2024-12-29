@@ -22,6 +22,13 @@
 #include "audio.h"
 #include "playlist.h"
 
+typedef enum gain_mode_t {
+  GAIN_AUTO,
+  GAIN_ALBUM,
+  GAIN_TRACK,
+  GAIN_NONE,
+} gain_mode_t;
+
 typedef struct ogg123_options_t {
   int verbosity;              /* Verbose output if > 1, quiet if 0 */
 
@@ -49,6 +56,7 @@ typedef struct ogg123_options_t {
 
   playlist_t *playlist;       /* List of files to play */
 
+  gain_mode_t gain_mode;      /* ReplayGain mode */
 } ogg123_options_t;
 
 typedef struct signal_request_t {

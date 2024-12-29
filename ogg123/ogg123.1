@@ -111,6 +111,14 @@ Repeat playlist indefinitely.
 Play files in pseudo-random order.
 .IP "-Z, --random"
 Play files in pseudo-random order forever.
+.IP "--album-gain"
+Apply album gain or fall back to no gain correction if album gain tags
+are not present.
+.IP "--track-gain"
+Apply track gain even if album gain tags are present. If track gain tags
+are not present do not apply any gain correction.
+.IP "--no-gain"
+Do not apply any gain correction.
 
 .SH DEVICES
 
