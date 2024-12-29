@@ -22,6 +22,10 @@
 #include "cfgfile_options.h"
 #include "audio.h"
 
+enum {
+  OPT_AUDIO_BUFFER = 0x100,
+};
+
 int parse_cmdline_options (int argc, char **argv,
 			   ogg123_options_t *ogg123_opts,
 			   file_option_t    *file_opts);
