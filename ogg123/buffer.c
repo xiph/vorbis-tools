@@ -307,7 +307,7 @@ void *buffer_thread_func (void *arg)
 }
 
 
-int submit_data_chunk (buf_t *buf, char *data, size_t size)
+int submit_data_chunk (buf_t *buf, unsigned char *data, size_t size)
 {
   long   buf_write_pos; /* offset of first available write location */
   size_t write_size;
@@ -545,7 +545,7 @@ void buffer_thread_kill (buf_t *buf)
 
 /* --- Data buffering functions --- */
 
-int buffer_submit_data (buf_t *buf, char *data, long nbytes) {
+int buffer_submit_data (buf_t *buf, unsigned char *data, long nbytes) {
   return submit_data_chunk (buf, data, nbytes);
 }
 

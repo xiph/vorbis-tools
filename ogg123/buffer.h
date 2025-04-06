@@ -69,7 +69,7 @@ typedef struct buf_t
   ogg_int64_t position_end; /* Position right after end of data */
 
   struct action_t *actions; /* Queue actions to perform */
-  char buffer[1];   /* The buffer itself. It's more than one byte. */
+  unsigned char buffer[1];   /* The buffer itself. It's more than one byte. */
 } buf_t;
 
 
@@ -110,7 +110,7 @@ void buffer_thread_unpause (buf_t *buf);
 void buffer_thread_kill    (buf_t *buf);
 
 /* --- Data buffering functions --- */
-int buffer_submit_data (buf_t *buf, char *data, long nbytes);
+int buffer_submit_data (buf_t *buf, unsigned char *data, long nbytes);
 size_t buffer_get_data (buf_t *buf, char *data, long nbytes);
 
 void buffer_mark_eos (buf_t *buf);
