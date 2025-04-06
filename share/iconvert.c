@@ -25,6 +25,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <iconv.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -117,11 +118,12 @@ int iconvert(const char *fromcode, const char *tocode,
       break;
     if (obl < 6) {
       /* Enlarge the buffer */
+      ptrdiff_t obcount = ob - utfbuf;
       utflen *= 2;
       newbuf = (char *)realloc(utfbuf, utflen);
       if (!newbuf)
 	goto fail;
-      ob = (ob - utfbuf) + newbuf;
+      ob = newbuf + obcount;
       obl = utflen - (ob - newbuf);
       utfbuf = newbuf;
     }
