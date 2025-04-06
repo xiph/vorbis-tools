@@ -121,7 +121,7 @@ void set_curl_opts (http_private_t *private)
   curl_easy_setopt(handle, CURLOPT_MUTE, 1);
 #endif
   curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, private->error);
-  curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
+  curl_easy_setopt(handle, CURLOPT_XFERINFOFUNCTION, progress_callback);
   curl_easy_setopt(handle, CURLOPT_PROGRESSDATA, private);
   curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0);
   curl_easy_setopt(handle, CURLOPT_USERAGENT, "ogg123/"VERSION);
