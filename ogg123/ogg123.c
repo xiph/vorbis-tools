@@ -744,7 +744,6 @@ void play (const char *source_string)
 
   format->cleanup(decoder);
   transport->close(source);
-  status_reset_output_lock();  /* In case we were killed mid-output */
 
   status_message(1, _("Done."));
 

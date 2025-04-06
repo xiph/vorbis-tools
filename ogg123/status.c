@@ -40,7 +40,7 @@ int last_line_len = 0;
 int max_verbosity = 0;
 int exit_status = EXIT_SUCCESS;
 
-pthread_mutex_t output_lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t output_lock = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 
 
 /* ------------------- Private functions ------------------ */

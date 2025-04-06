@@ -250,15 +250,10 @@ void *buffer_thread_func (void *arg)
 
     UNLOCK_MUTEX(buf->mutex);
 
-    /* Don't need to lock buffer while running actions since position
-       won't change.  We clear out any actions before we compute the
-       dequeue size so we don't consider actions that need to
-       run right now.  */
-    execute_actions(buf, &buf->actions, buf->position);
-
     LOCK_MUTEX(buf->mutex);
 
-    /* Need to be locked while we check things. */
+    execute_actions(buf, &buf->actions, buf->position);
+
     write_amount = compute_dequeue_size(buf, buf->audio_chunk_size);
 
     UNLOCK_MUTEX(buf->mutex);
@@ -418,7 +413,10 @@ buf_t *buffer_create (long size, long prebuffer,
   buf->write_arg = arg;
 
   /* Setup pthread variables */
-  pthread_mutex_init(&buf->mutex, NULL);
+  pthread_mutexattr_t mutexattr;
+  pthread_mutexattr_init(&mutexattr);
+  pthread_mutexattr_settype(&mutexattr, PTHREAD_MUTEX_RECURSIVE);
+  pthread_mutex_init(&buf->mutex, &mutexattr);
   pthread_cond_init(&buf->write_cond, NULL);
   pthread_cond_init(&buf->playback_cond, NULL);
 
@@ -453,7 +451,10 @@ void buffer_reset (buf_t *buf)
   pthread_cond_destroy(&buf->playback_cond);
 
   /* Reinit pthread variables */
-  pthread_mutex_init(&buf->mutex, NULL);
+  pthread_mutexattr_t mutexattr;
+  pthread_mutexattr_init(&mutexattr);
+  pthread_mutexattr_settype(&mutexattr, PTHREAD_MUTEX_RECURSIVE);
+  pthread_mutex_init(&buf->mutex, &mutexattr);
   pthread_cond_init(&buf->write_cond, NULL);
   pthread_cond_init(&buf->playback_cond, NULL);
 
