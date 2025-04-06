@@ -25,6 +25,7 @@
 #include <ogg/ogg.h>
 
 #include "i18n.h"
+#include "utf8.h"
 
 #include "private.h"
 
