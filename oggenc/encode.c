@@ -66,12 +66,12 @@ static void set_advanced_encoder_options(adv_opt *opts, int count,
     vorbis_encode_ctl(vi, OV_ECTL_RATEMANAGE2_GET, &ai);
 
     for(i=0; i < count; i++) {
-      if(opts[i].val)
-        fprintf(stderr, _("Setting advanced encoder option \"%s\" to %s\n"),
-                opts[i].arg, opts[i].val);
-      else
-        fprintf(stderr, _("Setting advanced encoder option \"%s\"\n"),
-                opts[i].arg);
+        if(opts[i].val)
+	    fprintf(stderr, _("Setting advanced encoder option \"%s\" to %s\n"),
+		    opts[i].arg, opts[i].val);
+	else
+	    fprintf(stderr, _("Setting advanced encoder option \"%s\"\n"),
+		    opts[i].arg);
 
         if(!strcmp(opts[i].arg, "bitrate_average_damping")) {
             SETD(ai.bitrate_average_damping);
