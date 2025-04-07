@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+export PATH=../oggenc:../oggdec:../ogginfo:../vorbiscomment:../vcut:../ogg123:$PATH
+
+retval=0
+
+testfile=1.ogg
+
+head -c 500000 /dev/zero | ${VALGRIND} oggenc -Q -r -o $testfile -
+echo success: oggenc generated $testfile
+${VALGRIND} oggdec -o zeros.raw $testfile
+echo success: oggdec decoded $testfile to zeros.raw
+${VALGRIND} vorbiscomment -t name=test -w $testfile
+echo success: vorbiscomment added comment to $testfile
+${VALGRIND} ogginfo $testfile
+echo success: ogginfo showed metadata of $testfile
+
+if ${VALGRIND} vorbiscomment -l $testfile | grep -q name=test; then
+  echo success: found inserted comment in $testfile
+else
+  echo error: did not find inserted comment in $testfile
+  retval=1
+fi
+
+exit $retval

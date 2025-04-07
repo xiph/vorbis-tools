@@ -408,6 +408,7 @@ ogg123/Makefile
 vorbiscomment/Makefile
 vcut/Makefile
 ogginfo/Makefile
+tests/Makefile
 ])
 
 AC_CONFIG_HEADERS([config.h])
