@@ -252,8 +252,6 @@ static void skeleton_process(stream_processor *stream, ogg_page *page)
 
 static void skeleton_end(stream_processor *stream)
 {
-    misc_skeleton_info *self = stream->data;
-
     free(stream->data);
 }
 
