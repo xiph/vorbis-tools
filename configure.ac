@@ -107,6 +107,22 @@ AC_ARG_WITH(flac,     [  --without-flac     Do not compile FLAC support], build_
 AC_ARG_WITH(speex,    [  --without-speex    Do not compile Speex support], build_speex="$withval", build_speex="yes")
 AC_ARG_WITH(kate,     [  --without-kate     Do not compile Kate support], build_kate="$withval", build_kate="yes")
 
+
+dnl --------------------------------------------------
+dnl some debug facilities
+dnl --------------------------------------------------
+AC_ARG_ENABLE(gcc-sanitizers,
+    AS_HELP_STRING([--enable-gcc-sanitizers], [Enable GCC sanitizers]),
+    [ ac_enable_gcc_sanitizers=$enableval ], [ ac_enable_gcc_sanitizers=no] )
+
+if test "$GCC" && test "x${ac_enable_gcc_sanitizers}" = xyes; then
+  CFLAGS="${CFLAGS} -fsanitize=address -fsanitize=undefined -g"
+  LDFLAGS="${CFLAGS} -fsanitize=address"
+
+  TEST_ENV="env UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1"
+  AC_SUBST(TEST_ENV)
+fi
+
 dnl --------------------------------------------------
 dnl Check for generally needed libraries
 dnl --------------------------------------------------
