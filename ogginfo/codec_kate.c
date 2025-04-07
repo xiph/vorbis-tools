@@ -256,7 +256,9 @@ static void kate_end(stream_processor *stream)
 
 void kate_start(stream_processor *stream)
 {
+#ifdef HAVE_KATE
     misc_kate_info *info;
+#endif /* HAVE_KATE */
 
     stream->type = "kate";
     stream->process_page = kate_process;
@@ -264,11 +266,10 @@ void kate_start(stream_processor *stream)
 
     stream->data = calloc(1, sizeof(misc_kate_info));
 
-    info = stream->data;
-
 #ifdef HAVE_KATE
+    info = stream->data;
     kate_comment_init(&info->kc);
     kate_info_init(&info->ki);
-#endif
+#endif /* HAVE_KATE */
 }
 
