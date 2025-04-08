@@ -249,6 +249,12 @@ void convert_set_charset(const char *charset)
     current_charset = strdup(charset);
 }
 
+void convert_free_charset(void)
+{
+  free(current_charset);
+  current_charset = 0;
+}
+
 static int convert_buffer(const char *fromcode, const char *tocode,
 			  const char *from, size_t fromlen,
 			  char **to, size_t *tolen)

@@ -499,6 +499,7 @@ clear_all:
         }
     }/* Finished this file, loop around to next... */
 
+    convert_free_charset();
     return errors?1:0;
 
 }
