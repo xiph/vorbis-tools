@@ -49,6 +49,7 @@
 #include "remote.h"
 
 #include "ogg123.h"
+#include "utf8.h"
 #include "i18n.h"
 
 extern int exit_status; /* from status.c */
@@ -508,6 +509,7 @@ int main(int argc, char **argv)
 
   ao_onexit (options.devices);
 
+  convert_free_charset();
   exit (exit_status);
 }
 

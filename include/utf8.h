@@ -25,6 +25,7 @@ extern "C" {
 #endif
 
 void convert_set_charset(const char *charset);
+void convert_free_charset(void);
 
 int utf8_encode(const char *from, char **to);
 int utf8_decode(const char *from, char **to);

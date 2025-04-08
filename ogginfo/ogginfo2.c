@@ -424,7 +424,7 @@ int main(int argc, char **argv) {
                   "ogginfo is a tool for printing information about Ogg files\n"
                   "and for diagnosing problems with them.\n"
                   "Full help shown with \"ogginfo -h\".\n"));
-        exit(1);
+        return 1;
     }
 
     while ((ret = getopt(argc, argv, "hqvV")) >= 0) {
@@ -466,5 +466,6 @@ int main(int argc, char **argv) {
             ret = flawed;
     }
 
+    convert_free_charset();
     return ret;
 }

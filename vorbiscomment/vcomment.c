@@ -261,6 +261,7 @@ int main(int argc, char **argv)
             close_files(param, 0);
             free_param(param);
             vcedit_clear(state);
+            convert_free_charset();
             return 1;
         }
 
@@ -273,6 +274,7 @@ int main(int argc, char **argv)
 
         close_files(param, 0);
         free_param(param);
+        convert_free_charset();
         return 0;
     }
 
@@ -287,6 +289,7 @@ int main(int argc, char **argv)
             close_files(param, 0);
             free_param(param);
             vcedit_clear(state);
+            convert_free_charset();
             return 1;
         }
 
@@ -325,6 +328,7 @@ int main(int argc, char **argv)
             close_files(param, 0);
             free_param(param);
             vcedit_clear(state);
+            convert_free_charset();
             return 1;
         }
 
@@ -333,6 +337,7 @@ int main(int argc, char **argv)
 
         close_files(param, 1);
         free_param(param);
+        convert_free_charset();
         return 0;
     }
 
@@ -340,6 +345,7 @@ int main(int argc, char **argv)
     fprintf(stderr, _("no action specified\n"));
     free_param(param);
     param = NULL;
+    convert_free_charset();
     return 1;
 }
 
