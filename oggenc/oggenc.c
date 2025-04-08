@@ -282,6 +282,7 @@ int main(int argc, char **argv)
             if(closein)
                 fclose(in);
             errors++;
+            format->close_func(enc_opts.readdata);
             continue;
         }
         
@@ -291,6 +292,7 @@ int main(int argc, char **argv)
             if(closein)
                 fclose(in);
             errors++;
+            format->close_func(enc_opts.readdata);
             continue;
         }
 
@@ -356,6 +358,7 @@ int main(int argc, char **argv)
                 fprintf(stderr, _("ERROR: Could not create required subdirectories for output filename \"%s\"\n"), out_fn);
                 errors++;
                 free(out_fn);
+                format->close_func(enc_opts.readdata);
                 continue;
             }
 
@@ -363,6 +366,7 @@ int main(int argc, char **argv)
                 fprintf(stderr, _("ERROR: Input filename is the same as output filename \"%s\"\n"), out_fn);
                 errors++;
                 free(out_fn);
+                format->close_func(enc_opts.readdata);
                 continue;
             }
 
@@ -374,6 +378,7 @@ int main(int argc, char **argv)
                 fprintf(stderr, _("ERROR: Cannot open output file \"%s\": %s\n"), out_fn, strerror(errno));
                 errors++;
                 free(out_fn);
+                format->close_func(enc_opts.readdata);
                 continue;
             }
             closeout = 1;
