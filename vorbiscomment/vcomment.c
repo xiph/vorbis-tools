@@ -339,6 +339,7 @@ int main(int argc, char **argv)
     /* should never reach this point */
     fprintf(stderr, _("no action specified\n"));
     free_param(param);
+    param = NULL;
     return 1;
 }
 
@@ -679,8 +680,22 @@ void usage(void)
 void free_param(param_t *param)
 {
     free(param->infilename);
+    param->infilename = NULL;
     free(param->outfilename);
+    param->outfilename = NULL;
     free(param->commentfilename);
+    param->commentfilename = NULL;
+
+    for (int i=0;i<param->commentcount;i++) {
+        free(param->comments[i]);
+	param->comments[i] = NULL;
+    }
+    free(param->comments);
+    param->comments = NULL;
+    free(param->changetypes);
+    param->changetypes = NULL;
+    param->commentcount=0;
+
     free(param);
 }
 
