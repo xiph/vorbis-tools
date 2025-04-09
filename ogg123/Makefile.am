@@ -25,7 +25,7 @@ datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DSYSCONFDIR=\"$(sysconfdir)\" -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
+docdir = $(datadir)/doc/$(PACKAGE)
 mandir = @MANDIR@
 
 bin_PROGRAMS = ogg123
