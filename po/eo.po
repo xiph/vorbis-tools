@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.2.1\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2021-01-19 14:03+0000\n"
+"POT-Creation-Date: 2025-04-08 11:12+0200\n"
 "PO-Revision-Date: 2008-09-21 16:26-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -467,7 +467,7 @@ msgstr "  -x n, --nth n           Ludas ĉiun 'n'-an blokon\n"
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Ripetas ĉiun luditan blokon 'n' foje\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:643
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Mikstemaj opcioj\n"
@@ -489,7 +489,7 @@ msgstr ""
 "                          ene de la specifita tempo-limo 's'. (implicite "
 "500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:651
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Montrigas ĉi tiun helpon\n"
@@ -1000,7 +1000,7 @@ msgstr "Legilo de dosiero FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Legilo de dosiero Ogg FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:459
+#: oggenc/audio.c:129 oggenc/audio.c:457
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de WAV-kapo\n"
@@ -1070,12 +1070,12 @@ msgstr ""
 " Devas esti 8 aŭ 16-bita PCM.\n"
 "\n"
 
-#: oggenc/audio.c:439
+#: oggenc/audio.c:437
 #, fuzzy, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Averto: Nerekonita form-difiniga peco en la kapo de 'Wave'\n"
 
-#: oggenc/audio.c:452
+#: oggenc/audio.c:450
 #, fuzzy, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1084,12 +1084,12 @@ msgstr ""
 "Averto: NEVALIDA form-difiniga peco en kapo de 'Wave'.\n"
 " Ni provos legi tiel mem (eble sensukcese)...\n"
 
-#: oggenc/audio.c:472
+#: oggenc/audio.c:470
 #, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de WAV-kapo\n"
 
-#: oggenc/audio.c:537
+#: oggenc/audio.c:535
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1099,7 +1099,7 @@ msgstr ""
 "PCM\n"
 " aŭ glitkoma PCM tipo 3)\n"
 
-#: oggenc/audio.c:546
+#: oggenc/audio.c:544
 #, fuzzy, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1108,7 +1108,7 @@ msgstr ""
 "Averto: WAV-a valoro 'block alignment' estas malĝusta, ni ignoras.\n"
 "La programo kiu kreis tiun ĉi dosieron estas malkorekta.\n"
 
-#: oggenc/audio.c:615
+#: oggenc/audio.c:613
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1118,18 +1118,18 @@ msgstr ""
 "aŭ 32-bita PCM\n"
 " aŭ glitkoma PCM)\n"
 
-#: oggenc/audio.c:691
+#: oggenc/audio.c:689
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 "Pezkomenca 24-bita PCM-a datumaro ne estas aktuale subtenata, ni ĉesigas.\n"
 
-#: oggenc/audio.c:697
+#: oggenc/audio.c:695
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Interna eraro: provo legi nesubtenatan bitprofundecon %d\n"
 
-#: oggenc/audio.c:799
+#: oggenc/audio.c:797
 #, fuzzy, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1138,7 +1138,7 @@ msgstr ""
 "MALĜUSTAĴO: Ni trovis nulajn specimenojn el la specimen-reakirilo: via "
 "dosiero estos tranĉita. Bonvolu raporti ĉi tion.\n"
 
-#: oggenc/audio.c:817
+#: oggenc/audio.c:815
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Ne eblis lanĉi la specimen-reakirilon\n"
@@ -1540,8 +1540,8 @@ msgstr "AVERTO: Neniu dosiernomo, apriore ni uzu \"default.ogg\"-on\n"
 msgid ""
 "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
 msgstr ""
-"ERARO: Ne eblis krei postulatajn subdosierujojn por la elig-dosiernomo \"%s"
-"\"\n"
+"ERARO: Ne eblis krei postulatajn subdosierujojn por la elig-dosiernomo "
+"\"%s\"\n"
 
 #: oggenc/oggenc.c:363
 #, c-format
@@ -2091,12 +2091,12 @@ msgstr ""
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "AVERTO: Nekonata opcio estis specifita, ni preteratentas->\n"
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:442
+#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
 #, fuzzy, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "Ne eblis konverti la komenton al UTF-8, ne eblas aldoni\n"
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:450
+#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Ne eblis konverti la komenton al UTF-8, ne eblas aldoni\n"
@@ -2590,12 +2590,12 @@ msgstr "Malsukcesis skribo de komentoj al la elig-dosiero: %s\n"
 msgid "no action specified\n"
 msgstr "neniu ago estis indikita\n"
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 #, fuzzy, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Ne eblis konverti la komenton al UTF-8, ne eblas aldoni\n"
 
-#: vorbiscomment/vcomment.c:616
+#: vorbiscomment/vcomment.c:617
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2606,12 +2606,12 @@ msgstr ""
 " farite de Fondaĵo Xiph.Org (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:619
+#: vorbiscomment/vcomment.c:620
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Listigi aŭ redakti komentojn en dosieroj Ogg Vorbis.\n"
 
-#: vorbiscomment/vcomment.c:622
+#: vorbiscomment/vcomment.c:623
 #, fuzzy, c-format
 msgid ""
 "Usage: \n"
@@ -2625,12 +2625,12 @@ msgstr ""
 "  vorbiscomment [-R] [-c dosiero] [-t etikedo] <-a|-w> enigdosiero "
 "[eligdosiero]\n"
 
-#: vorbiscomment/vcomment.c:628
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid "Listing options\n"
 msgstr "Listigaj opcioj\n"
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
@@ -2639,17 +2639,17 @@ msgstr ""
 "  -l, --list              Listigas la komentojn (implicite, se neniu opcio "
 "estas indikita)\n"
 
-#: vorbiscomment/vcomment.c:632
+#: vorbiscomment/vcomment.c:633
 #, c-format
 msgid "Editing options\n"
 msgstr "Redaktadaj opcioj\n"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:634
 #, fuzzy, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Postaldonas komentojn\n"
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2658,7 +2658,7 @@ msgstr ""
 "  -t \"nomo=valoro\", --tag \"nomo=valoro\"\n"
 "                          Specifas komentan etikedon ĉe la komand-linio\n"
 
-#: vorbiscomment/vcomment.c:636
+#: vorbiscomment/vcomment.c:637
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2669,14 +2669,14 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:640
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr ""
 "  -w, --write             Skribas komentojn, anstataŭigante la jam "
 "ekzistantajn\n"
 
-#: vorbiscomment/vcomment.c:644
+#: vorbiscomment/vcomment.c:645
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2691,24 +2691,24 @@ msgstr ""
 "                          Dum redaktado, legas komentojn el la indikita "
 "dosiero.\n"
 
-#: vorbiscomment/vcomment.c:647
+#: vorbiscomment/vcomment.c:648
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Legas kaj skribas komentojn per UTF-8\n"
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:649
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:652
+#: vorbiscomment/vcomment.c:653
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr "  -V, --version           Eligas versian informon kaj ĉesiĝas\n"
 
-#: vorbiscomment/vcomment.c:655
+#: vorbiscomment/vcomment.c:656
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2723,7 +2723,7 @@ msgstr ""
 "modifita\n"
 "okaze de iu eraro dum la procezado.\n"
 
-#: vorbiscomment/vcomment.c:660
+#: vorbiscomment/vcomment.c:661
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2745,7 +2745,7 @@ msgstr ""
 "Uzo de\n"
 "-c aŭ -t malebligas legi el 'stdin'.\n"
 
-#: vorbiscomment/vcomment.c:667
+#: vorbiscomment/vcomment.c:668
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2756,7 +2756,7 @@ msgstr ""
 "  vorbiscomment -a enig.ogg -c komentoj.txt\n"
 "  vorbiscomment -a enig.ogg -t \"ARTIST=Iu Homo\" -t \"TITLE=Iu Titolo\"\n"
 
-#: vorbiscomment/vcomment.c:672
+#: vorbiscomment/vcomment.c:673
 #, fuzzy, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2773,52 +2773,52 @@ msgstr ""
 "sufiĉas\n"
 "por ĝenerala difinado de komentoj en ĉiuj situacioj.\n"
 
-#: vorbiscomment/vcomment.c:739
+#: vorbiscomment/vcomment.c:755
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Interna eraro dum malkomponado de la komandliniaj opcioj\n"
 
-#: vorbiscomment/vcomment.c:758
+#: vorbiscomment/vcomment.c:774
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr ""
 
-#: vorbiscomment/vcomment.c:841
+#: vorbiscomment/vcomment.c:858
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Eraro dum malfermo de la enig-dosiero '%s'.\n"
 
-#: vorbiscomment/vcomment.c:850
+#: vorbiscomment/vcomment.c:867
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "La enig-dosiernomo eble ne estas la sama ol la elig-dosiernomo\n"
 
-#: vorbiscomment/vcomment.c:861
+#: vorbiscomment/vcomment.c:878
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Eraro dum malfermo de la elig-dosiero '%s'.\n"
 
-#: vorbiscomment/vcomment.c:876
+#: vorbiscomment/vcomment.c:893
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Eraro dum malfermo de la koment-dosiero '%s'.\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:910
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Eraro dum malfermo de la koment-dosiero '%s'\n"
 
-#: vorbiscomment/vcomment.c:927
+#: vorbiscomment/vcomment.c:944
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Eraro dum forigo de la malnova dosiero '%s'\n"
 
-#: vorbiscomment/vcomment.c:929
+#: vorbiscomment/vcomment.c:946
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Eraro dum renomigo de '%s' al '%s'\n"
 
-#: vorbiscomment/vcomment.c:938
+#: vorbiscomment/vcomment.c:955
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
@@ -3277,8 +3277,8 @@ msgstr "Eraro dum forigo de malĝusta provizora dosiero %s\n"
 #~ "  -o, --device-option=k:v passes special option k with value\n"
 #~ "      v to previously specified device (with -d).  See\n"
 #~ "      man page for more info.\n"
-#~ "  -@, --list=filename   Read playlist of files and URLs from \"filename"
-#~ "\"\n"
+#~ "  -@, --list=filename   Read playlist of files and URLs from "
+#~ "\"filename\"\n"
 #~ "  -b n, --buffer n  Use an input buffer of 'n' kilobytes\n"
 #~ "  -p n, --prebuffer n  Load n%% of the input buffer before playing\n"
 #~ "  -v, --verbose  Display progress and other status information\n"

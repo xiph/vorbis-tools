@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.1.1\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2021-01-19 14:03+0000\n"
+"POT-Creation-Date: 2025-04-08 11:12+0200\n"
 "PO-Revision-Date: 2007-08-17 16:32+0200\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
@@ -451,7 +451,7 @@ msgstr ""
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:643
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
 #, fuzzy, c-format
 msgid "Miscellaneous options\n"
 msgstr "Доступні параметри:\n"
@@ -465,7 +465,7 @@ msgid ""
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:651
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr ""
@@ -623,8 +623,8 @@ msgstr "Формат Vorbis: Версія %d"
 #, c-format
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
-"Значення щільності потоку бітів: верхнє=%ld номінальне=%ld нижнє=%ld вікно="
-"%ld"
+"Значення щільності потоку бітів: верхнє=%ld номінальне=%ld нижнє=%ld "
+"вікно=%ld"
 
 #: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
 #, c-format
@@ -971,7 +971,7 @@ msgstr "Читання файлів FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Читання файлів Ogg FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:459
+#: oggenc/audio.c:129 oggenc/audio.c:457
 #, fuzzy, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Попередження: неочікуваний кінець файлу при читанні заголовку WAV\n"
@@ -1040,12 +1040,12 @@ msgstr ""
 "Попередження: OggEnc не підтримує цей тип AIFF/AIFC файлу\n"
 " Повинен бути 8-бітний чи 16-бітний PCM.\n"
 
-#: oggenc/audio.c:439
+#: oggenc/audio.c:437
 #, fuzzy, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Попередження: формат фрагменту у заголовку WAV не розпізнаний\n"
 
-#: oggenc/audio.c:452
+#: oggenc/audio.c:450
 #, fuzzy, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1054,12 +1054,12 @@ msgstr ""
 "Попередження: НЕПРАВИЛЬНИЙ формат фрагменту у заголовку wav.\n"
 " Але робиться спроба прочитати (може не спрацювати)...\n"
 
-#: oggenc/audio.c:472
+#: oggenc/audio.c:470
 #, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr ""
 
-#: oggenc/audio.c:537
+#: oggenc/audio.c:535
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1068,14 +1068,14 @@ msgstr ""
 "ПОМИЛКА: непідтримуваний тип wav файлу (повинен бути стандартним\n"
 "PCM або PCM типу 3 з плаваючою крапкою)\n"
 
-#: oggenc/audio.c:546
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 
-#: oggenc/audio.c:615
+#: oggenc/audio.c:613
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1085,18 +1085,18 @@ msgstr ""
 "бітним\n"
 "PCM або PCM з плаваючою крапкою)\n"
 
-#: oggenc/audio.c:691
+#: oggenc/audio.c:689
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 "Формат Big endian 24-біт PCM наразі не підтримується, завершення роботи.\n"
 
-#: oggenc/audio.c:697
+#: oggenc/audio.c:695
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Внутрішня помилка: спроба прочитати непідтримувану розрядність %d\n"
 
-#: oggenc/audio.c:799
+#: oggenc/audio.c:797
 #, fuzzy, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1105,7 +1105,7 @@ msgstr ""
 "ПОМИЛКА: Від ресемплера отримане нульове число семплів. Повідомте про "
 "помилку автору.\n"
 
-#: oggenc/audio.c:817
+#: oggenc/audio.c:815
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Не вдається ініціалізувати ресемплер\n"
@@ -1520,8 +1520,8 @@ msgstr ""
 #, c-format
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
 msgstr ""
-"ПОМИЛКА: Назва вхідного файлу не може збігатися з назвою файлу виводу \"%s"
-"\"\n"
+"ПОМИЛКА: Назва вхідного файлу не може збігатися з назвою файлу виводу "
+"\"%s\"\n"
 
 #: oggenc/oggenc.c:374
 #, c-format
@@ -1936,12 +1936,12 @@ msgstr ""
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "ПОПЕРЕДЖЕННЯ: вказано невідомий параметр, ігнорується->\n"
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:442
+#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
 #, fuzzy, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "Не вдається перетворити коментар у UTF-8, неможливо додати\n"
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:450
+#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Не вдається перетворити коментар у UTF-8, неможливо додати\n"
@@ -2158,8 +2158,8 @@ msgstr ""
 #, c-format
 msgid "No input files specified. \"ogginfo -h\" for help\n"
 msgstr ""
-"Не вказані вхідні файли. Для отримання довідки використовуйте \"ogginfo -h"
-"\"\n"
+"Не вказані вхідні файли. Для отримання довідки використовуйте \"ogginfo -"
+"h\"\n"
 
 #: share/getopt.c:673
 #, c-format
@@ -2437,12 +2437,12 @@ msgstr "Помилка при записуванні коментарів у ф�
 msgid "no action specified\n"
 msgstr "не вказана дія\n"
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 #, fuzzy, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Не вдається перетворити коментар у UTF-8, не можна додати\n"
 
-#: vorbiscomment/vcomment.c:616
+#: vorbiscomment/vcomment.c:617
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2450,12 +2450,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:619
+#: vorbiscomment/vcomment.c:620
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:622
+#: vorbiscomment/vcomment.c:623
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2464,36 +2464,36 @@ msgid ""
 "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:628
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid "Listing options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
 "given)\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:632
+#: vorbiscomment/vcomment.c:633
 #, fuzzy, c-format
 msgid "Editing options\n"
 msgstr "Неправильний тип у списку параметрів"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:634
 #, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
 "                          Specify a comment tag on the commandline\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:636
+#: vorbiscomment/vcomment.c:637
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2504,12 +2504,12 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:640
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:644
+#: vorbiscomment/vcomment.c:645
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2519,24 +2519,24 @@ msgid ""
 "file.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:647
+#: vorbiscomment/vcomment.c:648
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:649
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:652
+#: vorbiscomment/vcomment.c:653
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:655
+#: vorbiscomment/vcomment.c:656
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2546,7 +2546,7 @@ msgid ""
 "errors are encountered during processing.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:660
+#: vorbiscomment/vcomment.c:661
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2559,7 +2559,7 @@ msgid ""
 "disables reading from stdin.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:667
+#: vorbiscomment/vcomment.c:668
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2567,7 +2567,7 @@ msgid ""
 "  vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:672
+#: vorbiscomment/vcomment.c:673
 #, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2579,52 +2579,52 @@ msgid ""
 "--escape).\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:739
+#: vorbiscomment/vcomment.c:755
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Внутрішня помилка при аналізі параметрів командного рядка\n"
 
-#: vorbiscomment/vcomment.c:758
+#: vorbiscomment/vcomment.c:774
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr ""
 
-#: vorbiscomment/vcomment.c:841
+#: vorbiscomment/vcomment.c:858
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Помилка при відкриванні вхідного файлу '%s'.\n"
 
-#: vorbiscomment/vcomment.c:850
+#: vorbiscomment/vcomment.c:867
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Назва вхідного файлу не може співпадати з назвою файлу виводу\n"
 
-#: vorbiscomment/vcomment.c:861
+#: vorbiscomment/vcomment.c:878
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Помилка при відкриванні файлу виводу '%s'.\n"
 
-#: vorbiscomment/vcomment.c:876
+#: vorbiscomment/vcomment.c:893
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Помилка при відкриванні файлу коментарів '%s'.\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:910
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Помилка при відкриванні файлу коментарів '%s'\n"
 
-#: vorbiscomment/vcomment.c:927
+#: vorbiscomment/vcomment.c:944
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Помилка видалення старого файлу %s\n"
 
-#: vorbiscomment/vcomment.c:929
+#: vorbiscomment/vcomment.c:946
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Помилка перейменування %s у %s\n"
 
-#: vorbiscomment/vcomment.c:938
+#: vorbiscomment/vcomment.c:955
 #, fuzzy, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Помилка видалення старого файлу %s\n"
@@ -2658,8 +2658,8 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgid ""
 #~ "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 #~ msgstr ""
-#~ "Попередження: некоректна назва коментарю у коментарі %d (потік %d): \"%s"
-#~ "\"\n"
+#~ "Попередження: некоректна назва коментарю у коментарі %d (потік %d): "
+#~ "\"%s\"\n"
 
 #, fuzzy
 #~ msgid ""
@@ -2993,8 +2993,8 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "  -o, --device-option=k:v passes special option k with value\n"
 #~ "      v to previously specified device (with -d).  See\n"
 #~ "      man page for more info.\n"
-#~ "  -@, --list=filename   Read playlist of files and URLs from \"filename"
-#~ "\"\n"
+#~ "  -@, --list=filename   Read playlist of files and URLs from "
+#~ "\"filename\"\n"
 #~ "  -b n, --buffer n  Use an input buffer of 'n' kilobytes\n"
 #~ "  -p n, --prebuffer n  Load n%% of the input buffer before playing\n"
 #~ "  -v, --verbose  Display progress and other status information\n"
@@ -3390,8 +3390,8 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "   додасть коментарі з файлу comments.txt до in.ogg\n"
 #~ "   Зрештою, ви можете вказати будь-яку кількість тегів у командному\n"
 #~ "   рядку використовуючи параметр -t. Наприклад:\n"
-#~ "   vorbiscomment -a in.ogg -t \"ARTIST=Певний артист\" -t \"TITLE=Назва"
-#~ "\"\n"
+#~ "   vorbiscomment -a in.ogg -t \"ARTIST=Певний артист\" -t "
+#~ "\"TITLE=Назва\"\n"
 #~ "   (зауважте, якщо використовується такий спосіб, читання коментарів з\n"
 #~ "   файлу чи зі стандартного потоку помилок вимкнено)\n"
 #~ "   У сирому режимі (--raw, -R) коментарі читаються та записуються у "

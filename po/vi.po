@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.2.1\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2021-01-19 14:03+0000\n"
+"POT-Creation-Date: 2025-04-08 11:12+0200\n"
 "PO-Revision-Date: 2008-09-22 18:57+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -489,7 +489,7 @@ msgstr "  -x n, --nth n           Phát mỗi khối thứ « n »\n"
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Lặp lại « n » lần mỗi khối được phát\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:643
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Tùy chọn khác\n"
@@ -508,7 +508,7 @@ msgstr ""
 "\t\t\t\tcũng chấm dứt nếu nhận hai SIGINT\n"
 "\t\t\t\ttrong thời hạn đã ghi rõ « s » (mặc định 500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:651
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Hiển thị trợ giúp này\n"
@@ -1025,7 +1025,7 @@ msgstr "Bộ đọc tập tin FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Bộ đọc tập tin FLAC Ogg"
 
-#: oggenc/audio.c:129 oggenc/audio.c:459
+#: oggenc/audio.c:129 oggenc/audio.c:457
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu WAV\n"
@@ -1094,12 +1094,12 @@ msgstr ""
 "Cảnh báo : OggEnc không hỗ trợ kiểu tập tin AIFF/AIFC này\n"
 "Phải là PCM 8 hay 16 bit.\n"
 
-#: oggenc/audio.c:439
+#: oggenc/audio.c:437
 #, fuzzy, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Cảnh báo : không nhận ra từng đoạn định dạng trong phần đầu Wave\n"
 
-#: oggenc/audio.c:452
+#: oggenc/audio.c:450
 #, fuzzy, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1108,12 +1108,12 @@ msgstr ""
 "Cảnh báo : gặp từng đoạn định dạng KHÔNG HỢP LỆ trong phần đầu Wave.\n"
 "Vẫn đang thử đọc nó (có lẽ không thể)...\n"
 
-#: oggenc/audio.c:472
+#: oggenc/audio.c:470
 #, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu WAV\n"
 
-#: oggenc/audio.c:537
+#: oggenc/audio.c:535
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1122,7 +1122,7 @@ msgstr ""
 "LỖI: tập tin Wave có kiểu không được hỗ trợ (phải là PCM tiêu chuẩn\n"
 "hay PCM điểm động kiểu 3)\n"
 
-#: oggenc/audio.c:546
+#: oggenc/audio.c:544
 #, fuzzy, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1131,7 +1131,7 @@ msgstr ""
 "Cảnh báo : giá trị « chỉnh canh khối » WAV không đúng nên bỏ qua.\n"
 "Tập tin này đã được tạo bởi phần mềm sai.\n"
 
-#: oggenc/audio.c:615
+#: oggenc/audio.c:613
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1140,19 +1140,19 @@ msgstr ""
 "LỖI: tập tin Wav có định dạng con không được hỗ trợ\n"
 "(phải là PCM 8, 16, 24 hay 32-bit) hay PCM chấm động)\n"
 
-#: oggenc/audio.c:691
+#: oggenc/audio.c:689
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 "Dữ liệu PCM 24-bit kiểu cuối lớn không phải được hỗ trợ hiện thời nên hủy "
 "bỏ.\n"
 
-#: oggenc/audio.c:697
+#: oggenc/audio.c:695
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Lỗi nội bộ : thử đọc độ sâu bit không được hỗ trợ %d\n"
 
-#: oggenc/audio.c:799
+#: oggenc/audio.c:797
 #, fuzzy, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1161,7 +1161,7 @@ msgstr ""
 "LỖI: không nhận mẫu nào từ bộ lấy lại mẫu: tập tin bạn sẽ bị cụt. Vui lòng "
 "thông báo lỗi này.\n"
 
-#: oggenc/audio.c:817
+#: oggenc/audio.c:815
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Không thể khởi động bộ lấy lại mẫu.\n"
@@ -2094,12 +2094,12 @@ msgstr ""
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "CẢNH BÁO : ghi rõ tùy chọn lạ nên giả sử →\n"
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:442
+#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
 #, fuzzy, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "Không thể chuyển đôi ghi chú đến UTF-8 nên không thể thêm\n"
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:450
+#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Không thể chuyển đôi ghi chú đến UTF-8 nên không thể thêm\n"
@@ -2582,12 +2582,12 @@ msgstr "Lỗi ghi các ghi chú vào tập tin xuất: %s\n"
 msgid "no action specified\n"
 msgstr "Chưa ghi rõ hành động nào\n"
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 #, fuzzy, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Không thể chuyển đôi ghi chú đến UTF-8 nên không thể thêm\n"
 
-#: vorbiscomment/vcomment.c:616
+#: vorbiscomment/vcomment.c:617
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2598,12 +2598,12 @@ msgstr ""
 " của Tổ chức Xiph.Org (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:619
+#: vorbiscomment/vcomment.c:620
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Liệt kê hoặc chỉnh sửa ghi chú trong tập tin kiểu Ogg Vorbis.\n"
 
-#: vorbiscomment/vcomment.c:622
+#: vorbiscomment/vcomment.c:623
 #, fuzzy, c-format
 msgid ""
 "Usage: \n"
@@ -2617,12 +2617,12 @@ msgstr ""
 "  vorbiscomment [-R] [-c tập_tin] [-t thẻ] <-a|-w> tập_tin_nhập "
 "[tập_tin_xuất]\n"
 
-#: vorbiscomment/vcomment.c:628
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid "Listing options\n"
 msgstr "Tùy chọn liệt kê\n"
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
@@ -2631,17 +2631,17 @@ msgstr ""
 "  -l, --list              Liệt kê các ghi chú (mặc định nếu không đưa ra tùy "
 "chọn)\n"
 
-#: vorbiscomment/vcomment.c:632
+#: vorbiscomment/vcomment.c:633
 #, c-format
 msgid "Editing options\n"
 msgstr "Tùy chọn chỉnh sửa\n"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:634
 #, fuzzy, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Phụ thêm các ghi chú\n"
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2650,7 +2650,7 @@ msgstr ""
 "  -t \"tên=giá_trị\", --tag \"ên=giá_trị\"\n"
 "                          Ghi rõ một ghi chú trên dòng lệnh\n"
 
-#: vorbiscomment/vcomment.c:636
+#: vorbiscomment/vcomment.c:637
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2661,12 +2661,12 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:640
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr "  -w, --write             Ghi chú, mà thay thế ghi chú đã có\n"
 
-#: vorbiscomment/vcomment.c:644
+#: vorbiscomment/vcomment.c:645
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2681,24 +2681,24 @@ msgstr ""
 "                          Khi chỉnh sửa thì cũng đọc các ghi chú từ tập tin "
 "đưa ra.\n"
 
-#: vorbiscomment/vcomment.c:647
+#: vorbiscomment/vcomment.c:648
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Đọc và ghi các ghi chú theo UTF-8\n"
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:649
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:652
+#: vorbiscomment/vcomment.c:653
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr "  -V, --version           Xuất thông tin phiên bản, sau đó thoát\n"
 
-#: vorbiscomment/vcomment.c:655
+#: vorbiscomment/vcomment.c:656
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2712,7 +2712,7 @@ msgstr ""
 "Việc này được quản lý dùng một tập tin tạm thời, để mà tập tin nhập vào\n"
 "không phải bị sửa đổi nếu gặp lỗi trong khi xử lý.\n"
 
-#: vorbiscomment/vcomment.c:660
+#: vorbiscomment/vcomment.c:661
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2733,7 +2733,7 @@ msgstr ""
 "Dùng tùy chọn hoặc « -c » hoặc « -t » thì cũng tắt chức năng đọc từ đầu vào "
 "tiêu chuẩn.\n"
 
-#: vorbiscomment/vcomment.c:667
+#: vorbiscomment/vcomment.c:668
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2744,7 +2744,7 @@ msgstr ""
 "  vorbiscomment -a in.ogg -c ghi_chú.txt\n"
 "  vorbiscomment -a in.ogg -t \"ARTIST=Người Nào\" -t \"TITLE=Tên Bài\"\n"
 
-#: vorbiscomment/vcomment.c:672
+#: vorbiscomment/vcomment.c:673
 #, fuzzy, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2761,52 +2761,52 @@ msgstr ""
 "Tuy nhiên, thiết lập này không đủ để « khứ hồi » chung các ghi chú trong mọi "
 "trường hợp.\n"
 
-#: vorbiscomment/vcomment.c:739
+#: vorbiscomment/vcomment.c:755
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Gặp lỗi nội bộ khi phân tách tùy chọn lệnh\n"
 
-#: vorbiscomment/vcomment.c:758
+#: vorbiscomment/vcomment.c:774
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr ""
 
-#: vorbiscomment/vcomment.c:841
+#: vorbiscomment/vcomment.c:858
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Gặp lỗi khi mở tập tin nhập « %s ».\n"
 
-#: vorbiscomment/vcomment.c:850
+#: vorbiscomment/vcomment.c:867
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Tên tập tin nhập có lẽ không trùng với tên tập tin xuất\n"
 
-#: vorbiscomment/vcomment.c:861
+#: vorbiscomment/vcomment.c:878
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Gặp lỗi khi mở tập tin xuất « %s ».\n"
 
-#: vorbiscomment/vcomment.c:876
+#: vorbiscomment/vcomment.c:893
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Gặp lỗi khi mở tập tin ghi chú « %s ».\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:910
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Gặp lỗi khi mở tập tin ghi chú  « %s ».\n"
 
-#: vorbiscomment/vcomment.c:927
+#: vorbiscomment/vcomment.c:944
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Gặp lỗi khi gỡ bỏ tập tin cũ %s\n"
 
-#: vorbiscomment/vcomment.c:929
+#: vorbiscomment/vcomment.c:946
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Gặp lỗi khi thay đổi tên %s thành %s\n"
 
-#: vorbiscomment/vcomment.c:938
+#: vorbiscomment/vcomment.c:955
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Gặp lỗi khi gỡ bỏ tập tin tạm thời bị lỗi %s\n"

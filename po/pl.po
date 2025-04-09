@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.3.0pre2\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2021-01-19 14:03+0000\n"
+"POT-Creation-Date: 2025-04-08 11:12+0200\n"
 "PO-Revision-Date: 2008-11-12 16:25+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -395,8 +395,8 @@ msgstr "Opcje listy odtwarzania\n"
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
 msgstr ""
-"  -@ plik, --list plik    Odczyt listy odtwarzania plików i URL-i z \"pliku"
-"\"\n"
+"  -@ plik, --list plik    Odczyt listy odtwarzania plików i URL-i z "
+"\"pliku\"\n"
 
 #: ogg123/cmdline_options.c:363
 #, c-format
@@ -462,7 +462,7 @@ msgstr "  -x n, --nth n           Odtwarzanie każdego co n-tego bloku\n"
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Powtarzanie każdego bloku n razy\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:643
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Opcje różne\n"
@@ -481,7 +481,7 @@ msgstr ""
 "                          po odebraniu dwóch SIGINTów w ciągu określonego\n"
 "                          czasu 's' (domyślnie 500 ms).\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:651
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Wyświetlenie tego opisu\n"
@@ -988,7 +988,7 @@ msgstr "Czytnik plików FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Czytnik plików Ogg FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:459
+#: oggenc/audio.c:129 oggenc/audio.c:457
 #, fuzzy, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "UWAGA: nieoczekiwany EOF podczas odczytu nagłówka Wave\n"
@@ -1057,12 +1057,12 @@ msgstr ""
 "UWAGA: oggenc nie obsługuje tego rodzaju plików AIFF/AIFC\n"
 " Plik musi być 8- lub 16-bitowym PCM.\n"
 
-#: oggenc/audio.c:439
+#: oggenc/audio.c:437
 #, fuzzy, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "UWAGA: nierozpoznany fragment formatu w nagłówku Wave\n"
 
-#: oggenc/audio.c:452
+#: oggenc/audio.c:450
 #, fuzzy, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1071,12 +1071,12 @@ msgstr ""
 "UWAGA: nieprawidłowy fragment formatu w nagłówku Wave.\n"
 " Próba odczytu mimo to (może się nie udać)...\n"
 
-#: oggenc/audio.c:472
+#: oggenc/audio.c:470
 #, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr ""
 
-#: oggenc/audio.c:537
+#: oggenc/audio.c:535
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1085,7 +1085,7 @@ msgstr ""
 "BŁĄD: plik Wave nieobsługiwanego typu (musi być standardowym PCM\n"
 " lub zmiennoprzecinkowym PCM typu 3)\n"
 
-#: oggenc/audio.c:546
+#: oggenc/audio.c:544
 #, fuzzy, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1094,7 +1094,7 @@ msgstr ""
 "UWAGA: wartość 'block alignment' WAV jest niepoprawna, zignorowano.\n"
 "Program, który utworzył ten plik, jest niepoprawny.\n"
 
-#: oggenc/audio.c:615
+#: oggenc/audio.c:613
 #, fuzzy, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1103,18 +1103,18 @@ msgstr ""
 "BŁĄD: plik Wav jest w nieobsługiwanym podformacie (musi być 8-, 16-, 24-\n"
 "lub 32-bitowym PCM albo zmiennoprzecinkowym PCM)\n"
 
-#: oggenc/audio.c:691
+#: oggenc/audio.c:689
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr "24-bitowe dane PCM big-endian nie są obecnie obsługiwane, przerwano.\n"
 
-#: oggenc/audio.c:697
+#: oggenc/audio.c:695
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 "Błąd wewnętrzny: próba odczytu nieobsługiwanej rozdzielczości bitowej %d\n"
 
-#: oggenc/audio.c:799
+#: oggenc/audio.c:797
 #, fuzzy, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1123,7 +1123,7 @@ msgstr ""
 "BŁĄD: Otrzymano zero próbek z resamplera; plik może być ucięty. Proszę to "
 "zgłosić.\n"
 
-#: oggenc/audio.c:817
+#: oggenc/audio.c:815
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Nie udało się zainicjować resamplera\n"
@@ -2075,12 +2075,12 @@ msgstr "UWAGA: język nie może być dłuższy niż 15 znaków; ucięto.\n"
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "UWAGA: podano nieznaną opcję, zignorowano\n"
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:442
+#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
 #, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "'%s' nie jest poprawnym UTF-8, nie można dodać\n"
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:450
+#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr ""
@@ -2567,13 +2567,13 @@ msgstr "Nie udało się zapisać komentarzy do pliku wyjściowego: %s\n"
 msgid "no action specified\n"
 msgstr "Nie określono akcji\n"
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 #, fuzzy, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr ""
 "Nie udało się przekonwertować komentarza do UTF-8, nie można go dodać\n"
 
-#: vorbiscomment/vcomment.c:616
+#: vorbiscomment/vcomment.c:617
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2584,12 +2584,12 @@ msgstr ""
 " autorstwa Xiph.Org Foundation (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:619
+#: vorbiscomment/vcomment.c:620
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Wypisanie i modyfikacja komentarzy w plikach Ogg Vorbis.\n"
 
-#: vorbiscomment/vcomment.c:622
+#: vorbiscomment/vcomment.c:623
 #, fuzzy, c-format
 msgid ""
 "Usage: \n"
@@ -2602,12 +2602,12 @@ msgstr ""
 "  vorbiscomment [-lR] plik\n"
 "  vorbiscomment [-R] [-c plik] [-t znacznik] <-a|-w> plik_wej [plik_wyj]\n"
 
-#: vorbiscomment/vcomment.c:628
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid "Listing options\n"
 msgstr "Opcje wypisywania\n"
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
@@ -2616,17 +2616,17 @@ msgstr ""
 "  -l, --list              Wypisanie komentarzy (domyślne jeśli nie podano "
 "opcji)\n"
 
-#: vorbiscomment/vcomment.c:632
+#: vorbiscomment/vcomment.c:633
 #, c-format
 msgid "Editing options\n"
 msgstr "Opcje modyfikacji\n"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:634
 #, fuzzy, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Dołączenie komentarzy\n"
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2635,7 +2635,7 @@ msgstr ""
 "  -t \"nazwa=wartość\", --tag \"nazwa=wartość\"\n"
 "                          Przekazanie znacznika komentarza z linii poleceń\n"
 
-#: vorbiscomment/vcomment.c:636
+#: vorbiscomment/vcomment.c:637
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2646,13 +2646,13 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:640
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr ""
 "  -w, --write             Zapisanie komentarzy z zastąpieniem istniejących\n"
 
-#: vorbiscomment/vcomment.c:644
+#: vorbiscomment/vcomment.c:645
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2667,25 +2667,25 @@ msgstr ""
 "                          Przy modyfikacji odczyt komentarzy z podanego "
 "pliku.\n"
 
-#: vorbiscomment/vcomment.c:647
+#: vorbiscomment/vcomment.c:648
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Odczyt i zapis komentarzy w UTF-8\n"
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:649
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:652
+#: vorbiscomment/vcomment.c:653
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr ""
 "  -V, --version           Wypisanie informacji o wersji i zakończenie\n"
 
-#: vorbiscomment/vcomment.c:655
+#: vorbiscomment/vcomment.c:656
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2699,7 +2699,7 @@ msgstr ""
 "Jest to obsługiwane przez plik tymczasowy, więc plik wejściowy nie zostanie\n"
 "zmodyfikowany jeśli wystąpią błędy w czasie przetwarzania.\n"
 
-#: vorbiscomment/vcomment.c:660
+#: vorbiscomment/vcomment.c:661
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2718,7 +2718,7 @@ msgstr ""
 "podać plik za pomocą opcji -c lub znaczniki poprzez -t \"nazwa=wartość\".\n"
 "Użycie -c lub -t wyłącza czytanie ze standardowego wejścia.\n"
 
-#: vorbiscomment/vcomment.c:667
+#: vorbiscomment/vcomment.c:668
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2729,7 +2729,7 @@ msgstr ""
 "  vorbiscomment -a wej.ogg -c komentarze.txt\n"
 "  vorbiscomment -a wej.ogg -t \"ARTIST=Jakiś facet\" -t \"TITLE=Tytuł\"\n"
 
-#: vorbiscomment/vcomment.c:672
+#: vorbiscomment/vcomment.c:673
 #, fuzzy, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2745,53 +2745,53 @@ msgstr ""
 "w skryptach. Jednak nie jest ot wystarczające przy przekazywaniu komentarzy\n"
 "we wszystkich przypadkach.\n"
 
-#: vorbiscomment/vcomment.c:739
+#: vorbiscomment/vcomment.c:755
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Błąd wewnętrzny analizy opcji polecenia\n"
 
-#: vorbiscomment/vcomment.c:758
+#: vorbiscomment/vcomment.c:774
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr "vorbiscomment z pakietu vorbis-tools "
 
-#: vorbiscomment/vcomment.c:841
+#: vorbiscomment/vcomment.c:858
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Błąd otwierania pliku wejściowego '%s'.\n"
 
-#: vorbiscomment/vcomment.c:850
+#: vorbiscomment/vcomment.c:867
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr ""
 "Nazwa pliku wejściowego nie może być taka sama, jak pliku wyjściowego\n"
 
-#: vorbiscomment/vcomment.c:861
+#: vorbiscomment/vcomment.c:878
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Błąd otwierania pliku wyjściowego '%s'.\n"
 
-#: vorbiscomment/vcomment.c:876
+#: vorbiscomment/vcomment.c:893
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Błąd otwierania pliku wyjściowego '%s'.\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:910
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Błąd otwierania pliku komentarzy '%s'\n"
 
-#: vorbiscomment/vcomment.c:927
+#: vorbiscomment/vcomment.c:944
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Błąd usuwania starego pliku %s\n"
 
-#: vorbiscomment/vcomment.c:929
+#: vorbiscomment/vcomment.c:946
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Błąd zmiany nazwy z %s na %s\n"
 
-#: vorbiscomment/vcomment.c:938
+#: vorbiscomment/vcomment.c:955
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Błąd usuwania błędnego pliku tymczasowego %s\n"

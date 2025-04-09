@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 0.99.1.3.1\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2021-01-19 14:03+0000\n"
+"POT-Creation-Date: 2025-04-08 11:12+0200\n"
 "PO-Revision-Date: 2002-02-20 14:59+0100\n"
 "Last-Translator: Mikael Hedin <mikael.hedin@irf.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -443,7 +443,7 @@ msgstr ""
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:643
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
 #, fuzzy, c-format
 msgid "Miscellaneous options\n"
 msgstr "Tillgängliga flaggor:\n"
@@ -457,7 +457,7 @@ msgid ""
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:651
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr ""
@@ -957,7 +957,7 @@ msgstr "WAV-filläsare"
 msgid "Ogg FLAC file reader"
 msgstr "WAV-filläsare"
 
-#: oggenc/audio.c:129 oggenc/audio.c:459
+#: oggenc/audio.c:129 oggenc/audio.c:457
 #, fuzzy, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Varning: Oväntad EOF under läsning av WAV-huvud\n"
@@ -1026,12 +1026,12 @@ msgstr ""
 "Varning: OggEnc stödjer inte denna typ AIFF/AIFC-fil.\n"
 "Måste vara 8 eller 16 bitars PCM.\n"
 
-#: oggenc/audio.c:439
+#: oggenc/audio.c:437
 #, fuzzy, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Varning: okänt format på block i Wav-huvud\n"
 
-#: oggenc/audio.c:452
+#: oggenc/audio.c:450
 #, fuzzy, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1040,50 +1040,50 @@ msgstr ""
 "Varning: OGILTIGT format på block i wav-huvud.\n"
 " Försöker läsa i alla fall (kanske inte fungerar)...\n"
 
-#: oggenc/audio.c:472
+#: oggenc/audio.c:470
 #, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr ""
 
-#: oggenc/audio.c:537
+#: oggenc/audio.c:535
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
 msgstr ""
 
-#: oggenc/audio.c:546
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 
-#: oggenc/audio.c:615
+#: oggenc/audio.c:613
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
 
-#: oggenc/audio.c:691
+#: oggenc/audio.c:689
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 
-#: oggenc/audio.c:697
+#: oggenc/audio.c:695
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 
-#: oggenc/audio.c:799
+#: oggenc/audio.c:797
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
 msgstr ""
 
-#: oggenc/audio.c:817
+#: oggenc/audio.c:815
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr ""
@@ -1873,12 +1873,12 @@ msgstr ""
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr ""
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:442
+#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
 #, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr ""
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:450
+#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr ""
@@ -2335,12 +2335,12 @@ msgstr "Misslyckades att skriva kommentar till utfil: %s\n"
 msgid "no action specified\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:465
+#: vorbiscomment/vcomment.c:466
 #, fuzzy, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Kunde inte konvertera till UTF8, kan inte lägga till\n"
 
-#: vorbiscomment/vcomment.c:616
+#: vorbiscomment/vcomment.c:617
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2348,12 +2348,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:619
+#: vorbiscomment/vcomment.c:620
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:622
+#: vorbiscomment/vcomment.c:623
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2362,36 +2362,36 @@ msgid ""
 "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:628
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid "Listing options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
 "given)\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:632
+#: vorbiscomment/vcomment.c:633
 #, fuzzy, c-format
 msgid "Editing options\n"
 msgstr "Felaktig typ i argumentlista"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:634
 #, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
 "                          Specify a comment tag on the commandline\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:636
+#: vorbiscomment/vcomment.c:637
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2402,12 +2402,12 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:640
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:644
+#: vorbiscomment/vcomment.c:645
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2417,24 +2417,24 @@ msgid ""
 "file.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:647
+#: vorbiscomment/vcomment.c:648
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:649
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:652
+#: vorbiscomment/vcomment.c:653
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:655
+#: vorbiscomment/vcomment.c:656
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2444,7 +2444,7 @@ msgid ""
 "errors are encountered during processing.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:660
+#: vorbiscomment/vcomment.c:661
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2457,7 +2457,7 @@ msgid ""
 "disables reading from stdin.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:667
+#: vorbiscomment/vcomment.c:668
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2465,7 +2465,7 @@ msgid ""
 "  vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:672
+#: vorbiscomment/vcomment.c:673
 #, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2477,52 +2477,52 @@ msgid ""
 "--escape).\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:739
+#: vorbiscomment/vcomment.c:755
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Internt fel vid tolkning av kommandoflaggor\n"
 
-#: vorbiscomment/vcomment.c:758
+#: vorbiscomment/vcomment.c:774
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr ""
 
-#: vorbiscomment/vcomment.c:841
+#: vorbiscomment/vcomment.c:858
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Misslyckades att öppna infil \"%s\".\n"
 
-#: vorbiscomment/vcomment.c:850
+#: vorbiscomment/vcomment.c:867
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:861
+#: vorbiscomment/vcomment.c:878
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Misslyckades att öppna utfil \"%s\".\n"
 
-#: vorbiscomment/vcomment.c:876
+#: vorbiscomment/vcomment.c:893
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Misslyckades att öppna kommentarfil \"%s\".\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:910
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Misslyckades att öppna kommentarfil \"%s\"\n"
 
-#: vorbiscomment/vcomment.c:927
+#: vorbiscomment/vcomment.c:944
 #, fuzzy, c-format
 msgid "Error removing old file %s\n"
 msgstr "Misslyckades att öppna utfil \"%s\".\n"
 
-#: vorbiscomment/vcomment.c:929
+#: vorbiscomment/vcomment.c:946
 #, fuzzy, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Misslyckades att öppna infil \"%s\".\n"
 
-#: vorbiscomment/vcomment.c:938
+#: vorbiscomment/vcomment.c:955
 #, fuzzy, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Misslyckades att öppna utfil \"%s\".\n"
@@ -2967,7 +2967,7 @@ msgstr "Misslyckades att öppna utfil \"%s\".\n"
 #~ "   lägger till kommentarerna i kommentarer.txt till in.ogg\n"
 #~ "   Till slut kan du ange taggar att lägga till på kommandoraden med\n"
 #~ "   flaggan -t.  T.ex.\n"
-#~ "   vorbiscomment -a in.ogg -t \"ARTIST=Någon Artist\" -t \"TITLE=En titel"
-#~ "\"\n"
+#~ "   vorbiscomment -a in.ogg -t \"ARTIST=Någon Artist\" -t \"TITLE=En "
+#~ "titel\"\n"
 #~ "   (när du använder den här flaggan är läsning från kommentarfil eller\n"
 #~ "   stdin avslaget)\n"
