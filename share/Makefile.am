@@ -11,7 +11,6 @@ libgetopt_a_SOURCES = getopt.c getopt1.c
 libbase64_a_SOURCES = base64.c
 
 libpicture_a_SOURCES = picture.c
-libpicture_a_LIBADD = libbase64.a
 
 EXTRA_DIST = charmaps.h makemap.c charset_test.c charsetmap.h
 
