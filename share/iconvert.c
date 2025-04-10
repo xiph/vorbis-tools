@@ -137,18 +137,19 @@ int iconvert(const char *fromcode, const char *tocode,
   }
 
   if (cd2 == (iconv_t)(-1)) {
+    ptrdiff_t obcount = ob - utfbuf;
     /* The target encoding was UTF-8 */
     if (tolen)
-      *tolen = ob - utfbuf;
+      *tolen = obcount;
     if (!to) {
       free(utfbuf);
       iconv_close(cd1);
       return ret;
     }
-    newbuf = (char *)realloc(utfbuf, (ob - utfbuf) + 1);
+    newbuf = (char *)realloc(utfbuf, obcount + 1);
     if (!newbuf)
       goto fail;
-    ob = (ob - utfbuf) + newbuf;
+    ob = newbuf + obcount;
     *ob = '\0';
     *to = newbuf;
     iconv_close(cd1);
