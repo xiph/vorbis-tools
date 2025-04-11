@@ -48,7 +48,7 @@ input_format formats[] = {
     {aiff_id, 12, aiff_open, wav_close, "aiff", N_("AIFF/AIFC file reader")},
 #ifdef HAVE_LIBFLAC
     {flac_id,     4, flac_open, flac_close, "flac", N_("FLAC file reader")},
-    {oggflac_id, 32, flac_open, flac_close, "ogg", N_("Ogg FLAC file reader")},
+    {oggflac_id, 33, flac_open, flac_close, "ogg", N_("Ogg FLAC file reader")},
 #endif
     {NULL, 0, NULL, NULL, NULL, NULL}
 };
