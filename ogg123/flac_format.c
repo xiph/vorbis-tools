@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
+#include <limits.h>
 #include <math.h>
 #include <FLAC/all.h>
 #include <ao/ao.h>
@@ -90,7 +91,11 @@ static FLAC__StreamDecoderWriteStatus write_callback(const FLAC__StreamDecoder *
 static void metadata_callback(const FLAC__StreamDecoder *decoder, const FLAC__StreamMetadata *metadata, void *client_data);
 static void error_callback(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data);
 static FLAC__bool eof_callback(const FLAC__StreamDecoder *decoder, void *client_data);
+static FLAC__StreamDecoderSeekStatus seek_callback(const FLAC__StreamDecoder *decoder, FLAC__uint64 off, void *client_data);
+static FLAC__StreamDecoderTellStatus tell_callback(const FLAC__StreamDecoder *decoder, FLAC__uint64 *off, void *client_data);
+static FLAC__StreamDecoderLengthStatus length_callback(const FLAC__StreamDecoder *decoder, FLAC__uint64 *len, void *client_data);
 #endif
+
 
 void resize_buffer(flac_private_t *flac, int newchannels, int newsamples);
 /*void copy_comments (vorbis_comment *v_comments, FLAC__StreamMetadata_VorbisComment *f_comments);*/
@@ -217,9 +222,29 @@ decoder_t* flac_init (data_source_t *source, ogg123_options_t *ogg123_opts,
   FLAC__stream_decoder_set_metadata_respond(private->decoder, FLAC__METADATA_TYPE_VORBIS_COMMENT);
   /*FLAC__stream_decoder_init(private->decoder);*/
   if(private->is_oggflac)
-    FLAC__stream_decoder_init_ogg_stream(private->decoder, read_callback, /*seek_callback=*/0, /*tell_callback=*/0, /*length_callback=*/0, eof_callback, write_callback, metadata_callback, error_callback, decoder);
+    FLAC__stream_decoder_init_ogg_stream(
+      private->decoder,
+      read_callback,
+      seek_callback,
+      tell_callback,
+      length_callback,
+      eof_callback,
+      write_callback,
+      metadata_callback,
+      error_callback,
+      decoder);
   else
-    FLAC__stream_decoder_init_stream(private->decoder, read_callback, /*seek_callback=*/0, /*tell_callback=*/0, /*length_callback=*/0, eof_callback, write_callback, metadata_callback, error_callback, decoder);
+    FLAC__stream_decoder_init_stream(
+      private->decoder,
+      read_callback,
+      seek_callback,
+      tell_callback,
+      length_callback,
+      eof_callback,
+      write_callback,
+      metadata_callback,
+      error_callback,
+      decoder);
 #endif
 
   /* Callback will set the total samples and sample rate */
@@ -358,6 +383,11 @@ int flac_read (decoder_t *decoder, void *ptr, int nbytes, int *eos,
 
 int flac_seek (decoder_t *decoder, double offset, int whence)
 {
+  if (whence == DECODER_SEEK_START) {
+    flac_private_t *private = decoder->private;
+    FLAC__uint64 sample = private->rate * offset;
+    return FLAC__stream_decoder_seek_absolute(private->decoder, sample);
+  }
   return 0;  /* No seeking at this time */
 }
 
@@ -543,6 +573,49 @@ FLAC__bool eof_callback(const FLAC__StreamDecoder *decoder, void *client_data)
   flac_private_t *priv = e_decoder->private;
 
   return priv->eos;
+}
+
+FLAC__StreamDecoderSeekStatus seek_callback(const FLAC__StreamDecoder *decoder, FLAC__uint64 off64, void *client_data)
+{
+  decoder_t *d = client_data;
+  transport_t *transport = d->source->transport;
+
+  if (off64 < LONG_MAX) {
+    long off = (long) off64;
+    int rc = transport->seek(d->source, off, SEEK_SET);
+    if (rc == 0) {
+      return FLAC__STREAM_DECODER_SEEK_STATUS_OK;
+    }
+  }
+  return FLAC__STREAM_DECODER_SEEK_STATUS_ERROR;
+}
+
+FLAC__StreamDecoderTellStatus tell_callback(const FLAC__StreamDecoder *decoder, FLAC__uint64 *off64, void *client_data)
+{
+  decoder_t *d = client_data;
+  transport_t *transport = d->source->transport;
+
+  long off = transport->tell(d->source);
+  if (off >= 0) {
+    *off64 = (unsigned long) off;
+    return FLAC__STREAM_DECODER_TELL_STATUS_OK;
+  }
+
+  return FLAC__STREAM_DECODER_TELL_STATUS_ERROR;
+}
+
+FLAC__StreamDecoderLengthStatus length_callback(const FLAC__StreamDecoder *decoder, FLAC__uint64 *len64, void *client_data)
+{
+  decoder_t *d = client_data;
+  transport_t *transport = d->source->transport;
+
+  long len = transport->length(d->source);
+  if (len >= 0) {
+    *len64 = (unsigned long) len;
+    return FLAC__STREAM_DECODER_LENGTH_STATUS_OK;
+  }
+
+  return FLAC__STREAM_DECODER_LENGTH_STATUS_ERROR;
 }
 #endif
 
