@@ -51,3 +51,9 @@ autotools-clang:
   variables:
     INSTALL_COMPILER: clang
     CC: clang
+
+autotools-enable-gcc-sanitizers:
+  extends: .autotools
+  variables:
+    INSTALL_EXTRA: libtool
+    CONFIG_FLAGS: --enable-gcc-sanitizers
