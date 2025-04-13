@@ -1,3 +1,23 @@
+vorbis-tools 1.4.3 -- 2025-04-13
+ * Made sure utf8_decode() prototype is found by newer GCC.
+ * Plugged memleak when using vorbiscomment -c (#2328)
+ * Plugged memory leak in vorbiscomment param parsing.
+ * Added simple self test check.
+ * Updated ogg123 http transport to avoid depricated
+   CURLOPT_PROGRESSFUNCTION.
+ * Code cleanup and avoiding some reserved names breaking MSVC build.
+ * Introduced new configure option --enable-gcc-sanitazion for more
+   checks.
+ * Updated translation files and added initial Norwegian Bokmål
+   translation.
+ * Changed oggenc to no longer assume output path ends in a file name
+   (CVE-2023-43361).
+ * Adjusted build rules to avoi link error on MacOSX.
+ * Dropped version number from documenation install path.
+ * Adjusted ogg123 to handle disappearing audio device more
+   gracefully.
+ * Fetched all updated translations from GNU translation project.
+
 vorbis-tools 1.4.2 -- 2021-01-21
  * Cleanup of the build system
  * Code cleanup

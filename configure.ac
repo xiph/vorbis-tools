@@ -4,7 +4,7 @@ dnl ------------------------------------------------
 dnl Initialization
 dnl ------------------------------------------------
 
-AC_INIT([vorbis-tools],[1.4.2],[vorbis-dev@xiph.org])
+AC_INIT([vorbis-tools],[1.4.3],[vorbis-dev@xiph.org])
 
 AC_CONFIG_SRCDIR(oggenc/encode.c)
 AC_CONFIG_MACRO_DIR([m4])
