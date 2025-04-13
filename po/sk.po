@@ -17,6 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
@@ -945,7 +946,6 @@ msgstr ""
 "použít -n\n"
 
 #: oggenc/audio.c:47
-#, fuzzy
 msgid "WAV file reader"
 msgstr "Čteč souborů WAV"
 
@@ -962,7 +962,7 @@ msgid "Ogg FLAC file reader"
 msgstr "Ogg čítač súborov FLAC"
 
 #: oggenc/audio.c:129 oggenc/audio.c:457
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Varování: Neočekávaný EOF při čtení hlavičky WAV\n"
 
@@ -972,22 +972,22 @@ msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Přeskakuji úsek typu \"%s\", délka %d\n"
 
 #: oggenc/audio.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Varování: Neočekávaný EOF v úseku AIFF\n"
 
 #: oggenc/audio.c:264
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Varování: V souboru AIFF nenalezen žádný společný úsek\n"
 
 #: oggenc/audio.c:270
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Varování: Useknutý společný úsek v hlavičce AIFF\n"
 
 #: oggenc/audio.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Varování: Neočekávaný EOF při čtení hlavičky AIFF\n"
 
@@ -997,32 +997,32 @@ msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Varování: Useknutý společný úsek v hlavičce AIFF\n"
 
 #: oggenc/audio.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Varování: Hlavička AIFF-C useknuta.\n"
 
 #: oggenc/audio.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Varovanie: Nedokážem spracovať komprimované AIFF-C (%c%c%c%c)\n"
 
 #: oggenc/audio.c:319
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Varování: V souboru AIFF nenalezen úsek SSND\n"
 
 #: oggenc/audio.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Varování: V hlavičce AIFF nalezen poškozený úsek SSND\n"
 
 #: oggenc/audio.c:331
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Varování: Neočekávaný EOF při čtení hlavičky AIFF\n"
 
 #: oggenc/audio.c:381
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
@@ -1031,12 +1031,12 @@ msgstr ""
 " Musí to byť 8- alebo 16-bit PCM.\n"
 
 #: oggenc/audio.c:437
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Varování: Úsek nerozpoznaného formátu v hlavičce WAV\n"
 
 #: oggenc/audio.c:450
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
@@ -1045,12 +1045,12 @@ msgstr ""
 " Zkouším přesto číst (možná nebude fungovat)...\n"
 
 #: oggenc/audio.c:470
-#, c-format
+#, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
-msgstr ""
+msgstr "Varování: Úsek nerozpoznaného formátu v hlavičce WAV\n"
 
 #: oggenc/audio.c:535
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
@@ -1066,7 +1066,7 @@ msgid ""
 msgstr ""
 
 #: oggenc/audio.c:613
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
@@ -1086,7 +1086,7 @@ msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Vnútorná chyba: pokus o čítanie nepodporovanej bitovej hĺbky %d\n"
 
 #: oggenc/audio.c:797
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
@@ -2592,24 +2592,11 @@ msgstr "Chyba při přejmenovávání %s na %s\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Chyba při odstraňování starého souboru %s\n"
 
-#, fuzzy
-#~ msgid "Wave file reader"
-#~ msgstr "Čteč souborů WAV"
-
-#, fuzzy
-#~ msgid "Big endian 32 bit PCM data is not currently supported, aborting.\n"
-#~ msgstr ""
-#~ "Údaje big endian 24-bit PCM v súčasnosti nie sú podporované, končím.\n"
-
-#, fuzzy
-#~ msgid "Internal error! Please report this bug.\n"
-#~ msgstr "Interní chyba při zpracovávání přepínačů příkazu\n"
-
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "oggenc from %s %s"
 #~ msgstr "ogg123 z %s %s\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Comment %d in stream %d has invalid format, does not contain "
 #~ "'=': \"%s\"\n"
@@ -2617,13 +2604,13 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Varovanie: Poznámka %d v prúde údajov %d má neplatný formát, neobsahuje "
 #~ "'=': \"%s\"\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 #~ msgstr ""
 #~ "Varování: Neplatný název pole poznámky v poznámce %d (proud %d): \"%s\"\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
 #~ "wrong\n"
@@ -2631,14 +2618,14 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): špatná značka "
 #~ "délky\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
 #~ msgstr ""
 #~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): příliš málo "
 #~ "bajtů\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid "
 #~ "sequence \"%s\": %s\n"
@@ -2650,7 +2637,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
 #~ msgstr "Varování: Selhání v dekodéru utf8. To by nemělo být možné\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Theora header packet - invalid Theora stream "
 #~ "(%d)\n"
@@ -2658,7 +2645,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
 #~ "prúd údajov theora (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Theora stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2668,22 +2655,28 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Posledná strana hlavičky obsahuje nadbytočné pakety alebo má nenulovú "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Theora headers parsed for stream %d, information follows...\n"
 #~ msgstr ""
 #~ "Hlavičky theora spracované pre prúd údajov %d, nasledujú informácie...\n"
 
+#, c-format
 #~ msgid "Version: %d.%d.%d\n"
 #~ msgstr "Verzia:  %d.%d.%d\n"
 
+#, c-format
 #~ msgid "Vendor: %s\n"
 #~ msgstr "Dodavatel: %s\n"
 
+#, c-format
 #~ msgid "Width: %d\n"
 #~ msgstr "Šírka: %d\n"
 
+#, c-format
 #~ msgid "Height: %d\n"
 #~ msgstr "Výška: %d\n"
 
+#, c-format
 #~ msgid "Total image: %d by %d, crop offset (%d, %d)\n"
 #~ msgstr "Celkový obraz: %d o %d, orezať posun (%d, %d)\n"
 
@@ -2696,6 +2689,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgid "Invalid zero framerate\n"
 #~ msgstr "Neplatná nulová rýchlosť rámcov\n"
 
+#, c-format
 #~ msgid "Framerate %d/%d (%.02f fps)\n"
 #~ msgstr "Rýchlosť rámcov %d/%d (%.02f fps)\n"
 
@@ -2708,7 +2702,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgid "Frame aspect 16:9\n"
 #~ msgstr "Pomer strán 16:9\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Frame aspect %f:1\n"
 #~ msgstr "Pomer strán 4:3\n"
 
@@ -2733,9 +2727,11 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgid "Pixel format invalid\n"
 #~ msgstr "Neplatný formát pixelov\n"
 
+#, c-format
 #~ msgid "Target bitrate: %d kbps\n"
 #~ msgstr "Cieľová bitová rýchlosť: %d kb/s\n"
 
+#, c-format
 #~ msgid "Nominal quality setting (0-63): %d\n"
 #~ msgstr "Číselné nastavenie kvality (0-63): %d\n"
 
@@ -2746,7 +2742,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgid "WARNING: granulepos in stream %d decreases from %"
 #~ msgstr "Varovanie: granulepos v prúde údajov %d sa znižuje z %lld na %lld"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
 #~ "(%d)\n"
@@ -2754,7 +2750,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Varování: Nemohu dekódovat paket hlavičky vorbis - neplatný proud vorbis "
 #~ "(%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Vorbis stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2764,18 +2760,23 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Poslední strana hlavičky obsahuje další pakety nebo má nenulovou "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Vorbis headers parsed for stream %d, information follows...\n"
 #~ msgstr "Hlavičky vorbis zpracovány pro proud %d, následují informace...\n"
 
+#, c-format
 #~ msgid "Version: %d\n"
 #~ msgstr "Verze: %d\n"
 
+#, c-format
 #~ msgid "Vendor: %s (%s)\n"
 #~ msgstr "Dodavatel: %s (%s)\n"
 
+#, c-format
 #~ msgid "Channels: %d\n"
 #~ msgstr "Kanálů: %d\n"
 
+#, c-format
 #~ msgid ""
 #~ "Rate: %ld\n"
 #~ "\n"
@@ -2783,25 +2784,28 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Frekvence: %ld\n"
 #~ "\n"
 
+#, c-format
 #~ msgid "Nominal bitrate: %f kb/s\n"
 #~ msgstr "Nominální bitrate: %f kb/s\n"
 
 #~ msgid "Nominal bitrate not set\n"
 #~ msgstr "Nominální bitrate nenastavena\n"
 
+#, c-format
 #~ msgid "Upper bitrate: %f kb/s\n"
 #~ msgstr "Vyšší bitrate: %f kb/s\n"
 
 #~ msgid "Upper bitrate not set\n"
 #~ msgstr "Vyšší bitrate nenastavena\n"
 
+#, c-format
 #~ msgid "Lower bitrate: %f kb/s\n"
 #~ msgstr "Nižší bitrate: %f kb/s\n"
 
 #~ msgid "Lower bitrate not set\n"
 #~ msgstr "Nižší bitrate nenastavena\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Kate header packet %d - invalid Kate stream "
 #~ "(%d)\n"
@@ -2809,7 +2813,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
 #~ "prúd údajov theora (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: packet %d does not seem to be a Kate header - invalid Kate "
 #~ "stream (%d)\n"
@@ -2817,7 +2821,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
 #~ "prúd údajov theora (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Kate stream %d does not have headers correctly framed. Terminal "
 #~ "header page contains additional packets or has non-zero granulepos\n"
@@ -2826,16 +2830,16 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Posledná strana hlavičky obsahuje nadbytočné pakety alebo má nenulovú "
 #~ "granulepos\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Kate headers parsed for stream %d, information follows...\n"
 #~ msgstr ""
 #~ "Hlavičky theora spracované pre prúd údajov %d, nasledujú informácie...\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d.%d\n"
 #~ msgstr "Verzia:  %d.%d.%d\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Category: %s\n"
 #~ msgstr "Dodavatel: %s\n"
 
@@ -2847,7 +2851,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgid "Invalid zero granulepos rate\n"
 #~ msgstr "Neplatná nulová rýchlosť rámcov\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Granulepos rate %d/%d (%.02f gps)\n"
 #~ msgstr "Rýchlosť rámcov %d/%d (%.02f fps)\n"
 
@@ -2856,66 +2860,6 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ msgstr ""
 #~ "Varovanie: V údajoch sa našla diera približne na pozícii %lld bajtov. "
 #~ "Poškodený ogg.\n"
-
-#~ msgid "Page error. Corrupt input.\n"
-#~ msgstr "Chyba strany. Poškozený vstup.\n"
-
-#, fuzzy
-#~ msgid "Setting EOS: update sync returned 0\n"
-#~ msgstr "Nastavuji eso: aktualizace synchronizace vrátila 0\n"
-
-#~ msgid "Cutpoint not within stream. Second file will be empty\n"
-#~ msgstr "Místo řezu není uvnitř proudu. Druhý soubor bude prázdný\n"
-
-#~ msgid "Unhandled special case: first file too short?\n"
-#~ msgstr "Neobsloužený speciální případ: první soubor příliš krátký?\n"
-
-#, fuzzy
-#~ msgid "Cutpoint too close to end of file. Second file will be empty.\n"
-#~ msgstr "Místo řezu není uvnitř proudu. Druhý soubor bude prázdný\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "ERROR: First two audio packets did not fit into one\n"
-#~ "       Ogg page. File may not decode correctly.\n"
-#~ msgstr ""
-#~ "CHYBA: První dva pakety zvuku se nevešly do jedné\n"
-#~ "       strany ogg. Soubor se možná nebude dekódovat správně.\n"
-
-#, fuzzy
-#~ msgid "Update sync returned 0, setting EOS\n"
-#~ msgstr "Aktualizace synchronizace vrátila 0, nastavuji eos\n"
-
-#~ msgid "Bitstream error\n"
-#~ msgstr "Chyba bitového proudu\n"
-
-#~ msgid "Error in first page\n"
-#~ msgstr "Chyba v první straně\n"
-
-#, fuzzy
-#~ msgid "Error in first packet\n"
-#~ msgstr "chyba v prvním paketu\n"
-
-#~ msgid "EOF in headers\n"
-#~ msgstr "EOF v hlavičkách\n"
-
-#~ msgid ""
-#~ "WARNING: vcut is still experimental code.\n"
-#~ "Check that the output files are correct before deleting sources.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "VAROVÁNÍ: vcut je stále experimentální kód.\n"
-#~ "Zkontrolujte, že výstupní soubory jsou správné, před odstraněním zdrojů.\n"
-#~ "\n"
-
-#~ msgid "Error reading headers\n"
-#~ msgstr "Chyba při čtení hlaviček\n"
-
-#~ msgid "Error writing first output file\n"
-#~ msgstr "Chyba při zapisování prvního souboru výstupu\n"
-
-#~ msgid "Error writing second output file\n"
-#~ msgstr "Chyba při zapisování druhého souboru výstupu\n"
 
 #~ msgid ""
 #~ "ogg123 from %s %s\n"
@@ -3264,6 +3208,55 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "\tCelková dĺžka údajov: %lld bajtov\n"
 #~ "\tPrehrávací čas: %ldm:%02ld.%03lds\n"
 #~ "\tPriemerná bitová rýchlosť: %f kb/s\n"
+
+#~ msgid "Page error. Corrupt input.\n"
+#~ msgstr "Chyba strany. Poškozený vstup.\n"
+
+#~ msgid "Setting eos: update sync returned 0\n"
+#~ msgstr "Nastavuji eso: aktualizace synchronizace vrátila 0\n"
+
+#~ msgid "Cutpoint not within stream. Second file will be empty\n"
+#~ msgstr "Místo řezu není uvnitř proudu. Druhý soubor bude prázdný\n"
+
+#~ msgid "Unhandled special case: first file too short?\n"
+#~ msgstr "Neobsloužený speciální případ: první soubor příliš krátký?\n"
+
+#~ msgid ""
+#~ "ERROR: First two audio packets did not fit into one\n"
+#~ "       ogg page. File may not decode correctly.\n"
+#~ msgstr ""
+#~ "CHYBA: První dva pakety zvuku se nevešly do jedné\n"
+#~ "       strany ogg. Soubor se možná nebude dekódovat správně.\n"
+
+#~ msgid "Bitstream error\n"
+#~ msgstr "Chyba bitového proudu\n"
+
+#~ msgid "Update sync returned 0, setting eos\n"
+#~ msgstr "Aktualizace synchronizace vrátila 0, nastavuji eos\n"
+
+#~ msgid "Error in first page\n"
+#~ msgstr "Chyba v první straně\n"
+
+#~ msgid "error in first packet\n"
+#~ msgstr "chyba v prvním paketu\n"
+
+#~ msgid "EOF in headers\n"
+#~ msgstr "EOF v hlavičkách\n"
+
+#~ msgid ""
+#~ "WARNING: vcut is still experimental code.\n"
+#~ "Check that the output files are correct before deleting sources.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "VAROVÁNÍ: vcut je stále experimentální kód.\n"
+#~ "Zkontrolujte, že výstupní soubory jsou správné, před odstraněním zdrojů.\n"
+#~ "\n"
+
+#~ msgid "Error writing first output file\n"
+#~ msgstr "Chyba při zapisování prvního souboru výstupu\n"
+
+#~ msgid "Error writing second output file\n"
+#~ msgstr "Chyba při zapisování druhého souboru výstupu\n"
 
 #, fuzzy
 #~ msgid ""

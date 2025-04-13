@@ -14,6 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: ogg123/buffer.c:118
 #, fuzzy, c-format
@@ -938,7 +939,6 @@ msgstr ""
 "n\n"
 
 #: oggenc/audio.c:47
-#, fuzzy
 msgid "WAV file reader"
 msgstr "WAV file reader"
 
@@ -957,7 +957,7 @@ msgid "Ogg FLAC file reader"
 msgstr "WAV file reader"
 
 #: oggenc/audio.c:129 oggenc/audio.c:457
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Warning: Unexpected EOF in reading WAV header\n"
 
@@ -967,22 +967,22 @@ msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Skipping chunk of type \"%s\", length %d\n"
 
 #: oggenc/audio.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Warning: Unexpected EOF in AIFF chunk\n"
 
 #: oggenc/audio.c:264
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Warning: No common chunk found in AIFF file\n"
 
 #: oggenc/audio.c:270
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Warning: Truncated common chunk in AIFF header\n"
 
 #: oggenc/audio.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Warning: Unexpected EOF in reading AIFF header\n"
 
@@ -992,7 +992,7 @@ msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Warning: Truncated common chunk in AIFF header\n"
 
 #: oggenc/audio.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Warning: AIFF-C header truncated.\n"
 
@@ -1002,22 +1002,22 @@ msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Warning: Can't handle compressed AIFF-C\n"
 
 #: oggenc/audio.c:319
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Warning: No SSND chunk found in AIFF file\n"
 
 #: oggenc/audio.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Warning: Corrupted SSND chunk in AIFF header\n"
 
 #: oggenc/audio.c:331
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Warning: Unexpected EOF reading AIFF header\n"
 
 #: oggenc/audio.c:381
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
@@ -1026,12 +1026,12 @@ msgstr ""
 " Must be 8 or 16 bit PCM.\n"
 
 #: oggenc/audio.c:437
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Warning: Unrecognised format chunk in WAV header\n"
 
 #: oggenc/audio.c:450
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
@@ -1040,12 +1040,12 @@ msgstr ""
 " Trying to read anyway (may not work)...\n"
 
 #: oggenc/audio.c:470
-#, c-format
+#, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
-msgstr ""
+msgstr "Warning: Unrecognised format chunk in WAV header\n"
 
 #: oggenc/audio.c:535
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
@@ -1080,7 +1080,7 @@ msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 
 #: oggenc/audio.c:797
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
@@ -2569,19 +2569,11 @@ msgstr "Error renaming %s to %s\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Error removing old file %s\n"
 
-#, fuzzy
-#~ msgid "Wave file reader"
-#~ msgstr "WAV file reader"
-
-#, fuzzy
-#~ msgid "Internal error! Please report this bug.\n"
-#~ msgstr "Internal error parsing command options\n"
-
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "oggenc from %s %s"
 #~ msgstr "ogg123 from %s %s\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Comment %d in stream %d has invalid format, does not contain "
 #~ "'=': \"%s\"\n"
@@ -2589,13 +2581,13 @@ msgstr "Error removing old file %s\n"
 #~ "Warning: Comment %d in stream %d is invalidly formatted, does not contain "
 #~ "'=': \"%s\"\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 #~ msgstr ""
 #~ "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
 #~ "wrong\n"
@@ -2603,13 +2595,13 @@ msgstr "Error removing old file %s\n"
 #~ "Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
 #~ "wrong\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
 #~ msgstr ""
 #~ "Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid "
 #~ "sequence \"%s\": %s\n"
@@ -2621,7 +2613,7 @@ msgstr "Error removing old file %s\n"
 #~ msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
 #~ msgstr "Warning: Failure in utf8 decoder. This should be impossible\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Theora header packet - invalid Theora stream "
 #~ "(%d)\n"
@@ -2629,7 +2621,7 @@ msgstr "Error removing old file %s\n"
 #~ "Warning: Could not decode vorbis header packet - invalid vorbis stream "
 #~ "(%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Theora stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2639,18 +2631,19 @@ msgstr "Error removing old file %s\n"
 #~ "Terminal header page contains additional packets or has non-zero "
 #~ "granulepos\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Theora headers parsed for stream %d, information follows...\n"
 #~ msgstr "Vorbis headers parsed for stream %d, information follows...\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d.%d.%d\n"
 #~ msgstr "Version: %d\n"
 
+#, c-format
 #~ msgid "Vendor: %s\n"
 #~ msgstr "Vendor: %s\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Height: %d\n"
 #~ msgstr "Version: %d\n"
 
@@ -2658,7 +2651,7 @@ msgstr "Error removing old file %s\n"
 #~ msgid "Colourspace unspecified\n"
 #~ msgstr "no action specified\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Target bitrate: %d kbps\n"
 #~ msgstr "Upper bitrate: %f kb/s\n"
 
@@ -2669,7 +2662,7 @@ msgstr "Error removing old file %s\n"
 #~ msgid "WARNING: granulepos in stream %d decreases from %"
 #~ msgstr "Warning: granulepos in stream %d decreases from "
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
 #~ "(%d)\n"
@@ -2677,7 +2670,7 @@ msgstr "Error removing old file %s\n"
 #~ "Warning: Could not decode vorbis header packet - invalid vorbis stream "
 #~ "(%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Vorbis stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2687,18 +2680,23 @@ msgstr "Error removing old file %s\n"
 #~ "Terminal header page contains additional packets or has non-zero "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Vorbis headers parsed for stream %d, information follows...\n"
 #~ msgstr "Vorbis headers parsed for stream %d, information follows...\n"
 
+#, c-format
 #~ msgid "Version: %d\n"
 #~ msgstr "Version: %d\n"
 
+#, c-format
 #~ msgid "Vendor: %s (%s)\n"
 #~ msgstr "Vendor: %s (%s)\n"
 
+#, c-format
 #~ msgid "Channels: %d\n"
 #~ msgstr "Channels: %d\n"
 
+#, c-format
 #~ msgid ""
 #~ "Rate: %ld\n"
 #~ "\n"
@@ -2706,25 +2704,28 @@ msgstr "Error removing old file %s\n"
 #~ "Rate: %ld\n"
 #~ "\n"
 
+#, c-format
 #~ msgid "Nominal bitrate: %f kb/s\n"
 #~ msgstr "Nominal bitrate: %f kb/s\n"
 
 #~ msgid "Nominal bitrate not set\n"
 #~ msgstr "Nominal bitrate not set\n"
 
+#, c-format
 #~ msgid "Upper bitrate: %f kb/s\n"
 #~ msgstr "Upper bitrate: %f kb/s\n"
 
 #~ msgid "Upper bitrate not set\n"
 #~ msgstr "Upper bitrate not set\n"
 
+#, c-format
 #~ msgid "Lower bitrate: %f kb/s\n"
 #~ msgstr "Lower bitrate: %f kb/s\n"
 
 #~ msgid "Lower bitrate not set\n"
 #~ msgstr "Lower bitrate not set\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Kate header packet %d - invalid Kate stream "
 #~ "(%d)\n"
@@ -2732,7 +2733,7 @@ msgstr "Error removing old file %s\n"
 #~ "Warning: Could not decode vorbis header packet - invalid vorbis stream "
 #~ "(%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Kate stream %d does not have headers correctly framed. Terminal "
 #~ "header page contains additional packets or has non-zero granulepos\n"
@@ -2741,15 +2742,15 @@ msgstr "Error removing old file %s\n"
 #~ "Terminal header page contains additional packets or has non-zero "
 #~ "granulepos\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Kate headers parsed for stream %d, information follows...\n"
 #~ msgstr "Vorbis headers parsed for stream %d, information follows...\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d.%d\n"
 #~ msgstr "Version: %d\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Category: %s\n"
 #~ msgstr "Vendor: %s\n"
 
@@ -2759,66 +2760,6 @@ msgstr "Error removing old file %s\n"
 
 #~ msgid "\n"
 #~ msgstr "\n"
-
-#~ msgid "Page error. Corrupt input.\n"
-#~ msgstr "Page error. Corrupt input.\n"
-
-#, fuzzy
-#~ msgid "Setting EOS: update sync returned 0\n"
-#~ msgstr "Setting eos: update sync returned 0\n"
-
-#~ msgid "Cutpoint not within stream. Second file will be empty\n"
-#~ msgstr "Cutpoint not within stream. Second file will be empty\n"
-
-#~ msgid "Unhandled special case: first file too short?\n"
-#~ msgstr "Unhandled special case: first file too short?\n"
-
-#, fuzzy
-#~ msgid "Cutpoint too close to end of file. Second file will be empty.\n"
-#~ msgstr "Cutpoint not within stream. Second file will be empty\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "ERROR: First two audio packets did not fit into one\n"
-#~ "       Ogg page. File may not decode correctly.\n"
-#~ msgstr ""
-#~ "ERROR: First two audio packets did not fit into one\n"
-#~ "       ogg page. File may not decode correctly.\n"
-
-#, fuzzy
-#~ msgid "Update sync returned 0, setting EOS\n"
-#~ msgstr "Update sync returned 0, setting eos\n"
-
-#~ msgid "Bitstream error\n"
-#~ msgstr "Bitstream error\n"
-
-#~ msgid "Error in first page\n"
-#~ msgstr "Error in first page\n"
-
-#, fuzzy
-#~ msgid "Error in first packet\n"
-#~ msgstr "error in first packet\n"
-
-#~ msgid "EOF in headers\n"
-#~ msgstr "EOF in headers\n"
-
-#~ msgid ""
-#~ "WARNING: vcut is still experimental code.\n"
-#~ "Check that the output files are correct before deleting sources.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "WARNING: vcut is still experimental code.\n"
-#~ "Check that the output files are correct before deleting sources.\n"
-#~ "\n"
-
-#~ msgid "Error reading headers\n"
-#~ msgstr "Error reading headers\n"
-
-#~ msgid "Error writing first output file\n"
-#~ msgstr "Error writing first output file\n"
-
-#~ msgid "Error writing second output file\n"
-#~ msgstr "Error writing second output file\n"
 
 #~ msgid "malloc"
 #~ msgstr "malloc"
@@ -3100,6 +3041,55 @@ msgstr "Error removing old file %s\n"
 
 #~ msgid " bytes. Corrupted ogg.\n"
 #~ msgstr " bytes. Corrupted ogg.\n"
+
+#~ msgid "Page error. Corrupt input.\n"
+#~ msgstr "Page error. Corrupt input.\n"
+
+#~ msgid "Setting eos: update sync returned 0\n"
+#~ msgstr "Setting eos: update sync returned 0\n"
+
+#~ msgid "Cutpoint not within stream. Second file will be empty\n"
+#~ msgstr "Cutpoint not within stream. Second file will be empty\n"
+
+#~ msgid "Unhandled special case: first file too short?\n"
+#~ msgstr "Unhandled special case: first file too short?\n"
+
+#~ msgid ""
+#~ "ERROR: First two audio packets did not fit into one\n"
+#~ "       ogg page. File may not decode correctly.\n"
+#~ msgstr ""
+#~ "ERROR: First two audio packets did not fit into one\n"
+#~ "       ogg page. File may not decode correctly.\n"
+
+#~ msgid "Bitstream error\n"
+#~ msgstr "Bitstream error\n"
+
+#~ msgid "Update sync returned 0, setting eos\n"
+#~ msgstr "Update sync returned 0, setting eos\n"
+
+#~ msgid "Error in first page\n"
+#~ msgstr "Error in first page\n"
+
+#~ msgid "error in first packet\n"
+#~ msgstr "error in first packet\n"
+
+#~ msgid "EOF in headers\n"
+#~ msgstr "EOF in headers\n"
+
+#~ msgid ""
+#~ "WARNING: vcut is still experimental code.\n"
+#~ "Check that the output files are correct before deleting sources.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "WARNING: vcut is still experimental code.\n"
+#~ "Check that the output files are correct before deleting sources.\n"
+#~ "\n"
+
+#~ msgid "Error writing first output file\n"
+#~ msgstr "Error writing first output file\n"
+
+#~ msgid "Error writing second output file\n"
+#~ msgstr "Error writing second output file\n"
 
 #~ msgid ""
 #~ "Usage: \n"

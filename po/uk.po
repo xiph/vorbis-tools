@@ -14,6 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: ogg123/buffer.c:118
 #, fuzzy, c-format
@@ -955,7 +956,6 @@ msgstr ""
 "рекомендується використовувати -n\n"
 
 #: oggenc/audio.c:47
-#, fuzzy
 msgid "WAV file reader"
 msgstr "Читання файлів WAV"
 
@@ -972,7 +972,7 @@ msgid "Ogg FLAC file reader"
 msgstr "Читання файлів Ogg FLAC"
 
 #: oggenc/audio.c:129 oggenc/audio.c:457
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Попередження: неочікуваний кінець файлу при читанні заголовку WAV\n"
 
@@ -982,22 +982,22 @@ msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Пропускається фрагмент типу \"%s\", довжина %d\n"
 
 #: oggenc/audio.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Попередження: неочікуваний кінець файла у фрагменті AIFF\n"
 
 #: oggenc/audio.c:264
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Попередження: у файлі AIFF не знайдено загальний фрагмент\n"
 
 #: oggenc/audio.c:270
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Попередження: обрізаний загальний фрагмент у заголовку AIFF\n"
 
 #: oggenc/audio.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Попередження: неочікуваний кінець файлу при читанні заголовку AIFF\n"
 
@@ -1007,32 +1007,32 @@ msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Попередження: обрізаний загальний фрагмент у заголовку AIFF\n"
 
 #: oggenc/audio.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Попередження: заголовок AIFF-C обрізаний.\n"
 
 #: oggenc/audio.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Попередження: неможливо обробити стиснений AIFF-C (%c%c%c%c)\n"
 
 #: oggenc/audio.c:319
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Попередження: у файлі AIFF не знайдено SSND-фрагмент\n"
 
 #: oggenc/audio.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Попередження: у заголовку AIFF пошкоджений SSND-фрагмент\n"
 
 #: oggenc/audio.c:331
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Попередження: неочікуваний кінець файлу при читанні заголовку AIFF\n"
 
 #: oggenc/audio.c:381
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
@@ -1041,12 +1041,12 @@ msgstr ""
 " Повинен бути 8-бітний чи 16-бітний PCM.\n"
 
 #: oggenc/audio.c:437
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Попередження: формат фрагменту у заголовку WAV не розпізнаний\n"
 
 #: oggenc/audio.c:450
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
@@ -1055,12 +1055,12 @@ msgstr ""
 " Але робиться спроба прочитати (може не спрацювати)...\n"
 
 #: oggenc/audio.c:470
-#, c-format
+#, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
-msgstr ""
+msgstr "Попередження: формат фрагменту у заголовку WAV не розпізнаний\n"
 
 #: oggenc/audio.c:535
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
@@ -1076,7 +1076,7 @@ msgid ""
 msgstr ""
 
 #: oggenc/audio.c:613
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
@@ -1097,7 +1097,7 @@ msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Внутрішня помилка: спроба прочитати непідтримувану розрядність %d\n"
 
 #: oggenc/audio.c:797
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
@@ -2629,24 +2629,11 @@ msgstr "Помилка перейменування %s у %s\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Помилка видалення старого файлу %s\n"
 
-#, fuzzy
-#~ msgid "Wave file reader"
-#~ msgstr "Читання файлів WAV"
-
-#, fuzzy
-#~ msgid "Big endian 32 bit PCM data is not currently supported, aborting.\n"
-#~ msgstr ""
-#~ "Формат Big endian 24-біт PCM наразі не підтримується, завершення роботи.\n"
-
-#, fuzzy
-#~ msgid "Internal error! Please report this bug.\n"
-#~ msgstr "Внутрішня помилка при аналізі параметрів командного рядка\n"
-
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "oggenc from %s %s"
 #~ msgstr "ogg123 з %s %s\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Comment %d in stream %d has invalid format, does not contain "
 #~ "'=': \"%s\"\n"
@@ -2654,14 +2641,14 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Попередження: коментар %d потоку %d має некоректний формат, він не "
 #~ "містить '=': \"%s\"\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 #~ msgstr ""
 #~ "Попередження: некоректна назва коментарю у коментарі %d (потік %d): "
 #~ "\"%s\"\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
 #~ "wrong\n"
@@ -2669,14 +2656,14 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Попередження: некоректна UTF-8 послідовність у коментарі %d (потік %d): "
 #~ "неправильний маркер довжини\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
 #~ msgstr ""
 #~ "Попередження: неправильна UTF-8 послідовність у коментарі %d (потік %d): "
 #~ "надто мало байтів\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid "
 #~ "sequence \"%s\": %s\n"
@@ -2688,7 +2675,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
 #~ msgstr "Попередження: помилка у utf8 декодері. Взагалі, це неможливо\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Theora header packet - invalid Theora stream "
 #~ "(%d)\n"
@@ -2696,7 +2683,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Попередження: не вдається розкодувати пакет заголовків theora - "
 #~ "неправильний потік theora (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Theora stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2706,21 +2693,27 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "сторінка заголовку містить додаткові пакети або має не-нульовий "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Theora headers parsed for stream %d, information follows...\n"
 #~ msgstr "Оброблені заголовки theora для потоку %d, далі йде інформація...\n"
 
+#, c-format
 #~ msgid "Version: %d.%d.%d\n"
 #~ msgstr "Версія: %d.%d.%d\n"
 
+#, c-format
 #~ msgid "Vendor: %s\n"
 #~ msgstr "Постачальник: %s\n"
 
+#, c-format
 #~ msgid "Width: %d\n"
 #~ msgstr "Ширина: %d\n"
 
+#, c-format
 #~ msgid "Height: %d\n"
 #~ msgstr "Висота: %d\n"
 
+#, c-format
 #~ msgid "Total image: %d by %d, crop offset (%d, %d)\n"
 #~ msgstr "Повне зображення: %d на %d, зсув кадрування (%d, %d)\n"
 
@@ -2733,13 +2726,14 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgid "Invalid zero framerate\n"
 #~ msgstr "Некоректний нульова частота кадрів\n"
 
+#, c-format
 #~ msgid "Framerate %d/%d (%.02f fps)\n"
 #~ msgstr "Частота кадрів %d/%d (%.02f кадр/с)\n"
 
 #~ msgid "Aspect ratio undefined\n"
 #~ msgstr "Не визначено співвідношення сторін\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Pixel aspect ratio %d:%d (%f:1)\n"
 #~ msgstr "Співвідношення сторін точки %d:%d (1:%f)\n"
 
@@ -2749,7 +2743,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgid "Frame aspect 16:9\n"
 #~ msgstr "Співвідношення сторін кадру 16:9\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Frame aspect %f:1\n"
 #~ msgstr "Співвідношення сторін кадру 4:3\n"
 
@@ -2774,9 +2768,11 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgid "Pixel format invalid\n"
 #~ msgstr "Некоректний формат точок\n"
 
+#, c-format
 #~ msgid "Target bitrate: %d kbps\n"
 #~ msgstr "Цільова щільність бітів: %d кбіт/с\n"
 
+#, c-format
 #~ msgid "Nominal quality setting (0-63): %d\n"
 #~ msgstr "Номінальна якість (0-63): %d\n"
 
@@ -2788,7 +2784,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgstr ""
 #~ "Попередження: значення granulepos потоку %d зменшилось з %lld до %lld"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
 #~ "(%d)\n"
@@ -2796,7 +2792,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Попередження: не вдається розкодувати пакет заголовків vorbis - "
 #~ "неправильний потік vorbis (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Vorbis stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2806,18 +2802,23 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "сторінка заголовка містить додаткові пакети або має не-нульовий "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Vorbis headers parsed for stream %d, information follows...\n"
 #~ msgstr "Оброблені заголовки vorbis для потоку %d, далі йде інформація...\n"
 
+#, c-format
 #~ msgid "Version: %d\n"
 #~ msgstr "Версія: %d\n"
 
+#, c-format
 #~ msgid "Vendor: %s (%s)\n"
 #~ msgstr "Постачальник: %s (%s)\n"
 
+#, c-format
 #~ msgid "Channels: %d\n"
 #~ msgstr "Канали: %d\n"
 
+#, c-format
 #~ msgid ""
 #~ "Rate: %ld\n"
 #~ "\n"
@@ -2825,25 +2826,28 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Дискретизація: %ld\n"
 #~ "\n"
 
+#, c-format
 #~ msgid "Nominal bitrate: %f kb/s\n"
 #~ msgstr "Номінальна щільність бітів: %f кбіт/с\n"
 
 #~ msgid "Nominal bitrate not set\n"
 #~ msgstr "Номінальна щільність бітів не встановлена\n"
 
+#, c-format
 #~ msgid "Upper bitrate: %f kb/s\n"
 #~ msgstr "Максимальна щільність бітів: %f кбіт/с\n"
 
 #~ msgid "Upper bitrate not set\n"
 #~ msgstr "Максимальна щільність бітів не встановлена\n"
 
+#, c-format
 #~ msgid "Lower bitrate: %f kb/s\n"
 #~ msgstr "Мінімальна щільність бітів: %f кбіт/с\n"
 
 #~ msgid "Lower bitrate not set\n"
 #~ msgstr "Мінімальна щільність бітів не встановлена\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Kate header packet %d - invalid Kate stream "
 #~ "(%d)\n"
@@ -2851,7 +2855,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Попередження: не вдається розкодувати пакет заголовків theora - "
 #~ "неправильний потік theora (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: packet %d does not seem to be a Kate header - invalid Kate "
 #~ "stream (%d)\n"
@@ -2859,7 +2863,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "Попередження: не вдається розкодувати пакет заголовків theora - "
 #~ "неправильний потік theora (%d)\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "WARNING: Kate stream %d does not have headers correctly framed. Terminal "
 #~ "header page contains additional packets or has non-zero granulepos\n"
@@ -2868,15 +2872,15 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "сторінка заголовку містить додаткові пакети або має не-нульовий "
 #~ "granulepos\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Kate headers parsed for stream %d, information follows...\n"
 #~ msgstr "Оброблені заголовки theora для потоку %d, далі йде інформація...\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d.%d\n"
 #~ msgstr "Версія: %d.%d.%d\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Category: %s\n"
 #~ msgstr "Постачальник: %s\n"
 
@@ -2888,7 +2892,7 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgid "Invalid zero granulepos rate\n"
 #~ msgstr "Некоректний нульова частота кадрів\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Granulepos rate %d/%d (%.02f gps)\n"
 #~ msgstr "Частота кадрів %d/%d (%.02f кадр/с)\n"
 
@@ -2900,67 +2904,6 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ msgstr ""
 #~ "Попередження: дірка у даних зі зсувом приблизно %lld байтів. Пошкоджений "
 #~ "ogg.\n"
-
-#~ msgid "Page error. Corrupt input.\n"
-#~ msgstr "Помилка сторінки. Пошкоджені вхідні дані.\n"
-
-#, fuzzy
-#~ msgid "Setting EOS: update sync returned 0\n"
-#~ msgstr ""
-#~ "Встановлення ознаки кінця потоку: спроба оновлення повернула код 0\n"
-
-#~ msgid "Cutpoint not within stream. Second file will be empty\n"
-#~ msgstr "Точка відрізання не в середині потоку. Другий файл буде порожнім.\n"
-
-#~ msgid "Unhandled special case: first file too short?\n"
-#~ msgstr "Необроблений спеціальний випадок: перший файл занадто короткий?\n"
-
-#, fuzzy
-#~ msgid "Cutpoint too close to end of file. Second file will be empty.\n"
-#~ msgstr "Точка відрізання не в середині потоку. Другий файл буде порожнім.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "ERROR: First two audio packets did not fit into one\n"
-#~ "       Ogg page. File may not decode correctly.\n"
-#~ msgstr ""
-#~ "ПОМИЛКА: перші два звукових пакети не вміщаються у одну\n"
-#~ "       сторінку ogg. Файл не може бути коректно декодований.\n"
-
-#, fuzzy
-#~ msgid "Update sync returned 0, setting EOS\n"
-#~ msgstr "Спроба оновлення повернула 0, встановлення ознаки кінця потоку\n"
-
-#~ msgid "Bitstream error\n"
-#~ msgstr "Помилка потоку бітів\n"
-
-#~ msgid "Error in first page\n"
-#~ msgstr "Помилка на першій сторінці\n"
-
-#, fuzzy
-#~ msgid "Error in first packet\n"
-#~ msgstr "помилка у першому пакеті\n"
-
-#~ msgid "EOF in headers\n"
-#~ msgstr "у заголовках виявлено кінець файлу\n"
-
-#~ msgid ""
-#~ "WARNING: vcut is still experimental code.\n"
-#~ "Check that the output files are correct before deleting sources.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ПОПЕРЕДЖЕННЯ: vcut - експериментальна програма.\n"
-#~ "Перевірте коректність отриманих файлів перед видаленням вхідних.\n"
-#~ "\n"
-
-#~ msgid "Error reading headers\n"
-#~ msgstr "Помилка читання заголовків\n"
-
-#~ msgid "Error writing first output file\n"
-#~ msgstr "Помилка запису першого файлу виводу\n"
-
-#~ msgid "Error writing second output file\n"
-#~ msgstr "Помилка запису другого файлу виводу\n"
 
 #~ msgid ""
 #~ "ogg123 from %s %s\n"
@@ -3348,6 +3291,56 @@ msgstr "Помилка видалення старого файлу %s\n"
 #~ "\tДовжина даних: %lld байт\n"
 #~ "\tЧас відтворення: %ldхв:%02ld.%03ldс\n"
 #~ "\tСередня щільність бітів: %f кбіт/с\n"
+
+#~ msgid "Page error. Corrupt input.\n"
+#~ msgstr "Помилка сторінки. Пошкоджені вхідні дані.\n"
+
+#~ msgid "Setting eos: update sync returned 0\n"
+#~ msgstr ""
+#~ "Встановлення ознаки кінця потоку: спроба оновлення повернула код 0\n"
+
+#~ msgid "Cutpoint not within stream. Second file will be empty\n"
+#~ msgstr "Точка відрізання не в середині потоку. Другий файл буде порожнім.\n"
+
+#~ msgid "Unhandled special case: first file too short?\n"
+#~ msgstr "Необроблений спеціальний випадок: перший файл занадто короткий?\n"
+
+#~ msgid ""
+#~ "ERROR: First two audio packets did not fit into one\n"
+#~ "       ogg page. File may not decode correctly.\n"
+#~ msgstr ""
+#~ "ПОМИЛКА: перші два звукових пакети не вміщаються у одну\n"
+#~ "       сторінку ogg. Файл не може бути коректно декодований.\n"
+
+#~ msgid "Bitstream error\n"
+#~ msgstr "Помилка потоку бітів\n"
+
+#~ msgid "Update sync returned 0, setting eos\n"
+#~ msgstr "Спроба оновлення повернула 0, встановлення ознаки кінця потоку\n"
+
+#~ msgid "Error in first page\n"
+#~ msgstr "Помилка на першій сторінці\n"
+
+#~ msgid "error in first packet\n"
+#~ msgstr "помилка у першому пакеті\n"
+
+#~ msgid "EOF in headers\n"
+#~ msgstr "у заголовках виявлено кінець файлу\n"
+
+#~ msgid ""
+#~ "WARNING: vcut is still experimental code.\n"
+#~ "Check that the output files are correct before deleting sources.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "ПОПЕРЕДЖЕННЯ: vcut - експериментальна програма.\n"
+#~ "Перевірте коректність отриманих файлів перед видаленням вхідних.\n"
+#~ "\n"
+
+#~ msgid "Error writing first output file\n"
+#~ msgstr "Помилка запису першого файлу виводу\n"
+
+#~ msgid "Error writing second output file\n"
+#~ msgstr "Помилка запису другого файлу виводу\n"
 
 #~ msgid ""
 #~ "Usage: \n"

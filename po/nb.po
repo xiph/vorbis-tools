@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.2\n"
-"Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-04-08 09:48+0200\n"
-"PO-Revision-Date: 2025-04-08 10:03+0200\n"
+"Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
+"POT-Creation-Date: 2025-04-08 11:12+0200\n"
+"PO-Revision-Date: 2025-04-13 07:40+0200\n"
 "Last-Translator: Petter Reinholdtsen <pere@hungry.com>\n"
 "Language-Team: Norwegian Bokmål\n"
 "Language: nb\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: ogg123/callbacks.c:76
 msgid "ERROR: Device not available.\n"
-msgstr ""
+msgstr "FEIL: Enheten er ikke tilgjengelig.\n"
 
 #: ogg123/callbacks.c:79
 #, c-format
@@ -102,19 +102,19 @@ msgstr ""
 
 #: ogg123/cfgfile_options.c:134
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: ogg123/cfgfile_options.c:137
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: ogg123/cfgfile_options.c:140
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: ogg123/cfgfile_options.c:143
 msgid "Default"
-msgstr ""
+msgstr "Forvalgt"
 
 #: ogg123/cfgfile_options.c:169
 #, c-format
@@ -238,7 +238,7 @@ msgstr ""
 #: ogg123/cmdline_options.c:202
 #, c-format
 msgid "ogg123 from %s %s"
-msgstr ""
+msgstr "ogg123 fra %s %s"
 
 #: ogg123/cmdline_options.c:209
 msgid "--- Cannot play every 0th chunk!\n"
@@ -295,22 +295,22 @@ msgstr ""
 #: ogg123/cmdline_options.c:314
 #, c-format
 msgid "Available codecs: "
-msgstr ""
+msgstr "Tilgjengelige kodekser:"
 
 #: ogg123/cmdline_options.c:317
 #, c-format
 msgid "FLAC, "
-msgstr "FLAC,"
+msgstr "FLAC, "
 
 #: ogg123/cmdline_options.c:321
 #, c-format
 msgid "Speex, "
-msgstr "Speex,"
+msgstr "Speex, "
 
 #: ogg123/cmdline_options.c:325
 #, c-format
 msgid "Opus, "
-msgstr "Opus,"
+msgstr "Opus, "
 
 #: ogg123/cmdline_options.c:328
 #, c-format
@@ -435,7 +435,7 @@ msgstr ""
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr ""
@@ -449,7 +449,7 @@ msgid ""
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr ""
@@ -501,7 +501,7 @@ msgstr "stokk spilleliste"
 
 #: ogg123/ogg123.c:84
 msgid "repeat playlist forever"
-msgstr ""
+msgstr "gjenta spillelisten til evig tid"
 
 #: ogg123/ogg123.c:230
 #, c-format
@@ -727,7 +727,7 @@ msgstr ""
 
 #: ogg123/vorbis_comments.c:41
 msgid "Track number:"
-msgstr ""
+msgstr "Spornummer:"
 
 #: ogg123/vorbis_comments.c:42
 msgid "ReplayGain (Reference loudness):"
@@ -1815,12 +1815,12 @@ msgstr ""
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr ""
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:449
+#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
 #, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr ""
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:457
+#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr ""
@@ -2242,37 +2242,37 @@ msgid ""
 "Error writing stream to output. Output stream may be corrupted or truncated."
 msgstr ""
 
-#: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:287
+#: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:285
 #, c-format
 msgid "Failed to open file as Vorbis: %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:308
+#: vorbiscomment/vcomment.c:305
 #, c-format
 msgid "Bad comment: \"%s\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:317
+#: vorbiscomment/vcomment.c:314
 #, c-format
 msgid "bad comment: \"%s\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:326
+#: vorbiscomment/vcomment.c:323
 #, c-format
 msgid "Failed to write comments to output file: %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:345
+#: vorbiscomment/vcomment.c:340
 #, c-format
 msgid "no action specified\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:472
+#: vorbiscomment/vcomment.c:466
 #, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:623
+#: vorbiscomment/vcomment.c:617
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2280,12 +2280,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:626
+#: vorbiscomment/vcomment.c:620
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:623
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2294,36 +2294,36 @@ msgid ""
 "  vorbiscomment <-a|-w> [-Re] [-c file] [-t tag] inputfile [outputfile]\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:635
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid "Listing options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:636
+#: vorbiscomment/vcomment.c:630
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
 "given)\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:639
+#: vorbiscomment/vcomment.c:633
 #, c-format
 msgid "Editing options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:640
+#: vorbiscomment/vcomment.c:634
 #, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:641
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
 "                          Specify a comment tag on the commandline\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:643
+#: vorbiscomment/vcomment.c:637
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2334,12 +2334,12 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:647
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:651
+#: vorbiscomment/vcomment.c:645
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2349,24 +2349,24 @@ msgid ""
 "file.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:654
+#: vorbiscomment/vcomment.c:648
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:655
+#: vorbiscomment/vcomment.c:649
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:659
+#: vorbiscomment/vcomment.c:653
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:662
+#: vorbiscomment/vcomment.c:656
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2376,7 +2376,7 @@ msgid ""
 "errors are encountered during processing.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:667
+#: vorbiscomment/vcomment.c:661
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2389,7 +2389,7 @@ msgid ""
 "disables reading from stdin.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:674
+#: vorbiscomment/vcomment.c:668
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2397,7 +2397,7 @@ msgid ""
 "  vorbiscomment -a in.ogg -t \"ARTIST=Some Guy\" -t \"TITLE=A Title\"\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:679
+#: vorbiscomment/vcomment.c:673
 #, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2409,52 +2409,52 @@ msgid ""
 "--escape).\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:761
+#: vorbiscomment/vcomment.c:755
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:780
+#: vorbiscomment/vcomment.c:774
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr ""
 
-#: vorbiscomment/vcomment.c:864
+#: vorbiscomment/vcomment.c:858
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:873
+#: vorbiscomment/vcomment.c:867
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:884
+#: vorbiscomment/vcomment.c:878
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:899
+#: vorbiscomment/vcomment.c:893
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:916
+#: vorbiscomment/vcomment.c:910
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:950
+#: vorbiscomment/vcomment.c:944
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:952
+#: vorbiscomment/vcomment.c:946
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:961
+#: vorbiscomment/vcomment.c:955
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr ""

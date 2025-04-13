@@ -7,16 +7,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: vorbis-tools-1.3.0pre2\n"
+"Project-Id-Version: vorbis-tools-1.4.0\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
 "POT-Creation-Date: 2025-04-08 11:12+0200\n"
-"PO-Revision-Date: 2008-11-13 15:44+0100\n"
+"PO-Revision-Date: 2010-07-05 16:57+0200\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: ogg123/buffer.c:118
 #, c-format
@@ -938,12 +939,9 @@ msgid "ERROR: Failed to open input as Vorbis\n"
 msgstr "FOUT: openen bestand als Vorbis is mislukt\n"
 
 #: oggdec/oggdec.c:294
-#, fuzzy, c-format
+#, c-format
 msgid "Decoding \"%s\" to \"%s\"\n"
-msgstr ""
-"\n"
-"\n"
-"Coderen bestand \"%s\" voltooid\n"
+msgstr "Decodering \"%s\" naar \"%s\"\n"
 
 #: oggdec/oggdec.c:295 oggenc/encode.c:797 oggenc/encode.c:804
 #: oggenc/encode.c:812 oggenc/encode.c:819 oggenc/encode.c:825
@@ -985,9 +983,8 @@ msgstr ""
 "opgegeven\n"
 
 #: oggenc/audio.c:47
-#, fuzzy
 msgid "WAV file reader"
-msgstr "RAW-bestandslezer"
+msgstr "WAV-bestandslezer"
 
 #: oggenc/audio.c:48
 msgid "AIFF/AIFC file reader"
@@ -1002,9 +999,9 @@ msgid "Ogg FLAC file reader"
 msgstr "Ogg-FLAC-bestandslezer"
 
 #: oggenc/audio.c:129 oggenc/audio.c:457
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
-msgstr "WAARSCHUWING: onverwachte EOF bij lezen WAV-kop\n"
+msgstr "Waarschuwing: onverwachte EOF bij lezen WAV-kop\n"
 
 #: oggenc/audio.c:140
 #, c-format
@@ -1012,109 +1009,110 @@ msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "Overslaan blok van soort \"%s\", lengte %d\n"
 
 #: oggenc/audio.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
-msgstr "WAARSCHUWING: onverwachte EOF in AIFF-blok\n"
+msgstr "Waarschuwing: onverwachte EOF in AIFF-blok\n"
 
 #: oggenc/audio.c:264
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
-msgstr "WAARSCHUWING: geen gemeenschappelijk blok gevonden in AIFF-bestand\n"
+msgstr "Waarschuwing: geen gemeenschappelijk blok gevonden in AIFF-bestand\n"
 
 #: oggenc/audio.c:270
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
-msgstr "WAARSCHUWING: afgekapt algemeen blok in AIFF-kop\n"
+msgstr "Waarschuwing: afgekapt algemeen blok in AIFF-kop\n"
 
 #: oggenc/audio.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
-msgstr "WAARSCHUWING: onverwachte EOF bij lezen AIFF-kop\n"
+msgstr "Waarschuwing: onverwachte EOF bij lezen AIFF-kop\n"
 
 #: oggenc/audio.c:289
 #, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in AIFF header\n"
-msgstr "WAARSCHUWING: afgekapt algemeen blok in AIFF-kop\n"
+msgstr "Waarschuwing: afgekapt algemeen blok in AIFF-kop\n"
 
 #: oggenc/audio.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: AIFF-C header truncated.\n"
-msgstr "WAARSCHUWING: AIFF-C-kop afgekapt.\n"
+msgstr "Waarschuwing: AIFF-C-kop afgekapt.\n"
 
 #: oggenc/audio.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
-msgstr "WAARSCHUWING: kan gecomprimeerd AIFF-C niet verwerken (%c%c%c%c)\n"
+msgstr "Waarschuwing: kan gecomprimeerd AIFF-C niet verwerken (%c%c%c%c)\n"
 
 #: oggenc/audio.c:319
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
-msgstr "WAARSCHUWING: geen SSND-blok gevonden in AIFF-bestand\n"
+msgstr "Waarschuwing: geen SSND-blok gevonden in AIFF-bestand\n"
 
 #: oggenc/audio.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
-msgstr "WAARSCHUWING: beschadigd SSND-blok in AIFF-kop\n"
+msgstr "Waarschuwing: beschadigd SSND-blok in AIFF-kop\n"
 
 #: oggenc/audio.c:331
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
-msgstr "WAARSCHUWING: onverwachte EOF bij lezen AIFF-kop\n"
+msgstr "Waarschuwing: onverwachte EOF bij lezen AIFF-kop\n"
 
 #: oggenc/audio.c:381
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
 msgstr ""
-"WAARSCHUWING: oggenc ondersteunt dit type AIFF/AIFC-bestanden niet\n"
+"Waarschuwing: oggenc ondersteunt dit type AIFF/AIFC-bestanden niet\n"
 " Het moet 8-of 16-bit PCM zijn.\n"
 
 #: oggenc/audio.c:437
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
-msgstr "WAARSCHUWING: blok in WAV-kop met niet-herkende indeling\n"
+msgstr "Waarschuwing: blok in WAV-kop met niet-herkende indeling\n"
 
 #: oggenc/audio.c:450
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
 msgstr ""
-"WAARSCHUWING: blok in WAV-kop met onjuiste indeling.\n"
+"Waarschuwing: blok in WAV-kop met onjuiste indeling.\n"
 " Toch proberen te lezen (werkt mogelijk niet)...\n"
 
 #: oggenc/audio.c:470
-#, c-format
+#, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
-msgstr ""
+msgstr "Waarschuwing: blok in WAV-kop met niet-herkende indeling\n"
 
 #: oggenc/audio.c:535
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
 msgstr ""
-"FOUT: dit soort WAV-bestanden wordt niet ondersteund (moet standaard\n"
+"FOUT: WAV-bestanden worden niet ondersteund (moet standaard\n"
 " of type-3-drijvendekomma PCM zijn)\n"
 
 #: oggenc/audio.c:544
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
-"WAARSCHUWING: waarde van 'blokgolfuitlijning' is onjuist.\n"
-"Negeren. Het programma dat dit bestand aanmaakte is onjuist.\n"
+"Waarschuwing: waarde van 'WAV-blokgolfuitlijning' is onjuist, negeren.\n"
+"Het programma dat dit bestand aanmaakte is onjuist.\n"
 
 #: oggenc/audio.c:613
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
-"FOUT: WAV-bestand heeft niet-ondersteunde indeling (moet 8-, 16-, 24- of\n"
-"32-bit PCM, of drijvendekomma PCM zijn)\n"
+"FOUT: WAV-bestand heeft niet-ondersteunde indeling (moet 8-, 16-, 24-32-bit "
+"PCM\n"
+"of drijvendekomma PCM zijn)\n"
 
 #: oggenc/audio.c:689
 #, c-format
@@ -1131,12 +1129,12 @@ msgstr ""
 "te lezen\n"
 
 #: oggenc/audio.c:797
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
 msgstr ""
-"Programmeerfout: Nul monsters ontvangen van herbemonsteraar: uw bestand zal "
+"Programmeerfout: Geen monsters ontvangen van herbemonsteraar: uw bestand zal "
 "worden\n"
 " afgekapt. Rapporteer dit alstublieft.\n"
 
@@ -1151,9 +1149,9 @@ msgid "Setting advanced encoder option \"%s\" to %s\n"
 msgstr "Instellen uitgebreide codeeroptie \"%s\" op %s\n"
 
 #: oggenc/encode.c:73
-#, fuzzy, c-format
+#, c-format
 msgid "Setting advanced encoder option \"%s\"\n"
-msgstr "Instellen uitgebreide codeeroptie \"%s\" op %s\n"
+msgstr "Instellen uitgebreide codeeroptie \"%s\"\n"
 
 #: oggenc/encode.c:114
 #, c-format
@@ -2418,7 +2416,7 @@ msgid "Couldn't open %s for writing\n"
 msgstr "Kan %s niet openen om te schrijven\n"
 
 #: vcut/vcut.c:250
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cuttime]\n"
 msgstr ""
@@ -2443,7 +2441,7 @@ msgid "Couldn't parse cutpoint \"%s\"\n"
 msgstr "Kan knippunt \"%s\" niet lezen\n"
 
 #: vcut/vcut.c:287
-#, fuzzy, c-format
+#, c-format
 msgid "Processing: Cutting at %lf seconds\n"
 msgstr "Verwerken: knippen bij %lf seconden\n"
 
@@ -2506,12 +2504,12 @@ msgid "Multiplexed bitstreams are not supported\n"
 msgstr "Gemultiplexde bitstromen zijn niet ondersteund\n"
 
 #: vcut/vcut.c:531
-#, fuzzy, c-format
+#, c-format
 msgid "Internal stream parsing error\n"
-msgstr "Herstelbare bitstroomfout\n"
+msgstr "Interne stroomontledingsfout\n"
 
 #: vcut/vcut.c:545
-#, fuzzy, c-format
+#, c-format
 msgid "Header packet corrupt\n"
 msgstr "Koppakket beschadigd\n"
 
@@ -2521,7 +2519,7 @@ msgid "Bitstream error, continuing\n"
 msgstr "Bitstroomfout, doorgaan\n"
 
 #: vcut/vcut.c:561
-#, fuzzy, c-format
+#, c-format
 msgid "Error in header: not vorbis?\n"
 msgstr "Fout in kop: geen Vorbis?\n"
 
@@ -2541,7 +2539,7 @@ msgid "WARNING: input file ended unexpectedly\n"
 msgstr "WAARSCHUWING: invoerbestand onverwacht geëindigd\n"
 
 #: vcut/vcut.c:630
-#, fuzzy, c-format
+#, c-format
 msgid "WARNING: found EOS before cutpoint\n"
 msgstr "WAARSCHUWING: EOS gevonden voor knippunt.\n"
 
@@ -2628,9 +2626,10 @@ msgid "no action specified\n"
 msgstr "geen actie opgegeven\n"
 
 #: vorbiscomment/vcomment.c:466
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
-msgstr "Kon opmerking niet converteren naar UTF-8, toevoegen onmogelijk\n"
+msgstr ""
+"Kon opmerking niet ontdoen van ontsnappingstekens, toevoegen onmogelijk\n"
 
 #: vorbiscomment/vcomment.c:617
 #, c-format
@@ -2649,7 +2648,7 @@ msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Toon of bewerk commentaar in Ogg-Vorbisbestanden.\n"
 
 #: vorbiscomment/vcomment.c:623
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: \n"
 "  vorbiscomment [-Vh]\n"
@@ -2658,8 +2657,8 @@ msgid ""
 msgstr ""
 "Gebruik: \n"
 "  vorbiscomment [-Vh]\n"
-"  vorbiscomment [-lR] bestand\n"
-"  vorbiscomment [-R] [-c bestand] [-t label] <-a|-w> invoerbestand "
+"  vorbiscomment [-lRe] invoerbestand\n"
+"  vorbiscomment <-a|-w>  [-Re] [-c bestand] [-t label] invoerbestand "
 "[uitvoerbestand]\n"
 
 #: vorbiscomment/vcomment.c:629
@@ -2738,6 +2737,8 @@ msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
 "comments.\n"
 msgstr ""
+"  -e, --escapes           Gebruik \\n-opgemaakte ontsnappingstekens om "
+"meerregelige opmerkingen toe te staan.\n"
 
 #: vorbiscomment/vcomment.c:653
 #, c-format
@@ -2793,7 +2794,7 @@ msgstr ""
 "in mij\"\n"
 
 #: vorbiscomment/vcomment.c:673
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
 "than\n"
@@ -2803,10 +2804,13 @@ msgid ""
 "since comments can contain newlines. To handle that, use escaping (-e,\n"
 "--escape).\n"
 msgstr ""
-"Merk op: ruwe modus (--raw, -r) zal commentaren in UTF-8 lezen en schrijven\n"
+"Merk op: ruwe modus (--raw, -R) zal opmerkingen lezen en schrijven in UTF-8\n"
 "in plaats van deze om te zetten naar de karakterset van de gebruiker, wat\n"
-"nuttig is voor scripts. Echter, dit volstaat niet altijd bij het\n"
-"algemeen rondpompen van commenaren.\n"
+"nuttig is voor scripts. Echter, dit volstaat niet altijd bij het algemeen "
+"rondsturen\n"
+"van opmerkingen, omdat opmerkingen regeleinden bevatten. Dit kan wel "
+"mogelijk\n"
+"worden gemaakt door het gebruik van ontsnappingstekens (-e, --escape).\n"
 
 #: vorbiscomment/vcomment.c:755
 #, c-format
@@ -2858,20 +2862,11 @@ msgstr "Fout bij hernoemen %s naar %s\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 
-#~ msgid "Wave file reader"
-#~ msgstr "WAV-bestandslezer"
-
-#~ msgid "Big endian 32 bit PCM data is not currently supported, aborting.\n"
-#~ msgstr ""
-#~ "Big-endian, 32-bit PCM-gegevens worden momenteel niet ondersteund.\n"
-#~ "Afbreken.\n"
-
-#~ msgid "Internal error! Please report this bug.\n"
-#~ msgstr "Interne fout! Meldt deze fout alstublieft.\n"
-
+#, c-format
 #~ msgid "oggenc from %s %s"
 #~ msgstr "oggenc van %s %s"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Comment %d in stream %d has invalid format, does not contain "
 #~ "'=': \"%s\"\n"
@@ -2879,12 +2874,14 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: opmerking %d in stroom %d heeft onjuiste indeling, bevat "
 #~ "geen '='; \"%s\"\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
 #~ msgstr ""
 #~ "WAARSCHUWING: onjuiste commentaarveldnaam in opmerking %d (stroom %d): "
 #~ "\"%s\"\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
 #~ "wrong\n"
@@ -2892,12 +2889,14 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: onjuiste UTF-8-code in opmerking %d (stroom %d): "
 #~ "lengtemarkering onjuist\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
 #~ msgstr ""
 #~ "WAARSCHUWING: onjuiste UTF-8-code in opmerking %d (stroom %d): te weinig "
 #~ "bytes\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid "
 #~ "sequence \"%s\": %s\n"
@@ -2909,9 +2908,11 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgstr ""
 #~ "WAARSCHUWING: fout in UTF-8-decoder. Dit zou onmogelijk moeten zijn\n"
 
+#, c-format
 #~ msgid "WARNING: discontinuity in stream (%d)\n"
 #~ msgstr "WAARSCHUWING: discontinuïteit in stroom (%d)\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Theora header packet - invalid Theora stream "
 #~ "(%d)\n"
@@ -2919,6 +2920,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: kon Theora-koppakket niet decoderen - onjuiste Theora-"
 #~ "stroom (%d)\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Theora stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -2928,21 +2930,27 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "omlijst. Afsluitende koppagina bevat meer pakketten of heeft niet-nul "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Theora headers parsed for stream %d, information follows...\n"
 #~ msgstr "Theora-koppen ingelezen voor stroom %d, informatie volgt...\n"
 
+#, c-format
 #~ msgid "Version: %d.%d.%d\n"
 #~ msgstr "Versie: %d.%d.%d\n"
 
+#, c-format
 #~ msgid "Vendor: %s\n"
 #~ msgstr "Maker: %s\n"
 
+#, c-format
 #~ msgid "Width: %d\n"
 #~ msgstr "Breedte: %d\n"
 
+#, c-format
 #~ msgid "Height: %d\n"
 #~ msgstr "Hoogte: %d\n"
 
+#, c-format
 #~ msgid "Total image: %d by %d, crop offset (%d, %d)\n"
 #~ msgstr "Volledige afbeelding: %d bij %d, afsnijmaat (%d, %d)\n"
 
@@ -2955,12 +2963,14 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgid "Invalid zero framerate\n"
 #~ msgstr "Ongeldige beeldsnelheid nul\n"
 
+#, c-format
 #~ msgid "Framerate %d/%d (%.02f fps)\n"
 #~ msgstr "Beeldsnelheid %d/%d (%.02f fps)\n"
 
 #~ msgid "Aspect ratio undefined\n"
 #~ msgstr "Beeldverhouding ongedefinieerd\n"
 
+#, c-format
 #~ msgid "Pixel aspect ratio %d:%d (%f:1)\n"
 #~ msgstr "Beeldverhouding in pixels (%d:%d) (%f:1)\n"
 
@@ -2970,6 +2980,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgid "Frame aspect 16:9\n"
 #~ msgstr "Beeldverhouding 16:9\n"
 
+#, c-format
 #~ msgid "Frame aspect %f:1\n"
 #~ msgstr "Beeldverhouding %f:1\n"
 
@@ -2994,9 +3005,11 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgid "Pixel format invalid\n"
 #~ msgstr "Pixelverhouding onjuist\n"
 
+#, c-format
 #~ msgid "Target bitrate: %d kbps\n"
 #~ msgstr "Doel bitsnelheid: %d kbps\n"
 
+#, c-format
 #~ msgid "Nominal quality setting (0-63): %d\n"
 #~ msgstr "Nominale kwaliteitsinstelling (0-63): %d\n"
 
@@ -3016,6 +3029,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "Theora-stroom %d:\n"
 #~ "\tTotale gegevenslengte: %"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
 #~ "(%d)\n"
@@ -3023,6 +3037,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: kan Vorbiskoppakket %d niet decoderen - onjuiste "
 #~ "Vorbisstroom (%d)\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Vorbis stream %d does not have headers correctly framed. "
 #~ "Terminal header page contains additional packets or has non-zero "
@@ -3032,18 +3047,23 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "omlijst. Afsluitende koppagina bevat meer pakketten of heeft niet-nul "
 #~ "granulepos\n"
 
+#, c-format
 #~ msgid "Vorbis headers parsed for stream %d, information follows...\n"
 #~ msgstr "Vorbiskoppen ingelezen voor stroom %d, informatie volgt...\n"
 
+#, c-format
 #~ msgid "Version: %d\n"
 #~ msgstr "Versie: %d\n"
 
+#, c-format
 #~ msgid "Vendor: %s (%s)\n"
 #~ msgstr "Maker: %s (%s)\n"
 
+#, c-format
 #~ msgid "Channels: %d\n"
 #~ msgstr "Kanalen: %d\n"
 
+#, c-format
 #~ msgid ""
 #~ "Rate: %ld\n"
 #~ "\n"
@@ -3051,18 +3071,21 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "Snelheid: %ld\n"
 #~ "\n"
 
+#, c-format
 #~ msgid "Nominal bitrate: %f kb/s\n"
 #~ msgstr "Nominale bitsnelheid: %f kb/s\n"
 
 #~ msgid "Nominal bitrate not set\n"
 #~ msgstr "Nominale bitsnelheid niet ingesteld\n"
 
+#, c-format
 #~ msgid "Upper bitrate: %f kb/s\n"
 #~ msgstr "Bovengrens bitsnelheid: %f kb/s\n"
 
 #~ msgid "Upper bitrate not set\n"
 #~ msgstr "Bovengrens bitsnelheid niet ingesteld\n"
 
+#, c-format
 #~ msgid "Lower bitrate: %f kb/s\n"
 #~ msgstr "Ondergrens bitsnelheid: %f kb/s\n"
 
@@ -3079,6 +3102,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "Vorbis-stroom %d:\n"
 #~ "\tTotale gegevenslengte: %"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Could not decode Kate header packet %d - invalid Kate stream "
 #~ "(%d)\n"
@@ -3086,6 +3110,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: kon Kate-koppakket %d niet decoderen - onjuiste Kate-stroom "
 #~ "(%d)\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: packet %d does not seem to be a Kate header - invalid Kate "
 #~ "stream (%d)\n"
@@ -3093,6 +3118,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: pakket %d lijkt geen Kate-kop te zijn - onjuiste Kate-"
 #~ "stroom (%d)\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: Kate stream %d does not have headers correctly framed. Terminal "
 #~ "header page contains additional packets or has non-zero granulepos\n"
@@ -3100,18 +3126,22 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "WAARSCHUWING: Kate-stroom %d heeft de koppen niet goede omlijst. "
 #~ "Afsluitende koppagina bevat meer pakketten of heeft niet-nul granulepos\n"
 
+#, c-format
 #~ msgid "Kate headers parsed for stream %d, information follows...\n"
 #~ msgstr "Kate-koppen ontleed voor stroom %d, informatie volgt...\n"
 
+#, c-format
 #~ msgid "Version: %d.%d\n"
 #~ msgstr "Versie: %d.%d\n"
 
+#, c-format
 #~ msgid "Language: %s\n"
 #~ msgstr "Taal: %s\n"
 
 #~ msgid "No language set\n"
 #~ msgstr "Geen taal ingesteld\n"
 
+#, c-format
 #~ msgid "Category: %s\n"
 #~ msgstr "Categorie: %s\n"
 
@@ -3121,6 +3151,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgid "utf-8"
 #~ msgstr "UTF-8"
 
+#, c-format
 #~ msgid "Character encoding: %s\n"
 #~ msgstr "Karaktercodering: %s\n"
 
@@ -3139,6 +3170,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgid "top to bottom, left to right"
 #~ msgstr "boven naar onderen, links naar rechts"
 
+#, c-format
 #~ msgid "Text directionality: %s\n"
 #~ msgstr "Tekstrichting: %s\n"
 
@@ -3148,6 +3180,7 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgid "Invalid zero granulepos rate\n"
 #~ msgstr "Ongeldige nul granulepos-snelheid\n"
 
+#, c-format
 #~ msgid "Granulepos rate %d/%d (%.02f gps)\n"
 #~ msgstr "Granulepos-snelheid %d/%d (%.02f gps)\n"
 
@@ -3163,6 +3196,28 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ msgstr ""
 #~ "Kate-stroom %d:\n"
 #~ "\tTotale gegevenslengte: %"
+
+#~ msgid "Wave file reader"
+#~ msgstr "WAV-bestandslezer"
+
+#~ msgid "Big endian 32 bit PCM data is not currently supported, aborting.\n"
+#~ msgstr ""
+#~ "Big-endian, 32-bit PCM-gegevens worden momenteel niet ondersteund.\n"
+#~ "Afbreken.\n"
+
+#~ msgid "Internal error! Please report this bug.\n"
+#~ msgstr "Interne fout! Meldt deze fout alstublieft.\n"
+
+#~ msgid "Warning: discontinuity in stream (%d)\n"
+#~ msgstr "WAARSCHUWING: discontinuïteit in stroom (%d)\n"
+
+#~ msgid ""
+#~ "Warning: Vorbis stream %d does not have headers correctly framed. "
+#~ "Terminal header page contains additional packets or has non-zero "
+#~ "granulepos\n"
+#~ msgstr ""
+#~ "WAARSCHUWING: Vorbisstroom %d heeft de koppen niet goed omlijst. "
+#~ "Afsluitende koppagina bevat meer pakketten of heeft niet-nul granulepos\n"
 
 #~ msgid "Page error. Corrupt input.\n"
 #~ msgstr "Paginafout. Beschadigde invoer.\n"
@@ -3212,26 +3267,11 @@ msgstr "Fout bij verwijderen tijdelijk bestand %s\n"
 #~ "Controleer uitvoerbestanden voordat u de bronbestanden verwijdert.\n"
 #~ "\n"
 
-#, fuzzy
-#~ msgid "Error reading headers\n"
-#~ msgstr "EOF in koppen\n"
-
 #~ msgid "Error writing first output file\n"
 #~ msgstr "Fout tijdens schrijven eerste uitvoerbestand\n"
 
 #~ msgid "Error writing second output file\n"
 #~ msgstr "Fout tijdens schrijven tweede uitvoerbestand\n"
-
-#~ msgid "Warning: discontinuity in stream (%d)\n"
-#~ msgstr "WAARSCHUWING: discontinuïteit in stroom (%d)\n"
-
-#~ msgid ""
-#~ "Warning: Vorbis stream %d does not have headers correctly framed. "
-#~ "Terminal header page contains additional packets or has non-zero "
-#~ "granulepos\n"
-#~ msgstr ""
-#~ "WAARSCHUWING: Vorbisstroom %d heeft de koppen niet goed omlijst. "
-#~ "Afsluitende koppagina bevat meer pakketten of heeft niet-nul granulepos\n"
 
 #~ msgid "malloc"
 #~ msgstr "malloc"

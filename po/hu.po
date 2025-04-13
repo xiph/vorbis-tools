@@ -14,6 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: ogg123/buffer.c:118
 #, fuzzy, c-format
@@ -942,7 +943,6 @@ msgstr ""
 "javaslom használja a '-n'-t\n"
 
 #: oggenc/audio.c:47
-#, fuzzy
 msgid "WAV file reader"
 msgstr "WAV-fájl olvasó"
 
@@ -961,7 +961,7 @@ msgid "Ogg FLAC file reader"
 msgstr "WAV-fájl olvasó"
 
 #: oggenc/audio.c:129 oggenc/audio.c:457
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Figyelmeztetés: Váratlan fájlvég a WAV-fejlécben\n"
 
@@ -971,22 +971,22 @@ msgid "Skipping chunk of type \"%s\", length %d\n"
 msgstr "\"%s\" típusú csonk átugrása, hossz: %d\n"
 
 #: oggenc/audio.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Figyelmeztetés: Váratlan fájl vég az AIFF csonkban\n"
 
 #: oggenc/audio.c:264
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Figyelmeztetés: Nem találtam közös csonkot az AIFF fájlban\n"
 
 #: oggenc/audio.c:270
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Figyelmeztetés: Csonkított közös csonk az AIFF fejlécben\n"
 
 #: oggenc/audio.c:278
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Figyelmeztetés: Váratlan fájl vég az AIFF fejlécben\n"
 
@@ -996,7 +996,7 @@ msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Figyelmeztetés: Csonkított közös csonk az AIFF fejlécben\n"
 
 #: oggenc/audio.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Figyelmeztetés: AIFF-C fejléc csonkított.\n"
 
@@ -1006,22 +1006,22 @@ msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Figyelmeztetés: Nem tudom kezelni a tömörített AIFF-C-t\n"
 
 #: oggenc/audio.c:319
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Figyelmeztetés: Nem találtam SSND csonkot az AIFF fájlban\n"
 
 #: oggenc/audio.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Figyelmeztetés: Sérült az SSND csonk az AIFF fájlban\n"
 
 #: oggenc/audio.c:331
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Figyelmeztetés: Váratlan fájlvég az AIFF fejlécben\n"
 
 #: oggenc/audio.c:381
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
@@ -1030,12 +1030,12 @@ msgstr ""
 " 8 vagy 16 bit-es PCM kell hogy legyen.\n"
 
 #: oggenc/audio.c:437
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Figyelmeztetés: Ismeretlen formátumú csonk a WAV fejlécben\n"
 
 #: oggenc/audio.c:450
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
@@ -1044,12 +1044,12 @@ msgstr ""
 " Megprobálom mindenkép elolvasni (lehet hogy nem fog mûködni)...\n"
 
 #: oggenc/audio.c:470
-#, c-format
+#, fuzzy, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
-msgstr ""
+msgstr "Figyelmeztetés: Ismeretlen formátumú csonk a WAV fejlécben\n"
 
 #: oggenc/audio.c:535
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
@@ -2562,27 +2562,19 @@ msgstr "Hiba a fejléc olvasása közben\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 
-#, fuzzy
-#~ msgid "Wave file reader"
-#~ msgstr "WAV-fájl olvasó"
-
-#, fuzzy
-#~ msgid "Internal error! Please report this bug.\n"
-#~ msgstr "Belsõ hiba a parancs opciójának az értelmezése során\n"
-
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "oggenc from %s %s"
 #~ msgstr "ogg123 a %s %s -ból\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d.%d.%d\n"
 #~ msgstr "Verzió: %s"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Vendor: %s\n"
 #~ msgstr "forgalmazó=%s\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Height: %d\n"
 #~ msgstr "Verzió: %s"
 
@@ -2590,27 +2582,27 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ msgid "Colourspace unspecified\n"
 #~ msgstr "nem határozott meg mûveletet\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Target bitrate: %d kbps\n"
 #~ msgstr ""
 #~ "\tÁtlagos bitráta: %.1f kb/s\n"
 #~ "\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d\n"
 #~ msgstr "Verzió: %s"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Vendor: %s (%s)\n"
 #~ msgstr "forgalmazó=%s\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "Rate: %ld\n"
 #~ "\n"
 #~ msgstr "Dátum: %s"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Nominal bitrate: %f kb/s\n"
 #~ msgstr ""
 #~ "\tÁtlagos bitráta: %.1f kb/s\n"
@@ -2620,89 +2612,29 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ msgid "Nominal bitrate not set\n"
 #~ msgstr "Figyelmeztetés: névleges \"%s\" nem értelmezhetõ\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Upper bitrate: %f kb/s\n"
 #~ msgstr ""
 #~ "\tÁtlagos bitráta: %.1f kb/s\n"
 #~ "\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Lower bitrate: %f kb/s\n"
 #~ msgstr ""
 #~ "\tÁtlagos bitráta: %.1f kb/s\n"
 #~ "\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Version: %d.%d\n"
 #~ msgstr "Verzió: %s"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid "Category: %s\n"
 #~ msgstr "forgalmazó=%s\n"
 
 #, fuzzy
 #~ msgid "No category set\n"
 #~ msgstr "Figyelmeztetés: névleges \"%s\" nem értelmezhetõ\n"
-
-#~ msgid "Page error. Corrupt input.\n"
-#~ msgstr "Lap hiba. Sérült bemenet.\n"
-
-#, fuzzy
-#~ msgid "Setting EOS: update sync returned 0\n"
-#~ msgstr "EOS beállítás: szinkronizálás 0-val tért vissza\n"
-
-#~ msgid "Cutpoint not within stream. Second file will be empty\n"
-#~ msgstr "Nincs kivágási pont az adatfolyamban. A második fájl üres lesz\n"
-
-#~ msgid "Unhandled special case: first file too short?\n"
-#~ msgstr "Kezelhetlen speciális eset: az elsõ fájl túl rövid?\n"
-
-#, fuzzy
-#~ msgid "Cutpoint too close to end of file. Second file will be empty.\n"
-#~ msgstr "Nincs kivágási pont az adatfolyamban. A második fájl üres lesz\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "ERROR: First two audio packets did not fit into one\n"
-#~ "       Ogg page. File may not decode correctly.\n"
-#~ msgstr ""
-#~ "HIBA: Az elsõ két audio csomagot nem lehet egy\n"
-#~ "         ogg lapra helyezni. A fájl visszakódólás nem helyes.\n"
-
-#, fuzzy
-#~ msgid "Update sync returned 0, setting EOS\n"
-#~ msgstr "A szinkronizálás 0-val tért vissza, EOS beállítása\n"
-
-#~ msgid "Bitstream error\n"
-#~ msgstr "Adatfolyam hiba\n"
-
-#~ msgid "Error in first page\n"
-#~ msgstr "Hiba  elsõ oldalon\n"
-
-#, fuzzy
-#~ msgid "Error in first packet\n"
-#~ msgstr "hiba az elsõ csomagban\n"
-
-#~ msgid "EOF in headers\n"
-#~ msgstr "Fájl vég jel a fejlécben\n"
-
-#~ msgid ""
-#~ "WARNING: vcut is still experimental code.\n"
-#~ "Check that the output files are correct before deleting sources.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "FIGYELEM: a vcut még mindig nincs teljesen kész\n"
-#~ " Ellenõrizze a kimeneti fájl helyeséges mielõtt letörli az eredetit\n"
-#~ "\n"
-
-#~ msgid "Error reading headers\n"
-#~ msgstr "Hiba a fejléc olvasása közben\n"
-
-#~ msgid "Error writing first output file\n"
-#~ msgstr "Hiba az elsõ kimeneti fájl írása közben\n"
-
-#~ msgid "Error writing second output file\n"
-#~ msgstr "Hiba az második kimeneti fájl írása közben\n"
 
 #~ msgid "malloc"
 #~ msgstr "malloc"
@@ -2965,6 +2897,55 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ "fájlt \n"
 #~ "a '-o'-val hatázhatja meg\n"
 #~ "\n"
+
+#~ msgid "Page error. Corrupt input.\n"
+#~ msgstr "Lap hiba. Sérült bemenet.\n"
+
+#~ msgid "Setting eos: update sync returned 0\n"
+#~ msgstr "EOS beállítás: szinkronizálás 0-val tért vissza\n"
+
+#~ msgid "Cutpoint not within stream. Second file will be empty\n"
+#~ msgstr "Nincs kivágási pont az adatfolyamban. A második fájl üres lesz\n"
+
+#~ msgid "Unhandled special case: first file too short?\n"
+#~ msgstr "Kezelhetlen speciális eset: az elsõ fájl túl rövid?\n"
+
+#~ msgid ""
+#~ "ERROR: First two audio packets did not fit into one\n"
+#~ "       ogg page. File may not decode correctly.\n"
+#~ msgstr ""
+#~ "HIBA: Az elsõ két audio csomagot nem lehet egy\n"
+#~ "         ogg lapra helyezni. A fájl visszakódólás nem helyes.\n"
+
+#~ msgid "Bitstream error\n"
+#~ msgstr "Adatfolyam hiba\n"
+
+#~ msgid "Update sync returned 0, setting eos\n"
+#~ msgstr "A szinkronizálás 0-val tért vissza, EOS beállítása\n"
+
+#~ msgid "Error in first page\n"
+#~ msgstr "Hiba  elsõ oldalon\n"
+
+#~ msgid "error in first packet\n"
+#~ msgstr "hiba az elsõ csomagban\n"
+
+#~ msgid "EOF in headers\n"
+#~ msgstr "Fájl vég jel a fejlécben\n"
+
+#~ msgid ""
+#~ "WARNING: vcut is still experimental code.\n"
+#~ "Check that the output files are correct before deleting sources.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "FIGYELEM: a vcut még mindig nincs teljesen kész\n"
+#~ " Ellenõrizze a kimeneti fájl helyeséges mielõtt letörli az eredetit\n"
+#~ "\n"
+
+#~ msgid "Error writing first output file\n"
+#~ msgstr "Hiba az elsõ kimeneti fájl írása közben\n"
+
+#~ msgid "Error writing second output file\n"
+#~ msgstr "Hiba az második kimeneti fájl írása közben\n"
 
 #, fuzzy
 #~ msgid ""
