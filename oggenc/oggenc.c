@@ -282,7 +282,6 @@ int main(int argc, char **argv)
             if(closein)
                 fclose(in);
             errors++;
-            format->close_func(enc_opts.readdata);
             continue;
         }
         
