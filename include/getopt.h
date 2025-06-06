@@ -133,7 +133,7 @@ struct option
    errors, only prototype getopt for the GNU C library.  */
 extern int getopt (int argc, char *const *argv, const char *__shortopts);
 # else /* not __GNU_LIBRARY__ */
-extern int getopt ();
+extern int getopt (int argc, char *const *argv, const char *__shortopts);
 # endif /* __GNU_LIBRARY__ */
 
 # ifndef __need_getopt
@@ -150,12 +150,20 @@ extern int _getopt_internal (int argc, char *const *argv,
 			     int __long_only);
 # endif
 #else /* not __STDC__ */
-extern int getopt ();
+// MODIFIED LINES:
+extern int getopt (int argc, char *const *argv, const char *__shortopts);
 # ifndef __need_getopt
-extern int getopt_long ();
-extern int getopt_long_only ();
+extern int getopt_long (int argc, char *const *argv, const char *__shortopts,
+                        const struct option *__longopts, int *__longind);
+extern int getopt_long_only (int argc, char *const *argv,
+                             const char *__shortopts,
+                             const struct option *__longopts, int *__longind);
 
-extern int _getopt_internal ();
+/* Internal only.  Users should not call this directly.  */
+extern int _getopt_internal (int argc, char *const *argv,
+                             const char *__shortopts,
+                             const struct option *__longopts, int *__longind,
+                             int __long_only);
 # endif
 #endif /* __STDC__ */
 
