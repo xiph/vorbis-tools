@@ -102,4 +102,5 @@ make maintainer-clean
 > Different attempts to fix this bug have ended up causing bigger problems, leading to the conclusion that it simply can't be fixed without a large re-write of the application, which will not happen any time soon. If you come across this issue, please increase your terminal window size as a workaround.
 
 ## Contact & Resources
+*   **THIS IS A MIRROR**, DEVELOPMENT HAPPENS AT https://gitlab.xiph.org/xiph/vorbis-tools
 *   **Homepage**: The Ogg Vorbis homepage is located at [https://xiph.org/vorbis/](https://xiph.org/vorbis/). Up-to-date technical documents, source code, and pre-built utilities may be found there.
