@@ -31,16 +31,16 @@
 
 /* Macros to read header data */
 #define READ_U32_LE(buf) \
-    (((buf)[3]<<24)|((buf)[2]<<16)|((buf)[1]<<8)|((buf)[0]&0xff))
+    (((unsigned long)(buf)[3]<<24)|((unsigned long)(buf)[2]<<16)|((unsigned long)(buf)[1]<<8)|((buf)[0]&0xff))
 
 #define READ_U16_LE(buf) \
-    (((buf)[1]<<8)|((buf)[0]&0xff))
+    (((unsigned int)(buf)[1]<<8)|((buf)[0]&0xff))
 
 #define READ_U32_BE(buf) \
-    (((buf)[0]<<24)|((buf)[1]<<16)|((buf)[2]<<8)|((buf)[3]&0xff))
+    (((unsigned long)(buf)[0]<<24)|((unsigned long)(buf)[1]<<16)|((unsigned long)(buf)[2]<<8)|((buf)[3]&0xff))
 
 #define READ_U16_BE(buf) \
-    (((buf)[0]<<8)|((buf)[1]&0xff))
+    (((unsigned int)(buf)[0]<<8)|((buf)[1]&0xff))
 
 /* Define the supported formats here */
 input_format formats[] = {
@@ -137,7 +137,7 @@ static int find_wav_chunk(FILE *in, char *type, unsigned int *len)
                 return 0;
 
             buf[4] = 0;
-            fprintf(stderr, _("Skipping chunk of type \"%s\", length %d\n"), buf, *len);
+            fprintf(stderr, _("Skipping chunk of type \"%s\", length %u\n"), buf, *len);
         }
         else
         {
@@ -189,8 +189,8 @@ double read_IEEE80(unsigned char *buf)
     int s=buf[0]&0xff;
     int e=((buf[0]&0x7f)<<8)|(buf[1]&0xff);
     double f=((unsigned long)(buf[2]&0xff)<<24)|
-        ((buf[3]&0xff)<<16)|
-        ((buf[4]&0xff)<<8) |
+        ((unsigned long)(buf[3]&0xff)<<16)|
+        ((unsigned long)(buf[4]&0xff)<<8) |
          (buf[5]&0xff);
 
     if(e==32767)
@@ -207,9 +207,9 @@ double read_IEEE80(unsigned char *buf)
     }
 
     f=ldexp(f,32);
-    f+= ((buf[6]&0xff)<<24)|
-        ((buf[7]&0xff)<<16)|
-        ((buf[8]&0xff)<<8) |
+    f+= ((unsigned long)(buf[6]&0xff)<<24)|
+        ((unsigned long)(buf[7]&0xff)<<16)|
+        ((unsigned long)(buf[8]&0xff)<<8) |
          (buf[9]&0xff);
 
     return ldexp(f, e-16446);
@@ -243,14 +243,13 @@ static int aiff_permute_matrix[6][6] =
 };
 
 
-int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
+static int aiff_open_impl(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen, aifffile *aiff)
 {
     int aifc; /* AIFC or AIFF? */
     unsigned int len, readlen;
     unsigned char buffer[22];
     unsigned char buf2[8];
     aiff_fmt format;
-    aifffile *aiff = malloc(sizeof(aifffile));
     int i;
     long channels;
 
@@ -384,6 +383,17 @@ int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
     }
 }
 
+int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
+{
+    aifffile *aiff = malloc(sizeof(aifffile));
+    int ret = aiff_open_impl(in, opt, buf, buflen, aiff);
+
+    if(ret == 0) {
+        free(aiff);
+    }
+    return ret;
+}
+
 
 int wav_id(unsigned char *buf, int len)
 {
@@ -413,13 +423,12 @@ static int wav_permute_matrix[8][8] =
 };
 
 
-int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
+static int wav_open_impl(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen, wavfile *wav)
 {
     unsigned char buf[40];
     unsigned int len;
     int samplesize;
     wav_fmt format;
-    wavfile *wav = malloc(sizeof(wavfile));
     int i;
     long channels;
 
@@ -614,6 +623,17 @@ int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
                 "or floating point PCM\n"));
         return 0;
     }
+}
+
+int wav_open(FILE *in, oe_enc_opt *opt, unsigned char *oldbuf, int buflen)
+{
+    wavfile *wav = malloc(sizeof(wavfile));
+    int ret = wav_open_impl(in, opt, oldbuf, buflen, wav);
+
+    if(ret == 0) {
+        free(wav);
+    }
+    return ret;
 }
 
 long wav_read(void *in, float **buffer, int samples)
