@@ -1,3 +1,18 @@
+2025-06-15  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* build-to-host.m4: New file, from gettext-0.23.1.
+	* gettext.m4: Upgrade to gettext-0.23.1.
+	* host-cpu-c-abi.m4: New file, from gettext-0.23.1.
+	* iconv.m4: Upgrade to gettext-0.23.1.
+	* intlmacosx.m4: Upgrade to gettext-0.23.1.
+	* lib-ld.m4: Upgrade to gettext-0.23.1.
+	* lib-link.m4: Upgrade to gettext-0.23.1.
+	* lib-prefix.m4: Upgrade to gettext-0.23.1.
+	* nls.m4: Upgrade to gettext-0.23.1.
+	* po.m4: Upgrade to gettext-0.23.1.
+	* progtest.m4: Upgrade to gettext-0.23.1.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
 2008-11-06  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* gettext.m4: Upgrade to gettext-0.17.

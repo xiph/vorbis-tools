@@ -413,7 +413,6 @@ AC_CONFIG_FILES([
 Makefile
 m4/Makefile
 po/Makefile.in
-intl/Makefile
 include/Makefile
 share/Makefile
 win32/Makefile
