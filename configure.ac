@@ -34,7 +34,7 @@ CFLAGS="$cflags_save"
 LT_INIT
 
 ALL_LINGUAS="be cs da de en_GB eo es fr hr hu id ka nb nl pl ro ru sk sl sr sv uk vi "
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 
 dnl --------------------------------------------------
 dnl System checks
