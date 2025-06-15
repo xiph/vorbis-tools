@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.0\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2025-04-08 11:12+0200\n"
+"POT-Creation-Date: 2025-06-15 08:31-0400\n"
 "PO-Revision-Date: 2014-05-02 21:27+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -162,9 +162,9 @@ msgstr "друго"
 msgid "(NULL)"
 msgstr "(НИШТА)"
 
-#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:689 oggenc/oggenc.c:694
-#: oggenc/oggenc.c:699 oggenc/oggenc.c:704 oggenc/oggenc.c:709
-#: oggenc/oggenc.c:714
+#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:694 oggenc/oggenc.c:699
+#: oggenc/oggenc.c:704 oggenc/oggenc.c:709 oggenc/oggenc.c:714
+#: oggenc/oggenc.c:719
 msgid "(none)"
 msgstr "(ништа)"
 
@@ -454,15 +454,15 @@ msgstr "Опције декодирања\n"
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
-"  -k n, --skip n               Прескаче прве „n“ секунде (или запис „чч:мм:"
-"сс“)\n"
+"  -k n, --skip n               Прескаче прве „n“ секунде (или запис "
+"„чч:мм:сс“)\n"
 
 #: ogg123/cmdline_options.c:376
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
-"  -K n, --end n                Завршава на „n“ секунде (или запису „чч:мм:"
-"сс“)\n"
+"  -K n, --end n                Завршава на „n“ секунде (или запису "
+"„чч:мм:сс“)\n"
 
 #: ogg123/cmdline_options.c:377
 #, c-format
@@ -474,7 +474,7 @@ msgstr "  -x n, --nth n                Пушта сваки „n.“ блок\n
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n             Понавља сваки пуштени блок „n“ пута\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Разне опције\n"
@@ -495,7 +495,7 @@ msgstr ""
 "                            наведеном временском року од „s“. (основно је "
 "500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help         Приказује ову помоћ\n"
@@ -537,24 +537,24 @@ msgstr "ГРЕШКА: Не могу да подесим маску сигнал�
 msgid "ERROR: Unable to create input buffer.\n"
 msgstr "ГРЕШКА: Не могу да направим улазну међумеморију.\n"
 
-#: ogg123/ogg123.c:80
+#: ogg123/ogg123.c:81
 msgid "default output device"
 msgstr "основни излазни уређај"
 
-#: ogg123/ogg123.c:82
+#: ogg123/ogg123.c:83
 msgid "shuffle playlist"
 msgstr "меша списак нумера"
 
-#: ogg123/ogg123.c:84
+#: ogg123/ogg123.c:85
 msgid "repeat playlist forever"
 msgstr "понавља списак нумера заувек"
 
-#: ogg123/ogg123.c:230
+#: ogg123/ogg123.c:231
 #, c-format
 msgid "Could not skip to %f in audio stream."
 msgstr "Не могу да одем на %f у звучном току."
 
-#: ogg123/ogg123.c:375
+#: ogg123/ogg123.c:376
 #, c-format
 msgid ""
 "\n"
@@ -563,65 +563,65 @@ msgstr ""
 "\n"
 "Звучни уређај:   %s"
 
-#: ogg123/ogg123.c:376
+#: ogg123/ogg123.c:377
 #, c-format
 msgid "Author:   %s"
 msgstr "Аутор:   %s"
 
-#: ogg123/ogg123.c:377
+#: ogg123/ogg123.c:378
 #, c-format
 msgid "Comments: %s"
 msgstr "Напомене: %s"
 
-#: ogg123/ogg123.c:421
+#: ogg123/ogg123.c:422
 #, c-format
 msgid "WARNING: Could not read directory %s.\n"
 msgstr "УПОЗОРЕЊЕ: Не могу да прочитам директоријум „%s“.\n"
 
-#: ogg123/ogg123.c:457
+#: ogg123/ogg123.c:458
 msgid "Error: Could not create audio buffer.\n"
 msgstr "Грешка: Не могу да направим међумеморију звука.\n"
 
-#: ogg123/ogg123.c:560
+#: ogg123/ogg123.c:565
 #, c-format
 msgid "No module could be found to read from %s.\n"
 msgstr "Нема модула да прочита из „%s“.\n"
 
-#: ogg123/ogg123.c:565
+#: ogg123/ogg123.c:570
 #, c-format
 msgid "Cannot open %s.\n"
 msgstr "Не могу да отворим „%s“.\n"
 
-#: ogg123/ogg123.c:571
+#: ogg123/ogg123.c:576
 #, c-format
 msgid "The file format of %s is not supported.\n"
 msgstr "Запис датотеке „%s“ није подржан.\n"
 
-#: ogg123/ogg123.c:581
+#: ogg123/ogg123.c:586
 #, c-format
 msgid "Error opening %s using the %s module.  The file may be corrupted.\n"
 msgstr ""
 "Грешка отварања „%s“ помоћу модула „%s“.  Можда је датотека оштећена.\n"
 
-#: ogg123/ogg123.c:600
+#: ogg123/ogg123.c:605
 #, c-format
 msgid "Playing: %s"
 msgstr "Пуштам: %s"
 
-#: ogg123/ogg123.c:611
+#: ogg123/ogg123.c:616
 #, c-format
 msgid "Could not skip %f seconds of audio."
 msgstr "Не могу да прескочим %f секунде звука."
 
-#: ogg123/ogg123.c:666
+#: ogg123/ogg123.c:671
 msgid "ERROR: Decoding failure.\n"
 msgstr "ГРЕШКА: Неуспех декодирања.\n"
 
-#: ogg123/ogg123.c:709
+#: ogg123/ogg123.c:720
 msgid "ERROR: buffer write failed.\n"
 msgstr "ГРЕШКА: није успело писање међумеморије.\n"
 
-#: ogg123/ogg123.c:747
+#: ogg123/ogg123.c:757
 msgid "Done."
 msgstr "Готово."
 
@@ -839,7 +839,7 @@ msgstr ""
 msgid "oggdec from %s %s\n"
 msgstr "„oggdec“ из %s %s\n"
 
-#: oggdec/oggdec.c:57 oggenc/oggenc.c:504
+#: oggdec/oggdec.c:57 oggenc/oggenc.c:509
 #, fuzzy, c-format
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
@@ -1494,8 +1494,8 @@ msgstr ""
 #: oggenc/oggenc.c:153
 #, c-format
 msgid ""
-"ERROR: Multiple input files with specified output filename: suggest using -"
-"n\n"
+"ERROR: Multiple input files with specified output filename: suggest using "
+"-n\n"
 msgstr ""
 "ГРЕШКА: Неколико улазних датотека са наведеним називом излазне датотеке: "
 "предлажем употребу опције „-n“\n"
@@ -1529,12 +1529,12 @@ msgstr "ГРЕШКА: Улазна датотека „%s“ није подрж
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "ГРЕШКА: Улазна датотека „%s“ није подржаног записа\n"
 
-#: oggenc/oggenc.c:349
+#: oggenc/oggenc.c:350
 #, c-format
 msgid "WARNING: No filename, defaulting to \"%s\"\n"
 msgstr "УПОЗОРЕЊЕ: Нема назива датотеке, прелазим на „%s“\n"
 
-#: oggenc/oggenc.c:356
+#: oggenc/oggenc.c:357
 #, c-format
 msgid ""
 "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
@@ -1542,49 +1542,49 @@ msgstr ""
 "ГРЕШКА: Не могу да направим захтеване поддиректоријуме за излазну датотеку "
 "„%s“\n"
 
-#: oggenc/oggenc.c:363
+#: oggenc/oggenc.c:365
 #, c-format
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
 msgstr "ГРЕШКА: Назив улазне датотека је исти као и излазне „%s“\n"
 
-#: oggenc/oggenc.c:374
+#: oggenc/oggenc.c:377
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr "ГРЕШКА: Не могу да отворим излазну датотеку „%s“: %s\n"
 
-#: oggenc/oggenc.c:429
+#: oggenc/oggenc.c:433
 #, c-format
 msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr "Поново узоркујем улаз са %d Hz на %d Hz\n"
 
-#: oggenc/oggenc.c:437
+#: oggenc/oggenc.c:441
 #, c-format
 msgid "Downmixing stereo to mono\n"
 msgstr "Премешавам стерео у моно\n"
 
-#: oggenc/oggenc.c:441
+#: oggenc/oggenc.c:445
 #, c-format
 msgid "WARNING: Can't downmix except from stereo to mono\n"
 msgstr "УПОЗОРЕЊЕ: Не могу да измешам осим из стереа у моно\n"
 
-#: oggenc/oggenc.c:449
+#: oggenc/oggenc.c:453
 #, c-format
 msgid "Scaling input to %f\n"
 msgstr "Сразмеравам улаз на %f\n"
 
-#: oggenc/oggenc.c:503 oggenc/oggenc.c:957
+#: oggenc/oggenc.c:508 oggenc/oggenc.c:962
 #, c-format
 msgid "oggenc from %s %s\n"
 msgstr "„oggenc“ из %s %s\n"
 
-#: oggenc/oggenc.c:505
+#: oggenc/oggenc.c:510
 #, c-format
 msgid ""
 " using encoder %s.\n"
 "\n"
 msgstr ""
 
-#: oggenc/oggenc.c:506
+#: oggenc/oggenc.c:511
 #, c-format
 msgid ""
 "Usage: oggenc [options] inputfile [...]\n"
@@ -1593,7 +1593,7 @@ msgstr ""
 "Употреба: oggenc [опције] улазнадатотека [...]\n"
 "\n"
 
-#: oggenc/oggenc.c:507
+#: oggenc/oggenc.c:512
 #, c-format
 msgid ""
 "OPTIONS:\n"
@@ -1608,7 +1608,7 @@ msgstr ""
 " -h, --help           Исписује ову помоћ\n"
 " -V, --version        Исписује број издања\n"
 
-#: oggenc/oggenc.c:513
+#: oggenc/oggenc.c:518
 #, c-format
 msgid ""
 " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
@@ -1627,7 +1627,7 @@ msgstr ""
 "44100\n"
 " --raw-endianness     1 — за велику крајност, 0 за малу (подразумева се 0)\n"
 
-#: oggenc/oggenc.c:520
+#: oggenc/oggenc.c:525
 #, c-format
 msgid ""
 " -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
@@ -1644,7 +1644,7 @@ msgstr ""
 "                      опцију „--managed“ да користите управљани проток\n"
 "                      бита циљајући на изабрани проток бита.\n"
 
-#: oggenc/oggenc.c:527
+#: oggenc/oggenc.c:532
 #, c-format
 msgid ""
 " --managed            Enable the bitrate management engine. This will allow\n"
@@ -1664,7 +1664,7 @@ msgstr ""
 "над\n"
 "                      протоком бита, као за стварање токова.\n"
 
-#: oggenc/oggenc.c:533
+#: oggenc/oggenc.c:538
 #, c-format
 msgid ""
 " -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
@@ -1683,7 +1683,7 @@ msgstr ""
 "                      програме токова. Ово ће самостално укључити режим\n"
 "                      управљаног протока бита (видите „--managed“).\n"
 
-#: oggenc/oggenc.c:541
+#: oggenc/oggenc.c:546
 #, c-format
 msgid ""
 " --advanced-encode-option option=value\n"
@@ -1700,7 +1700,7 @@ msgstr ""
 "                      само за напредне кориснике, и требају бити коришћене\n"
 "                      уз предострожност.\n"
 
-#: oggenc/oggenc.c:548
+#: oggenc/oggenc.c:553
 #, c-format
 msgid ""
 " -q, --quality        Specify quality, between -1 (very low) and 10 (very\n"
@@ -1715,7 +1715,7 @@ msgstr ""
 "                      Разломачки квалитети (нпр. 2.75) су дозвољени.\n"
 "                      Основни ниво квалитета је 3.\n"
 
-#: oggenc/oggenc.c:554
+#: oggenc/oggenc.c:559
 #, c-format
 msgid ""
 " --resample n         Resample input data to sampling rate n (Hz)\n"
@@ -1734,7 +1734,7 @@ msgstr ""
 "                      датотека, ово ће бити увећано за сваки ток након "
 "првог.\n"
 
-#: oggenc/oggenc.c:561
+#: oggenc/oggenc.c:566
 #, c-format
 msgid ""
 " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
@@ -1752,7 +1752,7 @@ msgstr ""
 "СТНДУЛ-а.\n"
 "\n"
 
-#: oggenc/oggenc.c:567
+#: oggenc/oggenc.c:572
 #, c-format
 msgid ""
 " Naming:\n"
@@ -1774,7 +1774,7 @@ msgstr ""
 "                      редом (видите испод за навођење истих).\n"
 "                      „%%%%“ даје дословно „%%“.\n"
 
-#: oggenc/oggenc.c:574
+#: oggenc/oggenc.c:579
 #, c-format
 msgid ""
 " -X, --name-remove=s  Remove the specified characters from parameters to "
@@ -1801,7 +1801,7 @@ msgstr ""
 "                      Основна подешавања за горња два аргумента су особена\n"
 "                      за платформу.\n"
 
-#: oggenc/oggenc.c:583
+#: oggenc/oggenc.c:588
 #, c-format
 msgid ""
 " --utf8               Tells oggenc that the command line parameters date, "
@@ -1825,7 +1825,7 @@ msgstr ""
 "                      више пута. Аргумент треба бити у запису „tag=value“.\n"
 " -d, --date           Датум за нумеру (обично датум извођења)\n"
 
-#: oggenc/oggenc.c:591
+#: oggenc/oggenc.c:596
 #, c-format
 msgid ""
 " -N, --tracknum       Track number for this track\n"
@@ -1840,17 +1840,17 @@ msgstr ""
 " -a, --artist         Назив извођача\n"
 " -G, --genre          Жанр нумере\n"
 
-#: oggenc/oggenc.c:597
+#: oggenc/oggenc.c:602
 #, c-format
 msgid ""
 " -L, --lyrics         Include lyrics from given file (.srt or .lrc format)\n"
 " -Y, --lyrics-language  Sets the language for the lyrics\n"
 msgstr ""
-" -L, --lyrics           Укључује текстове из дате датотеке („.srt“ или „."
-"lrc“)\n"
+" -L, --lyrics           Укључује текстове из дате датотеке („.srt“ или "
+"„.lrc“)\n"
 " -Y, --lyrics-language  Подешава језик за текстове песама\n"
 
-#: oggenc/oggenc.c:600
+#: oggenc/oggenc.c:605
 #, c-format
 msgid ""
 "                      If multiple input files are given, then multiple\n"
@@ -1891,7 +1891,7 @@ msgstr ""
 "                      користите за све датотеке)\n"
 "\n"
 
-#: oggenc/oggenc.c:613
+#: oggenc/oggenc.c:618
 #, c-format
 msgid ""
 "INPUT FILES:\n"
@@ -1931,18 +1931,18 @@ msgstr ""
 " Текстови песама могу бити у запису СубРип (.srt) или ЛРЦ (.lrc)\n"
 "\n"
 
-#: oggenc/oggenc.c:719
+#: oggenc/oggenc.c:724
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
 msgstr ""
 "УПОЗОРЕЊЕ: Занемарујем неисправан знак новог реда „%c“ у запису назива\n"
 
-#: oggenc/oggenc.c:748 oggenc/oggenc.c:884 oggenc/oggenc.c:898
+#: oggenc/oggenc.c:753 oggenc/oggenc.c:889 oggenc/oggenc.c:903
 #, c-format
 msgid "Enabling bitrate management engine\n"
 msgstr "Укључујем погон управљања протоком бита\n"
 
-#: oggenc/oggenc.c:757
+#: oggenc/oggenc.c:762
 #, c-format
 msgid ""
 "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
@@ -1950,82 +1950,82 @@ msgstr ""
 "УПОЗОРЕЊЕ: Наведена је сирова поредивост за не-сирове податке. Претпостављам "
 "да је улаз сиров.\n"
 
-#: oggenc/oggenc.c:760
+#: oggenc/oggenc.c:765
 #, c-format
 msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
 msgstr "УПОЗОРЕЊЕ: Не могу да прочитам аргумент поредивости „%s“\n"
 
-#: oggenc/oggenc.c:767
+#: oggenc/oggenc.c:772
 #, c-format
 msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
 msgstr "УПОЗОРЕЊЕ: Не могу да прочитам учесталост поновног узорковања „%s“\n"
 
-#: oggenc/oggenc.c:773
+#: oggenc/oggenc.c:778
 #, c-format
 msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
 msgstr ""
 "УПОЗОРЕЊЕ: Проток поновног узорковања је наведен као %d Hz. Можда сте "
 "мислили %d Hz?\n"
 
-#: oggenc/oggenc.c:784
+#: oggenc/oggenc.c:789
 #, c-format
 msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr "УПОЗОРЕЊЕ: Не могу да обрадим чиниац сразмере „%s“\n"
 
-#: oggenc/oggenc.c:798
+#: oggenc/oggenc.c:803
 #, c-format
 msgid "No value for advanced encoder option found\n"
 msgstr "Нисам нашао вредност за напредну опцију кодера\n"
 
-#: oggenc/oggenc.c:820
+#: oggenc/oggenc.c:825
 #, c-format
 msgid "Internal error parsing command line options\n"
 msgstr "Унутрашња грешка обраде опција линије наредби\n"
 
-#: oggenc/oggenc.c:831
+#: oggenc/oggenc.c:836
 #, c-format
 msgid "WARNING: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr "УПОЗОРЕЊЕ: Коришћена је неисправна напомена („%s“), занемарујем.\n"
 
-#: oggenc/oggenc.c:870
+#: oggenc/oggenc.c:875
 #, c-format
 msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr "УПОЗОРЕЊЕ: назначени проток бита „%s“ није препознат\n"
 
-#: oggenc/oggenc.c:878
+#: oggenc/oggenc.c:883
 #, c-format
 msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr "УПОЗОРЕЊЕ: најмањи проток бита „%s“ није препознат\n"
 
-#: oggenc/oggenc.c:892
+#: oggenc/oggenc.c:897
 #, c-format
 msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr "УПОЗОРЕЊЕ: највећи проток бита „%s“ није препознат\n"
 
-#: oggenc/oggenc.c:905
+#: oggenc/oggenc.c:910
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr "Опција квалитета „%s“ није препозната, занемарујем\n"
 
-#: oggenc/oggenc.c:912
+#: oggenc/oggenc.c:917
 #, c-format
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
 msgstr ""
 "УПОЗОРЕЊЕ: подешавање квалитета је превисоко, подешавам на највећи "
 "квалитет.\n"
 
-#: oggenc/oggenc.c:919
+#: oggenc/oggenc.c:924
 #, c-format
 msgid "WARNING: Multiple name formats specified, using final\n"
 msgstr "УПОЗОРЕЊЕ: Наведено је неколико записа назива, користим крајњи\n"
 
-#: oggenc/oggenc.c:928
+#: oggenc/oggenc.c:933
 #, c-format
 msgid "WARNING: Multiple name format filters specified, using final\n"
 msgstr ""
 "УПОЗОРЕЊЕ: Наведено је неколико пропусника записа назива, користим крајњи\n"
 
-#: oggenc/oggenc.c:937
+#: oggenc/oggenc.c:942
 #, c-format
 msgid ""
 "WARNING: Multiple name format filter replacements specified, using final\n"
@@ -2033,13 +2033,13 @@ msgstr ""
 "УПОЗОРЕЊЕ: Наведено је неколико замена пропусника записа назива, користим "
 "крајњи\n"
 
-#: oggenc/oggenc.c:945
+#: oggenc/oggenc.c:950
 #, c-format
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
 msgstr ""
 "УПОЗОРЕЊЕ: Наведено је неколико излазних датотека, предлажем употребу „-n“\n"
 
-#: oggenc/oggenc.c:964
+#: oggenc/oggenc.c:969
 #, c-format
 msgid ""
 "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
@@ -2047,12 +2047,12 @@ msgstr ""
 "УПОЗОРЕЊЕ: Наведени су сирови битови/узорак за не-сирове податке. "
 "Претпостављам да је улаз сиров.\n"
 
-#: oggenc/oggenc.c:969 oggenc/oggenc.c:973
+#: oggenc/oggenc.c:974 oggenc/oggenc.c:978
 #, c-format
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr "УПОЗОРЕЊЕ: Наведени су нисправни битови/узорак, подразумевам 16.\n"
 
-#: oggenc/oggenc.c:980
+#: oggenc/oggenc.c:985
 #, c-format
 msgid ""
 "WARNING: Raw channel count specified for non-raw data. Assuming input is "
@@ -2061,12 +2061,12 @@ msgstr ""
 "УПОЗОРЕЊЕ: Наведен је сирови број канала за не-сирове податке. Претпостављам "
 "да је улаз сиров.\n"
 
-#: oggenc/oggenc.c:985
+#: oggenc/oggenc.c:990
 #, c-format
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr "УПОЗОРЕЊЕ: Наведен је нисправан број канала, подразумевам 16.\n"
 
-#: oggenc/oggenc.c:996
+#: oggenc/oggenc.c:1001
 #, c-format
 msgid ""
 "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
@@ -2074,53 +2074,53 @@ msgstr ""
 "УПОЗОРЕЊЕ: Наведен је сирови проток узорка за не-сирове податке. "
 "Претпостављам да је улаз сиров.\n"
 
-#: oggenc/oggenc.c:1001
+#: oggenc/oggenc.c:1006
 #, c-format
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
 msgstr "УПОЗОРЕЊЕ: Наведен је нисправан проток узорка, подразумевам 44100.\n"
 
-#: oggenc/oggenc.c:1013 oggenc/oggenc.c:1025
+#: oggenc/oggenc.c:1018 oggenc/oggenc.c:1030
 #, c-format
 msgid "WARNING: Kate support not compiled in; lyrics will not be included.\n"
 msgstr ""
 "УПОЗОРЕЊЕ: Подршка Катје није преведена; текстови неће бити укључени.\n"
 
-#: oggenc/oggenc.c:1021
+#: oggenc/oggenc.c:1026
 #, c-format
 msgid "WARNING: language can not be longer than 15 characters; truncated.\n"
 msgstr "УПОЗОРЕЊЕ: језик не може бити дужи од 15 знакова; скратих га.\n"
 
-#: oggenc/oggenc.c:1029
+#: oggenc/oggenc.c:1034
 #, c-format
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "УПОЗОРЕЊЕ: Наведена је непозната опција, занемарујем—>\n"
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
+#: oggenc/oggenc.c:1050 vorbiscomment/vcomment.c:449
 #, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "„%s“ није исправан УТФ-8, не могу да додам\n"
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
+#: oggenc/oggenc.c:1071 vorbiscomment/vcomment.c:457
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr "Не могу да претворим напомену у УТФ-8, не могу да додам\n"
 
-#: oggenc/oggenc.c:1087
+#: oggenc/oggenc.c:1092
 #, c-format
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
 msgstr "УПОЗОРЕЊЕ: Наведени су недовољни наслови, прелазим на крајњи наслов.\n"
 
-#: oggenc/platform.c:172
+#: oggenc/platform.c:176
 #, c-format
 msgid "Couldn't create directory \"%s\": %s\n"
 msgstr "Не могу да направим директоријум „%s“: %s\n"
 
-#: oggenc/platform.c:179
+#: oggenc/platform.c:183
 #, c-format
 msgid "Error checking for existence of directory %s: %s\n"
 msgstr "Грешка провере постојања директоријума „%s“: %s\n"
 
-#: oggenc/platform.c:192
+#: oggenc/platform.c:196
 #, c-format
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr "Грешка: подеок путање „%s“ није директоријум\n"
@@ -2404,7 +2404,6 @@ msgid "Couldn't parse cutpoint \"%s\"\n"
 msgstr "Не могу да обрадим тачку одсецања „%s“\n"
 
 #: vcut/vcut.c:287
-#, c-format
 msgid "Processing: Cutting at %lf seconds\n"
 msgstr "Обрађујем: Отсецам на %lf секунде\n"
 
@@ -2559,37 +2558,37 @@ msgid ""
 msgstr ""
 "Грешка при упису тока у излаз. Излазни ток је можда оштећен или скраћен."
 
-#: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:285
+#: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:287
 #, c-format
 msgid "Failed to open file as Vorbis: %s\n"
 msgstr "Нисам успео да отворим датотеку као Ворбис: %s\n"
 
-#: vorbiscomment/vcomment.c:305
+#: vorbiscomment/vcomment.c:308
 #, c-format
 msgid "Bad comment: \"%s\"\n"
 msgstr "Лоша напомена: „%s“\n"
 
-#: vorbiscomment/vcomment.c:314
+#: vorbiscomment/vcomment.c:317
 #, c-format
 msgid "bad comment: \"%s\"\n"
 msgstr "лоша напомена: „%s“\n"
 
-#: vorbiscomment/vcomment.c:323
+#: vorbiscomment/vcomment.c:326
 #, c-format
 msgid "Failed to write comments to output file: %s\n"
 msgstr "Нисам успео да упишем напомену у излазну датотеку: %s\n"
 
-#: vorbiscomment/vcomment.c:340
+#: vorbiscomment/vcomment.c:345
 #, c-format
 msgid "no action specified\n"
 msgstr "није наведена радња\n"
 
-#: vorbiscomment/vcomment.c:466
+#: vorbiscomment/vcomment.c:472
 #, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Не могу да поништим нови ред напомене, не могу да додам\n"
 
-#: vorbiscomment/vcomment.c:617
+#: vorbiscomment/vcomment.c:623
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2600,12 +2599,12 @@ msgstr ""
 " Фондације „Xiph.Org“ (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:620
+#: vorbiscomment/vcomment.c:626
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Испишите или уредите напомене у Огг Ворбис датотекама.\n"
 
-#: vorbiscomment/vcomment.c:623
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2619,12 +2618,12 @@ msgstr ""
 "  vorbiscomment <-a|-w> [-Re] [-c датотека] [-t ознака] улазна_датотека "
 "[излазна_датотека]\n"
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid "Listing options\n"
 msgstr "Опције исписивања\n"
 
-#: vorbiscomment/vcomment.c:630
+#: vorbiscomment/vcomment.c:636
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
@@ -2633,17 +2632,17 @@ msgstr ""
 "  -l, --list              Исписује напомене (подразумева се ако опције нису "
 "дате)\n"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:639
 #, c-format
 msgid "Editing options\n"
 msgstr "Опције уређивања\n"
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:640
 #, fuzzy, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Прилаже напомене\n"
 
-#: vorbiscomment/vcomment.c:635
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2652,7 +2651,7 @@ msgstr ""
 "  -t \"назив=вредност\", --tag \"назив=вредност\"\n"
 "                          Наводи ознаку напомене на линији наредби\n"
 
-#: vorbiscomment/vcomment.c:637
+#: vorbiscomment/vcomment.c:643
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2663,12 +2662,12 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:641
+#: vorbiscomment/vcomment.c:647
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr "  -w, --write             Пише напомене, замењујући постојеће\n"
 
-#: vorbiscomment/vcomment.c:645
+#: vorbiscomment/vcomment.c:651
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2683,12 +2682,12 @@ msgstr ""
 "                          Приликом уређивања, чита напомене из наведене "
 "датотеке.\n"
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:654
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Чита и пише напомене у УТФ-8\n"
 
-#: vorbiscomment/vcomment.c:649
+#: vorbiscomment/vcomment.c:655
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
@@ -2697,12 +2696,12 @@ msgstr ""
 "  -e, --escapes           Користи „\\n“ за прелазак у нови ред да омогући "
 "напомене у више редова.\n"
 
-#: vorbiscomment/vcomment.c:653
+#: vorbiscomment/vcomment.c:659
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr "  -V, --version           Исписује податке о издању и излази\n"
 
-#: vorbiscomment/vcomment.c:656
+#: vorbiscomment/vcomment.c:662
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2717,7 +2716,7 @@ msgstr ""
 "ако се\n"
 "наиђе на неке грешке у току обраде.\n"
 
-#: vorbiscomment/vcomment.c:661
+#: vorbiscomment/vcomment.c:667
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2725,8 +2724,8 @@ msgid ""
 "default, comments are written to stdout when listing, and read from stdin "
 "when\n"
 "editing. Alternatively, a file can be specified with the -c option, or tags\n"
-"can be given on the commandline with -t \"name=value\". Use of either -c or -"
-"t\n"
+"can be given on the commandline with -t \"name=value\". Use of either -c or "
+"-t\n"
 "disables reading from stdin.\n"
 msgstr ""
 "ворбискомент ради са напоменама у запису „назив=вредност“, са једном у реду. "
@@ -2739,7 +2738,7 @@ msgstr ""
 "c“ или\n"
 "„-t“ искључује читање са стандардног улаза.\n"
 
-#: vorbiscomment/vcomment.c:668
+#: vorbiscomment/vcomment.c:674
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2751,7 +2750,7 @@ msgstr ""
 "  vorbiscomment -a улаз.ogg -t \"ARTIST=Пера Ждера\" -t "
 "\"TITLE=Пљескавица\"\n"
 
-#: vorbiscomment/vcomment.c:673
+#: vorbiscomment/vcomment.c:679
 #, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2771,52 +2770,52 @@ msgstr ""
 "на\n"
 "нови ред (-e, --escape).\n"
 
-#: vorbiscomment/vcomment.c:755
+#: vorbiscomment/vcomment.c:761
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Унутрашња грешка обраде опција наредбе\n"
 
-#: vorbiscomment/vcomment.c:774
+#: vorbiscomment/vcomment.c:780
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr "„vorbiscomment“ из ворбис-алата "
 
-#: vorbiscomment/vcomment.c:858
+#: vorbiscomment/vcomment.c:864
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Грешка отварања улазне датотеке „%s“.\n"
 
-#: vorbiscomment/vcomment.c:867
+#: vorbiscomment/vcomment.c:873
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Назив улазне датотеке не може бити исти као назив излазне датотеке\n"
 
-#: vorbiscomment/vcomment.c:878
+#: vorbiscomment/vcomment.c:884
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Грешка отварања излазне датотеке „%s“.\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:899
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Грешка отварања датотеке напомене „%s“.\n"
 
-#: vorbiscomment/vcomment.c:910
+#: vorbiscomment/vcomment.c:916
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Грешка отварања датотеке напомене „%s“\n"
 
-#: vorbiscomment/vcomment.c:944
+#: vorbiscomment/vcomment.c:950
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Грешка уклањања старе датотеке „%s“\n"
 
-#: vorbiscomment/vcomment.c:946
+#: vorbiscomment/vcomment.c:952
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Грешка преименовања „%s“ у „%s“\n"
 
-#: vorbiscomment/vcomment.c:955
+#: vorbiscomment/vcomment.c:961
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Грешка укалњања погрешне привремене датотеке „%s“\n"

@@ -11,7 +11,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 AC_CANONICAL_HOST
 
-AC_PREREQ(2.53)
+AC_PREREQ([2.71])
 
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE([enable])
@@ -31,7 +31,7 @@ cflags_save="$CFLAGS"
 AC_PROG_CC
 CFLAGS="$cflags_save"
 
-AC_PROG_LIBTOOL
+LT_INIT
 
 ALL_LINGUAS="be cs da de en_GB eo es fr hr hu id ka nb nl pl ro ru sk sl sr sv uk vi "
 AM_GNU_GETTEXT

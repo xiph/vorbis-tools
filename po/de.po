@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.0\n"
 "Report-Msgid-Bugs-To: https://trac.xiph.org/\n"
-"POT-Creation-Date: 2025-04-08 11:12+0200\n"
+"POT-Creation-Date: 2025-06-15 08:31-0400\n"
 "PO-Revision-Date: 2014-03-11 14:25+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -166,9 +166,9 @@ msgstr "other"
 msgid "(NULL)"
 msgstr "(NULL)"
 
-#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:689 oggenc/oggenc.c:694
-#: oggenc/oggenc.c:699 oggenc/oggenc.c:704 oggenc/oggenc.c:709
-#: oggenc/oggenc.c:714
+#: ogg123/cfgfile_options.c:200 oggenc/oggenc.c:694 oggenc/oggenc.c:699
+#: oggenc/oggenc.c:704 oggenc/oggenc.c:709 oggenc/oggenc.c:714
+#: oggenc/oggenc.c:719
 msgid "(none)"
 msgstr "(keine)"
 
@@ -478,7 +478,7 @@ msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 "  -y n, --ntimes n        Jeden abgespielten Block »n«-mal wiederholen\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:644
+#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Verschiedene Optionen\n"
@@ -497,7 +497,7 @@ msgstr ""
 "                          angegebenen Zeit »s« empfangen werden. (Vorgabe "
 "500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:652
+#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Diese Hilfe anzeigen\n"
@@ -542,24 +542,24 @@ msgstr "FEHLER: Signalmaske konnte nicht gesetzt werden."
 msgid "ERROR: Unable to create input buffer.\n"
 msgstr "FEHLER: Eingabepuffer konnte nicht anegelegt werden.\n"
 
-#: ogg123/ogg123.c:80
+#: ogg123/ogg123.c:81
 msgid "default output device"
 msgstr "Standard-Ausgabegerät"
 
-#: ogg123/ogg123.c:82
+#: ogg123/ogg123.c:83
 msgid "shuffle playlist"
 msgstr "Wiedergabeliste mischen"
 
-#: ogg123/ogg123.c:84
+#: ogg123/ogg123.c:85
 msgid "repeat playlist forever"
 msgstr "Wiedergabeliste endlos wiederholen"
 
-#: ogg123/ogg123.c:230
+#: ogg123/ogg123.c:231
 #, c-format
 msgid "Could not skip to %f in audio stream."
 msgstr "Sprung zu %f im Datenstrom ist gescheitert."
 
-#: ogg123/ogg123.c:375
+#: ogg123/ogg123.c:376
 #, c-format
 msgid ""
 "\n"
@@ -568,66 +568,66 @@ msgstr ""
 "\n"
 "Audio-Gerät:   %s"
 
-#: ogg123/ogg123.c:376
+#: ogg123/ogg123.c:377
 #, c-format
 msgid "Author:   %s"
 msgstr "Autor:  %s"
 
-#: ogg123/ogg123.c:377
+#: ogg123/ogg123.c:378
 #, c-format
 msgid "Comments: %s"
 msgstr "Kommentare: %s"
 
-#: ogg123/ogg123.c:421
+#: ogg123/ogg123.c:422
 #, c-format
 msgid "WARNING: Could not read directory %s.\n"
 msgstr "Warnung: Verzeichnis %s konnte nicht gelesen werden.\n"
 
-#: ogg123/ogg123.c:457
+#: ogg123/ogg123.c:458
 msgid "Error: Could not create audio buffer.\n"
 msgstr "FEHLER: Audiopuffer konnte nicht angelegt werden.\n"
 
-#: ogg123/ogg123.c:560
+#: ogg123/ogg123.c:565
 #, c-format
 msgid "No module could be found to read from %s.\n"
 msgstr "Zum Lesen aus %s konnte kein Datenstrom gefunden werden.\n"
 
-#: ogg123/ogg123.c:565
+#: ogg123/ogg123.c:570
 #, c-format
 msgid "Cannot open %s.\n"
 msgstr "»%s« kann nicht geöffnet werden.\n"
 
-#: ogg123/ogg123.c:571
+#: ogg123/ogg123.c:576
 #, c-format
 msgid "The file format of %s is not supported.\n"
 msgstr "Das Dateiformat von %s wird nicht unterstützt.\n"
 
-#: ogg123/ogg123.c:581
+#: ogg123/ogg123.c:586
 #, c-format
 msgid "Error opening %s using the %s module.  The file may be corrupted.\n"
 msgstr ""
 "Fehler beim Öffnen von %s mit dem Modul %s. Die Datei könnte beschädigt "
 "sein.\n"
 
-#: ogg123/ogg123.c:600
+#: ogg123/ogg123.c:605
 #, c-format
 msgid "Playing: %s"
 msgstr "Jetzt wiedergegeben: %s"
 
-#: ogg123/ogg123.c:611
+#: ogg123/ogg123.c:616
 #, c-format
 msgid "Could not skip %f seconds of audio."
 msgstr "%f Audio-Sekunden konnten nicht übersprungen werden."
 
-#: ogg123/ogg123.c:666
+#: ogg123/ogg123.c:671
 msgid "ERROR: Decoding failure.\n"
 msgstr "FEHLER: Dekodierungsfehler.\n"
 
-#: ogg123/ogg123.c:709
+#: ogg123/ogg123.c:720
 msgid "ERROR: buffer write failed.\n"
 msgstr "FEHLER: Schreiben in Puffer ist gescheitert.\n"
 
-#: ogg123/ogg123.c:747
+#: ogg123/ogg123.c:757
 msgid "Done."
 msgstr "Fertig."
 
@@ -849,7 +849,7 @@ msgstr ""
 msgid "oggdec from %s %s\n"
 msgstr "oggdec von %s %s\n"
 
-#: oggdec/oggdec.c:57 oggenc/oggenc.c:504
+#: oggdec/oggdec.c:57 oggenc/oggenc.c:509
 #, fuzzy, c-format
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
@@ -1521,8 +1521,8 @@ msgstr "FEHLER: Bei Nutzung der Standardeingabe mehrere Dateien angegeben\n"
 #: oggenc/oggenc.c:153
 #, c-format
 msgid ""
-"ERROR: Multiple input files with specified output filename: suggest using -"
-"n\n"
+"ERROR: Multiple input files with specified output filename: suggest using "
+"-n\n"
 msgstr ""
 "FEHLER: Mehrere Eingabedateien mit angegebenen Ausgabedateinamen: -n wird "
 "vorgeschlagen\n"
@@ -1556,12 +1556,12 @@ msgstr "FEHLER: Eingabedatei »%s« nicht in einem unterstützten Format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "FEHLER: Eingabedatei »%s« nicht in einem unterstützten Format\n"
 
-#: oggenc/oggenc.c:349
+#: oggenc/oggenc.c:350
 #, c-format
 msgid "WARNING: No filename, defaulting to \"%s\"\n"
 msgstr "WARNUNG: Kein Dateiname, »%s« wird verwendet\n"
 
-#: oggenc/oggenc.c:356
+#: oggenc/oggenc.c:357
 #, c-format
 msgid ""
 "ERROR: Could not create required subdirectories for output filename \"%s\"\n"
@@ -1569,49 +1569,49 @@ msgstr ""
 "FEHLER: Benötigte Unterverzeichnisse für Ausgabedatei »%s« können nicht "
 "angelegt werden\n"
 
-#: oggenc/oggenc.c:363
+#: oggenc/oggenc.c:365
 #, c-format
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
 msgstr "FEHLER: Namen für Eingabe- und Ausgabedatei »%s« sind gleich\n"
 
-#: oggenc/oggenc.c:374
+#: oggenc/oggenc.c:377
 #, c-format
 msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgstr "Fehler: Zieldatei »%s« kann nicht geöffnet werden: %s\n"
 
-#: oggenc/oggenc.c:429
+#: oggenc/oggenc.c:433
 #, c-format
 msgid "Resampling input from %d Hz to %d Hz\n"
 msgstr "Eingabe mit %d Hz wird mit %d Hz neu abgetastet\n"
 
-#: oggenc/oggenc.c:437
+#: oggenc/oggenc.c:441
 #, c-format
 msgid "Downmixing stereo to mono\n"
 msgstr "Stereo wird in Mono umgewandelt\n"
 
-#: oggenc/oggenc.c:441
+#: oggenc/oggenc.c:445
 #, c-format
 msgid "WARNING: Can't downmix except from stereo to mono\n"
 msgstr "WARNUNG: Heruntermischen ist nur von Stereo zu Mono möglich\n"
 
-#: oggenc/oggenc.c:449
+#: oggenc/oggenc.c:453
 #, c-format
 msgid "Scaling input to %f\n"
 msgstr "Eingabe wird auf %f skaliert\n"
 
-#: oggenc/oggenc.c:503 oggenc/oggenc.c:957
+#: oggenc/oggenc.c:508 oggenc/oggenc.c:962
 #, c-format
 msgid "oggenc from %s %s\n"
 msgstr "oggenc von %s %s\n"
 
-#: oggenc/oggenc.c:505
+#: oggenc/oggenc.c:510
 #, c-format
 msgid ""
 " using encoder %s.\n"
 "\n"
 msgstr ""
 
-#: oggenc/oggenc.c:506
+#: oggenc/oggenc.c:511
 #, c-format
 msgid ""
 "Usage: oggenc [options] inputfile [...]\n"
@@ -1620,7 +1620,7 @@ msgstr ""
 "Aufruf: oggenc [Optionen] Eingabedatei [...]\n"
 "\n"
 
-#: oggenc/oggenc.c:507
+#: oggenc/oggenc.c:512
 #, c-format
 msgid ""
 "OPTIONS:\n"
@@ -1635,7 +1635,7 @@ msgstr ""
 " -h, --help           Diesen Hilfetext ausgeben\n"
 " -V, --version        Die Versionsnummer ausgeben\n"
 
-#: oggenc/oggenc.c:513
+#: oggenc/oggenc.c:518
 #, c-format
 msgid ""
 " -k, --skeleton       Adds an Ogg Skeleton bitstream\n"
@@ -1653,7 +1653,7 @@ msgstr ""
 " -R, --raw-rate=n     Abtastrate der Eingabe im Rohmodus; Vorgabe ist 44100\n"
 " --raw-endianness     1 für Big Endian, 0 für Little (Vorgabe ist 0)\n"
 
-#: oggenc/oggenc.c:520
+#: oggenc/oggenc.c:525
 #, c-format
 msgid ""
 " -b, --bitrate        Choose a nominal bitrate to encode at. Attempt\n"
@@ -1673,7 +1673,7 @@ msgstr ""
 "Bitraten-\n"
 "                      Verwaltung mit der gewählten Bitrate zu erreichen.\n"
 
-#: oggenc/oggenc.c:527
+#: oggenc/oggenc.c:532
 #, c-format
 msgid ""
 " --managed            Enable the bitrate management engine. This will allow\n"
@@ -1693,7 +1693,7 @@ msgstr ""
 "                      über die Bitrate behalten müssen, zum Beispiel für\n"
 "                      Streaming-Anwendungen.\n"
 
-#: oggenc/oggenc.c:533
+#: oggenc/oggenc.c:538
 #, c-format
 msgid ""
 " -m, --min-bitrate    Specify a minimum bitrate (in kbps). Useful for\n"
@@ -1713,7 +1713,7 @@ msgstr ""
 "                      für Streaming-Anwendungen. Dadurch wird die Bitraten-\n"
 "                      Verwaltung automatisch aktiviert (siehe --managed).\n"
 
-#: oggenc/oggenc.c:541
+#: oggenc/oggenc.c:546
 #, c-format
 msgid ""
 " --advanced-encode-option option=value\n"
@@ -1733,7 +1733,7 @@ msgstr ""
 "gedacht\n"
 "                      und sollten mit Vorsicht verwendet werden.\n"
 
-#: oggenc/oggenc.c:548
+#: oggenc/oggenc.c:553
 #, c-format
 msgid ""
 " -q, --quality        Specify quality, between -1 (very low) and 10 (very\n"
@@ -1748,7 +1748,7 @@ msgstr ""
 "                      Gebrochene Zahlen zur Qualitätsangabe sind zulässig\n"
 "                      (z.B. 2.75). Die Standard-Qualitätsstufe ist 3.\n"
 
-#: oggenc/oggenc.c:554
+#: oggenc/oggenc.c:559
 #, c-format
 msgid ""
 " --resample n         Resample input data to sampling rate n (Hz)\n"
@@ -1766,7 +1766,7 @@ msgstr ""
 "                      Kodieren mehrerer Dateien wird diese mit jedem\n"
 "                      weiteren Datenstrom erhöht.\n"
 
-#: oggenc/oggenc.c:561
+#: oggenc/oggenc.c:566
 #, c-format
 msgid ""
 " --discard-comments   Prevents comments in FLAC and Ogg FLAC files from\n"
@@ -1784,7 +1784,7 @@ msgstr ""
 "                      aus der Standardeingabe.\n"
 "\n"
 
-#: oggenc/oggenc.c:567
+#: oggenc/oggenc.c:572
 #, c-format
 msgid ""
 " Naming:\n"
@@ -1804,7 +1804,7 @@ msgstr ""
 "                      nachfolgend, wie diese angegeben werden).\n"
 "                       %%%% erzeugt hierbei ein %%.\n"
 
-#: oggenc/oggenc.c:574
+#: oggenc/oggenc.c:579
 #, c-format
 msgid ""
 " -X, --name-remove=s  Remove the specified characters from parameters to "
@@ -1833,7 +1833,7 @@ msgstr ""
 "beiden\n"
 "                      Argumente sind plattformspezifisch.\n"
 
-#: oggenc/oggenc.c:583
+#: oggenc/oggenc.c:588
 #, c-format
 msgid ""
 " --utf8               Tells oggenc that the command line parameters date, "
@@ -1860,7 +1860,7 @@ msgstr ""
 " -d, --date           Datum des Titels (üblicherweise das Datum der "
 "Aufnahme)\n"
 
-#: oggenc/oggenc.c:591
+#: oggenc/oggenc.c:596
 #, c-format
 msgid ""
 " -N, --tracknum       Track number for this track\n"
@@ -1875,7 +1875,7 @@ msgstr ""
 " -a, --artist         Name des Künstlers\n"
 " -G, --genre          Genre des Titels\n"
 
-#: oggenc/oggenc.c:597
+#: oggenc/oggenc.c:602
 #, c-format
 msgid ""
 " -L, --lyrics         Include lyrics from given file (.srt or .lrc format)\n"
@@ -1885,7 +1885,7 @@ msgstr ""
 "                      (.srt- oder .lrc-Format)\n"
 " -Y, --lyrics-language  legt die Sprache für die Liedtexte fest\n"
 
-#: oggenc/oggenc.c:600
+#: oggenc/oggenc.c:605
 #, c-format
 msgid ""
 "                      If multiple input files are given, then multiple\n"
@@ -1927,7 +1927,7 @@ msgstr ""
 "alle\n"
 "                      Dateien verwenden).\n"
 
-#: oggenc/oggenc.c:613
+#: oggenc/oggenc.c:618
 #, c-format
 msgid ""
 "INPUT FILES:\n"
@@ -1969,17 +1969,17 @@ msgstr ""
 " Liedtextdateien werden in den Formaten SubRip (.srt) oder LRC (.lrc) "
 "akzeptiert.\n"
 
-#: oggenc/oggenc.c:719
+#: oggenc/oggenc.c:724
 #, c-format
 msgid "WARNING: Ignoring illegal escape character '%c' in name format\n"
 msgstr "WARNUNG: Illegales Escape-Zeichen »%c« im Format des Namens\n"
 
-#: oggenc/oggenc.c:748 oggenc/oggenc.c:884 oggenc/oggenc.c:898
+#: oggenc/oggenc.c:753 oggenc/oggenc.c:889 oggenc/oggenc.c:903
 #, c-format
 msgid "Enabling bitrate management engine\n"
 msgstr "Engine zur Bitratenverwaltung wird aktiviert\n"
 
-#: oggenc/oggenc.c:757
+#: oggenc/oggenc.c:762
 #, c-format
 msgid ""
 "WARNING: Raw endianness specified for non-raw data. Assuming input is raw.\n"
@@ -1987,92 +1987,92 @@ msgstr ""
 "WARNUNG: Rohe Bytereihenfolge für Nicht-Rohdaten angegeben. Roheingabe wird "
 "angenommen.\n"
 
-#: oggenc/oggenc.c:760
+#: oggenc/oggenc.c:765
 #, c-format
 msgid "WARNING: Couldn't read endianness argument \"%s\"\n"
 msgstr "WARNUNG: Bytreihenfolge-Argument »%s« konnte nicht gelesen werden\n"
 
-#: oggenc/oggenc.c:767
+#: oggenc/oggenc.c:772
 #, c-format
 msgid "WARNING: Couldn't read resampling frequency \"%s\"\n"
 msgstr "WARNUNG: Neue Abtastfrequenz »%s« konnte nicht gelesen werden\n"
 
-#: oggenc/oggenc.c:773
+#: oggenc/oggenc.c:778
 #, c-format
 msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
 msgstr ""
 "WARNUNG: Neue Abtastrate wurde als %d Hz angegeben. Meinten Sie %d Hz?\n"
 
-#: oggenc/oggenc.c:784
+#: oggenc/oggenc.c:789
 #, c-format
 msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr "WARNUNG: Skalierungsfaktor »%s« kann nicht verarbeitet werden\n"
 
-#: oggenc/oggenc.c:798
+#: oggenc/oggenc.c:803
 #, c-format
 msgid "No value for advanced encoder option found\n"
 msgstr "Kein Wert für erweiterte Kodierungsoptionen gefunden\n"
 
-#: oggenc/oggenc.c:820
+#: oggenc/oggenc.c:825
 #, c-format
 msgid "Internal error parsing command line options\n"
 msgstr "Interner Fehler beim Einlesen der Befehlszeilenoptionen\n"
 
-#: oggenc/oggenc.c:831
+#: oggenc/oggenc.c:836
 #, c-format
 msgid "WARNING: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr "WARNUNG: Unerlaubter Kommentar (»%s«), wird ignoriert.\n"
 
-#: oggenc/oggenc.c:870
+#: oggenc/oggenc.c:875
 #, c-format
 msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr "WARNUNG: Nominale Bitrate »%s« nicht berücksichtigt\n"
 
-#: oggenc/oggenc.c:878
+#: oggenc/oggenc.c:883
 #, c-format
 msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr "WARNUNG: Minimale Bitrate »%s« nicht berücksichtigt\n"
 
-#: oggenc/oggenc.c:892
+#: oggenc/oggenc.c:897
 #, c-format
 msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr "WARNUNG: Maximale Bitrate »%s« nicht berücksichtigt\n"
 
-#: oggenc/oggenc.c:905
+#: oggenc/oggenc.c:910
 #, c-format
 msgid "Quality option \"%s\" not recognised, ignoring\n"
 msgstr "Qualitätsoption »%s« nicht berücksichtigt, wird ignoriert\n"
 
-#: oggenc/oggenc.c:912
+#: oggenc/oggenc.c:917
 #, c-format
 msgid "WARNING: quality setting too high, setting to maximum quality.\n"
 msgstr ""
 "WARNUNG: Qualitätseinstellung zu hoch, maximale Qualität wird verwendet.\n"
 
-#: oggenc/oggenc.c:919
+#: oggenc/oggenc.c:924
 #, c-format
 msgid "WARNING: Multiple name formats specified, using final\n"
 msgstr "WARNUNG: mehrere Namensformate angegeben, letztes wird verwendet\n"
 
-#: oggenc/oggenc.c:928
+#: oggenc/oggenc.c:933
 #, c-format
 msgid "WARNING: Multiple name format filters specified, using final\n"
 msgstr ""
 "WARNUNG: mehrere Namensformatfilter angegeben, letztes wird verwendet\n"
 
-#: oggenc/oggenc.c:937
+#: oggenc/oggenc.c:942
 #, c-format
 msgid ""
 "WARNING: Multiple name format filter replacements specified, using final\n"
 msgstr ""
 "WARNUNG: mehrere Namensformatfilter angegeben, letztes wird verwendet\n"
 
-#: oggenc/oggenc.c:945
+#: oggenc/oggenc.c:950
 #, c-format
 msgid "WARNING: Multiple output files specified, suggest using -n\n"
 msgstr "WARNUNG: Mehrere Ausgabedateien angegeben, -n wir vorgeschlagen\n"
 
-#: oggenc/oggenc.c:964
+#: oggenc/oggenc.c:969
 #, c-format
 msgid ""
 "WARNING: Raw bits/sample specified for non-raw data. Assuming input is raw.\n"
@@ -2080,12 +2080,12 @@ msgstr ""
 "WARNUNG: Roh-Bits/Abtastwert für Nicht-Rohdaten angegeben. Eingabe wird als "
 "roh angenommen.\n"
 
-#: oggenc/oggenc.c:969 oggenc/oggenc.c:973
+#: oggenc/oggenc.c:974 oggenc/oggenc.c:978
 #, c-format
 msgid "WARNING: Invalid bits/sample specified, assuming 16.\n"
 msgstr "WARNUNG: Ungültige Bits/Sample angegeben, 16 wird angenommen.\n"
 
-#: oggenc/oggenc.c:980
+#: oggenc/oggenc.c:985
 #, c-format
 msgid ""
 "WARNING: Raw channel count specified for non-raw data. Assuming input is "
@@ -2094,12 +2094,12 @@ msgstr ""
 "WARNUNG: Roh-Kanalanzahl für Nicht-Rohdaten angegeben. Eingabe wird als roh "
 "angenommen.\n"
 
-#: oggenc/oggenc.c:985
+#: oggenc/oggenc.c:990
 #, c-format
 msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgstr "WARNUNG: Ungültige Kanalanzahl wurde angegeben, 2 wird angenommen.\n"
 
-#: oggenc/oggenc.c:996
+#: oggenc/oggenc.c:1001
 #, c-format
 msgid ""
 "WARNING: Raw sample rate specified for non-raw data. Assuming input is raw.\n"
@@ -2107,59 +2107,59 @@ msgstr ""
 "WARNUNG: Roh-Abtastrate für Nicht-Rohdaten angegeben. Eingabe wird als roh "
 "angenommen.\n"
 
-#: oggenc/oggenc.c:1001
+#: oggenc/oggenc.c:1006
 #, c-format
 msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
 msgstr "WARNUNG: Ungültige Abtastrate angegeben, 44100 wird angenommen.\n"
 
-#: oggenc/oggenc.c:1013 oggenc/oggenc.c:1025
+#: oggenc/oggenc.c:1018 oggenc/oggenc.c:1030
 #, c-format
 msgid "WARNING: Kate support not compiled in; lyrics will not be included.\n"
 msgstr ""
 "WARNUNG: Kate-Unterstützung wurde nicht einkompiliert, Liedtexte können "
 "nicht eingebettet werden.\n"
 
-#: oggenc/oggenc.c:1021
+#: oggenc/oggenc.c:1026
 #, c-format
 msgid "WARNING: language can not be longer than 15 characters; truncated.\n"
 msgstr ""
 "WARNUNG: Sprache darf 15 Zeichen nicht überschreiten; wird abgeschnitten.\n"
 
-#: oggenc/oggenc.c:1029
+#: oggenc/oggenc.c:1034
 #, c-format
 msgid "WARNING: Unknown option specified, ignoring->\n"
 msgstr "WARNUNG: Unbekannte Option angegeben, wird ignoriert->\n"
 
-#: oggenc/oggenc.c:1045 vorbiscomment/vcomment.c:443
+#: oggenc/oggenc.c:1050 vorbiscomment/vcomment.c:449
 #, c-format
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "»%s« ist kein gültiges UTF-8, Hinzufügen nicht möglich\n"
 
-#: oggenc/oggenc.c:1066 vorbiscomment/vcomment.c:451
+#: oggenc/oggenc.c:1071 vorbiscomment/vcomment.c:457
 #, c-format
 msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgstr ""
 "Kommentar kann nicht in UTF-8 umgewandelt\n"
 "und daher nicht hinzugefügt werden\n"
 
-#: oggenc/oggenc.c:1087
+#: oggenc/oggenc.c:1092
 #, c-format
 msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
 msgstr ""
 "WARNUNG: Nicht genügend Titel angegeben, letzter Titel wird als Vorgabe "
 "verwendet.\n"
 
-#: oggenc/platform.c:172
+#: oggenc/platform.c:176
 #, c-format
 msgid "Couldn't create directory \"%s\": %s\n"
 msgstr "Verzeichnis »%s« konnte nicht erstellt werden: %s\n"
 
-#: oggenc/platform.c:179
+#: oggenc/platform.c:183
 #, c-format
 msgid "Error checking for existence of directory %s: %s\n"
 msgstr "Fehler beim Prüfen des Vorhandenseins des Verzeichnisses %s: %s\n"
 
-#: oggenc/platform.c:192
+#: oggenc/platform.c:196
 #, c-format
 msgid "Error: path segment \"%s\" is not a directory\n"
 msgstr "Fehler: Pfadsegment »%s« ist kein Verzeichnis\n"
@@ -2441,7 +2441,6 @@ msgid "Couldn't parse cutpoint \"%s\"\n"
 msgstr "Schnittpunkt »%s« kann nicht verarbeitet werden\n"
 
 #: vcut/vcut.c:287
-#, c-format
 msgid "Processing: Cutting at %lf seconds\n"
 msgstr "Verarbeitung: Bei %lf Sekunden wird geschnitten\n"
 
@@ -2602,37 +2601,37 @@ msgstr ""
 "Fehler beim Schreiben des Ausgabestroms. Ausgabestrom könnte beschädigt oder "
 "abgeschnitten sein."
 
-#: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:285
+#: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:287
 #, c-format
 msgid "Failed to open file as Vorbis: %s\n"
 msgstr "Öffnen der Datei als Vorbis fehlgeschlagen: %s\n"
 
-#: vorbiscomment/vcomment.c:305
+#: vorbiscomment/vcomment.c:308
 #, c-format
 msgid "Bad comment: \"%s\"\n"
 msgstr "Falscher Kommentar: »%s«\n"
 
-#: vorbiscomment/vcomment.c:314
+#: vorbiscomment/vcomment.c:317
 #, c-format
 msgid "bad comment: \"%s\"\n"
 msgstr "Falscher Kommentar: »%s«\n"
 
-#: vorbiscomment/vcomment.c:323
+#: vorbiscomment/vcomment.c:326
 #, c-format
 msgid "Failed to write comments to output file: %s\n"
 msgstr "Schreiben von Kommentaren in Ausgabedatei gescheitert: %s\n"
 
-#: vorbiscomment/vcomment.c:340
+#: vorbiscomment/vcomment.c:345
 #, c-format
 msgid "no action specified\n"
 msgstr "Keine Aktion angegeben\n"
 
-#: vorbiscomment/vcomment.c:466
+#: vorbiscomment/vcomment.c:472
 #, c-format
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Kommentar konnte nicht demaskiert werden, Hinzufügen nicht möglich\n"
 
-#: vorbiscomment/vcomment.c:617
+#: vorbiscomment/vcomment.c:623
 #, c-format
 msgid ""
 "vorbiscomment from %s %s\n"
@@ -2643,12 +2642,12 @@ msgstr ""
 " von der Xiph.Org Foundation (http://www.xiph.org/)\n"
 "\n"
 
-#: vorbiscomment/vcomment.c:620
+#: vorbiscomment/vcomment.c:626
 #, c-format
 msgid "List or edit comments in Ogg Vorbis files.\n"
 msgstr "Kommentare in OggVorbis-Dateien anzeigen oder bearbeiten.\n"
 
-#: vorbiscomment/vcomment.c:623
+#: vorbiscomment/vcomment.c:629
 #, c-format
 msgid ""
 "Usage: \n"
@@ -2662,12 +2661,12 @@ msgstr ""
 "  vorbiscomment <-a|-w> [-Re] [-c Datei] [-t tag] Eingabedatei "
 "[Ausgabedatei]\n"
 
-#: vorbiscomment/vcomment.c:629
+#: vorbiscomment/vcomment.c:635
 #, c-format
 msgid "Listing options\n"
 msgstr "Auflistungsoptionen\n"
 
-#: vorbiscomment/vcomment.c:630
+#: vorbiscomment/vcomment.c:636
 #, c-format
 msgid ""
 "  -l, --list              List the comments (default if no options are "
@@ -2676,17 +2675,17 @@ msgstr ""
 "  -l, --list              Kommentare auflisten (Vorgabe, wenn keine Optionen "
 "angegeben sind)\n"
 
-#: vorbiscomment/vcomment.c:633
+#: vorbiscomment/vcomment.c:639
 #, c-format
 msgid "Editing options\n"
 msgstr "Bearbeitungsoptionen\n"
 
-#: vorbiscomment/vcomment.c:634
+#: vorbiscomment/vcomment.c:640
 #, fuzzy, c-format
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Kommentare hinzufügen\n"
 
-#: vorbiscomment/vcomment.c:635
+#: vorbiscomment/vcomment.c:641
 #, c-format
 msgid ""
 "  -t \"name=value\", --tag \"name=value\"\n"
@@ -2695,7 +2694,7 @@ msgstr ""
 "  -t \"Name=Wert\", --tag \"Name=Wert\"\n"
 "                          Einen Kommentar in der Befehlszeile angeben\n"
 
-#: vorbiscomment/vcomment.c:637
+#: vorbiscomment/vcomment.c:643
 #, c-format
 msgid ""
 "  -d \"name[=value]\", --rm \"name[=value]\"\n"
@@ -2706,13 +2705,13 @@ msgid ""
 "                          This implies -a,\n"
 msgstr ""
 
-#: vorbiscomment/vcomment.c:641
+#: vorbiscomment/vcomment.c:647
 #, c-format
 msgid "  -w, --write             Write comments, replacing the existing ones\n"
 msgstr ""
 "  -w, --write             Kommentare schreiben, bestehende überschreiben\n"
 
-#: vorbiscomment/vcomment.c:645
+#: vorbiscomment/vcomment.c:651
 #, c-format
 msgid ""
 "  -c file, --commentfile file\n"
@@ -2727,12 +2726,12 @@ msgstr ""
 "                          Beim Bearbeiten Kommentare aus der angegebenen "
 "Datei lesen.\n"
 
-#: vorbiscomment/vcomment.c:648
+#: vorbiscomment/vcomment.c:654
 #, c-format
 msgid "  -R, --raw               Read and write comments in UTF-8\n"
 msgstr "  -R, --raw               Kommentare in UTF-8 lesen und schreiben\n"
 
-#: vorbiscomment/vcomment.c:649
+#: vorbiscomment/vcomment.c:655
 #, c-format
 msgid ""
 "  -e, --escapes           Use \\n-style escapes to allow multiline "
@@ -2741,12 +2740,12 @@ msgstr ""
 "  -e, --escapes           Maskierung im \\n-Stil verwenden, um mehrzeilige "
 "Kommentare zu ermöglichen.\n"
 
-#: vorbiscomment/vcomment.c:653
+#: vorbiscomment/vcomment.c:659
 #, c-format
 msgid "  -V, --version           Output version information and exit\n"
 msgstr "  -V, --version           Versionsinformationen anzeigen und beenden\n"
 
-#: vorbiscomment/vcomment.c:656
+#: vorbiscomment/vcomment.c:662
 #, c-format
 msgid ""
 "If no output file is specified, vorbiscomment will modify the input file. "
@@ -2760,7 +2759,7 @@ msgstr ""
 "Dies wird über eine temporäre Datei erledigt, so dass die Eingabedatei\n"
 "unverändert bleibt, wenn während der Verarbeitung Fehler auftreten.\n"
 
-#: vorbiscomment/vcomment.c:661
+#: vorbiscomment/vcomment.c:667
 #, c-format
 msgid ""
 "vorbiscomment handles comments in the format \"name=value\", one per line. "
@@ -2768,8 +2767,8 @@ msgid ""
 "default, comments are written to stdout when listing, and read from stdin "
 "when\n"
 "editing. Alternatively, a file can be specified with the -c option, or tags\n"
-"can be given on the commandline with -t \"name=value\". Use of either -c or -"
-"t\n"
+"can be given on the commandline with -t \"name=value\". Use of either -c or "
+"-t\n"
 "disables reading from stdin.\n"
 msgstr ""
 "vorbiscomment verarbeitet Kommentare im Format »Name=Wert«, einen pro "
@@ -2784,7 +2783,7 @@ msgstr ""
 "Lesen aus\n"
 "der Standardeingabe.\n"
 
-#: vorbiscomment/vcomment.c:668
+#: vorbiscomment/vcomment.c:674
 #, c-format
 msgid ""
 "Examples:\n"
@@ -2795,7 +2794,7 @@ msgstr ""
 "  vorbiscomment -a in.ogg -c comments.txt\n"
 "  vorbiscomment -a in.ogg -t \"ARTIST=Jemand\" -t \"TITLE=Ein Titel\"\n"
 
-#: vorbiscomment/vcomment.c:673
+#: vorbiscomment/vcomment.c:679
 #, c-format
 msgid ""
 "NOTE: Raw mode (--raw, -R) will read and write comments in UTF-8 rather "
@@ -2813,52 +2812,52 @@ msgstr ""
 "Zeilenumbrüche (newline) enthalten können. Um dies zu erreichen, verwenden\n"
 "Sie Escaping mit (-e, --escape).\n"
 
-#: vorbiscomment/vcomment.c:755
+#: vorbiscomment/vcomment.c:761
 #, c-format
 msgid "Internal error parsing command options\n"
 msgstr "Interner Fehler beim Einlesen der Befehlszeilenoptionen\n"
 
-#: vorbiscomment/vcomment.c:774
+#: vorbiscomment/vcomment.c:780
 #, c-format
 msgid "vorbiscomment from vorbis-tools "
 msgstr "vorbiscomment von vorbis-tools "
 
-#: vorbiscomment/vcomment.c:858
+#: vorbiscomment/vcomment.c:864
 #, c-format
 msgid "Error opening input file '%s'.\n"
 msgstr "Fehler beim Öffnen der Eingabedatei »%s«.\n"
 
-#: vorbiscomment/vcomment.c:867
+#: vorbiscomment/vcomment.c:873
 #, c-format
 msgid "Input filename may not be the same as output filename\n"
 msgstr "Namen für Eingabe- und Ausgabedatei dürfen nicht gleich sein\n"
 
-#: vorbiscomment/vcomment.c:878
+#: vorbiscomment/vcomment.c:884
 #, c-format
 msgid "Error opening output file '%s'.\n"
 msgstr "Fehler beim Öffnen der Ausgabedatei »%s«.\n"
 
-#: vorbiscomment/vcomment.c:893
+#: vorbiscomment/vcomment.c:899
 #, c-format
 msgid "Error opening comment file '%s'.\n"
 msgstr "Fehler beim Öffnen der Komentardatei »%s«.\n"
 
-#: vorbiscomment/vcomment.c:910
+#: vorbiscomment/vcomment.c:916
 #, c-format
 msgid "Error opening comment file '%s'\n"
 msgstr "Fehler beim Öffnen der Komentardatei »%s«\n"
 
-#: vorbiscomment/vcomment.c:944
+#: vorbiscomment/vcomment.c:950
 #, c-format
 msgid "Error removing old file %s\n"
 msgstr "Fehler beim Entfernen der alten Datei %s\n"
 
-#: vorbiscomment/vcomment.c:946
+#: vorbiscomment/vcomment.c:952
 #, c-format
 msgid "Error renaming %s to %s\n"
 msgstr "Fehler beim Umbenennen von »%s« nach »%s«\n"
 
-#: vorbiscomment/vcomment.c:955
+#: vorbiscomment/vcomment.c:961
 #, c-format
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Fehler beim Entfernen der falschen temporären Datei %s\n"
