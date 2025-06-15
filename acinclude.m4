@@ -9,10 +9,10 @@ AC_DEFUN([XIPH_PATH_OGG],
 [dnl 
 dnl Get the cflags and libraries
 dnl
-AC_ARG_WITH(ogg,AC_HELP_STRING([--with-ogg=PFX],[Prefix where libogg is installed (optional)]), ogg_prefix="$withval", ogg_prefix="")
-AC_ARG_WITH(ogg-libraries,AC_HELP_STRING([--with-ogg-libraries=DIR],[Directory where libogg library is installed (optional)]), ogg_libraries="$withval", ogg_libraries="")
-AC_ARG_WITH(ogg-includes,AC_HELP_STRING([--with-ogg-includes=DIR],[Directory where libogg header files are installed (optional)]), ogg_includes="$withval", ogg_includes="")
-AC_ARG_ENABLE(oggtest,AC_HELP_STRING([--disable-oggtest],[Do not try to compile and run a test Ogg program]),, enable_oggtest=yes)
+AC_ARG_WITH(ogg,AS_HELP_STRING([--with-ogg=PFX],[Prefix where libogg is installed (optional)]), ogg_prefix="$withval", ogg_prefix="")
+AC_ARG_WITH(ogg-libraries,AS_HELP_STRING([--with-ogg-libraries=DIR],[Directory where libogg library is installed (optional)]), ogg_libraries="$withval", ogg_libraries="")
+AC_ARG_WITH(ogg-includes,AS_HELP_STRING([--with-ogg-includes=DIR],[Directory where libogg header files are installed (optional)]), ogg_includes="$withval", ogg_includes="")
+AC_ARG_ENABLE(oggtest,AS_HELP_STRING([--disable-oggtest],[Do not try to compile and run a test Ogg program]),, enable_oggtest=yes)
 
   if test "x$ogg_libraries" != "x" ; then
     OGG_LIBS="-L$ogg_libraries"
@@ -56,7 +56,7 @@ dnl
 dnl Now check if the installed Ogg is sufficiently new.
 dnl
       rm -f conf.oggtest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,7 +68,7 @@ int main ()
   return 0;
 }
 
-],, no_ogg=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]],, no_ogg=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
   fi
@@ -87,10 +87,10 @@ int main ()
        echo "*** Could not run Ogg test program, checking why..."
        CFLAGS="$CFLAGS $OGG_CFLAGS"
        LIBS="$LIBS $OGG_LIBS"
-       AC_TRY_LINK([
+       AC_LINK_IFELSE([AC_LANG_PROGRAM[
 #include <stdio.h>
 #include <ogg/ogg.h>
-],     [ return 0; ],
+],     [ return 0; ]],
        [ echo "*** The test program compiled, but did not run. This usually means"
        echo "*** that the run-time linker is not finding Ogg or finding the wrong"
        echo "*** version of Ogg. If it is not finding Ogg, you'll need to set your"
@@ -127,10 +127,10 @@ AC_DEFUN([XIPH_PATH_VORBIS],
 [dnl 
 dnl Get the cflags and libraries
 dnl
-AC_ARG_WITH(vorbis,AC_HELP_STRING([--with-vorbis=PFX],[Prefix where libvorbis is installed (optional)]), vorbis_prefix="$withval", vorbis_prefix="")
-AC_ARG_WITH(vorbis-libraries,AC_HELP_STRING([--with-vorbis-libraries=DIR],[Directory where libvorbis library is installed (optional)]), vorbis_libraries="$withval", vorbis_libraries="")
-AC_ARG_WITH(vorbis-includes,AC_HELP_STRING([--with-vorbis-includes=DIR],[Directory where libvorbis header files are installed (optional)]), vorbis_includes="$withval", vorbis_includes="")
-AC_ARG_ENABLE(vorbistest,AC_HELP_STRING([--disable-vorbistest],[Do not try to compile and run a test Vorbis program]),, enable_vorbistest=yes)
+AC_ARG_WITH(vorbis,AS_HELP_STRING([--with-vorbis=PFX],[Prefix where libvorbis is installed (optional)]), vorbis_prefix="$withval", vorbis_prefix="")
+AC_ARG_WITH(vorbis-libraries,AS_HELP_STRING([--with-vorbis-libraries=DIR],[Directory where libvorbis library is installed (optional)]), vorbis_libraries="$withval", vorbis_libraries="")
+AC_ARG_WITH(vorbis-includes,AS_HELP_STRING([--with-vorbis-includes=DIR],[Directory where libvorbis header files are installed (optional)]), vorbis_includes="$withval", vorbis_includes="")
+AC_ARG_ENABLE(vorbistest,AS_HELP_STRING([--disable-vorbistest],[Do not try to compile and run a test Vorbis program]),, enable_vorbistest=yes)
 
   if test "x$vorbis_libraries" != "x" ; then
     VORBIS_LIBS="-L$vorbis_libraries"
@@ -183,7 +183,7 @@ dnl
 dnl Now check if the installed Vorbis is sufficiently new.
 dnl
       rm -f conf.vorbistest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -195,7 +195,7 @@ int main ()
   return 0;
 }
 
-],, no_vorbis=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]],, no_vorbis=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
   fi
@@ -214,10 +214,10 @@ int main ()
        echo "*** Could not run Vorbis test program, checking why..."
        CFLAGS="$CFLAGS $VORBIS_CFLAGS"
        LIBS="$LIBS $VORBIS_LIBS $OGG_LIBS"
-       AC_TRY_LINK([
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([
 #include <stdio.h>
 #include <vorbis/codec.h>
-],     [ return 0; ],
+],     [ return 0; ])],
        [ echo "*** The test program compiled, but did not run. This usually means"
        echo "*** that the run-time linker is not finding Vorbis or finding the wrong"
        echo "*** version of Vorbis. If it is not finding Vorbis, you'll need to set your"
@@ -258,10 +258,10 @@ AC_DEFUN([XIPH_PATH_AO],
 [dnl 
 dnl Get the cflags and libraries
 dnl
-AC_ARG_WITH(ao,AC_HELP_STRING([--with-ao=PFX],[Prefix where libao is installed (optional)]), ao_prefix="$withval", ao_prefix="")
-AC_ARG_WITH(ao-libraries,AC_HELP_STRING([--with-ao-libraries=DIR],[Directory where libao library is installed (optional)]), ao_libraries="$withval", ao_libraries="")
-AC_ARG_WITH(ao-includes,AC_HELP_STRING([--with-ao-includes=DIR],[Directory where libao header files are installed (optional)]), ao_includes="$withval", ao_includes="")
-AC_ARG_ENABLE(aotest,AC_HELP_STRING([--disable-aotest],[Do not try to compile and run a test ao program]),, enable_aotest=yes)
+AC_ARG_WITH(ao,AS_HELP_STRING([--with-ao=PFX],[Prefix where libao is installed (optional)]), ao_prefix="$withval", ao_prefix="")
+AC_ARG_WITH(ao-libraries,AS_HELP_STRING([--with-ao-libraries=DIR],[Directory where libao library is installed (optional)]), ao_libraries="$withval", ao_libraries="")
+AC_ARG_WITH(ao-includes,AS_HELP_STRING([--with-ao-includes=DIR],[Directory where libao header files are installed (optional)]), ao_includes="$withval", ao_includes="")
+AC_ARG_ENABLE(aotest,AS_HELP_STRING([--disable-aotest],[Do not try to compile and run a test ao program]),, enable_aotest=yes)
 
   if test "x$ao_prefix" != "xno"
   then
@@ -315,7 +315,7 @@ dnl
 dnl Now check if the installed ao is sufficiently new.
 dnl
       rm -f conf.aotest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -327,7 +327,7 @@ int main ()
   return 0;
 }
 
-],, no_ao=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]],, no_ao=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
     fi
@@ -346,10 +346,10 @@ int main ()
          echo "*** Could not run ao test program, checking why..."
          CFLAGS="$CFLAGS $AO_CFLAGS"
          LIBS="$LIBS $AO_LIBS"
-       AC_TRY_LINK([
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([
 #include <stdio.h>
 #include <ao/ao.h>
-],       [ return 0; ],
+],       [ return 0; ])],
          [ echo "*** The test program compiled, but did not run. This usually means"
          echo "*** that the run-time linker is not finding ao or finding the wrong"
          echo "*** version of ao. If it is not finding ao, you'll need to set your"
@@ -395,20 +395,20 @@ AC_DEFUN([AM_ICONV],
   AC_CACHE_CHECK(for iconv, am_cv_func_iconv, [
     am_cv_func_iconv="no, consider installing GNU libiconv"
     am_cv_lib_iconv=no
-    AC_TRY_LINK([#include <stdlib.h>
+    AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <stdlib.h>
 #include <iconv.h>],
       [iconv_t cd = iconv_open("","");
        iconv(cd,NULL,NULL,NULL,NULL);
-       iconv_close(cd);],
+       iconv_close(cd);])],
       am_cv_func_iconv=yes)
     if test "$am_cv_func_iconv" != yes; then
       am_save_LIBS="$LIBS"
       LIBS="$LIBS -liconv"
-      AC_TRY_LINK([#include <stdlib.h>
+      AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <stdlib.h>
 #include <iconv.h>],
         [iconv_t cd = iconv_open("","");
          iconv(cd,NULL,NULL,NULL,NULL);
-         iconv_close(cd);],
+         iconv_close(cd);])],
         am_cv_lib_iconv=yes
         am_cv_func_iconv=yes)
       LIBS="$am_save_LIBS"
@@ -450,8 +450,8 @@ dnl
 AC_DEFUN([AM_LANGINFO_CODESET],
 [
   AC_CACHE_CHECK([for nl_langinfo and CODESET], am_cv_langinfo_codeset,
-    [AC_TRY_LINK([#include <langinfo.h>],
-      [char* cs = nl_langinfo(CODESET);],
+    [AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <langinfo.h>],
+      [char* cs = nl_langinfo(CODESET);])],
       am_cv_langinfo_codeset=yes,
       am_cv_langinfo_codeset=no)
     ])
@@ -506,7 +506,7 @@ dnl
 dnl Now check if the installed libcurl is sufficiently new.
 dnl
       rm -f conf.curltest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -518,7 +518,7 @@ int main ()
   return 0;
 }
 
-],, no_curl=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]],, no_curl=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
   fi
@@ -535,10 +535,10 @@ int main ()
        echo "*** Could not run libcurl test program, checking why..."
        CFLAGS="$CFLAGS $CURL_CFLAGS"
        LIBS="$LIBS $CURL_LIBS"
-       AC_TRY_LINK([
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([
 #include <stdio.h>
 #include <curl/curl.h>
-],     [ return 0; ],
+],     [ return 0; ])],
        [ echo "*** The test program compiled, but did not run. This usually means"
        echo "*** that the run-time linker is not finding libcurl or finding the wrong"
        echo "*** version of libcurl. If it is not finding libcurl, you'll need to set your"
