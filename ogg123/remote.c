@@ -150,7 +150,7 @@ static void * remotethread(void * arg) {
 #endif
 
     fgets(buf, MAXBUF, stdin);
-    buf[strlen(buf)-1] = 0;
+    buf[strcspn(buf, "\n")] = 0;
 
     /* Lock on */
     pthread_mutex_lock (&main_lock);

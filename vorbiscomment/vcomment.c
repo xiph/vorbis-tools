@@ -123,7 +123,7 @@ char * read_line (FILE *input)
                         buffers[buffer_count] = buffer;
                         buffer_count++;
 
-                        if (retval[strlen (retval) - 1] == '\n')
+                        if (strchr(retval, '\n') != NULL)
                         {
                                 /* End of the line */
                                 break;

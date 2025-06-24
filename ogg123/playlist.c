@@ -265,10 +265,14 @@ int playlist_append_from_file(playlist_t *list, char *playlist_filename)
 
     /* Crop off trailing newlines if present. Handle DOS (\r\n), Unix (\n)
      * and MacOS<9 (\r) line endings. */
-    if (filename[length - 2] == '\r' && filename[length - 1] == '\n')
+    if (length >= 2 && filename[length - 2] == '\r'
+     && filename[length - 1] == '\n') {
       filename[length - 2] = '\0';
-    else if (filename[length - 1] == '\n' || filename[length - 1] == '\r')
+    }
+    else if (length >= 1 && (
+     filename[length - 1] == '\n' || filename[length - 1] == '\r')) {
       filename[length - 1] = '\0';
+    }
 
     if (stat(filename, &stat_buf) == 0) {
 
