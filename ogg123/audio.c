@@ -111,6 +111,7 @@ void free_audio_devices (audio_device_t *devices)
 
   while (devices != NULL) {
     current = devices->next_device;
+    ao_free_options(devices->options);
     free (devices);
     devices = current;
   }

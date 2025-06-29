@@ -125,6 +125,8 @@ int parse_cmdline_options (int argc, char **argv,
 				      NULL, NULL);
 	if(ogg123_opts->devices == NULL)
 	  ogg123_opts->devices = current;
+	if(temp_options != NULL)
+	  ao_free_options(temp_options);
 	current_options = &current->options;
 	break;
 	
