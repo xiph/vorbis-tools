@@ -498,10 +498,12 @@ clear_all:
         }
     }/* Finished this file, loop around to next... */
 
+#ifndef _WIN32
     convert_free_charset();
+#endif
     return errors?1:0;
-
 }
+
 
 static void usage(void)
 {
