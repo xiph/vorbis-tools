@@ -82,6 +82,7 @@ void EasyFLAC__stream_decoder_delete(EasyFLAC__StreamDecoder *decoder)
 		FLAC__stream_decoder_delete(decoder->flac);
 
 	free(decoder);
+	decoder = NULL;
 }
 
 

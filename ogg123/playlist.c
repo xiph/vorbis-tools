@@ -69,7 +69,9 @@ playlist_element_t *playlist_element_create(char *filename)
 void playlist_element_destroy(playlist_element_t *element)
 {
   free(element->filename);
+  element->filename = NULL;
   free(element);
+  element = NULL;
 }
 
 
@@ -99,6 +101,7 @@ void playlist_destroy(playlist_t *list) {
   }
 
   free(list);
+  list = NULL;
 }
 
 
@@ -168,9 +171,11 @@ int playlist_append_directory(playlist_t *list, char *dirname)
     }
 
     free(entries[i]);
+    entries[i] = NULL;
   }
 
   free(entries);
+  entries = NULL;
 
   return 1;
 }
@@ -351,8 +356,11 @@ void playlist_array_destroy(char **array, int size)
 {
   int i;
 
-  for (i = 0; i < size; i++)
+  for (i = 0; i < size; i++) {
     free(array[i]);
+    array[i] = NULL;
+  }
 
   free(array);
+  array = NULL;
 }

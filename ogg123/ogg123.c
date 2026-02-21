@@ -270,6 +270,7 @@ void select_stats (stat_format_t *stats, ogg123_options_t *opts,
     stats[7].enabled = 0;
   }
   free(data_source_stats);
+  data_source_stats = NULL;
 
   /* Assume we need total time display, and let display_statistics()
      determine at what point it should be turned off during playback */
@@ -329,6 +330,7 @@ void display_statistics (stat_format_t *stat_format,
     	print_statistics_action(audio_buffer, pstats_arg);
       }
       free(buffer_stats);
+      buffer_stats = NULL;
 
 	} else
       print_statistics_action(NULL, pstats_arg);
@@ -362,6 +364,7 @@ double current_time (decoder_t *decoder)
   ret = stats->current_time;
 
   free(stats);
+  stats = NULL;
 
   return ret;
 }

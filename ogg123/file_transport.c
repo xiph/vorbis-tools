@@ -74,8 +74,11 @@ data_source_t* file_open (const char *source_string, ogg123_options_t *ogg123_op
 
   if (private->fp == NULL) {
     free(source->source_string);
+    source->source_string = NULL;
     free(private);
+    private = NULL;
     free(source);
+    source = NULL;
 
     return NULL;
   }
@@ -160,8 +163,11 @@ void file_close (data_source_t *source)
   fclose(fp);
 
   free(source->source_string);
+  source->source_string = NULL;
   free(source->private);
+  source->private = NULL;
   free(source);
+  source = NULL;
 }
 
 

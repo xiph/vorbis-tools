@@ -160,6 +160,7 @@ decoder_t* speex_init (data_source_t *source, ogg123_options_t *ogg123_opts,
 
   if (ret < 0) {
     free(private);
+    private = NULL;
 /*    free(source);     nope.  caller frees. */ 
     return NULL;
   }
@@ -333,8 +334,11 @@ void speex_cleanup (decoder_t *decoder)
   speex_stereo_state_destroy(priv->stereo);
   free(priv->comment_packet);
   free(priv->output);
+  priv = NULL;
   free(decoder->private);
+  decoder->private = NULL;
   free(decoder);
+  decoder = NULL;
 }
 
 
@@ -423,6 +427,7 @@ void print_speex_comments(char *comments, int length,
   if (c + 4>end) {
     cb->printf_error(callback_arg, WARNING, _("Invalid/corrupted comments"));
     free(temp);
+    temp = NULL;
     return;
   }
 
@@ -433,6 +438,7 @@ void print_speex_comments(char *comments, int length,
     if (c + 4 > end) {
       cb->printf_error(callback_arg, WARNING, _("Invalid/corrupted comments"));
       free(temp);
+      temp = NULL;
       return;
     }
     len = readint(c, 0);
@@ -441,6 +447,7 @@ void print_speex_comments(char *comments, int length,
       cb->printf_error(callback_arg, WARNING, _("Invalid/corrupted comments"));
 
       free(temp);
+      temp = NULL;
       return;
     }
 
@@ -459,6 +466,7 @@ void print_speex_comments(char *comments, int length,
   }
 
   free(temp);
+  temp = NULL;
 }
 
 

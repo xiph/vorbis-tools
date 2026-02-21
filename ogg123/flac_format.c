@@ -407,10 +407,13 @@ void flac_cleanup (decoder_t *decoder)
   flac_private_t *priv = decoder->private;
   int i;
 
-  for (i = 0; i < priv->channels; i++)
+  for (i = 0; i < priv->channels; i++) {
     free(priv->buf[i]);
+    priv->buf[i] = NULL;
+  }
 
   free(priv->buf);
+  priv->buf = NULL;
 #if NEED_EASYFLAC
   EasyFLAC__finish(priv->decoder);
   EasyFLAC__stream_decoder_delete(priv->decoder);
@@ -420,7 +423,9 @@ void flac_cleanup (decoder_t *decoder)
 #endif
 
   free(decoder->private);
+  decoder->private = NULL;
   free(decoder);
+  decoder = NULL;
 }
 
 
@@ -561,8 +566,10 @@ void resize_buffer(flac_private_t *flac, int newchannels, int newsamples)
   /* Not the most efficient approach, but it is easy to follow */
   if(newchannels != flac->channels) {
     /* Deallocate all of the sample vectors */
-    for (i = 0; i < flac->channels; i++)
+    for (i = 0; i < flac->channels; i++) {
       free(flac->buf[i]);
+      flac->buf[i] = NULL;
+    }
 
     flac->buf = realloc(flac->buf, sizeof(FLAC__int32*) * newchannels);
     flac->channels = newchannels;
@@ -629,4 +636,5 @@ void print_flac_comments (FLAC__StreamMetadata_VorbisComment *f_comments,
   }
 
   free(temp);
+  temp = NULL;
 }

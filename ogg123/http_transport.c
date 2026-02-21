@@ -249,11 +249,16 @@ data_source_t* http_open (const char *source_string, ogg123_options_t *ogg123_op
 fail:
   if (private->curl_handle != NULL)
     curl_easy_cleanup(private->curl_handle);
-  if (private->header_list != NULL)
+  if (private->header_list != NULL) {
     curl_slist_free_all(private->header_list);
+    private->header_list = NULL;
+  }
   free(source->source_string);
+  source->source_string = NULL;
   free(private);
+  private = NULL;
   free(source);
+  source = NULL;
 
   return NULL;
 }
@@ -310,6 +315,7 @@ data_source_stats_t *http_statistics (data_source_t *source)
   buffer_stats = buffer_statistics(private->buf);
   data_source_stats->input_buffer = *buffer_stats;
   free(buffer_stats);
+  buffer_stats = NULL;
 
   return data_source_stats;
 }
@@ -333,8 +339,11 @@ void http_close (data_source_t *source)
   private->buf = NULL;
 
   free(source->source_string);
+  source->source_string = NULL;
   free(source->private);
+  source->private = NULL;
   free(source);
+  source = NULL;
 }
 
 

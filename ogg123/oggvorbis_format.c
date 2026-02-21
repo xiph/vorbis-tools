@@ -114,6 +114,7 @@ decoder_t* ovf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
 
   if (ret < 0) {
     free(private);
+    private = NULL;
 /*    free(source);     nope.  caller frees. */
     return NULL;
   }
@@ -293,7 +294,9 @@ void ovf_cleanup (decoder_t *decoder)
   ov_clear(&priv->vf);
 
   free(decoder->private);
+  decoder->private = NULL;
   free(decoder);
+  decoder = NULL;
 }
 
 
@@ -400,4 +403,5 @@ void print_vorbis_comments (vorbis_comment *vc, decoder_callbacks_t *cb,
   }
 
   free(temp);
+  temp = NULL;
 }

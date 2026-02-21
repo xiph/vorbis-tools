@@ -156,6 +156,7 @@ void execute_actions (buf_t *buf, action_t **action_list, ogg_int64_t position)
 
     *action_list = (*action_list)->next;
     free(action);
+    action = NULL;
   }
 }
 
@@ -163,6 +164,7 @@ void execute_actions (buf_t *buf, action_t **action_list, ogg_int64_t position)
 void free_action (action_t *action)
 {
   free(action);
+  action = NULL;
 }
 
 
@@ -462,6 +464,7 @@ void buffer_reset (buf_t *buf)
     action = buf->actions;
     buf->actions = buf->actions->next;
     free(action);
+    action = NULL;
   }
 
   buffer_init_vars(buf);
@@ -480,6 +483,7 @@ void buffer_destroy (buf_t *buf)
   pthread_cond_destroy(&buf->playback_cond);
 
   free(buf);
+  buf = NULL;
 }
 
 

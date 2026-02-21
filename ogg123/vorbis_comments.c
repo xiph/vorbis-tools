@@ -140,6 +140,7 @@ static void print_vorbis_comment_picture(const char *comment,
             }
         }
         flac_picture_free(picture);
+        picture = NULL;
     } else {
         cb->printf_metadata(callback_arg, 1, _("Picture: <corrupted>"));
     }
@@ -166,9 +167,11 @@ void print_vorbis_comment (const char *comment, decoder_callbacks_t *cb,
     cb->printf_metadata(callback_arg, 1, "%s %s", comment_prettyprint, 
 			decoded_value);
     free(decoded_value);
+    decoded_value = NULL;
   } else {
     cb->printf_metadata(callback_arg, 1, "%s %s", comment_prettyprint, 
 			comment + offset);
   }
   free(comment_prettyprint);
+  comment_prettyprint = NULL;
 }

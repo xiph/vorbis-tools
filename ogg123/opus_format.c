@@ -110,6 +110,7 @@ decoder_t* opf_init (data_source_t *source, ogg123_options_t *ogg123_opts,
 
   if (private->of == NULL) {
     free(private);
+    private = NULL;
 /*    free(source);     nope.  caller frees. */
     return NULL;
   }
@@ -276,9 +277,12 @@ void opf_cleanup (decoder_t *decoder)
   opf_private_t *priv = decoder->private;
 
   op_free(priv->of);
+  priv->of = NULL;
 
   free(decoder->private);
+  decoder->private = NULL;
   free(decoder);
+  decoder = NULL;
 }
 
 
@@ -376,4 +380,5 @@ void print_opus_comments (const OpusTags *ot, decoder_callbacks_t *cb,
   }
 
   free(temp);
+  temp = NULL;
 }

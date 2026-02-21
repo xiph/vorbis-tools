@@ -112,10 +112,14 @@ void audio_reopen_action (buf_t *buf, void *arg)
   }
 
   /* Cleanup argument */
-  if(reopen_arg->format->matrix)
+  if(reopen_arg->format->matrix) {
     free(reopen_arg->format->matrix);
+    reopen_arg->format->matrix = NULL;
+  }
   free(reopen_arg->format);
+  reopen_arg->format = NULL;
   free(reopen_arg);
+  reopen_arg = NULL;
 }
 
 
@@ -162,9 +166,13 @@ void print_statistics_action (buf_t *buf, void *arg)
 			  stats_arg->decoder_statistics);
 
   free(stats_arg->data_source_statistics);
+  stats_arg->data_source_statistics = NULL;
   free(stats_arg->decoder_statistics);
+  stats_arg->decoder_statistics = NULL;
   free(stats_arg);
+  stats_arg = NULL;
   free(buffer_stats);
+  buffer_stats = NULL;
 }
 
 
@@ -252,7 +260,9 @@ void status_error_action (buf_t *buf, void *arg)
   status_error("%s", myarg->message);
 
   free(myarg->message);
+  myarg->message = NULL;
   free(myarg);
+  myarg = NULL;
 }
 
 
@@ -263,7 +273,9 @@ void status_message_action (buf_t *buf, void *arg)
   status_message(myarg->verbosity, "%s", myarg->message);
 
   free(myarg->message);
+  myarg->message = NULL;
   free(myarg);
+  myarg = NULL;
 }
 
 /* -------------------------------------------------------------- */

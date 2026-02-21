@@ -89,6 +89,7 @@ int add_ao_option(ao_option **op_h, const char *optstring)
 
   result = ao_append_option(op_h, key, value);
   free(key);
+  key = NULL;
 
   return (result);
 }
@@ -112,6 +113,7 @@ void free_audio_devices (audio_device_t *devices)
   while (devices != NULL) {
     current = devices->next_device;
     ao_free_options(devices->options);
+    devices->options = NULL;
     free (devices);
     devices = current;
   }
@@ -123,6 +125,7 @@ void ao_onexit (void *arg)
 
   close_audio_devices (devices);
   free_audio_devices (devices);
+  devices = NULL;
 
   ao_shutdown();
 }

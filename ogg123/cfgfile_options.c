@@ -374,6 +374,7 @@ parse_code_t parse_config_file (file_option_t opts[], const char *filename)
   if (!file) {
       parse_error (parse_syserr, 0, empty, empty);
       free (line);
+      line = NULL;
       return parse_syserr;
   }
 
@@ -412,12 +413,14 @@ parse_code_t parse_config_file (file_option_t opts[], const char *filename)
     if (pcode != parse_ok)
       if (!parse_error(pcode, lineno, filename, line)) {
 	free (line);
+	line = NULL;
 	return pcode;
       }
 
   }
 
   free (line);
+  line = NULL;
   return parse_ok;
 }
 
