@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: 2010-10-03 18:20+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -223,38 +223,39 @@ msgstr "Tùy chọn có sẵn:\n"
 msgid "=== No such device %s.\n"
 msgstr "━━ Không có thiết bị như vậy %s.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr ""
 "━━ Trình điều khiển %s không phải là trình điều khiển kết xuất tập tin.\n"
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 #, fuzzy
+#| msgid "=== Cannot specify output file without specifying a driver.\n"
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr ""
 "━━ Không thể ghi rõ tập tin kết xuất mà chưa ghi rõ trình điều khiển.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "━━ Sai định dạng tùy chọn: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "━━ Sai đặt giá trị tiền đệm. Phạm vị: 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, c-format
 msgid "ogg123 from %s %s"
 msgstr "ogg123 từ %s %s"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "━━ Không thể phát từng đoạn thứ 0.\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
@@ -263,21 +264,21 @@ msgstr ""
 "━━ Để chạy một hàm giải mã thử, hãy sử dụng trình điều khiển kết xuất vô giá "
 "trị.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "━━ Không thể mở tập tin danh sách phát %s nên bị bỏ qua.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr "—— Tùy chọn xung đột: giờ cuối nằm trước giờ đầu.\n"
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "━━ Sai xác định trình điều khiển %s trong tập tin cấu hình.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
@@ -285,8 +286,12 @@ msgstr ""
 "━━ Không thể nạp trình điều khiển mặc định, và chưa xác định trình điều "
 "khiển trong tập tin cấu hình. Do đó thoát.\n"
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, fuzzy, c-format
+#| msgid ""
+#| "ogg123 from %s %s\n"
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
@@ -295,14 +300,14 @@ msgstr ""
 " của Tổ chức Xiph.Org (http://www.xiph.org/)\n"
 "\n"
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -313,27 +318,27 @@ msgstr ""
 "Phát tập tin âm thanh và luồng mạng kiểu Ogg.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, c-format
 msgid "Available codecs: "
 msgstr "Codec có sẵn: "
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr "FLAC, "
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr "Speex, "
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
@@ -342,12 +347,12 @@ msgstr ""
 "Ogg Vorbis.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr "Tùy chọn kết xuất\n"
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
@@ -355,17 +360,17 @@ msgstr ""
 "  -d thiết_bị, --device thiết_bị    Dùng thiết bị kết xuất này. Các thiết bị "
 "sẵn sàng:\n"
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr "Động:"
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, c-format
 msgid "File:"
 msgstr "Tập tin:"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
@@ -375,14 +380,14 @@ msgstr ""
 "tập tin\n"
 "\t\t\t\tđược xác định về trước dùng tùy chọn « --device ».\n"
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 "  --audio-buffer n        Dùng một vùng đệm âm thanh kết xuất có kích cỡ "
 "« n » kilô-byte\n"
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -396,12 +401,12 @@ msgstr ""
 "\t\t\t\tXem trang hướng dẫn (man) ogg123 để tìm\n"
 "\t\t\t\tnhững tùy chọn thiết bị sẵn sàng.\n"
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, c-format
 msgid "Playlist options\n"
 msgstr "Tùy chọn danh mục phát\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
@@ -409,49 +414,49 @@ msgstr ""
 "  -@ tập_tin, --list tập_tin    Đọc từ tập tin này danh mục phát các tập tin "
 "và địa chỉ URL\n"
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr "  -r, --repeat            Lặp lại vô hạn danh mục phát\n"
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr "  -R, --remote            Dùng giao diện điều khiển từ xa\n"
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr "  -z, --shuffle           Trộn bài danh sách tập tin trước khi phát\n"
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 "  -Z, --random            Phát ngẫu nhiên các tập tin đến khi bị gián đoạn\n"
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, c-format
 msgid "Input options\n"
 msgstr "Tùy chọn nhập liệu\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 "  -b n, --buffer n        Dùng một vùng đệm nhập có kích cỡ « n » kilô-byte\n"
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr "  -p n, --prebuffer n     Nạp n%% vùng đệm nhập trước khi phát\n"
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, c-format
 msgid "Decode options\n"
 msgstr "Tùy chọn giải mã\n"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
@@ -461,7 +466,7 @@ msgstr ""
 "\n"
 "hh:mm:ss\tgiờ:phút:giây, một phần hai chữ số\n"
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
@@ -470,22 +475,22 @@ msgstr ""
 "\n"
 "hh:mm:ss\tgiờ:phút:giây, một phần hai chữ số\n"
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr "  -x n, --nth n           Phát từng đoạn thứ « n »\n"
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Lặp lại « n » lần mỗi đoạn được phát\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Tùy chọn khác\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -499,32 +504,32 @@ msgstr ""
 "\t\t\t\tcũng chấm dứt nếu nhận hai SIGINT\n"
 "\t\t\t\ttrong thời hạn đã ghi rõ « s » (mặc định 500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Hiển thị trợ giúp này\n"
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr "  -q, --quiet             Không hiển thị gì (không tên)\n"
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
 msgstr ""
 "  -v, --verbose           Hiển thị tiến hành và thông tin trạng thái khác\n"
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Hiển thị phiên bản ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr "LỖI: cạn bộ nhớ.\n"
@@ -629,11 +634,11 @@ msgstr "LỖI: không ghi được vào vùng đệm.\n"
 msgid "Done."
 msgstr "Hoàn tất."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "━━ Gặp lỗ trong luồng; rất có thể là vô hại\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "━━ Thư viện Vorbis đã thông báo một lỗi luồng.\n"
@@ -643,7 +648,7 @@ msgstr "━━ Thư viện Vorbis đã thông báo một lỗi luồng.\n"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Luồng Ogg Vorbis: %d kênh, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Định dạng Vorbis: phiên bản %d"
@@ -653,10 +658,17 @@ msgstr "Định dạng Vorbis: phiên bản %d"
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Mẹo tỷ lệ bit: trên=%ld không đáng kể=%ld dưới=%ld cửa sổ=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Biên mã bởi : %s"
+
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "Luồng Ogg Vorbis: %d kênh, %ld Hz"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, c-format
@@ -668,12 +680,12 @@ msgstr "LỖI: không đủ bộ nhớ trong hàm create_playlist_member().\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Cảnh báo : không thể đọc thư mục %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Cảnh báo từ danh sách phát %s: không thể đọc thư mục %s.\n"
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "LỖI: không đủ bộ nhớ trong hàm playlist_to_array().\n"
@@ -786,6 +798,7 @@ msgstr "Số thứ tự rãnh:"
 
 #: ogg123/vorbis_comments.c:42
 #, fuzzy
+#| msgid "ReplayGain (Track):"
 msgid "ReplayGain (Reference loudness):"
 msgstr "ReplayGain (Rãnh):"
 
@@ -844,6 +857,9 @@ msgstr "oggdec từ %s %s\n"
 
 #: oggdec/oggdec.c:57 oggenc/oggenc.c:509
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 " của Tổ chức Xiph.Org (http://www.xiph.org/)\n"
@@ -1004,14 +1020,15 @@ msgstr "Bộ đọc tập tin FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Bộ đọc tập tin FLAC Ogg"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu WAV\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "Đang nhảy qua từng đoạn kiểu « %s », chiều dài %d\n"
 
 #: oggenc/audio.c:166
@@ -1019,52 +1036,53 @@ msgstr "Đang nhảy qua từng đoạn kiểu « %s », chiều dài %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường trong từng đoạn AIFF\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Cảnh báo : không tìm thấy từng đoạn dùng chung trong tập tin AIFF\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Cảnh báo : gặp từng đoạn dùng chung bị cắt ngắn trong phần đầu AIFF\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu AIFF\n"
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, fuzzy, c-format
+#| msgid "Warning: Truncated common chunk in AIFF header\n"
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Cảnh báo : gặp từng đoạn dùng chung bị cắt ngắn trong phần đầu AIFF\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Cảnh báo : phần đầu AIFF bị cắt ngắn.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Cảnh báo : không thể xử lý AIFF-C đã nén (%c%c%c%c)\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Cảnh báo : không tìm thấy từng đoạn SSND trong tập tin AIFF\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Cảnh báo : gặp từng đoạn SSND bị hỏng trong phần đầu AIFF\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Cảnh báo : gặp kết thúc tập tin bất thường khi đọc phần đầu AIFF\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1073,12 +1091,12 @@ msgstr ""
 "Cảnh báo : OggEnc không hỗ trợ kiểu tập tin AIFF/AIFC này\n"
 "Phải là PCM 8 hay 16 bit.\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Cảnh báo : không nhận ra từng đoạn định dạng trong phần đầu Wave\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1087,12 +1105,13 @@ msgstr ""
 "Cảnh báo : gặp từng đoạn định dạng không hợp lệtrong phần đầu wav.\n"
 "Vẫn đang thử đọc nó (có lẽ không thể)...\n"
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, fuzzy, c-format
+#| msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Cảnh báo : không nhận ra từng đoạn định dạng trong phần đầu Wave\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1101,7 +1120,7 @@ msgstr ""
 "Lỗi: tập tin Wav có dạng không được hỗ trợ (phải là PCM tiêu chuẩn\n"
 "hay PCM điểm động kiểu 3)\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1110,7 +1129,7 @@ msgstr ""
 "Cảnh báo : giá trị « chỉnh canh khối » Wave không đúng nên bỏ qua.\n"
 "Tập tin này đã được tạo bởi phần mềm sai.\n"
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1119,19 +1138,19 @@ msgstr ""
 "LỖI: tập tin Wav có định dạng con không được hỗ trợ\n"
 "(phải là PCM 8, 16, 24 hay 32-bit) hay PCM điểm động)\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 "Dữ liệu PCM 24-bit kiểu về cuối lớn hiện thời không phải được hỗ trợ nên hủy "
 "bỏ.\n"
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Lỗi nội bộ : thử đọc độ sâu bit không được hỗ trợ %d\n"
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1140,7 +1159,7 @@ msgstr ""
 "LỖI: không nhận mẫu nào từ bộ lấy lại mẫu nên cắt ngắn tập tin của bạn. Vui "
 "lòng thông báo lỗi này.\n"
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Không thể sơ khởi bộ lấy lại mẫu\n"
@@ -1529,6 +1548,7 @@ msgstr "LỖI: tập tin nhập liệu « %s » không phải là định dạng
 
 #: oggenc/oggenc.c:290
 #, fuzzy, c-format
+#| msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "LỖI: tập tin nhập liệu « %s » không phải là định dạng được hỗ trợ\n"
 
@@ -2151,6 +2171,7 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:278
 #, fuzzy, c-format
+#| msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
 msgid ""
 "WARNING: Hole in data (%d bytes) found at approximate offset %<PRId64> "
 "bytes. Corrupted Ogg.\n"
@@ -2244,6 +2265,9 @@ msgstr "ogginfo từ %s %s\n"
 
 #: ogginfo/ogginfo2.c:400
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 "\n"
@@ -2411,6 +2435,7 @@ msgstr "Lỗi xử lý\n"
 
 #: vcut/vcut.c:341
 #, fuzzy, c-format
+#| msgid "WARNING: unexpected granulepos "
 msgid "WARNING: unexpected granulepos %<PRId64> (expected %<PRId64>)\n"
 msgstr "CẢNH BÁO : gặp granulepos bất thường"
 
@@ -2421,6 +2446,7 @@ msgstr "Không tìm thấy điểm cắt\n"
 
 #: vcut/vcut.c:398
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting and ending between sample positions "
 msgid ""
 "Can't produce a file starting and ending between sample positions %<PRId64> "
 "and %<PRId64>\n"
@@ -2429,6 +2455,7 @@ msgstr ""
 
 #: vcut/vcut.c:442
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting between sample positions "
 msgid ""
 "Can't produce a file starting between sample positions %<PRId64> and "
 "%<PRId64>.\n"
@@ -2629,6 +2656,7 @@ msgstr "Tùy chọn chỉnh sửa\n"
 
 #: vorbiscomment/vcomment.c:640
 #, fuzzy, c-format
+#| msgid "  -a, --append            Append comments\n"
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Phụ thêm các ghi chú\n"
 

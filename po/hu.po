@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: 2004-05-07 11:38GMT\n"
 "Last-Translator: Gábor István <stive@mezobereny.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -18,61 +18,73 @@ msgstr ""
 
 #: ogg123/buffer.c:118
 #, fuzzy, c-format
+#| msgid "Error: Out of memory in malloc_action().\n"
 msgid "ERROR: Out of memory in malloc_action().\n"
 msgstr "Hiba: Elfogyott a memória a malloc_action()-ban.\n"
 
 #: ogg123/buffer.c:384
 #, fuzzy, c-format
+#| msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
 msgid "ERROR: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr "Hiba: Nem lehet lefoglalni memóriát malloc_buffer_stats()-ban\n"
 
 #: ogg123/callbacks.c:76
 #, fuzzy
+#| msgid "Error: Device not available.\n"
 msgid "ERROR: Device not available.\n"
 msgstr "Hiba: Eszköz nem áll rendelkezésre.\n"
 
 #: ogg123/callbacks.c:79
 #, fuzzy, c-format
+#| msgid "Error: %s requires an output filename to be specified with -f.\n"
 msgid "ERROR: %s requires an output filename to be specified with -f.\n"
 msgstr "Hiba: %s-nek szükséges egy kimeneti fájlnevet meghatározni a -f el.\n"
 
 #: ogg123/callbacks.c:82
 #, fuzzy, c-format
+#| msgid "Error: Unsupported option value to %s device.\n"
 msgid "ERROR: Unsupported option value to %s device.\n"
 msgstr "Hiba: Nem támogatott opcióérték a %s eszköznek.\n"
 
 #: ogg123/callbacks.c:86
 #, fuzzy, c-format
+#| msgid "Error: Cannot open device %s.\n"
 msgid "ERROR: Cannot open device %s.\n"
 msgstr "Hiba: Nem lehet megnyitni a %s eszközt.\n"
 
 #: ogg123/callbacks.c:90
 #, fuzzy, c-format
+#| msgid "Error: Device %s failure.\n"
 msgid "ERROR: Device %s failure.\n"
 msgstr "Hiba: %s eszköz hibás.\n"
 
 #: ogg123/callbacks.c:93
 #, fuzzy, c-format
+#| msgid "Error: An output file cannot be given for %s device.\n"
 msgid "ERROR: An output file cannot be given for %s device.\n"
 msgstr "Hiba: A kimeneti fájlt nem lehet átadni a %s eszköznek.\n"
 
 #: ogg123/callbacks.c:96
 #, fuzzy, c-format
+#| msgid "Error: Cannot open file %s for writing.\n"
 msgid "ERROR: Cannot open file %s for writing.\n"
 msgstr "Hiba: A %s fájlt nem lehet megnyitni írásra.\n"
 
 #: ogg123/callbacks.c:100
 #, fuzzy, c-format
+#| msgid "Error: File %s already exists.\n"
 msgid "ERROR: File %s already exists.\n"
 msgstr "Hiba: A %s fájl már létezik.\n"
 
 #: ogg123/callbacks.c:103
 #, fuzzy, c-format
+#| msgid "Error: This error should never happen (%d).  Panic!\n"
 msgid "ERROR: This error should never happen (%d).  Panic!\n"
 msgstr "Hiba: Ez a hiba soha nem történhet meg (%d). Baj van!\n"
 
 #: ogg123/callbacks.c:128 ogg123/callbacks.c:133
 #, fuzzy
+#| msgid "Error: Out of memory in new_audio_reopen_arg().\n"
 msgid "ERROR: Out of memory in new_audio_reopen_arg().\n"
 msgstr "Hiba: Elfogyott a  memória a new_audio_reopen_arg()-ban.\n"
 
@@ -82,6 +94,7 @@ msgstr "Hiba: Elfogyott a  memória a new_print_statistics_arg()-ban .\n"
 
 #: ogg123/callbacks.c:238
 #, fuzzy
+#| msgid "Error: Out of memory in new_status_message_arg().\n"
 msgid "ERROR: Out of memory in new_status_message_arg().\n"
 msgstr "Hiba: Elfogyott a  memória a new_status_message_arg()-ban .\n"
 
@@ -92,6 +105,7 @@ msgstr ""
 
 #: ogg123/callbacks.c:340 ogg123/callbacks.c:359
 #, fuzzy
+#| msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
 msgid "ERROR: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr ""
 "Hiba: Elfogyott a  memória a decoder_buffered_metadata_callback()-ban .\n"
@@ -223,37 +237,39 @@ msgstr "Rendelkezésre álló opciók:\n"
 msgid "=== No such device %s.\n"
 msgstr "=== Nincs ilyen eszköz: %s.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr "=== Meghajtó %s nem kimeneti fájlba irányítható meghajtó.\n"
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 #, fuzzy
+#| msgid "=== Cannot specify output file without specifying a driver.\n"
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr ""
 "=== Nem lehet meghatározni a kimeneti fájlt meghajtó meghatározása nélkül.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "==== Érvénytelen kimeneti formátum: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "---  Elõbuffer értéke érvénytelen. Érvényes tartomány: 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "ogg123 from %s %s"
 msgstr "ogg123 a %s %s -ból\n"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "--- Nem lehet lejátszani a 0-dik csonkokat!\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
@@ -261,22 +277,22 @@ msgstr ""
 "--- Nem lehet lejátszani minden csonkot 0-szor.\n"
 "--- A dekódólás kipróbálásához használja a null kimeneti meghajtót.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "--- Nem lehet megnyitni a lejátszandó számok fájlját: %s. Átugorva.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr ""
 "--- A konfigurációs állományban meghatározott %s meghajtó érvénytelen.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
@@ -284,21 +300,21 @@ msgstr ""
 "=== Nem lehet betölteni az alapértelmezés szerinti meghajtót, és nincs "
 "meghajtó meghatározva a konfigurációs fájlban. Kilépés.\n"
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -306,67 +322,69 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, fuzzy, c-format
+#| msgid "Available options:\n"
 msgid "Available codecs: "
 msgstr "Rendelkezésre álló opciók:\n"
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr ""
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, fuzzy, c-format
+#| msgid "File: %s"
 msgid "File:"
 msgstr "Fájl: %s"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
 "                          previously specified with --device.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -375,84 +393,88 @@ msgid ""
 "                          the ogg123 man page for available device options.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, fuzzy, c-format
+#| msgid "Available options:\n"
 msgid "Playlist options\n"
 msgstr "Rendelkezésre álló opciók:\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, fuzzy, c-format
+#| msgid "Input not ogg.\n"
 msgid "Input options\n"
 msgstr "A bemenet nem ogg.\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, fuzzy, c-format
+#| msgid "Description"
 msgid "Decode options\n"
 msgstr "Leírás"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, fuzzy, c-format
+#| msgid "Available options:\n"
 msgid "Miscellaneous options\n"
 msgstr "Rendelkezésre álló opciók:\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -461,47 +483,51 @@ msgid ""
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr ""
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, fuzzy, c-format
+#| msgid "Error: Out of memory.\n"
 msgid "ERROR: Out of memory.\n"
 msgstr "Hiba: Elfogyott a memória.\n"
 
 #: ogg123/format.c:90
 #, fuzzy, c-format
+#| msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
 msgid "ERROR: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr "Hiba: Nem lehet lefoglalni memóriát a malloc_decoder_stats()-ban\n"
 
 #: ogg123/http_transport.c:145
 #, fuzzy
+#| msgid "Error: Could not set signal mask."
 msgid "ERROR: Could not set signal mask."
 msgstr "Hiba: Nem lehet beállítani a szignálmaszkot."
 
 #: ogg123/http_transport.c:202
 #, fuzzy
+#| msgid "Error: Unable to create input buffer.\n"
 msgid "ERROR: Unable to create input buffer.\n"
 msgstr "Hiba: Nem lehet létrehozni a bemeneti puffert.\n"
 
@@ -519,6 +545,7 @@ msgstr ""
 
 #: ogg123/ogg123.c:231
 #, fuzzy, c-format
+#| msgid "Could not skip %f seconds of audio."
 msgid "Could not skip to %f in audio stream."
 msgstr "Nem lehet átugrani %f másodpercet ."
 
@@ -543,6 +570,7 @@ msgstr "Megjegyzések: %s\n"
 
 #: ogg123/ogg123.c:422
 #, fuzzy, c-format
+#| msgid "Warning: Could not read directory %s.\n"
 msgid "WARNING: Could not read directory %s.\n"
 msgstr "Figyelmeztetés: Nem lehet olvasni a könyvtárat: %s.\n"
 
@@ -584,6 +612,7 @@ msgstr "Nem lehet átugrani %f másodpercet ."
 
 #: ogg123/ogg123.c:671
 #, fuzzy
+#| msgid "Error: Decoding failure.\n"
 msgid "ERROR: Decoding failure.\n"
 msgstr "Hiba: Dekódolás nem sikerült.\n"
 
@@ -595,21 +624,22 @@ msgstr ""
 msgid "Done."
 msgstr "Kész."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Lyuk a adatfolyamban, valószínûleg ártalmatlan\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== A vorbis programozói könyvtár adatfolyamhibát jelentett.\n"
 
 #: ogg123/oggvorbis_format.c:361
 #, fuzzy, c-format
+#| msgid "Bitstream is %d channel, %ldHz"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "A bitfolyam %d csatornás, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr ""
@@ -619,13 +649,21 @@ msgstr ""
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Bitráta adatok: felsõ=%ld névleges=%ld alsó=%ld ablak=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Kódolva: %s módszerrel"
 
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Bitstream is %d channel, %ldHz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "A bitfolyam %d csatornás, %ld Hz"
+
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, fuzzy, c-format
+#| msgid "Error: Out of memory in create_playlist_member().\n"
 msgid "ERROR: Out of memory in create_playlist_member().\n"
 msgstr "Hiba: Elfogyott a  memória a create_playlist_member()-ben.\n"
 
@@ -634,13 +672,14 @@ msgstr "Hiba: Elfogyott a  memória a create_playlist_member()-ben.\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Figyelmeztetés: Nem lehet olvasni a könyvtárat: %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr ""
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, fuzzy, c-format
+#| msgid "Error: Out of memory in playlist_to_array().\n"
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "Hiba: Elfogyott a memória a playlist_to_array()-ben.\n"
 
@@ -651,6 +690,7 @@ msgstr ""
 
 #: ogg123/speex_format.c:372
 #, fuzzy, c-format
+#| msgid "Bitstream is %d channel, %ldHz"
 msgid "Ogg Speex stream: %d channel, %d Hz, %s mode"
 msgstr "A bitfolyam %d csatornás, %ld Hz"
 
@@ -667,6 +707,7 @@ msgstr ""
 
 #: ogg123/speex_format.c:478
 #, fuzzy
+#| msgid "Error reading headers\n"
 msgid "Cannot read header"
 msgstr "Hiba a fejléc olvasása közben\n"
 
@@ -740,6 +781,7 @@ msgstr "Kimeneti puffer %5.1f%%"
 
 #: ogg123/transport.c:71
 #, fuzzy, c-format
+#| msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
 msgid "ERROR: Could not allocate memory in malloc_data_source_stats()\n"
 msgstr ""
 "Hiba: Nem tudom lefoglalni a memóriát a malloc_data_source_stats()-ban\n"
@@ -802,6 +844,7 @@ msgstr ""
 
 #: oggdec/oggdec.c:51
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "oggdec from %s %s\n"
 msgstr "ogg123 a %s %s -ból\n"
 
@@ -812,6 +855,7 @@ msgstr ""
 
 #: oggdec/oggdec.c:59
 #, fuzzy, c-format
+#| msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"
 msgid ""
 "Usage: oggdec [options] file1.ogg [file2.ogg ... fileN.ogg]\n"
 "\n"
@@ -881,21 +925,28 @@ msgstr ""
 
 #: oggdec/oggdec.c:197
 #, fuzzy, c-format
+#| msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgid "ERROR: Failed to open input file: %s\n"
 msgstr "HIBA: Nem lehet megnyitni a \"%s\":%s fájlt\n"
 
 #: oggdec/oggdec.c:219
 #, fuzzy, c-format
+#| msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgid "ERROR: Failed to open output file: %s\n"
 msgstr "HIBA: Nem lehet megnyitni a \"%s\":%s kimenet fájlt\n"
 
 #: oggdec/oggdec.c:268
 #, fuzzy, c-format
+#| msgid "Failed to open file as vorbis: %s\n"
 msgid "ERROR: Failed to open input as Vorbis\n"
 msgstr "Sikertelen a '%s' fájl megnyitása mint vorbis\n"
 
 #: oggdec/oggdec.c:294
 #, fuzzy, c-format
+#| msgid ""
+#| "\n"
+#| "\n"
+#| "Done encoding file \"%s\"\n"
 msgid "Decoding \"%s\" to \"%s\"\n"
 msgstr ""
 "\n"
@@ -929,6 +980,9 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 
 #: oggdec/oggdec.c:384
 #, fuzzy, c-format
+#| msgid ""
+#| "%s%s\n"
+#| "ERROR: No input files specified. Use -h for help.\n"
 msgid "ERROR: No input files specified. Use -h for help\n"
 msgstr ""
 "%s%s\n"
@@ -936,6 +990,9 @@ msgstr ""
 
 #: oggdec/oggdec.c:389
 #, fuzzy, c-format
+#| msgid ""
+#| "ERROR: Multiple input files with specified output filename: suggest using "
+#| "-n\n"
 msgid ""
 "ERROR: Can only specify one input file if output filename is specified\n"
 msgstr ""
@@ -952,22 +1009,25 @@ msgstr "AIFF/AIFC-fájl olvasó"
 
 #: oggenc/audio.c:50
 #, fuzzy
+#| msgid "WAV file reader"
 msgid "FLAC file reader"
 msgstr "WAV-fájl olvasó"
 
 #: oggenc/audio.c:51
 #, fuzzy
+#| msgid "WAV file reader"
 msgid "Ogg FLAC file reader"
 msgstr "WAV-fájl olvasó"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Figyelmeztetés: Váratlan fájlvég a WAV-fejlécben\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "\"%s\" típusú csonk átugrása, hossz: %d\n"
 
 #: oggenc/audio.c:166
@@ -975,52 +1035,54 @@ msgstr "\"%s\" típusú csonk átugrása, hossz: %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Figyelmeztetés: Váratlan fájl vég az AIFF csonkban\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Figyelmeztetés: Nem találtam közös csonkot az AIFF fájlban\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Figyelmeztetés: Csonkított közös csonk az AIFF fejlécben\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Figyelmeztetés: Váratlan fájl vég az AIFF fejlécben\n"
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, fuzzy, c-format
+#| msgid "Warning: Truncated common chunk in AIFF header\n"
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Figyelmeztetés: Csonkított közös csonk az AIFF fejlécben\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Figyelmeztetés: AIFF-C fejléc csonkított.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, fuzzy, c-format
+#| msgid "Warning: Can't handle compressed AIFF-C\n"
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Figyelmeztetés: Nem tudom kezelni a tömörített AIFF-C-t\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Figyelmeztetés: Nem találtam SSND csonkot az AIFF fájlban\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Figyelmeztetés: Sérült az SSND csonk az AIFF fájlban\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Figyelmeztetés: Váratlan fájlvég az AIFF fejlécben\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1029,12 +1091,12 @@ msgstr ""
 "Figyelmeztetés: Az OggEnc nem támogatja ezt a típusú AIFF/AIFC fájlt\n"
 " 8 vagy 16 bit-es PCM kell hogy legyen.\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Figyelmeztetés: Ismeretlen formátumú csonk a WAV fejlécben\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1043,12 +1105,13 @@ msgstr ""
 "Figyelmeztetés:  ÉRVÉNYTELEN formátumú csonk a wav fejlécben\n"
 " Megprobálom mindenkép elolvasni (lehet hogy nem fog mûködni)...\n"
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, fuzzy, c-format
+#| msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Figyelmeztetés: Ismeretlen formátumú csonk a WAV fejlécben\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1057,15 +1120,18 @@ msgstr ""
 "HIBA: A Wav fájl nem támogatott típusú (normális PCM\n"
 " vagy 5-as típusú lebegõ pontos PCM)\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, fuzzy, c-format
+#| msgid ""
+#| "ERROR: Wav file is unsupported subformat (must be 16 bit PCM\n"
+#| "or floating point PCM\n"
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
@@ -1073,24 +1139,24 @@ msgstr ""
 "HIBA: A WAV fájl nem támogatott alformátumott tartalmazz( 16-bites PCM \n"
 "vagy lebegõ pontos PCM-nek kell lennie)\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
 msgstr ""
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr ""
@@ -1167,11 +1233,13 @@ msgstr ""
 
 #: oggenc/encode.c:374
 #, fuzzy, c-format
+#| msgid "WARNING: Unknown option specified, ignoring->\n"
 msgid "WARNING: no language specified for %s\n"
 msgstr "FIGYELEM Ismeretlen opciót határozott meg, elutasítva->\n"
 
 #: oggenc/encode.c:396
 #, fuzzy
+#| msgid "Failed writing header to output stream\n"
 msgid "Failed writing fishead packet to output stream\n"
 msgstr "Nem sikerült a fejléc kiírása\n"
 
@@ -1186,11 +1254,13 @@ msgstr ""
 
 #: oggenc/encode.c:455 oggenc/encode.c:462
 #, fuzzy
+#| msgid "Failed writing header to output stream\n"
 msgid "Failed writing fisbone header packet to output stream\n"
 msgstr "Nem sikerült a fejléc kiírása\n"
 
 #: oggenc/encode.c:510
 #, fuzzy
+#| msgid "Failed writing header to output stream\n"
 msgid "Failed writing skeleton eos packet to output stream\n"
 msgstr "Nem sikerült a fejléc kiírása\n"
 
@@ -1216,11 +1286,13 @@ msgstr ""
 
 #: oggenc/encode.c:716
 #, fuzzy, c-format
+#| msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c"
 msgid "\t[%5.1f%%] [%2dm%.2ds remaining] %c "
 msgstr "\t[%5.1f%%] [%2dm%.2ds van még hátra] %c"
 
 #: oggenc/encode.c:726
 #, fuzzy, c-format
+#| msgid "\tEncoding [%2dm%.2ds so far] %c"
 msgid "\tEncoding [%2dm%.2ds so far] %c "
 msgstr "\tKódólás [%2dm%.2ds telt el eddig] %c"
 
@@ -1348,11 +1420,13 @@ msgstr ""
 
 #: oggenc/lyrics.c:66
 #, fuzzy, c-format
+#| msgid "Failed to open file as vorbis: %s\n"
 msgid "Failed to convert to UTF-8: %s\n"
 msgstr "Sikertelen a '%s' fájl megnyitása mint vorbis\n"
 
 #: oggenc/lyrics.c:73 vcut/vcut.c:53
 #, fuzzy, c-format
+#| msgid "Error: Out of memory.\n"
 msgid "Out of memory\n"
 msgstr "Hiba: Elfogyott a memória.\n"
 
@@ -1416,6 +1490,7 @@ msgstr ""
 
 #: oggenc/lyrics.c:425
 #, fuzzy, c-format
+#| msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgid "ERROR: Failed to open lyrics file %s (%s)\n"
 msgstr "HIBA: Nem lehet megnyitni a \"%s\":%s fájlt\n"
 
@@ -1426,11 +1501,15 @@ msgstr ""
 
 #: oggenc/oggenc.c:113
 #, fuzzy
+#| msgid "WAV file reader"
 msgid "RAW file reader"
 msgstr "WAV-fájl olvasó"
 
 #: oggenc/oggenc.c:131
 #, fuzzy, c-format
+#| msgid ""
+#| "%s%s\n"
+#| "ERROR: No input files specified. Use -h for help.\n"
 msgid "ERROR: No input files specified. Use -h for help.\n"
 msgstr ""
 "%s%s\n"
@@ -1452,6 +1531,7 @@ msgstr ""
 
 #: oggenc/oggenc.c:217
 #, fuzzy, c-format
+#| msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
 msgid ""
 "WARNING: Insufficient lyrics languages specified, defaulting to final lyrics "
 "language.\n"
@@ -1474,11 +1554,13 @@ msgstr "HIBA Bemeneti fájl \"%s\" formátuma nem támogatott\n"
 
 #: oggenc/oggenc.c:290
 #, fuzzy, c-format
+#| msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "HIBA Bemeneti fájl \"%s\" formátuma nem támogatott\n"
 
 #: oggenc/oggenc.c:350
 #, fuzzy, c-format
+#| msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
 msgid "WARNING: No filename, defaulting to \"%s\"\n"
 msgstr ""
 "FIGYELEM: Nem határozott meg fájlnevet, az alapértelmezés szerinti "
@@ -1493,6 +1575,9 @@ msgstr ""
 
 #: oggenc/oggenc.c:365
 #, fuzzy, c-format
+#| msgid ""
+#| "ERROR: Could not create required subdirectories for output filename "
+#| "\"%s\"\n"
 msgid "ERROR: Input filename is the same as output filename \"%s\"\n"
 msgstr ""
 "HIBA: Nem lehet létrehozni az igényelt könyvtárat a '%s' kimeneti fájlnak\n"
@@ -1524,6 +1609,7 @@ msgstr ""
 
 #: oggenc/oggenc.c:508 oggenc/oggenc.c:962
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "oggenc from %s %s\n"
 msgstr "ogg123 a %s %s -ból\n"
 
@@ -1771,12 +1857,14 @@ msgstr ""
 
 #: oggenc/oggenc.c:778
 #, fuzzy, c-format
+#| msgid "WARNING: Invalid sample rate specified, assuming 44100.\n"
 msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
 msgstr ""
 "FIGYELEM: Événytelen mintavételezést határott meg 44100-at használom.\n"
 
 #: oggenc/oggenc.c:789
 #, fuzzy, c-format
+#| msgid "Couldn't parse cutpoint \"%s\"\n"
 msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr "Nem tudom értelmezni a vágásipontot\"%s\"\n"
 
@@ -1797,16 +1885,19 @@ msgstr ""
 
 #: oggenc/oggenc.c:875
 #, fuzzy, c-format
+#| msgid "Warning: nominal bitrate \"%s\" not recognised\n"
 msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr "Figyelmeztetés: névleges \"%s\" nem értelmezhetõ\n"
 
 #: oggenc/oggenc.c:883
 #, fuzzy, c-format
+#| msgid "Warning: minimum bitrate \"%s\" not recognised\n"
 msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr "Figyelmeztetés: minimális \"%s\" nem értelmezhetõ\n"
 
 #: oggenc/oggenc.c:897
 #, fuzzy, c-format
+#| msgid "Warning: maximum bitrate \"%s\" not recognised\n"
 msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr "Figyelmeztetés: maximális \"%s\" nem értelmezhetõ\n"
 
@@ -1906,6 +1997,7 @@ msgstr "FIGYELEM Ismeretlen opciót határozott meg, elutasítva->\n"
 
 #: oggenc/oggenc.c:1050 vorbiscomment/vcomment.c:449
 #, fuzzy, c-format
+#| msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr ""
 "Nem lehet a megjegyzést átalakítani UTF-8 -ra, hozzáadás nem sikertelen\n"
@@ -1952,6 +2044,7 @@ msgstr "Figyelmeztetés: maximális \"%s\" nem értelmezhetõ\n"
 
 #: ogginfo/ogginfo2.c:216
 #, fuzzy
+#| msgid "WARNING: Invalid channel count specified, assuming 2.\n"
 msgid "WARNING: Invalid header page, no packet found\n"
 msgstr ""
 "FIGYELEM: Érvénytelen csatorna számlálót határozott meg, 2-est használom.\n"
@@ -2049,6 +2142,7 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:395
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "ogginfo from %s %s\n"
 msgstr "ogg123 a %s %s -ból\n"
 
@@ -2152,11 +2246,13 @@ msgstr "%s: a `-W %s' kapcsoló nem enged meg argumentumot\n"
 
 #: vcut/vcut.c:129
 #, fuzzy, c-format
+#| msgid "Couldn't parse cutpoint \"%s\"\n"
 msgid "Couldn't flush output stream\n"
 msgstr "Nem tudom értelmezni a vágásipontot\"%s\"\n"
 
 #: vcut/vcut.c:149
 #, fuzzy, c-format
+#| msgid "Couldn't parse cutpoint \"%s\"\n"
 msgid "Couldn't close output file\n"
 msgstr "Nem tudom értelmezni a vágásipontot\"%s\"\n"
 
@@ -2167,6 +2263,7 @@ msgstr "A '%s'-t nem lehet megnyitni írásra\n"
 
 #: vcut/vcut.c:250
 #, fuzzy, c-format
+#| msgid "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg cutpoint\n"
 msgid ""
 "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cuttime]\n"
 msgstr "Használat: vcut befájl.ogg kifájl1.ogg kifájl2.ogg vágásipont\n"
@@ -2188,11 +2285,13 @@ msgstr "Nem tudom értelmezni a vágásipontot\"%s\"\n"
 
 #: vcut/vcut.c:287
 #, fuzzy
+#| msgid "Processing: Cutting at %lld\n"
 msgid "Processing: Cutting at %lf seconds\n"
 msgstr "Feldolgozás: Vágás a %lld -nél\n"
 
 #: vcut/vcut.c:289
 #, fuzzy, c-format
+#| msgid "Processing: Cutting at %lld\n"
 msgid "Processing: Cutting at %lld samples\n"
 msgstr "Feldolgozás: Vágás a %lld -nél\n"
 
@@ -2208,6 +2307,7 @@ msgstr ""
 
 #: vcut/vcut.c:392
 #, fuzzy, c-format
+#| msgid "Key not found"
 msgid "Cutpoint not found\n"
 msgstr "Kulcs nem található"
 
@@ -2232,11 +2332,13 @@ msgstr ""
 
 #: vcut/vcut.c:484
 #, fuzzy, c-format
+#| msgid "Failed to write comments to output file: %s\n"
 msgid "Couldn't write packet to output file\n"
 msgstr "Nem sikerült  megjegyzések írása a '%s' kimeneti fájlba\n"
 
 #: vcut/vcut.c:505
 #, fuzzy, c-format
+#| msgid "Error reading first page of Ogg bitstream."
 msgid "BOS not set on first page of stream\n"
 msgstr "Hiba az elsõ oldal Ogg adatfolyam olvasása közben."
 
@@ -2247,11 +2349,13 @@ msgstr ""
 
 #: vcut/vcut.c:531
 #, fuzzy, c-format
+#| msgid "Recoverable bitstream error\n"
 msgid "Internal stream parsing error\n"
 msgstr "Helyrehozható adatfolyam hiba\n"
 
 #: vcut/vcut.c:545
 #, fuzzy, c-format
+#| msgid "Secondary header corrupt\n"
 msgid "Header packet corrupt\n"
 msgstr "Másodlagos fejléc sérült\n"
 
@@ -2262,6 +2366,7 @@ msgstr "Bitfolyamat hiba, folyatatás\n"
 
 #: vcut/vcut.c:561
 #, fuzzy, c-format
+#| msgid "Error in primary header: not vorbis?\n"
 msgid "Error in header: not vorbis?\n"
 msgstr "Hiba az elsõdleges fejlécben: lehet, hogy nem vorbis?\n"
 
@@ -2272,6 +2377,7 @@ msgstr "A bemenet nem ogg.\n"
 
 #: vcut/vcut.c:616
 #, fuzzy, c-format
+#| msgid "Bitstream error, continuing\n"
 msgid "Page error, continuing\n"
 msgstr "Bitfolyamat hiba, folyatatás\n"
 
@@ -2282,6 +2388,7 @@ msgstr ""
 
 #: vcut/vcut.c:630
 #, fuzzy, c-format
+#| msgid "Found EOS before cut point.\n"
 msgid "WARNING: found EOS before cutpoint\n"
 msgstr "EOS-t találtam a kivágási pont elõtt.\n"
 
@@ -2311,16 +2418,19 @@ msgstr "A bemenet nem Ogg adatfolyam."
 
 #: vorbiscomment/vcedit.c:541
 #, fuzzy
+#| msgid "Ogg bitstream does not contain vorbis data."
 msgid "Ogg bitstream does not contain Vorbis data."
 msgstr "Ogg adatfolyam nem tartalmaz vorbis adatokat."
 
 #: vorbiscomment/vcedit.c:555
 #, fuzzy
+#| msgid "EOF before end of vorbis headers."
 msgid "EOF before recognised stream."
 msgstr "Fájl vég jel a vorbis fejléc vége elõtt."
 
 #: vorbiscomment/vcedit.c:568
 #, fuzzy
+#| msgid "Ogg bitstream does not contain vorbis data."
 msgid "Ogg bitstream does not contain a supported data-type."
 msgstr "Ogg adatfolyam nem tartalmaz vorbis adatokat."
 
@@ -2330,6 +2440,7 @@ msgstr "Sérült másodlagos fejléc."
 
 #: vorbiscomment/vcedit.c:630
 #, fuzzy
+#| msgid "EOF before end of vorbis headers."
 msgid "EOF before end of Vorbis headers."
 msgstr "Fájl vég jel a vorbis fejléc vége elõtt."
 
@@ -2346,6 +2457,7 @@ msgstr ""
 
 #: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:287
 #, fuzzy, c-format
+#| msgid "Failed to open file as vorbis: %s\n"
 msgid "Failed to open file as Vorbis: %s\n"
 msgstr "Sikertelen a '%s' fájl megnyitása mint vorbis\n"
 
@@ -2371,6 +2483,7 @@ msgstr "nem határozott meg mûveletet\n"
 
 #: vorbiscomment/vcomment.c:472
 #, fuzzy, c-format
+#| msgid "Couldn't convert comment to UTF8, cannot add\n"
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr ""
 "Nem lehet a megjegyzést átalakítani UTF-8 -ra, hozzáadás nem sikertelen\n"
@@ -2411,6 +2524,7 @@ msgstr ""
 
 #: vorbiscomment/vcomment.c:639
 #, fuzzy, c-format
+#| msgid "Bad type in options list"
 msgid "Editing options\n"
 msgstr "Rossz típus az opciók között"
 
@@ -2562,83 +2676,10 @@ msgstr "Hiba a fejléc olvasása közben\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 
-#, fuzzy, c-format
-#~ msgid "oggenc from %s %s"
-#~ msgstr "ogg123 a %s %s -ból\n"
-
-#, fuzzy, c-format
-#~ msgid "Version: %d.%d.%d\n"
-#~ msgstr "Verzió: %s"
-
-#, fuzzy, c-format
-#~ msgid "Vendor: %s\n"
-#~ msgstr "forgalmazó=%s\n"
-
-#, fuzzy, c-format
-#~ msgid "Height: %d\n"
-#~ msgstr "Verzió: %s"
-
-#, fuzzy
-#~ msgid "Colourspace unspecified\n"
-#~ msgstr "nem határozott meg mûveletet\n"
-
-#, fuzzy, c-format
-#~ msgid "Target bitrate: %d kbps\n"
-#~ msgstr ""
-#~ "\tÁtlagos bitráta: %.1f kb/s\n"
-#~ "\n"
-
-#, fuzzy, c-format
-#~ msgid "Version: %d\n"
-#~ msgstr "Verzió: %s"
-
-#, fuzzy, c-format
-#~ msgid "Vendor: %s (%s)\n"
-#~ msgstr "forgalmazó=%s\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "Rate: %ld\n"
-#~ "\n"
-#~ msgstr "Dátum: %s"
-
-#, fuzzy, c-format
-#~ msgid "Nominal bitrate: %f kb/s\n"
-#~ msgstr ""
-#~ "\tÁtlagos bitráta: %.1f kb/s\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "Nominal bitrate not set\n"
-#~ msgstr "Figyelmeztetés: névleges \"%s\" nem értelmezhetõ\n"
-
-#, fuzzy, c-format
-#~ msgid "Upper bitrate: %f kb/s\n"
-#~ msgstr ""
-#~ "\tÁtlagos bitráta: %.1f kb/s\n"
-#~ "\n"
-
-#, fuzzy, c-format
-#~ msgid "Lower bitrate: %f kb/s\n"
-#~ msgstr ""
-#~ "\tÁtlagos bitráta: %.1f kb/s\n"
-#~ "\n"
-
-#, fuzzy, c-format
-#~ msgid "Version: %d.%d\n"
-#~ msgstr "Verzió: %s"
-
-#, fuzzy, c-format
-#~ msgid "Category: %s\n"
-#~ msgstr "forgalmazó=%s\n"
-
-#, fuzzy
-#~ msgid "No category set\n"
-#~ msgstr "Figyelmeztetés: névleges \"%s\" nem értelmezhetõ\n"
-
 #~ msgid "malloc"
 #~ msgstr "malloc"
 
+#, c-format
 #~ msgid ""
 #~ "ogg123 from %s %s\n"
 #~ " by the Xiph.org Foundation (http://www.xiph.org/)\n"
@@ -2662,6 +2703,7 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ "      Lehetséges eszközök ('*'=live, '@'=file):\n"
 #~ "        "
 
+#, c-format
 #~ msgid ""
 #~ "  -f, --file=filename  Set the output filename for a previously\n"
 #~ "      specified file device (with -d).\n"
@@ -2700,10 +2742,11 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ "s ezredmásodpercen belül akkor megszakad az ogg123 futása.\n"
 #~ "  -l, --delay=s  beállítja s [ezredmásodperc] (alapból 500).\n"
 
+#, c-format
 #~ msgid "Version is %d"
 #~ msgstr "Verzió: %d"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "%s%s\n"
 #~ "Usage: oggenc [options] input.wav [...]\n"
@@ -2743,8 +2786,8 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ "\n"
 #~ " Naming:\n"
 #~ " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
-#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %"
-#~ "%l,\n"
+#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, "
+#~ "%%l,\n"
 #~ "                      %%n, %%d replaced by artist, title, album, track "
 #~ "number,\n"
 #~ "                      and date, respectively (see below for specifying "
@@ -2843,8 +2886,8 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ " Nevezés:\n"
 #~ " -o, --output=fn      Kiírja a fájlt fn névvel (csak egy fájlos módban "
 #~ "használható)\n"
-#~ " -n, --names=sztring   Ezzel a sztringgel nevezi el a fájlokat, ahol a %"
-#~ "%a az elõadót, %%t a címet\n"
+#~ " -n, --names=sztring   Ezzel a sztringgel nevezi el a fájlokat, ahol a "
+#~ "%%a az elõadót, %%t a címet\n"
 #~ "                              %%l az albumot,%%n a sáv számot és a %%d "
 #~ "pedig a dátumot jelenti\n"
 #~ "                      %%%% %%.\n"
@@ -2896,6 +2939,42 @@ msgstr "Hiba a '%s' megjegyzés fájl megnyitása során.\n"
 #~ " Ebben a módban az alapértelemezett kimenet az stdout.  A kimeneti "
 #~ "fájlt \n"
 #~ "a '-o'-val hatázhatja meg\n"
+#~ "\n"
+
+#, fuzzy, c-format
+#~ msgid "Vendor: %s (%s)\n"
+#~ msgstr "forgalmazó=%s\n"
+
+#, fuzzy, c-format
+#~ msgid "Vendor: %s\n"
+#~ msgstr "forgalmazó=%s\n"
+
+#, fuzzy, c-format
+#~ msgid ""
+#~ "Rate: %ld\n"
+#~ "\n"
+#~ msgstr "Dátum: %s"
+
+#, fuzzy, c-format
+#~ msgid "Nominal bitrate: %f kb/s\n"
+#~ msgstr ""
+#~ "\tÁtlagos bitráta: %.1f kb/s\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid "Nominal bitrate not set\n"
+#~ msgstr "Figyelmeztetés: névleges \"%s\" nem értelmezhetõ\n"
+
+#, fuzzy, c-format
+#~ msgid "Upper bitrate: %f kb/s\n"
+#~ msgstr ""
+#~ "\tÁtlagos bitráta: %.1f kb/s\n"
+#~ "\n"
+
+#, fuzzy, c-format
+#~ msgid "Lower bitrate: %f kb/s\n"
+#~ msgstr ""
+#~ "\tÁtlagos bitráta: %.1f kb/s\n"
 #~ "\n"
 
 #~ msgid "Page error. Corrupt input.\n"

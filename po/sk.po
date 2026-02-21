@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.1.1\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: 2008-03-20 20:15+0100\n"
 "Last-Translator: Peter Tuhársky <tuharsky@misbb.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -24,61 +24,73 @@ msgstr ""
 
 #: ogg123/buffer.c:118
 #, fuzzy, c-format
+#| msgid "Error: Out of memory in malloc_action().\n"
 msgid "ERROR: Out of memory in malloc_action().\n"
 msgstr "Chyba: Nedostatok pamäte v malloc_action().\n"
 
 #: ogg123/buffer.c:384
 #, fuzzy, c-format
+#| msgid "Error: Could not allocate memory in malloc_buffer_stats()\n"
 msgid "ERROR: Could not allocate memory in malloc_buffer_stats()\n"
 msgstr "Chyba: Nepodarilo sa alokovať pamäť v malloc_buffer_stats()\n"
 
 #: ogg123/callbacks.c:76
 #, fuzzy
+#| msgid "Error: Device not available.\n"
 msgid "ERROR: Device not available.\n"
 msgstr "Chyba: Zariadenie nie je dostupné.\n"
 
 #: ogg123/callbacks.c:79
 #, fuzzy, c-format
+#| msgid "Error: %s requires an output filename to be specified with -f.\n"
 msgid "ERROR: %s requires an output filename to be specified with -f.\n"
 msgstr "Chyba: %s vyžaduje zadanie názvu výstupného súboru pomocou -f.\n"
 
 #: ogg123/callbacks.c:82
 #, fuzzy, c-format
+#| msgid "Error: Unsupported option value to %s device.\n"
 msgid "ERROR: Unsupported option value to %s device.\n"
 msgstr "Chyba: Nepodporovaná hodnota prepínača zariadenia %s.\n"
 
 #: ogg123/callbacks.c:86
 #, fuzzy, c-format
+#| msgid "Error: Cannot open device %s.\n"
 msgid "ERROR: Cannot open device %s.\n"
 msgstr "Chyba: Nedá sa otvoriť zariadenie %s.\n"
 
 #: ogg123/callbacks.c:90
 #, fuzzy, c-format
+#| msgid "Error: Device %s failure.\n"
 msgid "ERROR: Device %s failure.\n"
 msgstr "Chyba: Zariadenie %s zlyhalo.\n"
 
 #: ogg123/callbacks.c:93
 #, fuzzy, c-format
+#| msgid "Error: An output file cannot be given for %s device.\n"
 msgid "ERROR: An output file cannot be given for %s device.\n"
 msgstr "Chyba: Výstupný súbor pre zariadenie %s sa nedá zadať.\n"
 
 #: ogg123/callbacks.c:96
 #, fuzzy, c-format
+#| msgid "Error: Cannot open file %s for writing.\n"
 msgid "ERROR: Cannot open file %s for writing.\n"
 msgstr "Chyba: Nedá sa otvoriť súbor %s na zápis.\n"
 
 #: ogg123/callbacks.c:100
 #, fuzzy, c-format
+#| msgid "Error: File %s already exists.\n"
 msgid "ERROR: File %s already exists.\n"
 msgstr "Chyba: Súbor %s už existuje.\n"
 
 #: ogg123/callbacks.c:103
 #, fuzzy, c-format
+#| msgid "Error: This error should never happen (%d).  Panic!\n"
 msgid "ERROR: This error should never happen (%d).  Panic!\n"
 msgstr "Chyba: Táto chyba by sa vôbec nemala stať (%d). Panika!\n"
 
 #: ogg123/callbacks.c:128 ogg123/callbacks.c:133
 #, fuzzy
+#| msgid "Error: Out of memory in new_audio_reopen_arg().\n"
 msgid "ERROR: Out of memory in new_audio_reopen_arg().\n"
 msgstr "Chyba: Nedostatok pamäti v new_audio_reopen_arg().\n"
 
@@ -88,6 +100,7 @@ msgstr "Chyba: Nedostatok pamäti v new_print_statistics_arg().\n"
 
 #: ogg123/callbacks.c:238
 #, fuzzy
+#| msgid "Error: Out of memory in new_status_message_arg().\n"
 msgid "ERROR: Out of memory in new_status_message_arg().\n"
 msgstr "Chyba: Nedostatok pamäti v new_status_message_arg().\n"
 
@@ -97,6 +110,7 @@ msgstr "Chyba: Nedostatok pamäti v decoder_buffered_metadata_callback().\n"
 
 #: ogg123/callbacks.c:340 ogg123/callbacks.c:359
 #, fuzzy
+#| msgid "Error: Out of memory in decoder_buffered_metadata_callback().\n"
 msgid "ERROR: Out of memory in decoder_buffered_metadata_callback().\n"
 msgstr "Chyba: Nedostatok pamäti v decoder_buffered_metadata_callback().\n"
 
@@ -229,36 +243,38 @@ msgstr "Dostupné prepínače:\n"
 msgid "=== No such device %s.\n"
 msgstr "=== Také zariadenie %s neexistuje.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr "=== Ovládač %s nie je ovládač výstupu do súboru.\n"
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 #, fuzzy
+#| msgid "=== Cannot specify output file without specifying a driver.\n"
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr "=== Nedá sa určiť výstupný súbor bez určenia ovládača.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "=== Nesprávny formát prepínača: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "--- Hodnota prebuffer neplatná. Rozsah je 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "ogg123 from %s %s"
 msgstr "ogg123 z %s %s\n"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "--- Nedá sa prehrávať každý nultý úsek!\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
@@ -267,21 +283,21 @@ msgstr ""
 "--- Na vykonanie testovacieho dekódovania prosím použite výstupný ovládač "
 "null.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "--- Nedá sa otvoriť súbor zoznamu skladieb %s. Preskakujem.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr "=== Konflikt predvolieb: Koncový čas je pred začiatočným.\n"
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "--- Ovládač %s zadaný v konfiguračnom súbore je neplatný.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
@@ -289,21 +305,21 @@ msgstr ""
 "=== Nedá sa načítať implicitný ovládač a v konfiguračnom súbore nie je "
 "zadaný žiadny ovládač. Končím.\n"
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -311,67 +327,69 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, fuzzy, c-format
+#| msgid "Available options:\n"
 msgid "Available codecs: "
 msgstr "Dostupné prepínače:\n"
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr ""
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, fuzzy, c-format
+#| msgid "File: %s"
 msgid "File:"
 msgstr "Soubor: %s"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
 "                          previously specified with --device.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -380,84 +398,88 @@ msgid ""
 "                          the ogg123 man page for available device options.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, fuzzy, c-format
+#| msgid "Available options:\n"
 msgid "Playlist options\n"
 msgstr "Dostupné prepínače:\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, fuzzy, c-format
+#| msgid "Input not ogg.\n"
 msgid "Input options\n"
 msgstr "Vstup není ogg.\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, fuzzy, c-format
+#| msgid "Description"
 msgid "Decode options\n"
 msgstr "Popis"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, fuzzy, c-format
+#| msgid "Available options:\n"
 msgid "Miscellaneous options\n"
 msgstr "Dostupné prepínače:\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -466,47 +488,51 @@ msgid ""
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr ""
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, fuzzy, c-format
+#| msgid "Error: Out of memory.\n"
 msgid "ERROR: Out of memory.\n"
 msgstr "Chyba: Nedostatok pamäte.\n"
 
 #: ogg123/format.c:90
 #, fuzzy, c-format
+#| msgid "Error: Could not allocate memory in malloc_decoder_stats()\n"
 msgid "ERROR: Could not allocate memory in malloc_decoder_stats()\n"
 msgstr "Chyba: Nepodarilo sa alokovať pamäť v malloc_decoder_stats()\n"
 
 #: ogg123/http_transport.c:145
 #, fuzzy
+#| msgid "Error: Could not set signal mask."
 msgid "ERROR: Could not set signal mask."
 msgstr "Chyba: Nepodarilo sa nastaviť masku signálov."
 
 #: ogg123/http_transport.c:202
 #, fuzzy
+#| msgid "Error: Unable to create input buffer.\n"
 msgid "ERROR: Unable to create input buffer.\n"
 msgstr "Chyba: Nepodarilo sa vytvoriť vstupnú vyrovnávaciu pamäť.\n"
 
@@ -524,6 +550,7 @@ msgstr ""
 
 #: ogg123/ogg123.c:231
 #, fuzzy, c-format
+#| msgid "Could not skip %f seconds of audio."
 msgid "Could not skip to %f in audio stream."
 msgstr "Nemohu přeskočit %f vteřin zvuku."
 
@@ -548,6 +575,7 @@ msgstr "Poznámky: %s"
 
 #: ogg123/ogg123.c:422
 #, fuzzy, c-format
+#| msgid "Warning: Could not read directory %s.\n"
 msgid "WARNING: Could not read directory %s.\n"
 msgstr "Varovanie: Nepodarilo sa prečítať adresár %s.\n"
 
@@ -587,6 +615,7 @@ msgstr "Nemohu přeskočit %f vteřin zvuku."
 
 #: ogg123/ogg123.c:671
 #, fuzzy
+#| msgid "Error: Decoding failure.\n"
 msgid "ERROR: Decoding failure.\n"
 msgstr "Chyba: Selhání dekódování.\n"
 
@@ -598,11 +627,11 @@ msgstr ""
 msgid "Done."
 msgstr "Hotovo."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Díra v proudu; pravděpodobně neškodná\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== Knihovna vorbis ohlásila chybu proudu.\n"
@@ -612,7 +641,7 @@ msgstr "=== Knihovna vorbis ohlásila chybu proudu.\n"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Prúd údajov Ogg Vorbis: %d kanál, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Vorbis formát: Verzia %d"
@@ -622,13 +651,21 @@ msgstr "Vorbis formát: Verzia %d"
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Nápovědy bitrate: vyšší=%ld nominální=%ld nižší=%ld okno=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Kódováno s: %s"
 
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "Prúd údajov Ogg Vorbis: %d kanál, %ld Hz"
+
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, fuzzy, c-format
+#| msgid "Error: Out of memory in create_playlist_member().\n"
 msgid "ERROR: Out of memory in create_playlist_member().\n"
 msgstr "Chyba: Nedostatek paměti v create_playlist_member().\n"
 
@@ -637,28 +674,32 @@ msgstr "Chyba: Nedostatek paměti v create_playlist_member().\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Varovanie: Nepodarilo sa prečítať adresár %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Varování ze seznamu skladeb %s: Nemohu číst adresář %s.\n"
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, fuzzy, c-format
+#| msgid "Error: Out of memory in playlist_to_array().\n"
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "Chyba: Nedostatek paměti v playlist_to_array().\n"
 
 #: ogg123/speex_format.c:366
 #, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgid "Ogg Speex stream: %d channel, %d Hz, %s mode (VBR)"
 msgstr "Prúd údajov Ogg Vorbis: %d kanál, %ld Hz"
 
 #: ogg123/speex_format.c:372
 #, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgid "Ogg Speex stream: %d channel, %d Hz, %s mode"
 msgstr "Prúd údajov Ogg Vorbis: %d kanál, %ld Hz"
 
 #: ogg123/speex_format.c:378
 #, fuzzy, c-format
+#| msgid "Version: %d\n"
 msgid "Speex version: %s"
 msgstr "Verze: %d\n"
 
@@ -670,6 +711,7 @@ msgstr ""
 
 #: ogg123/speex_format.c:478
 #, fuzzy
+#| msgid "Error reading headers\n"
 msgid "Cannot read header"
 msgstr "Chyba při čtení hlaviček\n"
 
@@ -743,6 +785,7 @@ msgstr " Výstupní vyrovnávací paměť %5.1f%%"
 
 #: ogg123/transport.c:71
 #, fuzzy, c-format
+#| msgid "Error: Could not allocate memory in malloc_data_source_stats()\n"
 msgid "ERROR: Could not allocate memory in malloc_data_source_stats()\n"
 msgstr "Chyba: Nemohu alokovat paměť v malloc_data_source_stats()\n"
 
@@ -776,6 +819,7 @@ msgstr ""
 
 #: ogg123/vorbis_comments.c:48 ogg123/vorbis_comments.c:49
 #, fuzzy
+#| msgid "Comments: %s"
 msgid "Comment:"
 msgstr "Poznámky: %s"
 
@@ -805,6 +849,7 @@ msgstr ""
 
 #: oggdec/oggdec.c:51
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "oggdec from %s %s\n"
 msgstr "ogg123 z %s %s\n"
 
@@ -884,21 +929,28 @@ msgstr ""
 
 #: oggdec/oggdec.c:197
 #, fuzzy, c-format
+#| msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgid "ERROR: Failed to open input file: %s\n"
 msgstr "CHYBA: Nemohu otevřít vstupní soubor \"%s\": %s\n"
 
 #: oggdec/oggdec.c:219
 #, fuzzy, c-format
+#| msgid "ERROR: Cannot open output file \"%s\": %s\n"
 msgid "ERROR: Failed to open output file: %s\n"
 msgstr "CHYBA: Nemohu otevřít výstupní soubor \"%s\": %s\n"
 
 #: oggdec/oggdec.c:268
 #, fuzzy, c-format
+#| msgid "Failed to open file as vorbis: %s\n"
 msgid "ERROR: Failed to open input as Vorbis\n"
 msgstr "Nemohu otevřít soubor jako vorbis: %s\n"
 
 #: oggdec/oggdec.c:294
 #, fuzzy, c-format
+#| msgid ""
+#| "\n"
+#| "\n"
+#| "Done encoding file \"%s\"\n"
 msgid "Decoding \"%s\" to \"%s\"\n"
 msgstr ""
 "\n"
@@ -927,11 +979,15 @@ msgstr ""
 
 #: oggdec/oggdec.c:339
 #, fuzzy, c-format
+#| msgid "Error removing old file %s\n"
 msgid "Error writing to file: %s\n"
 msgstr "Chyba při odstraňování starého souboru %s\n"
 
 #: oggdec/oggdec.c:384
 #, fuzzy, c-format
+#| msgid ""
+#| "%s%s\n"
+#| "ERROR: No input files specified. Use -h for help.\n"
 msgid "ERROR: No input files specified. Use -h for help\n"
 msgstr ""
 "%s%s\n"
@@ -939,6 +995,9 @@ msgstr ""
 
 #: oggdec/oggdec.c:389
 #, fuzzy, c-format
+#| msgid ""
+#| "ERROR: Multiple input files with specified output filename: suggest using "
+#| "-n\n"
 msgid ""
 "ERROR: Can only specify one input file if output filename is specified\n"
 msgstr ""
@@ -961,14 +1020,15 @@ msgstr "Čítač súborov FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Ogg čítač súborov FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Varování: Neočekávaný EOF při čtení hlavičky WAV\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "Přeskakuji úsek typu \"%s\", délka %d\n"
 
 #: oggenc/audio.c:166
@@ -976,52 +1036,53 @@ msgstr "Přeskakuji úsek typu \"%s\", délka %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Varování: Neočekávaný EOF v úseku AIFF\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Varování: V souboru AIFF nenalezen žádný společný úsek\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Varování: Useknutý společný úsek v hlavičce AIFF\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Varování: Neočekávaný EOF při čtení hlavičky AIFF\n"
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, fuzzy, c-format
+#| msgid "Warning: Truncated common chunk in AIFF header\n"
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Varování: Useknutý společný úsek v hlavičce AIFF\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Varování: Hlavička AIFF-C useknuta.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Varovanie: Nedokážem spracovať komprimované AIFF-C (%c%c%c%c)\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Varování: V souboru AIFF nenalezen úsek SSND\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Varování: V hlavičce AIFF nalezen poškozený úsek SSND\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Varování: Neočekávaný EOF při čtení hlavičky AIFF\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1030,12 +1091,12 @@ msgstr ""
 "Varovanie: OggEnc nepodporuje tento typ súboru AIFF/AIFC\n"
 " Musí to byť 8- alebo 16-bit PCM.\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Varování: Úsek nerozpoznaného formátu v hlavičce WAV\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1044,12 +1105,13 @@ msgstr ""
 "Varování: Úsek NEPLATNÉHO formátu v hlavičce wav.\n"
 " Zkouším přesto číst (možná nebude fungovat)...\n"
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, fuzzy, c-format
+#| msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Varování: Úsek nerozpoznaného formátu v hlavičce WAV\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1058,14 +1120,14 @@ msgstr ""
 "CHYBA: Soubor wav je nepodporovaného typu (musí být standardní PCM\n"
 " nebo PCM s plovoucí desetinnou čárku typu 3\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1075,17 +1137,17 @@ msgstr ""
 "24-bit PCM\n"
 "alebo PCM s pohyblivou desatinnou čiarkou\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr "Údaje big endian 24-bit PCM v súčasnosti nie sú podporované, končím.\n"
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Vnútorná chyba: pokus o čítanie nepodporovanej bitovej hĺbky %d\n"
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1094,7 +1156,7 @@ msgstr ""
 "CHYBA: Dostal jsem nula vzorků z převzorkovávače: váš soubor bude useknut. "
 "Nahlaste toto prosím.\n"
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Nemohu inicializovat převzorkovávač\n"
@@ -1106,6 +1168,7 @@ msgstr "Nastavuji pokročilý přepínač \"%s\" enkodéru na %s\n"
 
 #: oggenc/encode.c:73
 #, fuzzy, c-format
+#| msgid "Setting advanced encoder option \"%s\" to %s\n"
 msgid "Setting advanced encoder option \"%s\"\n"
 msgstr "Nastavuji pokročilý přepínač \"%s\" enkodéru na %s\n"
 
@@ -1137,6 +1200,9 @@ msgstr ""
 
 #: oggenc/encode.c:238
 #, fuzzy, c-format
+#| msgid ""
+#| "255 channels should be enough for anyone. (Sorry, vorbis doesn't support "
+#| "more)\n"
 msgid ""
 "255 channels should be enough for anyone. (Sorry, but Vorbis doesn't support "
 "more)\n"
@@ -1170,11 +1236,13 @@ msgstr "Inicializace režimu selhala: neplatné parametry pro bitrate\n"
 
 #: oggenc/encode.c:374
 #, fuzzy, c-format
+#| msgid "WARNING: Unknown option specified, ignoring->\n"
 msgid "WARNING: no language specified for %s\n"
 msgstr "VAROVÁNÍ: Zadán neplatný přepínač, ignoruji->\n"
 
 #: oggenc/encode.c:396
 #, fuzzy
+#| msgid "Failed writing header to output stream\n"
 msgid "Failed writing fishead packet to output stream\n"
 msgstr "Nemohu zapsat hlavičku do výstupního proudu\n"
 
@@ -1189,11 +1257,13 @@ msgstr ""
 
 #: oggenc/encode.c:455 oggenc/encode.c:462
 #, fuzzy
+#| msgid "Failed writing header to output stream\n"
 msgid "Failed writing fisbone header packet to output stream\n"
 msgstr "Nemohu zapsat hlavičku do výstupního proudu\n"
 
 #: oggenc/encode.c:510
 #, fuzzy
+#| msgid "Failed writing header to output stream\n"
 msgid "Failed writing skeleton eos packet to output stream\n"
 msgstr "Nemohu zapsat hlavičku do výstupního proudu\n"
 
@@ -1354,11 +1424,13 @@ msgstr ""
 
 #: oggenc/lyrics.c:66
 #, fuzzy, c-format
+#| msgid "Failed to open file as vorbis: %s\n"
 msgid "Failed to convert to UTF-8: %s\n"
 msgstr "Nemohu otevřít soubor jako vorbis: %s\n"
 
 #: oggenc/lyrics.c:73 vcut/vcut.c:53
 #, fuzzy, c-format
+#| msgid "Error: Out of memory.\n"
 msgid "Out of memory\n"
 msgstr "Chyba: Nedostatok pamäte.\n"
 
@@ -1422,6 +1494,7 @@ msgstr ""
 
 #: oggenc/lyrics.c:425
 #, fuzzy, c-format
+#| msgid "ERROR: Cannot open input file \"%s\": %s\n"
 msgid "ERROR: Failed to open lyrics file %s (%s)\n"
 msgstr "CHYBA: Nemohu otevřít vstupní soubor \"%s\": %s\n"
 
@@ -1432,11 +1505,15 @@ msgstr ""
 
 #: oggenc/oggenc.c:113
 #, fuzzy
+#| msgid "WAV file reader"
 msgid "RAW file reader"
 msgstr "Čteč souborů WAV"
 
 #: oggenc/oggenc.c:131
 #, fuzzy, c-format
+#| msgid ""
+#| "%s%s\n"
+#| "ERROR: No input files specified. Use -h for help.\n"
 msgid "ERROR: No input files specified. Use -h for help.\n"
 msgstr ""
 "%s%s\n"
@@ -1458,6 +1535,7 @@ msgstr ""
 
 #: oggenc/oggenc.c:217
 #, fuzzy, c-format
+#| msgid "WARNING: Insufficient titles specified, defaulting to final title.\n"
 msgid ""
 "WARNING: Insufficient lyrics languages specified, defaulting to final lyrics "
 "language.\n"
@@ -1481,11 +1559,13 @@ msgstr "CHYBA: Vstupní soubor \"%s\" není v podporovaném formátu\n"
 
 #: oggenc/oggenc.c:290
 #, fuzzy, c-format
+#| msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "CHYBA: Vstupní soubor \"%s\" není v podporovaném formátu\n"
 
 #: oggenc/oggenc.c:350
 #, fuzzy, c-format
+#| msgid "WARNING: No filename, defaulting to \"default.ogg\"\n"
 msgid "WARNING: No filename, defaulting to \"%s\"\n"
 msgstr "VAROVÁNÍ: Žádný název souboru, implicitně \"default.ogg\"\n"
 
@@ -1529,6 +1609,7 @@ msgstr "Prispôsobujem vstup na %f\n"
 
 #: oggenc/oggenc.c:508 oggenc/oggenc.c:962
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "oggenc from %s %s\n"
 msgstr "ogg123 z %s %s\n"
 
@@ -1776,12 +1857,14 @@ msgstr "VAROVÁNÍ: Nemohu přečíst frekvenci převzorkování \"%s\"\n"
 
 #: oggenc/oggenc.c:778
 #, fuzzy, c-format
+#| msgid "Warning: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
 msgid "WARNING: Resample rate specified as %d Hz. Did you mean %d Hz?\n"
 msgstr ""
 "Varování: Frekvence převzorkování zadána jako %d Hz. Mysleli jste %d Hz?\n"
 
 #: oggenc/oggenc.c:789
 #, fuzzy, c-format
+#| msgid "Warning: Couldn't parse scaling factor \"%s\"\n"
 msgid "WARNING: Couldn't parse scaling factor \"%s\"\n"
 msgstr "Varovanie: Neviem spracovať škálovací faktor \"%s\"\n"
 
@@ -1797,21 +1880,25 @@ msgstr "Interní chyba při zpracovávání přepínačů příkazového řádku
 
 #: oggenc/oggenc.c:836
 #, fuzzy, c-format
+#| msgid "Warning: Illegal comment used (\"%s\"), ignoring.\n"
 msgid "WARNING: Illegal comment used (\"%s\"), ignoring.\n"
 msgstr "Varování: Použita neplatná poznámka (\"%s\"), ignoruji.\n"
 
 #: oggenc/oggenc.c:875
 #, fuzzy, c-format
+#| msgid "Warning: nominal bitrate \"%s\" not recognised\n"
 msgid "WARNING: nominal bitrate \"%s\" not recognised\n"
 msgstr "Varování: nominální bitrate \"%s\" nerozpoznána\n"
 
 #: oggenc/oggenc.c:883
 #, fuzzy, c-format
+#| msgid "Warning: minimum bitrate \"%s\" not recognised\n"
 msgid "WARNING: minimum bitrate \"%s\" not recognised\n"
 msgstr "Varování: minimální bitrate \"%s\" nerozpoznána\n"
 
 #: oggenc/oggenc.c:897
 #, fuzzy, c-format
+#| msgid "Warning: maximum bitrate \"%s\" not recognised\n"
 msgid "WARNING: maximum bitrate \"%s\" not recognised\n"
 msgstr "Varování: maximální bitrate \"%s\" nerozpoznána\n"
 
@@ -1904,6 +1991,7 @@ msgstr "VAROVÁNÍ: Zadán neplatný přepínač, ignoruji->\n"
 
 #: oggenc/oggenc.c:1050 vorbiscomment/vcomment.c:449
 #, fuzzy, c-format
+#| msgid "Couldn't convert comment to UTF-8, cannot add\n"
 msgid "'%s' is not valid UTF-8, cannot add\n"
 msgstr "Nemohu převést poznámku do UTF-8, nemohu ji přidat\n"
 
@@ -1935,6 +2023,11 @@ msgstr "Chyba: segment cesty \"%s\" není adresář\n"
 
 #: ogginfo/ogginfo2.c:115
 #, fuzzy, c-format
+#| msgid ""
+#| "Vorbis stream %d:\n"
+#| "\tTotal data length: %I64d bytes\n"
+#| "\tPlayback length: %ldm:%02ld.%03lds\n"
+#| "\tAverage bitrate: %f kb/s\n"
 msgid ""
 "%s stream %d:\n"
 "\tTotal data length: %<PRId64> bytes\n"
@@ -1948,16 +2041,20 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:127
 #, fuzzy, c-format
+#| msgid "Warning: EOS not set on stream %d\n"
 msgid "WARNING: EOS not set on stream %d\n"
 msgstr "Varování: EOS nenastaveno v proudu %d\n"
 
 #: ogginfo/ogginfo2.c:216
 #, fuzzy
+#| msgid "Warning: Invalid header page, no packet found\n"
 msgid "WARNING: Invalid header page, no packet found\n"
 msgstr "Varování: Neplatná strana hlavičky, nenalezen paket\n"
 
 #: ogginfo/ogginfo2.c:246
 #, fuzzy, c-format
+#| msgid ""
+#| "Warning: Invalid header page in stream %d, contains multiple packets\n"
 msgid "WARNING: Invalid header page in stream %d, contains multiple packets\n"
 msgstr "Varování: Neplatná strana hlavičky v proudu %d, obsahuje více paketů\n"
 
@@ -1972,6 +2069,9 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:278
 #, fuzzy, c-format
+#| msgid ""
+#| "Warning: Hole in data found at approximate offset %I64d bytes. Corrupted "
+#| "ogg.\n"
 msgid ""
 "WARNING: Hole in data (%d bytes) found at approximate offset %<PRId64> "
 "bytes. Corrupted Ogg.\n"
@@ -2015,6 +2115,9 @@ msgstr "Neznáma chyba."
 
 #: ogginfo/ogginfo2.c:337
 #, fuzzy, c-format
+#| msgid ""
+#| "Warning: illegally placed page(s) for logical stream %d\n"
+#| "This indicates a corrupt ogg file: %s.\n"
 msgid ""
 "WARNING: illegally placed page(s) for logical stream %d\n"
 "This indicates a corrupt Ogg file: %s.\n"
@@ -2029,18 +2132,23 @@ msgstr "Nový logický prúd údajov (#%d, sériové: %08x): typ %s\n"
 
 #: ogginfo/ogginfo2.c:352
 #, fuzzy, c-format
+#| msgid "Warning: stream start flag not set on stream %d\n"
 msgid "WARNING: stream start flag not set on stream %d\n"
 msgstr ""
 "Varovanie: príznak začiatku prúdu údajov nebol nastavený na prúde údajov %d\n"
 
 #: ogginfo/ogginfo2.c:355
 #, fuzzy, c-format
+#| msgid "Warning: stream start flag found in mid-stream on stream %d\n"
 msgid "WARNING: stream start flag found in mid-stream on stream %d\n"
 msgstr ""
 "Varovanie: príznak začiatku prúdu údajov sa našiel vnútri prúdu údajov %d\n"
 
 #: ogginfo/ogginfo2.c:361
 #, fuzzy, c-format
+#| msgid ""
+#| "Warning: sequence number gap in stream %d. Got page %ld when expecting "
+#| "page %ld. Indicates missing data.\n"
 msgid ""
 "WARNING: sequence number gap in stream %d. Got page %ld when expecting page "
 "%ld. Indicates missing data.\n"
@@ -2055,6 +2163,9 @@ msgstr "Logický proud %d skončil\n"
 
 #: ogginfo/ogginfo2.c:384
 #, fuzzy, c-format
+#| msgid ""
+#| "Error: No ogg data found in file \"%s\".\n"
+#| "Input probably not ogg.\n"
 msgid ""
 "ERROR: No Ogg data found in file \"%s\".\n"
 "Input probably not Ogg.\n"
@@ -2064,6 +2175,7 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:395
 #, fuzzy, c-format
+#| msgid "ogg123 from %s %s\n"
 msgid "ogginfo from %s %s\n"
 msgstr "ogg123 z %s %s\n"
 
@@ -2077,6 +2189,18 @@ msgstr ""
 # FIXME: s/files1/file1/
 #: ogginfo/ogginfo2.c:401
 #, fuzzy, c-format
+#| msgid ""
+#| "ogginfo 1.1.0\n"
+#| "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
+#| "\n"
+#| "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+#| "Flags supported:\n"
+#| "\t-h Show this help message\n"
+#| "\t-q Make less verbose. Once will remove detailed informative\n"
+#| "\t   messages, two will remove warnings\n"
+#| "\t-v Make more verbose. This may enable more detailed checks\n"
+#| "\t   for some stream types.\n"
+#| "\n"
 msgid ""
 "(c) 2003-2005 Michael Smith <msmith@xiph.org>\n"
 "\n"
@@ -2107,6 +2231,12 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:422
 #, fuzzy, c-format
+#| msgid ""
+#| "Usage: ogginfo [flags] file1.ogg [file2.ogg ... fileN.ogg]\n"
+#| "\n"
+#| "Ogginfo is a tool for printing information about ogg files\n"
+#| "and for diagnosing problems with them.\n"
+#| "Full help shown with \"ogginfo -h\".\n"
 msgid ""
 "Usage: ogginfo [flags] file1.ogg [file2.ogx ... fileN.ogv]\n"
 "\n"
@@ -2182,11 +2312,13 @@ msgstr "%s: přepínač `-W %s' musí být zadán bez argumentu\n"
 
 #: vcut/vcut.c:129
 #, fuzzy, c-format
+#| msgid "Couldn't parse cutpoint \"%s\"\n"
 msgid "Couldn't flush output stream\n"
 msgstr "Nemohu zpracovat bod řezu \"%s\"\n"
 
 #: vcut/vcut.c:149
 #, fuzzy, c-format
+#| msgid "Couldn't parse cutpoint \"%s\"\n"
 msgid "Couldn't close output file\n"
 msgstr "Nemohu zpracovat bod řezu \"%s\"\n"
 
@@ -2197,6 +2329,8 @@ msgstr "Nemohu otevřít %s pro zápis\n"
 
 #: vcut/vcut.c:250
 #, fuzzy, c-format
+#| msgid ""
+#| "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cutpoint]\n"
 msgid ""
 "Usage: vcut infile.ogg outfile1.ogg outfile2.ogg [cutpoint | +cuttime]\n"
 msgstr "Použitie: vcut vstup.ogg výstup1.ogg výstup2.ogg [ +bodrezu]\n"
@@ -2218,6 +2352,7 @@ msgstr "Nemohu zpracovat bod řezu \"%s\"\n"
 
 #: vcut/vcut.c:287
 #, fuzzy
+#| msgid "Processing: Cutting at %lld seconds\n"
 msgid "Processing: Cutting at %lf seconds\n"
 msgstr "Spracúvam: Strihám %lld sekunde\n"
 
@@ -2238,6 +2373,7 @@ msgstr ""
 
 #: vcut/vcut.c:392
 #, fuzzy, c-format
+#| msgid "Key not found"
 msgid "Cutpoint not found\n"
 msgstr "Kľúč sa nenašiel"
 
@@ -2262,11 +2398,13 @@ msgstr ""
 
 #: vcut/vcut.c:484
 #, fuzzy, c-format
+#| msgid "Failed to write comments to output file: %s\n"
 msgid "Couldn't write packet to output file\n"
 msgstr "Nemohu zapsat poznámky do výstupního souboru: %s\n"
 
 #: vcut/vcut.c:505
 #, fuzzy, c-format
+#| msgid "Error reading first page of Ogg bitstream."
 msgid "BOS not set on first page of stream\n"
 msgstr "Chyba při čtení první strany bitového proudu Ogg."
 
@@ -2277,11 +2415,13 @@ msgstr ""
 
 #: vcut/vcut.c:531
 #, fuzzy, c-format
+#| msgid "Recoverable bitstream error\n"
 msgid "Internal stream parsing error\n"
 msgstr "Zotavitelná chyba bitového proudu\n"
 
 #: vcut/vcut.c:545
 #, fuzzy, c-format
+#| msgid "Secondary header corrupt\n"
 msgid "Header packet corrupt\n"
 msgstr "Sekundární hlavička poškozena\n"
 
@@ -2292,6 +2432,7 @@ msgstr "Chyba bitového proudu, pokračuji\n"
 
 #: vcut/vcut.c:561
 #, fuzzy, c-format
+#| msgid "Error in primary header: not vorbis?\n"
 msgid "Error in header: not vorbis?\n"
 msgstr "Chyba v primární hlavičce: není to vorbis?\n"
 
@@ -2302,6 +2443,7 @@ msgstr "Vstup není ogg.\n"
 
 #: vcut/vcut.c:616
 #, fuzzy, c-format
+#| msgid "Bitstream error, continuing\n"
 msgid "Page error, continuing\n"
 msgstr "Chyba bitového proudu, pokračuji\n"
 
@@ -2312,6 +2454,7 @@ msgstr ""
 
 #: vcut/vcut.c:630
 #, fuzzy, c-format
+#| msgid "Found EOS before cut point.\n"
 msgid "WARNING: found EOS before cutpoint\n"
 msgstr "Našel jsem EOS před místem řezu.\n"
 
@@ -2341,16 +2484,19 @@ msgstr "Vstup není bitový proud Ogg."
 
 #: vorbiscomment/vcedit.c:541
 #, fuzzy
+#| msgid "Ogg bitstream does not contain vorbis data."
 msgid "Ogg bitstream does not contain Vorbis data."
 msgstr "Bitový proud ogg neobsahuje data vorbis."
 
 #: vorbiscomment/vcedit.c:555
 #, fuzzy
+#| msgid "EOF before end of vorbis headers."
 msgid "EOF before recognised stream."
 msgstr "EOF před koncem hlaviček vorbis."
 
 #: vorbiscomment/vcedit.c:568
 #, fuzzy
+#| msgid "Ogg bitstream does not contain vorbis data."
 msgid "Ogg bitstream does not contain a supported data-type."
 msgstr "Bitový proud ogg neobsahuje data vorbis."
 
@@ -2360,6 +2506,7 @@ msgstr "Poškozená sekundární hlavička."
 
 #: vorbiscomment/vcedit.c:630
 #, fuzzy
+#| msgid "EOF before end of vorbis headers."
 msgid "EOF before end of Vorbis headers."
 msgstr "EOF před koncem hlaviček vorbis."
 
@@ -2376,6 +2523,7 @@ msgstr ""
 
 #: vorbiscomment/vcomment.c:259 vorbiscomment/vcomment.c:287
 #, fuzzy, c-format
+#| msgid "Failed to open file as vorbis: %s\n"
 msgid "Failed to open file as Vorbis: %s\n"
 msgstr "Nemohu otevřít soubor jako vorbis: %s\n"
 
@@ -2401,6 +2549,7 @@ msgstr "neurčena žádná akce\n"
 
 #: vorbiscomment/vcomment.c:472
 #, fuzzy, c-format
+#| msgid "Couldn't convert comment to UTF8, cannot add\n"
 msgid "Couldn't un-escape comment, cannot add\n"
 msgstr "Nemohu převést poznámku do UTF8, nemohu ji přidat\n"
 
@@ -2440,6 +2589,7 @@ msgstr ""
 
 #: vorbiscomment/vcomment.c:639
 #, fuzzy, c-format
+#| msgid "Bad type in options list"
 msgid "Editing options\n"
 msgstr "Chybný typ v zozname prepínačov"
 
@@ -2589,278 +2739,11 @@ msgstr "Chyba při přejmenovávání %s na %s\n"
 
 #: vorbiscomment/vcomment.c:961
 #, fuzzy, c-format
+#| msgid "Error removing old file %s\n"
 msgid "Error removing erroneous temporary file %s\n"
 msgstr "Chyba při odstraňování starého souboru %s\n"
 
-#, fuzzy, c-format
-#~ msgid "oggenc from %s %s"
-#~ msgstr "ogg123 z %s %s\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Comment %d in stream %d has invalid format, does not contain "
-#~ "'=': \"%s\"\n"
-#~ msgstr ""
-#~ "Varovanie: Poznámka %d v prúde údajov %d má neplatný formát, neobsahuje "
-#~ "'=': \"%s\"\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
-#~ msgstr ""
-#~ "Varování: Neplatný název pole poznámky v poznámce %d (proud %d): \"%s\"\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
-#~ "wrong\n"
-#~ msgstr ""
-#~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): špatná značka "
-#~ "délky\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
-#~ msgstr ""
-#~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): příliš málo "
-#~ "bajtů\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Illegal UTF-8 sequence in comment %d (stream %d): invalid "
-#~ "sequence \"%s\": %s\n"
-#~ msgstr ""
-#~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): neplatná "
-#~ "sekvence\n"
-
-#, fuzzy
-#~ msgid "WARNING: Failure in UTF-8 decoder. This should not be possible\n"
-#~ msgstr "Varování: Selhání v dekodéru utf8. To by nemělo být možné\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Could not decode Theora header packet - invalid Theora stream "
-#~ "(%d)\n"
-#~ msgstr ""
-#~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
-#~ "prúd údajov theora (%d)\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Theora stream %d does not have headers correctly framed. "
-#~ "Terminal header page contains additional packets or has non-zero "
-#~ "granulepos\n"
-#~ msgstr ""
-#~ "Varovanie: Prúd údajov theora %d nemá hlavičky správne rámcované. "
-#~ "Posledná strana hlavičky obsahuje nadbytočné pakety alebo má nenulovú "
-#~ "granulepos\n"
-
 #, c-format
-#~ msgid "Theora headers parsed for stream %d, information follows...\n"
-#~ msgstr ""
-#~ "Hlavičky theora spracované pre prúd údajov %d, nasledujú informácie...\n"
-
-#, c-format
-#~ msgid "Version: %d.%d.%d\n"
-#~ msgstr "Verzia:  %d.%d.%d\n"
-
-#, c-format
-#~ msgid "Vendor: %s\n"
-#~ msgstr "Dodavatel: %s\n"
-
-#, c-format
-#~ msgid "Width: %d\n"
-#~ msgstr "Šírka: %d\n"
-
-#, c-format
-#~ msgid "Height: %d\n"
-#~ msgstr "Výška: %d\n"
-
-#, c-format
-#~ msgid "Total image: %d by %d, crop offset (%d, %d)\n"
-#~ msgstr "Celkový obraz: %d o %d, orezať posun (%d, %d)\n"
-
-#~ msgid "Frame offset/size invalid: width incorrect\n"
-#~ msgstr "Neplatný posun/veľkosť rámca: nesprávna šírka\n"
-
-#~ msgid "Frame offset/size invalid: height incorrect\n"
-#~ msgstr "Neplatný posun/veľkosť rámca: nesprávna výška\n"
-
-#~ msgid "Invalid zero framerate\n"
-#~ msgstr "Neplatná nulová rýchlosť rámcov\n"
-
-#, c-format
-#~ msgid "Framerate %d/%d (%.02f fps)\n"
-#~ msgstr "Rýchlosť rámcov %d/%d (%.02f fps)\n"
-
-#~ msgid "Aspect ratio undefined\n"
-#~ msgstr "Pomer strán nebol definovaný\n"
-
-#~ msgid "Frame aspect 4:3\n"
-#~ msgstr "Pomer strán 4:3\n"
-
-#~ msgid "Frame aspect 16:9\n"
-#~ msgstr "Pomer strán 16:9\n"
-
-#, fuzzy, c-format
-#~ msgid "Frame aspect %f:1\n"
-#~ msgstr "Pomer strán 4:3\n"
-
-#~ msgid "Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"
-#~ msgstr "Farebný priestor: Rec. ITU-R BT.470-6 Systém M (NTSC)\n"
-
-#~ msgid "Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"
-#~ msgstr "Farebný priestor: Rec. ITU-R BT.470-6 Systémy B a G (PAL)\n"
-
-#~ msgid "Colourspace unspecified\n"
-#~ msgstr "Nebol zadaný farebný priestor\n"
-
-#~ msgid "Pixel format 4:2:0\n"
-#~ msgstr "Formát pixelov 4:2:0\n"
-
-#~ msgid "Pixel format 4:2:2\n"
-#~ msgstr "Formát pixelov 4:2:2\n"
-
-#~ msgid "Pixel format 4:4:4\n"
-#~ msgstr "Formát pixelov 4:4:4\n"
-
-#~ msgid "Pixel format invalid\n"
-#~ msgstr "Neplatný formát pixelov\n"
-
-#, c-format
-#~ msgid "Target bitrate: %d kbps\n"
-#~ msgstr "Cieľová bitová rýchlosť: %d kb/s\n"
-
-#, c-format
-#~ msgid "Nominal quality setting (0-63): %d\n"
-#~ msgstr "Číselné nastavenie kvality (0-63): %d\n"
-
-#~ msgid "User comments section follows...\n"
-#~ msgstr "Následuje oblast poznámek uživatele...\n"
-
-#, fuzzy
-#~ msgid "WARNING: granulepos in stream %d decreases from %"
-#~ msgstr "Varovanie: granulepos v prúde údajov %d sa znižuje z %lld na %lld"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Could not decode Vorbis header packet %d - invalid Vorbis stream "
-#~ "(%d)\n"
-#~ msgstr ""
-#~ "Varování: Nemohu dekódovat paket hlavičky vorbis - neplatný proud vorbis "
-#~ "(%d)\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Vorbis stream %d does not have headers correctly framed. "
-#~ "Terminal header page contains additional packets or has non-zero "
-#~ "granulepos\n"
-#~ msgstr ""
-#~ "Varování: Proud vorbis %d nemá hlavičky správně umístěné v rámech. "
-#~ "Poslední strana hlavičky obsahuje další pakety nebo má nenulovou "
-#~ "granulepos\n"
-
-#, c-format
-#~ msgid "Vorbis headers parsed for stream %d, information follows...\n"
-#~ msgstr "Hlavičky vorbis zpracovány pro proud %d, následují informace...\n"
-
-#, c-format
-#~ msgid "Version: %d\n"
-#~ msgstr "Verze: %d\n"
-
-#, c-format
-#~ msgid "Vendor: %s (%s)\n"
-#~ msgstr "Dodavatel: %s (%s)\n"
-
-#, c-format
-#~ msgid "Channels: %d\n"
-#~ msgstr "Kanálů: %d\n"
-
-#, c-format
-#~ msgid ""
-#~ "Rate: %ld\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Frekvence: %ld\n"
-#~ "\n"
-
-#, c-format
-#~ msgid "Nominal bitrate: %f kb/s\n"
-#~ msgstr "Nominální bitrate: %f kb/s\n"
-
-#~ msgid "Nominal bitrate not set\n"
-#~ msgstr "Nominální bitrate nenastavena\n"
-
-#, c-format
-#~ msgid "Upper bitrate: %f kb/s\n"
-#~ msgstr "Vyšší bitrate: %f kb/s\n"
-
-#~ msgid "Upper bitrate not set\n"
-#~ msgstr "Vyšší bitrate nenastavena\n"
-
-#, c-format
-#~ msgid "Lower bitrate: %f kb/s\n"
-#~ msgstr "Nižší bitrate: %f kb/s\n"
-
-#~ msgid "Lower bitrate not set\n"
-#~ msgstr "Nižší bitrate nenastavena\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Could not decode Kate header packet %d - invalid Kate stream "
-#~ "(%d)\n"
-#~ msgstr ""
-#~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
-#~ "prúd údajov theora (%d)\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: packet %d does not seem to be a Kate header - invalid Kate "
-#~ "stream (%d)\n"
-#~ msgstr ""
-#~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
-#~ "prúd údajov theora (%d)\n"
-
-#, fuzzy, c-format
-#~ msgid ""
-#~ "WARNING: Kate stream %d does not have headers correctly framed. Terminal "
-#~ "header page contains additional packets or has non-zero granulepos\n"
-#~ msgstr ""
-#~ "Varovanie: Prúd údajov theora %d nemá hlavičky správne rámcované. "
-#~ "Posledná strana hlavičky obsahuje nadbytočné pakety alebo má nenulovú "
-#~ "granulepos\n"
-
-#, fuzzy, c-format
-#~ msgid "Kate headers parsed for stream %d, information follows...\n"
-#~ msgstr ""
-#~ "Hlavičky theora spracované pre prúd údajov %d, nasledujú informácie...\n"
-
-#, fuzzy, c-format
-#~ msgid "Version: %d.%d\n"
-#~ msgstr "Verzia:  %d.%d.%d\n"
-
-#, fuzzy, c-format
-#~ msgid "Category: %s\n"
-#~ msgstr "Dodavatel: %s\n"
-
-#, fuzzy
-#~ msgid "No category set\n"
-#~ msgstr "Nominální bitrate nenastavena\n"
-
-#, fuzzy
-#~ msgid "Invalid zero granulepos rate\n"
-#~ msgstr "Neplatná nulová rýchlosť rámcov\n"
-
-#, fuzzy, c-format
-#~ msgid "Granulepos rate %d/%d (%.02f gps)\n"
-#~ msgstr "Rýchlosť rámcov %d/%d (%.02f fps)\n"
-
-#, fuzzy
-#~ msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
-#~ msgstr ""
-#~ "Varovanie: V údajoch sa našla diera približne na pozícii %lld bajtov. "
-#~ "Poškodený ogg.\n"
-
 #~ msgid ""
 #~ "ogg123 from %s %s\n"
 #~ " by the Xiph.org Foundation (http://www.xiph.org/)\n"
@@ -2884,6 +2767,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "      Možné zariadenia sú ('*'=živo, '@'=súbor):\n"
 #~ "        "
 
+#, c-format
 #~ msgid ""
 #~ "  -f, --file=filename  Set the output filename for a previously\n"
 #~ "      specified file device (with -d).\n"
@@ -2927,6 +2811,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "s milisekúnd spôsobí ukončenie ogg123.\n"
 #~ "  -l, --delay=s  nastaviť s [milisekúnd] (implicitne 500).\n"
 
+#, c-format
 #~ msgid ""
 #~ "%s%s\n"
 #~ "Usage: oggenc [options] input.wav [...]\n"
@@ -2991,8 +2876,8 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "\n"
 #~ " Naming:\n"
 #~ " -o, --output=fn      Write file to fn (only valid in single-file mode)\n"
-#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, %"
-#~ "%l,\n"
+#~ " -n, --names=string   Produce filenames as this string, with %%a, %%t, "
+#~ "%%l,\n"
 #~ "                      %%n, %%d replaced by artist, title, album, track "
 #~ "number,\n"
 #~ "                      and date, respectively (see below for specifying "
@@ -3163,11 +3048,153 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ " ak zadáte normálny názov výstupného súboru pomocou -o\n"
 #~ "\n"
 
+#, c-format
+#~ msgid ""
+#~ "Warning: Comment %d in stream %d has invalid format, does not contain "
+#~ "'=': \"%s\"\n"
+#~ msgstr ""
+#~ "Varovanie: Poznámka %d v prúde údajov %d má neplatný formát, neobsahuje "
+#~ "'=': \"%s\"\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Invalid comment fieldname in comment %d (stream %d): \"%s\"\n"
+#~ msgstr ""
+#~ "Varování: Neplatný název pole poznámky v poznámce %d (proud %d): \"%s\"\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Illegal UTF-8 sequence in comment %d (stream %d): length marker "
+#~ "wrong\n"
+#~ msgstr ""
+#~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): špatná značka "
+#~ "délky\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Illegal UTF-8 sequence in comment %d (stream %d): too few bytes\n"
+#~ msgstr ""
+#~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): příliš málo "
+#~ "bajtů\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Illegal UTF-8 sequence in comment %d (stream %d): invalid "
+#~ "sequence\n"
+#~ msgstr ""
+#~ "Varování: Neplatná sekvence UTF-8 v poznámce %d (proud %d): neplatná "
+#~ "sekvence\n"
+
+#~ msgid "Warning: Failure in utf8 decoder. This should be impossible\n"
+#~ msgstr "Varování: Selhání v dekodéru utf8. To by nemělo být možné\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Could not decode theora header packet - invalid theora stream "
+#~ "(%d)\n"
+#~ msgstr ""
+#~ "Varovanie: Nepodarilo sa dekódovať hlavičkový paket theora -  neplatný "
+#~ "prúd údajov theora (%d)\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Theora stream %d does not have headers correctly framed. "
+#~ "Terminal header page contains additional packets or has non-zero "
+#~ "granulepos\n"
+#~ msgstr ""
+#~ "Varovanie: Prúd údajov theora %d nemá hlavičky správne rámcované. "
+#~ "Posledná strana hlavičky obsahuje nadbytočné pakety alebo má nenulovú "
+#~ "granulepos\n"
+
+#, c-format
+#~ msgid "Theora headers parsed for stream %d, information follows...\n"
+#~ msgstr ""
+#~ "Hlavičky theora spracované pre prúd údajov %d, nasledujú informácie...\n"
+
+#, c-format
+#~ msgid "Version: %d.%d.%d\n"
+#~ msgstr "Verzia:  %d.%d.%d\n"
+
+#, c-format
+#~ msgid "Vendor: %s\n"
+#~ msgstr "Dodavatel: %s\n"
+
+#, c-format
+#~ msgid "Width: %d\n"
+#~ msgstr "Šírka: %d\n"
+
+#, c-format
+#~ msgid "Height: %d\n"
+#~ msgstr "Výška: %d\n"
+
+#, c-format
+#~ msgid "Total image: %d by %d, crop offset (%d, %d)\n"
+#~ msgstr "Celkový obraz: %d o %d, orezať posun (%d, %d)\n"
+
+#~ msgid "Frame offset/size invalid: width incorrect\n"
+#~ msgstr "Neplatný posun/veľkosť rámca: nesprávna šírka\n"
+
+#~ msgid "Frame offset/size invalid: height incorrect\n"
+#~ msgstr "Neplatný posun/veľkosť rámca: nesprávna výška\n"
+
+#~ msgid "Invalid zero framerate\n"
+#~ msgstr "Neplatná nulová rýchlosť rámcov\n"
+
+#, c-format
+#~ msgid "Framerate %d/%d (%.02f fps)\n"
+#~ msgstr "Rýchlosť rámcov %d/%d (%.02f fps)\n"
+
+#~ msgid "Aspect ratio undefined\n"
+#~ msgstr "Pomer strán nebol definovaný\n"
+
+#~ msgid "Frame aspect 4:3\n"
+#~ msgstr "Pomer strán 4:3\n"
+
+#~ msgid "Frame aspect 16:9\n"
+#~ msgstr "Pomer strán 16:9\n"
+
+#, c-format
 #~ msgid "Frame aspect 1:%d\n"
 #~ msgstr "Pomer strán 1:%d\n"
 
+#~ msgid "Colourspace: Rec. ITU-R BT.470-6 System M (NTSC)\n"
+#~ msgstr "Farebný priestor: Rec. ITU-R BT.470-6 Systém M (NTSC)\n"
+
+#~ msgid "Colourspace: Rec. ITU-R BT.470-6 Systems B and G (PAL)\n"
+#~ msgstr "Farebný priestor: Rec. ITU-R BT.470-6 Systémy B a G (PAL)\n"
+
+#~ msgid "Colourspace unspecified\n"
+#~ msgstr "Nebol zadaný farebný priestor\n"
+
+#~ msgid "Pixel format 4:2:0\n"
+#~ msgstr "Formát pixelov 4:2:0\n"
+
+#~ msgid "Pixel format 4:2:2\n"
+#~ msgstr "Formát pixelov 4:2:2\n"
+
+#~ msgid "Pixel format 4:4:4\n"
+#~ msgstr "Formát pixelov 4:4:4\n"
+
+#~ msgid "Pixel format invalid\n"
+#~ msgstr "Neplatný formát pixelov\n"
+
+#, c-format
+#~ msgid "Target bitrate: %d kbps\n"
+#~ msgstr "Cieľová bitová rýchlosť: %d kb/s\n"
+
+#, c-format
+#~ msgid "Nominal quality setting (0-63): %d\n"
+#~ msgstr "Číselné nastavenie kvality (0-63): %d\n"
+
+#~ msgid "User comments section follows...\n"
+#~ msgstr "Následuje oblast poznámek uživatele...\n"
+
 #~ msgid "Warning: granulepos in stream %d decreases from %I64d to %I64d"
 #~ msgstr "Varovanie: granulepos v prúde údajov %d sa znižuje z %I64d na %I64d"
+
+#, c-format
+#~ msgid "Warning: granulepos in stream %d decreases from %lld to %lld"
+#~ msgstr "Varovanie: granulepos v prúde údajov %d sa znižuje z %lld na %lld"
 
 #~ msgid ""
 #~ "Theora stream %d:\n"
@@ -3180,6 +3207,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "\tPrehrávací čas: %ldm:%02ld.%03lds\n"
 #~ "\tPriemerná bitová rýchlosť: %f kb/s\n"
 
+#, c-format
 #~ msgid ""
 #~ "Theora stream %d:\n"
 #~ "\tTotal data length: %lld bytes\n"
@@ -3191,6 +3219,65 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "\tPrehrávací čas: %ldm:%02ld.%03lds\n"
 #~ "\tPriemerná bitová rýchlosť: %f kb/s\n"
 
+#, c-format
+#~ msgid ""
+#~ "Warning: Could not decode vorbis header packet - invalid vorbis stream "
+#~ "(%d)\n"
+#~ msgstr ""
+#~ "Varování: Nemohu dekódovat paket hlavičky vorbis - neplatný proud vorbis "
+#~ "(%d)\n"
+
+#, c-format
+#~ msgid ""
+#~ "Warning: Vorbis stream %d does not have headers correctly framed. "
+#~ "Terminal header page contains additional packets or has non-zero "
+#~ "granulepos\n"
+#~ msgstr ""
+#~ "Varování: Proud vorbis %d nemá hlavičky správně umístěné v rámech. "
+#~ "Poslední strana hlavičky obsahuje další pakety nebo má nenulovou "
+#~ "granulepos\n"
+
+#, c-format
+#~ msgid "Vorbis headers parsed for stream %d, information follows...\n"
+#~ msgstr "Hlavičky vorbis zpracovány pro proud %d, následují informace...\n"
+
+#, c-format
+#~ msgid "Vendor: %s (%s)\n"
+#~ msgstr "Dodavatel: %s (%s)\n"
+
+#, c-format
+#~ msgid "Channels: %d\n"
+#~ msgstr "Kanálů: %d\n"
+
+#, c-format
+#~ msgid ""
+#~ "Rate: %ld\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Frekvence: %ld\n"
+#~ "\n"
+
+#, c-format
+#~ msgid "Nominal bitrate: %f kb/s\n"
+#~ msgstr "Nominální bitrate: %f kb/s\n"
+
+#~ msgid "Nominal bitrate not set\n"
+#~ msgstr "Nominální bitrate nenastavena\n"
+
+#, c-format
+#~ msgid "Upper bitrate: %f kb/s\n"
+#~ msgstr "Vyšší bitrate: %f kb/s\n"
+
+#~ msgid "Upper bitrate not set\n"
+#~ msgstr "Vyšší bitrate nenastavena\n"
+
+#, c-format
+#~ msgid "Lower bitrate: %f kb/s\n"
+#~ msgstr "Nižší bitrate: %f kb/s\n"
+
+#~ msgid "Lower bitrate not set\n"
+#~ msgstr "Nižší bitrate nenastavena\n"
+
 #~ msgid ""
 #~ "Negative granulepos on vorbis stream outside of headers. This file was "
 #~ "created by a buggy encoder\n"
@@ -3198,6 +3285,7 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Záporné granulepos na prúde údajov vorbis mimo hlavičiek. Tento súbor bol "
 #~ "vytvorený chybným enkodérom\n"
 
+#, c-format
 #~ msgid ""
 #~ "Vorbis stream %d:\n"
 #~ "\tTotal data length: %lld bytes\n"
@@ -3209,18 +3297,31 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "\tPrehrávací čas: %ldm:%02ld.%03lds\n"
 #~ "\tPriemerná bitová rýchlosť: %f kb/s\n"
 
+#, c-format
+#~ msgid ""
+#~ "Warning: Hole in data found at approximate offset %lld bytes. Corrupted "
+#~ "ogg.\n"
+#~ msgstr ""
+#~ "Varovanie: V údajoch sa našla diera približne na pozícii %lld bajtov. "
+#~ "Poškodený ogg.\n"
+
+#, c-format
 #~ msgid "Page error. Corrupt input.\n"
 #~ msgstr "Chyba strany. Poškozený vstup.\n"
 
+#, c-format
 #~ msgid "Setting eos: update sync returned 0\n"
 #~ msgstr "Nastavuji eso: aktualizace synchronizace vrátila 0\n"
 
+#, c-format
 #~ msgid "Cutpoint not within stream. Second file will be empty\n"
 #~ msgstr "Místo řezu není uvnitř proudu. Druhý soubor bude prázdný\n"
 
+#, c-format
 #~ msgid "Unhandled special case: first file too short?\n"
 #~ msgstr "Neobsloužený speciální případ: první soubor příliš krátký?\n"
 
+#, c-format
 #~ msgid ""
 #~ "ERROR: First two audio packets did not fit into one\n"
 #~ "       ogg page. File may not decode correctly.\n"
@@ -3228,21 +3329,27 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "CHYBA: První dva pakety zvuku se nevešly do jedné\n"
 #~ "       strany ogg. Soubor se možná nebude dekódovat správně.\n"
 
+#, c-format
 #~ msgid "Bitstream error\n"
 #~ msgstr "Chyba bitového proudu\n"
 
+#, c-format
 #~ msgid "Update sync returned 0, setting eos\n"
 #~ msgstr "Aktualizace synchronizace vrátila 0, nastavuji eos\n"
 
+#, c-format
 #~ msgid "Error in first page\n"
 #~ msgstr "Chyba v první straně\n"
 
+#, c-format
 #~ msgid "error in first packet\n"
 #~ msgstr "chyba v prvním paketu\n"
 
+#, c-format
 #~ msgid "EOF in headers\n"
 #~ msgstr "EOF v hlavičkách\n"
 
+#, c-format
 #~ msgid ""
 #~ "WARNING: vcut is still experimental code.\n"
 #~ "Check that the output files are correct before deleting sources.\n"
@@ -3252,13 +3359,15 @@ msgstr "Chyba při odstraňování starého souboru %s\n"
 #~ "Zkontrolujte, že výstupní soubory jsou správné, před odstraněním zdrojů.\n"
 #~ "\n"
 
+#, c-format
 #~ msgid "Error writing first output file\n"
 #~ msgstr "Chyba při zapisování prvního souboru výstupu\n"
 
+#, c-format
 #~ msgid "Error writing second output file\n"
 #~ msgstr "Chyba při zapisování druhého souboru výstupu\n"
 
-#, fuzzy
+#, fuzzy, c-format
 #~ msgid ""
 #~ "Usage: \n"
 #~ "  vorbiscomment [-l] file.ogg (to list the comments)\n"

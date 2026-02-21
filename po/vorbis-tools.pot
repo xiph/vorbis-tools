@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.3\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,75 +216,75 @@ msgstr ""
 msgid "=== No such device %s.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, c-format
 msgid "ogg123 from %s %s"
 msgstr ""
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -292,67 +292,67 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, c-format
 msgid "Available codecs: "
 msgstr ""
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr ""
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, c-format
 msgid "File:"
 msgstr ""
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
 "                          previously specified with --device.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -361,84 +361,84 @@ msgid ""
 "                          the ogg123 man page for available device options.\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, c-format
 msgid "Playlist options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, c-format
 msgid "Input options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, c-format
 msgid "Decode options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -447,31 +447,31 @@ msgid ""
 "                          within the specified timeout 's'. (default 500)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr ""
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr ""
@@ -574,11 +574,11 @@ msgstr ""
 msgid "Done."
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr ""
@@ -588,7 +588,7 @@ msgstr ""
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr ""
@@ -598,9 +598,15 @@ msgstr ""
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
+msgstr ""
+
+#: ogg123/opus_format.c:346
+#, c-format
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
 msgstr ""
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
@@ -613,12 +619,12 @@ msgstr ""
 msgid "Warning: Could not read directory %s.\n"
 msgstr ""
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr ""
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr ""
@@ -928,14 +934,14 @@ msgstr ""
 msgid "Ogg FLAC file reader"
 msgstr ""
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr ""
 
 #: oggenc/audio.c:140
 #, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr ""
 
 #: oggenc/audio.c:166
@@ -943,114 +949,114 @@ msgstr ""
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr ""
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr ""
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, c-format
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr ""
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr ""
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr ""
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr ""
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
 " Must be 8 or 16 bit PCM.\n"
 msgstr ""
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr ""
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
 " Trying to read anyway (may not work)...\n"
 msgstr ""
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr ""
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
 " or type 3 floating point PCM\n"
 msgstr ""
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
 "The software that created this file is incorrect.\n"
 msgstr ""
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
 "or floating point PCM\n"
 msgstr ""
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
 "report this.\n"
 msgstr ""
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr ""

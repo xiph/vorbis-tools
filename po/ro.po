@@ -1,9 +1,10 @@
-# Mesajele în limba română pentru pachetul vorbis-tools
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Romanian translations for vorbis-tools package.
+# Mesajele în limba română pentru pachetul vorbis-tools.
+# Copyright c 2003, 2022, 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the vorbis-tools package.
 #
 # Eugen Hoanca <eugenh@urban.urban-grafx.ro>, 2003.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022, 2025.
 #
 # Cronologia traducerii fișierului „vorbis-tools”:
 # Traducerea inițială, făcută de EH, pentru versiunea vorbis-tools 1.0.
@@ -14,14 +15,16 @@
 # NU și a mesajelor traduse (acestea au rămas neschimbate).
 # Eliminare a mesajelor ce-au dispărut în ultima versiune.
 # Actualizări realizate de Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 15.01.2022.
-# Actualizare a traducerii pentru versiunea 1.4.0, făcută de R-GC.
+# Actualizare a traducerii pentru versiunea 1.4.0, făcută de R-GC, apr-2022.
+# Actualizare a traducerii pentru versiunea 1.4.3, făcută de R-GC, apr-2025.
+# Actualizare a traducerii pentru versiunea Y, făcută de X, Z(luna-anul).
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: vorbis-tools 1.4.0\n"
+"Project-Id-Version: vorbis-tools 1.4.3\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
-"PO-Revision-Date: 2022-04-20 01:03+0200\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
+"PO-Revision-Date: 2025-04-14 14:59+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -31,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: ogg123/buffer.c:118
 #, c-format
@@ -241,86 +244,88 @@ msgstr "Opțiuni disponibile:\n"
 msgid "=== No such device %s.\n"
 msgstr "=== Nu există dispozitivul %s.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
-msgstr "=== Driverul %s nu este un driver de ieșire pentru fișiere.\n"
+msgstr "=== Controlorul %s nu este un controlor de ieșire pentru fișiere.\n"
 
-#: ogg123/cmdline_options.c:144
-#, fuzzy
+#: ogg123/cmdline_options.c:146
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr ""
-"=== Nu se poate specifica fișierul de ieșire fără a specifica un driver.\n"
+"=== Nu se poate specifica fișierul de ieșire fără a specifica în prealabil "
+"un controlor.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "=== Format de opțiune incorect: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "--- Valoare pre-memorie tampon nevalidă. Intervalul este 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, c-format
 msgid "ogg123 from %s %s"
 msgstr "ogg123 de la %s %s"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "--- Nu se poate reda fiecare al 0-lea fragment!\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
 msgstr ""
 "--- Nu se poate reda fiecare fragment de 0 ori.\n"
-"--- Pentru a face un test de decodificare, utilizați driverul de ieșire "
+"--- Pentru a face un test de decodificare, utilizați controlorul de ieșire "
 "null.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "--- Nu se poate deschide lista de redare %s.  Se omite.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr ""
 "=== Conflict de opțiuni: ora de încheiere este înaintea orei de începere.\n"
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
-msgstr "--- Driverul %s specificat în fișierul de configurare nu este valid.\n"
+msgstr ""
+"--- Controlorul %s specificat în fișierul de configurare nu este valid.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
 msgstr ""
-"=== Nu s-a putut încărca driverul implicit și nu s-a specificat nici un "
-"driver în fișierul de configurare. Se iese.\n"
+"=== Nu s-a putut încărca controlorul implicit și nu s-a specificat nici un "
+"controlor în fișierul de configurare. Se iese.\n"
 
-#: ogg123/cmdline_options.c:307
-#, fuzzy, c-format
+#: ogg123/cmdline_options.c:309
+#, c-format
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 "ogg123 de la %s %s\n"
 " de către Xiph.Org Foundation (http://www.xiph.org/)\n"
-"\n"
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
+" utilizând decodificatorul %s.\n"
+"\n"
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -331,27 +336,27 @@ msgstr ""
 "Redă fișiere audio Ogg și fluxuri de rețea.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, c-format
 msgid "Available codecs: "
 msgstr "Codificatori disponibili: "
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr "FLAC, "
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr "Speex, "
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
-msgstr ""
+msgstr "Opus, "
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
@@ -360,12 +365,12 @@ msgstr ""
 "Ogg Vorbis.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr "Opțiuni de ieșire\n"
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
@@ -373,17 +378,17 @@ msgstr ""
 "  -d disp, --device disp  Utilizează dispozitivul de ieșire „disp”. "
 "Dispozitive disponibile:\n"
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr "În direct(Live):"
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, c-format
 msgid "File:"
 msgstr "Fișier:"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
@@ -394,14 +399,14 @@ msgstr ""
 "                          dispozitiv de fișiere specificat anterior cu „--"
 "device”.\n"
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 "  --audio-buffer n        Utilizează o memorie tampon audio de ieșire de „n” "
 "kiloocteți.\n"
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -415,12 +420,12 @@ msgstr ""
 "                          Consultați pagina de manual «ogg123» pentru\n"
 "                          opțiunile de dispozitiv disponibile.\n"
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, c-format
 msgid "Playlist options\n"
 msgstr "Opțiuni listă de redare:\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
@@ -429,82 +434,82 @@ msgstr ""
 "                          Citește lista de redare, de fișiere și adrese URL "
 "din „fișier”\n"
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr "  -r, --repeat            Repetă lista de redare la infinit\n"
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr "  -R, --remote            Utilizează interfața de telecomandă\n"
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr ""
 "  -z, --shuffle           Amestecă lista de fișiere înainte de redare\n"
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 "  -Z, --random            Redă fișierele aleatoriu până când este "
 "întreruptă\n"
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, c-format
 msgid "Input options\n"
 msgstr "Opțiuni de intrare\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 "  -b n, --buffer n        Utilizează o memorie tampon de intrare de „n” "
 "kiloocteți\n"
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 "  -p n, --prebuffer n     Încarcă n%% din memoria tampon de intrare,\n"
 "                          înainte de a reda\n"
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, c-format
 msgid "Decode options\n"
 msgstr "Opțiuni decodificator\n"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 "  -k n, --skip n          Omite primele „n” secunde (sau formatul hh:mm:ss)\n"
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 "  -K n, --end n           Termină la „n” secunde (sau formatul hh:mm:ss)\n"
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr "  -x n, --nth n           Redă fiecare al „n-lea” bloc\n"
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Repetă fiecare bloc redat de „n” ori\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Opțiuni diverse\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -521,17 +526,17 @@ msgstr ""
 "timp\n"
 "                          specificat: „ms”. (implicit 500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Afișează acest ajutor\n"
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr "  -q, --quiet             Nu afișează nimic (fără titlu)\n"
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
@@ -539,15 +544,15 @@ msgstr ""
 "  -v, --verbose           Afișează progresul și alte informații despre "
 "stare\n"
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Afișează versiunea de ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr "EROARE: Memorie insuficientă.\n"
@@ -654,11 +659,11 @@ msgstr "EROARE: scrierea memoriei tampon a eșuat.\n"
 msgid "Done."
 msgstr "Finalizat."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Pauză în flux; probabil nedăunătoare\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== Biblioteca Vorbis a raportat o eroare de flux.\n"
@@ -668,7 +673,7 @@ msgstr "=== Biblioteca Vorbis a raportat o eroare de flux.\n"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Flux Ogg Vorbis: %d canal(e), %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Format Vorbis: Versiunea %d"
@@ -679,10 +684,17 @@ msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
 "Sugestie rată de biți: superior=%ld nominal=%ld inferior=%ld interval=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Codificat de: %s"
+
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "Flux Ogg Vorbis: %d canal(e), %ld Hz"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, c-format
@@ -694,13 +706,13 @@ msgstr "EROARE: Memorie insuficientă în create_playlist_member().\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Avertisment: Nu s-a putut citi directorul %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr ""
 "Avertisment de la lista de redare %s: Nu se poate citi directorul %s.\n"
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "EROARE: Memorie insuficientă în playlist_to_array().\n"
@@ -812,9 +824,8 @@ msgid "Track number:"
 msgstr "Număr pistă:"
 
 #: ogg123/vorbis_comments.c:42
-#, fuzzy
 msgid "ReplayGain (Reference loudness):"
-msgstr "ReplayGain (Pistă):"
+msgstr "ReplayGain (Intensitate de referință):"
 
 #: ogg123/vorbis_comments.c:43
 msgid "ReplayGain (Track):"
@@ -843,26 +854,26 @@ msgstr "Comentariu:"
 #: ogg123/vorbis_comments.c:131
 #, c-format
 msgid "Picture: Type \"%s\"%s with description \"%s\" and URI %s"
-msgstr ""
+msgstr "Imagine: tip „%s”%s cu descriere „%s” și URI %s"
 
 #: ogg123/vorbis_comments.c:133
 #, c-format
 msgid "Picture: Type \"%s\"%s URI %s"
-msgstr ""
+msgstr "Imagine: tip „%s”%s URI %s"
 
 #: ogg123/vorbis_comments.c:137
 #, c-format
 msgid "Picture: Type \"%s\"%s with description \"%s\", %zu bytes %s"
-msgstr ""
+msgstr "Imagine: tip „%s”%s cu descriere „%s”, %zu octeți %s"
 
 #: ogg123/vorbis_comments.c:139
 #, c-format
 msgid "Picture: Type \"%s\"%s %zu bytes %s"
-msgstr ""
+msgstr "Imagine: tip „%s”%s %zu octeți %s"
 
 #: ogg123/vorbis_comments.c:144
 msgid "Picture: <corrupted>"
-msgstr ""
+msgstr "Imagine: <coruptă>"
 
 #: oggdec/oggdec.c:51
 #, c-format
@@ -870,11 +881,9 @@ msgid "oggdec from %s %s\n"
 msgstr "oggdec de la %s %s\n"
 
 #: oggdec/oggdec.c:57 oggenc/oggenc.c:509
-#, fuzzy, c-format
+#, c-format
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
-msgstr ""
-" de către Xiph.Org Foundation (http://www.xiph.org/)\n"
-"\n"
+msgstr " de către Xiph.Org Foundation (http://www.xiph.org/)\n"
 
 #: oggdec/oggdec.c:59
 #, c-format
@@ -1057,14 +1066,15 @@ msgstr "Cititor de fișiere FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Cititor de fișiere Ogg FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Avertisment: sfârșit de fișier neașteptat în citirea antetului WAV\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "Se omite fragmentul de tip „%s”, lungime %d\n"
 
 #: oggenc/audio.c:166
@@ -1072,52 +1082,52 @@ msgstr "Se omite fragmentul de tip „%s”, lungime %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Avertisment: Sfârșit de fișier neașteptat în fragmentul AIFF\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Avertisment: Nu s-a găsit niciun fragment comun în fișierul AIFF\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Avertisment: Fragment comun trunchiat în antetul AIFF\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Avertismnet: Sfârșit de fișier neașteptat în citirea antetului AIFF\n"
 
-#: oggenc/audio.c:289
-#, fuzzy, c-format
+#: oggenc/audio.c:288
+#, c-format
 msgid "Warning: Unsupported count of channels in AIFF header\n"
-msgstr "Avertisment: Fragment comun trunchiat în antetul AIFF\n"
+msgstr "Avertisment: Număr neacceptat de canale în antetul AIFF\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Avertisment: Antet AIFF-C trunchiat.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Avertisment: Nu se poate gestiona AIFF-C comprimat (%c%c%c%c)\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Avertisment: Nu s-a găsit niciun fragment SSND în fișierul AIFF\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Avertisment: Fragment SSND corupt în antetul AIFF\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Avertisment: Sfârșit de fișier neașteptat la citirea antetului AIFF\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1126,12 +1136,12 @@ msgstr ""
 "Avertisment: OggEnc nu acceptă acest tip de fișier AIFF/AIFC\n"
 "Trebuie să fie 8 sau 16 biți PCM.\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Avertisment: Format de fragment nerecunoscut în antetul WAV\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1140,12 +1150,12 @@ msgstr ""
 "Avertisment: Fragment de format NEVALID în antetul wav.\n"
 " Se încearcă oricum citirea (s-ar putea să nu meargă)...\n"
 
-#: oggenc/audio.c:470
-#, fuzzy, c-format
+#: oggenc/audio.c:479
+#, c-format
 msgid "Warning: Unsupported count of channels in WAV header\n"
-msgstr "Avertisment: Format de fragment nerecunoscut în antetul WAV\n"
+msgstr "Avertisment: Număr neacceptat de canale în antetul WAV\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1155,7 +1165,7 @@ msgstr ""
 "PCM\n"
 " sau PCM cu virgulă flotantă tip 3\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1164,7 +1174,7 @@ msgstr ""
 "Avertisment: Valoarea WAV „aliniere bloc” este incorectă, se ignoră.\n"
 "Software-ul care a creat acest fișier este incorect.\n"
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1174,21 +1184,21 @@ msgstr ""
 "de\n"
 "8, 16 sau 24 de biți, sau PCM în virgulă flotantă\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 "Datele PCM pe 24 de biți Big Endian nu sunt acceptate în prezent, se "
 "anulează.\n"
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 "Eroare internă: încercarea de-a se citi adâncimea de biți %d nu este "
 "acceptată\n"
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1197,7 +1207,7 @@ msgstr ""
 "EROARE: Nu s-au primit mostre de la reeșantionare: fișierul va fi trunchiat. "
 "Ar trebui să raportați asta.\n"
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Nu s-a putut inițializa reeșantionarea\n"
@@ -1602,9 +1612,9 @@ msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgstr "EROARE: Fișierul de intrare „%s” nu este un format acceptat\n"
 
 #: oggenc/oggenc.c:290
-#, fuzzy, c-format
+#, c-format
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
-msgstr "EROARE: Fișierul de intrare „%s” nu este un format acceptat\n"
+msgstr "EROARE: Fișierul de intrare „%s” are o rată de eșantionare nevalidă\n"
 
 #: oggenc/oggenc.c:350
 #, c-format
@@ -1662,6 +1672,8 @@ msgid ""
 " using encoder %s.\n"
 "\n"
 msgstr ""
+" utilizând codificatorul %s.\n"
+"\n"
 
 #: oggenc/oggenc.c:511
 #, c-format
@@ -2251,7 +2263,7 @@ msgstr "Eroare la verificarea existenței directorului %s: %s\n"
 #: oggenc/platform.c:196
 #, c-format
 msgid "Error: path segment \"%s\" is not a directory\n"
-msgstr "Eroare: segmentul de cale „%s” nu este un director\n"
+msgstr "Eroare: segmentul de rută „%s” nu este un director\n"
 
 #: ogginfo/ogginfo2.c:115
 #, c-format
@@ -2261,6 +2273,10 @@ msgid ""
 "\tPlayback length: %ldm:%02ld.%03lds\n"
 "\tAverage bitrate: %f kb/s\n"
 msgstr ""
+"%s flux %d:\n"
+"\tLungimea totală a datelor: %<PRId64> octeți\n"
+"\tLungimea redării: %ldm:%02ld.%03lds\n"
+"\tRata medie de biți: %f kb/s\n"
 
 #: ogginfo/ogginfo2.c:127
 #, c-format
@@ -2287,12 +2303,13 @@ msgstr ""
 "probleme cu unele instrumente.\n"
 
 #: ogginfo/ogginfo2.c:278
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING: Hole in data (%d bytes) found at approximate offset %<PRId64> "
 "bytes. Corrupted Ogg.\n"
 msgstr ""
-"AVERTISMENT: S-a găsit o gaură în date (%d octeți) la poziția aproximativă %"
+"AVERTISMENT: SS-a găsit o gaură în date (%d bytes) la o distanță "
+"aproximativă de %<PRId64> bytes. Ogg corupt.\n"
 
 #: ogginfo/ogginfo2.c:305
 #, c-format
@@ -2384,12 +2401,12 @@ msgid "ogginfo from %s %s\n"
 msgstr "ogginfo de la %s %s\n"
 
 #: ogginfo/ogginfo2.c:400
-#, fuzzy, c-format
+#, c-format
 msgid ""
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 "\n"
 msgstr ""
-" de către Xiph.Org Foundation (http://www.xiph.org/)\n"
+" de către Xiph.Org Foundation (https://www.xiph.org/)\n"
 "\n"
 
 #: ogginfo/ogginfo2.c:401
@@ -2552,9 +2569,11 @@ msgid "Processing failed\n"
 msgstr "Procesarea a eșuat\n"
 
 #: vcut/vcut.c:341
-#, fuzzy, c-format
+#, c-format
 msgid "WARNING: unexpected granulepos %<PRId64> (expected %<PRId64>)\n"
-msgstr "AVERTISMENT: poziție instantanee(granulepos) neașteptată "
+msgstr ""
+"AVERTISMENT: poziție instantanee(granulepos) neașteptată %<PRId64> "
+"(așteptată %<PRId64>)\n"
 
 #: vcut/vcut.c:392
 #, c-format
@@ -2562,21 +2581,22 @@ msgid "Cutpoint not found\n"
 msgstr "Punctul de întrerupere nu a fost găsit\n"
 
 #: vcut/vcut.c:398
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can't produce a file starting and ending between sample positions %<PRId64> "
 "and %<PRId64>\n"
 msgstr ""
 "Nu se poate produce un fișier care începe și se termină între pozițiile "
-"eșantionului "
+"eșantionului %<PRId64> și %<PRId64>\n"
 
 #: vcut/vcut.c:442
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can't produce a file starting between sample positions %<PRId64> and "
 "%<PRId64>.\n"
 msgstr ""
-"Nu se poate produce un fișier care începe între pozițiile eșantionului "
+"Nu se poate produce un fișier care să înceapă între pozițiile eșantionului "
+"%<PRId64> și %<PRId64>.\n"
 
 #: vcut/vcut.c:446
 #, c-format
@@ -2779,9 +2799,9 @@ msgid "Editing options\n"
 msgstr "Opțiuni de editare\n"
 
 #: vorbiscomment/vcomment.c:640
-#, fuzzy, c-format
+#, c-format
 msgid "  -a, --append            Update comments\n"
-msgstr "  -a, --append            Adaugă comentarii\n"
+msgstr "  -a, --append            Actualizează comentariile\n"
 
 # R-GC, scrie:
 # ghilimelele duble «" ... "», fac parte din
@@ -2806,6 +2826,13 @@ msgid ""
 "removed\n"
 "                          This implies -a,\n"
 msgstr ""
+"  -d \"nume[=valoare]\", --rm \"nume[=valoare]\"\n"
+"                          Specifică o etichetă de comentariu în linia de "
+"comandă\n"
+"                          pentru a fi eliminată; dacă nu este dată nicio "
+"valoare,\n"
+"                          toate etichetele cu acel nume sunt eliminate; "
+"implică „-a”\n"
 
 #: vorbiscomment/vcomment.c:647
 #, c-format

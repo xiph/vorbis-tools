@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: 2010-09-06 14:43-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -218,36 +218,37 @@ msgstr "Disponeblaj indikoj:\n"
 msgid "=== No such device %s.\n"
 msgstr "=== Neniu tia aparato: %s.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr "=== La pelilo %s ne estas pelilo por eliga dosiero.\n"
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 #, fuzzy
+#| msgid "=== Cannot specify output file without specifying a driver.\n"
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr "=== Ne eblas indiki eligan dosieron sen indiki pelilon.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "=== Malĝusta indika formo: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "--- Antaŭbufra valoro ne validas. La intervalo estas 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, c-format
 msgid "ogg123 from %s %s"
 msgstr "ogg123 el %s %s"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "--- Ne eblas ludi ĉiun 0-an pecon!\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
@@ -255,21 +256,21 @@ msgstr ""
 "--- Ne eblas ludi ĉiun pecon 0 foje.\n"
 "--- Por testi dekodigon, uzu la nulan eligan pelilon.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "--- Ne eblas malfermi la dosieron kun la ludlisto %s. Preterpasite.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr "=== Malkohero en indikoj: La fina tempo estas antaŭ la komenca.\n"
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "--- La pelilo %s indikita en la agordo-dosiero malvalidas.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
@@ -277,8 +278,12 @@ msgstr ""
 "=== Ne eblis ŝargi je antaŭsupozita pelilo kaj neniu alia estas indikita en "
 "la agordo-dosiero. Nepras eliro.\n"
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, fuzzy, c-format
+#| msgid ""
+#| "ogg123 from %s %s\n"
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
@@ -287,14 +292,14 @@ msgstr ""
 " farite de Xiph.Org Fondaĵo (http://www.xiph.org/)\n"
 "\n"
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -305,27 +310,27 @@ msgstr ""
 "Ludi son-dosierojn kaj retfluojn Ogg.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, c-format
 msgid "Available codecs: "
 msgstr "Disponeblaj dekodiloj: "
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr "FLAC, "
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr "Speex, "
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
@@ -334,12 +339,12 @@ msgstr ""
 "Ogg Vorbis.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr "Eligaj indikoj\n"
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
@@ -347,17 +352,17 @@ msgstr ""
 "  -d dev, --device dev    Uzu la eligan aparaton  \"dev\". Disponeblaj "
 "aparatoj:\n"
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr "Samtempe:"
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, c-format
 msgid "File:"
 msgstr "Dosiero:"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
@@ -367,12 +372,12 @@ msgstr ""
 "                          Difinas la eligan dosiernomon por\n"
 "                          dosiero-aparato antaŭe indikita per --device.\n"
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr "  --audio-buffer n        Uzas eligan son-bufron el 'n' kilobajtoj\n"
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -386,12 +391,12 @@ msgstr ""
 "                          la man-paĝon de ogg123 por koni la disponeblajn\n"
 "                          aparatajn indikojn.\n"
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, c-format
 msgid "Playlist options\n"
 msgstr "Muziklistaj indikoj\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
@@ -400,48 +405,48 @@ msgstr ""
 "                          Legas muzikliston de dosieroj kaj URL-oj el "
 "\"dosiero\"\n"
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr "  -r, --repeat            Ripetadas la muzikliston nedifinite\n"
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr "  -R, --remote            Uzas demalprokiman reg-interfacon\n"
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr "  -z, --shuffle           Miksas la liston de dosieroj antaŭ ol ludi\n"
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr "  -Z, --random            Ludas la dosierojn hazarde ĝis haltigo\n"
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, c-format
 msgid "Input options\n"
 msgstr "Enigaj indikoj\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr "  -b n, --buffer n        Uzas enigan bufron el 'n' kilobajtoj\n"
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 "  -p n, --prebuffer n     Ŝargas je n%% el la eniga bufro antaŭ ol ludi\n"
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, c-format
 msgid "Decode options\n"
 msgstr "Dekodaj indikoj\n"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
@@ -449,27 +454,27 @@ msgstr ""
 "  -k n, --skip n          Pretersaltas la unuajn 'n' sekundoj (aŭ laŭ "
 "hh:mm:ss)\n"
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr "  -K n, --end n           Haltas ĉe 'n' sekundoj (aŭ laŭ hh:mm:ss)\n"
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr "  -x n, --nth n           Ludas ĉiun 'n'-an blokon\n"
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Ripetas ĉiun luditan blokon 'n' foje\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Mikstemaj indikoj\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -486,32 +491,32 @@ msgstr ""
 "                          ene de la specifita tempo-limo 's'. (implicite "
 "500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Montrigas ĉi tiun helpon\n"
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr "  -q, --quiet             Ne montrigas ion ajn (neniu titolo)\n"
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
 msgstr ""
 "  -v, --verbose           Montrigas evoluan kaj aliajn statusajn informojn\n"
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Montrigas la version de ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr "ERARO: Mankis memoro.\n"
@@ -618,11 +623,11 @@ msgstr "ERARO: bufra skribado malsukcesis.\n"
 msgid "Done."
 msgstr "Farita."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Truo en la fluo; probable ne malutila\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== La biblioteko de Vorbis raportis eraron pri fluo.\n"
@@ -632,7 +637,7 @@ msgstr "=== La biblioteko de Vorbis raportis eraron pri fluo.\n"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Fluo de Ogg Vorbis: %d kanalo, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Formo de Vorbis: Versio %d"
@@ -643,10 +648,17 @@ msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
 "Konsiletoj pri bitrapido: supra=%ld meznombra=%ld suba=%ld intervalo=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Enkodita de: %s"
+
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "Fluo de Ogg Vorbis: %d kanalo, %ld Hz"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, c-format
@@ -658,12 +670,12 @@ msgstr "ERARO: Mankis memoro en create_playlist_member().\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Averto: Ne eblis legi la dosierujon %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Averto el ludlisto %s: Ne eblis legi la dosierujon %s.\n"
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "ERARO: Mankis memoro en playlist_to_array().\n"
@@ -776,6 +788,7 @@ msgstr "Trak-numero:"
 
 #: ogg123/vorbis_comments.c:42
 #, fuzzy
+#| msgid "ReplayGain (Track):"
 msgid "ReplayGain (Reference loudness):"
 msgstr "ReplayGain (Trako):"
 
@@ -834,6 +847,9 @@ msgstr "oggdec el %s %s\n"
 
 #: oggdec/oggdec.c:57 oggenc/oggenc.c:509
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 " farite de Xiph.Org Fondaĵo (http://www.xiph.org/)\n"
@@ -992,14 +1008,15 @@ msgstr "Legilo de dosiero FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Legilo de dosiero Ogg FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Averto: Neatendita EOF (fino de dosiero) dum lego de WAV-kapo\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "Oni preterpasas pecon el tipo \"%s\", grandeco %d\n"
 
 #: oggenc/audio.c:166
@@ -1007,52 +1024,53 @@ msgstr "Oni preterpasas pecon el tipo \"%s\", grandeco %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Averto: Neatendita EOF (dosier-fino) en AIFF-peco\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Averto: Neniu komuna peco estis trovita en la dosiero AIFF\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Averto: Distranĉita komuna peco en AIFF-datumkapo\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Averto: Neatendita EOF (dosier-fino) dum lego de AIFF-kapo\n"
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, fuzzy, c-format
+#| msgid "Warning: Truncated common chunk in AIFF header\n"
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Averto: Distranĉita komuna peco en AIFF-datumkapo\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Averto: datumkapo de AIFF-C estis mistranĉita.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Averto: Ne povas trakti kompaktitan AIFF-C (%c%c%c%c)\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Averto: Neniu peco SSND estis trovita en la dosiero AIFF\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Averto: Difektita peco SSND en datumkapo de AIFF\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Averto: Neatendita EOF (dosier-fino) dum legado de AIFF-kapo\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1062,12 +1080,12 @@ msgstr ""
 " Ĝi devas esti 8 aŭ 16-bita PCM.\n"
 "\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Averto: Nerekonita form-difiniga peco en la datumkapo WAV\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1076,12 +1094,13 @@ msgstr ""
 "Averto: MALVALIDA form-difiniga peco en datumkapo wav.\n"
 " Ni provos legi tiel mem (eble sensukcese)...\n"
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, fuzzy, c-format
+#| msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Averto: Nerekonita form-difiniga peco en la datumkapo WAV\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1090,7 +1109,7 @@ msgstr ""
 "ERARO: dosiero Wav estas nesubtenata tipo (devas esti laŭnorma PCM\n"
 " aŭ glitkoma PCM tipo 3)\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1099,7 +1118,7 @@ msgstr ""
 "Averto: WAV-valoro 'block alignment' estas malĝusta, ni preteratentas.\n"
 "La programo kiu kreis tiun ĉi dosieron estas malkorekta.\n"
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1109,18 +1128,18 @@ msgstr ""
 "PCM\n"
 " aŭ glitkoma PCM)\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr ""
 "Pezkomenca 24-bita PCM-a datumaro ne estas aktuale subtenata, ni ĉesigas.\n"
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Interna eraro: provo legi nesubtenatan bitprofundecon %d\n"
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1129,7 +1148,7 @@ msgstr ""
 "MIS-ERARO: neniu specimeno alvenis el la specimen-reakirilo; via dosiero "
 "estos mistranĉita. Bonvolu raporti tion ĉi.\n"
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Ne povis lanĉi la specimen-reakirilon\n"
@@ -1523,6 +1542,7 @@ msgstr "ERARO: La enig-dosiero \"%s\" ne estas subtenata formo\n"
 
 #: oggenc/oggenc.c:290
 #, fuzzy, c-format
+#| msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "ERARO: La enig-dosiero \"%s\" ne estas subtenata formo\n"
 
@@ -2133,6 +2153,11 @@ msgstr "Eraro: la pado-segmento \"%s\" ne estas dosierujo\n"
 
 #: ogginfo/ogginfo2.c:115
 #, fuzzy, c-format
+#| msgid ""
+#| "Vorbis stream %d:\n"
+#| "\tTotal data length: %I64d bytes\n"
+#| "\tPlayback length: %ldm:%02ld.%03lds\n"
+#| "\tAverage bitrate: %f kb/s\n"
 msgid ""
 "%s stream %d:\n"
 "\tTotal data length: %<PRId64> bytes\n"
@@ -2170,6 +2195,9 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:278
 #, fuzzy, c-format
+#| msgid ""
+#| "Warning: Hole in data found at approximate offset %I64d bytes. Corrupted "
+#| "ogg.\n"
 msgid ""
 "WARNING: Hole in data (%d bytes) found at approximate offset %<PRId64> "
 "bytes. Corrupted Ogg.\n"
@@ -2268,6 +2296,9 @@ msgstr "ogginfo el %s %s\n"
 
 #: ogginfo/ogginfo2.c:400
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 "\n"
@@ -2432,6 +2463,7 @@ msgstr "La procezado malsukcesis\n"
 
 #: vcut/vcut.c:341
 #, fuzzy, c-format
+#| msgid "WARNING: unexpected granulepos "
 msgid "WARNING: unexpected granulepos %<PRId64> (expected %<PRId64>)\n"
 msgstr "AVERTO: Neatendita 'granulepos' "
 
@@ -2442,6 +2474,7 @@ msgstr "Tondpunkto ne estis trovita\n"
 
 #: vcut/vcut.c:398
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting and ending between sample positions "
 msgid ""
 "Can't produce a file starting and ending between sample positions %<PRId64> "
 "and %<PRId64>\n"
@@ -2450,6 +2483,7 @@ msgstr ""
 
 #: vcut/vcut.c:442
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting between sample positions "
 msgid ""
 "Can't produce a file starting between sample positions %<PRId64> and "
 "%<PRId64>.\n"
@@ -2652,6 +2686,7 @@ msgstr "Redaktadaj indikoj\n"
 
 #: vorbiscomment/vcomment.c:640
 #, fuzzy, c-format
+#| msgid "  -a, --append            Append comments\n"
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Postaldonas komentojn\n"
 

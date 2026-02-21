@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: 2010-07-07 23:00+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -220,38 +220,39 @@ msgstr "Pilihan yang tersedia:\n"
 msgid "=== No such device %s.\n"
 msgstr "=== Tidak ada perangkat seperti itu %s.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr "=== Driver %s tidak ada berkas keluaran driver.\n"
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 #, fuzzy
+#| msgid "=== Cannot specify output file without specifying a driver.\n"
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr ""
 "=== Tidak dapat menspesifikasikan berkas keluaran tanpa menspesifikasikan "
 "sebuah driver.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "=== Pilihan format tidak benar: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "--- Nilai sebelum penyangga tidak valid. Jangkauan adalah 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, c-format
 msgid "ogg123 from %s %s"
 msgstr "ogg123 dari %s %s"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "-- Tidak dapat memainkan setiap potongan ke-0!\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
@@ -260,21 +261,21 @@ msgstr ""
 "--- Untuk menjalankan sebuah percobaan dekoding, gunakan driver keluaran "
 "kosong.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "--- Tidak dapat membuka berkas daftar-lagu %s. Dilewatkan.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr "=== Pilihan konflik: Waktu akhir sebelum waktu mulai.\n"
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr "--- Driver %s dispesifikasikan dalam berkas konfigurasi tidak valid.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
@@ -282,8 +283,12 @@ msgstr ""
 "=== Tidak dapat memuat driver baku dan tidak ada driver yang "
 "dispesifikasikan dalam berkas konfigurasi. Keluar.\n"
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, fuzzy, c-format
+#| msgid ""
+#| "ogg123 from %s %s\n"
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
@@ -292,14 +297,14 @@ msgstr ""
 " oleh the Xiph.Org Foundation (http://www.xiph.org/)\n"
 "\n"
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -310,27 +315,27 @@ msgstr ""
 "Mainkan berkas audio Ogg dan aliran jaringan.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, c-format
 msgid "Available codecs: "
 msgstr "Codecs yang tersedia: "
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr "FLAC, "
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr "Speex, "
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
@@ -339,12 +344,12 @@ msgstr ""
 "Ogg Vorbis.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr "Pilihan keluaran\n"
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
@@ -352,17 +357,17 @@ msgstr ""
 "  -d dev, --device dev    Gunakan perangkat keluaran \"dev\". Perangkat yang "
 "tersedia:\n"
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr "Langsung:"
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, c-format
 msgid "File:"
 msgstr "Berkas:"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
@@ -372,14 +377,14 @@ msgstr ""
 "berkas\n"
 "                          yang sebelumnya dispesifikasikan dengan --device.\n"
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 "  --audio-buffer n        Gunakan sebuah penyangga keluaran audio dari 'n' "
 "kilobytes\n"
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -394,12 +399,12 @@ msgstr ""
 "ogg123\n"
 "                          untuk pilihan perangkat yang tersedia.\n"
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, c-format
 msgid "Playlist options\n"
 msgstr "Pilihan daftar lagu\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
@@ -407,51 +412,51 @@ msgstr ""
 "  -@ berkas, --list berk  Baca daftar-lagu dari berkas dan URL dari "
 "\"berkas\"\n"
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr "  -r, --repeat            Ulang daftar-lagu selamanya\n"
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr "  -R, --remote            Gunakan antar-muka remote control\n"
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr "  -z, --shuffle           Acak daftar dari berkas sebelum memainkan\n"
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 "  -Z, --random            Mainkan berkas secara acak sampai terinterupsi\n"
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, c-format
 msgid "Input options\n"
 msgstr "Pilihan masukan\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 "  -b n, --buffer n        Gunakan sebuah penyangga masukan dari 'n' "
 "kilobytes\n"
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 "  -p n, --prebuffer n     Muat n%% dari masukan penyangga sebelum memainkan\n"
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, c-format
 msgid "Decode options\n"
 msgstr "Pilihan decode\n"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
@@ -459,27 +464,27 @@ msgstr ""
 "  -k n, --skip n           Lewatkan 'n' detik pertama (atau format "
 "hh:mm:ss)\n"
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr "  -K n, --end n           Akhir di detik 'n' (atau format hh:mm:ss)\n"
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr "  -x n, --nth n           Mainkan setiap blok ke 'n'\n"
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr "  -y n, --ntimes n        Ulangi setiap memainkan blok 'n' kali\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Pilihan tambahan\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -495,17 +500,17 @@ msgstr ""
 "                          dalam 's' waktu habis yang dispesifikasikan. (baku "
 "500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Tampilkan bantuan ini\n"
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr "  -q, --quiet             Jangan tampilkan apapun (tidak ada judul)\n"
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
@@ -513,15 +518,15 @@ msgstr ""
 "  -v, --verbose           Tampilkan perkembangan dan informasi status "
 "lainnya\n"
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Tampilkan versi ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr "ERROR: Kehabisan memori.\n"
@@ -628,11 +633,11 @@ msgstr "ERROR: penyangga penulisan gagal.\n"
 msgid "Done."
 msgstr "Selesai."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "-- Lubang dalam aliran; mungkin tidak berbahaya\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== Perpustakaan Vorbis melaporkan adanya kesalahan aliran.\n"
@@ -642,7 +647,7 @@ msgstr "=== Perpustakaan Vorbis melaporkan adanya kesalahan aliran.\n"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Aliran Ogg Vorbis: %d channel, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Fomat Vorbis: Versi %d"
@@ -652,10 +657,17 @@ msgstr "Fomat Vorbis: Versi %d"
 msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr "Bitrate hints: atas=%ld nominal=%ld bawah=%ld jendela=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Dikodekan oleh: %s"
+
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "Aliran Ogg Vorbis: %d channel, %ld Hz"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, c-format
@@ -667,12 +679,12 @@ msgstr "ERROR: Kehabisan memori dalam create_playlist_member().\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Peringatan: Tidak dapat membaca direktori %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Peringatan dari daftar-lagu %s: Tidak dapat membaca direktori %s.\n"
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "ERROR: Kehabisan memori dalam playlist_to_array().\n"
@@ -786,6 +798,7 @@ msgstr "Nomor track:"
 
 #: ogg123/vorbis_comments.c:42
 #, fuzzy
+#| msgid "ReplayGain (Track):"
 msgid "ReplayGain (Reference loudness):"
 msgstr "MainkanLagi (Track):"
 
@@ -844,6 +857,9 @@ msgstr "oggdec dari %s %s\n"
 
 #: oggdec/oggdec.c:57 oggenc/oggenc.c:509
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 " oleh the Xiph.Org Foundation (http://www.xiph.org/)\n"
@@ -1004,14 +1020,15 @@ msgstr "Pembaca berkas FLAC"
 msgid "Ogg FLAC file reader"
 msgstr "Pembaca berkas Ogg FLAC"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Peringatan: EOF tidak terduga dalam pembacaan WAV header\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "Melewatkan potongan dari tipe \"%s\", panjang %d\n"
 
 #: oggenc/audio.c:166
@@ -1019,52 +1036,53 @@ msgstr "Melewatkan potongan dari tipe \"%s\", panjang %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Peringatan: EOF Tidak terduga dalam potongan AIFF\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Peringatan: Tidak ada potongan sama ditemukan dalam berkas AIFF\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Peringatan: Potongan bersama terpotong dalam header AIFF\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Peringatan: EOF tidak terduga dalam pembacaan header AIFF\n"
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, fuzzy, c-format
+#| msgid "Warning: Truncated common chunk in AIFF header\n"
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Peringatan: Potongan bersama terpotong dalam header AIFF\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Peringatan: AIFF-C header terpotong.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Peringatan: Tidak dapat menangani AIFF-C terkompress (%c%c%c%c)\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Peringatan: Tidak ada potongan SSND ditemukan dalam berkas AIFF\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Peringatan: Potongan SSND terkorupsi dalam header AIFF\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Peringatan: EOF tidak terduga dalam pembacaan header AIFF\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1073,12 +1091,12 @@ msgstr ""
 "Peringatan: OggEnc tidak mendukung tipe ini dari berkas AIFF/AIFC\n"
 " Harus berupa PCM 8 atau 16 bit.\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Peringatan: Potongan format tidak diketahui dalam header WAV\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1087,12 +1105,13 @@ msgstr ""
 "Peringatan: Potongan format tidak valid dalam header wav.\n"
 " Mencoba untuk tetap membaca (mungkin tidak bekerja)...\n"
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, fuzzy, c-format
+#| msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Peringatan: Potongan format tidak diketahui dalam header WAV\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1102,7 +1121,7 @@ msgstr ""
 "standar PCM\n"
 " atau tipe 3 titik pecahan PCM)\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1111,7 +1130,7 @@ msgstr ""
 "Peringatan: Nilai 'penyesuaian blok' WAV tidak benar, mengabaikan.\n"
 "Piranti lunak yang membuat berkas ini tidak benar.\n"
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1121,19 +1140,19 @@ msgstr ""
 "bit PCM\n"
 "atau titik pecahan PCM)\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr "Big endian 24 bit PCM data saat ini tidak didukung, membatalkan.\n"
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr ""
 "Kesalahan internal: mencoba untuk membaca kedalaman bit yang tidak didukung "
 "%d\n"
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1142,7 +1161,7 @@ msgstr ""
 "BUG: Diperoleh nol contoh dari penyontoh: berkas anda mungkin telah "
 "terpotong. Mohon laporkan ini.\n"
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Tidak dapat menginisialisasi penyontoh\n"
@@ -1535,6 +1554,7 @@ msgstr "ERROR: Berkas masukan \"%s\" bukan sebuah format yang didukung\n"
 
 #: oggenc/oggenc.c:290
 #, fuzzy, c-format
+#| msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "ERROR: Berkas masukan \"%s\" bukan sebuah format yang didukung\n"
 
@@ -2198,6 +2218,7 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:278
 #, fuzzy, c-format
+#| msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
 msgid ""
 "WARNING: Hole in data (%d bytes) found at approximate offset %<PRId64> "
 "bytes. Corrupted Ogg.\n"
@@ -2293,6 +2314,9 @@ msgstr "ogginfo dari %s %s\n"
 
 #: ogginfo/ogginfo2.c:400
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 "\n"
@@ -2462,6 +2486,7 @@ msgstr "Pemrosesan gagal\n"
 
 #: vcut/vcut.c:341
 #, fuzzy, c-format
+#| msgid "WARNING: unexpected granulepos "
 msgid "WARNING: unexpected granulepos %<PRId64> (expected %<PRId64>)\n"
 msgstr "PERINGATAN: granulepos tidak terduga "
 
@@ -2472,6 +2497,7 @@ msgstr "Titik-potong tidak ditemukan\n"
 
 #: vcut/vcut.c:398
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting and ending between sample positions "
 msgid ""
 "Can't produce a file starting and ending between sample positions %<PRId64> "
 "and %<PRId64>\n"
@@ -2480,6 +2506,7 @@ msgstr ""
 
 #: vcut/vcut.c:442
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting between sample positions "
 msgid ""
 "Can't produce a file starting between sample positions %<PRId64> and "
 "%<PRId64>.\n"
@@ -2685,6 +2712,7 @@ msgstr "Pilihan pengubahan\n"
 
 #: vorbiscomment/vcomment.c:640
 #, fuzzy, c-format
+#| msgid "  -a, --append            Append comments\n"
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Tambahkan komentar\n"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vorbis-tools 1.4.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.xiph.org/xiph/vorbis-tools\n"
-"POT-Creation-Date: 2025-06-15 10:39-0400\n"
+"POT-Creation-Date: 2026-02-21 08:52+0100\n"
 "PO-Revision-Date: 2012-04-16 03:32+0200\n"
 "Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -222,38 +222,39 @@ msgstr "Dostupne opcije:\n"
 msgid "=== No such device %s.\n"
 msgstr "=== Nema takvog uređaja %s.\n"
 
-#: ogg123/cmdline_options.c:139
+#: ogg123/cmdline_options.c:141
 #, c-format
 msgid "=== Driver %s is not a file output driver.\n"
 msgstr ""
 "=== Upravljački program %s nije upravljački program izlazne datoteke.\n"
 
-#: ogg123/cmdline_options.c:144
+#: ogg123/cmdline_options.c:146
 #, fuzzy
+#| msgid "=== Cannot specify output file without specifying a driver.\n"
 msgid ""
 "=== Cannot specify output file without previously specifying a driver.\n"
 msgstr ""
 "=== Ne mogu navesti izlaznu datoteku bez navođenja upravljačkog programa.\n"
 
-#: ogg123/cmdline_options.c:163
+#: ogg123/cmdline_options.c:165
 #, c-format
 msgid "=== Incorrect option format: %s.\n"
 msgstr "=== Neispravan oblik opcije: %s.\n"
 
-#: ogg123/cmdline_options.c:178
+#: ogg123/cmdline_options.c:180
 msgid "--- Prebuffer value invalid. Range is 0-100.\n"
 msgstr "--- Neispravna vrijednost međuspremnika. Opseg je 0-100.\n"
 
-#: ogg123/cmdline_options.c:202
+#: ogg123/cmdline_options.c:204
 #, c-format
 msgid "ogg123 from %s %s"
 msgstr "ogg123 iz %s %s"
 
-#: ogg123/cmdline_options.c:209
+#: ogg123/cmdline_options.c:211
 msgid "--- Cannot play every 0th chunk!\n"
 msgstr "--- Ne mogu reproducirati svaki 0-ti blok!\n"
 
-#: ogg123/cmdline_options.c:217
+#: ogg123/cmdline_options.c:219
 msgid ""
 "--- Cannot play every chunk 0 times.\n"
 "--- To do a test decode, use the null output driver.\n"
@@ -261,23 +262,23 @@ msgstr ""
 "--- Ne mogu reproducirati svaki blok 0 puta.\n"
 "--- Za provjeru dekodiranja koristite null izlazni upravljački program.\n"
 
-#: ogg123/cmdline_options.c:233
+#: ogg123/cmdline_options.c:235
 #, c-format
 msgid "--- Cannot open playlist file %s.  Skipped.\n"
 msgstr "--- Ne mogu otvoriti popis izvođenja %s.  Preskočeno.\n"
 
-#: ogg123/cmdline_options.c:249
+#: ogg123/cmdline_options.c:251
 msgid "=== Option conflict: End time is before start time.\n"
 msgstr "=== Konflikt opcija: Vrijeme završetka je prije vremena početka.\n"
 
-#: ogg123/cmdline_options.c:262
+#: ogg123/cmdline_options.c:264
 #, c-format
 msgid "--- Driver %s specified in configuration file invalid.\n"
 msgstr ""
 "--- Upravljački program %s naveden u konfiguracijskoj datoteci nije "
 "ispravan.\n"
 
-#: ogg123/cmdline_options.c:272
+#: ogg123/cmdline_options.c:274
 msgid ""
 "=== Could not load default driver and no driver specified in config file. "
 "Exiting.\n"
@@ -285,8 +286,12 @@ msgstr ""
 "=== Ne mogu učitati zadani upravljački program i nijedan upravljački program "
 "nije naveden u konfiguracijskoj datoteci. Izlazim.\n"
 
-#: ogg123/cmdline_options.c:307
+#: ogg123/cmdline_options.c:309
 #, fuzzy, c-format
+#| msgid ""
+#| "ogg123 from %s %s\n"
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 "ogg123 from %s %s\n"
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
@@ -295,14 +300,14 @@ msgstr ""
 " Xiph.Org Foundation (http://www.xiph.org/)\n"
 "\n"
 
-#: ogg123/cmdline_options.c:309 oggdec/oggdec.c:58
+#: ogg123/cmdline_options.c:311 oggdec/oggdec.c:58
 #, c-format
 msgid ""
 " using decoder %s.\n"
 "\n"
 msgstr ""
 
-#: ogg123/cmdline_options.c:311
+#: ogg123/cmdline_options.c:313
 #, c-format
 msgid ""
 "Usage: ogg123 [options] file ...\n"
@@ -313,27 +318,27 @@ msgstr ""
 "Reproduciraj Ogg zvučne datoteke i mrežne nizove (stream).\n"
 "\n"
 
-#: ogg123/cmdline_options.c:314
+#: ogg123/cmdline_options.c:316
 #, c-format
 msgid "Available codecs: "
 msgstr "Dostupni kodeci: "
 
-#: ogg123/cmdline_options.c:317
+#: ogg123/cmdline_options.c:319
 #, c-format
 msgid "FLAC, "
 msgstr "FLAC, "
 
-#: ogg123/cmdline_options.c:321
+#: ogg123/cmdline_options.c:323
 #, c-format
 msgid "Speex, "
 msgstr "Speex, "
 
-#: ogg123/cmdline_options.c:325
+#: ogg123/cmdline_options.c:327
 #, c-format
 msgid "Opus, "
 msgstr ""
 
-#: ogg123/cmdline_options.c:328
+#: ogg123/cmdline_options.c:330
 #, c-format
 msgid ""
 "Ogg Vorbis.\n"
@@ -342,29 +347,29 @@ msgstr ""
 "Ogg Vorbis.\n"
 "\n"
 
-#: ogg123/cmdline_options.c:330
+#: ogg123/cmdline_options.c:332
 #, c-format
 msgid "Output options\n"
 msgstr "Izlazne opcije\n"
 
-#: ogg123/cmdline_options.c:331
+#: ogg123/cmdline_options.c:333
 #, c-format
 msgid ""
 "  -d dev, --device dev    Use output device \"dev\". Available devices:\n"
 msgstr ""
 "  -d ur, --device ur      Koristi izlazni uređaj „ur”. Dostupni uređaji:\n"
 
-#: ogg123/cmdline_options.c:333
+#: ogg123/cmdline_options.c:335
 #, c-format
 msgid "Live:"
 msgstr "Live:"
 
-#: ogg123/cmdline_options.c:342
+#: ogg123/cmdline_options.c:344
 #, c-format
 msgid "File:"
 msgstr "Datoteka:"
 
-#: ogg123/cmdline_options.c:351
+#: ogg123/cmdline_options.c:353
 #, c-format
 msgid ""
 "  -f file, --file file    Set the output filename for a file device\n"
@@ -373,14 +378,14 @@ msgstr ""
 "  -f dat, --file dat      Postavi izlaznu datoteku datotečnog uređaja\n"
 "                          prethodno navedenu opcijom --device.\n"
 
-#: ogg123/cmdline_options.c:354
+#: ogg123/cmdline_options.c:356
 #, c-format
 msgid "  --audio-buffer n        Use an output audio buffer of 'n' kilobytes\n"
 msgstr ""
 "  --audio-buffer n        Koristi izlazni zvučni međuspremnik veličine „n” "
 "kilobajta\n"
 
-#: ogg123/cmdline_options.c:355
+#: ogg123/cmdline_options.c:357
 #, c-format
 msgid ""
 "  -o k:v, --device-option k:v\n"
@@ -393,12 +398,12 @@ msgstr ""
 "                          uređaju prethodno navedenom opcijom --device.\n"
 "                          Pogledajte ogg123 priručnik za dostupne opcije.\n"
 
-#: ogg123/cmdline_options.c:361
+#: ogg123/cmdline_options.c:363
 #, c-format
 msgid "Playlist options\n"
 msgstr "Opcije popisa izvođenja\n"
 
-#: ogg123/cmdline_options.c:362
+#: ogg123/cmdline_options.c:364
 #, c-format
 msgid ""
 "  -@ file, --list file    Read playlist of files and URLs from \"file\"\n"
@@ -406,81 +411,81 @@ msgstr ""
 "  -@ dat, --list dat      Čitaj popis izvođenja datoteka i URL-ova iz "
 "datoteke „dat”\n"
 
-#: ogg123/cmdline_options.c:363
+#: ogg123/cmdline_options.c:365
 #, c-format
 msgid "  -r, --repeat            Repeat playlist indefinitely\n"
 msgstr "  -r, --repeat            Ponavljaj popis izvođenja bez prestanka\n"
 
-#: ogg123/cmdline_options.c:364
+#: ogg123/cmdline_options.c:366
 #, c-format
 msgid "  -R, --remote            Use remote control interface\n"
 msgstr "  -R, --remote            Koristi udaljeno kontrolno sučelje\n"
 
-#: ogg123/cmdline_options.c:365
+#: ogg123/cmdline_options.c:367
 #, c-format
 msgid "  -z, --shuffle           Shuffle list of files before playing\n"
 msgstr "  -z, --shuffle           Promiješaj popis datoteka prije izvođenja\n"
 
-#: ogg123/cmdline_options.c:366
+#: ogg123/cmdline_options.c:368
 #, c-format
 msgid "  -Z, --random            Play files randomly until interrupted\n"
 msgstr ""
 "  -Z, --random            Reproduciraj datoteke slučajnim izborom do "
 "prekida\n"
 
-#: ogg123/cmdline_options.c:369
+#: ogg123/cmdline_options.c:371
 #, c-format
 msgid "Input options\n"
 msgstr "Ulazne opcije\n"
 
-#: ogg123/cmdline_options.c:370
+#: ogg123/cmdline_options.c:372
 #, c-format
 msgid "  -b n, --buffer n        Use an input buffer of 'n' kilobytes\n"
 msgstr ""
 "  -b n, --buffer n        Koristi ulazni međuspremnik veličine „n” "
 "kilobajta\n"
 
-#: ogg123/cmdline_options.c:371
+#: ogg123/cmdline_options.c:373
 #, c-format
 msgid "  -p n, --prebuffer n     Load n%% of the input buffer before playing\n"
 msgstr ""
 "  -p n, --prebuffer n     Učitaj n%% ulaznog međuspremnika prije "
 "reprodukcije\n"
 
-#: ogg123/cmdline_options.c:374
+#: ogg123/cmdline_options.c:376
 #, c-format
 msgid "Decode options\n"
 msgstr "Opcije dekodiranja\n"
 
-#: ogg123/cmdline_options.c:375
+#: ogg123/cmdline_options.c:377
 #, c-format
 msgid ""
 "  -k n, --skip n          Skip the first 'n' seconds (or hh:mm:ss format)\n"
 msgstr ""
 "  -k n, --skip n          Preskoči prvih „n” sekundi (ili hh:mm:ss oblik)\n"
 
-#: ogg123/cmdline_options.c:376
+#: ogg123/cmdline_options.c:378
 #, c-format
 msgid "  -K n, --end n           End at 'n' seconds (or hh:mm:ss format)\n"
 msgstr "  -K n, --end n           Završi na „n” sekundi (ili hh:mm:ss oblik)\n"
 
-#: ogg123/cmdline_options.c:377
+#: ogg123/cmdline_options.c:379
 #, c-format
 msgid "  -x n, --nth n           Play every 'n'th block\n"
 msgstr "  -x n, --nth n           Reproduciraj svaki „n”-ti blok\n"
 
-#: ogg123/cmdline_options.c:378
+#: ogg123/cmdline_options.c:380
 #, c-format
 msgid "  -y n, --ntimes n        Repeat every played block 'n' times\n"
 msgstr ""
 "  -y n, --ntimes n        Ponavljaj svaki reproducirani blok „n” puta\n"
 
-#: ogg123/cmdline_options.c:381 vorbiscomment/vcomment.c:650
+#: ogg123/cmdline_options.c:383 vorbiscomment/vcomment.c:650
 #, c-format
 msgid "Miscellaneous options\n"
 msgstr "Razne opcije:\n"
 
-#: ogg123/cmdline_options.c:382
+#: ogg123/cmdline_options.c:384
 #, c-format
 msgid ""
 "  -l s, --delay s         Set termination timeout in milliseconds. ogg123\n"
@@ -494,32 +499,32 @@ msgstr ""
 "                          ako dobije dva signala SIGINT u navedenom vremenu\n"
 "                          „s”. (zadano 500)\n"
 
-#: ogg123/cmdline_options.c:387 vorbiscomment/vcomment.c:658
+#: ogg123/cmdline_options.c:389 vorbiscomment/vcomment.c:658
 #, c-format
 msgid "  -h, --help              Display this help\n"
 msgstr "  -h, --help              Prikaži ovu pomoć\n"
 
-#: ogg123/cmdline_options.c:388
+#: ogg123/cmdline_options.c:390
 #, c-format
 msgid "  -q, --quiet             Don't display anything (no title)\n"
 msgstr "  -q, --quiet             Ne prikazuj ništa (nema naslova)\n"
 
-#: ogg123/cmdline_options.c:389
+#: ogg123/cmdline_options.c:391
 #, c-format
 msgid ""
 "  -v, --verbose           Display progress and other status information\n"
 msgstr ""
 "  -v, --verbose           Prikaži tijek i ostale informacije o stanju\n"
 
-#: ogg123/cmdline_options.c:390
+#: ogg123/cmdline_options.c:392
 #, c-format
 msgid "  -V, --version           Display ogg123 version\n"
 msgstr "  -V, --version           Prikaži inačicu programa ogg123\n"
 
 #: ogg123/file_transport.c:64 ogg123/http_transport.c:215
-#: ogg123/oggvorbis_format.c:106 ogg123/speex_format.c:152
-#: ogg123/vorbis_comments.c:67 ogg123/vorbis_comments.c:81
-#: ogg123/vorbis_comments.c:99
+#: ogg123/oggvorbis_format.c:106 ogg123/opus_format.c:103
+#: ogg123/speex_format.c:152 ogg123/vorbis_comments.c:67
+#: ogg123/vorbis_comments.c:81 ogg123/vorbis_comments.c:99
 #, c-format
 msgid "ERROR: Out of memory.\n"
 msgstr "GREŠKA: Nema dovoljno memorije.\n"
@@ -625,11 +630,11 @@ msgstr "GREŠKA: pisanje u međuspremnik nije uspjelo.\n"
 msgid "Done."
 msgstr "Gotovo."
 
-#: ogg123/oggvorbis_format.c:208
+#: ogg123/oggvorbis_format.c:208 ogg123/opus_format.c:192
 msgid "--- Hole in the stream; probably harmless\n"
 msgstr "--- Rupa u nizu; vjerojatno beznačajno\n"
 
-#: ogg123/oggvorbis_format.c:214 oggdec/oggdec.c:323
+#: ogg123/oggvorbis_format.c:214 ogg123/opus_format.c:198 oggdec/oggdec.c:323
 #, c-format
 msgid "=== Vorbis library reported a stream error.\n"
 msgstr "=== Vorbis biblioteka je prijavila grešku u nizu.\n"
@@ -639,7 +644,7 @@ msgstr "=== Vorbis biblioteka je prijavila grešku u nizu.\n"
 msgid "Ogg Vorbis stream: %d channel, %ld Hz"
 msgstr "Ogg Vorbis niz: %d kanal, %ld Hz"
 
-#: ogg123/oggvorbis_format.c:366
+#: ogg123/oggvorbis_format.c:366 ogg123/opus_format.c:350
 #, c-format
 msgid "Vorbis format: Version %d"
 msgstr "Vorbis oblik: Inačica %d"
@@ -650,10 +655,17 @@ msgid "Bitrate hints: upper=%ld nominal=%ld lower=%ld window=%ld"
 msgstr ""
 "Popunjavanje brzine prijenosa: gornja=%ld nominalna=%ld donja=%ld prozor=%ld"
 
-#: ogg123/oggvorbis_format.c:378 ogg123/speex_format.c:416
+#: ogg123/oggvorbis_format.c:378 ogg123/opus_format.c:354
+#: ogg123/speex_format.c:416
 #, c-format
 msgid "Encoded by: %s"
 msgstr "Kodirao: %s"
+
+#: ogg123/opus_format.c:346
+#, fuzzy, c-format
+#| msgid "Ogg Vorbis stream: %d channel, %ld Hz"
+msgid "Ogg Opus stream: %d channel, 48000 Hz"
+msgstr "Ogg Vorbis niz: %d kanal, %ld Hz"
 
 #: ogg123/playlist.c:46 ogg123/playlist.c:57
 #, c-format
@@ -665,12 +677,12 @@ msgstr "GREŠKA: Nema dovoljno memorije u create_playlist_member().\n"
 msgid "Warning: Could not read directory %s.\n"
 msgstr "Upozorenje: Ne mogu čitati direktorij %s.\n"
 
-#: ogg123/playlist.c:278
+#: ogg123/playlist.c:282
 #, c-format
 msgid "Warning from playlist %s: Could not read directory %s.\n"
 msgstr "Upozorenje popisa reprodukcije %s: Ne mogu čitati direktorij %s.\n"
 
-#: ogg123/playlist.c:323 ogg123/playlist.c:335
+#: ogg123/playlist.c:327 ogg123/playlist.c:339
 #, c-format
 msgid "ERROR: Out of memory in playlist_to_array().\n"
 msgstr "GREŠKA: Nema dovoljno memorije u playlist_to_array().\n"
@@ -783,6 +795,7 @@ msgstr "Broj pjesme:"
 
 #: ogg123/vorbis_comments.c:42
 #, fuzzy
+#| msgid "ReplayGain (Track):"
 msgid "ReplayGain (Reference loudness):"
 msgstr "Pojačanje reprodukcije (pjesma):"
 
@@ -841,6 +854,9 @@ msgstr "oggdec iz %s %s\n"
 
 #: oggdec/oggdec.c:57 oggenc/oggenc.c:509
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 msgstr ""
 " Xiph.Org Foundation (http://www.xiph.org/)\n"
@@ -998,14 +1014,15 @@ msgstr "Čitač FLAC datoteke"
 msgid "Ogg FLAC file reader"
 msgstr "Čitač Ogg FLAC datoteke"
 
-#: oggenc/audio.c:129 oggenc/audio.c:457
+#: oggenc/audio.c:129 oggenc/audio.c:466
 #, c-format
 msgid "Warning: Unexpected EOF in reading WAV header\n"
 msgstr "Upozorenje: Neočekivani EOF u čitanju WAV zaglavlja\n"
 
 #: oggenc/audio.c:140
-#, c-format
-msgid "Skipping chunk of type \"%s\", length %d\n"
+#, fuzzy, c-format
+#| msgid "Skipping chunk of type \"%s\", length %d\n"
+msgid "Skipping chunk of type \"%s\", length %u\n"
 msgstr "Preskačem blok vrste „%s”, duljine %d\n"
 
 #: oggenc/audio.c:166
@@ -1013,52 +1030,53 @@ msgstr "Preskačem blok vrste „%s”, duljine %d\n"
 msgid "Warning: Unexpected EOF in AIFF chunk\n"
 msgstr "Upozorenje: Neočekivani EOF u AIFF bloku\n"
 
-#: oggenc/audio.c:264
+#: oggenc/audio.c:263
 #, c-format
 msgid "Warning: No common chunk found in AIFF file\n"
 msgstr "Upozorenje: Nije pronađen zajednički blok u AIFF datoteci\n"
 
-#: oggenc/audio.c:270
+#: oggenc/audio.c:269
 #, c-format
 msgid "Warning: Truncated common chunk in AIFF header\n"
 msgstr "Upozorenje: Skraćeni zajednički blok u AIFF zaglavlju\n"
 
-#: oggenc/audio.c:278
+#: oggenc/audio.c:277
 #, c-format
 msgid "Warning: Unexpected EOF in reading AIFF header\n"
 msgstr "Upozorenje: Neočekivani EOF u čitanju AIFF zaglavlja\n"
 
-#: oggenc/audio.c:289
+#: oggenc/audio.c:288
 #, fuzzy, c-format
+#| msgid "Warning: Truncated common chunk in AIFF header\n"
 msgid "Warning: Unsupported count of channels in AIFF header\n"
 msgstr "Upozorenje: Skraćeni zajednički blok u AIFF zaglavlju\n"
 
-#: oggenc/audio.c:298
+#: oggenc/audio.c:297
 #, c-format
 msgid "Warning: AIFF-C header truncated.\n"
 msgstr "Upozorenje: AIFF-C zaglavlje skraćeno.\n"
 
-#: oggenc/audio.c:312
+#: oggenc/audio.c:311
 #, c-format
 msgid "Warning: Can't handle compressed AIFF-C (%c%c%c%c)\n"
 msgstr "Upozorenje: Ne mogu rukovati komprimiranim AIFF-C (%c%c%c%c)\n"
 
-#: oggenc/audio.c:319
+#: oggenc/audio.c:318
 #, c-format
 msgid "Warning: No SSND chunk found in AIFF file\n"
 msgstr "Upozorenje: Nije pronađen SSND blok u AIFF datoteci\n"
 
-#: oggenc/audio.c:325
+#: oggenc/audio.c:324
 #, c-format
 msgid "Warning: Corrupted SSND chunk in AIFF header\n"
 msgstr "Upozorenje: Neispravan SSND blok u AIFF zaglavlju\n"
 
-#: oggenc/audio.c:331
+#: oggenc/audio.c:330
 #, c-format
 msgid "Warning: Unexpected EOF reading AIFF header\n"
 msgstr "Upozorenje: Neočekivani EOF pri čitanju AIFF zaglavlja\n"
 
-#: oggenc/audio.c:381
+#: oggenc/audio.c:380
 #, c-format
 msgid ""
 "Warning: OggEnc does not support this type of AIFF/AIFC file\n"
@@ -1067,12 +1085,12 @@ msgstr ""
 "Upozorenje: OggEnc ne podržava ovu vrstu AIFF/AIFC datoteke\n"
 " Mora biti 8 ili 16-bitni PCM.\n"
 
-#: oggenc/audio.c:437
+#: oggenc/audio.c:446
 #, c-format
 msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgstr "Upozorenje: Neprepoznati blok oblika u WAV zaglavlju\n"
 
-#: oggenc/audio.c:450
+#: oggenc/audio.c:459
 #, c-format
 msgid ""
 "Warning: INVALID format chunk in wav header.\n"
@@ -1081,12 +1099,13 @@ msgstr ""
 "Upozorenje: NEISPRAVAN blok oblika u wav zaglavlju.\n"
 " Svejedno pokušavam čitati (možda neće raditi)...\n"
 
-#: oggenc/audio.c:470
+#: oggenc/audio.c:479
 #, fuzzy, c-format
+#| msgid "Warning: Unrecognised format chunk in WAV header\n"
 msgid "Warning: Unsupported count of channels in WAV header\n"
 msgstr "Upozorenje: Neprepoznati blok oblika u WAV zaglavlju\n"
 
-#: oggenc/audio.c:535
+#: oggenc/audio.c:544
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported type (must be standard PCM\n"
@@ -1095,7 +1114,7 @@ msgstr ""
 "GREŠKA: Wav datoteka je nepodržane vrste (mora biti standardni\n"
 " PCM ili PCM pomičnog zareza vrste 3)\n"
 
-#: oggenc/audio.c:544
+#: oggenc/audio.c:553
 #, c-format
 msgid ""
 "Warning: WAV 'block alignment' value is incorrect, ignoring.\n"
@@ -1104,7 +1123,7 @@ msgstr ""
 "Upozorenje: WAV vrijednost „poravnanja blokova” nije ispravna,\n"
 "zanemarujem. Softver koji je napravio datoteku je neispravan.\n"
 
-#: oggenc/audio.c:613
+#: oggenc/audio.c:622
 #, c-format
 msgid ""
 "ERROR: Wav file is unsupported subformat (must be 8,16, or 24 bit PCM\n"
@@ -1113,17 +1132,17 @@ msgstr ""
 "GREŠKA: Wav datoteka je nepodržanog podoblika (mora biti 8, 16 ili 24-\n"
 "bitni PCM ili PCM pomičnog zareza)\n"
 
-#: oggenc/audio.c:689
+#: oggenc/audio.c:709
 #, c-format
 msgid "Big endian 24 bit PCM data is not currently supported, aborting.\n"
 msgstr "Big endian 24-bitni PCM podaci trenutno nisu podržani, prekidam.\n"
 
-#: oggenc/audio.c:695
+#: oggenc/audio.c:715
 #, c-format
 msgid "Internal error: attempt to read unsupported bitdepth %d\n"
 msgstr "Interna greška: pokušaj čitanja nepodržane rezolucije %d\n"
 
-#: oggenc/audio.c:797
+#: oggenc/audio.c:817
 #, c-format
 msgid ""
 "BUG: Got zero samples from resampler: your file will be truncated. Please "
@@ -1132,7 +1151,7 @@ msgstr ""
 "BUG: Dobio sam nula uzoraka od algoritma za pretipkavanje: vaša datoteka će "
 "biti skraćena. Molim prijavite ovo.\n"
 
-#: oggenc/audio.c:815
+#: oggenc/audio.c:835
 #, c-format
 msgid "Couldn't initialise resampler\n"
 msgstr "Ne mogu inicijalizirati algoritam za pretipkavanje\n"
@@ -1527,6 +1546,7 @@ msgstr "GREŠKA: Oblik ulazne datoteke „%s” nije podržan\n"
 
 #: oggenc/oggenc.c:290
 #, fuzzy, c-format
+#| msgid "ERROR: Input file \"%s\" is not a supported format\n"
 msgid "ERROR: Input file \"%s\" has invalid sampling rate\n"
 msgstr "GREŠKA: Oblik ulazne datoteke „%s” nije podržan\n"
 
@@ -2141,6 +2161,7 @@ msgstr ""
 
 #: ogginfo/ogginfo2.c:278
 #, fuzzy, c-format
+#| msgid "WARNING: Hole in data (%d bytes) found at approximate offset %"
 msgid ""
 "WARNING: Hole in data (%d bytes) found at approximate offset %<PRId64> "
 "bytes. Corrupted Ogg.\n"
@@ -2236,6 +2257,9 @@ msgstr "ogginfo iz %s %s\n"
 
 #: ogginfo/ogginfo2.c:400
 #, fuzzy, c-format
+#| msgid ""
+#| " by the Xiph.Org Foundation (http://www.xiph.org/)\n"
+#| "\n"
 msgid ""
 " by the Xiph.Org Foundation (https://www.xiph.org/)\n"
 "\n"
@@ -2400,6 +2424,7 @@ msgstr "Obrada nije uspjela\n"
 
 #: vcut/vcut.c:341
 #, fuzzy, c-format
+#| msgid "WARNING: unexpected granulepos "
 msgid "WARNING: unexpected granulepos %<PRId64> (expected %<PRId64>)\n"
 msgstr "UPOZORENJE: neočekivani granulepos "
 
@@ -2410,6 +2435,7 @@ msgstr "Točka rezanja nije pronađena\n"
 
 #: vcut/vcut.c:398
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting and ending between sample positions "
 msgid ""
 "Can't produce a file starting and ending between sample positions %<PRId64> "
 "and %<PRId64>\n"
@@ -2417,6 +2443,7 @@ msgstr "Ne mogu napraviti datoteku s početkom i krajem između mjesta uzoraka "
 
 #: vcut/vcut.c:442
 #, fuzzy, c-format
+#| msgid "Can't produce a file starting between sample positions "
 msgid ""
 "Can't produce a file starting between sample positions %<PRId64> and "
 "%<PRId64>.\n"
@@ -2616,6 +2643,7 @@ msgstr "Opcije uređivanja\n"
 
 #: vorbiscomment/vcomment.c:640
 #, fuzzy, c-format
+#| msgid "  -a, --append            Append comments\n"
 msgid "  -a, --append            Update comments\n"
 msgstr "  -a, --append            Dodaj komentare\n"
 
