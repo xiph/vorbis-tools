@@ -220,7 +220,16 @@ int utf8_decode(const char *from, char **to)
     return 0;
 }
 
-#else /* End win32. Rest is for real operating systems */
+/* No-op on windows, no support for updating charset */
+void convert_set_charset(const char *charset)
+{
+    fprintf(stderr, "No support for setting charset %s on Windows\n", charset);
+}
+void convert_free_charset(void)
+{
+}
+
+#else /* End _WIN32. Rest is for real operating systems */
 
 
 #ifdef HAVE_LANGINFO_CODESET
@@ -328,7 +337,7 @@ int utf8_decode(const char *from, char **to)
   return convert_string("UTF-8", charset, from, to, '?');
 }
 
-#endif
+#endif /* not _WIN32 */
 
 /* Quick and dirty UTF-8 validation: */
 
