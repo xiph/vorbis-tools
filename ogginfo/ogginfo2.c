@@ -466,6 +466,8 @@ int main(int argc, char **argv) {
             ret = flawed;
     }
 
+#ifndef _WIN32
     convert_free_charset();
+#endif
     return ret;
 }
