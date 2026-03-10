@@ -346,6 +346,9 @@ void http_close (data_source_t *source)
   source = NULL;
 }
 
+long http_length (data_source_t * source) {
+  return -1;
+}
 
 transport_t http_transport = {
   "http",
@@ -356,7 +359,8 @@ transport_t http_transport = {
   &http_seek,
   &http_statistics,
   &http_tell,
-  &http_close
+  &http_close,
+  &http_length
 };
 
 #endif /* HAVE_CURL */
